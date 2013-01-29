@@ -1,0 +1,17 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Company edit{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+<form action="{{ path('company_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+    {{ form_widget(edit_form) }}
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Save changes" />
+        <a href="#" class="btn btn-danger">Delete</a>
+        <a href="{{ path('companies') }}" class="btn">Cancel</a>
+    </div>
+</form>
+{% endblock %}

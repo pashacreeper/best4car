@@ -1,0 +1,38 @@
+body {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+.container-narrow {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.container-narrow > hr {
+    margin: 5px 0;
+}
+
+.container-narrow > header > hr {
+    margin: 10px 0;
+}
+
+.container-narrow > header > h3 {
+    margin: 0 20px;
+    line-height: 30px;
+}
+.container-narrow > header > p {
+    margin: 0 20px;
+    font-size: 13px;
+    color: #999;
+}
+
+.content > table > thead > tr > th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.content > table > tbody > tr > td.center {
+    text-align: center;
+}
+
+.footer > p {
+    margin: 0 20px;
+}

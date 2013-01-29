@@ -1,0 +1,27 @@
+<div class="row-fluid">
+    <div class="span12">
+        <div class="pagination form-inline">
+            <div class="span6">
+                Items per page:
+                <select class="input-small" name="pagination_portion" id="pagination_portion" onchange="document.location='{{ path(app.request.attributes.get('_route'), {'page': 1}) }}&amp;numItemsPerPage='+$('#pagination_portion').val();">
+{% for i in 1..5 %}
+                    <option value="{{ pagination_default_value * i }}"{% if numItemsPerPage == pagination_default_value * i %} selected{% endif %}>{{ pagination_default_value * i }}</option>
+{% endfor %}
+                </select>
+            </div>
+            <div class="span6">
+                <div class="pull-right">
+{% if pageCount > 1 %}
+                    <ul>
+{% for page in pagesInRange %}
+                        <li class="{{ (page == current) ? 'active':''}}">
+                            <a href="{{ path(route, query|merge({'page': page})) }}">{{ page }}</a>
+                        </li>
+{% endfor %}
+                    </ul>
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

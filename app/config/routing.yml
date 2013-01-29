@@ -1,0 +1,39 @@
+sto_user:
+    resource: "@StoUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /home
+        permanent: true
+
+sto_admin:
+    resource: "@StoAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sto_content:
+    resource: "@StoContentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sto_core:
+    resource: "@StoCoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+# ****** WARNING ******
+# This route should be enabled with caution as it can open a security vulnerability
+# see http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released for more information
+# ****** WARNING ******
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal

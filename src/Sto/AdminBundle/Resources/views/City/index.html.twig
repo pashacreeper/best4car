@@ -1,0 +1,100 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}{{ "city.title.list"|trans({}) }}{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+<form action="{{ path('city_filter') }}" method="post" id="filter-form" class="form-inline">
+    <div class="row-fluid">
+        <div class="span4">
+            <a class="btn btn-info" href="{{ path('city_new') }}"><i class="icon-plus icon-white"></i> {{ "city.btn.create_new"|trans({}) }}</a>
+        </div>
+        <div class="span4">
+            <select name="filter_parent" id="filter_parent" class="btn-small" onchange="$('#filter-form').submit();">
+                <option value="-1" >{{ 'form.all'|trans({}) }}</option>
+                {% for parent in parents %}
+                <option value="{{ parent.id }}"{% if app.session.get('filter_country_id') and app.session.get('filter_country_id') == parent.id %} selected{% endif %}>{{ parent.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="span4 ">
+            <div class="pull-right">
+                <input type="text" class="" id="filter_city_name" name="filter_city_name" value="{% if app.session.get('filter_city_name') %}{{ app.session.get('filter_city_name') }}{% endif %}" placeholder="{{ "city.title.filterby_name"|trans({}) }}" />
+                <input type="submit" class="btn btn-info" value="{{ 'form.filter'|trans({}) }}"/>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th width="35">{{ "city.fields.icon"|trans({}) }}</th>
+            <th width="35">{{ "city.fields.code"|trans({}) }}</th>
+            <th>{{ "city.fields.name"|trans({}) }}</th>
+            <th>{{ "city.fields.country"|trans({}) }}</th>
+            <th width="35">{{ "form.fields.actions"|trans({}) }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination  %}
+        <tr>
+            <td>
+                {% if entity.iconName %}
+                <img src="/../{{ storage_path }}/cities/{{ entity.iconName }}" alt="{{ entity.name }}" width="30"/>
+                {% endif %}
+            </td>
+            <td>{{ entity.code }}</td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.country.name }}</td>
+            <td>
+                <a href="{{ path('city_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+<form action="#" method="post" id="delete-form"></form>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+<script type="text/javascript">
+(function($) {
+    var url = "{{ path('city') }}{itemId}/delete";
+    var deleteModal = function (formId, message, action) {
+        action = action || '{{ "form.delete"|trans({}) }}'
+
+        var del = function () {
+            document.getElementById(formId).submit();
+        };
+
+        var html = '<div class="modal hide fade"><div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h3>'+ action +'</h3></div>' +
+            '<div class="modal-body"><p>' + message + '</p></div>' +
+            '<div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">{{ "form.cancel"|trans({}) }}</a>' +
+            '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
+
+        var elem = $(html);
+        elem.find('.btn-danger').click(del);
+        $('body').append(elem);
+        elem.modal();
+    }
+
+    $('[data-delete-form]').on('click', function(e) {
+        $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
+        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'));
+    });
+
+    $('[data-send-form]').on('click', function(e) {
+        document.getElementById($(this).attr('data-send-form')).submit();
+    });
+})(jQuery);
+</script>
+{% endblock %}

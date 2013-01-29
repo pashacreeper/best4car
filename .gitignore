@@ -7,7 +7,14 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/js/*
+web/css/*
+web/storage/*
 
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+# Composer
+# composer.phar
+composer.lock

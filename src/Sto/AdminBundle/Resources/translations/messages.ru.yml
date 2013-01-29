@@ -1,0 +1,82 @@
+# Menu
+menu:
+    home: Главная
+    logout: Выйти
+    welcome: Добро пожаловать
+    menu_name:
+        lists: Справочники
+        countries: Управление странами
+        cities: Управление городами
+        dict: Управление справочниками
+
+
+#Login
+login:
+    sign_in_text: Авторизуйтесь пожалуйста
+    password: Пароль
+    sign_in: Войти
+    alerts:
+        wrong_pass: Неверно имя или пароль!
+
+# Country
+country:
+    errors:
+        unable_2_find: Не удалось найти запись Страны.
+    title:
+        list: Список стран
+        new: Создание страны
+        edit: Редактирование страны
+        filterby_name: Фильтр по имени
+    btn:
+        create_new: Создать новую страну
+    fields:
+        name: Имя
+        code: Код
+        icon: Иконка
+        image: Изображение
+
+# City
+city:
+    errors:
+        unable_2_find: Не удалось найти запись Города.
+    title:
+        list: Список городов
+        new: Создание города
+        edit: Редактирование города
+        filterby_name: Фильтр по имени
+    btn:
+        create_new: Создать новый город
+    fields:
+        name: Имя
+        code: Код
+        icon: Иконка
+        image: Изображение
+        country: Страна
+
+#Dictionary
+dict:
+    errors:
+        unable_2_find: Не удалось найти Справочник.
+    fields:
+        name: Имя
+        parent: Родитель
+        actions: Действия
+    title:
+        edit: Редактирование справочника
+        new: Создание справочника
+        list: Список справочников
+        filterby_name: Фильтр по имени
+    btn:
+        create_new: Создать новый справочник
+
+#Form
+form:
+    edit: Редактировать
+    cancel: Отмена
+    delete: Удалить
+    create: Создать
+    filter: Фильтр
+    sure_delete_message: Вы уверенны, что хотите удалить ?
+    all: Все
+    fields:
+        actions: Действия

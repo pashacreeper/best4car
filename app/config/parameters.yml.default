@@ -1,0 +1,30 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     sto
+    database_user:     root
+    database_password: ~
+
+    database_second_driver:   pdo_mysql
+    database_second_host:     localhost
+    database_second_port:     ~
+    database_second_name:     sto_second
+    database_second_user:     root
+    database_second_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            ru
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    pagination_default_value: 20
+    dictionary_company_types_id: 1
+    dictionary_additional_services_id: 2
+    dictionary_services_list_id: 3
+    dictionary_currencies_id: 4
+
+    storage_path: storage/images

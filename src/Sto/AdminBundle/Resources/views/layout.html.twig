@@ -1,0 +1,93 @@
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash, session_flash %}
+
+{% block html_tag %}
+<html lang="ru">
+{% endblock %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head_style %}
+    {{ parent() }}
+    {% endblock %}
+    {% block head_script %}
+    {% stylesheets filter='cssrewrite'
+        'bundles/stoadmin/css/*.css'
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+    {% endblock %}
+    <title>STO &middot; {% block title %}STO{% endblock title %}</title>
+    {% block head_bottom %}
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+</head>
+{% endblock %}
+
+{% block body %}
+    <div class="container-narrow">
+    <header class="header">
+        {% block navbar_container %}
+        <nav class="navigation">
+            {% block navbar %}
+            {{ mopa_bootstrap_navbar('frontendNavbar') }}
+            {% endblock navbar %}
+        </nav>
+        {% endblock %}
+        {% block header %}
+        {% endblock %}
+    <hr>
+    </header>
+    <div class="content-block">
+        <div class="flash">
+        {% block flashes %}
+            {% if app.session.flashbag.peekAll|length > 0 %}
+            <div class="row-fluid">
+                <div class="span12">
+                {{ session_flash() }}
+                </div>
+            </div>
+            {% endif %}
+        {% endblock flashes %}
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    <div style="clear:both"></div>
+    {% block footer %}
+    <hr>
+    <div class="footer">
+        <p>STO &copy; 2012</p>
+    </div>
+    {% endblock %}
+    </div>
+    </div>
+    {% block foot_script %}
+    {% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endblock %}
+{% endblock %}
