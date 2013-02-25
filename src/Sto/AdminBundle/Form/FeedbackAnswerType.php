@@ -2,34 +2,35 @@
 
 namespace Sto\AdminBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class FeedbackAnswerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('answer', null, array('label'=>'Ответ'))
-            //->add('date')
-            //->add('managerId')
-            //->add('feedbackId')
-            //->add('manager')
-            //->add('feedback')
+            ->add('answer', 'textarea', [
+                'label'=>'Ответ',
+                'attr' => [
+                    'rows' => 4,
+                    'class' => 'span10'
+                ]
+            ])
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\FeedbackAnswer',
             'csrf_protection' => false,
-        ));
+        ]);
     }
 
     public function getName()
     {
-        return 'sto_adminbundle_feedbackanswertype';
+        return 'sto_admin_feedbackanswer';
     }
 }

@@ -11,16 +11,14 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Company</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Services</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Place</th>
-            <th>Contact Information</th>
-            <th>Type</th>
-            <th></th>
+            <th width="120">Company</th>
+            <th width="140">Name</th>
+            <th width="140">Services</th>
+            <th width="70">Date</th>
+            <th width="70">Time</th>
+            <th width="200">Place</th>
+            <th width="120">Type</th>
+            <th width="30"></th>
         </tr>
     </thead>
     <tbody>
@@ -28,12 +26,10 @@
         <tr>
             <td>{{ deal.company }}</td>
             <td>{{ deal.name }}</td>
-            <td>{{ deal.description }}</td>
             <td>{{ deal.services }}</td>
-            <td>{% if deal.startDate %}{{ deal.startDate|date('Y-m-d') }}{% endif %} - {% if deal.endDate %}{{ deal.endDate|date('Y-m-d') }}{% endif %}</td>
+            <td>{% if deal.startDate %}{{ deal.startDate|date('Y-m-d') }}{% endif %} {% if deal.endDate %}{{ deal.endDate|date('Y-m-d') }}{% endif %}</td>
             <td>{{ deal.startTime|date('H:i') ~ ' - ' ~ deal.endTime|date('H:i') }}</td>
             <td>{{ deal.place }}</td>
-            <td>{{ deal.contactInformation }}</td>
             <td>{{ deal.type }}</td>
             <td>
                 <a href="{{ path('deal_edit', { 'id': deal.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
@@ -43,6 +39,9 @@
     {% endfor %}
     </tbody>
 </table>
+<div class="navigation">
+    {{ knp_pagination_render(deals) }}
+</div>
 <form action="#" method="post" id="delete-form"></form>
 {% else %}
 {{ flash(true, 'No data to display.', false, true) }}

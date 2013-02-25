@@ -7,9 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Feedback
  *
- * @ORM\Table(name="feedback")
+ * @ORM\Table(name="feedbacks")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\FeedbackRepository")
- *
  */
 class Feedback
 {
@@ -19,59 +18,45 @@ class Feedback
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
      */
     private $id;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
-     *
      */
     private $content;
 
     /**
-     *
      * @ORM\Column(name="visit_dates", type="date")
      */
-
     private $visitDate;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="master_name", type="string", length=255, nullable=true)
-     *
-     *
      */
     private $mastername;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="car", type="string", length=255, nullable=true)
-     *
      */
     private $car;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="gn", type="string", length=255, nullable=true)
-     *
      */
     private $gn; // Гос номер автомобиля
 
     /**
-     *
      * @var string
      * @ORM\Column(name="nn", type="string", length=255, nullable=true)
-     *
      */
     private $nn; // Номер заказ-наряда
 
     /**
-     *
      * @var integer
      * @ORM\Column(name="user_id", type="integer")
      */
@@ -84,14 +69,12 @@ class Feedback
     private $user;
 
     /**
-     *
      * @var integer
      * @ORM\Column(name="company_rating", type="integer")
      */
     private $comapnyRating;
 
      /**
-     *
      * @var float
      * @ORM\Column(name="feedback_rating", type="float")
      */
@@ -110,10 +93,9 @@ class Feedback
     private $minuses;
 
     /**
-     *
      * @var string
-     * @ORM\Column(name="target_rating", type="string", length=255)
      *
+     * @ORM\Column(name="target_rating", type="string", length=255)
      */
     private $targetRating;  // Что оцениваем
 
@@ -125,7 +107,7 @@ class Feedback
     private $isPublished;  // Публикация
 
     /**
-     * @ORM\OneToOne(targetEntity="FeedbackAnswer", mappedBy="feedback")
+     * @ORM\OneToOne(targetEntity="FeedbackAnswer", mappedBy="feedback", cascade={"remove"})
      */
     private $feedbackAnswer;
 
@@ -392,29 +374,6 @@ class Feedback
         return $this->user;
     }
 
-    /**
-     * Set feedbackAnswer
-     *
-     * @param  \Sto\CoreBundle\Entity\FeedbackAnswer $feedbackAnswer
-     * @return Feedback
-     */
-    public function setFeedbackAnswer(\Sto\CoreBundle\Entity\FeedbackAnswer $feedbackAnswer = null)
-    {
-        $this->feedbackAnswer = $feedbackAnswer;
-
-        return $this;
-    }
-
-    /**
-     * Get feedbackAnswer
-     *
-     * @return \Sto\CoreBundle\Entity\FeedbackAnswer
-     */
-    public function getFeedbackAnswer()
-    {
-        return $this->feedbackAnswer;
-    }
-
     public function getUserId()
     {
         return $this->userId;
@@ -443,5 +402,23 @@ class Feedback
     public function __toString()
     {
         return $this->getContent();
+    }
+
+    /**
+     * Add answer
+     */
+    public function setFeedbackAnswer(FeedbackAnswer $answer)
+    {
+        $this->feedbackAnswer = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Get answers
+     */
+    public function getFeedbackAnswer()
+    {
+        return $this->feedbackAnswer;
     }
 }

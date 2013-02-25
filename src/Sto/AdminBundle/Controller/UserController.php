@@ -26,7 +26,6 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        // $entities = $em->getRepository('StoUserBundle:User')->findAll();
         $query = $em->getRepository('StoUserBundle:User')
             ->createQueryBuilder('entity')
             ->orderBy('entity.id')

@@ -2,39 +2,34 @@
 
 namespace Sto\CoreBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
-
-use sto\CoreBundle\Entity\Dictionary;
+use Doctrine\Common\DataFixtures\AbstractFixture,
+    Doctrine\Common\DataFixtures\OrderedFixtureInterface,
+    Doctrine\Common\Persistence\ObjectManager;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
-        # ROOTs
-        $dictionary = new Dictionary();
+        $dictionary = new Dictionary;
         $dictionary->setName('Типы организаций'); // id = 1
         $manager->persist($dictionary);
 
-        $add_service = new Dictionary();
+        $add_service = new Dictionary;
         $add_service->setName('Дополнительные услуги'); // id = 2
         $manager->persist($add_service);
 
-        $car_job = new Dictionary();
+        $car_job = new Dictionary;
         $car_job->setName('Перечень действий / работ с узлами автомобиля'); // id = 3
         $manager->persist($car_job);
 
-        $currency = new Dictionary();
+        $currency = new Dictionary;
         $currency->setName('Справочник валют'); // id = 4
         $manager->persist($currency);
 
         $manager->flush();
 
-        # Leafs
-        $org_types = array();
-
+        $org_types = [];
         $org_types[] = 'СТО';
         $org_types[] = 'A-1. Официальная дилерская СТО';
         $org_types[] = 'A-2. Независимая (недилерская) монобрэндовая СТО';
@@ -105,7 +100,7 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $org_types[] = 'X. Автозаправочные станции';
         $org_types[] = 'Y. Таксомоторные компании';
 
-        $add_services = array();
+        $add_services = [];
         $add_services[] = 'Подменный автомобиль';
         $add_services[] = 'Терминал оплаты по безналичному расчету, по банковской карте';
         $add_services[] = 'Терминал быстрой оплаты мобильной связи, интернета и других услуг';
@@ -122,7 +117,7 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $add_services[] = 'Аппарат по продаже напитков и шоколадных батончиков';
         $add_services[] = 'Эвакуатор';
 
-        $car_jobs = array();
+        $car_jobs = [];
         $car_jobs[] = 'Диагностика=проверка, осмотр, выявление неисправности(-ей) поиск неисправности(-ей)';
         $car_jobs[] = 'Замена=установка новой з/ч, нового узла';
         $car_jobs[] = 'Обслуживание=чистка и смазка, удаление загрязнений';
@@ -144,22 +139,21 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $car_jobs[] = 'Герметизация= устранение течи, протечек';
         $car_jobs[] = 'Форсирование=чип-тюнинг, повышение мощности и эффективности';
 
-        $currencys = array();
+        $currencys = [];
         $currencys[] = 'Российский рубль';
         $currencys[] = 'Доллар';
         $currencys[] = 'Евро';
         $currencys[] = 'Гривна';
 
-        // subitems
         foreach ($currencys as $cur_name) {
-            $d = new Dictionary();
+            $d = new Dictionary;
             $d->setName($cur_name);
             $d->setParent($currency);
             $manager->persist($d);
         }
 
         foreach ($org_types as $type_name) {
-            $d = new Dictionary();
+            $d = new Dictionary;
             $d->setName($type_name);
             // $d->setParentId($org_type_id);
             $d->setParent($dictionary);
@@ -167,21 +161,20 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         }
 
         foreach ($add_services as $name) {
-            $d = new Dictionary();
+            $d = new Dictionary;
             $d->setName($name);
             $d->setParent($add_service);
             $manager->persist($d);
         }
 
         foreach ($car_jobs as $name) {
-            $d = new Dictionary();
+            $d = new Dictionary;
             $d->setName($name);
             $d->setParent($car_job);
             $manager->persist($d);
         }
 
         $manager->flush();
-
     }
 
     public function getOrder()

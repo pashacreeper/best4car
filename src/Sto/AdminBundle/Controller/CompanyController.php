@@ -26,7 +26,19 @@ class CompanyController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Company')->findAll();
+        $query = $em->getRepository('StoCoreBundle:Company')
+            ->createQueryBuilder('company')
+            ->orderBy('company.id')
+            ->getQuery()
+        ;
+
+        $def_limit = $this->container->getParameter('pagination_default_value');
+
+        $companies = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1),
+            $this->get('request')->query->get('numItemsPerPage', $def_limit)
+        );
 
         return [
             'companies' => $companies,

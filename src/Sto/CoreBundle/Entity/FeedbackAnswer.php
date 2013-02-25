@@ -7,9 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * FeedbackAnswer
  *
- * @ORM\Table(name="feedback_answer")
+ * @ORM\Table(name="feedback_answers")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\FeedbackAnswerRepository")
- *
  */
 class FeedbackAnswer
 {
@@ -19,26 +18,22 @@ class FeedbackAnswer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
      */
     private $id;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="answer", type="text")
      */
     private $answer;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="date", type="date")
      */
     private $date;
 
     /**
-     *
      * @var integer
      * @ORM\Column(name="manager_id", type="integer")
      */
@@ -51,14 +46,13 @@ class FeedbackAnswer
     private $manager;
 
     /**
-     *
      * @var integer
      * @ORM\Column(name="feedback_id", type="integer")
      */
     private $feedbackId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Feedback")
+     * @ORM\OneToOne(targetEntity="Feedback", inversedBy="feedbackAnswer")
      * @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      */
     private $feedback;
@@ -148,9 +142,11 @@ class FeedbackAnswer
      * @param  \Sto\CoreBundle\Entity\Feedback $feedback
      * @return Feedback
      */
-    public function setFeedback(\Sto\CoreBundle\Entity\Feedback $feedback = null)
+    public function setFeedback(Feedback $feedback = null)
     {
         $this->feedback = $feedback;
+        $this->feedbackId = $feedback->getId();
+        $feedback->setFeedbackAnswer($this);
 
         return $this;
     }

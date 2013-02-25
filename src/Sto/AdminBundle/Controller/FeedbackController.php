@@ -55,8 +55,16 @@ class FeedbackController extends Controller
             }
         }
 
+        $def_limit = $this->container->getParameter('pagination_default_value');
+
+        $pagination = $this->get('knp_paginator')->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1),
+            $this->get('request')->query->get('numItemsPerPage', $def_limit)
+        );
+
         return array(
-            'entities' => $entities,
+            'entities' => $pagination,
         );
     }
 

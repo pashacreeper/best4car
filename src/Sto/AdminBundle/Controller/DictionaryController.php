@@ -2,7 +2,6 @@
 
 namespace Sto\AdminBundle\Controller;
 
-
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Translation\Translator,
     Symfony\Component\HttpFoundation\Responce,

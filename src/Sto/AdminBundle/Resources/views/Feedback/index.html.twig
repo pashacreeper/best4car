@@ -6,8 +6,6 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-
-
 <form action="{{ path('feedback_filter') }}" method="post" id="filter-form" class="form-inline">
     <div class="row-fluid">
         <div class="span4">
@@ -31,31 +29,26 @@
         </div>
     </div>
 </form>
-
-
 <table class="table table-hover table-condensed table-bordered table-striped">
     <thead>
         <tr>
-            <th>№</th>
-            <th>Дата посещения</th>
-            <th>Имя мастера</th>
-            <th>Автомобиль</th>
-            <th>Гос. номер</th>
-            <th>Номер заказа-наряда</th>
-            <th>Автор отзыва</th>
-            <th>Оценка компании</th>
-            <th>Оценка отзыва</th>
-            <th>Что оцениваем</th>
-            <th>Публикация</th>
-            <th>Ответ на отзыв</th>
-            <th>Действия</th>
+            <th width="80">Дата посещения</th>
+            <th width="95">Имя мастера</th>
+            <th width="100">Автомобиль</th>
+            <th width="90">Гос. номер</th>
+            <th width="100">Номер заказа-наряда</th>
+            <th width="140">Автор отзыва</th>
+            <th width="70">Оценка компании</th>
+            <th width="70">Оценка отзыва</th>
+            <th width="80">Что оцениваем</th>
+            <th width="75">Публикация</th>
+            <th width="75">Ответ на отзыв</th>
+            <th width="50"></th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('feedbacks_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-
             <td>{% if entity.visitDate %}{{ entity.visitDate|date('d.m.Y') }}{% endif %}</td>
             <td>{{ entity.mastername }}</td>
             <td>{{ entity.car }}</td>
@@ -63,7 +56,7 @@
             <td>{{ entity.nn }}</td>
             <td>{{ entity.user.username }}</td>
             <td>{{ entity.comapnyRating }}</td>
-            <td>{{ entity.feedbackRating }}</td>
+            <td>{{ entity.feedbackRating|number_format(1) }}</td>
             <td>{{ entity.targetRating }}</td>
             <td>{% if entity.isPublished %}Да{% else %} Нет  {% endif %}</td>
             <td>{% if entity.feedbackAnswer %}Да{% else %} Нет  {% endif %}</td>
@@ -71,17 +64,12 @@
                 <a href="{{ path('feedbacks_show', { 'id': entity.id }) }}" class="icon-eye-close" title="Просмотр"></a>
                 <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
-                {#<ul>
-                    <li>
-                        <a href="{{ path('feedbacks_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>#}
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+<div class="navigation">
+    {{ knp_pagination_render(entities) }}
+</div>
 {% endblock %}

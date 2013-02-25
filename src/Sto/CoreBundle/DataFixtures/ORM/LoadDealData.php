@@ -2,23 +2,21 @@
 
 namespace Sto\CoreBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
-
-use sto\CoreBundle\Entity\Deal;
+use Doctrine\Common\DataFixtures\AbstractFixture,
+    Doctrine\Common\DataFixtures\OrderedFixtureInterface,
+    Doctrine\Common\Persistence\ObjectManager;
+use Sto\CoreBundle\Entity\Deal;
 
 class LoadDealData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
         $types = ['Скидка', 'Маркетинговое мероприятие', 'Тест-драйв', 'Презентация, день открытых дверей.', 'Распродажа', 'Сезонное предложение'];
 
-        for ($i=0; $i < 19 ; $i++) {
-            $deal = new Deal();
+        for ($i=1; $i < 43 ; $i++) {
+            $deal = new Deal;
             $deal->setName('Test deal - ' . $i);
-            $deal->setCompany($this->getReference("company[" . rand(0, 18) . "]"));
+            $deal->setCompany($this->getReference("company[" . rand(1, 38) . "]"));
             $deal->setStartDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
             $deal->setEndDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
             $deal->setStartTime(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020) . ' ' . rand(0, 23) . ':' . rand(0, 59)));

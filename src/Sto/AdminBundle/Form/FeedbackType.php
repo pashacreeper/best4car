@@ -2,44 +2,69 @@
 
 namespace Sto\AdminBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sto\AdminBundle\Form\FeedbackAnswerType;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class FeedbackType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', null, array('label'=>'Отзыв'))
-            ->add('visitDate', null, array('label'=>'Дата посещения'))
-            ->add('mastername', null, array('label'=>'Имя мастера', 'required'=>false))
-            ->add('car', null, array('label'=>'Автомобиль', 'required'=>false))
-            ->add('gn', null, array('label'=>'Гос. номер автомобиля', 'required'=>false))
-            ->add('nn', null, array('label'=>'Номер заказа-наряда', 'required'=>false))
-            //->add('userId')
-            ->add('comapnyRating', null, array('label'=>'Оценка компании'))
-            ->add('feedbackRating', null, array('label'=>'Оценка отзыва'))
-            //->add('pluses')
-            //->add('minuses')
-            ->add('targetRating', null, array('label'=>'Что оцениваем'))
-            ->add('isPublished', null, array('label'=>'Публикация', 'required'=>false))
-            //->add('user', null, array('label'=>'Автор'))
-            //->add('feedbackAnswer', new FeedbackAnswerType())
-
+            ->add('content', null, [
+                'label' => 'Отзыв'
+            ])
+            ->add('visitDate', 'date', [
+                'label' => 'Дата посещения',
+                'widget' => 'single_text',
+                'datepicker' => true,
+            ])
+            ->add('mastername', null, [
+                'label' => 'Имя мастера',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('car', null, [
+                'label' => 'Автомобиль',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('gn', null, [
+                'label' => 'Гос. номер автомобиля',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('nn', null, [
+                'label' => 'Номер заказа-наряда',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('comapnyRating', null, [
+                'label' => 'Оценка компании'
+            ])
+            ->add('feedbackRating', null, [
+                'label' => 'Оценка отзыва'
+            ])
+            ->add('targetRating', null, [
+                'label' => 'Что оцениваем'
+            ])
+            ->add('isPublished', null, [
+                'label' => 'Публикация',
+                'required' => false,
+                'render_optional_text' => false
+            ])
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\Feedback'
-        ));
+        ]);
     }
 
     public function getName()
     {
-        return 'sto_adminbundle_feedbacktype';
+        return 'sto_admin_feedback';
     }
 }

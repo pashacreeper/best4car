@@ -17,7 +17,6 @@ use Sto\CoreBundle\Entity\Deal,
  */
 class DealController extends Controller
 {
-
     /**
      * Lists all Deal entities.
      *
@@ -28,15 +27,30 @@ class DealController extends Controller
     public function indexAction($companyId)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$companyId) {
-            $deals = $em->getRepository('StoCoreBundle:Deal')->findAll();
-        } else {
-            $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
-            $deals = $em->getRepository('StoCoreBundle:Deal')->findByCompany($company);
+        $query = $em->getRepository('StoCoreBundle:Deal')
+            ->createQueryBuilder('deal')
+        ;
+
+        if ($companyId) {
+            $query->where('deal.companyId = :companyId')
+                ->setParameter('companyId', $companyId)
+            ;
         }
 
+        $query->orderBy('deal.id')
+            ->getQuery()
+        ;
+
+        $def_limit = $this->container->getParameter('pagination_default_value');
+
+        $pagination = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1),
+            $this->get('request')->query->get('numItemsPerPage', $def_limit)
+        );
+
         return [
-            'deals' => $deals,
+            'deals' => $pagination,
         ];
     }
 

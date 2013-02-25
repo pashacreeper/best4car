@@ -12,8 +12,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i=0; $i < 19 ; $i++) {
-            $company = new Company();
+        for ($i=1; $i < 39 ; $i++) {
+            $company = new Company;
             $company->setName('Test company - ' . $i);
             $company->setSlogan('Slogan - ' . $i);
             $company->setFullName('Full name test company - ' . $i);

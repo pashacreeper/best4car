@@ -51,6 +51,9 @@
     </tbody>
 </table>
 <form action="#" method="post" id="delete-form"></form>
+<div class="navigation">
+    {{ knp_pagination_render(companies) }}
+</div>
 {% endblock %}
 
 {% block foot_script %}
