@@ -69,7 +69,6 @@ class Country
      */
     protected $iconName;
 
-
     /**
      * @Assert\File(
      *     maxSize="2M",
@@ -117,7 +116,7 @@ class Country
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string  $name
      * @return Country
      */
     public function setName($name)
@@ -140,7 +139,7 @@ class Country
     /**
      * Set code
      *
-     * @param string $code
+     * @param  string  $code
      * @return Country
      */
     public function setCode($code)
@@ -163,7 +162,7 @@ class Country
     /**
      * Set icon
      *
-     * @param string $icon
+     * @param  string  $icon
      * @return Country
      */
     public function setIcon($icon)
@@ -186,7 +185,7 @@ class Country
     /**
      * Set image
      *
-     * @param string $image
+     * @param  string  $image
      * @return Country
      */
     public function setImage($image)
@@ -241,8 +240,6 @@ class Country
         return $this->name;
     }
 
-
-
     /**
      * @param string $icon
      */
@@ -278,8 +275,5 @@ class Country
     {
         return $this->imageName;
     }
-
-
-
 
 }

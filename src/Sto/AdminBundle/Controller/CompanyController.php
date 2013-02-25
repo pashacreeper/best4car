@@ -7,14 +7,13 @@ use Symfony\Component\HttpFoundation\Request,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Sto\CoreBundle\Entity\Company,
     Sto\AdminBundle\Form\CompanyType;
 
 /**
  * Company controller.
  *
- * @Route("/admin/company")
+ * @Route("/company")
  */
 class CompanyController extends Controller
 {
@@ -27,12 +26,11 @@ class CompanyController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $companies = $em->getRepository('StoCoreBundle:Company')->findAll();
 
-        $entities = $em->getRepository('StoCoreBundle:Company')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
+        return [
+            'companies' => $companies,
+        ];
     }
 
     /**
@@ -43,13 +41,9 @@ class CompanyController extends Controller
      */
     public function newAction()
     {
-        $entity = new Company();
-        $form   = $this->createForm(new CompanyType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return [
+            'form' => $this->createForm(new CompanyType, new Company)->createView(),
+        ];
     }
 
     /**
@@ -57,26 +51,25 @@ class CompanyController extends Controller
      *
      * @Route("/create", name="company_create")
      * @Method("POST")
-     * @Template("StoCoreBundle:Company:new.html.twig")
+     * @Template("StoAdminBundle:Company:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity  = new Company();
-        $form = $this->createForm(new CompanyType(), $entity);
+        $company  = new Company;
+        $form = $this->createForm(new CompanyType, $company);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($company);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('company_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('companies'));
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return [
+            'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -88,21 +81,18 @@ class CompanyController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
 
-        $entity = $em->getRepository('StoCoreBundle:Company')->find($id);
-
-        if (!$entity) {
+        if (!$company) {
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $editForm = $this->createForm(new CompanyType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createForm(new CompanyType, $company);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [
+            'company'   => $company,
+            'edit_form' => $editForm->createView(),
+        ];
     }
 
     /**
@@ -110,34 +100,31 @@ class CompanyController extends Controller
      *
      * @Route("/{id}/update", name="company_update")
      * @Method("POST")
-     * @Template("StoCoreBundle:Company:edit.html.twig")
+     * @Template("StoAdminBundle:Company:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->find($id);
 
-        $entity = $em->getRepository('StoCoreBundle:Company')->find($id);
-
-        if (!$entity) {
+        if (!$company) {
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new CompanyType(), $entity);
+        $editForm = $this->createForm(new CompanyType, $company);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($company);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('company_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('companies'));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [
+            'company'   => $company,
+            'edit_form' => $editForm->createView(),
+        ];
     }
 
     /**
@@ -148,29 +135,16 @@ class CompanyController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('StoCoreBundle:Company')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Company entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$company) {
+            throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        return $this->redirect($this->generateUrl('company'));
-    }
+        $em->remove($company);
+        $em->flush();
 
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('companies'));
     }
 }

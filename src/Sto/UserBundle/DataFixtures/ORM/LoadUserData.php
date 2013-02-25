@@ -18,7 +18,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $firstNames = array('John', 'Mark', 'Lenny', 'Robert', 'Denial');
         $lastNames = array('McCormack', 'Clapton', 'Plant', 'Woodman', 'Brown', 'Young');
 
-        for ($j=1; $j < 6; $j++) {
+        for ($j=1; $j < 30; $j++) {
             shuffle($firstNames);
             shuffle($lastNames);
 
@@ -27,13 +27,14 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
                 $user->setUsername(($j == 1 ? $role :  $role . $j ));
                 $user->setEmail(($j == 1 ? $role :  $role . $j ) . "@sto.com");
 
-                // $user->setFirstName($firstNames[rand(0,4)]);
-                // $user->setLastName($lastNames[rand(0,5)]);
-                // $user->setPhone('+' . rand(123, 987) . ' ' . rand(12, 98) . ' ' . rand(123, 987) . '-' . rand(12, 98) . '-' . rand(21, 89));
-                // $user->setEnabled(($j == 1 ? 1 : rand(0, 1) ));
+                $user->setFirstName($firstNames[rand(0,4)]);
+                $user->setLastName($lastNames[rand(0,5)]);
+                $user->setPhoneNumber('+' . rand(123, 987) . ' ' . rand(12, 98) . ' ' . rand(123, 987) . '-' . rand(12, 98) . '-' . rand(21, 89));
+                $user->setEnabled(($j == 1 ? 1 : rand(0, 1) ));
+                $user->setRating( rand(1, 67) );
 
                 $user->addRole("ROLE_" . strtoupper($role));
-                $user->setEnabled(1);
+                // $user->setEnabled(1);
 
                 $encoder = $this->container
                     ->get('security.encoder_factory')

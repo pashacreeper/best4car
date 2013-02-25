@@ -1,0 +1,58 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Add Deal{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+<form action="{{ path('deal_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <div class="control-group">
+        <div class="span6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.image) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.company) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.services) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.startDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.endDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.startTime) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.endTime) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.terms) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.place) }}
+        </div>
+        <div class="span12">
+            {{ form_row(form.type) }}
+        </div>
+        <div class="span12">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="span12">
+            {{ form_row(form.contactInformation) }}
+        </div>
+        {{ form_widget(form) }}
+    <div>
+    <div class="row"></div>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Create" />
+        <a href="{{ path('deals') }}" class="btn">Cancel</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,11 +1,4 @@
-{% extends 'StoAdminBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}{{ "city.title.list"|trans({}) }}{% endblock %}
-
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
-
-{% block content %}
 <form action="{{ path('city_filter') }}" method="post" id="filter-form" class="form-inline">
     <div class="row-fluid">
         <div class="span4">
@@ -45,12 +38,16 @@
                 <img src="/../{{ storage_path }}/cities/{{ entity.iconName }}" alt="{{ entity.name }}" width="30"/>
                 {% endif %}
             </td>
-            <td>{{ entity.code }}</td>
-            <td>{{ entity.name }}</td>
+            <td>
+                <a href="#" id="code" data-type="text" data-pk="{{ entity.id }}" data-original-title="{{ entity.code }}" class="editable-code editable-click">{{ entity.code }}</a>
+            </td>
+            <td>
+                <a href="#" id="name" data-type="text" data-pk="{{ entity.id }}" data-original-title="{{ entity.name }}" class="editable-name editable-click">{{ entity.name }}</a>
+            </td>
             <td>{{ entity.country.name }}</td>
             <td>
                 <a href="{{ path('city_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
-                <a data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>
     {% endfor %}
@@ -59,19 +56,42 @@
 <div class="navigation">
     {{ knp_pagination_render(pagination) }}
 </div>
-<form action="#" method="post" id="delete-form"></form>
-{% endblock %}
 
-{% block foot_script %}
-{{ parent() }}
+<form action="#" method="post" id="delete-form"></form>
 <script type="text/javascript">
-(function($) {
+    $('.editable-name').editable({
+        "mode" : "inline",
+        url: "{{ path('city_change_name') }}",
+    });
+
+    $('.editable-code').editable({
+        "mode" : "inline",
+        url: "{{ path('city_change_code') }}",
+    });
+
+
+    // delete Item
     var url = "{{ path('city') }}{itemId}/delete";
-    var deleteModal = function (formId, message, action) {
+    var deleteModal = function (formId, message, action, id) {
         action = action || '{{ "form.delete"|trans({}) }}'
 
         var del = function () {
-            document.getElementById(formId).submit();
+            // call
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('city_delete_ajax') }}",
+                data: {'id': id},
+                success: function() {
+                    // $('#row_' + id).remove();
+                    $('ul.nav-tabs > li.active > a').click();
+                    elem.modal('hide');
+                },
+                error: function(e) {
+                    console.log(e.message);
+                    elem.modal('hide');
+                }
+            }); // ajax
+
         };
 
         var html = '<div class="modal hide fade"><div class="modal-header">' +
@@ -82,6 +102,7 @@
             '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
 
         var elem = $(html);
+
         elem.find('.btn-danger').click(del);
         $('body').append(elem);
         elem.modal();
@@ -89,12 +110,6 @@
 
     $('[data-delete-form]').on('click', function(e) {
         $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
-        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'));
+        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'), $(this).data('delete-item'));
     });
-
-    $('[data-send-form]').on('click', function(e) {
-        document.getElementById($(this).attr('data-send-form')).submit();
-    });
-})(jQuery);
 </script>
-{% endblock %}

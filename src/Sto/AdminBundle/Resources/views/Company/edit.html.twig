@@ -6,11 +6,90 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-<form action="{{ path('company_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+<form action="{{ path('company_update', { 'id': company.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+    <div class="control-group">
+        <div class="span6">
+            {{ form_row(edit_form.name) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.fullName) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.logo) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.slogan) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.web) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.email) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.phones) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.skype) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.address) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.workingTime) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.services) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.additionalServices) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.specialization) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.gps) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.createtDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.photos) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.socialNetworks) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.rating) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.reviews) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.subscribable) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.hourPrice) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.managers) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.administratorContactInfo) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.notes) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.description) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.visible) }}
+        </div>
     {{ form_widget(edit_form) }}
+    </div>
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="Save changes" />
-        <a href="#" class="btn btn-danger">Delete</a>
         <a href="{{ path('companies') }}" class="btn">Cancel</a>
     </div>
 </form>

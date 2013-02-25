@@ -1,0 +1,96 @@
+
+<form action="{{ path('dictionary_filter') }}" method="post" id="filter-form" class="form-inline">
+    <div class="row-fluid">
+        <div class="span4">
+            <a class="btn btn-info" href="{{ path('dictionary_new') }}"><i class="icon-plus icon-white"></i> {{ "dict.btn.create_new"|trans({}) }}</a>
+        </div>
+        <div class="span4">
+
+        </div>
+        <div class="span4">
+            <div class="pull-right">
+                <input type="text" class="" id="filter_dict_name" name="filter_dict_name" value="{% if app.session.get('filter_dict_name') %}{{ app.session.get('filter_dict_name') }}{% endif %}" placeholder="{{ "dict.title.filterby_name"|trans({}) }}"/>
+                <input type="submit" class="btn btn-info" value="{{ 'form.filter'|trans({}) }}"/>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>{{ "dict.fields.name"|trans({}) }}</th>
+            <th width="35">{{ "dict.fields.actions"|trans({}) }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination  %}
+        <tr id="row_{{ entity.id }}">
+            <td>
+                <a href="#" id="name" data-type="text" data-pk="{{ entity.id }}" data-original-title="{{ entity.name }}" class="editable editable-click">{{ entity.name }}</a>
+            </td>
+            <td>
+                <!-- <a href="{{ path('dictionary_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a> -->
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+<form action="#" method="post" id="delete-form"></form>
+<script type="text/javascript">
+    $('.editable').editable({
+        "mode" : "inline",
+        url: "{{ path('dictionary_change_field') }}",
+    });
+
+
+    // delete Item
+    var url = "{{ path('dictionary') }}{itemId}/delete";
+    var deleteModal = function (formId, message, action, id) {
+        action = action || '{{ "form.delete"|trans({}) }}'
+
+        var del = function () {
+            // call
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('dictionary_delete_ajax') }}",
+                data: {'id': id},
+                success: function() {
+                    // $('#row_' + id).remove();
+                    $('ul.nav-tabs > li.active > a').click();
+                    elem.modal('hide');
+                },
+                error: function(e) {
+                    console.log(e.message);
+                    elem.modal('hide');
+                }
+            }); // ajax
+
+        };
+
+        var html = '<div class="modal hide fade"><div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h3>'+ action +'</h3></div>' +
+            '<div class="modal-body"><p>' + message + '</p></div>' +
+            '<div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">{{ "form.cancel"|trans({}) }}</a>' +
+            '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
+
+        var elem = $(html);
+
+        elem.find('.btn-danger').click(del);
+        $('body').append(elem);
+        elem.modal();
+    }
+
+    $('[data-delete-form]').on('click', function(e) {
+        $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
+        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'), $(this).data('delete-item'));
+    });
+
+
+
+
+</script>

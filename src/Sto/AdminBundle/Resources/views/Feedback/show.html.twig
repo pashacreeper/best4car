@@ -1,0 +1,102 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Отзыв{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <tbody>
+        <tr>
+            <th width="220px">Код</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Отзыв</th>
+            <td>{{ entity.content }}</td>
+        </tr>
+        <tr>
+            <th>Дата посещения</th>
+            <td>{{ entity.visitDate|date('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <th>Имя мастера</th>
+            <td>{{ entity.mastername }}</td>
+        </tr>
+        <tr>
+            <th>Автомобиль</th>
+            <td>{{ entity.car }}</td>
+        </tr>
+        <tr>
+            <th>Гос. номер автомобился</th>
+            <td>{{ entity.gn }}</td>
+        </tr>
+        <tr>
+            <th>Номер заказа-наряда</th>
+            <td>{{ entity.nn }}</td>
+        </tr>
+        <tr>
+            <th>Автор отзыва</th>
+            <td>{{ entity.user.lastName }} {{ entity.user.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Оценка компании</th>
+            <td>{{ entity.comapnyRating }}</td>
+        </tr>
+        <tr>
+            <th>Оценка отзыва</th>
+            <td>{{ entity.feedbackRating }}</td>
+        </tr>
+        <tr>
+            <th>Положительных оценок</th>
+            <td>{{ entity.pluses }}</td>
+        </tr>
+        <tr>
+            <th>Отрицательных оценок</th>
+            <td>{{ entity.minuses }}</td>
+        </tr>
+        <tr>
+            <th>Что оцениваем</th>
+            <td>{{ entity.targetRating }}</td>
+        </tr>
+        <tr>
+            <th>Публичный</th>
+            <td>{% if entity.isPublished %} Да {% else %} Нет {% endif %}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Ответ на отзыв</h3>
+<hr />
+{% if app.session.hasFlash('notice') %}
+    <div class="flash-notice">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+{% if entity.feedbackAnswer %}
+    {% include 'StoAdminBundle:FeedbackAnswer:edit.html.twig' with {'entity': entity.feedbackAnswer, 'feedback_id':entity.id} %}
+{% else %}
+    {% include 'StoAdminBundle:FeedbackAnswer:new.html.twig' with {'feedback_id': entity.id} %}
+{% endif %}
+{#<ul class="record_actions">
+    <li>
+        <a href="{{ path('feedbacks') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('feedbacks_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>#}
+{% endblock %}

@@ -57,7 +57,6 @@ class Dictionary
      */
     private $parentId;
 
-
     /**
      * Constructor
      */
@@ -79,7 +78,7 @@ class Dictionary
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string     $name
      * @return Dictionary
      */
     public function setName($name)
@@ -102,7 +101,7 @@ class Dictionary
     /**
      * Set parentId
      *
-     * @param integer $parentId
+     * @param  integer    $parentId
      * @return Dictionary
      */
     public function setParentId($parentId)

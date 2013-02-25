@@ -1,41 +1,45 @@
 {
-    "name": "STO",
-    "description": "The STO",
+    "name": "symfony/framework-standard-edition",
+    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.4.0",
-        "symfony/symfony": "2.1.*",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
-        "doctrine/doctrine-bundle": "1.1.*",
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.1.*@dev",
+        "doctrine/orm": "2.3.*@dev",
+        "doctrine/doctrine-bundle": "1.1.*@dev",
         "doctrine/data-fixtures": "1.0.*@dev",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
         "twig/extensions": "1.0.*@dev",
-        "symfony/assetic-bundle": "2.1.*",
-        "symfony/swiftmailer-bundle": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "sensio/distribution-bundle": "2.1.*",
-        "sensio/framework-extra-bundle": "2.1.*",
-        "sensio/generator-bundle": "2.1.*",
-
+        "symfony/assetic-bundle": "2.1.*@dev",
+        "symfony/swiftmailer-bundle": "2.1.*@dev",
+        "symfony/monolog-bundle": "2.1.*@dev",
+        "sensio/distribution-bundle": "2.1.*@dev",
+        "sensio/framework-extra-bundle": "2.1.*@dev",
+        "sensio/generator-bundle": "2.1.*@dev",
         "jms/security-extra-bundle": "1.4.*@dev",
         "jms/di-extra-bundle": "1.3.*@dev",
         "kriswallsmith/assetic": "1.1.*@dev",
-        "friendsofsymfony/user-bundle": "2.0.*@dev",
+
         "jms/serializer-bundle": "0.10",
+
         "friendsofsymfony/rest-bundle": "0.10.0",
+        "friendsofsymfony/user-bundle": "2.0.*@dev",
+
+        "nelmio/api-doc-bundle": "2.0.1",
+
         "knplabs/knp-menu": "2.0.*@dev",
         "knplabs/knp-menu-bundle": "2.0.*@dev",
+        "knplabs/knp-paginator-bundle": "2.3.*@dev",
         "knplabs/gaufrette": "0.2.*@dev",
         "knplabs/knp-gaufrette-bundle": "0.2.*@dev",
-        "vich/uploader-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "2.3.*@dev",
-        "leafo/lessphp": "dev-master",
-        "mopa/composer-bridge": "dev-master",
+
+        "leafo/lessphp": "v0.3.8",
+        "twitter/bootstrap": "v2.3.0",
         "mopa/bootstrap-bundle": "2.1.*@dev",
-        "twitter/bootstrap": "dev-2.3.0-wip",
-        "nelmio/api-doc-bundle": "dev-master"
+
+        "vich/uploader-bundle": "dev-master"
     },
     "repositories": [
         {
@@ -59,14 +63,14 @@
             "package":
             {
                 "name": "twitter/bootstrap",
-                "version": "dev-2.3.0-wip",
+                "version": "v2.3.0",
                 "source": {
                     "url": "https://github.com/twitter/bootstrap.git",
                     "type": "git",
-                    "reference": "2.3.0-wip"
+                    "reference": "v2.3.0"
                 },
                 "dist": {
-                    "url": "https://github.com/twitter/bootstrap/zipball/2.3.0-wip",
+                    "url": "https://github.com/twitter/bootstrap/zipball/v2.2.2",
                     "type": "zip"
                 }
             }

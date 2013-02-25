@@ -1,0 +1,88 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Users list{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+<p>
+    <a class="btn btn-info" href="{{ path('admin_user_new') }}"><i class="icon-plus icon-white"></i> Create a new entry</a>
+</p>
+
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Enabled</th>
+            <th>Roles</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Rating</th>
+            <th>Phonenumber</th>
+            <th width="35">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination %}
+        <tr>
+            <td>{{ entity.username }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.enabled }}</td>
+            <td>{{ entity.roles[0] }}</td>
+            <td>{{ entity.firstName }}</td>
+            <td>{{ entity.lastName }}</td>
+            <td>{{ entity.rating }}</td>
+            <td>{{ entity.phoneNumber }}</td>
+            <td>
+                <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+<form action="#" method="post" id="delete-form"></form>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+<script type="text/javascript">
+(function($) {
+    var url = "{{ path('admin_user') }}{itemId}/delete";
+    var deleteModal = function (formId, message, action) {
+        action = action || '{{ "form.delete"|trans({}) }}'
+
+        var del = function () {
+            document.getElementById(formId).submit();
+        };
+
+        var html = '<div class="modal hide fade"><div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h3>'+ action +'</h3></div>' +
+            '<div class="modal-body"><p>' + message + '</p></div>' +
+            '<div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">{{ "form.cancel"|trans({}) }}</a>' +
+            '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
+
+        var elem = $(html);
+        elem.find('.btn-danger').click(del);
+        $('body').append(elem);
+        elem.modal();
+    }
+
+    $('[data-delete-form]').on('click', function(e) {
+        $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
+        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'));
+    });
+
+    $('[data-send-form]').on('click', function(e) {
+        document.getElementById($(this).attr('data-send-form')).submit();
+    });
+})(jQuery);
+</script>
+{% endblock %}

@@ -6,10 +6,7 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-<p>
-    <a href="{{ path('company_new') }}" class="btn btn-small btn-info">Create a new company</a>
-</p>
-
+<p><a href="{{ path('company_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Create a new company</a></p>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -19,32 +16,68 @@
             <th>Workingtime</th>
             <th>Address</th>
             <th>Rating</th>
+            <th>Deals</th>
             <th>Visible</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-    {% for entity in entities %}
+    {% for company in companies %}
         <tr>
-            <td>{{ entity.logo }}</td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.specialization }}</td>
-            <td>{{ entity.workingTime }}</td>
-            <td>{{ entity.address }}</td>
-            <td>{{ entity.rating }}</td>
+            <td>{{ company.logo }}</td>
+            <td>{{ company.name }}</td>
+            <td>{{ company.specialization }}</td>
+            <td>{{ company.workingTime }}</td>
+            <td>{{ company.address }}</td>
+            <td>{{ company.rating }}</td>
+            <td>{{ company.deals|length }}</td>
             <td>
-                {% if entity.visible %}
-                    <i class="icon-ok"></i>
-                {% else %}
-                    <i class="icon-remove"></i>
-                {% endif %}
+    {% if company.visible %}
+                <i class="icon-ok"></i>
+    {% else %}
+                <i class="icon-remove"></i>
+    {% endif %}
             </td>
             <td>
-                <a href="#" class="icon-pencil" title="Edit"></a>
-                <a href="#"  class="icon-trash" title="Remove"></a>
+                <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ company.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+<form action="#" method="post" id="delete-form"></form>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+<script type="text/javascript">
+(function($) {
+    var url = "{{ path('companies') }}{itemId}/delete";
+    var deleteModal = function (formId, message, action) {
+        action = action || '{{ "form.delete"|trans({}) }}'
+        var del = function () {
+            document.getElementById(formId).submit();
+        };
+        var html = '<div class="modal hide fade"><div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h3>'+ action +'</h3></div>' +
+            '<div class="modal-body"><p>' + message + '</p></div>' +
+            '<div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">{{ "form.cancel"|trans({}) }}</a>' +
+            '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
+        var elem = $(html);
+        elem.find('.btn-danger').click(del);
+        $('body').append(elem);
+        elem.modal();
+    }
+
+    $('[data-delete-form]').on('click', function(e) {
+        $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
+        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'));
+    });
+    $('[data-send-form]').on('click', function(e) {
+        document.getElementById($(this).attr('data-send-form')).submit();
+    });
+})(jQuery);
+</script>
 {% endblock %}

@@ -7,7 +7,87 @@
 
 {% block content %}
 <form action="{{ path('company_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <div class="control-group">
+        <div class="span6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.fullName) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.logo) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.slogan) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.web) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.phones) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.skype) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.address) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.workingTime) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.services) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.additionalServices) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.specialization) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.gps) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.createtDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.photos) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.socialNetworks) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.rating) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.reviews) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.subscribable) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.hourPrice) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.managers) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.administratorContactInfo) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.notes) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.visible) }}
+        </div>
     {{ form_widget(form) }}
+    </div>
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="Create" />
         <a href="{{ path('companies') }}" class="btn">Cancel</a>

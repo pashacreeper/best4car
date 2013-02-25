@@ -17,7 +17,7 @@ root:
 sto_admin:
     resource: "@StoAdminBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /admin/
 
 sto_content:
     resource: "@StoContentBundle/Controller/"

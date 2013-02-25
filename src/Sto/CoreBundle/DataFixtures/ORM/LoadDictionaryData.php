@@ -22,8 +22,6 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $add_service->setName('Дополнительные услуги'); // id = 2
         $manager->persist($add_service);
 
-
-
         $car_job = new Dictionary();
         $car_job->setName('Перечень действий / работ с узлами автомобиля'); // id = 3
         $manager->persist($car_job);
@@ -31,7 +29,6 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $currency = new Dictionary();
         $currency->setName('Справочник валют'); // id = 4
         $manager->persist($currency);
-
 
         $manager->flush();
 
@@ -152,8 +149,6 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $currencys[] = 'Доллар';
         $currencys[] = 'Евро';
         $currencys[] = 'Гривна';
-
-
 
         // subitems
         foreach ($currencys as $cur_name) {

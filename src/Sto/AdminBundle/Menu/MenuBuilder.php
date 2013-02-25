@@ -2,14 +2,12 @@
 
 namespace Sto\AdminBundle\Menu;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Routing\Router;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\Security\Core\SecurityContext,
+    Symfony\Component\Routing\Router,
+    Symfony\Component\Translation\Translator;
 use FOS\UserBundle\Model\UserInterface;
 use Mopa\Bundle\BootstrapBundle\Navbar\AbstractNavbarMenuBuilder;
-
-
 use Sto\UserBundle\Entity\User;
 
 class MenuBuilder extends AbstractNavbarMenuBuilder
@@ -20,9 +18,9 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 
     public function createMainMenu(Request $request, Translator $translator)
     {
-
         $menu = $this->createNavbarMenuItem();
         $context = $this->securityContext;
+
         $menu->addChild($translator->trans('menu.home'), array(
             'route' => 'admin_index',
             'extras' => array(
@@ -31,31 +29,21 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         ));
 
         if ($context->isGranted('ROLE_ADMIN')) {
-            $requestTracking = $this->createDropdownMenuItem($menu, $translator->trans('menu.menu_name.lists'), true, array('icon' => 'caret'));
-            $requestTracking->addChild($translator->trans('menu.menu_name.dict'), array('route' => 'dictionary'));
-            $requestTracking->addChild($translator->trans('menu.menu_name.countries'), array('route' => 'country'));
-            $requestTracking->addChild($translator->trans('menu.menu_name.cities'), array('route' => 'city'));
+            $menu->addChild($translator->trans('menu.menu_name.lists'), array('route' => 'dictionary'));
         }
 
-
         if ($context->isGranted('ROLE_ADMIN')) {
-            $systemManagement = $this->createDropdownMenuItem($menu, "System Management", true, array('icon' => 'caret'));
+            $systemManagement = $this->createDropdownMenuItem($menu, "System Management", true, array('caret' => true));
             $systemManagement->addChild('Manage Users', array(
-                'route' => 'admin_index',
+                'route' => 'admin_user',
                 'extras' => array(
                     'icon' => 'user',
                 ),
             ));
-            $systemManagement->addChild('Manage News', array(
-                'route' => 'root',
+            $systemManagement->addChild('Manage Feedback', array(
+                'route' => 'feedbacks',
                 'extras' => array(
                     'icon' => 'envelope',
-                ),
-            ));
-            $systemManagement->addChild('Manage Forms', array(
-                'route' => 'root',
-                'extras' => array(
-                    'icon' => 'list-alt',
                 ),
             ));
         }
@@ -67,15 +55,8 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                     'icon' => 'th-list',
                 ),
             ));
-        }
-
-        if ($context->isGranted('ROLE_ADMIN')) {
-            $this->addDivider($systemManagement);
-            $systemManagement->addChild('Load Data Files', array(
-                'route' => 'root',
-                'extras' => array(
-                    'icon' => 'upload',
-                ),
+            $systemManagement->addChild('Manage Deals', array(
+                'route' => 'deals',
             ));
         }
 
@@ -89,7 +70,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 
         $user = $this->securityContext->getToken()->getUser();
         if (is_object($user) && $user instanceof UserInterface) {
-            $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, array('icon' => 'caret'));
+            $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, array('caret' => true));
             $profile->addChild(' Account info', array(
                 'route' => 'root',
                 'extras' => array(
@@ -103,7 +84,6 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                     'icon' => 'off',
                 ),
             ));
-
         }
 
         return $menu;

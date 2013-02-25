@@ -1,29 +1,22 @@
 <?php
+
 namespace Sto\CoreBundle\Controller;
 
-use Symfony\Component\Serializer\Serializer,
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Component\Serializer\Serializer,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\HttpKernel\Exception\HttpException;
-
-use Doctrine\ORM\Mapping as ORM;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations as Rest;
-
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-// Entity
 use Sto\CoreBundle\Entity\Country;
-
-
 
 /**
  * Country controller.
- *
  */
 class APICountryController extends FOSRestController
 {
@@ -66,7 +59,6 @@ class APICountryController extends FOSRestController
 
     public function getAction($id)
     {
-
         $serializer = $this->container->get('serializer');
         $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Country')->find($id);
 
@@ -74,7 +66,6 @@ class APICountryController extends FOSRestController
             return new Response($serializer->serialize(array("message" => "Not found Country", "type" => "error", "code" => 404, ), 'json'), 404);
         else
             return new Response($serializer->serialize($data, 'json'));
-
     }
 
     /**
@@ -98,7 +89,6 @@ class APICountryController extends FOSRestController
         $data = $em->getRepository('StoCoreBundle:Country')->findAll();
 
         return new Response($serializer->serialize($data, 'json'));
-
     }
 
     /**
@@ -131,7 +121,7 @@ class APICountryController extends FOSRestController
      *         }
      * )
      *
-     * @param  integer $id
+     * @param integer $id
      *
      * @Rest\View
      * @Route("/api/country/", name="api_country_delete", requirements={"id" = "\d+"} )
@@ -144,6 +134,4 @@ class APICountryController extends FOSRestController
         // hardcoded "Coming Soon"
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
     }
-
-
 }

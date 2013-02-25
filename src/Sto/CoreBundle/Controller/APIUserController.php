@@ -6,8 +6,6 @@ use Symfony\Component\Serializer\Serializer,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\HttpKernel\Exception\HttpException;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations as Rest;
@@ -18,8 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 // Entity
 use Sto\UserBundle\Entity\User;
-
-
 
 /**
  * User controller.
@@ -123,7 +119,6 @@ class APIUserController extends FOSRestController
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
     }
 
-
     /**
      *
      * @ApiDoc(
@@ -169,6 +164,5 @@ class APIUserController extends FOSRestController
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
 
     }
-
 
 }

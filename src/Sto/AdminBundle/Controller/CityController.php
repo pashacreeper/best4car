@@ -2,18 +2,18 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\City;
-use Sto\AdminBundle\Form\CityType;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\CoreBundle\Entity\City,
+    Sto\AdminBundle\Form\CityType;
 
 /**
  * City controller.
  *
- * @Route("/admin/city")
+ * @Route("/city")
  */
 class CityController extends Controller
 {
@@ -31,30 +31,24 @@ class CityController extends Controller
         $filter_parent_id = $session->get('filter_country_id');
         $filter_name = $session->get('filter_city_name');
 
-
         $query = $em->getRepository('StoCoreBundle:City')
             ->createQueryBuilder('entity');
 
-
-        // apply Filters ---
         if (isset($filter_parent_id) && $filter_parent_id != -1 && isset($filter_name) && !empty($filter_name)) {
-
             $query->where(
                 $query->expr()->andX(
                     $query->expr()->eq('entity.countryId', $filter_parent_id),
                     $query->expr()->like('entity.name', $query->expr()->literal('%' . $filter_name . '%'))
-                    )
-                );
-
+                )
+            );
         } else {
-            // 1
             if ($filter_parent_id && $filter_parent_id != -1)
                 $query->where('entity.countryId =:filter_parent_id')
                     ->setParameter('filter_parent_id', $filter_parent_id);
             else
                 $session->set('filter_country_id', '-1');
             // 2
-            if (isset($filter_name) && !empty($filter_name)){
+            if (isset($filter_name) && !empty($filter_name)) {
                 $query->where( $query->expr()->like('entity.name', $query->expr()->literal('%' . $filter_name . '%')) );
             } else
                 $session->set('filter_city_name', '');
@@ -63,7 +57,6 @@ class CityController extends Controller
 
         $query->orderBy('entity.id')
             ->getQuery();
-
 
         $def_limit = $this->container->getParameter('pagination_default_value');
 
@@ -85,6 +78,77 @@ class CityController extends Controller
 
         );
 
+    }
+
+    /**
+     * Lists all City entities.
+     *
+     * @Route("/change_name", name="city_change_name")
+     */
+    public function changeNameAction(Request $request)
+    {
+        // Ajax function
+        $pk = $request->get('pk');
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('StoCoreBundle:City')->find($pk);
+
+        if (!$entity) {
+            return new Responce(500, 'City Not found.');
+        }
+
+        $newName = $request->get('value');
+        $entity->setName($newName);
+        $em->persist($entity);
+        $em->flush();
+
+       return new Responce(200);
+    }
+
+    /**
+     * Lists all City entities.
+     *
+     * @Route("/change_code", name="city_change_code")
+     */
+    public function changeCodeAction(Request $request)
+    {
+        // Ajax function
+        $pk = $request->get('pk');
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('StoCoreBundle:City')->find($pk);
+
+        if (!$entity) {
+            return new Responce(500, 'City Not found.');
+        }
+
+        $newName = $request->get('value');
+        $entity->setCode($newName);
+        $em->persist($entity);
+        $em->flush();
+
+       return new Responce(200);
+    }
+
+   /**
+     * Deletes a City entity.
+     *
+     * @Route("/delete_ajax", name="city_delete_ajax")
+     * @Method("POST")
+     */
+    public function deleteAjaxAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoCoreBundle:City')->find($request->get('id'));
+
+        if (!$entity) {
+            return new Responce(500, 'City Not found.');
+        }
+        $em->remove($entity);
+        $em->flush();
+
+        return new Responce(200);
     }
 
     /**

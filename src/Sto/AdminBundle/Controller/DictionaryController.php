@@ -2,19 +2,23 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\Translator;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\Dictionary;
-use Sto\AdminBundle\Form\DictionaryType;
+
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\Translation\Translator,
+    Symfony\Component\HttpFoundation\Responce,
+    Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\CoreBundle\Entity\Dictionary,
+    Sto\AdminBundle\Form\DictionaryType;
+
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Dictionary controller.
  *
- * @Route("/admin/dictionary")
+ * @Route("/dictionary")
  */
 class DictionaryController extends Controller
 {
@@ -22,10 +26,87 @@ class DictionaryController extends Controller
      * Lists all Dictionary entities.
      *
      * @Route("/", name="dictionary")
-     * @Template()
+     * @Template("StoAdminBundle:Dictionary:indexNew.html.twig")
      */
     public function indexAction()
     {
+        return array();
+    }
+
+    public function checkAuthAjax()
+    {
+        if (true === $this->get('security.context')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            throw new AccessDeniedException();
+            // return new Responce(401, 'Not Authorized.');
+        }
+    }
+
+    /**
+     * Lists all Dictionary entities.
+     *
+     * @Route("/change_field", name="dictionary_change_field")
+     */
+    public function changeFieldAction(Request $request)
+    {
+        // Ajax function
+        $pk = $request->get('pk');
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('StoCoreBundle:Dictionary')->find($pk);
+
+        if (!$entity) {
+            return new Responce(500, 'Dictionary Not found.');
+        }
+
+        $newName = $request->get('value');
+        $entity->setName($newName);
+        $em->persist($entity);
+        $em->flush();
+
+       return new Responce(200);
+    }
+
+    /**
+     * Deletes a Dictionary entity.
+     *
+     * @Route("/delete_ajax", name="dictionary_delete_ajax")
+     * @Method("POST")
+     */
+    public function deleteAjaxAction(Request $request)
+    {
+        // check
+        // if !user return new Responce(403, 'Dictionary Not found.');
+        // class->checkAuth();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoCoreBundle:Dictionary')->find($request->get('id'));
+
+        if (!$entity) {
+            return new Responce(500, 'Dictionary Not found.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return new Responce(200);
+    }
+
+    /**
+     * Lists all Dictionary entities.
+     *
+     * @Route("/content", name="dictionary_content")
+     * @Template("StoAdminBundle:Dictionary:content.html.twig")
+     */
+    public function contentAction(Request $request)
+    {
+        // $this->checkAuthAjax(); // check for user
+
+        $filter_parent_id = $request->request->get('filter_parent');
+        $filter_name = $request->request->get('filter_dict_name');
+
+        $session = $this->get('session');
+        if ($filter_parent_id)
+            $session->set('filter_parent_id', $filter_parent_id);
+        $session->set('filter_dict_name', $filter_name);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -53,7 +134,7 @@ class DictionaryController extends Controller
             else
                 $session->set('filter_parent_id', '-1');
             // 2
-            if (isset($filter_name) && !empty($filter_name)){
+            if (isset($filter_name) && !empty($filter_name)) {
                 $query->where( $query->expr()->like('entity.name', $query->expr()->literal('%' . $filter_name . '%')) );
             } else
                 $session->set('filter_dict_name', '');
@@ -62,7 +143,6 @@ class DictionaryController extends Controller
 
         $query->orderBy('entity.id')
             ->getQuery();
-
 
         $def_limit = $this->container->getParameter('pagination_default_value');
 
@@ -257,24 +337,28 @@ class DictionaryController extends Controller
     public function getCurrensiesAction()
     {
         $head_id = $this->container->getParameter('dictionary_currencies_id');
+
         return $this->listByParentIdAction($head_id);
     }
 
     public function getServicesListAction()
     {
         $head_id = $this->container->getParameter('dictionary_services_list_id');
+
         return $this->listByParentIdAction($head_id);
     }
 
     public function getAdditionalServicesListAction()
     {
         $head_id = $this->container->getParameter('dictionary_additional_services_id');
+
         return $this->listByParentIdAction($head_id);
     }
 
     public function getCompanyTypesAction()
     {
         $head_id = $this->container->getParameter('dictionary_company_types_id');
+
         return $this->listByParentIdAction($head_id);
     }
 

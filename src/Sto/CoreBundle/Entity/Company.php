@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Company
@@ -23,7 +24,7 @@ class Company
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -31,27 +32,29 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="slogan", type="string", length=255)
+     * @ORM\Column(name="slogan", type="string", length=255, nullable=true)
      */
     private $slogan;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="full_name", type="string", length=255)
+     * @ORM\Column(name="full_name", type="string", length=255, nullable=true)
      */
     private $fullName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="web", type="string", length=255)
+     * @Assert\Url()
+     * @ORM\Column(name="web", type="string", length=255, nullable=true)
      */
     private $web;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="specialization", type="string", length=255)
      */
     private $specialization;
@@ -59,6 +62,7 @@ class Company
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="services", type="string", length=255)
      */
     private $services;
@@ -66,20 +70,21 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="additional_services", type="string", length=255)
+     * @ORM\Column(name="additional_services", type="string", length=255, nullable=true)
      */
     private $additionalServices;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=255)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="working_time", type="string", length=255)
      */
     private $workingTime;
@@ -87,6 +92,7 @@ class Company
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="phones", type="string", length=255)
      */
     private $phones;
@@ -94,20 +100,25 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="skype", type="string", length=255)
+     * @ORM\Column(name="skype", type="string", length=255, nullable=true)
      */
     private $skype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
@@ -115,13 +126,14 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="gps", type="string", length=255)
+     * @ORM\Column(name="gps", type="string", length=255, nullable=true)
      */
     private $gps;
 
     /**
      * @var \DateTime
      *
+     * @Assert\Date()
      * @ORM\Column(name="createt_date", type="date")
      */
     private $createtDate;
@@ -129,42 +141,40 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="photos", type="string", length=255)
+     * @ORM\Column(name="photos", type="string", length=255, nullable=true)
      */
     private $photos;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="social_networks", type="string", length=255)
+     * @ORM\Column(name="social_networks", type="string", length=255, nullable=true)
      */
     private $socialNetworks;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="rating", type="float")
+     * @ORM\Column(name="rating", type="float", nullable=true)
      */
     private $rating;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="reviews", type="string", length=255)
+     * @ORM\Column(name="reviews", type="string", length=255, nullable=true)
      */
     private $reviews;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="deals", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Deal", mappedBy="company", cascade={"all"})
      */
     private $deals;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -178,21 +188,21 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="hour_price", type="string", length=255)
+     * @ORM\Column(name="hour_price", type="string", length=255, nullable=true)
      */
     private $hourPrice;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="managers", type="string", length=255)
+     * @ORM\Column(name="managers", type="string", length=255, nullable=true)
      */
     private $managers;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="administrator_contact_info", type="string", length=255)
+     * @ORM\Column(name="administrator_contact_info", type="string", length=255, nullable=true)
      */
     private $administratorContactInfo;
 
@@ -206,10 +216,17 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="string", length=255)
+     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
      */
     private $notes;
 
+    public function __construct()
+    {
+        $this->createtDate = new \DateTime('now');
+        $this->visible = false;
+        $this->subscribable = false;
+        $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -224,7 +241,7 @@ class Company
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string  $name
      * @return Company
      */
     public function setName($name)
@@ -247,7 +264,7 @@ class Company
     /**
      * Set slogan
      *
-     * @param string $slogan
+     * @param  string  $slogan
      * @return Company
      */
     public function setSlogan($slogan)
@@ -270,7 +287,7 @@ class Company
     /**
      * Set fullName
      *
-     * @param string $fullName
+     * @param  string  $fullName
      * @return Company
      */
     public function setFullName($fullName)
@@ -293,7 +310,7 @@ class Company
     /**
      * Set web
      *
-     * @param string $web
+     * @param  string  $web
      * @return Company
      */
     public function setWeb($web)
@@ -316,7 +333,7 @@ class Company
     /**
      * Set specialization
      *
-     * @param string $specialization
+     * @param  string  $specialization
      * @return Company
      */
     public function setSpecialization($specialization)
@@ -339,7 +356,7 @@ class Company
     /**
      * Set services
      *
-     * @param string $services
+     * @param  string  $services
      * @return Company
      */
     public function setServices($services)
@@ -362,7 +379,7 @@ class Company
     /**
      * Set additionalServices
      *
-     * @param string $additionalServices
+     * @param  string  $additionalServices
      * @return Company
      */
     public function setAdditionalServices($additionalServices)
@@ -385,7 +402,7 @@ class Company
     /**
      * Set logo
      *
-     * @param string $logo
+     * @param  string  $logo
      * @return Company
      */
     public function setLogo($logo)
@@ -408,7 +425,7 @@ class Company
     /**
      * Set workingTime
      *
-     * @param string $workingTime
+     * @param  string  $workingTime
      * @return Company
      */
     public function setWorkingTime($workingTime)
@@ -431,7 +448,7 @@ class Company
     /**
      * Set phones
      *
-     * @param string $phones
+     * @param  string  $phones
      * @return Company
      */
     public function setPhones($phones)
@@ -454,7 +471,7 @@ class Company
     /**
      * Set skype
      *
-     * @param string $skype
+     * @param  string  $skype
      * @return Company
      */
     public function setSkype($skype)
@@ -477,7 +494,7 @@ class Company
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string  $email
      * @return Company
      */
     public function setEmail($email)
@@ -500,7 +517,7 @@ class Company
     /**
      * Set address
      *
-     * @param string $address
+     * @param  string  $address
      * @return Company
      */
     public function setAddress($address)
@@ -523,7 +540,7 @@ class Company
     /**
      * Set gps
      *
-     * @param string $gps
+     * @param  string  $gps
      * @return Company
      */
     public function setGps($gps)
@@ -546,7 +563,7 @@ class Company
     /**
      * Set createtDate
      *
-     * @param \DateTime $createtDate
+     * @param  \DateTime $createtDate
      * @return Company
      */
     public function setCreatetDate($createtDate)
@@ -569,7 +586,7 @@ class Company
     /**
      * Set photos
      *
-     * @param string $photos
+     * @param  string  $photos
      * @return Company
      */
     public function setPhotos($photos)
@@ -592,7 +609,7 @@ class Company
     /**
      * Set socialNetworks
      *
-     * @param string $socialNetworks
+     * @param  string  $socialNetworks
      * @return Company
      */
     public function setSocialNetworks($socialNetworks)
@@ -615,7 +632,7 @@ class Company
     /**
      * Set rating
      *
-     * @param float $rating
+     * @param  float   $rating
      * @return Company
      */
     public function setRating($rating)
@@ -638,7 +655,7 @@ class Company
     /**
      * Set reviews
      *
-     * @param string $reviews
+     * @param  string  $reviews
      * @return Company
      */
     public function setReviews($reviews)
@@ -659,32 +676,9 @@ class Company
     }
 
     /**
-     * Set deals
-     *
-     * @param string $deals
-     * @return Company
-     */
-    public function setDeals($deals)
-    {
-        $this->deals = $deals;
-
-        return $this;
-    }
-
-    /**
-     * Get deals
-     *
-     * @return string
-     */
-    public function getDeals()
-    {
-        return $this->deals;
-    }
-
-    /**
      * Set description
      *
-     * @param string $description
+     * @param  string  $description
      * @return Company
      */
     public function setDescription($description)
@@ -707,7 +701,7 @@ class Company
     /**
      * Set subscribable
      *
-     * @param boolean $subscribable
+     * @param  boolean $subscribable
      * @return Company
      */
     public function setSubscribable($subscribable)
@@ -730,7 +724,7 @@ class Company
     /**
      * Set hourPrice
      *
-     * @param string $hourPrice
+     * @param  string  $hourPrice
      * @return Company
      */
     public function setHourPrice($hourPrice)
@@ -753,7 +747,7 @@ class Company
     /**
      * Set managers
      *
-     * @param string $managers
+     * @param  string  $managers
      * @return Company
      */
     public function setManagers($managers)
@@ -776,7 +770,7 @@ class Company
     /**
      * Set administratorContactInfo
      *
-     * @param string $administratorContactInfo
+     * @param  string  $administratorContactInfo
      * @return Company
      */
     public function setAdministratorContactInfo($administratorContactInfo)
@@ -799,7 +793,7 @@ class Company
     /**
      * Set visible
      *
-     * @param boolean $visible
+     * @param  boolean $visible
      * @return Company
      */
     public function setVisible($visible)
@@ -822,7 +816,7 @@ class Company
     /**
      * Set notes
      *
-     * @param string $notes
+     * @param  string  $notes
      * @return Company
      */
     public function setNotes($notes)
@@ -840,5 +834,38 @@ class Company
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Add deal
+     */
+    public function addDeal(Deal $deal)
+    {
+        $this->deals[] = $deal;
+
+        return $this;
+    }
+
+    /**
+     * Remove deal
+     */
+    public function removeDeal(Deal $deal)
+    {
+        $this->deals->removeElement($deal);
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDeals()
+    {
+        return $this->deals;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

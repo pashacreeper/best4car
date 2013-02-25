@@ -36,3 +36,7 @@ body {
 .footer > p {
     margin: 0 20px;
 }
+
+.required {
+    font-weight: bold;
+}

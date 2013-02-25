@@ -1,0 +1,9 @@
+
+
+<form class="form-horizontal" action="{{ path('save_answer', {'feedback_id': feedback_id}) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
+
+    </div>
+</form>

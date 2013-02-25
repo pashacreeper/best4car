@@ -1,0 +1,38 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Редактирование отзыва{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+
+<form class="form-horizontal" action="{{ path('feedbacks_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
+            <a class="btn" href="{{ path('feedbacks') }}">{{ 'form.cancel'|trans({}) }}</a>
+        </div>
+    </p>
+</form>
+{#}
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('feedbacks') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <form  action="{{ path('feedbacks_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
+                <a class="btn" href="{{ path('feedbacks') }}">{{ 'form.cancel'|trans({}) }}</a>
+            </div>
+        </form>
+    </li>
+</ul>
+#}
+{% endblock %}

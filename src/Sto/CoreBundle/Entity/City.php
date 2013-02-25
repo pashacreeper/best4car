@@ -69,7 +69,6 @@ class City
      */
     protected $iconName;
 
-
     /**
      * @Assert\File(
      *     maxSize="2M",
@@ -98,25 +97,22 @@ class City
      */
     private $countryId;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="countries")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
     private $country;
 
-
     /**
      * Constructor
      */
     public function __construct(Country $country = null)
     {
-        if ($country != null){
+        if ($country != null) {
             $this->country = $country;
             $country->addCity($this);
         }
     }
-
 
     /**
      * Get id
@@ -131,7 +127,7 @@ class City
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return City
      */
     public function setName($name)
@@ -154,7 +150,7 @@ class City
     /**
      * Set code
      *
-     * @param string $code
+     * @param  string $code
      * @return City
      */
     public function setCode($code)
@@ -177,7 +173,7 @@ class City
     /**
      * Set icon
      *
-     * @param string $icon
+     * @param  string  $icon
      * @return Country
      */
     public function setIcon($icon)
@@ -200,7 +196,7 @@ class City
     /**
      * Set image
      *
-     * @param string $image
+     * @param  string  $image
      * @return Country
      */
     public function setImage($image)
@@ -223,7 +219,7 @@ class City
     /**
      * Set country_id
      *
-     * @param integer $countryId
+     * @param  integer $countryId
      * @return City
      */
     public function setCountryId($countryId)

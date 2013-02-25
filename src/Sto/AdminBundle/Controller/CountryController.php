@@ -2,20 +2,18 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\Country;
-use Sto\AdminBundle\Form\CountryType;
-
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\CoreBundle\Entity\Country,
+    Sto\AdminBundle\Form\CountryType;
 
 /**
  * Country controller.
  *
- * @Route("/admin/country")
+ * @Route("/country")
  */
 class CountryController extends Controller
 {
@@ -36,14 +34,13 @@ class CountryController extends Controller
         $query = $em->getRepository('StoCoreBundle:Country')
             ->createQueryBuilder('entity');
 
-        if (isset($filter_name) && !empty($filter_name)){
+        if (isset($filter_name) && !empty($filter_name)) {
                 $query->where( $query->expr()->like('entity.name', $query->expr()->literal('%' . $filter_name . '%')) );
             } else
                 $session->set('filter_country_name', '');
 
         $query->orderBy('entity.id')
             ->getQuery();
-
 
         $def_limit = $this->container->getParameter('pagination_default_value');
 
@@ -57,7 +54,81 @@ class CountryController extends Controller
             'pagination' => $pagination,
         );
 
+    }
 
+    /**
+     * Lists all Country entities.
+     *
+     * @Route("/change_name", name="country_change_name")
+     */
+    public function changeNameAction(Request $request)
+    {
+        // Ajax function
+        $pk = $request->get('pk');
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('StoCoreBundle:Country')->find($pk);
+
+        if (!$entity) {
+            return new Responce(500, 'Country Not found.');
+        }
+
+        $newName = $request->get('value');
+        $entity->setName($newName);
+        $em->persist($entity);
+        $em->flush();
+
+       return new Responce(200);
+    }
+
+    /**
+     * Lists all Country entities.
+     *
+     * @Route("/change_code", name="country_change_code")
+     */
+    public function changeCodeAction(Request $request)
+    {
+        // Ajax function
+        $pk = $request->get('pk');
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('StoCoreBundle:Country')->find($pk);
+
+        if (!$entity) {
+            return new Responce(500, 'Country Not found.');
+        }
+
+        $newName = $request->get('value');
+        $entity->setCode($newName);
+        $em->persist($entity);
+        $em->flush();
+
+       return new Responce(200);
+    }
+
+   /**
+     * Deletes a Country entity.
+     *
+     * @Route("/delete_ajax", name="country_delete_ajax")
+     * @Method("POST")
+     */
+    public function deleteAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoCoreBundle:Country')->find($request->get('id'));
+
+        if (!$entity) {
+            return new Responce(500, 'Country Not found.');
+        }
+
+        foreach ($entity->getCities() AS $city) {
+            $em->remove($city);
+        }
+        $em->remove($entity);
+
+        $em->flush();
+
+        return new Responce(200);
     }
 
     /**
@@ -183,7 +254,6 @@ class CountryController extends Controller
         $em->remove($entity);
         $em->flush();
 
-
         return $this->redirect($this->generateUrl('country'));
     }
 
@@ -196,7 +266,7 @@ class CountryController extends Controller
     }
 
     /**
-     * Set Filter for a Dictionary lists.
+     * Set Filter for a Country lists.
      *
      * @Route("/filter", name="country_filter")
      * @Method("POST")

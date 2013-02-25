@@ -46,12 +46,11 @@ class LoadCountryData extends AbstractFixture implements OrderedFixtureInterface
                 mkdir(dirname($to), 0755, true);
             }
 
-            if (!file_exists($to)){
+            if (!file_exists($to)) {
                 copy($from, $to);
             }
             // $vCountry->setIcon('images/countries/' . strtolower($codes[$country]) . '.png');
             $vCountry->setIconName(strtolower($codes[$country]) . '.png');
-
 
             // images
 
