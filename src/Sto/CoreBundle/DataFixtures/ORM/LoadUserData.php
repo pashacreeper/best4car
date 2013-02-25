@@ -23,11 +23,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         for ($j=1; $j < 31; $j++) {
             shuffle($firstNames);
             shuffle($lastNames);
-            $role = $roles[rand(0,1)];
+            $role = $j == 1 ? $roles[1] : $roles[rand(0,1)];
 
             $user = new User;
-            $user->setUsername(($j == 1 ? $roles[1] :  $role . $j ));
-            $user->setEmail(($j == 1 ? $roles[1] :  $role . $j ) . "@sto.com");
+            $user->setUsername(($j == 1 ? $role :  $role . $j ));
+            $user->setEmail(($j == 1 ? $role :  $role . $j ) . "@sto.com");
             $user->setFirstName($firstNames[rand(0,4)]);
             $user->setLastName($lastNames[rand(0,5)]);
             $user->setPhoneNumber('+' . rand(123, 987) . ' ' . rand(12, 98) . ' ' . rand(123, 987) . '-' . rand(12, 98) . '-' . rand(21, 89));
