@@ -30,7 +30,11 @@
             <td>{{ company.workingTime }}</td>
             <td>{{ company.address }}</td>
             <td>{{ company.rating }}</td>
+{% if company.deals|length > 0 %}
+            <td><a href="{{ path('deals_for_company', { 'companyId': company.id }) }}">{{ company.deals|length }}</a></td>
+{% else %}
             <td>{{ company.deals|length }}</td>
+{% endif %}
             <td>
     {% if company.visible %}
                 <i class="icon-ok"></i>

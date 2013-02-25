@@ -17,16 +17,23 @@ use Sto\CoreBundle\Entity\Deal,
  */
 class DealController extends Controller
 {
+
     /**
      * Lists all Deal entities.
      *
-     * @Route("/", name="deals")
+     * @Route("/", defaults={"companyId" = null}, name="deals")
+     * @Route("/{companyId}/company", name="deals_for_company")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($companyId)
     {
         $em = $this->getDoctrine()->getManager();
-        $deals = $em->getRepository('StoCoreBundle:Deal')->findAll();
+        if (!$companyId) {
+            $deals = $em->getRepository('StoCoreBundle:Deal')->findAll();
+        } else {
+            $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
+            $deals = $em->getRepository('StoCoreBundle:Deal')->findByCompany($company);
+        }
 
         return [
             'deals' => $deals,
