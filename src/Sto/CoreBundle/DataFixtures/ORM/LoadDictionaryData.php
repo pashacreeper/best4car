@@ -225,6 +225,6 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }
