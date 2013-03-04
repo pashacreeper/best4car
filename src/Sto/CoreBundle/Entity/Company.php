@@ -5,6 +5,8 @@ namespace Sto\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Sto\UserBundle\Entity\RatingGroup;
+
 /**
  * Company
  *
@@ -220,12 +222,41 @@ class Company
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Feedback", mappedBy="company", cascade={"all"})
+     */
+    private $feedbacks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\Group", inversedBy="companies")
+     * @ORM\JoinTable(name="company_group_relationship",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating_group_id", type="integer")
+     */
+    protected $ratingGroupId;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\RatingGroup", inversedBy="companies")
+     * @ORM\JoinColumn(name="rating_group_id", referencedColumnName="id")
+     */
+    protected $ratingGroup;
+
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
         $this->visible = false;
         $this->subscribable = false;
         $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -864,8 +895,60 @@ class Company
         return $this->deals;
     }
 
+    /**
+     * Add feedback
+     */
+    public function addFeedbacks(Feedback $feedback)
+    {
+        $this->feedbacks[] = $feedback;
+
+        return $this;
+    }
+
+    /**
+     * Remove feedback
+     */
+    public function removeFeedback(Feedback $feedback)
+    {
+        $this->feedbacks->removeElement($feedback);
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
+    }
+
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    public function setGroups($group)
+    {
+        $this->groups = $group;
+
+        return $this;
+    }
+
+    public function getRatingGroup()
+    {
+        return $this->ratingGroup;
+    }
+
+    public function setRatingGroup(RatingGroup $group)
+    {
+        $this->ratingGroup = $group;
+
+        return $this;
     }
 }

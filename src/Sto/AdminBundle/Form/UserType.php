@@ -15,12 +15,13 @@ class UserType extends AbstractType
             ->add('email')
             ->add('password')
             ->add('enabled')
-            ->add('roles')
+            ->add('groups')
+            //->add('roles')
             ->add('firstName')
             ->add('lastName')
             ->add('rating')
+            ->add('ratingGroup')
             ->add('phoneNumber')
-            ->add('ratingGroupId')
             ->add('avatarUrl')
             ->add('birthDate')
             ->add('gender')
@@ -33,6 +34,7 @@ class UserType extends AbstractType
             ->add('contentGroupId')
             ->add('description')
             ->add('jobId')
+
         ;
     }
 

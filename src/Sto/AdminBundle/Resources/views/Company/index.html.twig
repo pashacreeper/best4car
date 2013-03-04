@@ -25,7 +25,7 @@
     {% for company in companies %}
         <tr>
             <td>{{ company.logo }}</td>
-            <td>{{ company.name }}</td>
+            <td><a href="{{ path('company_show', { 'id': company.id }) }}" >{{ company.name }}</a></td>
             <td>{{ company.specialization }}</td>
             <td>{{ company.workingTime }}</td>
             <td>{{ company.address }}</td>

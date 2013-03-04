@@ -1,0 +1,25 @@
+{#<div class="fos_user_group_list">
+    <ul>
+    {% for group in groups %}
+        <li><a href="{{ path('fos_user_group_show', {'groupName': group.getName()} ) }}">{{ group.getName() }}</a></li>
+    {% endfor %}
+    </ul>
+</div>#}
+
+
+<div class="fos_user_group_show">
+    <table class="table table-hover table-condensed table-bordered table-striped">
+        <tr>
+            <th>Названеи</th>
+            <th>Действия</th>
+        </tr>
+    {% for group in groups %}
+        <tr>
+            <td><a href="{{ path('fos_user_group_show', {'groupName': group.getName()} ) }}">{{ group.name }} </a></td>
+            <td>
+                <a href="{{ path('fos_user_group_edit', { 'groupName': group.name }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>

@@ -1,0 +1,132 @@
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash, session_flash %}
+{% block html_tag %}
+<html lang="ru">
+{% endblock %}
+{% block head %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block head_style %}
+    {% stylesheets filter='cssrewrite'
+        'bundles/stocontent/css/bootstrap.css'
+        'bundles/stocontent/css/elusive-webfont.css'
+        'bundles/stocontent/css/style.css'
+        'bundles/stocontent/css/bootstrap-responsive.css'
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
+{% block head_script %}
+    {% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+    <title>STO &middot; {% block title %}STO{% endblock title %}</title>
+{% block head_bottom %}
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+{% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+</head>
+{% endblock %}
+{% block body %}
+{% block navbar_container %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">BEST4CAR</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="#">Companies</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Clubs</a></li>
+                    <li><a href="#">Experts</a></li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            Sign In <strong class="caret"></strong>
+                        </a>
+                        <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                            <form method="post" action="login" accept-charset="UTF-8">
+                                <input style="margin-bottom: 15px;" type="text" placeholder="E-mail" id="email" name="email" />
+                                <input style="margin-bottom: 15px;" type="password" placeholder="Password" id="password" name="password" />
+                                <input style="float: left; margin-right: 10px;" type="checkbox" name="remember-me" id="remember-me" value="1" />
+                                <label class="string optional" for="user_remember_me"> Remember me</label>
+                                <input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In" />
+                                <label style="text-align:center;margin-top:5px">or</label>
+                                <input class="btn btn-primary btn-block" type="button" id="sign-in-vk" value="Sign In with VK" />
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block header %}{% endblock %}
+<div class="container">
+{% block content %}{% endblock %}
+</div>
+{% block footer %}
+<div id="footer">
+    <div class="container">
+        <p class="muted credit">
+            <div class="row">
+                <div class="span4">
+                    &copy; 2013, BEST4CAR <a href="#">Условия использования сайта</a>
+                </div>
+                <div class="span5">
+                    <a href="#">О проекте</a>
+                    <a href="#">Рекламодателям</a>
+                    <a href="#">Помощь</a>
+                    <a href="#">Тур</a>
+                    <a href="#">Обратная связь</a>
+                </div>
+                <div class="span3">
+                    Мы в социальных сетях:
+                     <a href="#"><i class="icon-vkontakte"></i></a>
+                     <a href="#"><i class="icon-facebook"></i></a>
+                     <a href="#"><i class="icon-twitter"></i></a>
+                     <a href="#"><i class="icon-googleplus"></i></a>
+                </div>
+            </div>
+        </p>
+    </div>
+</div>
+{% endblock %}
+{% block foot_script %}
+    {% javascripts
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% endblock %}

@@ -40,6 +40,18 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                     'icon' => 'user',
                 ),
             ));
+            $systemManagement->addChild('Manage Contant Groups', array(
+                'route' => 'group_list',
+                'extras' => array(
+                    'icon' => 'group',
+                ),
+            ));
+            $systemManagement->addChild('Manage Rating Groups', array(
+                'route' => 'rating_groups',
+                'extras' => array(
+                    'icon' => 'rating_group',
+                ),
+            ));
             $systemManagement->addChild('Manage Feedback', array(
                 'route' => 'feedbacks',
                 'extras' => array(
@@ -72,7 +84,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         if (is_object($user) && $user instanceof UserInterface) {
             $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, array('caret' => true));
             $profile->addChild(' Account info', array(
-                'route' => 'root',
+                'route' => 'fos_user_profile_show',
                 'extras' => array(
                     'icon' => 'info-sign',
                 ),

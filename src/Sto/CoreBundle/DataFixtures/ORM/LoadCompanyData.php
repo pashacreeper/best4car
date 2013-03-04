@@ -13,6 +13,15 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         for ($i=1; $i < 39 ; $i++) {
+
+            $rating = rand(10, 600);
+            if ($rating<100)
+                $rating_group_id = 0;
+            elseif ($rating>499)
+                $rating_group_id = 2;
+            else
+                $rating_group_id = 1;
+
             $company = new Company;
             $company->setName('Test company - ' . $i);
             $company->setSlogan('Slogan - ' . $i);
@@ -31,7 +40,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setCreatetDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
             $company->setPhotos('Photos');
             $company->setSocialNetworks('Facebook, Vk, Google+');
-            $company->setRating(rand(5, 10));
+            $company->setRating($rating);
             $company->setReviews('1,2,3,4,5');
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -40,6 +49,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(true);
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
+            $company->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
 
             $manager->persist($company);
             $this->addReference("company[{$i}]", $company);

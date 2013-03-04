@@ -1,0 +1,58 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Члены рейтинговой группы{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+{% if app.session.hasFlash('notice') %}
+    <div class="flash-notice">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+<h3>Пользователи</h3>
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th width="80">Логин</th>
+            <th width="80">ФИО</th>
+            <th width="50"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in entity.users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.firstName }} {{ user.lastName }}</td>
+            <td>
+                <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h3>Компании</h3>
+<table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th width="80">Название</th>
+            <th width="80">Ссылка</th>
+            <th width="50"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in entity.companies %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td><a href="http://{{ user.web }}">{{ user.web }}</a></td>
+            <td>
+                <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

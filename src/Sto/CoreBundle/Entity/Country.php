@@ -3,19 +3,16 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use JMS\SerializerBundle\Annotation\ExclusionPolicy;
-use JMS\SerializerBundle\Annotation\Expose;
 
 /**
  * Country
  *
- * @ORM\Table(name="country")
+ * @ORM\Table(name="countries")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CountryRepository")
  * @Vich\Uploadable
- * @ExclusionPolicy("all")
  */
 class Country
 {
@@ -25,8 +22,6 @@ class Country
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Expose
      */
     private $id;
 
@@ -34,8 +29,6 @@ class Country
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     *
-     * @Expose
      */
     private $name;
 
@@ -43,8 +36,6 @@ class Country
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
-     *
-     * @Expose
      */
     private $code;
 
@@ -54,17 +45,12 @@ class Country
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="country_icon", fileNameProperty="iconName")
-     *
-     *
      * @var File $icon
      */
     protected $icon;
 
     /**
      * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
-     *
-     * @Expose
-     *
      * @var string $iconName
      */
     protected $iconName;
@@ -75,8 +61,6 @@ class Country
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="country_image", fileNameProperty="imageName")
-     *
-     *
      * @var File $icon
      */
     protected $image;
@@ -85,8 +69,6 @@ class Country
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255, nullable=true)
-     *
-     * @Expose
      */
     private $imageName;
 
@@ -207,7 +189,6 @@ class Country
 
     /**
      * Add city
-     *
      */
     public function addCity(City $city)
     {
@@ -218,7 +199,6 @@ class Country
 
     /**
      * Remove city
-     *
      */
     public function removeCity(City $city)
     {
@@ -227,8 +207,6 @@ class Country
 
     /**
      * Get Cities
-     *
-     * @return Doctrine\Common\Collections\Collection
      */
     public function getCities()
     {
@@ -275,5 +253,4 @@ class Country
     {
         return $this->imageName;
     }
-
 }

@@ -1,0 +1,34 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block content %}
+<form class="form-search form-inline">
+    Я ищу компанию:
+    <input type="text" class="input-medium search-query span10">
+</form>
+<div id="map" style="width:100%; height:475px"></div>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+<script type="text/javascript">
+    ymaps.ready(init);
+    function init () {
+        var myMap = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                zoom: 10
+            }),
+            myPlacemark = new ymaps.Placemark([55.8, 37.6]),
+            myGeoObject = new ymaps.GeoObject({
+                geometry: {
+                    type: "Point",
+                    coordinates: [55.8, 37.8]
+                }
+            });
+        myMap.geoObjects
+            .add(myPlacemark)
+            .add(myGeoObject);
+    }
+</script>
+{% endblock %}

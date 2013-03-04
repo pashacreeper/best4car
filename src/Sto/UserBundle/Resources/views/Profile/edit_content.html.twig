@@ -1,0 +1,97 @@
+
+<form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+     <ul class="nav nav-tabs" id="myTab">
+      <li class="active"><a href="#personal">Личная информация</a></li>
+      <li><a href="#extra">Дополнительно</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+      <div class="tab-pane active" id="personal">
+        <div class="span6">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.current_password) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.firstName) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.lastName) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.phoneNumber) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.birthDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.avatarUrl) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.gender, { 'attr': {'class': 'inline'}}) }}
+        </div>
+
+        <div class="span6">
+            <img src="{{ form.vars.value.avatarUrl }}" style="margin-left: 180px;" width="140" heigth="160" class="img-rounded">
+        </div>
+
+      </div>
+      <div class="tab-pane" id="extra">
+        <div class="span6">
+            {{ form_row(form.rating) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.linkVK) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.linkFB) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.linkGP) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.ratingGroupId) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.cityId) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.autoProfilesLinks) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.linkGarage) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.job) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.contentGroupId) }}
+        </div>
+        <div class="span12">
+            {{ form_row(form.description) }}
+        </div>
+
+
+        {{ form_widget(form) }}
+      </div>
+    <div>
+    <div class="row"></div>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Save changes" />
+        <a href="{{ path('fos_user_profile_show') }}" class="btn">Cancel</a>
+    </div>
+</form>
+
+<script>
+
+
+  $('#myTab a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+</script>

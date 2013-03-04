@@ -25,7 +25,6 @@ class FeedbackAnswerType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\FeedbackAnswer',
-            'csrf_protection' => false,
         ]);
     }
 

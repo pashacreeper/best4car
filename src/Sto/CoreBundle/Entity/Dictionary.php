@@ -3,37 +3,24 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\SerializerBundle\Annotation\ExclusionPolicy;
-use JMS\SerializerBundle\Annotation\Expose;
 
 /**
  * Dictionary
  *
- * @ORM\Table(name="dictionary")
+ * @ORM\Table(name="dictionaries")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
- *
- * @ExclusionPolicy("all")
- *
  */
 class Dictionary
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Expose
      */
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
-     *
-     * @Expose
      */
     private $name;
 
@@ -52,8 +39,6 @@ class Dictionary
      * @var integer
      *
      * @ORM\Column(name="parent_id", type="integer", nullable=true)
-     *
-     * @Expose
      */
     private $parentId;
 
@@ -67,8 +52,6 @@ class Dictionary
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -90,8 +73,6 @@ class Dictionary
 
     /**
      * Get name
-     *
-     * @return string
      */
     public function getName()
     {
@@ -113,8 +94,6 @@ class Dictionary
 
     /**
      * Get parentId
-     *
-     * @return integer
      */
     public function getParentId()
     {
@@ -123,7 +102,6 @@ class Dictionary
 
     /**
      * Set parent
-     *
      */
     public function setParent(Dictionary $parent = null)
     {
@@ -137,7 +115,6 @@ class Dictionary
 
     /**
      * Get parent
-     *
      */
     public function getParent()
     {
@@ -146,7 +123,6 @@ class Dictionary
 
     /**
      * Add children
-     *
      */
     public function addChildren(Dictionary $children)
     {
@@ -157,7 +133,6 @@ class Dictionary
 
     /**
      * Remove children
-     *
      */
     public function removeChildren(Dictionary $children)
     {
@@ -166,8 +141,6 @@ class Dictionary
 
     /**
      * Get children
-     *
-     * @return Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -178,5 +151,4 @@ class Dictionary
     {
         return $this->name;
     }
-
 }

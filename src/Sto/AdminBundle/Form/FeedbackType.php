@@ -29,30 +29,47 @@ class FeedbackType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('gn', null, [
+            ->add('statenumber', null, [
                 'label' => 'Гос. номер автомобиля',
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('nn', null, [
+            ->add('orderNumber', null, [
                 'label' => 'Номер заказа-наряда',
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('comapnyRating', null, [
+            ->add('companyRating', null, [
                 'label' => 'Оценка компании'
             ])
             ->add('feedbackRating', null, [
                 'label' => 'Оценка отзыва'
             ])
-            ->add('targetRating', null, [
-                'label' => 'Что оцениваем'
+            ->add('company', null, [
+                'label' => 'Что оцениваем',
+                'required' => false,
+                'render_optional_text' => false,
             ])
-            ->add('isPublished', null, [
+            /*->add('targetRating', null, [
+                'label' => 'Что оцениваем'
+            ])*/
+            ->add('published', null, [
                 'label' => 'Публикация',
                 'required' => false,
                 'render_optional_text' => false
             ])
+            ->add('currencyLevel', 'entity', [
+                'label' => 'Оценка уровня цен',
+                'required' => false,
+                'render_optional_text' => false,
+                'class' => 'StoCoreBundle:Dictionary',
+                'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
+                         return $repository->createQueryBuilder('s')
+                                ->where('s.parentId = ?1')
+                                ->setParameter(1, 5);
+                     }
+            ])
+
         ;
     }
 

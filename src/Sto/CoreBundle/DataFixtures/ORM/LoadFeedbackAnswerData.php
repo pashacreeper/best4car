@@ -12,12 +12,14 @@ class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager)
     {
         for ($i=1; $i < 41; $i++) {
-            $feedbackAnswer = new FeedbackAnswer;
-            $feedbackAnswer->setAnswer('Спасибо за Ваш отзыв! Будем рады видеть Вас снова!');
-            $feedbackAnswer->setDate(new \DateTime("now"));
-            $feedbackAnswer->setManager($this->getReference("user[" . rand(1,30) . "]"));
-            $feedbackAnswer->setFeedback($this->getReference("feedback[" . $i . "]"));
-            $manager->persist($feedbackAnswer);
+            if (rand(1,10)<=7) {
+                $feedbackAnswer = new FeedbackAnswer;
+                $feedbackAnswer->setAnswer('Спасибо за Ваш отзыв! Будем рады видеть Вас снова!');
+                $feedbackAnswer->setDate(new \DateTime("now"));
+                $feedbackAnswer->setOwner($this->getReference("user[" . rand(1,30) . "]"));
+                $feedbackAnswer->setFeedback($this->getReference("feedback[" . $i . "]"));
+                $manager->persist($feedbackAnswer);
+            }
         }
 
         $manager->flush();

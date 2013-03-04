@@ -27,11 +27,11 @@
         </tr>
         <tr>
             <th>Гос. номер автомобился</th>
-            <td>{{ entity.gn }}</td>
+            <td>{{ entity.statenumber }}</td>
         </tr>
         <tr>
             <th>Номер заказа-наряда</th>
-            <td>{{ entity.nn }}</td>
+            <td>{{ entity.orderNumber }}</td>
         </tr>
         <tr>
             <th>Автор отзыва</th>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <th>Оценка компании</th>
-            <td>{{ entity.comapnyRating }}</td>
+            <td>{{ entity.companyRating }}</td>
         </tr>
         <tr>
             <th>Оценка отзыва</th>
@@ -55,11 +55,19 @@
         </tr>
         <tr>
             <th>Что оцениваем</th>
-            <td>{{ entity.targetRating }}</td>
+            <td>{% if entity.company %}{{ entity.company.name }}{% else %}Компанию в целом{% endif %}</td>
         </tr>
         <tr>
             <th>Публичный</th>
-            <td>{% if entity.isPublished %} Да {% else %} Нет {% endif %}</td>
+            <td>{% if entity.published %} Да {% else %} Нет {% endif %}</td>
+        </tr>
+        <tr>
+            <th>Оценка уровня цен</th>
+            <td>{% if entity.currencyLevel %}{{ entity.currencyLevel.name }} {% endif %}</td>
+        </tr>
+        <tr>
+            <th>IP адрес</th>
+            <td>{{ entity.ip }}</td>
         </tr>
     </tbody>
 </table>

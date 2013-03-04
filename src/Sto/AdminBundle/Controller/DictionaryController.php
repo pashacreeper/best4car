@@ -361,4 +361,11 @@ class DictionaryController extends Controller
         return $this->listByParentIdAction($head_id);
     }
 
+    public function getCurrensiesLevelAction()
+    {
+        $head_id = $this->container->getParameter('dictionary_currencies_level_id');
+
+        return $this->listByParentIdAction($head_id);
+    }
+
 }

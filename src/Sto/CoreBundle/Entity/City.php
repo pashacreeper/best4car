@@ -3,19 +3,16 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\SerializerBundle\Annotation\ExclusionPolicy;
-use JMS\SerializerBundle\Annotation\Expose;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * City
  *
- * @ORM\Table(name="city")
+ * @ORM\Table(name="cities")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CityRepository")
  * @Vich\Uploadable
- * @ExclusionPolicy("all")
  */
 class City
 {
@@ -25,8 +22,6 @@ class City
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Expose
      */
     private $id;
 
@@ -34,8 +29,6 @@ class City
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     *
-     * @Expose
      */
     private $name;
 
@@ -43,41 +36,35 @@ class City
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
-     *
-     * @Expose
      */
     private $code;
 
     /**
+     * @var File $icon
+     *
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="city_icon", fileNameProperty="iconName")
-     *
-     *
-     * @var File $icon
      */
     protected $icon;
 
     /**
-     * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
-     *
-     * @Expose
-     *
      * @var string $iconName
+     *
+     * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
      */
     protected $iconName;
 
     /**
+     * @var File $icon
+     *
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="city_image", fileNameProperty="imageName")
-     *
-     *
-     * @var File $icon
      */
     protected $image;
 
@@ -85,8 +72,6 @@ class City
      * @var string
      *
      * @ORM\Column(name="image_name", type="string", length=255, nullable=true)
-     *
-     * @Expose
      */
     private $imageName;
 

@@ -27,6 +27,14 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $currency->setName('Справочник валют'); // id = 4
         $manager->persist($currency);
 
+        $currency_level = new Dictionary;
+        $currency_level->setName('Уровень цен'); // id = 5
+        $manager->persist($currency_level);
+
+        $kind_of_activity = new Dictionary;
+        $kind_of_activity->setName('Род деятельности'); // id = 6
+        $manager->persist($kind_of_activity);
+
         $manager->flush();
 
         $org_types = [];
@@ -145,6 +153,30 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
         $currencys[] = 'Евро';
         $currencys[] = 'Гривна';
 
+        $currency_levels = [];
+        $currency_levels[] = 'Низкий';
+        $currency_levels[] = 'Средний';
+        $currency_levels[] = 'Приемлимый';
+        $currency_levels[] = 'Высокий';
+
+        $kinds_of_activity = [];
+        $kinds_of_activity[] = 'не указан';
+        $kinds_of_activity[] = 'учащийся';
+        $kinds_of_activity[] = 'студент';
+        $kinds_of_activity[] = 'гос служащий';
+        $kinds_of_activity[] = 'бизнесмен';
+        $kinds_of_activity[] = 'рабочий';
+        $kinds_of_activity[] = 'офисный работник';
+        $kinds_of_activity[] = 'руководитель среднего звена';
+        $kinds_of_activity[] = 'владелец бизнеса';
+        $kinds_of_activity[] = 'иждивенец';
+        $kinds_of_activity[] = 'военный';
+        $kinds_of_activity[] = 'научный работник';
+        $kinds_of_activity[] = 'профессиональный спортсмен';
+        $kinds_of_activity[] = 'домохозяйка';
+        $kinds_of_activity[] = 'фермер';
+        $kinds_of_activity[] = 'пенсионер';
+
         foreach ($currencys as $cur_name) {
             $d = new Dictionary;
             $d->setName($cur_name);
@@ -171,6 +203,20 @@ class LoadDictionaryData extends AbstractFixture implements OrderedFixtureInterf
             $d = new Dictionary;
             $d->setName($name);
             $d->setParent($car_job);
+            $manager->persist($d);
+        }
+
+        foreach ($currency_levels as $name) {
+            $d = new Dictionary;
+            $d->setName($name);
+            $d->setParent($currency_level);
+            $manager->persist($d);
+        }
+
+        foreach ($kinds_of_activity as $name) {
+            $d = new Dictionary;
+            $d->setName($name);
+            $d->setParent($kind_of_activity);
             $manager->persist($d);
         }
 

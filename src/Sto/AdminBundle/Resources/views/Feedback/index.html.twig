@@ -6,25 +6,42 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
+{% if app.session.hasFlash('notice') %}
+    <div class="flash-notice">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+
 <form action="{{ path('feedback_filter') }}" method="post" id="filter-form" class="form-inline">
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span3">
            <a class="btn btn-info" href="{{ path('feedbacks_new') }}"><i class="icon-plus icon-white"></i> Создать новый отзыв</a>
         </div>
-        <div class="span4">
-            <label>Публикация:</label>
-            <select name="filter_published" id="filter_published" class="btn-small" onchange="$('#filter-form').submit();">
+        <div class="span3">
+            <label>Что оцениваем:</label>
+            <select name="filter_company" id="filter_parent" class="btn-small span7" onchange="$('#filter-form').submit();">
+                <option value="-1" >{{ 'form.all'|trans({}) }}</option>
+                {% for company in parents %}
+                    <option value="{{ company.id }}"{% if app.session.get('filter_company') and app.session.get('filter_company') == company.id %} selected{% endif %}>
+                        {{ company.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="span3">
+            <label>Опубликован:</label>
+            <select name="filter_published" id="filter_published" class="btn-small span7" onchange="$('#filter-form').submit();">
                 <option value="-1" >{{ 'form.all'|trans({}) }}</option>
                 <option value="1"{% if app.session.get('filter_published') and app.session.get('filter_published') == 1 %} selected{% endif %}>Да</option>
                 <option value="2"{% if app.session.get('filter_published') and app.session.get('filter_published') == 2 %} selected{% endif %}>Нет</option>
             </select>
         </div>
-        <div class="span4 ">
+        <div class="span3">
             <label>Ответ на отзыв:</label>
-            <select name="filter_answer" id="filter_answer" class="btn-small" onchange="$('#filter-form').submit();">
+            <select name="filter_answer" id="filter_answer" class="btn-small span7" onchange="$('#filter-form').submit();">
                 <option value="-1" >{{ 'form.all'|trans({}) }}</option>
-                <option value="1"{% if app.session.get('filter_answer') and app.session.get('filter_answer') == 1 %} selected{% endif %}>Да</option>
-                <option value="2"{% if app.session.get('filter_answer') and app.session.get('filter_answer') == 2 %} selected{% endif %}>Нет</option>
+                <option value="1"{% if app.session.get('filter_answer') and app.session.get('filter_answer') == 1 %} selected{% endif %}>Присутствует</option>
+                <option value="2"{% if app.session.get('filter_answer') and app.session.get('filter_answer') == 2 %} selected{% endif %}>Отсутствует</option>
             </select>
         </div>
     </div>
@@ -41,7 +58,7 @@
             <th width="70">Оценка компании</th>
             <th width="70">Оценка отзыва</th>
             <th width="80">Что оцениваем</th>
-            <th width="75">Публикация</th>
+            <th width="75">Опубликован</th>
             <th width="75">Ответ на отзыв</th>
             <th width="50"></th>
         </tr>
@@ -52,18 +69,18 @@
             <td>{% if entity.visitDate %}{{ entity.visitDate|date('d.m.Y') }}{% endif %}</td>
             <td>{{ entity.mastername }}</td>
             <td>{{ entity.car }}</td>
-            <td>{{ entity.gn }}</td>
-            <td>{{ entity.nn }}</td>
-            <td>{{ entity.user.username }}</td>
-            <td>{{ entity.comapnyRating }}</td>
+            <td>{{ entity.statenumber }}</td>
+            <td>{{ entity.orderNumber }}</td>
+            <td>{{ entity.user.lastname }} {{ entity.user.firstname }}</td>
+            <td>{{ entity.companyRating }}</td>
             <td>{{ entity.feedbackRating|number_format(1) }}</td>
-            <td>{{ entity.targetRating }}</td>
-            <td>{% if entity.isPublished %}Да{% else %} Нет  {% endif %}</td>
-            <td>{% if entity.feedbackAnswer %}Да{% else %} Нет  {% endif %}</td>
+            <td>{% if entity.company %}{{ entity.company.name }}{% else %}Компанию в целом{% endif %}</td>
+            <td>{% if entity.published %}Да{% else %} Нет  {% endif %}</td>
+            <td>{% if entity.feedbackAnswer %}Присутствует{% else %} Отсутствует  {% endif %}</td>
             <td>
                 <a href="{{ path('feedbacks_show', { 'id': entity.id }) }}" class="icon-eye-close" title="Просмотр"></a>
                 <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
-                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                <a href="{{ path('feedbacks_delete', { 'id': entity.id }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>
     {% endfor %}

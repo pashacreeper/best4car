@@ -18,12 +18,19 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     {
         $firstNames = ['John', 'Mark', 'Lenny', 'Robert', 'Denial'];
         $lastNames = ['McCormack', 'Clapton', 'Plant', 'Woodman', 'Brown', 'Young'];
-        $roles = ['user', 'admin'];
+        $roles = ['user', 'admin', 'manager'];
 
         for ($j=1; $j < 31; $j++) {
             shuffle($firstNames);
             shuffle($lastNames);
-            $role = $j == 1 ? $roles[1] : $roles[rand(0,1)];
+            $role = $j == 1 ? $roles[1] : $roles[rand(0,2)];
+            $rating = rand(10, 600);
+            if ($rating<100)
+                $rating_group_id = 0;
+            elseif ($rating>499)
+                $rating_group_id = 2;
+            else
+                $rating_group_id = 1;
 
             $user = new User;
             $user->setUsername(($j == 1 ? $role :  $role . $j ));
@@ -32,8 +39,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setLastName($lastNames[rand(0,5)]);
             $user->setPhoneNumber('+' . rand(123, 987) . ' ' . rand(12, 98) . ' ' . rand(123, 987) . '-' . rand(12, 98) . '-' . rand(21, 89));
             $user->setEnabled(($j == 1 ? 1 : rand(0, 1) ));
-            $user->setRating( rand(1, 67) );
-            $user->addRole("ROLE_" . strtoupper($role));
+            $user->setRating( $rating );
+            $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
+            $user->setGroups([$this->getReference("groups[".($j == 1 ? 6 :  rand(0,5) )."]")]);
             $encoder = $this->container
                 ->get('security.encoder_factory')
                 ->getEncoder($user)
@@ -54,6 +62,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
     public function getOrder()
     {
-        return 1;
+        return 4;
     }
 }

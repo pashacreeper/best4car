@@ -6,7 +6,8 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sto\CoreBundle\Entity\Company,
     Sto\AdminBundle\Form\CompanyType;
 
@@ -21,6 +22,7 @@ class CompanyController extends Controller
      * Lists all Company entities.
      *
      * @Route("/", name="companies")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -158,5 +160,20 @@ class CompanyController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('companies'));
+    }
+
+    /**
+     * Finds and displays a Company entity.
+     *
+     * @Route("/{id}", name="company_show")
+     * @Method("GET")
+     * @Template()
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function showAction($company)
+    {
+        return [
+            'company' => $company,
+        ];
     }
 }

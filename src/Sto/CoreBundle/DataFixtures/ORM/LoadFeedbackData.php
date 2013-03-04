@@ -20,15 +20,16 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
             $feedback->setVisitDate(new \DateTime("now"));
             $feedback->setMastername($lastNames[rand(0,4)] . ' И.П.');
             $feedback->setCar('Mazda 3');
-            $feedback->setGn('А0' . rand(12,98) . 'АА ' . rand(123, 987));
-            $feedback->setNn('З/Н № ' . rand(123456, 987654));
-            $feedback->setComapnyRating(rand(1,5));
+            $feedback->setStatenumber('А0' . rand(12,98) . 'АА ' . rand(123, 987));
+            $feedback->setordernumber('З/Н № ' . rand(123456, 987654));
+            $feedback->setCompanyRating(rand(1,5));
             $feedback->setFeedbackRating(rand(1,5)/rand(5,6));
             $feedback->setPluses('');
             $feedback->setMinuses('');
             $feedback->setTargetRating('СТО');
-            $feedback->setIsPublished(true);
+            $feedback->setPublished(rand(0,1));
             $feedback->setUser($this->getReference("user[" . rand(1,30) . "]"));
+            $feedback->setCompany($this->getReference("company[" . rand(1,30) . "]"));
 
             $manager->persist($feedback);
             $this->addReference("feedback[{$i}]", $feedback);

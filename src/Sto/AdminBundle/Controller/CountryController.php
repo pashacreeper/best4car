@@ -25,12 +25,10 @@ class CountryController extends Controller
      */
     public function indexAction()
     {
-
         $session = $this->get('session');
         $filter_name = $session->get('filter_country_name');
 
         $em = $this->getDoctrine()->getManager();
-
         $query = $em->getRepository('StoCoreBundle:Country')
             ->createQueryBuilder('entity');
 

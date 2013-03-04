@@ -46,15 +46,15 @@ class Feedback
 
     /**
      * @var string
-     * @ORM\Column(name="gn", type="string", length=255, nullable=true)
+     * @ORM\Column(name="state_number", type="string", length=255, nullable=true)
      */
-    private $gn; // Гос номер автомобиля
+    private $stateNumber; // Гос номер автомобиля
 
     /**
      * @var string
-     * @ORM\Column(name="nn", type="string", length=255, nullable=true)
+     * @ORM\Column(name="order_number", type="string", length=255, nullable=true)
      */
-    private $nn; // Номер заказ-наряда
+    private $orderNumber; // Номер заказ-наряда
 
     /**
      * @var integer
@@ -72,7 +72,7 @@ class Feedback
      * @var integer
      * @ORM\Column(name="company_rating", type="integer")
      */
-    private $comapnyRating;
+    private $companyRating;
 
      /**
      * @var float
@@ -95,21 +95,57 @@ class Feedback
     /**
      * @var string
      *
-     * @ORM\Column(name="target_rating", type="string", length=255)
+     * @ORM\Column(name="target_rating", type="string", length=255, nullable=true)
      */
     private $targetRating;  // Что оцениваем
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_published", type="boolean")
+     * @ORM\Column(name="published", type="boolean")
      */
-    private $isPublished;  // Публикация
+    private $published;  // Публикация
 
     /**
      * @ORM\OneToOne(targetEntity="FeedbackAnswer", mappedBy="feedback", cascade={"remove"})
      */
     private $feedbackAnswer;
+
+    /**
+     *
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255, nullable=true)
+     */
+    private $ip;
+
+    /**
+     *
+     * @var interger
+     * @ORM\Column(name="currency_level_id", type="integer", nullable=true)
+     */
+    private $currencyLevelId;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Dictionary")
+     * @ORM\JoinColumn(name="currency_level_id", referencedColumnName="id")
+     */
+    private $currencyLevel;
+
+    /**
+     *
+     * @var integer
+     * @ORM\Column(name="company_id", type="integer", nullable=true)
+     */
+    private $companyId;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="feedbacks")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
 
     /**
      * Get id
@@ -214,49 +250,49 @@ class Feedback
     }
 
     /**
-     * Set gn
+     * Set stateNumber
      *
-     * @param  string   $gn
+     * @param  string   $stateNumber
      * @return Feedback
      */
-    public function setGn($gn)
+    public function setStateNumber($stateNumber)
     {
-        $this->gn = $gn;
+        $this->stateNumber = $stateNumber;
 
         return $this;
     }
 
     /**
-     * Get gn
+     * Get stateNumber
      *
      * @return string
      */
-    public function getGn()
+    public function getStateNumber()
     {
-        return $this->gn;
+        return $this->stateNumber;
     }
 
     /**
-     * Set nn
+     * Set orderNumber
      *
-     * @param  string   $nn
+     * @param  string   $orderNumber
      * @return Feedback
      */
-    public function setNn($nn)
+    public function setOrderNumber($orderNumber)
     {
-        $this->nn = $nn;
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }
 
     /**
-     * Get nn
+     * Get orderNumber
      *
      * @return string
      */
-    public function getNn()
+    public function getOrderNumber()
     {
-        return $this->nn;
+        return $this->orderNumber;
     }
 
     /**
@@ -265,9 +301,9 @@ class Feedback
      * @param  integer  $comapnyRating
      * @return Feedback
      */
-    public function setComapnyRating($comapnyRating)
+    public function setCompanyRating($companyRating)
     {
-        $this->comapnyRating = $comapnyRating;
+        $this->companyRating = $companyRating;
 
         return $this;
     }
@@ -277,9 +313,9 @@ class Feedback
      *
      * @return integer
      */
-    public function getComapnyRating()
+    public function getCompanyRating()
     {
-        return $this->comapnyRating;
+        return $this->companyRating;
     }
 
     /**
@@ -334,9 +370,9 @@ class Feedback
      * @param  boolean  $isPublished
      * @return Feedback
      */
-    public function setIsPublished($isPublished)
+    public function setPublished($published)
     {
-        $this->isPublished = $isPublished;
+        $this->published = $published;
 
         return $this;
     }
@@ -346,9 +382,9 @@ class Feedback
      *
      * @return boolean
      */
-    public function getIsPublished()
+    public function isPublished()
     {
-        return $this->isPublished;
+        return $this->published;
     }
 
     /**
@@ -420,5 +456,41 @@ class Feedback
     public function getFeedbackAnswer()
     {
         return $this->feedbackAnswer;
+    }
+
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    public function setIp($ip_address)
+    {
+        $this->ip = $ip_address;
+
+        return $this;
+    }
+
+    public function getCurrencyLevel()
+    {
+        return $this->currencyLevel;
+    }
+
+    public function setCurrencyLevel(Dictionary $level)
+    {
+        $this->currencyLevel = $level;
+
+        return $this;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+
+        return $this;
     }
 }

@@ -27,44 +27,55 @@ class FeedbackController extends Controller
      */
     public function indexAction()
     {
+    //  var_dump($this->getUser()->getGroups()); exit;
+
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
         $filter_published = $session->get('filter_published');
         $filter_answer = $session->get('filter_answer');
-        if (isset($filter_published) && $filter_published>-1) {
+        $filter_company = $session->get('filter_company');
+
+        $query = $em->getRepository('StoCoreBundle:Feedback')->createQueryBuilder('f');
+        if (isset($filter_published) && $filter_published != -1) {
             $flag = ($filter_published == 2 ) ? 0 : 1;
-            $entities = $em->getRepository('StoCoreBundle:Feedback')
-                ->findByIsPublished($flag);
-            if (isset($filter_answer) && $filter_answer>-1) {
-                foreach ($entities as $key => $value) {
-                    if ($filter_answer == 1 && !$value->getFeedbackAnswer())
-                        unset($entities[$key]);
-                    elseif ($filter_answer == 2 && $value->getFeedbackAnswer())
-                        unset($entities[$key]);
-                }
-            }
-        } else {
-            $entities = $em->getRepository('StoCoreBundle:Feedback')->findAll();
-            if (isset($filter_answer) && $filter_answer>-1) {
-                foreach ($entities as $key => $value) {
-                    if ($filter_answer == 1 && !$value->getFeedbackAnswer())
-                        unset($entities[$key]);
-                    elseif ($filter_answer == 2 && $value->getFeedbackAnswer())
-                        unset($entities[$key]);
-                }
-            }
+            $query->where('f.published = :flag')
+                ->setParameter('flag', $flag);
+
         }
+
+        if (isset($filter_company) && $filter_company!=-1) {
+            $query->andWhere('f.companyId = :company')
+                ->setParameter('company', $filter_company   );
+        }
+
+        if ($filter_answer == 1) {
+            $query->leftJoin('f.feedbackAnswer', 'fa')
+                ->andWhere('fa.feedbackId is not null');
+        } elseif ($filter_answer == 2) {
+            $query->leftJoin('f.feedbackAnswer', 'fa')
+                ->andWhere('fa.feedbackId is null');
+        }
+
+        $query->orderBy('f.id', 'DESC')
+            ->getQuery();
 
         $def_limit = $this->container->getParameter('pagination_default_value');
 
         $pagination = $this->get('knp_paginator')->paginate(
-            $entities,
+            $query,
             $this->get('request')->query->get('page', 1),
             $this->get('request')->query->get('numItemsPerPage', $def_limit)
         );
 
+        $parents = $em->getRepository('StoCoreBundle:Company')
+            ->createQueryBuilder('entity')
+            ->orderBy('entity.name')
+            ->getQuery()
+            ->getResult();
+
         return array(
             'entities' => $pagination,
+            'parents' => $parents,
         );
     }
 
@@ -125,7 +136,7 @@ class FeedbackController extends Controller
         if ($answer_form->isValid()) {
 
             $em2 = $this->getDoctrine()->getManager();
-            $entity_answer->setManager($this->getUser());
+            $entity_answer->setOwner($this->getUser());
             $entity_answer->setDate(new \DateTime("now"));
             $entity_answer->setFeedback($entity);
             $em2->persist($entity_answer);
@@ -134,7 +145,7 @@ class FeedbackController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->setFlash('notice', 'Your answer were saved!');
+            $this->get('session')->setFlash('notice', 'Answer was saved!');
 
             return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
         }
@@ -178,6 +189,7 @@ class FeedbackController extends Controller
             $entity->setUser($this->getUser());
             $entity->setPluses(0);
             $entity->setMinuses(0);
+            $entity->setIp($request->getClientIp());
             $em->persist($entity);
             $em->flush();
 
@@ -241,6 +253,7 @@ class FeedbackController extends Controller
 
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->setFlash('notice', 'Feedback was saved!');
 
             return $this->redirect($this->generateUrl('feedbacks_edit', array('id' => $id)));
         }
@@ -256,10 +269,24 @@ class FeedbackController extends Controller
      * Deletes a Feedback entity.
      *
      * @Route("/{id}/delete", name="feedbacks_delete")
-     * @Method("POST")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, $id)
     {
+
+        $em = $this->getDoctrine()->getManager();
+        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($id);
+
+        if (!$feedback) {
+            throw $this->createNotFoundException('Unable to find Feedback entity.');
+        }
+
+        $em->remove($feedback);
+        $em->flush();
+
+        $this->get('session')->setFlash('notice', 'Feedback was removed!');
+
+        /*
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
@@ -274,6 +301,7 @@ class FeedbackController extends Controller
             $em->remove($entity);
             $em->flush();
         }
+*/
 
         return $this->redirect($this->generateUrl('feedbacks'));
     }
@@ -296,13 +324,14 @@ class FeedbackController extends Controller
     {
         $filter_published = $request->request->get('filter_published');
         $filter_answer = $request->request->get('filter_answer');
+        $filter_company = $request->request->get('filter_company');
 
         $session = $this->get('session');
 
         $session->set('filter_published', $filter_published);
-
         $session->set('filter_answer', $filter_answer);
-        //$session->set('filter_city_name', $filter_name);
+        $session->set('filter_company', $filter_company);
+
         return $this->redirect($this->generateUrl('feedbacks'));
     }
 }

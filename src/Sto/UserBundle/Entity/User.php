@@ -9,6 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
     Symfony\Component\Validator\Constraints as Assert;
 
+use Sto\CoreBundle\Entity\Dictionary,
+    Sto\UserBundle\Entity\Group,
+    Sto\UserBundle\Entity\RatingGroup;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
@@ -53,9 +57,16 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
+     * @ORM\Column(name="rating_group_id", type="integer")
      */
     protected $ratingGroupId;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\RatingGroup", inversedBy="users")
+     * @ORM\JoinColumn(name="rating_group_id", referencedColumnName="id")
+     */
+    protected $ratingGroup;
 
     /**
      * @var string
@@ -149,6 +160,13 @@ class User extends BaseUser
     protected $jobId;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary")
+     * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     */
+    private $job;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="subscriptions", type="string", length=255, nullable=true)
@@ -168,6 +186,15 @@ class User extends BaseUser
      * @ORM\Column(name="requests", type="string", length=255, nullable=true)
      */
     private $requests;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\Group", inversedBy="users")
+     * @ORM\JoinTable(name="fos_user_user_group",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
 
     public function __construct()
     {
@@ -657,5 +684,41 @@ class User extends BaseUser
     public function getRequests()
     {
         return $this->requests;
+    }
+
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    public function setJob(Dictionary $job)
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    public function setGroups($group)
+    {
+        $this->groups = $group;
+
+        return $this;
+    }
+
+    public function getRatingGroup()
+    {
+        return $this->ratingGroup;
+    }
+
+    public function setRatingGroup(RatingGroup $group)
+    {
+        $this->ratingGroup = $group;
+
+        return $this;
     }
 }

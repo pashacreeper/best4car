@@ -2,10 +2,12 @@ body {
     padding-top: 5px;
     padding-bottom: 20px;
 }
+
 .container-narrow {
     margin: 0 auto;
     max-width: 1200px;
 }
+
 .container-narrow > hr {
     margin: 5px 0;
 }

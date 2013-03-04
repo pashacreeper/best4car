@@ -35,15 +35,15 @@ class FeedbackAnswer
 
     /**
      * @var integer
-     * @ORM\Column(name="manager_id", type="integer")
+     * @ORM\Column(name="owner_id", type="integer")
      */
-    private $managerId;
+    private $ownerId;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
-    private $manager;
+    private $owner;
 
     /**
      * @var integer
@@ -114,26 +114,26 @@ class FeedbackAnswer
     }
 
     /**
-     * Set manager
+     * Set owner
      *
-     * @param  \Sto\UserBundle\Entity\User $manager
+     * @param  \Sto\UserBundle\Entity\User $owner
      * @return FeedbackAnswer
      */
-    public function setManager(\Sto\UserBundle\Entity\User $manager = null)
+    public function setOwner(\Sto\UserBundle\Entity\User $owner = null)
     {
-        $this->manager = $manager;
+        $this->owner = $owner;
 
         return $this;
     }
 
     /**
-     * Get manager
+     * Get owner
      *
      * @return \Sto\UserBundle\Entity\User
      */
-    public function getManager()
+    public function getOwner()
     {
-        return $this->manager;
+        return $this->owner;
     }
 
     /**

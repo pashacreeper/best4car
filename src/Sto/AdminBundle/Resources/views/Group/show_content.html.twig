@@ -1,0 +1,40 @@
+<div class="fos_user_group_show">
+    <p>{{ 'group.show.name'|trans([], 'FOSUserBundle') }}: {{ group.getName() }}</p>
+    <h3>Пользователи</h3>
+    <table class="table table-hover table-condensed table-bordered table-striped">
+        <tr>
+            <th>Логин</th>
+            <th>Имя и фамилия</th>
+            <th>Действия</th>
+        </tr>
+
+    {% for user in group.users %}
+        <tr>
+            <td>{{ user.username }} </td>
+            <td>{{ user.firstName }} {{user.lastName}}</td>
+            <td>
+                <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{user.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <h3>Компании</h3>
+    <table class="table table-hover table-condensed table-bordered table-striped">
+         <tr>
+            <th>Название</th>
+            <th>Ссылка</th>
+            <th>Действия</th>
+        </tr>
+    {% for user in group.companies %}
+        <tr>
+            <td>{{ user.name }} </td>
+            <td><a href="{{user.web}}">{{ user.web }}</a></td>
+            <td>
+                <a href="{{ path('company_edit', { 'id': user.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{user.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>

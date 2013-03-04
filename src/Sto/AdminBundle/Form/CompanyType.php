@@ -131,6 +131,7 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
+            ->add('groups')
         ;
     }
 
