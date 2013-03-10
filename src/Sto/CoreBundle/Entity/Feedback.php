@@ -7,14 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Feedback
  *
- * @ORM\Table(name="feedbacks")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\FeedbackRepository")
+ * @ORM\Table(name="feedbacks")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"company" = "FeedbackCompany", "deal" = "FeedbackDeal"})
  */
-class Feedback
+abstract class Feedback
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,7 +23,6 @@ class Feedback
     private $id;
 
     /**
-     * @var string
      * @ORM\Column(name="content", type="text")
      */
     private $content;
@@ -33,31 +33,26 @@ class Feedback
     private $visitDate;
 
     /**
-     * @var string
      * @ORM\Column(name="master_name", type="string", length=255, nullable=true)
      */
     private $mastername;
 
     /**
-     * @var string
      * @ORM\Column(name="car", type="string", length=255, nullable=true)
      */
     private $car;
 
     /**
-     * @var string
      * @ORM\Column(name="state_number", type="string", length=255, nullable=true)
      */
     private $stateNumber; // Гос номер автомобиля
 
     /**
-     * @var string
      * @ORM\Column(name="order_number", type="string", length=255, nullable=true)
      */
     private $orderNumber; // Номер заказ-наряда
 
     /**
-     * @var integer
      * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
@@ -68,43 +63,30 @@ class Feedback
      */
     private $user;
 
-    /**
-     * @var integer
-     * @ORM\Column(name="company_rating", type="integer")
-     */
-    private $companyRating;
-
      /**
-     * @var float
      * @ORM\Column(name="feedback_rating", type="float")
      */
     private $feedbackRating;
 
     /**
-     * @var string
      * @ORM\Column(name="pluses", type="string")
      */
     private $pluses;
 
     /**
-     * @var string
      * @ORM\Column(name="minuses", type="string")
      */
     private $minuses;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="target_rating", type="string", length=255, nullable=true)
      */
     private $targetRating;  // Что оцениваем
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published;  // Публикация
+    private $published; // Публикация
 
     /**
      * @ORM\OneToOne(targetEntity="FeedbackAnswer", mappedBy="feedback", cascade={"remove"})
@@ -112,40 +94,20 @@ class Feedback
     private $feedbackAnswer;
 
     /**
-     *
-     * @var string
-     *
      * @ORM\Column(name="ip", type="string", length=255, nullable=true)
      */
     private $ip;
 
     /**
-     *
-     * @var interger
      * @ORM\Column(name="currency_level_id", type="integer", nullable=true)
      */
     private $currencyLevelId;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="Dictionary")
      * @ORM\JoinColumn(name="currency_level_id", referencedColumnName="id")
      */
     private $currencyLevel;
-
-    /**
-     *
-     * @var integer
-     * @ORM\Column(name="company_id", type="integer", nullable=true)
-     */
-    private $companyId;
-
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="feedbacks")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
-     */
-    private $company;
 
     /**
      * Get id
@@ -293,29 +255,6 @@ class Feedback
     public function getOrderNumber()
     {
         return $this->orderNumber;
-    }
-
-    /**
-     * Set comapnyRating
-     *
-     * @param  integer  $comapnyRating
-     * @return Feedback
-     */
-    public function setCompanyRating($companyRating)
-    {
-        $this->companyRating = $companyRating;
-
-        return $this;
-    }
-
-    /**
-     * Get comapnyRating
-     *
-     * @return integer
-     */
-    public function getCompanyRating()
-    {
-        return $this->companyRating;
     }
 
     /**
@@ -478,18 +417,6 @@ class Feedback
     public function setCurrencyLevel(Dictionary $level)
     {
         $this->currencyLevel = $level;
-
-        return $this;
-    }
-
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
 
         return $this;
     }

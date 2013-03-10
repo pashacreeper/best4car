@@ -20,23 +20,4 @@
         </div>
     </p>
 </form>
-{#}
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('feedbacks') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form  action="{{ path('feedbacks_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-
-            <div class="form-actions">
-                <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
-                <a class="btn" href="{{ path('feedbacks') }}">{{ 'form.cancel'|trans({}) }}</a>
-            </div>
-        </form>
-    </li>
-</ul>
-#}
 {% endblock %}

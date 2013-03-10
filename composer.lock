@@ -497,12 +497,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "3b8d0a0683e6326673fa6c695d29de13471c5440"
+                "reference": "990ef344d3c937dd2195babe94a4204559876b2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/3b8d0a0683e6326673fa6c695d29de13471c5440",
-                "reference": "3b8d0a0683e6326673fa6c695d29de13471c5440",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/990ef344d3c937dd2195babe94a4204559876b2d",
+                "reference": "990ef344d3c937dd2195babe94a4204559876b2d",
                 "shasum": ""
             },
             "require": {
@@ -560,7 +560,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2013-02-21 17:31:35"
+            "time": "2013-03-05 05:46:40"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -569,16 +569,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "4b59ab8d063eeed9292cec7fedd6b3a3631e4e84"
+                "reference": "1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4b59ab8d063eeed9292cec7fedd6b3a3631e4e84",
-                "reference": "4b59ab8d063eeed9292cec7fedd6b3a3631e4e84",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5",
+                "reference": "1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
+                "symfony/form": ">=2.1,<2.3-dev",
                 "symfony/framework-bundle": ">=2.1,<2.3-dev",
                 "symfony/security-bundle": ">=2.1,<2.3-dev"
             },
@@ -625,7 +626,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-03-01 14:56:23"
+            "time": "2013-03-07 11:48:46"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1487,12 +1488,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "v1.1.0-alpha4"
+                "reference": "fcee205a5a3a859c009d976ba3acfe67958e912c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0-alpha4",
-                "reference": "v1.1.0-alpha4",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/fcee205a5a3a859c009d976ba3acfe67958e912c",
+                "reference": "fcee205a5a3a859c009d976ba3acfe67958e912c",
                 "shasum": ""
             },
             "require": {
@@ -1550,7 +1551,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-02-24 17:22:20"
+            "time": "2013-03-05 17:56:54"
         },
         {
             "name": "leafo/lessphp",
@@ -1558,12 +1559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "e53c4ebb352c312af6a08dcfe183805dca16b992"
+                "reference": "54bb80519c9a73eff250fa1671707b492a402280"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/e53c4ebb352c312af6a08dcfe183805dca16b992",
-                "reference": "e53c4ebb352c312af6a08dcfe183805dca16b992",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/54bb80519c9a73eff250fa1671707b492a402280",
+                "reference": "54bb80519c9a73eff250fa1671707b492a402280",
                 "shasum": ""
             },
             "type": "library",
@@ -1591,7 +1592,7 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-03-02 22:57:32"
+            "time": "2013-03-08 21:29:33"
         },
         {
             "name": "monolog/monolog",
@@ -1656,12 +1657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "f17372ed379a350cc460bbeca261c0040d599086"
+                "reference": "3945a3f18c3784cc58ba6d76ab75baf2f50fedb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/f17372ed379a350cc460bbeca261c0040d599086",
-                "reference": "f17372ed379a350cc460bbeca261c0040d599086",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/3945a3f18c3784cc58ba6d76ab75baf2f50fedb8",
+                "reference": "3945a3f18c3784cc58ba6d76ab75baf2f50fedb8",
                 "shasum": ""
             },
             "require": {
@@ -1709,7 +1710,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-03-04 12:52:55"
+            "time": "2013-03-06 13:52:47"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2119,12 +2120,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "36e9594e8b3661d9901c22dcd58c3ffb9f116401"
+                "reference": "f481b74d5e67a55b24b62fe2c484d26b2bd1988c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/36e9594e8b3661d9901c22dcd58c3ffb9f116401",
-                "reference": "36e9594e8b3661d9901c22dcd58c3ffb9f116401",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/f481b74d5e67a55b24b62fe2c484d26b2bd1988c",
+                "reference": "f481b74d5e67a55b24b62fe2c484d26b2bd1988c",
                 "shasum": ""
             },
             "require": {
@@ -2173,7 +2174,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-03-04 15:29:32"
+            "time": "2013-03-05 04:14:20"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2295,12 +2296,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "0e7b5fb3bb928cd99efbc7ac0d41f209a7f1c6e8"
+                "reference": "ee495f8b5847ce22013ee84f7d3b9634b18b9dcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/0e7b5fb3bb928cd99efbc7ac0d41f209a7f1c6e8",
-                "reference": "0e7b5fb3bb928cd99efbc7ac0d41f209a7f1c6e8",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/ee495f8b5847ce22013ee84f7d3b9634b18b9dcc",
+                "reference": "ee495f8b5847ce22013ee84f7d3b9634b18b9dcc",
                 "shasum": ""
             },
             "require": {
@@ -2375,7 +2376,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-01 10:39:52"
+            "time": "2013-03-08 06:14:55"
         },
         {
             "name": "twig/extensions",
@@ -2383,12 +2384,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig-extensions.git",
-                "reference": "921799aaf05f88af749d72912d6b154dfeb9a03e"
+                "reference": "v1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/921799aaf05f88af749d72912d6b154dfeb9a03e",
-                "reference": "921799aaf05f88af749d72912d6b154dfeb9a03e",
+                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/v1.0.0",
+                "reference": "v1.0.0",
                 "shasum": ""
             },
             "require": {

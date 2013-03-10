@@ -1,0 +1,88 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Акции{% endblock %}
+
+{% block header %}
+<form class="form-search form-inline">
+    Я ищу акцию:
+    <div class="input-append">
+        <input type="text" class="search-query span9" placeholder="Все акции">
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+{% endblock %}
+
+
+
+
+    {% block aside %}
+<div class="container"> <!-- this div  for allign center  -->
+
+
+    <aside class="visible-desktop">
+        <ul class="sideMenu">
+            <li class="active">
+                <a href="#">Лучшие акции</a>
+            </li>
+            <li>
+                <a href="#">Скидки</a>
+                <span>14</span>
+            </li>
+            <li>
+                <a href="#">Бонусы</a>
+                <span>35</span>
+            </li>
+            <li>
+                <a href="#">Клубные предложения</a>
+                <span>21</span>
+            </li>
+            <li>
+                <a href="#">Распродажи</a>
+                <span>7</span>
+            </li>
+        </ul>
+    </aside>
+    {% endblock %}
+    {% block content_tag %}
+    <div id="content" class="container-fluid">
+    {% endblock %}
+    {% block content %}
+    <h3>
+        Лучшие спецпредложения города
+    </h3>
+    <div class="row">
+    {% set deal = random(deals) %}
+        <div class="span6">
+            <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
+                <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 560px; height: 260px;">
+            </a>
+        </div>
+        <div class="span3">
+        {% for deal in [random(deals), random(deals), random(deals)] %}
+            <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
+                <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 260px; height: 80px;">
+            </a>
+        {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="span10">
+    {% for deal in deals %}
+        <div class="span3">
+            <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
+                <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 260px; height: 80px;">
+            </a>
+            <p>{{ deal.name }}</p>
+            <p>{{ deal.company }}</p>
+            <p>с {{ deal.startTime|date("H:m") }} до {{ deal.endTime|date("H:m") }}</p>
+        </div>
+    {% endfor %}
+        </div>
+    </div>
+
+
+
+</div> <!-- EOF this div  for allign center  -->
+    {% endblock %}

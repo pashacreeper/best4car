@@ -32,8 +32,6 @@
             <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
                 <legend>{{ 'login.sign_in_text'|trans({}) }}</legend>
                 {% if error %}
-
-
                 {{ flash('error', 'login.alerts.wrong_pass'|trans({}) , true, true) }}
                 {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

@@ -150,6 +150,24 @@ vich_uploader:
             delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
+        user_photo:
+            uri_prefix: /images/user_photo/ # uri prefix to resource
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/user_photo # gaufrette storage fs id, required
+            namer: vich_uploader.namer_uniqid # specify a file namer service id for this entity, null default
+            delete_on_remove: true # determines whether to delete file upon removal of entity
+            delete_on_update: true
+        company_logo:
+            uri_prefix: /images/company_logo/ # uri prefix to resource
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/company_logo # gaufrette storage fs id, required
+            namer: vich_uploader.namer_uniqid # specify a file namer service id for this entity, null default
+            delete_on_remove: true # determines whether to delete file upon removal of entity
+            delete_on_update: true
+        deal_image:
+            uri_prefix: /images/deal_image
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
+            delete_on_remove:  true
+            namer: vich_uploader.namer_uniqid
+            delete_on_update: true
 
 # nelmo api config enabled
 nelmio_api_doc: ~

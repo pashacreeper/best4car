@@ -1,0 +1,35 @@
+services:
+    sto_content.navbar:
+        class: '%mopa_bootstrap.navbar.generic%'
+        scope: request
+        arguments:
+            - { leftmenu: @sto_content.navbar_main_menu=, rightmenu: @sto_content.navbar_right_menu= }
+            - {}
+            - { title: "BEST4CAR", titleRoute: "root", fixedTop: true, isFluid: false, inverse: true }
+        tags:
+            - { name: mopa_bootstrap.navbar, alias: frontendNavbar }
+
+    sto_content.navbar_menu_builder:
+        class: Sto\ContentBundle\Builder\MenuBuilder
+        scope: request
+        arguments: ['@knp_menu.factory']
+        calls:
+            - [setSecurityContext, [@security.context]]
+
+    sto_content.navbar_main_menu:
+        class: Knp\Menu\MenuItem
+        factory_service: sto_content.navbar_menu_builder
+        factory_method: createMainMenu
+        arguments: ['@request', '@translator']
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: main }
+
+    sto_content.navbar_right_menu:
+        class: Knp\Menu\MenuItem
+        factory_service: sto_content.navbar_menu_builder
+        factory_method: createRightSideDropdownMenu
+        arguments: ['@request', '@translator']
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: main }

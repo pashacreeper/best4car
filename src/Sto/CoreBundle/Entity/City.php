@@ -83,7 +83,7 @@ class City
     private $countryId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="countries")
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="cities")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
     private $country;

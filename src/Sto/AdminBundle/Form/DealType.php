@@ -35,8 +35,10 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
             ])
-            ->add('image', null, [
+            ->add('image', 'file', [
                 'label' => 'Image',
+                'data_class' => 'Symfony\Component\HttpFoundation\File\File',
+                'property_path' => 'image',
                 'required' => false,
                 'render_optional_text' => false
             ])

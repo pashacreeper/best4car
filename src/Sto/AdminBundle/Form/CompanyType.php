@@ -132,6 +132,7 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('groups')
+            ->add('ratingGroup')
         ;
     }
 

@@ -160,6 +160,7 @@ class UserController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $entity->setRating($entity->getRating());
             $em->persist($entity);
             $em->flush();
 

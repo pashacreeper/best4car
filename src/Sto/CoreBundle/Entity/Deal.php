@@ -4,12 +4,15 @@ namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Deal
  *
  * @ORM\Table(name="deals")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DealRepository")
+ * @Vich\Uploadable
  */
 class Deal
 {
@@ -61,11 +64,22 @@ class Deal
     private $services;
 
     /**
-     * @var string
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="deal_image", fileNameProperty="imageName")
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @var File $image
      */
-    private $image;
+    protected $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="image_name", nullable=true)
+     *
+     * @var string $imageName
+     */
+    protected $imageName;
 
     /**
      * @var string
@@ -116,6 +130,11 @@ class Deal
     private $place;
 
     /**
+     * @ORM\OneToMany(targetEntity="FeedbackDeal", mappedBy="deal", cascade={"all"})
+     */
+    private $feedbacks;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="contact_information", type="string", length=255, nullable=true)
@@ -134,6 +153,7 @@ class Deal
     {
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
+        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -476,5 +496,48 @@ class Deal
         } else {
             return $this->type;
         }
+    }
+
+    /**
+     * Add feedback
+     */
+    public function addFeedbacks(Feedback $feedback)
+    {
+        $this->feedbacks[] = $feedback;
+
+        return $this;
+    }
+
+    /**
+     * Remove feedback
+     */
+    public function removeFeedback(Feedback $feedback)
+    {
+        $this->feedbacks->removeElement($feedback);
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 }

@@ -70,6 +70,9 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             $systemManagement->addChild('Manage Deals', array(
                 'route' => 'deals',
             ));
+            $systemManagement->addChild('Manage Auto', array(
+                'route' => 'admin_autocatalog',
+            ));
         }
 
         return $menu;

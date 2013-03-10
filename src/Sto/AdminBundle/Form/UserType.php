@@ -22,7 +22,7 @@ class UserType extends AbstractType
             ->add('rating')
             ->add('ratingGroup')
             ->add('phoneNumber')
-            ->add('avatarUrl')
+            ->add('avatar')
             ->add('birthDate')
             ->add('gender')
             ->add('cityId')

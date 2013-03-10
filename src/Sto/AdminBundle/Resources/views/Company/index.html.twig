@@ -24,7 +24,11 @@
     <tbody>
     {% for company in companies %}
         <tr>
-            <td>{{ company.logo }}</td>
+            <td>
+                {% if company.logoName %}
+                <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="100" />
+                {% endif %}
+            </td>
             <td><a href="{{ path('company_show', { 'id': company.id }) }}" >{{ company.name }}</a></td>
             <td>{{ company.specialization }}</td>
             <td>{{ company.workingTime }}</td>

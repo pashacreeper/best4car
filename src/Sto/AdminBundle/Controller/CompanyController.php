@@ -75,6 +75,7 @@ class CompanyController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setUpdatedAt(new \DateTime());
             $em->persist($company);
             $em->flush();
 
@@ -129,6 +130,8 @@ class CompanyController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            //$company->setUpdatedAt(new \DateTime());
+            //var_dump($company); exit;
             $em->persist($company);
             $em->flush();
 

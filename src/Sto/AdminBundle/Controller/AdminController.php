@@ -14,6 +14,6 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return array('name' => 'iuui_test_val');
+        return [];
     }
 }

@@ -12,10 +12,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
 use Sto\CoreBundle\Entity\Dictionary,
     Sto\UserBundle\Entity\Group,
     Sto\UserBundle\Entity\RatingGroup;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -76,7 +79,18 @@ class User extends BaseUser
     private $phoneNumber;
 
     /**
-     * @var string
+     *
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="user_photo", fileNameProperty="avatarUrl")
+     *
+     * @var File $image
+     */
+    protected $avatar;
+    /**
+     * @var string $avatarUrl
      *
      * @ORM\Column(name="avatar_url", type="string", length=255, nullable=true)
      *
@@ -324,6 +338,18 @@ class User extends BaseUser
     public function getPhoneNumber()
     {
         return $this->phoneNumber;
+    }
+
+    public function setAvatar(File $avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
     // avatarUrl

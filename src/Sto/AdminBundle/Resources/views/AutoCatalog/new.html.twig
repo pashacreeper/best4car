@@ -1,0 +1,16 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}{{ "dict.title.new"|trans({}) }}{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
+<form action="{{ path('autocatalog_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
+        <a class="btn" href="{{ path('admin_autocatalog') }}">{{ 'form.cancel'|trans({}) }}</a>
+    </div>
+</form>
+{% endblock %}

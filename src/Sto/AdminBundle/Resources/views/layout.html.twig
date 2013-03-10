@@ -12,7 +12,10 @@
     {% block head_style %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite'
+        '@StoCoreBundle/Resources/public/css/bootstrap.css'
+        'bundles/stocore/css/elusive-webfont.css'
         'bundles/stoadmin/css/*.css'
+        '@StoCoreBundle/Resources/public/css/bootstrap-responsive.css'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
@@ -40,7 +43,7 @@
         {% block navbar_container %}
         <nav class="navigation">
             {% block navbar %}
-            {{ mopa_bootstrap_navbar('frontendNavbar') }}
+            {{ mopa_bootstrap_navbar('adminNavbar') }}
             {% endblock navbar %}
         </nav>
         {% endblock %}
@@ -75,22 +78,11 @@
     </div>
     {% block foot_script %}
     {% javascripts
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tab.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-carousel.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+        '@StoCoreBundle/Resources/public/js/bootstrap.min.js'
+        '@StoCoreBundle/Resources/public/js/holder.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
         '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
-        '@StoAdminBundle/Resources/public/js/holder.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

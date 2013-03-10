@@ -29,13 +29,13 @@ class AutoCatalog
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="AutoCatalog", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="AutoCatalog", mappedBy="parent" , cascade={"remove"})
      */
     private $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="AutoCatalog", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id" )
      */
     private $parent;
 
@@ -47,11 +47,18 @@ class AutoCatalog
     private $parentId;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->visible = false;
     }
 
     /**
@@ -161,6 +168,18 @@ class AutoCatalog
     public function getChildren()
     {
         return $this->children;
+    }
+
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
     }
 
     public function __toString()

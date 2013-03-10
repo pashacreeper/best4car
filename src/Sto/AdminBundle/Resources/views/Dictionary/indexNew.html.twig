@@ -6,12 +6,7 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-
-
-
-
 <div class="tabbable"> <!-- Only required for left/right tabs -->
-
     <ul class="nav nav-tabs">
         <li class="active"><a id="a_tab0" href="#tab0" data-toggle="tab">Типы организаций</a></li>
         <li><a id="a_tab1" href="#tab1" data-toggle="tab">Дополнительные услуги</a></li>
@@ -20,9 +15,7 @@
         <li><a id="a_tab4" href="#tab4" data-toggle="tab">City</a></li>
         <li><a id="a_tab5" href="#tab5" data-toggle="tab">Country</a></li>
     </ul>
-
     <div class="tab-content">
-
         <div class="tab-pane active" id="tab0">
             <center><img src="/bundles/stoadmin/images/preloader.gif" alt="" /></center>
         </div>
@@ -41,32 +34,20 @@
         <div class="tab-pane" id="tab5">
             <center><img src="/bundles/stoadmin/images/preloader.gif" alt="" /></center>
         </div>
-
     </div>
-
 </div>
-
-
-
-
 {% endblock %}
 
 {% block foot_script %}
 {{ parent() }}
-
 {% javascripts
-        '@StoAdminBundle/Resources/public/js/bootstrap-editable.js'
+        '@StoCoreBundle/Resources/public/js/bootstrap-editable.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
 <script type="text/javascript">
-
-
-
 (function($) {
-
-
     // additional job list
     $("#a_tab0").on('click', function(e){
         $.ajax({
@@ -78,10 +59,8 @@
             }
         }); // ajax
     });
-
     // additional job list
     $("#a_tab1").on('click', function(e){
-
         $.ajax({
             // statusCode: {
             //     403: function() {
@@ -142,12 +121,7 @@
             }
         }); // ajax
     });
-
     $("#a_tab0").click();
-
-
-
-
 })(jQuery);
 </script>
 {% endblock %}

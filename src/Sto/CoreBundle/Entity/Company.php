@@ -6,12 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Sto\UserBundle\Entity\RatingGroup;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Company
  *
  * @ORM\Table(name="companies")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanyRepository")
+ * @Vich\Uploadable
  */
 class Company
 {
@@ -77,11 +81,22 @@ class Company
     private $additionalServices;
 
     /**
-     * @var string
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logoName")
+     *
+     * @var File $logo
+     */
+    protected $logo;
+
+    /**
+     * @var string $logoName
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
-    private $logo;
+    protected $logoName;
 
     /**
      * @var string
@@ -223,7 +238,7 @@ class Company
     private $notes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Feedback", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="FeedbackCompany", mappedBy="company", cascade={"all"})
      */
     private $feedbacks;
 
@@ -249,6 +264,13 @@ class Company
      * @ORM\JoinColumn(name="rating_group_id", referencedColumnName="id")
      */
     protected $ratingGroup;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -439,6 +461,9 @@ class Company
     public function setLogo($logo)
     {
         $this->logo = $logo;
+        if ($logo instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
 
         return $this;
     }
@@ -950,5 +975,29 @@ class Company
         $this->ratingGroup = $group;
 
         return $this;
+    }
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setLogoName($logoName)
+    {
+        $this->logoName = $logoName;
+
+        return $this;
+    }
+
+    public function getLogoName()
+    {
+        return $this->logoName;
     }
 }

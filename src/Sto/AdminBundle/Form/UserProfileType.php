@@ -33,8 +33,8 @@ class UserProfileType extends BaseType
                 'required' => false,
                 'render_optional_text' => false,
             ])
-        ->add('avatarUrl', null, [
-                'label' => 'URL Аватара',
+        ->add('avatar', null, [
+                'label' => 'Аватара',
                 'required' => false,
                 'render_optional_text' => false,
             ])

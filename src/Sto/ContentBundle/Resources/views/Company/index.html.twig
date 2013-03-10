@@ -1,0 +1,64 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Компании{% endblock %}
+
+{% block header %}
+<form class="form-search form-inline">
+    Я ищу компанию:
+    <div class="input-append">
+        <input type="text" class="search-query span9" placeholder="Все компании">
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block content %}
+<div id="map" style="width:100%; height:475px"></div>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+
+        function init (companies) {
+            var myMap = new ymaps.Map("map", {
+                center: [59.95, 30.31],
+                zoom: 11
+            }),
+            bounds = myMap.getBounds(),
+            styleKeys = [
+                "twirl#lightblueIcon", "twirl#whiteIcon", "twirl#greenIcon",
+                "twirl#redIcon", "twirl#yellowIcon",
+                "twirl#darkblueIcon", "twirl#nightIcon",
+                "twirl#greyIcon", "twirl#blueIcon",
+                "twirl#orangeIcon", "twirl#darkorangeIcon",
+                "twirl#pinkIcon", "twirl#violetIcon"
+            ],
+            myPlacemark,
+            myCollection = new ymaps.GeoObjectCollection();
+
+            var companies = {{ companies|raw }};
+            for (var key in companies) {
+                var val = companies[key];
+
+                myPlacemark = new ymaps.Placemark(val.gps.split(','), {
+                    iconContent: key,
+                    balloonContentHeader: val.name,
+                    balloonContentBody: val.description,
+                }, {
+                    preset: styleKeys[key]
+                });
+                myCollection.add(myPlacemark);
+            }
+            myMap.controls.add('zoomControl');
+            myMap.geoObjects.add(myCollection);
+        }
+
+        function getRandomCoordinates (maxLatitude, minLatitude, maxLongitude, minLongitude) {
+            return [Math.random() * (maxLatitude - minLatitude) + minLatitude, Math.random() * (maxLongitude - minLongitude) + minLongitude];
+        }
+    </script>
+{% endblock %}

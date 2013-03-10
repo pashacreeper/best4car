@@ -1,0 +1,16 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Клубы{% endblock %}
+
+{% block header %}
+<form class="form-search form-inline">
+    Я ищу клуб:
+    <div class="input-append">
+        <input type="text" class="search-query span9" placeholder="Все клубы">
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block content %}{% endblock %}

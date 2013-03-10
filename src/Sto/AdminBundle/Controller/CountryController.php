@@ -151,7 +151,7 @@ class CountryController extends Controller
      *
      * @Route("/create", name="country_create")
      * @Method("POST")
-     * @Template("StoCoreBundle:Country:new.html.twig")
+     * @Template("StoAdminBundle:Country:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -204,7 +204,7 @@ class CountryController extends Controller
      *
      * @Route("/{id}/update", name="country_update")
      * @Method("POST")
-     * @Template("StoCoreBundle:Country:edit.html.twig")
+     * @Template("StoAdminBundle:Country:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

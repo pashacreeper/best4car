@@ -173,7 +173,7 @@ class CityController extends Controller
      *
      * @Route("/create", name="city_create")
      * @Method("POST")
-     * @Template("StoCoreBundle:City:new.html.twig")
+     * @Template("StoAdminBundle:City:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -226,7 +226,7 @@ class CityController extends Controller
      *
      * @Route("/{id}/update", name="city_update")
      * @Method("POST")
-     * @Template("StoCoreBundle:City:edit.html.twig")
+     * @Template("StoAdminBundle:City:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -243,6 +243,7 @@ class CityController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            var_dump($entity); exit;
             $em->persist($entity);
             $em->flush();
 
