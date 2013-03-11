@@ -12,7 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
 use Sto\CoreBundle\Entity\Dictionary,
     Sto\UserBundle\Entity\Group,
     Sto\UserBundle\Entity\RatingGroup;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -86,7 +87,7 @@ class User extends BaseUser
      * )
      * @Vich\UploadableField(mapping="user_photo", fileNameProperty="avatarUrl")
      *
-     * @var File $image
+     * @var File $avatar
      */
     protected $avatar;
     /**
@@ -209,6 +210,13 @@ class User extends BaseUser
      * )
      */
     protected $groups;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -340,10 +348,12 @@ class User extends BaseUser
         return $this->phoneNumber;
     }
 
-    public function setAvatar(File $avatar)
+    public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
-
+        if ($avatar instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
         return $this;
     }
 
@@ -746,5 +756,17 @@ class User extends BaseUser
         $this->ratingGroup = $group;
 
         return $this;
+    }
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

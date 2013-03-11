@@ -4,6 +4,7 @@ namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
     Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -78,6 +79,13 @@ class Country
     private $cities;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -150,6 +158,9 @@ class Country
     public function setIcon($icon)
     {
         $this->icon = $icon;
+        if ($icon instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
 
         return $this;
     }
@@ -173,6 +184,9 @@ class Country
     public function setImage($image)
     {
         $this->image = $image;
+        if ($image instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
 
         return $this;
     }
@@ -252,5 +266,17 @@ class Country
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

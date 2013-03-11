@@ -26,7 +26,8 @@
         function init (companies) {
             var myMap = new ymaps.Map("map", {
                 center: [59.95, 30.31],
-                zoom: 11
+                zoom: 11,
+                behaviors: ["default", "scrollZoom"]
             }),
             bounds = myMap.getBounds(),
             styleKeys = [
@@ -46,19 +47,63 @@
 
                 myPlacemark = new ymaps.Placemark(val.gps.split(','), {
                     iconContent: key,
-                    balloonContentHeader: val.name,
-                    balloonContentBody: val.description,
+                    name: val.name,
+                    address: val.address,
+                    phone: val.phone,
+                    web: val.web,
                 }, {
                     preset: styleKeys[key]
                 });
                 myCollection.add(myPlacemark);
             }
-            myMap.controls.add('zoomControl');
-            myMap.geoObjects.add(myCollection);
-        }
 
-        function getRandomCoordinates (maxLatitude, minLatitude, maxLongitude, minLongitude) {
-            return [Math.random() * (maxLatitude - minLatitude) + minLatitude, Math.random() * (maxLongitude - minLongitude) + minLongitude];
+            var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
+                '<div class="row-fluid">' +
+                    '<div class="span2">' +
+                        '<img src="http://placehold.it/100x80" class="img-polaroid">' +
+                    '</div>' +
+                    '<div class="span10">' +
+                        '<div class="row-fluid">' +
+                            '<div class="span8">' +
+                                '<h4>$[properties.name]</h4>' +
+                                '<address style="0">$[properties.address]</address>' +
+                            '</div>' +
+                            '<div class="span4">' +
+                                '<h4><i class="icon-star"></i> 8.0</h4>' +
+                                '<p>Очень хорошо</p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<hr style="margin: 5px 0;"/>' +
+                        '<div class="row-fluid">' +
+                            '<div class="span6">' +
+                                '<p><img src="http://placehold.it/30x30"> СТО</p>' +
+                                '<p><img src="http://placehold.it/30x30"> Мойка</p>' +
+                                '<p><img src="http://placehold.it/30x30"> Автосалон</p>' +
+                                '<p><img src="http://placehold.it/30x30"> Страхование</p>' +
+                                '<hr />' +
+                                '<img src="http://placehold.it/30x30"> ' +
+                                '<img src="http://placehold.it/30x30"> ' +
+                                '<img src="http://placehold.it/30x30"> ' +
+                            '</div>' +
+                            '<div class="span6">' +
+                                '<h5>Телефон</h5>' +
+                                '<p>$[properties.phone]</p>' +
+                                '<h5>Время работы</h5>' +
+                                '<p>09:00-21:00 (пн-пт)</p>' +
+                                '<p>09:00-20:00 (сб-вс)</p>' +
+                                '<h5>Сайт</h5>' +
+                                '<a href="#">$[properties.web]</a>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>'
+            );
+            ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
+            myCollection.options.set({
+                balloonContentBodyLayout:'my#superlayout',
+                balloonMinWidth: 600
+            });
+            myMap.geoObjects.add(myCollection);
         }
     </script>
 {% endblock %}

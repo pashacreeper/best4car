@@ -5,7 +5,8 @@ namespace Sto\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Deal
@@ -149,6 +150,13 @@ class Deal
      */
     private $type;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->startDate = new \DateTime('now');
@@ -287,6 +295,9 @@ class Deal
     public function setImage($image)
     {
         $this->image = $image;
+        if ($image instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
 
         return $this;
     }
@@ -539,5 +550,17 @@ class Deal
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

@@ -130,12 +130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "689bc2ae2a41dff1107d9d50e2daa4c349222869"
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/689bc2ae2a41dff1107d9d50e2daa4c349222869",
-                "reference": "689bc2ae2a41dff1107d9d50e2daa4c349222869",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
+                "reference": "eef10f6b92706bdae2841a8fdeb45ad8999b15b3",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +177,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2013-02-12 02:52:36"
+            "time": "2013-03-11 00:25:48"
         },
         {
             "name": "doctrine/dbal",
@@ -2296,12 +2296,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "ee495f8b5847ce22013ee84f7d3b9634b18b9dcc"
+                "reference": "a27f7d8c592530b204f602eba1bf3625d1d33adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/ee495f8b5847ce22013ee84f7d3b9634b18b9dcc",
-                "reference": "ee495f8b5847ce22013ee84f7d3b9634b18b9dcc",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/a27f7d8c592530b204f602eba1bf3625d1d33adf",
+                "reference": "a27f7d8c592530b204f602eba1bf3625d1d33adf",
                 "shasum": ""
             },
             "require": {
@@ -2376,7 +2376,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-08 06:14:55"
+            "time": "2013-03-10 07:25:48"
         },
         {
             "name": "twig/extensions",

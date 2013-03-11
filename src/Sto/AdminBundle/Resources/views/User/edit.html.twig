@@ -7,6 +7,12 @@
 
 {% block content %}
 <form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+    <div class="control-group">
+        <div class="controls">
+            <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}?{{ random() }}" width="160"/>
+        </div>
+    </div>
+
     {{ form_widget(edit_form) }}
 
     <div class="form-actions">

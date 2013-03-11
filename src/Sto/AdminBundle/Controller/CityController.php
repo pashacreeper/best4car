@@ -243,7 +243,6 @@ class CityController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            var_dump($entity); exit;
             $em->persist($entity);
             $em->flush();
 
