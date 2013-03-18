@@ -29,11 +29,11 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             'extras' => [],
         ]);
         $menu->addChild('Клубы', [
-            'route' => 'content_clubs',
+            'uri' => '#',
             'extras' => [],
         ]);
         $menu->addChild('Эксперты', [
-            'route' => 'content_experts',
+            'uri' => '#',
             'extras' => [],
         ]);
 
@@ -43,24 +43,27 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
     public function createRightSideDropdownMenu(Request $request, Translator $translator)
     {
         $menu = $this->factory->createItem('root');
+        $context = $this->securityContext;
         $menu->setChildrenAttribute('class', 'nav pull-right');
 
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $context->getToken()->getUser();
 
         if (is_object($user) && $user instanceof UserInterface) {
             $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, ['caret' => true]);
-            $profile->addChild('Account info', [
+            $profile->addChild('Профиль', [
                 'route' => 'fos_user_profile_show',
                 'extras' => [
                     'icon' => 'info-sign',
                 ],
             ]);
-            $profile->addChild('Account info', [
-                'route' => 'fos_user_profile_show',
-                'extras' => [
-                    'icon' => 'info-sign',
-                ],
-            ]);
+            if ($context->isGranted('ROLE_ADMIN')) {
+                $profile->addChild('Панель администратора', [
+                    'route' => 'admin_index',
+                    'extras' => [
+                        'icon' => 'info-sign',
+                    ],
+                ]);
+            }
             $this->addDivider($profile);
             $profile->addChild($translator->trans('menu.logout'), [
                 'route' => 'fos_user_security_logout',
@@ -74,6 +77,34 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                 'extras' => [],
             ]);
         }
+
+        return $menu;
+    }
+
+    public function createBottomMenu()
+    {
+        $menu = $this->createNavbarMenuItem();
+
+        $menu->addChild('О проекте', [
+            'uri' => '#',
+            'extras' => [],
+        ]);
+        $menu->addChild('Рекламодателям', [
+            'uri' => '#',
+            'extras' => [],
+        ]);
+        $menu->addChild('Помощь', [
+            'uri' => '#',
+            'extras' => [],
+        ]);
+        $menu->addChild('Тур', [
+            'uri' => '#',
+            'extras' => [],
+        ]);
+        $menu->addChild('Обратная связь', [
+            'uri' => '#',
+            'extras' => [],
+        ]);
 
         return $menu;
     }

@@ -48,7 +48,6 @@ class DealController extends Controller
             $this->get('request')->query->get('page', 1),
             $this->get('request')->query->get('numItemsPerPage', $def_limit)
         );
-
         return [
             'deals' => $pagination,
         ];
@@ -74,7 +73,7 @@ class DealController extends Controller
      *
      * @Route("/create", name="deal_create")
      * @Method("POST")
-     * @Template("StoCoreBundle:Deal:new.html.twig")
+     * @Template("StoAdminBundle:Deal:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -86,7 +85,6 @@ class DealController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($deal);
             $em->flush();
-
             return $this->redirect($this->generateUrl('deals'));
         }
 
@@ -110,7 +108,6 @@ class DealController extends Controller
         if (!$deal) {
             throw $this->createNotFoundException('Unable to find Deal entity.');
         }
-
         $editForm = $this->createForm(new DealType, $deal);
 
         return [

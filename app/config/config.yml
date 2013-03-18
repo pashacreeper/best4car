@@ -168,6 +168,24 @@ vich_uploader:
             delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
+        deal_image2:
+            uri_prefix: /images/deal_image
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
+            delete_on_remove:  true
+            namer: vich_uploader.namer_uniqid
+            delete_on_update: true
+        deal_image3:
+            uri_prefix: /images/deal_image
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
+            delete_on_remove:  true
+            namer: vich_uploader.namer_uniqid
+            delete_on_update: true
+        company_gallery:
+            uri_prefix: /images/company/company_gallery
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/company/company_gallery
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
 
 # nelmo api config enabled
 nelmio_api_doc: ~

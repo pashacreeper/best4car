@@ -9,7 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sto\CoreBundle\Entity\Company,
-    Sto\AdminBundle\Form\CompanyType;
+    Sto\CoreBundle\Entity\CompanyGallery,
+    Sto\AdminBundle\Form\CompanyType,
+    Sto\AdminBundle\Form\CompanyGalleryType;
 
 /**
  * Company controller.
@@ -178,5 +180,110 @@ class CompanyController extends Controller
         return [
             'company' => $company,
         ];
+    }
+
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/gallery", name="company_gallery")
+     * @Template("StoAdminBundle:Company:show_gallery.html.twig")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function showGalleryAction($company){
+
+        //if ($companyGallery == null)
+        $companyGallery  = new CompanyGallery;
+        $form = $this->createForm(new CompanyGalleryType, $companyGallery);
+
+        return [
+            'company' => $company,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/save_image", name="company_save_image")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function saveImageAction($company, Request $request){
+
+        $companyGallery  = new CompanyGallery;
+        $form = $this->createForm(new CompanyGalleryType, $companyGallery);
+        $form->bind($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $companyGallery->setCompany($company);
+
+            $em->persist($companyGallery);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('company_gallery', ['id'=>$company->getId()]));
+        }
+    }
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/edit_image/{image_id}", name="company_edit_image")
+     * @Template("StoAdminBundle:Company:edit_gallery.html.twig")
+     */
+    public function editImageAction(Request $request, $id, $image_id){
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
+        $companyGallery = $em->getRepository('StoCoreBundle:CompanyGallery')->findOneById($image_id);
+        $form = $this->createForm(new CompanyGalleryType, $companyGallery);
+
+        return [
+            'company' => $company,
+            'form' => $form->createView(),
+            'image' => $companyGallery,
+        ];
+    }
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/update_image/{image_id}", name="company_update_image")
+     * @Template("StoAdminBundle:Company:edit_gallery.html.twig")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function updateImageAction(Request $request, $company, $image_id){
+        $em = $this->getDoctrine()->getManager();
+        $companyGallery = $em->getRepository('StoCoreBundle:CompanyGallery')->findOneById($image_id);
+        $form = $this->createForm(new CompanyGalleryType, $companyGallery);
+        $form->bind($request);
+        if ($form->isValid()) {
+            $em->persist($companyGallery);
+            $em->flush();
+            return $this->redirect($this->generateUrl('company_gallery', ['id'=>$company->getId()]));
+        }
+        return [
+            'company' => $company,
+            'image' => $companyGallery,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Deletes a Image entity.
+     *
+     * @Route("/{id}/delete_image/{image_id}", name="company_delete_image")
+     */
+    public function deleteImageAction(Request $request, $id, $image_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $image = $em->getRepository('StoCoreBundle:CompanyGallery')->findOneById($image_id);
+
+        if (!$image) {
+            throw $this->createNotFoundException('Unable to find Image entity.');
+        }
+
+        $em->remove($image);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('company_gallery', ['id'=>$id]));
     }
 }

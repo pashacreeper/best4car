@@ -1,17 +1,7 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Акции{% endblock %}
-
-{% block header %}
-<form class="form-search form-inline">
-    Я ищу акцию:
-    <div class="input-append">
-        <input type="text" class="search-query span9" placeholder="Все акции">
-        <button type="submit" class="btn btn-primary">Найти</button>
-    </div>
-</form>
-{% endblock %}
+{% block title 'Акции' %}
 
 {% block content %}
 <h3>{{ deal.name }}</h3>

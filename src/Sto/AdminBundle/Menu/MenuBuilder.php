@@ -33,26 +33,26 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         }
 
         if ($context->isGranted('ROLE_ADMIN')) {
-            $systemManagement = $this->createDropdownMenuItem($menu, "System Management", true, array('caret' => true));
-            $systemManagement->addChild('Manage Users', array(
+            $systemManagement = $this->createDropdownMenuItem($menu, "Система управления", true, array('caret' => true));
+            $systemManagement->addChild('Управление пользователями', array(
                 'route' => 'admin_user',
                 'extras' => array(
                     'icon' => 'user',
                 ),
             ));
-            $systemManagement->addChild('Manage Contant Groups', array(
+            $systemManagement->addChild('Работа с группами контактов', array(
                 'route' => 'group_list',
                 'extras' => array(
                     'icon' => 'group',
                 ),
             ));
-            $systemManagement->addChild('Manage Rating Groups', array(
+            $systemManagement->addChild('Работа с группами рейтингов', array(
                 'route' => 'rating_groups',
                 'extras' => array(
                     'icon' => 'rating_group',
                 ),
             ));
-            $systemManagement->addChild('Manage Feedback', array(
+            $systemManagement->addChild('Управление отзывами', array(
                 'route' => 'feedbacks',
                 'extras' => array(
                     'icon' => 'envelope',
@@ -61,16 +61,16 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         }
 
         if ($context->isGranted('ROLE_ADMIN')) {
-            $systemManagement->addChild('Manage Companies', array(
+            $systemManagement->addChild('Управление компаниями', array(
                 'route' => 'companies',
                 'extras' => array(
                     'icon' => 'th-list',
                 ),
             ));
-            $systemManagement->addChild('Manage Deals', array(
+            $systemManagement->addChild('Управление акциами', array(
                 'route' => 'deals',
             ));
-            $systemManagement->addChild('Manage Auto', array(
+            $systemManagement->addChild('Управление автокаталогом', array(
                 'route' => 'admin_autocatalog',
             ));
         }
@@ -86,7 +86,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $user = $this->securityContext->getToken()->getUser();
         if (is_object($user) && $user instanceof UserInterface) {
             $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, array('caret' => true));
-            $profile->addChild(' Account info', array(
+            $profile->addChild('Профиль', array(
                 'route' => 'fos_user_profile_show',
                 'extras' => array(
                     'icon' => 'info-sign',

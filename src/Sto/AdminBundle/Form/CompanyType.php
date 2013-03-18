@@ -50,6 +50,9 @@ class CompanyType extends AbstractType
             ])
             ->add('phones', null, [
                 'label' => 'Phones',
+                'attr' => [
+                    'data-mask' => '+7 (999) 999-99-99'
+                ]
             ])
             ->add('skype', null, [
                 'label' => 'Skype',
@@ -145,6 +148,6 @@ class CompanyType extends AbstractType
 
     public function getName()
     {
-        return 'sto_adminbundle_companytype';
+        return 'sto_admin_company';
     }
 }

@@ -38,7 +38,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setLogoName('1.png');
 
         $company->setWorkingTime('09:00 - 21:00');
-        $company->setPhones('+7-' . rand(123, 987) .'-' . rand(123, 987) . '-' . rand(1234, 9876));
+        $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
         $company->setAddress('197374, Санкт-Петербург, ул. Школьная д. 71 корпус 3');
@@ -87,7 +87,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setLogoName('2.png');
 
         $company->setWorkingTime('09:00 - 21:00');
-        $company->setPhones('+7-' . rand(123, 987) .'-' . rand(123, 987) . '-' . rand(1234, 9876));
+        $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
         $company->setAddress('Санкт-Петербург, пр. Елизарова, д. 34');
@@ -145,7 +145,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setLogoName($i . '.png');
 
             $company->setWorkingTime('10:00 - 20:00');
-            $company->setPhones('+7-' . rand(123, 987) . '-' . rand(123, 987) . '-' . rand(1234, 9876));
+            $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
             $company->setSkype('altauto');
             $company->setEmail('info@altauto.ru');
             $company->setAddress('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');

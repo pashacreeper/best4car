@@ -37,7 +37,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setEmail(($j == 1 ? $role :  $role . $j ) . "@sto.com");
             $user->setFirstName($firstNames[rand(0,4)]);
             $user->setLastName($lastNames[rand(0,5)]);
-            $user->setPhoneNumber('+' . rand(123, 987) . ' ' . rand(12, 98) . ' ' . rand(123, 987) . '-' . rand(12, 98) . '-' . rand(21, 89));
+            $user->setPhoneNumber('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
             $user->setEnabled(($j == 1 ? 1 : rand(0, 1) ));
             $user->setRating( $rating );
             $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));

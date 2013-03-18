@@ -23,8 +23,14 @@ class CompanyController extends Controller
             ->getArrayResult()
         ;
 
+        $cities = $em->getRepository('StoCoreBundle:City')
+            ->createQueryBuilder('city')
+            ->getQuery()
+            ->getArrayResult();
+
         return [
-            'companies' => json_encode($companies)
+            'companies' => json_encode($companies),
+            'cities' => $cities
         ];
     }
 }

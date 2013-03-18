@@ -265,12 +265,21 @@ class Company
      */
     protected $ratingGroup;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyGallery", mappedBy="company", cascade={"all"})
+     */
+    private $gallery;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+
+
 
     public function __construct()
     {
@@ -279,6 +288,7 @@ class Company
         $this->subscribable = false;
         $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1000,4 +1010,33 @@ class Company
     {
         return $this->logoName;
     }
+
+    /**
+     * Add gallery
+     */
+    public function addGallery(CompanyGallery $gallery)
+    {
+        $this->gallery[] = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Remove gallery
+     */
+    public function removeGallery(CompanyGallery $gallery)
+    {
+        $this->gallery->removeElement($gallery);
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
 }

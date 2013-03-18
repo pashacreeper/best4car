@@ -1,0 +1,196 @@
+<?php
+namespace Sto\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use Sto\CoreBundle\Entity\Company;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * CompanyGallery
+ *
+ * @ORM\Table(name="company_gallery")
+ * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanyGalleryRepository")
+ * @Vich\Uploadable
+ */
+class CompanyGallery
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="company_gallery", fileNameProperty="imageName")
+     *
+     * @var File $image
+     */
+    protected $image;
+
+    /**
+     * @var string $logoName
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    protected $imageName;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(name="company_id", type="integer")
+     */
+    private $companyId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="gallery")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    public function __construct()
+    {
+        $this->visible = false;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string  $name
+     * @return Company
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set image
+     *
+     * @param  string  $logo
+     * @return Company
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        if ($image instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getImageName(){
+        return $this->imageName;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param  boolean $visible
+     * @return Company
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+}

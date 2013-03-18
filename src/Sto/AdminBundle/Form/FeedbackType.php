@@ -69,7 +69,6 @@ class FeedbackType extends AbstractType
                                 ->setParameter(1, 5);
                      }
             ])
-
         ;
     }
 

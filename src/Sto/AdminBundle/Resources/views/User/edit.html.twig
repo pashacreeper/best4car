@@ -12,12 +12,19 @@
             <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}?{{ random() }}" width="160"/>
         </div>
     </div>
-
     {{ form_widget(edit_form) }}
-
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
         <a class="btn" href="{{ path('admin_user') }}">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+{% javascripts
+    '@StoCoreBundle/Resources/public/js/bootstrap-inputmask.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

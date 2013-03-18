@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File,
     Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
+use Sto\CoreBundle\Entity\Image;
 
 /**
  * Deal
@@ -64,23 +66,54 @@ class Deal
      */
     private $services;
 
+
     /**
-     * @Assert\File(
-     *     maxSize="2M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
-     * )
+     *@Assert\File(
+     *  maxSize="2M",
+     *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     *)
      * @Vich\UploadableField(mapping="deal_image", fileNameProperty="imageName")
-     *
      * @var File $image
      */
     protected $image;
 
+
     /**
-     * @ORM\Column(type="string", length=255, name="image_name", nullable=true)
-     *
-     * @var string $imageName
+     * @ORM\Column(type="string", name="image_name", nullable=true)
      */
     protected $imageName;
+
+    /**
+     *@Assert\File(
+     *  maxSize="2M",
+     *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     *)
+     * @Vich\UploadableField(mapping="deal_image2", fileNameProperty="imageName2")
+     * @var File $image2
+     */
+    protected $image2;
+
+
+    /**
+     * @ORM\Column(type="string", name="image_name2", nullable=true)
+     */
+    protected $imageName2;
+
+    /**
+     *@Assert\File(
+     *  maxSize="2M",
+     *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     *)
+     * @Vich\UploadableField(mapping="deal_image3", fileNameProperty="imageName3")
+     * @var File $image3
+     */
+    protected $image3;
+
+
+    /**
+     * @ORM\Column(type="string", name="image_name3", nullable=true)
+     */
+    protected $imageName3;
 
     /**
      * @var string
@@ -161,8 +194,9 @@ class Deal
     {
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
-        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -286,31 +320,7 @@ class Deal
         return $this->services;
     }
 
-    /**
-     * Set image
-     *
-     * @param  string $image
-     * @return Deal
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-        if ($image instanceof UploadedFile) {
-            $this->setUpdatedAt(new \DateTime());
-        }
 
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
 
     /**
      * Set terms
@@ -542,15 +552,7 @@ class Deal
         return $this->name;
     }
 
-    public function setImageName($imageName)
-    {
-        $this->imageName = $imageName;
-    }
 
-    public function getImageName()
-    {
-        return $this->imageName;
-    }
 
     public function setUpdatedAt($date)
     {
@@ -563,4 +565,99 @@ class Deal
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set image
+     *
+     * @param  string $image
+     * @return Deal
+     */
+
+
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImageName($imageName){
+        $this->imageName = $imageName;
+        return $this;
+    }
+    public function getImageName(){
+        return $this->imageName;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+        if ($image instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage2()
+    {
+        return $this->image2;
+    }
+
+    public function setImageName2($imageName2){
+        $this->imageName2 = $imageName2;
+        return $this;
+    }
+    public function getImageName2(){
+        return $this->imageName2;
+    }
+
+    public function setImage2($image2)
+    {
+        $this->image2 = $image2;
+        if ($image2 instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage3()
+    {
+        return $this->image3;
+    }
+
+    public function setImageName3($imageName3){
+        $this->imageName3 = $imageName3;
+        return $this;
+    }
+    public function getImageName3(){
+        return $this->imageName3;
+    }
+
+    public function setImage3($image3){
+        $this->image3 = $image3;
+        if ($image3 instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
 }
+
+

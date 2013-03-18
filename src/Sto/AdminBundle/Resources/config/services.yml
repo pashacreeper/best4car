@@ -5,7 +5,7 @@ services:
         arguments:
             - { leftmenu: @sto_admin.navbar_main_menu=, rightmenu: @sto_admin.navbar_right_menu= }
             - {}
-            - { title: "STO", titleRoute: "root", fixedTop: false, isFluid: true }
+            - { title: "BEST4CAR ADMIN", titleRoute: "root", fixedTop: false, isFluid: true }
         tags:
             - { name: mopa_bootstrap.navbar, alias: adminNavbar }
 

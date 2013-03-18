@@ -1,5 +1,5 @@
 {
-    "hash": "63822df223e9358da349d462c7eec352",
+    "hash": "8edaa90aaa4e32584794f8c63ff220c5",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -375,12 +375,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "304acf0a1af15ebe049231b84a7630c75ecbe62d"
+                "reference": "ae1f903080407c97847d5bab325bba208622bb3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/304acf0a1af15ebe049231b84a7630c75ecbe62d",
-                "reference": "304acf0a1af15ebe049231b84a7630c75ecbe62d",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/ae1f903080407c97847d5bab325bba208622bb3a",
+                "reference": "ae1f903080407c97847d5bab325bba208622bb3a",
                 "shasum": ""
             },
             "require": {
@@ -437,7 +437,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-02-21 18:03:42"
+            "time": "2013-03-17 20:49:24"
         },
         {
             "name": "friendsofsymfony/rest",
@@ -492,17 +492,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "dev-master",
+            "version": "0.11.0",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "990ef344d3c937dd2195babe94a4204559876b2d"
+                "reference": "0.11.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/990ef344d3c937dd2195babe94a4204559876b2d",
-                "reference": "990ef344d3c937dd2195babe94a4204559876b2d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/0.11.0",
+                "reference": "0.11.0",
                 "shasum": ""
             },
             "require": {
@@ -515,10 +515,10 @@
             },
             "require-dev": {
                 "jms/serializer-bundle": "0.11.*",
-                "sensio/framework-extra-bundle": ">=2.1,<2.3-dev",
-                "symfony/form": ">=2.1,<2.3-dev",
-                "symfony/security": ">=2.1,<2.3-dev",
-                "symfony/yaml": ">=2.1,<2.3-dev"
+                "sensio/framework-extra-bundle": ">=2.1,<2.4-dev",
+                "symfony/form": ">=2.1,<2.4-dev",
+                "symfony/security": ">=2.1,<2.4-dev",
+                "symfony/yaml": ">=2.1,<2.4-dev"
             },
             "suggest": {
                 "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires 0.11.*",
@@ -560,7 +560,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2013-03-05 05:46:40"
+            "time": "2013-03-11 13:13:23"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -569,12 +569,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5"
+                "reference": "ec05bec2307c4b63e0d63dc0de7c89942853cabc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5",
-                "reference": "1f2cd0cd5a557fad31dc99ad7eec227d05ad0af5",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/ec05bec2307c4b63e0d63dc0de7c89942853cabc",
+                "reference": "ec05bec2307c4b63e0d63dc0de7c89942853cabc",
                 "shasum": ""
             },
             "require": {
@@ -626,7 +626,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-03-07 11:48:46"
+            "time": "2013-03-18 15:41:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1051,12 +1051,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "fa2447f4e225307e340b07e9fb97ade896291cc7"
+                "reference": "ab2ca253c3e2fb12dfbe3f1048224661ebf25494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/fa2447f4e225307e340b07e9fb97ade896291cc7",
-                "reference": "fa2447f4e225307e340b07e9fb97ade896291cc7",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/ab2ca253c3e2fb12dfbe3f1048224661ebf25494",
+                "reference": "ab2ca253c3e2fb12dfbe3f1048224661ebf25494",
                 "shasum": ""
             },
             "require": {
@@ -1110,7 +1110,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2013-02-23 13:35:57"
+            "time": "2013-03-14 09:30:30"
         },
         {
             "name": "knplabs/gaufrette",
@@ -1118,12 +1118,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/Gaufrette.git",
-                "reference": "cf14c277588e6e11848061260d8b19d8c431a5a5"
+                "reference": "88488e9a735a77e519103897d93ec9f89d7510e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/cf14c277588e6e11848061260d8b19d8c431a5a5",
-                "reference": "cf14c277588e6e11848061260d8b19d8c431a5a5",
+                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/88488e9a735a77e519103897d93ec9f89d7510e1",
+                "reference": "88488e9a735a77e519103897d93ec9f89d7510e1",
                 "shasum": ""
             },
             "require": {
@@ -1182,7 +1182,7 @@
                 "filesystem",
                 "media"
             ],
-            "time": "2013-03-01 18:12:01"
+            "time": "2013-03-14 13:27:30"
         },
         {
             "name": "knplabs/knp-components",
@@ -1376,12 +1376,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "bfaa9f1a74ee590c5e6460a3139b268fce1f1885"
+                "reference": "8f84c396927809e885f7a17ef3737358c001d78f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/bfaa9f1a74ee590c5e6460a3139b268fce1f1885",
-                "reference": "bfaa9f1a74ee590c5e6460a3139b268fce1f1885",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/8f84c396927809e885f7a17ef3737358c001d78f",
+                "reference": "8f84c396927809e885f7a17ef3737358c001d78f",
                 "shasum": ""
             },
             "require": {
@@ -1421,7 +1421,7 @@
             "keywords": [
                 "menu"
             ],
-            "time": "2012-12-29 08:47:58"
+            "time": "2013-03-18 17:08:00"
         },
         {
             "name": "knplabs/knp-paginator-bundle",
@@ -1430,12 +1430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "v2.3.2"
+                "reference": "ae880a6a8adc2a41b14dcebf0a4e9dc142a3a772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/ae880a6a8adc2a41b14dcebf0a4e9dc142a3a772",
+                "reference": "ae880a6a8adc2a41b14dcebf0a4e9dc142a3a772",
                 "shasum": ""
             },
             "require": {
@@ -1480,7 +1480,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2013-02-18 17:29:20"
+            "time": "2013-03-14 07:27:40"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1555,16 +1555,16 @@
         },
         {
             "name": "leafo/lessphp",
-            "version": "dev-master",
+            "version": "v0.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "54bb80519c9a73eff250fa1671707b492a402280"
+                "reference": "v0.3.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/54bb80519c9a73eff250fa1671707b492a402280",
-                "reference": "54bb80519c9a73eff250fa1671707b492a402280",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/v0.3.9",
+                "reference": "v0.3.9",
                 "shasum": ""
             },
             "type": "library",
@@ -1592,7 +1592,7 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-03-08 21:29:33"
+            "time": "2013-03-02 16:13:31"
         },
         {
             "name": "monolog/monolog",
@@ -1657,12 +1657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "3945a3f18c3784cc58ba6d76ab75baf2f50fedb8"
+                "reference": "698b7acb6d6ee3344349469552d06d02521b2e4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/3945a3f18c3784cc58ba6d76ab75baf2f50fedb8",
-                "reference": "3945a3f18c3784cc58ba6d76ab75baf2f50fedb8",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/698b7acb6d6ee3344349469552d06d02521b2e4a",
+                "reference": "698b7acb6d6ee3344349469552d06d02521b2e4a",
                 "shasum": ""
             },
             "require": {
@@ -1710,7 +1710,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-03-06 13:52:47"
+            "time": "2013-03-13 12:10:47"
         },
         {
             "name": "mopa/composer-bridge",
@@ -1765,12 +1765,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "bfcea36689d13f3b17add1d2d58d142bb76b8d96"
+                "reference": "2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/bfcea36689d13f3b17add1d2d58d142bb76b8d96",
-                "reference": "bfcea36689d13f3b17add1d2d58d142bb76b8d96",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/2.1.0",
+                "reference": "2.1.0",
                 "shasum": ""
             },
             "require": {
@@ -1822,7 +1822,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2013-03-01 21:04:51"
+            "time": "2013-03-17 15:45:23"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2296,12 +2296,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "a27f7d8c592530b204f602eba1bf3625d1d33adf"
+                "reference": "46341e171a635eae18d2e1f5bca48ebfa4b8a1ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/a27f7d8c592530b204f602eba1bf3625d1d33adf",
-                "reference": "a27f7d8c592530b204f602eba1bf3625d1d33adf",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/46341e171a635eae18d2e1f5bca48ebfa4b8a1ea",
+                "reference": "46341e171a635eae18d2e1f5bca48ebfa4b8a1ea",
                 "shasum": ""
             },
             "require": {
@@ -2376,7 +2376,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-10 07:25:48"
+            "time": "2013-03-18 18:53:03"
         },
         {
             "name": "twig/extensions",
@@ -2581,7 +2581,6 @@
         "knplabs/knp-paginator-bundle": 20,
         "knplabs/gaufrette": 20,
         "knplabs/knp-gaufrette-bundle": 20,
-        "leafo/lessphp": 20,
         "mopa/bootstrap-bundle": 20,
         "vich/uploader-bundle": 20
     },

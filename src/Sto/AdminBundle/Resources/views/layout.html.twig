@@ -12,10 +12,11 @@
     {% block head_style %}
     {{ parent() }}
     {% stylesheets filter='cssrewrite'
-        '@StoCoreBundle/Resources/public/css/bootstrap.css'
+        'bundles/stocore/css/bootstrap.css'
         'bundles/stocore/css/elusive-webfont.css'
         'bundles/stoadmin/css/*.css'
-        '@StoCoreBundle/Resources/public/css/bootstrap-responsive.css'
+        'bundles/stocore/css/bootstrap-responsive.css'
+        'bundles/stocore/css/select2.css'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
@@ -40,15 +41,15 @@
 {% block body %}
     <div class="container-narrow">
     <header class="header">
-        {% block navbar_container %}
+{% block navbar_container %}
         <nav class="navigation">
-            {% block navbar %}
+{% block navbar %}
             {{ mopa_bootstrap_navbar('adminNavbar') }}
-            {% endblock navbar %}
+{% endblock %}
         </nav>
-        {% endblock %}
-        {% block header %}
-        {% endblock %}
+{% endblock %}
+{% block header %}
+{% endblock %}
     <hr>
     </header>
     <div class="content-block">
@@ -78,8 +79,8 @@
     </div>
     {% block foot_script %}
     {% javascripts
-        '@StoCoreBundle/Resources/public/js/bootstrap.min.js'
-        '@StoCoreBundle/Resources/public/js/holder.js'
+        'bundles/stocore/js/bootstrap.js'
+        'bundles/stocore/js/holder.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
         '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'

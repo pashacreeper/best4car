@@ -35,7 +35,7 @@
         "knplabs/gaufrette": "0.2.*@dev",
         "knplabs/knp-gaufrette-bundle": "0.2.*@dev",
 
-        "leafo/lessphp": "0.3.*@dev",
+        "leafo/lessphp": "v0.3.9",
         "twitter/bootstrap": "v2.3.1",
         "mopa/bootstrap-bundle": "2.1.*@dev",
 

@@ -1,7 +1,7 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Акции{% endblock %}
+{% block title 'Акции' %}
 
 {% block header %}
 <form class="form-search form-inline">
@@ -13,13 +13,8 @@
 </form>
 {% endblock %}
 
-
-
-
-    {% block aside %}
-<div class="container"> <!-- this div  for allign center  -->
-
-
+{% block aside %}
+<div class="container">
     <aside class="visible-desktop">
         <ul class="sideMenu">
             <li class="active">
@@ -43,15 +38,14 @@
             </li>
         </ul>
     </aside>
-    {% endblock %}
-    {% block content_tag %}
-    <div id="content" class="container-fluid">
-    {% endblock %}
-    {% block content %}
-    <h3>
+{% endblock %}
+{% block content_tag 'id="content" class="container deals-index"' %}
+
+{% block content %}
+    <div class="row-fluid">
+    <h3 class="offset1">
         Лучшие спецпредложения города
     </h3>
-    <div class="row">
     {% set deal = random(deals) %}
         <div class="span6">
             <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
@@ -81,8 +75,4 @@
     {% endfor %}
         </div>
     </div>
-
-
-
-</div> <!-- EOF this div  for allign center  -->
-    {% endblock %}
+{% endblock %}

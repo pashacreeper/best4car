@@ -5,11 +5,19 @@ namespace Sto\AdminBundle\Form;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sto\AdminBundle\Form\ImageType;
 
 class DealType extends AbstractType
 {
+
+    public function preUpdate(FormEvent $event){
+        print "YEP"; exit;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
             ->add('name', 'text', [
                 'label' => 'Deal name',
@@ -39,6 +47,20 @@ class DealType extends AbstractType
                 'label' => 'Image',
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('image2', 'file', [
+                'label' => 'Image2',
+                'data_class' => 'Symfony\Component\HttpFoundation\File\File',
+                'property_path' => 'image2',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('image3', 'file', [
+                'label' => 'Image3',
+                'data_class' => 'Symfony\Component\HttpFoundation\File\File',
+                'property_path' => 'image3',
                 'required' => false,
                 'render_optional_text' => false
             ])
@@ -115,3 +137,7 @@ class DealType extends AbstractType
         ];
     }
 }
+
+
+
+

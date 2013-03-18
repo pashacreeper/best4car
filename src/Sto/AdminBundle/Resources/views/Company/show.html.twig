@@ -10,6 +10,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#1" data-toggle="tab">Information</a></li>
         <li><a href="#2" data-toggle="tab">Additional information</a></li>
+        <li><a href="#3" data-toggle="tab">Gallery</a></li>
         <li class="pull-right"><a href="{{ path('companies') }}">Back to list</a></li>
         <li class="pull-right"><a href="{{ path('company_edit', { 'id': company.id }) }}" >Edit company</a></li>
     </ul>
@@ -18,7 +19,7 @@
             <div class="invoice-container">
                 <div class="page-header">
                     <div class="pull-right">
-                        <img data-src="holder.js/120x120" class="img-circle" alt="120x120" style="width: 120px; height: 120px;">
+                        <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" class="img-circle" alt="120x120" style="width: 120px; height: 120px;">
                     </div>
                     <h3>{{ company.name }} <small>{{ company.slogan }}</small></h3>
                     <p>{{ company.notes }}</p>
@@ -44,7 +45,7 @@
             <div class="invoice-container">
                 <div class="page-header">
                     <div class="pull-right">
-                        <img data-src="holder.js/120x120" class="img-circle" alt="120x120" style="width: 120px; height: 120px;">
+                        <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" class="img-circle" alt="120x120" style="width: 120px; height: 120px;">
                     </div>
                     <h3>{{ company.fullName }} <small>{{ company.slogan }}</small></h3>
                     <p>{{ company.description }}</p>
@@ -68,6 +69,30 @@
                 <div class="row-fluid">
                     <p>{{ company.photos }}</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="3">
+            <div class="invoice-container">
+                <div class="row-fluid">
+                    {% if company.gallery %}
+                        <ul class="thumbnails">
+                        {% for photo in company.gallery %}
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}">
+                                        <img title="{{ photo.name }}" alt="{{ photo.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}" class="img-rounded" style="width: 260px; height: 180px;">
+                                    </a>
+                                    <div class="caption">
+                                        <h3>{{ photo.name }}</h3>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
             </div>
         </div>
     </div>

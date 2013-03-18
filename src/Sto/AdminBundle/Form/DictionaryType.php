@@ -11,21 +11,24 @@ class DictionaryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, array('label' => 'dict.fields.name'))
-            // ->add('parentId')
-            ->add('parent', null, array('label' => 'dict.fields.parent'))
+            ->add('name', null, [
+                'label' => 'dict.fields.name'
+            ])
+            ->add('parent', null, [
+                'label' => 'dict.fields.parent'
+            ])
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\Dictionary'
-        ));
+        ]);
     }
 
     public function getName()
     {
-        return 'sto_adminbundle_dictionarytype';
+        return 'sto_admin_dictionary';
     }
 }
