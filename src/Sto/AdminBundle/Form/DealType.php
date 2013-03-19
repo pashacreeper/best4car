@@ -9,28 +9,21 @@ use Sto\AdminBundle\Form\ImageType;
 
 class DealType extends AbstractType
 {
-
-    public function preUpdate(FormEvent $event){
-        print "YEP"; exit;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $builder
             ->add('name', 'text', [
-                'label' => 'Deal name',
+                'label' => 'Название акции',
                 'required' => true,
             ])
             ->add('company', null, [
-                'label' => 'Company',
+                'label' => 'Компания',
                 'required' => true,
-                'empty_value' => 'Choose company',
+                'empty_value' => 'Выберите компанию',
                 'empty_data'  => null
             ])
             ->add('description', 'textarea', [
-                'label' => 'Description',
+                'label' => 'Описание',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -48,6 +41,7 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
                 'required' => false,
+                'label_render' => false,
                 'render_optional_text' => false
             ])
             ->add('image2', 'file', [
@@ -55,6 +49,7 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image2',
                 'required' => false,
+                'label_render' => false,
                 'render_optional_text' => false
             ])
             ->add('image3', 'file', [
@@ -62,6 +57,7 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image3',
                 'required' => false,
+                'label_render' => false,
                 'render_optional_text' => false
             ])
             ->add('terms', null, [
@@ -72,13 +68,13 @@ class DealType extends AbstractType
             ->add('startDate', 'date', [
                 'widget' => 'single_text',
                 'datepicker' => true,
-                'label' => 'Start date',
+                'label' => 'Начало',
                 'required' => true,
             ])
             ->add('endDate', 'date', [
                 'widget' => 'single_text',
                 'datepicker' => true,
-                'label' => 'End date',
+                'label' => 'Конец',
                 'required' => true,
             ])
             ->add('startTime', 'time', [
@@ -95,7 +91,7 @@ class DealType extends AbstractType
                 'render_optional_text' => false,
             ])
             ->add('contactInformation', 'textarea', [
-                'label' => 'Contact Information',
+                'label' => 'Контактная информация',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -137,7 +133,3 @@ class DealType extends AbstractType
         ];
     }
 }
-
-
-
-

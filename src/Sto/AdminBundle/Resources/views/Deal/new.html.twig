@@ -1,7 +1,7 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Add Deal{% endblock %}
+{% block title %}Новая акция{% endblock %}
 
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
@@ -57,8 +57,8 @@
     <div>
     <div class="row"></div>
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Create" />
-        <a href="{{ path('deals') }}" class="btn">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="Создать" />
+        <a href="{{ path('deals') }}" class="btn">Отмена</a>
     </div>
 </form>
 {% endblock %}

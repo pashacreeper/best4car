@@ -60,6 +60,7 @@
                 var val = companies[key];
 
                 myPlacemark = new ymaps.Placemark(val.gps.split(','), {
+                    id: val.id,
                     name: val.name,
                     address: val.address,
                     phone: val.phones,
@@ -81,7 +82,7 @@
                     '<div class="span10">' +
                         '<div class="row-fluid">' +
                             '<div class="span8">' +
-                                '<h4>$[properties.name]</h4>' +
+                                '<h4><a href="../company/$[properties.id]">$[properties.name]</a></h4>' +
                                 '<address style="0">$[properties.address]</address>' +
                             '</div>' +
                             '<div class="span4">' +

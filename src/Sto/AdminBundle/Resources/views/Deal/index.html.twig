@@ -1,23 +1,23 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Deal list{% endblock %}
+{% block title %}Список акций{% endblock %}
 
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-<p><a href="{{ path('deal_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Create a new deal</a></p>
+<p><a href="{{ path('deal_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Новая акция</a></p>
 {% if deals is not empty %}
 <table class="table table-hover">
     <thead>
         <tr>
-            <th width="120">Company</th>
-            <th width="140">Name</th>
+            <th width="120">Компания</th>
+            <th width="140">Название</th>
             <th width="140">Services</th>
-            <th width="70">Date</th>
-            <th width="70">Time</th>
-            <th width="200">Place</th>
-            <th width="120">Type</th>
+            <th width="70">Дата</th>
+            <th width="70">Время</th>
+            <th width="200">Место</th>
+            <th width="120">Тип</th>
             <th width="30"></th>
         </tr>
     </thead>
