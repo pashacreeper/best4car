@@ -25,10 +25,9 @@
     {% for entity in entities %}
         <tr>
             <td>{{ entity.id }}</td>
-            <td>{{ entity.name }}</td>
+            <td><a href="{{ path('admin_autocatalog_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             <td>{% if entity.visible %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
             <td>
-                <a href="{{ path('admin_autocatalog_show', { 'id': entity.id }) }}" class="icon-eye-close" title="Просмотр"></a>
                 <a href="{{ path('autocatalog_edit', { 'id': entity.id }) }}" class="icon-pencil" title="Редактировать"></a>
                 <a href="{{ path('autocatalog_delete', { 'id': entity.id }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>

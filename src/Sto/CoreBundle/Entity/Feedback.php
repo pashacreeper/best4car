@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"company" = "FeedbackCompany", "deal" = "FeedbackDeal"})
  */
-abstract class Feedback
+class Feedback
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -420,4 +420,6 @@ abstract class Feedback
 
         return $this;
     }
+
+
 }

@@ -15,7 +15,18 @@
 <form action="{{ path('feedback_filter') }}" method="post" id="filter-form" class="form-inline">
     <div class="row-fluid">
         <div class="span3">
-            <a class="btn btn-info btn-small" href="{{ path('feedbacks_new') }}"><i class="icon-plus icon-white"></i> Создать новый отзыв</a>
+            <div class="btn-group">
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-plus icon-white"></i> Создать новый отзыв
+                    <span class="caret"></span>
+                </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ path('feedbacks_new', {'feedback':'company'}) }}">Создать новый отзыв компании</a></li>
+                <li><a href="{{ path('feedbacks_new', {'feedback':'deal'}) }}">Создать новый отзыв акции</a></li>
+              </ul>
+            </div>
+
+
         </div>
         <div class="span3">
             <label>Что оцениваем:</label>
@@ -55,7 +66,7 @@
             <th width="90">Гос. номер</th>
             <th width="100">Номер заказа-наряда</th>
             <th width="140">Автор отзыва</th>
-            <th width="70">Оценка компании</th>
+            {#<th width="70">Оценка компании</th>#}
             <th width="70">Оценка отзыва</th>
             <th width="80">Что оцениваем</th>
             <th width="75">Опубликован</th>
@@ -72,9 +83,10 @@
             <td>{{ entity.statenumber }}</td>
             <td>{{ entity.orderNumber }}</td>
             <td>{{ entity.user.lastname }} {{ entity.user.firstname }}</td>
-            <td>{{ entity.companyRating }}</td>
+            {#<td>{{ entity.companyRating }}</td>#}
             <td>{{ entity.feedbackRating|number_format(1) }}</td>
-            <td>{% if entity.company %}{{ entity.company.name }}{% else %}Компанию в целом{% endif %}</td>
+            <td>{% if entity.company is defined and entity.company %}{{ entity.company.name }}
+                {% elseif entity.deal is defined and entity.deal %}{{ entity.deal.name }}{% else %}Компанию в целом{% endif %}</td>
             <td>{% if entity.published %}Да{% else %} Нет  {% endif %}</td>
             <td>{% if entity.feedbackAnswer %}Присутствует{% else %} Отсутствует  {% endif %}</td>
             <td>

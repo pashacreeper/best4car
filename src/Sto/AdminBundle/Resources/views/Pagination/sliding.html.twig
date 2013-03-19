@@ -2,7 +2,7 @@
     <div class="span12">
         <div class="pagination form-inline">
             <div class="span6">
-                Items per page:
+                Элементов на странице:
                 <select class="input-small" name="pagination_portion" id="pagination_portion" onchange="document.location='{{ path(route, query|merge({'page': 1})) }}&amp;numItemsPerPage='+$('#pagination_portion').val();">
 {% for i in 1..5 %}
                     <option value="{{ pagination_default_value * i }}"{% if numItemsPerPage == pagination_default_value * i %} selected{% endif %}>{{ pagination_default_value * i }}</option>

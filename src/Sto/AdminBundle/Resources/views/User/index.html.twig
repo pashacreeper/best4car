@@ -1,27 +1,27 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Users list{% endblock %}
+{% block title %}Список пользователей{% endblock %}
 
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
 <p>
-    <a class="btn btn-info" href="{{ path('admin_user_new') }}"><i class="icon-plus icon-white"></i> Create a new entry</a>
+    <a class="btn btn-info" href="{{ path('admin_user_new') }}"><i class="icon-plus icon-white"></i> Добавить пользователя</a>
 </p>
 
 <table class="table table-hover table-condensed table-bordered table-striped">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Enabled</th>
-            <th>Roles</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Rating</th>
-            <th>Phonenumber</th>
-            <th width="35">Actions</th>
+            <th>Логин</th>
+            <th>E-mail</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Роль</th>
+            <th>Рэйтинг</th>
+            <th>Телефон</th>
+            <th width="35">Enabled</th>
+            <th width="35"></th>
         </tr>
     </thead>
     <tbody>
@@ -29,12 +29,16 @@
         <tr>
             <td>{{ entity.username }}</td>
             <td>{{ entity.email }}</td>
-            <td>{{ entity.enabled }}</td>
-            <td>{{ entity.roles[0] }}</td>
             <td>{{ entity.firstName }}</td>
             <td>{{ entity.lastName }}</td>
+            <td>{{ entity.roles[0] }}</td>
             <td>{{ entity.rating }}</td>
             <td>{{ entity.phoneNumber }}</td>
+{% if entity.enabled %}
+            <td><i class="icon-ok"></i></td>
+{% else %}
+            <td><i class="icon-remove"></i></td>
+{% endif %}
             <td>
                 <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>

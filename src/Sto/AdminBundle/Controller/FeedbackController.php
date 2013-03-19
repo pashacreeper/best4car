@@ -9,7 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\CoreBundle\Entity\Feedback,
     Sto\CoreBundle\Entity\FeedbackAnswer,
+    Sto\CoreBundle\Entity\FeedbackCompany,
+    Sto\CoreBundle\Entity\FeedbackDeal,
     Sto\AdminBundle\Form\FeedbackType,
+    Sto\AdminBundle\Form\FeedbackCompanyType,
+    Sto\AdminBundle\Form\FeedbackDealType,
     Sto\AdminBundle\Form\FeedbackAnswerType;
 
 /**
@@ -159,29 +163,42 @@ class FeedbackController extends Controller
     /**
      * Displays a form to create a new Feedback entity.
      *
-     * @Route("/new", name="feedbacks_new")
+     * @Route("/new/{feedback}", name="feedbacks_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($feedback)
     {
-        $form   = $this->createForm(new FeedbackType, new Feedback);
+        if ($feedback=='company'){
+            $form   = $this->createForm(new FeedbackCompanyType, new FeedbackCompany);
+        }
+        elseif ($feedback=='deal') {
+            $form   = $this->createForm(new FeedbackDealType, new FeedbackDeal);
+        }
+
 
         return array(
             'form'   => $form->createView(),
+            'feedback_type' => $feedback,
         );
     }
 
     /**
      * Creates a new Feedback entity.
      *
-     * @Route("/create", name="feedbacks_create")
+     * @Route("/create/{feedback}", name="feedbacks_create")
      * @Method("POST")
      * @Template("StoAdminBundle:Feedback:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $feedback)
     {
-        $entity  = new Feedback();
-        $form = $this->createForm(new FeedbackType(), $entity);
+        if ($feedback=='company'){
+            $entity  = new FeedbackCompany();
+            $form = $this->createForm(new FeedbackCompanyType(), $entity);
+        }
+        elseif ($feedback=='deal') {
+            $entity  = new FeedbackDeal();
+            $form = $this->createForm(new FeedbackDealType(), $entity);
+        }
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -199,6 +216,7 @@ class FeedbackController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'feedback_type' => $feedback,
         );
     }
 

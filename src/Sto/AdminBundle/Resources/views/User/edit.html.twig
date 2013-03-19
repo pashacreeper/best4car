@@ -1,7 +1,7 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}User edit{% endblock %}
+{% block title %}Редактирование данных пользователя{% endblock %}
 
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
@@ -9,7 +9,11 @@
 <form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
     <div class="control-group">
         <div class="controls">
+{% if entity.avatarUrl %}
             <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}?{{ random() }}" width="160"/>
+{% else %}
+            <img src="holder.js/160x140" width="160" class="img-polaroid"/>
+{% endif %}
         </div>
     </div>
     {{ form_widget(edit_form) }}

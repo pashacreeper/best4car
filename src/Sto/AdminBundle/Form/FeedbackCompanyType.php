@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FeedbackType extends AbstractType
+class FeedbackCompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,8 +39,14 @@ class FeedbackType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
+
             ->add('feedbackRating', null, [
                 'label' => 'Оценка отзыва'
+            ])
+            ->add('company', null, [
+                'label' => 'Компания',
+                'required' => false,
+                'render_optional_text' => false,
             ])
             ->add('published', null, [
                 'label' => 'Публикация',
@@ -64,7 +70,7 @@ class FeedbackType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Feedback'
+            'data_class' => 'Sto\CoreBundle\Entity\FeedbackCompany'
         ]);
     }
 

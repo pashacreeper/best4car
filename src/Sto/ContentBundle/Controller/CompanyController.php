@@ -5,7 +5,9 @@ namespace Sto\ContentBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sto\CoreBundle\Entity\Company;
 
 class CompanyController extends Controller
 {
@@ -31,6 +33,19 @@ class CompanyController extends Controller
         return [
             'companies' => json_encode($companies),
             'cities' => $cities
+        ];
+    }
+
+    /**
+     * @Route("/company/{id}", name="content_company_show")
+     * @Method("GET")
+     * @Template()
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function showAction(Company $company)
+    {
+        return [
+            'company' => $company
         ];
     }
 }

@@ -60,14 +60,15 @@
                 var val = companies[key];
 
                 myPlacemark = new ymaps.Placemark(val.gps.split(','), {
-                    iconContent: key,
                     name: val.name,
                     address: val.address,
                     phone: val.phones,
                     web: val.web,
                     logo: val.logoName,
                 }, {
-                    preset: styleKeys[key]
+                    iconImageHref: "{{ asset('bundles/stocontent/images/company.png') }}", // картинка иконки
+                    iconImageSize: [40, 28],
+                    // iconImageOffset: [-3, -28] // смещение картинки
                 });
                 myCollection.add(myPlacemark);
             }
