@@ -63,15 +63,12 @@
             {{ form_row(form.autoProfilesLinks) }}
         </div>
         <div class="span6">
-            {{ form_row(form.linkGarage) }}
-        </div>
-        <div class="span6">
             {{ form_row(form.job) }}
         </div>
         <div class="span6">
             {{ form_row(form.contentGroupId) }}
         </div>
-        <div class="span12">
+        <div class="span10">
             {{ form_row(form.description) }}
         </div>
         {{ form_widget(form) }}
@@ -79,8 +76,8 @@
     <div>
     <div class="row"></div>
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Save changes" />
-        <a href="{{ path('fos_user_profile_show') }}" class="btn">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="Сохранить изменения" />
+        <a href="{{ path('fos_user_profile_show') }}" class="btn">Отмена</a>
     </div>
 </form>
 

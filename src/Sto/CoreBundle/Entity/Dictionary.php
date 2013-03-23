@@ -7,8 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Dictionary
  *
- * @ORM\Table(name="dictionaries")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
+ * @ORM\Table(name="dictionaries")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "company_type"       = "DictionaryCompanyType",
+ *     "additional_service" = "DictionaryAdditionalService",
+ *     "work"               = "DictionaryWork",
+ *     "currency"           = "DictionaryCurrency",
+ *     "country"            = "DictionaryCountry",
+ *     "city"               = "DictionaryCity"
+ * })
  */
 class Dictionary
 {
@@ -18,6 +28,11 @@ class Dictionary
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(name="short_name", type="string", length=5, nullable=true)
+     */
+    private $shortName;
 
     /**
      * @ORM\Column(name="name", type="string", length=255)
@@ -56,6 +71,27 @@ class Dictionary
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param  string     $code
+     * @return Dictionary
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
     }
 
     /**
@@ -137,6 +173,8 @@ class Dictionary
     public function removeChildren(Dictionary $children)
     {
         $this->children->removeElement($children);
+
+        return $this;
     }
 
     /**

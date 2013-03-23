@@ -29,7 +29,7 @@ class CountryType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Country'
+            'data_class' => 'Sto\CoreBundle\Entity\DictionaryCountry'
         ]);
     }
 

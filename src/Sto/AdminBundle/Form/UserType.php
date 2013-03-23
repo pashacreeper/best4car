@@ -24,7 +24,8 @@ class UserType extends AbstractType
                 'required' => true,
             ])
             ->add('enabled', null, [
-                'label' => 'Активный',
+                'label' => 'Активен',
+                'required' => false,
                 'render_optional_text' => false
             ])
             ->add('groups', null, [

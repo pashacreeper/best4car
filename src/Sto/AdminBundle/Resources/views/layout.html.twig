@@ -13,7 +13,7 @@
     {{ parent() }}
     {% stylesheets filter='cssrewrite'
         'bundles/stocore/css/bootstrap.css'
-        'bundles/stocore/css/elusive-webfont.css'
+        'bundles/stocore/css/font-awesome.css'
         'bundles/stoadmin/css/*.css'
         'bundles/stocore/css/bootstrap-responsive.css'
         'bundles/stocore/css/select2.css'
@@ -23,7 +23,7 @@
     {% endblock %}
     {% block head_script %}
     {% javascripts
-        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+        'http://code.jquery.com/jquery-1.8.2.min.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -48,9 +48,9 @@
 {% endblock %}
         </nav>
 {% endblock %}
-{% block header %}
-{% endblock %}
-    <hr>
+    <div class="row-fluid">
+    {% block header %}{% endblock %}
+    </div>
     </header>
     <div class="content-block">
         <div class="flash">

@@ -48,6 +48,7 @@ class DealController extends Controller
             $this->get('request')->query->get('page', 1),
             $this->get('request')->query->get('numItemsPerPage', $def_limit)
         );
+
         return [
             'deals' => $pagination,
         ];
@@ -85,6 +86,7 @@ class DealController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($deal);
             $em->flush();
+
             return $this->redirect($this->generateUrl('deals'));
         }
 

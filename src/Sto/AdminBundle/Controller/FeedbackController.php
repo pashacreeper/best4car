@@ -168,13 +168,11 @@ class FeedbackController extends Controller
      */
     public function newAction($feedback)
     {
-        if ($feedback=='company'){
+        if ($feedback=='company') {
             $form   = $this->createForm(new FeedbackCompanyType, new FeedbackCompany);
-        }
-        elseif ($feedback=='deal') {
+        } elseif ($feedback=='deal') {
             $form   = $this->createForm(new FeedbackDealType, new FeedbackDeal);
         }
-
 
         return array(
             'form'   => $form->createView(),
@@ -191,11 +189,10 @@ class FeedbackController extends Controller
      */
     public function createAction(Request $request, $feedback)
     {
-        if ($feedback=='company'){
+        if ($feedback=='company') {
             $entity  = new FeedbackCompany();
             $form = $this->createForm(new FeedbackCompanyType(), $entity);
-        }
-        elseif ($feedback=='deal') {
+        } elseif ($feedback=='deal') {
             $entity  = new FeedbackDeal();
             $form = $this->createForm(new FeedbackDealType(), $entity);
         }

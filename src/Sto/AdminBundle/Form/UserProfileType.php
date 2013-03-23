@@ -56,22 +56,21 @@ class UserProfileType extends BaseType
                     'render_optional_text' => false,
                 ])
             ->add('linkVK', null, [
+                    'label' => 'Ссылка на профиль vk.com',
                     'required' => false,
                     'render_optional_text' => false,
                 ])
             ->add('linkFB', null, [
+                    'label' => 'Ссылка на профиль facebook.com',
                     'required' => false,
                     'render_optional_text' => false,
                 ])
             ->add('linkGP', null, [
+                    'label' => 'Ссылка на профиль plus.google.com',
                     'required' => false,
                     'render_optional_text' => false,
                 ])
             ->add('autoProfilesLinks', null, [
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
-            ->add('linkGarage', null, [
                     'required' => false,
                     'render_optional_text' => false,
                 ])
@@ -80,7 +79,7 @@ class UserProfileType extends BaseType
                     'render_optional_text' => false,
                 ])
             ->add('description', 'textarea', [
-                    'label' => 'Description',
+                    'label' => 'Описание',
                     'required' => false,
                     'render_optional_text' => false,
                     'attr' => [

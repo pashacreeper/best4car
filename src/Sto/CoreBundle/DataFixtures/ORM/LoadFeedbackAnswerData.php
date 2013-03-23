@@ -13,11 +13,13 @@ class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureIn
     {
         for ($i=1; $i < 41; $i++) {
             if (rand(1,10)<=7) {
-                $feedbackAnswer = new FeedbackAnswer;
-                $feedbackAnswer->setAnswer('Спасибо за Ваш отзыв! Будем рады видеть Вас снова!');
-                $feedbackAnswer->setDate(new \DateTime("now"));
-                $feedbackAnswer->setOwner($this->getReference("user[" . rand(1,30) . "]"));
-                $feedbackAnswer->setFeedback($this->getReference("feedback[" . $i . "]"));
+                $feedbackAnswer = (new FeedbackAnswer)
+                    ->setAnswer('Спасибо за Ваш отзыв! Будем рады видеть Вас снова!')
+                    ->setDate(new \DateTime("now"))
+                    ->setOwner($this->getReference("user[" . rand(1,30) . "]"))
+                    ->setFeedback($this->getReference("feedback[" . $i . "]"))
+                ;
+
                 $manager->persist($feedbackAnswer);
             }
         }
@@ -27,6 +29,6 @@ class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureIn
 
     public function getOrder()
     {
-        return 10;
+        return 92;
     }
 }

@@ -24,7 +24,6 @@ Class Image {
      */
     protected $image;
 
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
@@ -39,7 +38,8 @@ Class Image {
      * @return Deal
      */
 
-    public function preUpload(){
+    public function preUpload()
+    {
         print "YYYY"; exit;
     }
 

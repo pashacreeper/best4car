@@ -354,6 +354,7 @@ class User extends BaseUser
         if ($avatar instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
+
         return $this;
     }
 

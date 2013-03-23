@@ -3,88 +3,125 @@
 
 {% block title %}{{ "dict.title.list"|trans({}) }}{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block head_style %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite'
+        'bundles/stocore/css/bootstrap-datatables.css'
+        'bundles/stocore/css/bootstrap-editable.css'
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-<form action="{{ path('dictionary_filter') }}" method="post" id="filter-form" class="form-inline">
-    <div class="row-fluid">
-        <div class="span4">
-            <a class="btn btn-info" href="{{ path('dictionary_new') }}"><i class="icon-plus icon-white"></i> {{ "dict.btn.create_new"|trans({}) }}</a>
+<div class="row-fluid">
+    <div class="form-inline">
+        <div class="span3">
+            <a class="btn btn-success" href="#"><i class="icon-plus icon-white"></i> {{ "dict.btn.create_new"|trans({}) }}</a>
         </div>
-        <div class="span4">
-            <select name="filter_parent" id="filter_parent" class="btn-small" onchange="$('#filter-form').submit();">
-                <option value="-1" >{{ 'form.all'|trans({}) }}</option>
-                {% for parent in parents %}
-                <option value="{{ parent.id }}"{% if app.session.get('filter_parent_id') and app.session.get('filter_parent_id') == parent.id %} selected{% endif %}>{{ parent.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="span4">
+        <div class="span9">
             <div class="pull-right">
-                <input type="text" class="" id="filter_dict_name" name="filter_dict_name" value="{% if app.session.get('filter_dict_name') %}{{ app.session.get('filter_dict_name') }}{% endif %}" placeholder="{{ "dict.title.filterby_name"|trans({}) }}"/>
-                <input type="submit" class="btn btn-info" value="{{ 'form.filter'|trans({}) }}"/>
+                <ul class="nav nav-pills">
+                    <li class="active"><a id="a_tab0" href="#tab0" data-toggle="tab">Типы организаций</a></li>
+                    <li><a id="a_tab1" href="#tab1" data-toggle="tab">Дополнительные услуги</a></li>
+                    <li><a id="a_tab2" href="#tab2" data-toggle="tab">Действия / работы</a></li>
+                    <li><a id="a_tab3" href="#tab3" data-toggle="tab">Валюты</a></li>
+                    <li><a id="a_tab4" href="#tab4" data-toggle="tab">Страны</a></li>
+                    <li><a id="a_tab5" href="#tab5" data-toggle="tab">Города</a></li>
+                </ul>
             </div>
         </div>
     </div>
-</form>
-<table class="table table-hover table-condensed table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>{{ "dict.fields.name"|trans({}) }}</th>
-            <th width="35">{{ "dict.fields.actions"|trans({}) }}</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in pagination  %}
-        <tr>
-            <td>{{ entity.name }}</td>
-            <td>
-                <a href="{{ path('dictionary_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
-                <a data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
 </div>
-<form action="#" method="post" id="delete-form"></form>
+<div class="tab-content">
+    <div class="tab-pane active" id="tab0">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab1">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab2">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab3">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab4">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab5">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+</div>
 {% endblock %}
 
 {% block foot_script %}
 {{ parent() }}
 <script type="text/javascript">
 (function($) {
-    var url = "{{ path('dictionary') }}{itemId}/delete";
-    var deleteModal = function (formId, message, action) {
-        action = action || '{{ "form.delete"|trans({}) }}'
-
-        var del = function () {
-            document.getElementById(formId).submit();
-        };
-
-        var html = '<div class="modal hide fade"><div class="modal-header">' +
-            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
-            '<h3>'+ action +'</h3></div>' +
-            '<div class="modal-body"><p>' + message + '</p></div>' +
-            '<div class="modal-footer"><a href="#" class="btn" data-dismiss="modal">{{ "form.cancel"|trans({}) }}</a>' +
-            '<a href="#" class="btn btn-danger">'+ action +'</a></div></div>';
-
-        var elem = $(html);
-        elem.find('.btn-danger').click(del);
-        $('body').append(elem);
-        elem.modal();
-    }
-
-    $('[data-delete-form]').on('click', function(e) {
-        $('form#delete-form').attr('action', url.replace('{itemId}', $(this).data('delete-item')));
-        deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'));
+    $("#a_tab0").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'company' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab0').html(html);
+            }
+        });
     });
-
-    $('[data-send-form]').on('click', function(e) {
-        document.getElementById($(this).attr('data-send-form')).submit();
+    $("#a_tab1").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'service' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab1').html(html);
+            }
+        });
     });
+    $("#a_tab2").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'work' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab2').html(html);
+            }
+        });
+    });
+    $("#a_tab3").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'currency' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab3').html(html);
+            }
+        });
+    });
+    $("#a_tab4").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'country' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab4').html(html);
+            }
+        });
+    });
+    $("#a_tab5").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'city' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab5').html(html);
+            }
+        });
+    });
+    $("#a_tab0").click();
 })(jQuery);
 </script>
 {% endblock %}

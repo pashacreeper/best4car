@@ -67,7 +67,7 @@ dict:
         list: Список справочников
         filterby_name: Фильтр по имени
     btn:
-        create_new: Создать новый справочник
+        create_new: Создать новую запись
 
 #Form
 form:

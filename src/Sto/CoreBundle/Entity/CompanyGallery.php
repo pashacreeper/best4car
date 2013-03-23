@@ -2,12 +2,11 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
+    Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Entity\Company;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * CompanyGallery
@@ -51,7 +50,6 @@ class CompanyGallery
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     protected $imageName;
-
 
     /**
      * @var boolean
@@ -142,7 +140,8 @@ class CompanyGallery
         return $this->image;
     }
 
-    public function getImageName(){
+    public function getImageName()
+    {
         return $this->imageName;
     }
 
@@ -168,7 +167,6 @@ class CompanyGallery
     {
         return $this->visible;
     }
-
 
     public function setUpdatedAt($date)
     {

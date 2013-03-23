@@ -14,12 +14,12 @@ class CompanyType extends AbstractType
             ->add('name', null, [
                 'label' => 'Name'
             ])
-            ->add('slogan', null, [
+            ->add('slogan', 'textarea', [
                 'label' => 'Slogan',
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('fullName', null, [
+            ->add('fullName', 'text', [
                 'label' => 'Full name',
                 'required' => false,
                 'render_optional_text' => false
@@ -134,8 +134,8 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('groups')
-            ->add('ratingGroup')
+            // ->add('groups')
+            // ->add('ratingGroup')
         ;
     }
 

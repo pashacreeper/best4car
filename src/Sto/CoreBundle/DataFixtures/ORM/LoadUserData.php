@@ -40,6 +40,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setPhoneNumber('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
             $user->setEnabled(($j == 1 ? 1 : rand(0, 1) ));
             $user->setRating( $rating );
+            $user->setLinkGarage( '#' );
             $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
             $user->setGroups([$this->getReference("groups[".($j == 1 ? 6 :  rand(0,5) )."]")]);
             $encoder = $this->container
@@ -62,6 +63,6 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
     public function getOrder()
     {
-        return 8;
+        return 81;
     }
 }

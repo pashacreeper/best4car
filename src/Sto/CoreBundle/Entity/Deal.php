@@ -66,7 +66,6 @@ class Deal
      */
     private $services;
 
-
     /**
      *@Assert\File(
      *  maxSize="2M",
@@ -76,7 +75,6 @@ class Deal
      * @var File $image
      */
     protected $image;
-
 
     /**
      * @ORM\Column(type="string", name="image_name", nullable=true)
@@ -93,7 +91,6 @@ class Deal
      */
     protected $image2;
 
-
     /**
      * @ORM\Column(type="string", name="image_name2", nullable=true)
      */
@@ -108,7 +105,6 @@ class Deal
      * @var File $image3
      */
     protected $image3;
-
 
     /**
      * @ORM\Column(type="string", name="image_name3", nullable=true)
@@ -196,7 +192,6 @@ class Deal
         $this->endDate = new \DateTime('+1week');
         $this->feedbacks = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -319,8 +314,6 @@ class Deal
     {
         return $this->services;
     }
-
-
 
     /**
      * Set terms
@@ -552,8 +545,6 @@ class Deal
         return $this->name;
     }
 
-
-
     public function setUpdatedAt($date)
     {
         $this->updatedAt = $date;
@@ -573,8 +564,6 @@ class Deal
      * @return Deal
      */
 
-
-
     /**
      * Get image
      *
@@ -585,11 +574,14 @@ class Deal
         return $this->image;
     }
 
-    public function setImageName($imageName){
+    public function setImageName($imageName)
+    {
         $this->imageName = $imageName;
+
         return $this;
     }
-    public function getImageName(){
+    public function getImageName()
+    {
         return $this->imageName;
     }
 
@@ -613,11 +605,14 @@ class Deal
         return $this->image2;
     }
 
-    public function setImageName2($imageName2){
+    public function setImageName2($imageName2)
+    {
         $this->imageName2 = $imageName2;
+
         return $this;
     }
-    public function getImageName2(){
+    public function getImageName2()
+    {
         return $this->imageName2;
     }
 
@@ -641,15 +636,19 @@ class Deal
         return $this->image3;
     }
 
-    public function setImageName3($imageName3){
+    public function setImageName3($imageName3)
+    {
         $this->imageName3 = $imageName3;
+
         return $this;
     }
-    public function getImageName3(){
+    public function getImageName3()
+    {
         return $this->imageName3;
     }
 
-    public function setImage3($image3){
+    public function setImage3($image3)
+    {
         $this->image3 = $image3;
         if ($image3 instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
@@ -659,5 +658,3 @@ class Deal
     }
 
 }
-
-

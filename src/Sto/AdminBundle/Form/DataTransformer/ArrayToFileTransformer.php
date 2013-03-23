@@ -20,7 +20,6 @@ class ArrayToFileTransformer implements DataTransformerInterface
     {
     }
 
-
     public function transform($deal)
     {
         //print "TRANSOFRM"; exit;
@@ -30,7 +29,6 @@ class ArrayToFileTransformer implements DataTransformerInterface
 
         return $issue->getImage();
     }
-
 
     public function reverseTransform($array)
     {

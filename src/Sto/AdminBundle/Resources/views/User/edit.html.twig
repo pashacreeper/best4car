@@ -31,4 +31,17 @@
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript" >
+
+var birth = $('input[data-form=datepicker]');
+birth.datepicker({
+        onRender: function(date) {
+            var lowLimit = new Date().getFullYear() - 99 + '-01-01';
+            return date.valueOf() <= ( lowLimit ) ? 'disabled' : '';
+        }
+    }).on('show', function(ev){
+        if (birth.val()  == '')
+            birth.datepicker('setValue', ev.date.getFullYear() - 30 + '-01-01');
+    });
+</script>
 {% endblock %}

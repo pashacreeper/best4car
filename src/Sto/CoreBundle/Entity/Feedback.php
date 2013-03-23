@@ -352,6 +352,8 @@ class Feedback
     public function getUserId()
     {
         return $this->userId;
+
+        return $this;
     }
 
     public function getPluses()
@@ -362,6 +364,8 @@ class Feedback
     public function setPluses($count)
     {
         $this->pluses = $count;
+
+        return $this;
     }
 
     public function getMinuses()
@@ -372,6 +376,8 @@ class Feedback
     public function setMinuses($count)
     {
         $this->minuses = $count;
+
+        return $this;
     }
 
     public function __toString()
@@ -420,6 +426,5 @@ class Feedback
 
         return $this;
     }
-
 
 }

@@ -13,7 +13,7 @@ use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sto\CoreBundle\Entity\City;
+use Sto\CoreBundle\Entity\DictionaryCity as City;
 
 /**
  * City controller.
@@ -59,7 +59,7 @@ class APICityController extends FOSRestController
     public function getAction($id)
     {
         $serializer = $this->container->get('serializer');
-        $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:City')->find($id);
+        $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:DictionaryCity')->find($id);
 
         if ($data === NULL)
             return new Response($serializer->serialize(array("message" => "Not found City", "type" => "error", "code" => 404, ), 'json'), 404);
@@ -85,7 +85,7 @@ class APICityController extends FOSRestController
         $serializer = $this->container->get('serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:City')->findAll();
+        $data = $em->getRepository('StoCoreBundle:DictionaryCity')->findAll();
 
         return new Response($serializer->serialize($data, 'json'));
 

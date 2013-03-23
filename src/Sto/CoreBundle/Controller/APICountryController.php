@@ -13,7 +13,7 @@ use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sto\CoreBundle\Entity\Country;
+use Sto\CoreBundle\Entity\DictionaryCountry as Country;
 
 /**
  * Country controller.
@@ -60,7 +60,7 @@ class APICountryController extends FOSRestController
     public function getAction($id)
     {
         $serializer = $this->container->get('serializer');
-        $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Country')->find($id);
+        $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:DictionaryCountry')->find($id);
 
         if ($data === NULL)
             return new Response($serializer->serialize(array("message" => "Not found Country", "type" => "error", "code" => 404, ), 'json'), 404);
@@ -86,7 +86,7 @@ class APICountryController extends FOSRestController
         $serializer = $this->container->get('serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Country')->findAll();
+        $data = $em->getRepository('StoCoreBundle:DictionaryCountry')->findAll();
 
         return new Response($serializer->serialize($data, 'json'));
     }

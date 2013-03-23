@@ -46,6 +46,6 @@ class LoadGroupsData extends AbstractFixture implements FixtureInterface, Contai
 
     public function getOrder()
     {
-        return 4;
+        return 41;
     }
 }

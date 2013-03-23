@@ -182,7 +182,6 @@ class CompanyController extends Controller
         ];
     }
 
-
     /**
      * Edits an existing Company entity.
      *
@@ -190,8 +189,8 @@ class CompanyController extends Controller
      * @Template("StoAdminBundle:Company:show_gallery.html.twig")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      */
-    public function showGalleryAction($company){
-
+    public function showGalleryAction($company)
+    {
         //if ($companyGallery == null)
         $companyGallery  = new CompanyGallery;
         $form = $this->createForm(new CompanyGalleryType, $companyGallery);
@@ -208,8 +207,8 @@ class CompanyController extends Controller
      * @Route("/{id}/save_image", name="company_save_image")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      */
-    public function saveImageAction($company, Request $request){
-
+    public function saveImageAction($company, Request $request)
+    {
         $companyGallery  = new CompanyGallery;
         $form = $this->createForm(new CompanyGalleryType, $companyGallery);
         $form->bind($request);
@@ -230,7 +229,8 @@ class CompanyController extends Controller
      * @Route("/{id}/edit_image/{image_id}", name="company_edit_image")
      * @Template("StoAdminBundle:Company:edit_gallery.html.twig")
      */
-    public function editImageAction(Request $request, $id, $image_id){
+    public function editImageAction(Request $request, $id, $image_id)
+    {
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
         $companyGallery = $em->getRepository('StoCoreBundle:CompanyGallery')->findOneById($image_id);
@@ -250,7 +250,8 @@ class CompanyController extends Controller
      * @Template("StoAdminBundle:Company:edit_gallery.html.twig")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      */
-    public function updateImageAction(Request $request, $company, $image_id){
+    public function updateImageAction(Request $request, $company, $image_id)
+    {
         $em = $this->getDoctrine()->getManager();
         $companyGallery = $em->getRepository('StoCoreBundle:CompanyGallery')->findOneById($image_id);
         $form = $this->createForm(new CompanyGalleryType, $companyGallery);
@@ -258,8 +259,10 @@ class CompanyController extends Controller
         if ($form->isValid()) {
             $em->persist($companyGallery);
             $em->flush();
+
             return $this->redirect($this->generateUrl('company_gallery', ['id'=>$company->getId()]));
         }
+
         return [
             'company' => $company,
             'image' => $companyGallery,

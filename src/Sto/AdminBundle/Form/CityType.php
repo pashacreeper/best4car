@@ -32,7 +32,7 @@ class CityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\City'
+            'data_class' => 'Sto\CoreBundle\Entity\DictionaryCity'
         ]);
     }
 

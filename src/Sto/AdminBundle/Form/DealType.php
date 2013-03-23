@@ -5,7 +5,6 @@ namespace Sto\AdminBundle\Form;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sto\AdminBundle\Form\ImageType;
 
 class DealType extends AbstractType
 {

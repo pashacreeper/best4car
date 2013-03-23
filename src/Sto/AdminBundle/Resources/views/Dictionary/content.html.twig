@@ -1,65 +1,50 @@
-<form action="" method="post" id="filter-form" class="form-inline">
-    <div class="row-fluid">
-        <div class="span4">
-            <a class="btn btn-info" href="{{ path('dictionary_new') }}"><i class="icon-plus icon-white"></i> {{ "dict.btn.create_new"|trans({}) }}</a>
-        </div>
-        <div class="span4">
-
-        </div>
-        <div class="span4">
-            <div class="pull-right">
-                <input type="text" class="filter_dict_name"
-                 value="{% if app.session.get('filter_dict_name') %}{{ app.session.get('filter_dict_name') }}{% endif %}" placeholder="{{ "dict.title.filterby_name"|trans({}) }}"/>
-                <input type="button" class="btn btn-info dir_search" value="{{ 'form.filter'|trans({}) }}" />
-            </div>
-        </div>
-    </div>
-</form>
-<table class="table table-hover table-condensed table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>{{ "dict.fields.name"|trans({}) }}</th>
-            <th width="35">{{ "dict.fields.actions"|trans({}) }}</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in pagination  %}
-        <tr id="row_{{ entity.id }}">
-            <td>
-                <a href="#" id="name" data-type="text" data-pk="{{ entity.id }}" data-original-title="{{ entity.name }}" class="editable editable-click">{{ entity.name }}</a>
-            </td>
-            <td>
-                <!-- <a href="{{ path('dictionary_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a> -->
-                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
+<table class="table table-hover table-condensed" id="{{ dictionary }}">
+{% if dictionary == 'country' %}
+    {% include 'StoAdminBundle::Dictionary/content/_country.html.twig' %}
+{% elseif dictionary == 'company' %}
+    {% include 'StoAdminBundle::Dictionary/content/_company.html.twig' %}
+{% elseif dictionary == 'currency' %}
+    {% include 'StoAdminBundle::Dictionary/content/_currency.html.twig' %}
+{% elseif dictionary == 'city' %}
+    {% include 'StoAdminBundle::Dictionary/content/_city.html.twig' %}
+{% else %}
+    {% include 'StoAdminBundle::Dictionary/content/_default.html.twig' %}
+{% endif %}
 </table>
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
 <form action="#" method="post" id="delete-form"></form>
+
+{% javascripts
+    'bundles/stocore/js/jquery.datatables.js'
+    'bundles/stocore/js/bootstrap-datatables.js'
+    'bundles/stocore/js/bootstrap-editable.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 <script type="text/javascript">
-    $('.editable').editable({
+    $('.name').editable({
         "mode" : "inline",
         url: "{{ path('dictionary_change_field') }}",
     });
+    $('#{{dictionary}}').dataTable( {
+        "sDom": "<'row-fluid form-inline'<'span6'l><'span6'<'pull-right'f>>r>t<'row-fluid'<'span6'i><'span6'<'pull-right'p>>>",
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ записей на странице"
+        },
+        "bSort": false,
+    });
 
-
-    // delete Item
     var url = "{{ path('dictionary') }}{itemId}/delete";
     var deleteModal = function (formId, message, action, id) {
         action = action || '{{ "form.delete"|trans({}) }}'
-
         var del = function () {
-            // call
             $.ajax({
                 type: 'POST',
                 url: "{{ path('dictionary_delete_ajax') }}",
                 data: {'id': id},
                 success: function() {
-                    // $('#row_' + id).remove();
+                    $('#row_' + id).remove();
                     $('ul.nav-tabs > li.active > a').click();
                     elem.modal('hide');
                 },
@@ -67,8 +52,7 @@
                     console.log(e.message);
                     elem.modal('hide');
                 }
-            }); // ajax
-
+            });
         };
 
         var html = '<div class="modal hide fade"><div class="modal-header">' +
@@ -90,11 +74,9 @@
         deleteModal($(this).data('delete-form'), $(this).data('delete-message'), $(this).data('delete-action'), $(this).data('delete-item'));
     });
 
-
     $('.dir_search').on('click', function(e) {
         var a_id =  $('ul.nav-tabs > li.active > a').attr('id');
         var tab_id = a_id.replace('a_', '');
-         // call
         $.ajax({
             type: 'POST',
             url: "{{ path('dictionary_content') }}",
@@ -107,9 +89,6 @@
             error: function(e) {
                 console.log(e.message);
             }
-        }); // ajax
+        });
     });
-
-
-
 </script>

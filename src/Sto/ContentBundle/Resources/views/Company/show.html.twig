@@ -13,7 +13,8 @@
             <p>{{ company.slogan }}</p>
         </div>
         <div class="span2">
-            {{ company.rating }}
+            <p>Рейтинг компании:</p>
+            <h3><i class="icon-star"></i> {{ company.rating }}</h3>
         </div>
     </div>
     <ul class="nav nav-tabs">
@@ -64,36 +65,36 @@
 {% endfor %}
                     <h4>Специализация</h4>
                     <div class="accordion" id="accordion2">
-                      <div class="accordion-group">
-                        <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">СТО</a>
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">СТО</a>
+                            </div>
+                            <div id="collapseOne" class="accordion-body collapse in">
+                                <div class="accordion-inner">
+                                    Anim pariatur cliche...
+                                </div>
+                            </div>
                         </div>
-                        <div id="collapseOne" class="accordion-body collapse in">
-                          <div class="accordion-inner">
-                            Anim pariatur cliche...
-                          </div>
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Мойка</a>
+                            </div>
+                            <div id="collapseTwo" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    Anim pariatur cliche...
+                                </div>
+                            </div>
+                            </div>
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThre">Автосалон</a>
+                            </div>
+                            <div id="collapseThre" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    Anim pariatur cliche...
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="accordion-group">
-                        <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Мойка</a>
-                        </div>
-                        <div id="collapseTwo" class="accordion-body collapse">
-                          <div class="accordion-inner">
-                            Anim pariatur cliche...
-                          </div>
-                        </div>
-                      </div>
-                      <div class="accordion-group">
-                        <div class="accordion-heading">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThre">Автосалон</a>
-                        </div>
-                        <div id="collapseThre" class="accordion-body collapse">
-                          <div class="accordion-inner">
-                            Anim pariatur cliche...
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <h4>Дополнительные услуги</h4>
                     <p>{{ company.additionalServices }}</p>

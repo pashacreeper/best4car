@@ -3,12 +3,11 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
+    Symfony\Component\Validator\Constraints as Assert;
 use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Company
@@ -265,7 +264,6 @@ class Company
      */
     protected $ratingGroup;
 
-
     /**
      * @ORM\OneToMany(targetEntity="CompanyGallery", mappedBy="company", cascade={"all"})
      */
@@ -277,9 +275,6 @@ class Company
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-
-
-
 
     public function __construct()
     {
@@ -1038,5 +1033,4 @@ class Company
     {
         return $this->gallery;
     }
-
 }
