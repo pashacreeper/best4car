@@ -1,24 +1,28 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Company list{% endblock %}
+{% block title %}Список компаний{% endblock %}
 
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-<p><a href="{{ path('company_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Create a new company</a></p>
+<p>
+    <a href="{{ path('company_new') }}" class="btn btn-small btn-info">
+        <i class="icon-plus icon-white"></i> Добавить новую компанию
+    </a>
+</p>
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Logo</th>
-            <th>Name</th>
-            <th>Specialization</th>
-            <th>Workingtime</th>
-            <th>Address</th>
-            <th>Rating</th>
-            <th>Deals</th>
-            <th>Visible</th>
-            <th>Actions</th>
+            <th>Логотип</th>
+            <th>Название</th>
+            <th>Специализация</th>
+            <th>Время работы</th>
+            <th>Адрес</th>
+            <th>Рейтинг</th>
+            <th>Акции</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +30,7 @@
         <tr>
             <td>
                 {% if company.logoName %}
-                <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="100" />
+                <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="35" />
                 {% endif %}
             </td>
             <td><a href="{{ path('company_show', { 'id': company.id }) }}" >{{ company.name }}</a></td>

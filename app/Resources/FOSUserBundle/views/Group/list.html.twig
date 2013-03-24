@@ -1,5 +1,12 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
+{% block title %}Группы контактов{% endblock %}
+
+{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+
+{% block content %}
 {% block fos_user_content %}
 {% include "StoAdminBundle:Group:list_content.html.twig" %}
 {% endblock fos_user_content %}
+{% endblock %}
