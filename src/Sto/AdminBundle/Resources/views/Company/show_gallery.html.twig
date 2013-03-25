@@ -28,29 +28,28 @@
     </div>
 </form>
 {% if company.gallery %}
-        <ul class="thumbnails">
-        {% for photo in company.gallery %}
-            <li class="span3">
-                <div class="thumbnail">
-                    <a href="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}">
-                        <img title="{{ photo.name }}" alt="{{ photo.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}" class="img-rounded" style="width: 260px;">
-                    </a>
-                    <div class="caption">
-                        <h4>{{ photo.name }}</h4>
-                        {% if photo.visible %}
-                            <i class="icon-eye-open" title="Visible"></i>Visible
-                        {% else %}
-                            <i class="icon-eye-close" title="Unvisible"></i>Unvisible
-                        {% endif %}
-                        <p>
-                            <a href="{{ path('company_edit_image', { 'id': company.id, 'image_id':photo.id }) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ path('company_delete_image', { 'id': company.id, 'image_id':photo.id }) }}" class="btn">Remove</a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-        </ul>
+<ul class="thumbnails">
+{% for photo in company.gallery %}
+    <li class="span3">
+        <div class="thumbnail">
+            <a href="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}">
+                <img title="{{ photo.name }}" alt="{{ photo.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ photo.imageName }}" class="img-rounded" style="width: 260px;">
+            </a>
+            <div class="caption">
+                <h4>{{ photo.name }}</h4>
+{% if photo.visible %}
+                    <i class="icon-eye-open" title="Visible"></i>Visible
+{% else %}
+                    <i class="icon-eye-close" title="Unvisible"></i>Unvisible
 {% endif %}
-
+                <p>
+                    <a href="{{ path('company_edit_image', { 'id': company.id, 'image_id':photo.id }) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ path('company_delete_image', { 'id': company.id, 'image_id':photo.id }) }}" class="btn">Remove</a>
+                </p>
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

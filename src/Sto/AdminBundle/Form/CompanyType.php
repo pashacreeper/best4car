@@ -11,18 +11,25 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, [
-                'label' => 'Name'
+            ->add('name', 'text', [
+                'label' => 'Название'
             ])
             ->add('slogan', 'textarea', [
-                'label' => 'Slogan',
+                'label' => 'Слоган',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => '4',
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('fullName', 'text', [
-                'label' => 'Full name',
+                'label' => 'Полное название',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('web', 'url', [
                 'label' => 'Home page',
@@ -31,14 +38,23 @@ class CompanyType extends AbstractType
             ])
             ->add('specialization', null, [
                 'label' => 'Specialization',
+                'attr' => [
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('services', null, [
                 'label' => 'Services',
+                'attr' => [
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('additionalServices', null, [
                 'label' => 'Additional services',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('logo', null, [
                 'label' => 'Logo',
@@ -79,11 +95,6 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('photos', null, [
-                'label' => 'Photos',
-                'required' => false,
-                'render_optional_text' => false
-            ])
             ->add('socialNetworks', null, [
                 'label' => 'Social networks',
                 'required' => false,
@@ -102,7 +113,11 @@ class CompanyType extends AbstractType
             ->add('description', 'textarea', [
                 'label' => 'Description',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => '3',
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('subscribable', null, [
                 'label' => 'Subscribable',
@@ -117,12 +132,19 @@ class CompanyType extends AbstractType
             ->add('managers', null, [
                 'label' => 'Managers',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'width: 100%'
+                ]
             ])
-            ->add('administratorContactInfo', null, [
+            ->add('administratorContactInfo', 'textarea', [
                 'label' => 'Administrator contact',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => '3',
+                    'style' => 'width: 100%'
+                ]
             ])
             ->add('visible', null, [
                 'label' => 'Visible',
@@ -132,10 +154,12 @@ class CompanyType extends AbstractType
             ->add('notes', 'textarea', [
                 'label' => 'Notes',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => '3',
+                    'style' => 'width: 100%'
+                ]
             ])
-            // ->add('groups')
-            // ->add('ratingGroup')
         ;
     }
 

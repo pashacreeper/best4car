@@ -6,11 +6,7 @@
 {% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
 
 {% block content %}
-<p>
-    <a href="{{ path('company_new') }}" class="btn btn-small btn-info">
-        <i class="icon-plus icon-white"></i> Добавить новую компанию
-    </a>
-</p>
+<p><a href="{{ path('company_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Добавить новую компанию</a></p>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -20,35 +16,29 @@
             <th>Время работы</th>
             <th>Адрес</th>
             <th>Рейтинг</th>
-            <th>Акции</th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    {% for company in companies %}
+{% for company in companies %}
         <tr>
             <td>
                 {% if company.logoName %}
                 <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="22" />
                 {% endif %}
             </td>
-            <td><a href="{{ path('company_show', { 'id': company.id }) }}" >{{ company.name }}</a></td>
+            <td><a href="{{ path('company_edit', { 'id': company.id }) }}" >{{ company.name }}</a></td>
             <td>{{ company.specialization }}</td>
             <td>{{ company.workingTime }}</td>
             <td>{{ company.address }}</td>
-            <td>{{ company.rating }}</td>
-{% if company.deals|length > 0 %}
-            <td><a href="{{ path('deals_for_company', { 'companyId': company.id }) }}">{{ company.deals|length }}</a></td>
-{% else %}
-            <td>{{ company.deals|length }}</td>
-{% endif %}
+            <td><center>{{ company.rating }}</center></td>
             <td>
-    {% if company.visible %}
-                <i class="icon-ok"></i>
-    {% else %}
-                <i class="icon-remove"></i>
-    {% endif %}
+{% if company.visible %}
+                <i class="icon-circle"></i>
+{% else %}
+                <i class="icon-circle-blank"></i>
+{% endif %}
             </td>
             <td>
                 <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
@@ -56,7 +46,7 @@
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ company.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>
-    {% endfor %}
+{% endfor %}
     </tbody>
 </table>
 <form action="#" method="post" id="delete-form"></form>

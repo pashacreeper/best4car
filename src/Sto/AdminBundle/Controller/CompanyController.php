@@ -168,21 +168,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Finds and displays a Company entity.
-     *
-     * @Route("/{id}", name="company_show")
-     * @Method("GET")
-     * @Template()
-     * @ParamConverter("company", class="StoCoreBundle:Company")
-     */
-    public function showAction($company)
-    {
-        return [
-            'company' => $company,
-        ];
-    }
-
-    /**
      * Edits an existing Company entity.
      *
      * @Route("/{id}/gallery", name="company_gallery")
@@ -191,7 +176,6 @@ class CompanyController extends Controller
      */
     public function showGalleryAction($company)
     {
-        //if ($companyGallery == null)
         $companyGallery  = new CompanyGallery;
         $form = $this->createForm(new CompanyGalleryType, $companyGallery);
 
