@@ -19,9 +19,18 @@ class UserType extends AbstractType
                 'label' => 'Электронная почта',
                 'required' => true,
             ])
-            ->add('password', 'password', [
-                'label' => 'Пароль',
+            ->add('plainPassword', 'repeated', [
+                'first_name' => 'password',
+                'second_name' => 'confirm_password',
+                'invalid_message' => "Пароли не совпадают",
+                'options' => [
+                    'attr' => [
+                        'placeholder' => '**********',
+                        'render_optional_text' => false,
+                    ],
+                ],
                 'required' => true,
+                'type' => 'password',
             ])
             ->add('enabled', null, [
                 'label' => 'Активен',
@@ -30,7 +39,7 @@ class UserType extends AbstractType
             ])
             ->add('groups', null, [
                 'label' => 'Группа',
-                'render_optional_text' => false
+                'render_optional_text' => false,
             ])
             ->add('firstName', null, [
                 'label' => 'Имя',
@@ -45,7 +54,7 @@ class UserType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('ratingGroup', null, [
-                'label' => 'Имя пользователя',
+                'label' => 'Рейтинговая группа',
                 'render_optional_text' => false
             ])
             ->add('phoneNumber', null, [
@@ -94,18 +103,14 @@ class UserType extends AbstractType
                 'label' => 'Гараж',
                 'render_optional_text' => false
             ])
-            // ->add('contentGroupId', null, [
-            //     'label' => 'Имя пользователя',
-            //     'render_optional_text' => false
-            // ])
             ->add('description', 'textarea', [
                 'label' => 'Описание',
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => 3,
+                    'style' => 'width:100%'
+                ]
             ])
-            // ->add('jobId', null, [
-            //     'label' => 'Имя пользователя',
-            //     'render_optional_text' => false
-            // ])
         ;
     }
 

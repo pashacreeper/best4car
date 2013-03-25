@@ -1,14 +1,11 @@
 <?php
-// src/Acme/UserBundle/Entity/User.php
 
 namespace Sto\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
     Symfony\Component\Validator\Constraints as Assert;
-
 use Sto\CoreBundle\Entity\Dictionary,
     Sto\UserBundle\Entity\Group,
     Sto\UserBundle\Entity\RatingGroup;
@@ -49,8 +46,6 @@ class User extends BaseUser
      */
     protected $lastName;
 
-//  username - nickname
-
     /**
      * @var integer
      *
@@ -90,6 +85,7 @@ class User extends BaseUser
      * @var File $avatar
      */
     protected $avatar;
+
     /**
      * @var string $avatarUrl
      *

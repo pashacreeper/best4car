@@ -25,8 +25,6 @@
                 <li><a href="{{ path('feedbacks_new', {'feedback':'deal'}) }}">Создать новый отзыв акции</a></li>
               </ul>
             </div>
-
-
         </div>
         <div class="span3">
             <label>Что оцениваем:</label>
@@ -57,7 +55,7 @@
         </div>
     </div>
 </form>
-<table class="table table-hover table-condensed table-bordered table-striped">
+<table class="table table-hover table-condensed">
     <thead>
         <tr>
             <th width="80">Дата посещения</th>
@@ -66,7 +64,6 @@
             <th width="90">Гос. номер</th>
             <th width="100">Номер заказа-наряда</th>
             <th width="140">Автор отзыва</th>
-            {#<th width="70">Оценка компании</th>#}
             <th width="70">Оценка отзыва</th>
             <th width="80">Что оцениваем</th>
             <th width="75">Опубликован</th>
@@ -83,7 +80,6 @@
             <td>{{ entity.statenumber }}</td>
             <td>{{ entity.orderNumber }}</td>
             <td>{{ entity.user.lastname }} {{ entity.user.firstname }}</td>
-            {#<td>{{ entity.companyRating }}</td>#}
             <td>{{ entity.feedbackRating|number_format(1) }}</td>
             <td>{% if entity.company is defined and entity.company %}{{ entity.company.name }}
                 {% elseif entity.deal is defined and entity.deal %}{{ entity.deal.name }}{% else %}Компанию в целом{% endif %}</td>

@@ -30,7 +30,7 @@
         <tr>
             <td>
                 {% if company.logoName %}
-                <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="35" />
+                <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="22" />
                 {% endif %}
             </td>
             <td><a href="{{ path('company_show', { 'id': company.id }) }}" >{{ company.name }}</a></td>
@@ -51,8 +51,8 @@
     {% endif %}
             </td>
             <td>
-                <a href="{{ path('company_gallery', { 'id': company.id }) }}" class="icon-pencil" title="Фотогаллерея"></a>
                 <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="{{ path('company_gallery', { 'id': company.id }) }}" class="icon-picture" title="Фотогаллерея"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ company.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>

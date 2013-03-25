@@ -14,6 +14,9 @@ class DealType extends AbstractType
             ->add('name', 'text', [
                 'label' => 'Название акции',
                 'required' => true,
+                'attr' => [
+                    'style' => 'width:100%',
+                ]
             ])
             ->add('company', null, [
                 'label' => 'Компания',
@@ -27,7 +30,7 @@ class DealType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     'rows' => 4,
-                    'class '=> 'span10'
+                    'style '=> 'width:100%'
                 ]
             ])
             ->add('services', null, [
@@ -69,20 +72,34 @@ class DealType extends AbstractType
                 'datepicker' => true,
                 'label' => 'Начало',
                 'required' => true,
+                'attr' => [
+                    'class' => 'input-small',
+                    'style' => 'display: inline;'
+                ]
             ])
             ->add('endDate', 'date', [
                 'widget' => 'single_text',
                 'datepicker' => true,
                 'label' => 'Конец',
                 'required' => true,
+                'attr' => [
+                    'class' => 'input-small',
+                    'style' => 'display: inline;'
+                ]
             ])
             ->add('startTime', 'time', [
                 'label' => 'Start time',
                 'required' => true,
+                'attr' => [
+                    'style' => 'display: inline;'
+                ]
             ])
             ->add('endTime', 'time', [
                 'label' => 'End time',
                 'required' => true,
+                'attr' => [
+                    'style' => 'display: inline;'
+                ]
             ])
             ->add('place', null, [
                 'label' => 'Place',
@@ -95,7 +112,7 @@ class DealType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     'rows' => 4,
-                    'class '=> 'span10'
+                    'style '=> 'width:100%'
                 ]
             ])
             ->add('type', 'choice', [

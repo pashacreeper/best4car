@@ -3,7 +3,7 @@
 
 {% block title %}Автокаталог{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 {% if app.session.hasFlash('notice') %}
@@ -12,7 +12,8 @@
 </div>
 {% endif %}
 <p><a class="btn btn-info btn-small" href="{{ path('autocatalog_new') }}"><i class="icon-plus icon-white"></i> Добавить</a></p>
-<table class="table table-hover table-condensed table-bordered table-striped">
+{% if entities %}
+<table class="table table-hover table-condensed">
     <thead>
         <tr>
             <th width="50">№</th>
@@ -37,4 +38,7 @@
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+{{ flash(true, 'Данные отсутствуют.', false, true) }}
+{% endif %}
 {% endblock %}

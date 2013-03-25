@@ -11,7 +11,7 @@
             <tr>
                 <td><a href="{{ path('fos_user_group_show', {'groupName': group.getName()} ) }}">{{ group.name }} </a></td>
                 <td>
-                    <a href="{{ path('fos_user_group_edit', { 'groupName': group.name }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                    <center><a href="{{ path('fos_user_group_edit', { 'groupName': group.name }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a></center>
                 </td>
             </tr>
 {% endfor %}

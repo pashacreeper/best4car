@@ -3,17 +3,65 @@
 
 {% block title %}Редактирование данных пользователя{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
-    <div class="control-group">
-        <div class="controls">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.username) }}
+            {{ form_row(edit_form.plainPassword.password, {'label': 'Пароль', 'render_optional_text' : false}) }}
+            {{ form_row(edit_form.plainPassword.confirm_password, {'label': 'Подтвердите пароль', 'render_optional_text' : false}) }}
+            {{ form_row(edit_form.enabled) }}
+        </div>
+        <div class="span6">
+            <div class="controls">
 {% if entity.avatarUrl %}
-            <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}?{{ random() }}" width="160"/>
+                <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}" width="160"/>
 {% else %}
-            <img src="holder.js/160x140" width="160" class="img-polaroid"/>
+                <img src="holder.js/120x120" width="120" class="img-circle"/>
 {% endif %}
+            </div>
+            {{ form_row(edit_form.avatar, {'label_render': false}) }}
+        </div>
+    </div>
+    <div class="row-fluid">
+        {{ form_row(edit_form.description) }}
+    </div>
+    <hr style="margin: 0 0 20px 0;">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.firstName) }}
+            {{ form_row(edit_form.lastName) }}
+            {{ form_row(edit_form.gender) }}
+            {{ form_row(edit_form.birthDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.email) }}
+            {{ form_row(edit_form.phoneNumber) }}
+            {{ form_row(edit_form.groups) }}
+            {{ form_row(edit_form.ratingGroup) }}
+        </div>
+    </div>
+    <hr style="margin: 0 0 20px 0;">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.linkVK) }}
+            {{ form_row(edit_form.linkFB) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.linkGP) }}
+            {{ form_row(edit_form.autoProfilesLinks) }}
+        </div>
+    </div>
+    <hr style="margin: 0 0 20px 0;">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.rating) }}
+            {{ form_row(edit_form.cityId) }}
+        </div>
+        <div class="span6">
+            {{ form_row(edit_form.linkGarage) }}
         </div>
     </div>
     {{ form_widget(edit_form) }}
@@ -32,9 +80,8 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script type="text/javascript" >
-
 var birth = $('input[data-form=datepicker]');
-birth.datepicker({
+    birth.datepicker({
         onRender: function(date) {
             var lowLimit = new Date().getFullYear() - 99 + '-01-01';
             return date.valueOf() <= ( lowLimit ) ? 'disabled' : '';

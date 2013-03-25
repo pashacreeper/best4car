@@ -11,25 +11,21 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th width="120">Компания</th>
             <th width="140">Название</th>
-            <th width="140">Services</th>
+            <th width="120">Компания</th>
             <th width="70">Дата</th>
             <th width="70">Время</th>
-            <th width="200">Место</th>
             <th width="120">Тип</th>
-            <th width="30"></th>
+            <th width="35"></th>
         </tr>
     </thead>
     <tbody>
     {% for deal in deals %}
         <tr>
-            <td>{{ deal.company }}</td>
             <td>{{ deal.name }}</td>
-            <td>{{ deal.services }}</td>
+            <td>{{ deal.company }}</td>
             <td>{% if deal.startDate %}{{ deal.startDate|date('Y-m-d') }}{% endif %} {% if deal.endDate %}{{ deal.endDate|date('Y-m-d') }}{% endif %}</td>
             <td>{{ deal.startTime|date('H:i') ~ ' - ' ~ deal.endTime|date('H:i') }}</td>
-            <td>{{ deal.place }}</td>
             <td>{{ deal.type }}</td>
             <td>
                 <a href="{{ path('deal_edit', { 'id': deal.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
