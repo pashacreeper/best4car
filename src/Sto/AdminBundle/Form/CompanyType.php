@@ -176,7 +176,7 @@ class CompanyType extends AbstractType
                     'class' => 'StoUserBundle:User',
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('u')
-                        ;
+                       ;
                     },
                     'attr' => [
                         'style' => 'width: 100%'
