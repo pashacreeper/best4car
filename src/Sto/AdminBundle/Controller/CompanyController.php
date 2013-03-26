@@ -104,7 +104,7 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $editForm = $this->createForm(new CompanyType, $company);
+        $editForm = $this->createForm(new CompanyType('edit'), $company);
 
         return [
             'company'   => $company,
@@ -128,12 +128,10 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $editForm = $this->createForm(new CompanyType, $company);
+        $editForm = $this->createForm(new CompanyType('edit'), $company);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            //$company->setUpdatedAt(new \DateTime());
-            //var_dump($company); exit;
             $em->persist($company);
             $em->flush();
 

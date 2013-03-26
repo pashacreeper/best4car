@@ -25,6 +25,7 @@
             <div class="pull-right">
                 <ul class="nav nav-pills">
                     <li class="active"><a id="a_tab0" href="#tab0" data-toggle="tab">Типы организаций</a></li>
+                    <li><a id="a_tab6" href="#tab6" data-toggle="tab">Типы акций</a></li>
                     <li><a id="a_tab1" href="#tab1" data-toggle="tab">Дополнительные услуги</a></li>
                     <li><a id="a_tab2" href="#tab2" data-toggle="tab">Действия / работы</a></li>
                     <li><a id="a_tab3" href="#tab3" data-toggle="tab">Валюты</a></li>
@@ -52,6 +53,9 @@
         <center><i class="icon-spinner icon-spin icon-4x"></i></center>
     </div>
     <div class="tab-pane" id="tab5">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab6">
         <center><i class="icon-spinner icon-spin icon-4x"></i></center>
     </div>
 </div>
@@ -118,6 +122,16 @@
             url: "{{ path('dictionary_content') }}",
             success: function(html) {
                 $('#tab5').html(html);
+            }
+        });
+    });
+    $("#a_tab6").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'deal' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab6').html(html);
             }
         });
     });

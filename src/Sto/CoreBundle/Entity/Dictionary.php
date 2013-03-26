@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
  *     "company_type"       = "DictionaryCompanyType",
+ *     "deals_type"         = "DictionaryDealsType",
  *     "additional_service" = "DictionaryAdditionalService",
  *     "work"               = "DictionaryWork",
  *     "currency"           = "DictionaryCurrency",

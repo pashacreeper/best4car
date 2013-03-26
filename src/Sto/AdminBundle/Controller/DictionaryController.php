@@ -93,6 +93,9 @@ class DictionaryController extends Controller
             case 'company':
                 $repository = $em->getRepository('StoCoreBundle:DictionaryCompanyType');
                 break;
+            case 'deal':
+                $repository = $em->getRepository('StoCoreBundle:DictionaryDealsType');
+                break;
             case 'service':
                 $repository = $em->getRepository('StoCoreBundle:DictionaryAdditionalService');
                 break;

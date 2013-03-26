@@ -46,6 +46,6 @@ class LoadDictionaryWorkData extends AbstractFixture implements OrderedFixtureIn
 
     public function getOrder()
     {
-        return 23;
+        return 26;
     }
 }
