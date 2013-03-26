@@ -17,14 +17,14 @@ class LoadGroupsData extends AbstractFixture implements FixtureInterface, Contai
     public function load(ObjectManager $manager)
     {
         $groups = [
-                'Замороженные'      => ['ROLE_FROZEN'],
-                'Заблокированные'   => ['ROLE_BANNED'],
-                'Пользователи'      => ['ROLE_USER'],
-                'Менеджеры'         => ['ROLE_MANAGER', 'ROLE_USER'],
-                'Редакторы'         => ['ROLE_EDITOR', 'ROLE_USER'],
-                'Модераторы'        => ['ROLE_MODERATOR', 'ROLE_USER'],
-                'Администраторы'    => ['ROLE_ADMIN', 'ROLE_MODERATOR']
-            ];
+            'Замороженные'      => ['ROLE_FROZEN'],
+            'Заблокированные'   => ['ROLE_BANNED'],
+            'Пользователи'      => ['ROLE_USER'],
+            'Менеджеры'         => ['ROLE_MANAGER', 'ROLE_USER'],
+            'Редакторы'         => ['ROLE_EDITOR', 'ROLE_USER'],
+            'Модераторы'        => ['ROLE_MODERATOR', 'ROLE_USER'],
+            'Администраторы'    => ['ROLE_ADMIN', 'ROLE_MODERATOR']
+        ];
 
         $i = 0;
         foreach ($groups as $name => $roles) {

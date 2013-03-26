@@ -17,10 +17,10 @@ class LoadRatingGroupData extends AbstractFixture implements FixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $groups = [
-                'Автолюбители'      => [10, 99],
-                'Автоэксперты'   => [100, 499],
-                'Автопрофи'      => [500, 100000],
-            ];
+            'Автолюбители' => [10, 99],
+            'Автоэксперты' => [100, 499],
+            'Автопрофи'    => [500, 100000],
+        ];
 
         $i = 0;
         foreach ($groups as $name => $ratings) {

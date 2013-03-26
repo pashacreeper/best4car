@@ -10,7 +10,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Логотип</th>
+            <th width="30"></th>
             <th>Название</th>
             <th>Специализация</th>
             <th>Время работы</th>
@@ -24,9 +24,9 @@
 {% for company in companies %}
         <tr>
             <td>
-                {% if company.logoName %}
+{% if company.logoName %}
                 <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" alt="{{company.name}}" width="22" />
-                {% endif %}
+{% endif %}
             </td>
             <td><a href="{{ path('company_edit', { 'id': company.id }) }}" >{{ company.name }}</a></td>
             <td>{{ company.specialization }}</td>

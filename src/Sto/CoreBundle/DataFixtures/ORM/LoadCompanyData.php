@@ -122,7 +122,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setName('Test company - ' . $i);
             $company->setSlogan('Slogan - ' . $i);
             $company->setFullName('Full name test company - ' . $i);
-            $company->setWeb('www.test' . $i .'.ru');
+            $company->setWeb('http://www.test' . $i .'.ru');
             $company->setSpecialization('CТО, Паркинг, Мойка');
             $company->setServices('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setAdditionalServices('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -160,7 +160,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setHourPrice(rand(500,4500) . ' р.');
             $company->setManagers('1, 2, 3, 4');
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setVisible(true);
+            $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
             $company->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
