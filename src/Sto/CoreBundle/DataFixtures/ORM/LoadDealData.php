@@ -22,7 +22,7 @@ class LoadDealData extends AbstractFixture implements OrderedFixtureInterface
             $deal->setStartTime(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020) . ' ' . rand(0, 23) . ':' . rand(0, 59)));
             $deal->setEndTime(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020) . ' ' . rand(0, 23) . ':' . rand(0, 59)));
             $deal->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit fuga sunt provident vel numquam voluptates maxime eius quos nobis. Et quidem distinctio repellat voluptate accusamus beatae repellendus fuga nemo tenetur.');
-            $deal->setType(rand(1,5));
+            $deal->setType($this->getReference("dealsTypes[" . rand(0,5) . "]"));
 
             chdir(__DIR__ . '/../../../../../');
             $from = "app/Resources/fixtures/deals/".rand(1,20).".png";
@@ -71,8 +71,7 @@ class LoadDealData extends AbstractFixture implements OrderedFixtureInterface
             }
 
             $deal->setImageName($i . '.png');
-
-            $deal->setType(rand(1,5));
+            $deal->setType($this->getReference("dealsTypes[" . rand(0,5) . "]"));
 
             $manager->persist($deal);
             $this->addReference("deal[{$i}]", $deal);

@@ -11,7 +11,6 @@ use FOS\UserBundle\Controller\GroupController as BaseClass;
  */
 class GroupController extends BaseClass
 {
-
     /**
      * Lists all User entities.
      *

@@ -3,7 +3,7 @@
 
 {% block title %}Члены рейтинговой группы{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 {% if app.session.hasFlash('notice') %}
@@ -11,7 +11,7 @@
         {{ app.session.flash('notice') }}
     </div>
 {% endif %}
-<h3>Пользователи</h3>
+<h4>Пользователи</h4>
 <table class="table table-hover table-condensed table-bordered table-striped">
     <thead>
         <tr>
@@ -33,7 +33,7 @@
     </tbody>
 </table>
 
-<h3>Компании</h3>
+<h4>Компании</h4>
 <table class="table table-hover table-condensed table-bordered table-striped">
     <thead>
         <tr>

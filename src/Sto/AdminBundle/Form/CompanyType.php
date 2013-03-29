@@ -20,19 +20,19 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'label' => 'Название'
+                'label' => 'Сокращенное наименование'
             ])
             ->add('phones', null, [
-                'label' => 'Phones',
+                'label' => 'Телефон',
                 'attr' => [
                     'data-mask' => '+7 (999) 999-99-99'
                 ]
             ])
             ->add('address', null, [
-                'label' => 'Address',
+                'label' => 'Адрес',
             ])
             ->add('workingTime', null, [
-                'label' => 'Working time',
+                'label' => 'Время работы',
             ])
             ->add('hourPrice', null, [
                 'label' => 'Hour price',
@@ -40,12 +40,13 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('rating', null, [
-                'label' => 'Rating',
+                'label' => 'Рейтинг',
                 'required' => false,
                 'render_optional_text' => false
             ])
             ->add('services', 'entity', [
                 'label' => 'Services',
+                'multiple' => true,
                 'class' => 'StoCoreBundle:DictionaryCompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -53,11 +54,12 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'style' => 'width: 100%'
+                    'class' => 'select2'
                 ]
             ])
             ->add('specialization', 'entity', [
                 'label' => 'Specialization',
+                'multiple' => true,
                 'class' => 'StoCoreBundle:DictionaryCompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -65,7 +67,7 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'style' => 'width: 100%'
+                    'class' => 'select2'
                 ]
             ])
             ->add('logo', null, [
@@ -79,7 +81,7 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('slogan', 'textarea', [
-                'label' => 'Слоган',
+                'label' => 'Девиз',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -88,7 +90,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('fullName', 'text', [
-                'label' => 'Полное название',
+                'label' => 'Полное наименование',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -96,11 +98,10 @@ class CompanyType extends AbstractType
                 ]
             ])
         ;
-
         if ($this->mode === 'edit') {
             $builder
                 ->add('web', 'url', [
-                    'label' => 'Home page',
+                    'label' => 'Адрес сайта',
                     'required' => false,
                     'render_optional_text' => false
                 ])
@@ -108,6 +109,7 @@ class CompanyType extends AbstractType
                     'label' => 'Additional services',
                     'required' => false,
                     'render_optional_text' => false,
+                    'multiple' => true,
                     'class' => 'StoCoreBundle:DictionaryAdditionalService',
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('ct')
@@ -115,7 +117,7 @@ class CompanyType extends AbstractType
                         ;
                     },
                     'attr' => [
-                        'style' => 'width: 100%'
+                        'class' => 'select2'
                     ]
                 ])
                 ->add('skype', null, [
@@ -129,7 +131,7 @@ class CompanyType extends AbstractType
                     'render_optional_text' => false
                 ])
                 ->add('gps', null, [
-                    'label' => 'GPS',
+                    'label' => 'Координаты GPS',
                     'required' => false,
                     'render_optional_text' => false
                 ])
@@ -156,7 +158,7 @@ class CompanyType extends AbstractType
                     },
                 ])
                 ->add('description', 'textarea', [
-                    'label' => 'Description',
+                    'label' => 'Краткое описание',
                     'required' => false,
                     'render_optional_text' => false,
                     'attr' => [
@@ -170,7 +172,7 @@ class CompanyType extends AbstractType
                     'render_optional_text' => false
                 ])
                 ->add('managers', 'entity', [
-                    'label' => 'Managers',
+                    'label' => 'Перечень менеджеров',
                     'required' => false,
                     'render_optional_text' => false,
                     'class' => 'StoUserBundle:User',
@@ -179,7 +181,7 @@ class CompanyType extends AbstractType
                        ;
                     },
                     'attr' => [
-                        'style' => 'width: 100%'
+                        'class' => 'select2'
                     ]
                 ])
                 ->add('administratorContactInfo', 'textarea', [

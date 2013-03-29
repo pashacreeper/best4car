@@ -3,7 +3,7 @@
 
 {% block title %}Список отзывов{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 {% if app.session.hasFlash('notice') %}
@@ -87,7 +87,7 @@
             <td>{% if entity.feedbackAnswer %}Присутствует{% else %} Отсутствует  {% endif %}</td>
             <td>
                 <a href="{{ path('feedbacks_show', { 'id': entity.id }) }}" class="icon-eye-close" title="Просмотр"></a>
-                <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="{{ path('feedbacks_delete', { 'id': entity.id }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>

@@ -57,25 +57,29 @@ class Company
     private $web;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="specialization", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="DictionaryCompanyType")
+     * @ORM\JoinTable(name="company_dictionary_parrent",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
      */
     private $specialization;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="services", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="DictionaryCompanyType")
+     * @ORM\JoinTable(name="company_dictionary_children",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
      */
     private $services;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="additional_services", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="DictionaryAdditionalService")
+     * @ORM\JoinTable(name="company_additional_service",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
      */
     private $additionalServices;
 
@@ -284,6 +288,9 @@ class Company
         $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->specialization = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->service = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -394,9 +401,16 @@ class Company
      * @param  string  $specialization
      * @return Company
      */
-    public function setSpecialization($specialization)
+    public function addSpecialization($specialization)
     {
-        $this->specialization = $specialization;
+        $this->specialization[] = $specialization;
+
+        return $this;
+    }
+
+    public function removeSpecialization($specialization)
+    {
+        $this->specialization->removeElement($specialization);
 
         return $this;
     }
@@ -417,9 +431,16 @@ class Company
      * @param  string  $services
      * @return Company
      */
-    public function setServices($services)
+    public function addServices($service)
     {
-        $this->services = $services;
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    public function removeServices($service)
+    {
+        $this->services->removeElement($service);
 
         return $this;
     }
@@ -440,9 +461,16 @@ class Company
      * @param  string  $additionalServices
      * @return Company
      */
-    public function setAdditionalServices($additionalServices)
+    public function addAdditionalServices($additionalService)
     {
-        $this->additionalServices = $additionalServices;
+        $this->additionalServices[] = $additionalService;
+
+        return $this;
+    }
+
+    public function removeAdditionalServices($additionalService)
+    {
+        $this->additionalServices->removeElement($additionalService);
 
         return $this;
     }

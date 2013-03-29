@@ -17,25 +17,12 @@
 <div class="container">
     <aside class="visible-desktop">
         <ul class="sideMenu">
-            <li class="active">
-                <a href="#">Лучшие акции</a>
-            </li>
+{% for dealsType in dictionaries %}
             <li>
-                <a href="#">Скидки</a>
-                <span>14</span>
+                <a href="#">{{ dealsType.name }}</a>
+                <span>{{ dealsType.deals|length }}</span>
             </li>
-            <li>
-                <a href="#">Бонусы</a>
-                <span>35</span>
-            </li>
-            <li>
-                <a href="#">Клубные предложения</a>
-                <span>21</span>
-            </li>
-            <li>
-                <a href="#">Распродажи</a>
-                <span>7</span>
-            </li>
+{% endfor %}
         </ul>
     </aside>
 {% endblock %}

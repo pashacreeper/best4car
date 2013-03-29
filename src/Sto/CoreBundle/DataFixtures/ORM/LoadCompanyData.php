@@ -16,11 +16,16 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setName('Автопродикс');
         $company->setSlogan('ВЕСЬ НИССАН ЗА ОДИН ВИЗИТ!');
         $company->setFullName('Группа компаний “Автопродикс”');
-        $company->setWeb('infiniti.autoprodix.ru');
-        $company->setSpecialization('CТО, Паркинг, Мойка');
-        $company->setServices('A-1. Официальная дилерская, мононбрэндовая СТО., B-1. Официальный дилер, мононбрэндовый автосалон., Р-1. Поставщик новых запчастей., Р-2. Поставщик аксесуаров., N-2. Установочный центр дополнительного оборудования.');
-        $company->setAdditionalServices('S. Слесарный ремонт+ТО, Y. Кузовной ремонт, E. Мойка,N. Установка дополнительного оборудования,J. Услуги по страхованию,B. Купля-продажа автотранспорта,A. Услуги по шиномонтажу,Р. Запчасти и аксесуары для автомобилей.');
-
+        $company->setWeb('http://infiniti.autoprodix.ru');
+        for ($k=1; $k < rand(3,5); $k++) {
+            $company->addSpecialization($this->getReference("companiesTypesParent[{$k}]"));
+        }
+        for ($k=1; $k < rand(3,5); $k++) {
+            $company->addServices($this->getReference("companiesTypesChildren[{$k}]"));
+        }
+        for ($k=0; $k < rand(3,14); $k++) {
+            $company->addAdditionalServices($this->getReference("additionalService[{$k}]"));
+        }
         chdir(__DIR__ . '/../../../../../');
         $from = "app/Resources/fixtures/company/".rand(1,42).".png";
         $to = "web/storage/images/company_logo/1.png";
@@ -36,7 +41,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             copy($from, $to);
         }
         $company->setLogoName('1.png');
-
         $company->setWorkingTime('09:00 - 21:00');
         $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
         $company->setSkype('altauto');
@@ -66,9 +70,15 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setSlogan('Контакты с компанией «Дилижанс» должны изменять представление клиентов об автосервисе, как об отрасли в целом, на позитивное');
         $company->setFullName('Автосервис «ДИЛИЖАНС»');
         $company->setWeb('http://www.dilauto.ru');
-        $company->setSpecialization('CТО, Паркинг, Мойка');
-        $company->setServices('A-1. Официальная дилерская, мононбрэндовая СТО., B-1. Официальный дилер, мононбрэндовый автосалон., Р-1. Поставщик новых запчастей., Р-2. Поставщик аксесуаров., N-2. Установочный центр дополнительного оборудования.');
-        $company->setAdditionalServices('S. Слесарный ремонт+ТО, Y. Кузовной ремонт, E. Мойка,N. Установка дополнительного оборудования,J. Услуги по страхованию,B. Купля-продажа автотранспорта,A. Услуги по шиномонтажу,Р. Запчасти и аксесуары для автомобилей.');
+        for ($k=1; $k < rand(3,5); $k++) {
+            $company->addSpecialization($this->getReference("companiesTypesParent[{$k}]"));
+        }
+        for ($k=1; $k < rand(3,5); $k++) {
+            $company->addServices($this->getReference("companiesTypesChildren[{$k}]"));
+        }
+        for ($k=0; $k < rand(3,14); $k++) {
+            $company->addAdditionalServices($this->getReference("additionalService[{$k}]"));
+        }
 
         chdir(__DIR__ . '/../../../../../');
         $from = "app/Resources/fixtures/company/".rand(1,42).".png";
@@ -85,7 +95,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             copy($from, $to);
         }
         $company->setLogoName('2.png');
-
         $company->setWorkingTime('09:00 - 21:00');
         $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
         $company->setSkype('altauto');
@@ -123,9 +132,15 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setSlogan('Slogan - ' . $i);
             $company->setFullName('Full name test company - ' . $i);
             $company->setWeb('http://www.test' . $i .'.ru');
-            $company->setSpecialization('CТО, Паркинг, Мойка');
-            $company->setServices('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setAdditionalServices('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            for ($k=1; $k < rand(3,5); $k++) {
+                $company->addSpecialization($this->getReference("companiesTypesParent[{$k}]"));
+            }
+            for ($k=1; $k < rand(3,5); $k++) {
+                $company->addServices($this->getReference("companiesTypesChildren[{$k}]"));
+            }
+            for ($k=0; $k < rand(3,14); $k++) {
+                $company->addAdditionalServices($this->getReference("additionalService[{$k}]"));
+            }
 
             chdir(__DIR__ . '/../../../../../');
             $from = "app/Resources/fixtures/company/".rand(1,42).".png";
@@ -143,7 +158,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             }
 
             $company->setLogoName($i . '.png');
-
             $company->setWorkingTime('10:00 - 20:00');
             $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
             $company->setSkype('altauto');

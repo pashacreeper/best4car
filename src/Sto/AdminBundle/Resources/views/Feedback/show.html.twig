@@ -3,7 +3,7 @@
 
 {% block title %}Отзыв{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 
@@ -74,7 +74,7 @@
     </tbody>
 </table>
 
-<h3>Ответ на отзыв</h3>
+<h4>Ответ на отзыв</h4>
 <hr />
 {% if app.session.hasFlash('notice') %}
     <div class="flash-notice">

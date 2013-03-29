@@ -20,11 +20,12 @@ class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixt
             'Сезонное предложение'
         ];
 
-        foreach ($works as $name) {
+        foreach ($works as $key => $name) {
             $dictionary = (new DictionaryDealsType)
                 ->setName($name)
             ;
             $manager->persist($dictionary);
+            $this->addReference("dealsTypes[{$key}]", $dictionary);
         }
 
         $manager->flush();

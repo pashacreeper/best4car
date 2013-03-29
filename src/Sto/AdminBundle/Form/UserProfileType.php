@@ -15,9 +15,9 @@ class UserProfileType extends BaseType
             ->add('firstName', null, [
                     'label' => 'Имя',
                 ])
-            ->add('lastName', null, [
-                    'label' => 'Фамилия',
-                ])
+            // ->add('lastName', null, [
+            //         'label' => 'Фамилия',
+            //     ])
             ->add('rating', null, [
                     'label' => 'Рейтинг',
                     'required' => false,
@@ -79,7 +79,7 @@ class UserProfileType extends BaseType
                     'render_optional_text' => false,
                 ])
             ->add('description', 'textarea', [
-                    'label' => 'Описание',
+                    'label' => 'О себе',
                     'required' => false,
                     'render_optional_text' => false,
                     'attr' => [
@@ -87,17 +87,17 @@ class UserProfileType extends BaseType
                         'class '=> 'span9'
                     ]
                 ])
-            ->add('job', null, [
-                    'label' => 'Род занятий',
-                    'required' => false,
-                    'render_optional_text' => false,
-                    'class' => 'StoCoreBundle:Dictionary',
-                    'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
-                             return $repository->createQueryBuilder('s')
-                                    ->where('s.parentId = ?1')
-                                    ->setParameter(1, 6);
-                         }
-                ])
+            // ->add('job', null, [
+            //         'label' => 'Род занятий',
+            //         'required' => false,
+            //         'render_optional_text' => false,
+            //         'class' => 'StoCoreBundle:Dictionary',
+            //         'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
+            //                  return $repository->createQueryBuilder('s')
+            //                         ->where('s.parentId = ?1')
+            //                         ->setParameter(1, 6);
+            //              }
+            //     ])
             ;
 
     }

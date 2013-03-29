@@ -3,7 +3,7 @@
 
 {% block title %}Список компаний{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <p><a href="{{ path('company_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Добавить новую компанию</a></p>
@@ -17,7 +17,7 @@
             <th>Адрес</th>
             <th>Рейтинг</th>
             <th></th>
-            <th></th>
+            <th width="50"></th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,11 @@
 {% endif %}
             </td>
             <td><a href="{{ path('company_edit', { 'id': company.id }) }}" >{{ company.name }}</a></td>
-            <td>{{ company.specialization }}</td>
+            <td>
+{% for specialization in company.specialization %}
+                <span class="badge badge-info">{{ specialization }}</span>
+{% endfor %}
+            </td>
             <td>{{ company.workingTime }}</td>
             <td>{{ company.address }}</td>
             <td><center>{{ company.rating }}</center></td>
@@ -41,7 +45,7 @@
 {% endif %}
             </td>
             <td>
-                <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="{{ path('company_gallery', { 'id': company.id }) }}" class="icon-picture" title="Фотогаллерея"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ company.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>

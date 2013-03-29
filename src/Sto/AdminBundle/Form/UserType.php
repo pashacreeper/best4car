@@ -32,14 +32,17 @@ class UserType extends AbstractType
                 'required' => true,
                 'type' => 'password',
             ])
-            ->add('enabled', null, [
-                'label' => 'Активен',
-                'required' => false,
-                'render_optional_text' => false
-            ])
+            // ->add('enabled', null, [
+            //     'label' => 'Активен',
+            //     'required' => false,
+            //     'render_optional_text' => false
+            // ])
             ->add('groups', null, [
                 'label' => 'Группа',
                 'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('firstName', null, [
                 'label' => 'Имя',
@@ -104,7 +107,7 @@ class UserType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('description', 'textarea', [
-                'label' => 'Описание',
+                'label' => 'О себе',
                 'render_optional_text' => false,
                 'attr' => [
                     'rows' => 3,

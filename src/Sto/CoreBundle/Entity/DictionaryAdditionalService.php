@@ -11,4 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DictionaryAdditionalService extends Dictionary
 {
+    /**
+     * @ORM\ManyToMany(targetEntity="Company")
+     */
+    private $companies;
 }

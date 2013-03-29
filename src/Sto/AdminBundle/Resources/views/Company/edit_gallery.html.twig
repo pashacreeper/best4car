@@ -3,7 +3,7 @@
 
 {% block title %}{{ image.name }}{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <form action="{{ path('company_update_image', {id: company.id, image_id:image.id}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
@@ -20,13 +20,12 @@
         <div class="span6">
             {{ form_row(form.visible) }}
         </div>
-
         {{ form_widget(form) }}
     <div>
     <div class="row"></div>
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Create" />
-        <a href="{{ path('deals') }}" class="btn">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}" />
+        <a href="{{ path('deals') }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
 

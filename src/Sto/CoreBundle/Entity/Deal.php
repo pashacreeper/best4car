@@ -74,12 +74,12 @@ class Deal
      * @Vich\UploadableField(mapping="deal_image", fileNameProperty="imageName")
      * @var File $image
      */
-    protected $image;
+    private $image;
 
     /**
      * @ORM\Column(type="string", name="image_name", nullable=true)
      */
-    protected $imageName;
+    private $imageName;
 
     /**
      *@Assert\File(
@@ -89,12 +89,12 @@ class Deal
      * @Vich\UploadableField(mapping="deal_image2", fileNameProperty="imageName2")
      * @var File $image2
      */
-    protected $image2;
+    private $image2;
 
     /**
      * @ORM\Column(type="string", name="image_name2", nullable=true)
      */
-    protected $imageName2;
+    private $imageName2;
 
     /**
      *@Assert\File(
@@ -104,12 +104,12 @@ class Deal
      * @Vich\UploadableField(mapping="deal_image3", fileNameProperty="imageName3")
      * @var File $image3
      */
-    protected $image3;
+    private $image3;
 
     /**
      * @ORM\Column(type="string", name="image_name3", nullable=true)
      */
-    protected $imageName3;
+    private $imageName3;
 
     /**
      * @var string
@@ -175,7 +175,14 @@ class Deal
      * @var string
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="type_id", type="integer", length=255)
+     */
+    private $typeId;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="DictionaryDealsType", inversedBy="deals")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;
 
@@ -482,9 +489,34 @@ class Deal
      * @param  string $type
      * @return Deal
      */
+    public function setTypeId($typeId)
+    {
+        $this->typeId = $typeId;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getTypeId()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set type
+     *
+     * @param  string $type
+     * @return Deal
+     */
     public function setType($type)
     {
         $this->type = $type;
+
+        $type->addDeal($this);
 
         return $this;
     }
@@ -496,20 +528,7 @@ class Deal
      */
     public function getType()
     {
-        $types = [
-            'Скидка',
-            'Маркетинговое мероприятие',
-            'Тест-драйв',
-            'Презентация, день открытых дверей.',
-            'Распродажа',
-            'Сезонное предложение'
-        ];
-
-        if ($this->type) {
-            return $types[$this->type];
-        } else {
-            return $this->type;
-        }
+        return $this->type;
     }
 
     /**
@@ -656,5 +675,4 @@ class Deal
 
         return $this;
     }
-
 }

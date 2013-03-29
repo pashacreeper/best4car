@@ -3,7 +3,7 @@
 
 {% block title %}Создание отзыва{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <form action="{{ path('feedbacks_create', {'feedback':feedback_type}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal"    >

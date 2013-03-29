@@ -30,3 +30,7 @@ html, body {
 .required {
     font-weight: bold;
 }
+
+.select2 {
+    width: 100%;
+}

@@ -41,7 +41,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      *
      */
     protected $lastName;
@@ -217,7 +217,6 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
         $this->gender = 'male';
     }
 
@@ -225,8 +224,6 @@ class User extends BaseUser
     {
         return array('male', 'female');
     }
-
-// Getters & Setters ---------------------
 
     /**
      * Set firstName
@@ -297,7 +294,6 @@ class User extends BaseUser
         return $this->rating;
     }
 
-    //ratingGroupId
     /**
      * Set ratingGroupId
      *
@@ -359,7 +355,6 @@ class User extends BaseUser
         return $this->avatar;
     }
 
-    // avatarUrl
     /**
      * Set avatarUrl
      *
@@ -383,7 +378,6 @@ class User extends BaseUser
         return $this->avatarUrl;
     }
 
-    // birthDate
     /**
      * Set birthDate
      *
@@ -407,7 +401,6 @@ class User extends BaseUser
         return $this->birthDate;
     }
 
-    // gender
     /**
      * Set gender
      *
@@ -431,7 +424,6 @@ class User extends BaseUser
         return $this->gender;
     }
 
-    // cityId
     /**
      * Set cityId
      *
@@ -455,7 +447,6 @@ class User extends BaseUser
         return $this->cityId;
     }
 
-    // linkVK
     /**
      * Set linkVK
      *
@@ -479,7 +470,6 @@ class User extends BaseUser
         return $this->linkVK;
     }
 
-    // linkFB
     /**
      * Set linkFB
      *
@@ -503,7 +493,6 @@ class User extends BaseUser
         return $this->linkFB;
     }
 
-    // linkGP
     /**
      * Set linkGP
      *
@@ -527,7 +516,6 @@ class User extends BaseUser
         return $this->linkGP;
     }
 
-    // autoProfilesLinks
     /**
      * Set autoProfilesLinks
      *
@@ -551,7 +539,6 @@ class User extends BaseUser
         return $this->autoProfilesLinks;
     }
 
-    // link_garage
     /**
      * Set link_garage
      *
@@ -575,7 +562,6 @@ class User extends BaseUser
         return $this->linkGarage;
     }
 
-    // contentGroupId
     /**
      * Set contentGroupId
      *
@@ -599,7 +585,6 @@ class User extends BaseUser
         return $this->contentGroupId;
     }
 
-    // description
     /**
      * Set description
      *
@@ -623,7 +608,6 @@ class User extends BaseUser
         return $this->description;
     }
 
-    // jobId
     /**
      * Set jobId
      *
@@ -647,7 +631,6 @@ class User extends BaseUser
         return $this->jobId;
     }
 
-    // subscriptions
     /**
      * Set subscriptions
      *
@@ -671,7 +654,6 @@ class User extends BaseUser
         return $this->subscriptions;
     }
 
-    // feedbacks
     /**
      * Set feedbacks
      *
@@ -695,7 +677,6 @@ class User extends BaseUser
         return $this->feedbacks;
     }
 
-    // requests
     /**
      * Set requests
      *

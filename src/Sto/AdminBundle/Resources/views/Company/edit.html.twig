@@ -3,17 +3,24 @@
 
 {% block title %}Редактирование компании{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
-
-{% block content %}
+{% block header %}
 <div class="row-fluid">
-    <div class="pull-right">
-        <ul class="nav nav-pills">
-            <li class="active"><a id="a_tab1" href="#tab1" data-toggle="tab">Общая информация</a></li>
-            <li><a id="a_tab2" href="#tab2" data-toggle="tab">Дополнительно</a></li>
-        </ul>
+    <div class="span6">
+        <h4>{{ block('title') }}</h4>
+    </div>
+    <div class="span6">
+        <div class="pull-right">
+            <ul class="nav nav-pills">
+                <li class="active"><a id="a_tab1" href="#tab1" data-toggle="tab">Общая информация</a></li>
+                <li><a id="a_tab2" href="#tab2" data-toggle="tab">Дополнительно</a></li>
+                <li><a id="a_tab3" href="#tab3" data-toggle="tab">Галерея</a></li>
+            </ul>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block content %}
 <form action="{{ path('company_update', { 'id': company.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
     <div class="tab-content" style="overflow: inherit;">
         <div class="tab-pane active" id="tab1">
@@ -26,11 +33,11 @@
                 </div>
                 <div class="span6">
                     <div class="controls">
-        {% if company.logoName %}
+{% if company.logoName %}
                         <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" width="120" class="img-circle"/>
-        {% else %}
+{% else %}
                         <img src="holder.js/120x120" width="120" class="img-circle"/>
-        {% endif %}
+{% endif %}
                     </div>
                     {{ form_row(edit_form.logo, {'label_render': false}) }}
                 </div>
@@ -85,8 +92,8 @@
     </div>
     {{ form_widget(edit_form) }}
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Сохранить" />
-        <a href="{{ path('companies') }}" class="btn">Отмена</a>
+        <input type="submit" class="btn btn-primary" value="{{ 'form.save'|trans({}) }}" />
+        <a href="{{ path('companies') }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
 {% endblock %}
@@ -94,8 +101,13 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    '@StoCoreBundle/Resources/public/js/bootstrap-inputmask.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
+    'bundles/stocore/js/select2.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript" >
+    $(".select2").select2({
+    });
+</script>
 {% endblock %}

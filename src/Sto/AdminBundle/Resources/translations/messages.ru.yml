@@ -75,6 +75,7 @@ form:
     cancel: Отмена
     delete: Удалить
     create: Создать
+    save  : Сохранить
     filter: Фильтр
     sure_delete_message: Вы уверенны, что хотите удалить ?
     all: Все

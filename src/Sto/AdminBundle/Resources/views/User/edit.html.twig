@@ -12,7 +12,7 @@
             {{ form_row(edit_form.username) }}
             {{ form_row(edit_form.plainPassword.password, {'label': 'Пароль', 'render_optional_text' : false}) }}
             {{ form_row(edit_form.plainPassword.confirm_password, {'label': 'Подтвердите пароль', 'render_optional_text' : false}) }}
-            {{ form_row(edit_form.enabled) }}
+            {#{ form_row(edit_form.enabled) }#}
         </div>
         <div class="span6">
             <div class="controls">
@@ -75,12 +75,14 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    '@StoCoreBundle/Resources/public/js/bootstrap-inputmask.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
+    'bundles/stocore/js/select2.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script type="text/javascript" >
-var birth = $('input[data-form=datepicker]');
+    var birth = $('input[data-form=datepicker]');
+
     birth.datepicker({
         onRender: function(date) {
             var lowLimit = new Date().getFullYear() - 99 + '-01-01';
@@ -89,6 +91,10 @@ var birth = $('input[data-form=datepicker]');
     }).on('show', function(ev){
         if (birth.val()  == '')
             birth.datepicker('setValue', ev.date.getFullYear() - 30 + '-01-01');
+    });
+
+    $(".select2").select2({
+        placeholder: "Выберите группу"
     });
 </script>
 {% endblock %}

@@ -1,0 +1,8 @@
+<form action="{{ path('fos_user_group_edit', {'groupName': group_name} ) }}" {{ form_enctype(form) }} method="POST"  class="form-horizontal">
+    {{ form_widget(form) }}
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="{{ 'form.save'|trans({}) }}" />
+        <a href="{{ path('group_list') }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
+    </div>
+</form>

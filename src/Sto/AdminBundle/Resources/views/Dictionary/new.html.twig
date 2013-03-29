@@ -3,7 +3,7 @@
 
 {% block title %}{{ "dict.title.new"|trans({}) }}{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <form action="{{ path('dictionary_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">

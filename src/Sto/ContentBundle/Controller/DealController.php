@@ -24,8 +24,16 @@ class DealController extends Controller
             ->getResult()
         ;
 
+        $dealsTypes = $em->getRepository('StoCoreBundle:DictionaryDealsType')
+            ->createQueryBuilder('dictionary')
+            ->orderBy('dictionary.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+
         return [
-            'deals' => $deals
+            'deals' => $deals,
+            'dictionaries' => $dealsTypes
         ];
     }
 

@@ -102,12 +102,16 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
             ],
         ];
 
+        $i = 1;
+        $j = 1;
         foreach ($organizationTypes as $name => $types) {
             $dictionaryParent = (new DictionaryCompanyType)
-                ->setName($name)
+               ->setName($name)
             ;
 
             $manager->persist($dictionaryParent);
+            $this->addReference("companiesTypesParent[{$i}]", $dictionaryParent);
+            $i++;
 
             if (!empty($types))
                 foreach ($types as $shortName => $typeName) {
@@ -118,6 +122,8 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
                     ;
 
                     $manager->persist($dictionaryChildren);
+                    $this->addReference("companiesTypesChildren[{$j}]", $dictionaryChildren);
+                    $j++;
                 }
         }
 

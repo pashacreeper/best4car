@@ -1,79 +1,49 @@
 <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-     <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#personal">Личная информация</a></li>
-      <li><a href="#extra">Дополнительно</a></li>
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#personal">Личная информация</a></li>
+        <li><a href="#extra">Дополнительно</a></li>
+        <li><a href="#garage">Гараж</a></li>
     </ul>
 
     <div class="tab-content">
 
-      <div class="tab-pane active" id="personal">
-        <div class="span6">
-            {{ form_row(form.username) }}
+        <div class="tab-pane active" id="personal">
+            <div class="span6">
+                {{ form_row(form.username) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.current_password) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.phoneNumber) }}
+                {{ form_row(form.birthDate) }}
+                {{ form_row(form.avatar) }}
+                {{ form_row(form.gender, { 'attr': {'class': 'inline'}}) }}
+                <img src="{{ form.vars.value.avatarUrl }}" style="margin-left: 180px;" width="140" heigth="160" class="img-rounded">
+            </div>
+
         </div>
-        <div class="span6">
-            {{ form_row(form.current_password) }}
+        <div class="tab-pane" id="extra">
+            <div class="span6">
+                {{ form_row(form.rating) }}
+                {{ form_row(form.linkVK) }}
+                {{ form_row(form.linkFB) }}
+                {{ form_row(form.linkGP) }}
+                {{ form_row(form.ratingGroupId) }}
+                {{ form_row(form.cityId) }}
+                {{ form_row(form.autoProfilesLinks) }}
+                {{ form_row(form.contentGroupId) }}
+            </div>
+            <div class="span10">
+                {{ form_row(form.description) }}
+            </div>
+            {{ form_widget(form) }}
         </div>
-        <div class="span6">
-            {{ form_row(form.firstName) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.lastName) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.email) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.phoneNumber) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.birthDate) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.avatar) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.gender, { 'attr': {'class': 'inline'}}) }}
+        <div class="tab-pane" id="garage">
+            <div class="span6">
+                Garage Info coming soon.
+            </div>
         </div>
 
-        <div class="span6">
-            <img src="{{ form.vars.value.avatarUrl }}" style="margin-left: 180px;" width="140" heigth="160" class="img-rounded">
-        </div>
 
-      </div>
-      <div class="tab-pane" id="extra">
-        <div class="span6">
-            {{ form_row(form.rating) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.linkVK) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.linkFB) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.linkGP) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.ratingGroupId) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.cityId) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.autoProfilesLinks) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.job) }}
-        </div>
-        <div class="span6">
-            {{ form_row(form.contentGroupId) }}
-        </div>
-        <div class="span10">
-            {{ form_row(form.description) }}
-        </div>
-        {{ form_widget(form) }}
-      </div>
-    <div>
     <div class="row"></div>
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="Сохранить изменения" />

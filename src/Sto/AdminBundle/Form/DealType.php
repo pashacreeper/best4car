@@ -21,8 +21,9 @@ class DealType extends AbstractType
             ->add('company', null, [
                 'label' => 'Компания',
                 'required' => true,
-                'empty_value' => 'Выберите компанию',
-                'empty_data'  => null
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('description', 'textarea', [
                 'label' => 'Описание',
@@ -37,6 +38,9 @@ class DealType extends AbstractType
                 'label' => 'Services',
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('image', 'file', [
                 'label' => 'Image',
@@ -115,12 +119,12 @@ class DealType extends AbstractType
                     'style '=> 'width:100%'
                 ]
             ])
-            ->add('type', 'choice', [
+            ->add('type', null, [
                 'label' => 'Types',
                 'required' => true,
-                'choices' => $this->getTypes(),
-                'empty_value' => 'Choose types',
-                'empty_data'  => null
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
     }
@@ -135,17 +139,5 @@ class DealType extends AbstractType
     public function getName()
     {
         return 'sto_admin_deal';
-    }
-
-    public function getTypes()
-    {
-        return [
-            'Скидка',
-            'Маркетинговое мероприятие',
-            'Тест-драйв',
-            'Презентация, день открытых дверей.',
-            'Распродажа',
-            'Сезонное предложение'
-        ];
     }
 }

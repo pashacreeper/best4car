@@ -3,7 +3,7 @@
 
 {% block title %}Создание компании{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <form action="{{ path('company_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
@@ -40,8 +40,8 @@
     </div>
     {{ form_widget(form) }}
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Create" />
-        <a href="{{ path('companies') }}" class="btn">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}" />
+        <a href="{{ path('companies') }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
 {% endblock %}

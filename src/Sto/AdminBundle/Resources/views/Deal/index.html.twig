@@ -3,7 +3,7 @@
 
 {% block title %}Список акций{% endblock %}
 
-{% block header %}<h3>{{ block('title') }}</h3>{% endblock %}
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
 <p><a href="{{ path('deal_new') }}" class="btn btn-small btn-info"><i class="icon-plus icon-white"></i> Новая акция</a></p>
@@ -28,7 +28,7 @@
             <td>{{ deal.startTime|date('H:i') ~ ' - ' ~ deal.endTime|date('H:i') }}</td>
             <td>{{ deal.type }}</td>
             <td>
-                <a href="{{ path('deal_edit', { 'id': deal.id }) }}" class="icon-pencil" title="{{ 'form.edit'|trans({}) }}"></a>
+                <a href="{{ path('deal_edit', { 'id': deal.id }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ deal.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>

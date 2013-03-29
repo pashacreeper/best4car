@@ -1,0 +1,12 @@
+{% extends 'StoAdminBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Редактирование группы{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+{% block fos_user_content %}
+{% include "StoAdminBundle:Group:edit_content.html.twig" %}
+{% endblock fos_user_content %}
+{% endblock %}
