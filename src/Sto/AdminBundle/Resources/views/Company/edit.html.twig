@@ -36,7 +36,7 @@
 {% if company.logoName %}
                         <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" width="120" class="img-circle"/>
 {% else %}
-                        <img src="holder.js/120x120" width="120" class="img-circle"/>
+                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
 {% endif %}
                     </div>
                     {{ form_row(edit_form.logo, {'label_render': false}) }}
@@ -101,8 +101,8 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    'bundles/stocore/js/bootstrap-inputmask.js'
     'bundles/stocore/js/select2.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}

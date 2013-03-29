@@ -49,7 +49,7 @@
 {% if deal.imageName %}
                     <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" width="120" class="img-polaroid"/>
 {% else %}
-                    <img src="holder.js/120x100/text:Фото" class="img-polaroid">
+                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image) }}
                     {{ form_widget(edit_form.image) }}
@@ -62,7 +62,7 @@
 {% if deal.imageName2 %}
                         <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
 {% else %}
-                        <img src="holder.js/120x100/text:Фото" class="img-polaroid">
+                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image2) }}
                     {{ form_widget(edit_form.image2) }}
@@ -75,7 +75,7 @@
 {% if deal.imageName3 %}
                         <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName3 }}" width="120" class="img-polaroid"/>
 {% else %}
-                        <img src="holder.js/120x100/text:Фото" class="img-polaroid">
+                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image3) }}
                     {{ form_widget(edit_form.image3) }}
@@ -108,8 +108,8 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    'bundles/stocore/js/bootstrap-inputmask.js'
     'bundles/stocore/js/select2.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}

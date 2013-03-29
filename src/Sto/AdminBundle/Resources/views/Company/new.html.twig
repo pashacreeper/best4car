@@ -16,7 +16,7 @@
         </div>
         <div class="span6">
             <div class="controls">
-                <img src="holder.js/120x120" width="120" class="img-circle"/>
+                <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
             </div>
             {{ form_row(form.logo, {'label_render': false}) }}
         </div>
@@ -49,8 +49,13 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    '@StoCoreBundle/Resources/public/js/bootstrap-inputmask.js'
+    'bundles/stocore/js/select2.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript" >
+    $(".select2").select2({
+    });
+</script>
 {% endblock %}

@@ -19,7 +19,7 @@
 {% if entity.avatarUrl %}
                 <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}" width="160"/>
 {% else %}
-                <img src="holder.js/120x120" width="120" class="img-circle"/>
+                <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
 {% endif %}
             </div>
             {{ form_row(edit_form.avatar, {'label_render': false}) }}
@@ -75,8 +75,8 @@
 {% block foot_script %}
 {{ parent() }}
 {% javascripts
-    'bundles/stocore/js/bootstrap-inputmask.js'
     'bundles/stocore/js/select2.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
