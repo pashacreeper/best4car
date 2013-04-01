@@ -1,19 +1,19 @@
 <?php
 
-namespace Sto\CoreBundle\Entity;
+namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * DictionaryCompanyType
+ * Deal
  *
  * @ORM\Entity()
  */
-class DictionaryDealsType extends Dictionary
+class Deal extends Base
 {
     /**
-     * @ORM\OneToMany(targetEntity="Deal", mappedBy="type", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\Deal", mappedBy="type", cascade={"persist"})
      */
     protected $deals;
 
@@ -23,14 +23,14 @@ class DictionaryDealsType extends Dictionary
         $this->deals = new ArrayCollection();
     }
 
-    public function addDeal(Deal $deal)
+    public function addDeal(\Sto\CoreBundle\Entity\Deal $deal)
     {
         $this->deals[] = $deal;
 
         return $this;
     }
 
-    public function removeDeal(Deal $deal)
+    public function removeDeal(\Sto\CoreBundle\Entity\Deal $deal)
     {
         $this->deals->removeElement($deal);
 

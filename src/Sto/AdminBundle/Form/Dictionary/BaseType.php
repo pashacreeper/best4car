@@ -1,12 +1,12 @@
 <?php
 
-namespace Sto\AdminBundle\Form;
+namespace Sto\AdminBundle\Form\Dictionary;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DictionaryType extends AbstractType
+class BaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -14,16 +14,13 @@ class DictionaryType extends AbstractType
             ->add('name', null, [
                 'label' => 'dict.fields.name'
             ])
-            ->add('parent', null, [
-                'label' => 'dict.fields.parent'
-            ])
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Dictionary'
+            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\Base'
         ]);
     }
 

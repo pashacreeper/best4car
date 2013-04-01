@@ -6,7 +6,7 @@
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-<form action="{{ path('dictionary_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+<form action="{{ path('dictionary_create', {'dictionary': dictionary}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
     {{ form_widget(form) }}
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>

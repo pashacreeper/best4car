@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture,
     Doctrine\Common\DataFixtures\OrderedFixtureInterface,
     Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\DictionaryCurrency;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryCurrencyData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -25,7 +25,7 @@ class LoadDictionaryCurrencyData extends AbstractFixture implements OrderedFixtu
         ];
 
         foreach ($currencys as $shortName => $name) {
-            $dictionary = (new DictionaryCurrency)
+            $dictionary = (new Dictionary\Currency)
                 ->setShortName($shortName)
                 ->setName($name)
             ;

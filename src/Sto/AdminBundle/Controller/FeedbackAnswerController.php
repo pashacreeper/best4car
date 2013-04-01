@@ -26,11 +26,14 @@ class FeedbackAnswerController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findAll();
+        $feedbackAnswers = $em->getRepository('StoCoreBundle:FeedbackAnswer')
+            ->createQueryBuilder('feedbackAnswer')
+            ->getQuery()
+            ->getResult()
+        ;
 
         return array(
-            'entities' => $entities,
+            'entities' => $feedbackAnswer,
         );
     }
 
@@ -44,7 +47,7 @@ class FeedbackAnswerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FeedbackAnswer entity.');
@@ -112,7 +115,7 @@ class FeedbackAnswerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FeedbackAnswer entity.');
@@ -139,7 +142,7 @@ class FeedbackAnswerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+        $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FeedbackAnswer entity.');
@@ -176,7 +179,7 @@ class FeedbackAnswerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+            $entity = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find FeedbackAnswer entity.');

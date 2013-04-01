@@ -25,7 +25,7 @@ class CompanyController extends Controller
             ->getArrayResult()
         ;
 
-        $cities = $em->getRepository('StoCoreBundle:DictionaryCity')
+        $cities = $em->getRepository('StoCoreBundle:Dictionary\City')
             ->createQueryBuilder('city')
             ->getQuery()
             ->getArrayResult();

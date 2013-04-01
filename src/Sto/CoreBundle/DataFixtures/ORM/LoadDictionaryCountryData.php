@@ -5,8 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture,
     Doctrine\Common\DataFixtures\OrderedFixtureInterface,
     Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\DictionaryCity as City,
-    Sto\CoreBundle\Entity\DictionaryCountry as Country;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -76,7 +75,7 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
         ];
 
         foreach ($all as $country => $cities) {
-            $vCountry = new Country;
+            $vCountry = new Dictionary\Country;
             $vCountry->setName($country);
             $vCountry->setShortName($codes[$country]);
 
@@ -99,7 +98,7 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
             $manager->persist($vCountry);
 
             foreach ($cities as $shortName => $city) {
-                $vCity = new City;
+                $vCity = new Dictionary\City;
                 $vCity->setName($city);
                 $vCity->setParent($vCountry);
                 $vCity->setShortName($shortName ? $shortName : 'country');

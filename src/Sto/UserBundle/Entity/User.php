@@ -24,8 +24,6 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * UniqueEntity("email") ----- this is gives ERROR
      */
     protected $id;
 
@@ -75,7 +73,6 @@ class User extends BaseUser
     private $phoneNumber;
 
     /**
-     *
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
@@ -166,16 +163,16 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="job_id", type="integer", nullable=true)
+     * ORM\Column(name="job_id", type="integer", nullable=true)
      */
-    protected $jobId;
+    // protected $jobId;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary")
-     * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     * ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary")
+     * ORM\JoinColumn(name="job_id", referencedColumnName="id")
      */
-    private $job;
+    // private $job;
 
     /**
      * @var string
@@ -614,22 +611,22 @@ class User extends BaseUser
      * @param  string $jobId
      * @return User
      */
-    public function setJobId($jobId)
-    {
-        $this->jobId = $jobId;
+    // public function setJobId($jobId)
+    // {
+    //     $this->jobId = $jobId;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get jobId
      *
      * @return string
      */
-    public function getJobId()
-    {
-        return $this->jobId;
-    }
+    // public function getJobId()
+    // {
+    //     return $this->jobId;
+    // }
 
     /**
      * Set subscriptions
@@ -700,17 +697,17 @@ class User extends BaseUser
         return $this->requests;
     }
 
-    public function getJob()
-    {
-        return $this->job;
-    }
+    // public function getJob()
+    // {
+    //     return $this->job;
+    // }
 
-    public function setJob(Dictionary $job)
-    {
-        $this->job = $job;
+    // public function setJob(Dictionary $job)
+    // {
+    //     $this->job = $job;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getGroups()
     {

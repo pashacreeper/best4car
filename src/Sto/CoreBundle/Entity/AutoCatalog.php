@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dictionary
+ * AutoCatalog
  *
  * @ORM\Table(name="autocatalog")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\AutoCatalogRepository")
@@ -75,7 +75,7 @@ class AutoCatalog
      * Set name
      *
      * @param  string     $name
-     * @return Dictionary
+     * @return AutoCatalog
      */
     public function setName($name)
     {
@@ -98,7 +98,7 @@ class AutoCatalog
      * Set parentId
      *
      * @param  integer    $parentId
-     * @return Dictionary
+     * @return AutoCatalog
      */
     public function setParentId($parentId)
     {

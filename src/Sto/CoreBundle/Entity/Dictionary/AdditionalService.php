@@ -1,15 +1,15 @@
 <?php
 
-namespace Sto\CoreBundle\Entity;
+namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DictionaryCompanyType
+ * AdditionalService
  *
  * @ORM\Entity()
  */
-class DictionaryCompanyType extends Dictionary
+class AdditionalService extends Base
 {
     /**
      * @ORM\ManyToMany(targetEntity="Company")

@@ -3,15 +3,15 @@
 namespace Sto\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\Translation\Translator,
     Symfony\Component\HttpFoundation\Responce,
-    Symfony\Component\Security\Core\Exception\AccessDeniedException,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    Symfony\Component\Translation\Translator,
+    Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\Dictionary,
-    Sto\AdminBundle\Form\DictionaryType;
+use Sto\AdminBundle\Form\Dictionary as DictionaryForm;
+use Sto\CoreBundle\Entity\Dictionary as DictionaryEntity;
 
 /**
  * Dictionary controller.
@@ -46,7 +46,7 @@ class DictionaryController extends Controller
     public function changeFieldAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->findOneById($request->get('pk'));
+        $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('pk'));
 
         if (!$entity) {
             return new Responce(500, 'Dictionary Not found.');
@@ -68,7 +68,7 @@ class DictionaryController extends Controller
     public function deleteAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->findOneById($request->get('id'));
+        $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('id'));
 
         if (!$entity) {
             return new Responce(500, 'Dictionary Not found.');
@@ -91,28 +91,28 @@ class DictionaryController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch ($request->get('dictionary')) {
             case 'company':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryCompanyType');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
                 break;
             case 'deal':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryDealsType');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
                 break;
             case 'service':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryAdditionalService');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService');
                 break;
             case 'work':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryWork');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Work');
                 break;
             case 'currency':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryCurrency');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Currency');
                 break;
             case 'country':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryCountry');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Country');
                 break;
             case 'city':
-                $repository = $em->getRepository('StoCoreBundle:DictionaryCity');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\City');
                 break;
             default:
-                $repository = $em->getRepository('StoCoreBundle:DictionaryCompanyType');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
                 break;
         }
 
@@ -131,15 +131,40 @@ class DictionaryController extends Controller
     /**
      * Displays a form to create a new Dictionary entity.
      *
-     * @Route("/new", name="dictionary_new")
+     * @Route("/new/{dictionary}", name="dictionary_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($dictionary)
     {
-        $entity = new Dictionary;
-        $form = $this->createForm(new DictionaryType, $entity);
+        switch ($dictionary) {
+            case 'company':
+                $form = $this->createForm(new DictionaryForm\CompanyType, new DictionaryEntity\Company);
+                break;
+            case 'deal':
+                $form = $this->createForm(new DictionaryForm\DealType, new DictionaryEntity\Deal);
+                break;
+            case 'service':
+                $form = $this->createForm(new DictionaryForm\ServiceType, new DictionaryEntity\AdditionalService);
+                break;
+            case 'work':
+                $form = $this->createForm(new DictionaryForm\WorkType, new DictionaryEntity\Work);
+                break;
+            case 'currency':
+                $form = $this->createForm(new DictionaryForm\CurrencyType, new DictionaryEntity\Currency);
+                break;
+            case 'country':
+                $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\Country);
+                break;
+            case 'city':
+                $form = $this->createForm(new DictionaryForm\CityType, new DictionaryEntity\City);
+                break;
+            default:
+                $form = $this->createForm(new DictionaryForm\BaseType, new DictionaryEntity\Base);
+                break;
+        }
 
         return [
+            'dictionary' => $dictionary,
             'form' => $form->createView(),
         ];
     }
@@ -147,14 +172,46 @@ class DictionaryController extends Controller
     /**
      * Creates a new Dictionary entity.
      *
-     * @Route("/create", name="dictionary_create")
+     * @Route("/{dictionary}/create", name="dictionary_create")
      * @Method("POST")
      * @Template("StoCoreBundle:Dictionary:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $dictionary)
     {
-        $entity  = new Dictionary();
-        $form = $this->createForm(new DictionaryType(), $entity);
+        switch ($dictionary) {
+            case 'company':
+                $entity  = new DictionaryEntity\Company;
+                $form = $this->createForm(new DictionaryForm\CompanyType, $entity);
+                break;
+            case 'deal':
+                $entity  = new DictionaryEntity\Deal;
+                $form = $this->createForm(new DictionaryForm\DealType, $entity);
+                break;
+            case 'service':
+                $entity  = new DictionaryEntity\AdditionalService;
+                $form = $this->createForm(new DictionaryForm\ServiceType, $entity);
+                break;
+            case 'work':
+                $entity  = new DictionaryEntity\Work;
+                $form = $this->createForm(new DictionaryForm\WorkType, $entity);
+                break;
+            case 'currency':
+                $entity  = new DictionaryEntity\Currency;
+                $form = $this->createForm(new DictionaryForm\CurrencyType, $entity);
+                break;
+            case 'country':
+                $entity  = new DictionaryEntity\Country;
+                $form = $this->createForm(new DictionaryForm\CountryType, $entity);
+                break;
+            case 'city':
+                $entity  = new DictionaryEntity\City;
+                $form = $this->createForm(new DictionaryForm\CityType, $entity);
+                break;
+            default:
+                $entity  = new DictionaryEntity\Base;
+                $form = $this->createForm(new DictionaryForm\BaseType, $entity);
+                break;
+        }
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -174,23 +231,56 @@ class DictionaryController extends Controller
     /**
      * Displays a form to edit an existing Dictionary entity.
      *
-     * @Route("/{id}/edit", name="dictionary_edit")
+     * @Route("/{id}/{dictionary}/edit", name="dictionary_edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, $dictionary)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->findOneById($id);
+        switch ($dictionary) {
+            case 'company':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Company')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
+                break;
+            case 'deal':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\DealType, $entity);
+                break;
+            case 'service':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\ServiceType, $entity);
+                break;
+            case 'work':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Work')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\WorkType, $entity);
+                break;
+            case 'currency':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Currency')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CurrencyType, $entity);
+                break;
+            case 'country':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
+                break;
+            case 'city':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\City')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CityType, $entity);
+                break;
+            default:
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
+                break;
+        }
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
         }
 
-        $editForm = $this->createForm(new DictionaryType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return [
             'entity' => $entity,
+            'dictionary' => $dictionary,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ];
@@ -199,22 +289,53 @@ class DictionaryController extends Controller
     /**
      * Edits an existing Dictionary entity.
      *
-     * @Route("/{id}/update", name="dictionary_update")
+     * @Route("/{id}/{dictionary}/update", name="dictionary_update")
      * @Method("POST")
      * @Template("StoCoreBundle:Dictionary:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $dictionary)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->find($id);
+        switch ($dictionary) {
+            case 'company':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Company')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
+                break;
+            case 'deal':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\DealType, $entity);
+                break;
+            case 'service':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\ServiceType, $entity);
+                break;
+            case 'work':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Work')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\WorkType, $entity);
+                break;
+            case 'currency':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Currency')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CurrencyType, $entity);
+                break;
+            case 'country':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
+                break;
+            case 'city':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\City')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\CityType, $entity);
+                break;
+            default:
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
+                break;
+        }
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new DictionaryType, $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -226,6 +347,7 @@ class DictionaryController extends Controller
 
         return [
             'entity' => $entity,
+            '$dictionary' => $dictionary,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ];
@@ -240,7 +362,7 @@ class DictionaryController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->findOneById($id);
+        $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));

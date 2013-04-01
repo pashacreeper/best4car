@@ -104,6 +104,6 @@ class UserProfileType extends BaseType
 
     public function getName()
     {
-        return 'sto_adminbundle_userprofiletype';
+        return 'sto_adminbundle_user_profile';
     }
 }

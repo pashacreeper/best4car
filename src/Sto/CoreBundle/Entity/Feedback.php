@@ -104,7 +104,7 @@ class Feedback
     private $currencyLevelId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dictionary")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Base")
      * @ORM\JoinColumn(name="currency_level_id", referencedColumnName="id")
      */
     private $currencyLevel;
@@ -420,7 +420,7 @@ class Feedback
         return $this->currencyLevel;
     }
 
-    public function setCurrencyLevel(Dictionary $level)
+    public function setCurrencyLevel(\Sto\CoreBundle\Entity\Dictionary\Base $level)
     {
         $this->currencyLevel = $level;
 

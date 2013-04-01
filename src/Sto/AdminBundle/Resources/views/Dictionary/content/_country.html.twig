@@ -26,7 +26,7 @@
             </td>
             <td>
                 <center>
-                    <a href="#" class="icon-edit" title="{{ "form.delete"|trans({}) }}"></a>
+                    <a href="{{ path('dictionary_edit', { 'id': row.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
                     <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{row.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
                 </center>
             </td>

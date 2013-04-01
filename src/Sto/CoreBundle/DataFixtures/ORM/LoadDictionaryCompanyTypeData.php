@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture,
     Doctrine\Common\DataFixtures\OrderedFixtureInterface,
     Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\DictionaryCompanyType;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -105,7 +105,7 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
         $i = 1;
         $j = 1;
         foreach ($organizationTypes as $name => $types) {
-            $dictionaryParent = (new DictionaryCompanyType)
+            $dictionaryParent = (new Dictionary\Company)
                ->setName($name)
             ;
 
@@ -115,7 +115,7 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
 
             if (!empty($types))
                 foreach ($types as $shortName => $typeName) {
-                    $dictionaryChildren = (new DictionaryCompanyType)
+                    $dictionaryChildren = (new Dictionary\Company)
                         ->setShortName($shortName)
                         ->setName($typeName)
                         ->setParent($dictionaryParent)

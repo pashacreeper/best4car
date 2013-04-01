@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Entity;
+namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File,
@@ -9,39 +9,36 @@ use Symfony\Component\HttpFoundation\File\File,
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * City
+ * Country
  *
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class DictionaryCity extends Dictionary
+class Country extends Base
 {
     /**
-     * @var File $icon
-     *
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="city_icon", fileNameProperty="iconName")
+     * @Vich\UploadableField(mapping="country_icon", fileNameProperty="iconName")
+     * @var File $icon
      */
     protected $icon;
 
     /**
-     * @var string $iconName
-     *
      * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
+     * @var string $iconName
      */
     protected $iconName;
 
     /**
-     * @var File $icon
-     *
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="city_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="country_image", fileNameProperty="imageName")
+     * @var File $icon
      */
     protected $image;
 
@@ -110,6 +107,7 @@ class DictionaryCity extends Dictionary
     {
         return $this->image;
     }
+
     /**
      * @param string $icon
      */

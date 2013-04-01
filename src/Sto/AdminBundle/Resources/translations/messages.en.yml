@@ -61,6 +61,7 @@ dict:
         name: Name
         parent: Parent
         actions: Actions
+        code: Code
     title:
         edit: Dictionary edit
         new: Dictionary creation

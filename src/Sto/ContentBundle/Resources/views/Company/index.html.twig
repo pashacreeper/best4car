@@ -1,4 +1,4 @@
-{% extends 'StoContentBundle::layout.html.twig' %}
+{% extends 'StoContentBundle::layout.companies.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
 {% block title 'Компании' %}
@@ -13,10 +13,10 @@
 </form>
 {% endblock %}
 
-{% block content_tag 'class="container" style="width:100%"' %}
+{% block content_tag 'class="container" style="width:100%; height: 100%;"' %}
 
 {% block content %}
-<div id="map" style="width: 100%; height: 550px; margin: 0; padding: 0;"></div>
+<div id="map" style="width: 100%; height: 100%; margin: 0; padding: 0;"></div>
 
 {# Выбор города #}
 {% if cities %}

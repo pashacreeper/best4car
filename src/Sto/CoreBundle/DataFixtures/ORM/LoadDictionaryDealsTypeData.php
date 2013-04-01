@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture,
     Doctrine\Common\DataFixtures\OrderedFixtureInterface,
     Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\DictionaryDealsType;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -21,7 +21,7 @@ class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixt
         ];
 
         foreach ($works as $key => $name) {
-            $dictionary = (new DictionaryDealsType)
+            $dictionary = (new Dictionary\Deal)
                 ->setName($name)
             ;
             $manager->persist($dictionary);

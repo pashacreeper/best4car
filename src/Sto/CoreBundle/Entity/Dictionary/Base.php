@@ -1,27 +1,27 @@
 <?php
 
-namespace Sto\CoreBundle\Entity;
+namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dictionary
+ * Base
  *
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
  * @ORM\Table(name="dictionaries")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
- *     "company_type"       = "DictionaryCompanyType",
- *     "deals_type"         = "DictionaryDealsType",
- *     "additional_service" = "DictionaryAdditionalService",
- *     "work"               = "DictionaryWork",
- *     "currency"           = "DictionaryCurrency",
- *     "country"            = "DictionaryCountry",
- *     "city"               = "DictionaryCity"
+ *     "company_type"       = "Company",
+ *     "deals_type"         = "Deal",
+ *     "additional_service" = "AdditionalService",
+ *     "work"               = "Work",
+ *     "currency"           = "Currency",
+ *     "country"            = "Country",
+ *     "city"               = "City"
  * })
  */
-class Dictionary
+class Base
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -41,12 +41,12 @@ class Dictionary
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Dictionary", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dictionary", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
@@ -78,7 +78,7 @@ class Dictionary
      * Set code
      *
      * @param  string     $code
-     * @return Dictionary
+     * @return Base
      */
     public function setShortName($shortName)
     {
@@ -99,7 +99,7 @@ class Dictionary
      * Set name
      *
      * @param  string     $name
-     * @return Dictionary
+     * @return Base
      */
     public function setName($name)
     {
@@ -120,7 +120,7 @@ class Dictionary
      * Set parentId
      *
      * @param  integer    $parentId
-     * @return Dictionary
+     * @return Base
      */
     public function setParentId($parentId)
     {
@@ -140,7 +140,7 @@ class Dictionary
     /**
      * Set parent
      */
-    public function setParent(Dictionary $parent = null)
+    public function setParent(Base $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -161,7 +161,7 @@ class Dictionary
     /**
      * Add children
      */
-    public function addChildren(Dictionary $children)
+    public function addChildren(Base $children)
     {
         $this->children[] = $children;
 
@@ -171,7 +171,7 @@ class Dictionary
     /**
      * Remove children
      */
-    public function removeChildren(Dictionary $children)
+    public function removeChildren(Base $children)
     {
         $this->children->removeElement($children);
 

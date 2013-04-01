@@ -181,7 +181,7 @@ class Deal
 
     /**
      * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="DictionaryDealsType", inversedBy="deals")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Deal", inversedBy="deals")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;

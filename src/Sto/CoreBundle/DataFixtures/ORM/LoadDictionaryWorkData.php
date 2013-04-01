@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture,
     Doctrine\Common\DataFixtures\OrderedFixtureInterface,
     Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\DictionaryWork;
+use Sto\CoreBundle\Entity\Dictionary;
 
 class LoadDictionaryWorkData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -35,7 +35,7 @@ class LoadDictionaryWorkData extends AbstractFixture implements OrderedFixtureIn
         ];
 
         foreach ($works as $name) {
-            $dictionary = (new DictionaryWork)
+            $dictionary = (new Dictionary\Work)
                 ->setName($name)
             ;
             $manager->persist($dictionary);

@@ -1,30 +1,29 @@
 <?php
 
-namespace Sto\AdminBundle\Form;
+namespace Sto\AdminBundle\Form\Dictionary;
 
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CityType extends AbstractType
+class CountryType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
-            ->add('name', null, [
-                'label' => 'city.fields.name'
-            ])
-            ->add('code', null, [
-                'label' => 'city.fields.code'
+            ->add('shortName', null, [
+                'label' => 'dict.fields.code',
+                'render_optional_text' => false
             ])
             ->add('icon', null, [
-                'label' => 'city.fields.icon'
+                'label' => 'city.fields.icon',
+                'render_optional_text' => false,
             ])
             ->add('image', null, [
-                'label' => 'city.fields.image'
-            ])
-            ->add('country', null, [
-                'label' => 'city.fields.country'
+                'label' => 'city.fields.image',
+                'render_optional_text' => false,
             ])
         ;
     }
@@ -32,12 +31,12 @@ class CityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\DictionaryCity'
+            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\Country'
         ]);
     }
 
     public function getName()
     {
-        return 'sto_admin_city';
+        return 'sto_admin_dictionary_country';
     }
 }

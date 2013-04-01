@@ -57,7 +57,7 @@ class Company
     private $web;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DictionaryCompanyType")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
      * @ORM\JoinTable(name="company_dictionary_parrent",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -66,7 +66,7 @@ class Company
     private $specialization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DictionaryCompanyType")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
      * @ORM\JoinTable(name="company_dictionary_children",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -75,7 +75,7 @@ class Company
     private $services;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DictionaryAdditionalService")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
      * @ORM\JoinTable(name="company_additional_service",
      *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
