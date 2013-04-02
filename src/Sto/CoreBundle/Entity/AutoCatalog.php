@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="autocatalog")
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\AutoCatalogRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({ *
+ *     "autocatalog_item"               = "AutoCatalogItem",
+ *     "autocatalog_car"                = "AutoCatalogCar"
+ * })
  */
 class AutoCatalog
 {
@@ -21,12 +27,6 @@ class AutoCatalog
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="AutoCatalog", mappedBy="parent" , cascade={"remove"})
@@ -69,29 +69,6 @@ class AutoCatalog
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param  string     $name
-     * @return AutoCatalog
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -182,8 +159,12 @@ class AutoCatalog
         return $this;
     }
 
+    public function getName(){
+        return $this->name;
+    }
+
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 }

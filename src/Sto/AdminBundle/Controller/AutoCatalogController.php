@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\CoreBundle\Entity\AutoCatalog,
-    Sto\AdminBundle\Form\AutoCatalogType;
+    Sto\CoreBundle\Entity\AutoCatalogItem,
+    Sto\CoreBundle\Entity\AutoCatalogCar,
+    Sto\AdminBundle\Form\AutoCatalogType,
+    Sto\AdminBundle\Form\AutoCatalogItemType;
 
 /**
  * AutoCatalog controller.
@@ -127,8 +130,10 @@ class AutoCatalogController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
         }
-
-        $editForm = $this->createForm(new AutoCatalogType, $entity);
+        if ($entity instanceof AutoCatalogItem)
+            $editForm = $this->createForm(new AutoCatalogItemType, $entity);
+        else
+            $editForm = $this->createForm(new AutoCatalogType, $entity);
 
         return [
             'entity' => $entity,

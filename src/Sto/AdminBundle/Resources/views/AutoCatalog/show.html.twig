@@ -17,6 +17,14 @@
         <tr>
             <th width="50">№</th>
             <th>Название</th>
+            <th>Тип кузова</th>
+            <th>Объем двигателя</th>
+            <th>Мощность</th>
+            <th>Привод</th>
+            <th>Коробка передач</th>
+            <th>Кол-во передач</th>
+            <th>Начало выпуска</th>
+            <th>Окончание выпуска</th>
             <th width="50">Видим</th>
             <th width="70">Действия</th>
         </tr>
@@ -25,7 +33,10 @@
     {% for entity in entities %}
         <tr>
             <td>{{ entity.id }}</td>
-            <td>{{ entity.name }}</td>
+            <td colspan="9">{{ entity.name }}</td>
+
+
+
             <td>{% if entity.visible %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
 
             <td>
@@ -34,6 +45,32 @@
             </td>
             </td>
         </tr>
+        {% if entity.children %}
+            {% for item in entity.children %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td><span style="margin-left:20px;">{{ item.name }}</span></td>
+
+                <td>{{ item.bodyType }}</td>
+                <td>{{ item.engineVolume }}</td>
+                <td>{{ item.power }}</td>
+                <td>{{ item.privod }}</td>
+                <td>{{ item.transmission }}</td>
+                <td>{{ item.transmissionCount }}</td>
+                <td>{{ item.startProduction }}</td>
+                <td>{{ item.endProduction }}</td>
+
+                <td>{% if item.visible %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
+
+                <td>
+                    <a href="{{ path('autocatalog_edit', { 'id': item.id }) }}" class="icon-pencil" title="Редактировать"></a>
+                    <a href="{{ path('autocatalog_delete', { 'id': item.id }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{item.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                </td>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+
     {% endfor %}
     </tbody>
 </table>

@@ -687,12 +687,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "85a153f53314ce474a48c1e91cc4d9600e2d3e9d"
+                "reference": "3f989912c196478ffe75563dab76840ce66f326b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/85a153f53314ce474a48c1e91cc4d9600e2d3e9d",
-                "reference": "85a153f53314ce474a48c1e91cc4d9600e2d3e9d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/3f989912c196478ffe75563dab76840ce66f326b",
+                "reference": "3f989912c196478ffe75563dab76840ce66f326b",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-03-27 09:59:40"
+            "time": "2013-04-02 00:01:44"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1786,17 +1786,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "628e17d22c855712b7fef6e080284290885ec3bb"
+                "reference": "5043b6e6102bb380379c0f0ce27e38f7c41eb12d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/628e17d22c855712b7fef6e080284290885ec3bb",
-                "reference": "628e17d22c855712b7fef6e080284290885ec3bb",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/5043b6e6102bb380379c0f0ce27e38f7c41eb12d",
+                "reference": "5043b6e6102bb380379c0f0ce27e38f7c41eb12d",
                 "shasum": ""
             },
             "require": {
                 "mopa/composer-bridge": "1.*",
-                "symfony/symfony": ">=2.1,<2.3-dev"
+                "symfony/symfony": ">=2.1,<2.4-dev"
             },
             "suggest": {
                 "craue/formflow-bundle": "dev-master",
@@ -1839,7 +1839,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-04-01 16:26:55"
+            "time": "2013-04-02 12:28:03"
         },
         {
             "name": "mopa/composer-bridge",
