@@ -27,7 +27,6 @@ class AutoCatalog
      */
     private $id;
 
-
     /**
      * @ORM\OneToMany(targetEntity="AutoCatalog", mappedBy="parent" , cascade={"remove"})
      */
@@ -74,7 +73,7 @@ class AutoCatalog
     /**
      * Set parentId
      *
-     * @param  integer    $parentId
+     * @param  integer     $parentId
      * @return AutoCatalog
      */
     public function setParentId($parentId)
@@ -159,7 +158,8 @@ class AutoCatalog
         return $this;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 

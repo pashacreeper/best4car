@@ -5,7 +5,6 @@ namespace Sto\AdminBundle\Form\Dictionary;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 
 class CurrencyType extends BaseType
 {
@@ -33,5 +32,3 @@ class CurrencyType extends BaseType
         return 'sto_admin_dictionary_currency';
     }
 }
-
-

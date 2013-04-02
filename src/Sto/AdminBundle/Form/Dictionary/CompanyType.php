@@ -43,5 +43,3 @@ class CompanyType extends BaseType
         return 'sto_admin_dictionary_company';
     }
 }
-
-

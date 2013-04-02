@@ -76,7 +76,6 @@ class AutoCatalogItem extends AutoCatalog
      */
     protected $endProduction;
 
-
     /**
      * @param string $bodyType
      */
@@ -113,7 +112,6 @@ class AutoCatalogItem extends AutoCatalog
         return $this->bodyType;
     }
 
-
     /**
      * @param string $engineVolume
      */
@@ -132,65 +130,76 @@ class AutoCatalogItem extends AutoCatalog
         return $this->engineVolume;
     }
 
-    public function setPower($power){
+    public function setPower($power)
+    {
         $this->power = $power;
 
         return $this;
     }
 
-    public function getPower(){
+    public function getPower()
+    {
         return $this->power;
     }
 
-    public function setPrivod($privod){
+    public function setPrivod($privod)
+    {
         $this->privod = $privod;
 
         return $this;
     }
 
-    public function getPrivod(){
+    public function getPrivod()
+    {
         return $this->privod;
     }
 
-    public function setTransmission($transmission){
+    public function setTransmission($transmission)
+    {
         $this->transmission = $transmission;
 
         return $this;
     }
 
-    public function getTransmission(){
+    public function getTransmission()
+    {
         return $this->transmission;
     }
 
-    public function setTransmissionCount($count){
+    public function setTransmissionCount($count)
+    {
         $this->transmissionCount = $count;
 
         return $this;
     }
 
-    public function getTransmissionCount(){
+    public function getTransmissionCount()
+    {
         return $this->transmissionCount;
     }
 
-    public function setStartProduction($startProduction){
+    public function setStartProduction($startProduction)
+    {
         $this->startProduction = $startProduction;
 
         return $this;
     }
 
-    public function getStartProduction(){
+    public function getStartProduction()
+    {
         return $this->startProduction;
     }
 
-    public function setEndProduction($endProduction){
+    public function setEndProduction($endProduction)
+    {
         $this->endProduction= $endProduction;
 
         return $this;
     }
 
-    public function getEndProduction(){
+    public function getEndProduction()
+    {
         return $this->endProduction;
     }
-
 
 }

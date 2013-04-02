@@ -20,9 +20,6 @@ class AutoCatalogCar extends AutoCatalog
      */
     private $name;
 
-
-
-
     /**
      * @param string $name
      */
@@ -40,9 +37,5 @@ class AutoCatalogCar extends AutoCatalog
     {
         return $this->name;
     }
-
-
-
-
 
 }

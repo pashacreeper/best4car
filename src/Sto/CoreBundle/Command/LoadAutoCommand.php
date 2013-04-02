@@ -9,8 +9,6 @@ use Sto\CoreBundle\Entity\AutoCatalog,
     Sto\CoreBundle\Entity\AutoCatalogCar,
     Sto\CoreBundle\Entity\AutoCatalogItem;
 
-
-
 class LoadAutoCommand extends ContainerAwareCommand
 {
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -77,11 +75,10 @@ class LoadAutoCommand extends ContainerAwareCommand
                 }
                 foreach ($aBodies as  $sBody => $aKomplect) {
                     $rs =$this->manager->getRepository('StoCoreBundle:AutoCatalogCar')->findOneByName($sBody);
-                    if ($rs){
+                    if ($rs) {
                         $oBody = $rs;
                         $output->writeln('      Body: '.$sBody.' was in database');
-                    }
-                    else {
+                    } else {
                         $oBody = new AutoCatalogCar;
                         $oBody->setName($sBody);
                         $oBody->setParent($oModel);
@@ -90,11 +87,10 @@ class LoadAutoCommand extends ContainerAwareCommand
                     }
                     foreach ($aKomplect as $sKompl => $aParams) {
                         $rs = $this->manager->getRepository('StoCoreBundle:AutoCatalogItem')->findOneByName($sKompl);
-                        if ($rs){
+                        if ($rs) {
                             $oKompl = $rs;
                             $output->writeln('         Komplect: '.$sKompl.' was in database');
-                        }
-                        else {
+                        } else {
                             $oKompl = new AutoCatalogItem;
                             $oKompl->setName($sKompl);
                             $oKompl->setParent($oBody);
@@ -167,7 +163,6 @@ class LoadAutoCommand extends ContainerAwareCommand
 
             // Регулярные выражения для параметров автомобиля
 
-
             $page_content2 = str_replace(array("\n", "\r"), array("",""), $page_content2);
 
             $reg = iconv('UTF-8', 'windows-1251', 'Тип кузова');
@@ -198,17 +193,15 @@ class LoadAutoCommand extends ContainerAwareCommand
                 'engineVolume' => iconv('windows-1251', 'UTF-8', $engineVolume[1][0]),
             ];
 
-            if (isset($transmissionA[1][0]) && $transmissionA[1][0] != '-'){
+            if (isset($transmissionA[1][0]) && $transmissionA[1][0] != '-') {
                 $params['transmission'] = 'Автомат';
                 $params['transmissionCount'] = $transmissionA[1][0];
-            }
-            elseif (isset($transmissionM[1][0]) && $transmissionM[1][0] != '-') {
+            } elseif (isset($transmissionM[1][0]) && $transmissionM[1][0] != '-') {
                 $params['transmission'] = 'Механика';
                 $params['transmissionCount'] = $transmissionM[1][0];
             }
 
-
-            if (isset($res[1][0]) && isset($res[2][0])){
+            if (isset($res[1][0]) && isset($res[2][0])) {
                 $output->writeln('Scanning '.iconv('windows-1251', 'UTF-8', $res[1][0]).' and komplect '. iconv('windows-1251', 'UTF-8', $res[2][0]).'...');
 
                 $auto[iconv('windows-1251', 'UTF-8', $res[1][0])][iconv('windows-1251', 'UTF-8', $res[2][0])] = $params;

@@ -77,7 +77,7 @@ class Base
     /**
      * Set code
      *
-     * @param  string     $code
+     * @param  string $code
      * @return Base
      */
     public function setShortName($shortName)
@@ -98,7 +98,7 @@ class Base
     /**
      * Set name
      *
-     * @param  string     $name
+     * @param  string $name
      * @return Base
      */
     public function setName($name)
@@ -119,7 +119,7 @@ class Base
     /**
      * Set parentId
      *
-     * @param  integer    $parentId
+     * @param  integer $parentId
      * @return Base
      */
     public function setParentId($parentId)

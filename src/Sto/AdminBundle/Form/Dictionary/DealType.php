@@ -5,7 +5,6 @@ namespace Sto\AdminBundle\Form\Dictionary;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 
 class DealType extends BaseType
 {
