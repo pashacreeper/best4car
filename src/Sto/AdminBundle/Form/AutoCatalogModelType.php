@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AutoCatalogType extends AbstractType
+class AutoCatalogModelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,16 +17,22 @@ class AutoCatalogType extends AbstractType
             ->add('visible', null, [
                 'label' => 'Видимость'
             ])
-            /*->add('parent', null, [
-                'label' => 'dict.fields.parent'
-            ])*/
+            ->add('parent', 'entity', array(
+                'label' => 'dict.fields.parent',
+                'class' => 'StoCoreBundle:AutoCatalogCar',
+                'query_builder' => function($repository) { return $repository->createQueryBuilder('ab')
+                    //->where('ab.discr = :discr')
+                    //->setParameter('discr', 'autocatalog_car')
+                    ->orderBy('ab.name', 'ASC'); },
+                'property' => 'name',
+            ))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\AutoCatalog'
+            'data_class' => 'Sto\CoreBundle\Entity\AutoCatalogModel'
         ]);
     }
 

@@ -6,11 +6,19 @@
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-<form action="{{ path('autocatalog_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+<form action="{{ path('autocatalog_update', { 'id': entity.id, 'type':type, 'parent':parent }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
-        <a class="btn" href="{{ path('admin_autocatalog') }}">{{ 'form.cancel'|trans({}) }}</a>
+        {% if type is defined and type=="mark" %}
+            <a class="btn" href="{{ path('admin_autocatalog') }}">{{ 'form.cancel'|trans({}) }}</a>
+        {% elseif type is defined and type=="model" %}
+            <a class="btn" href="{{ path('admin_autocatalog_show_model', {'id':parent}) }}">{{ 'form.cancel'|trans({}) }}</a>
+        {% elseif type is defined and type=="body" %}
+            <a class="btn" href="{{ path('admin_autocatalog_show_body', {'id':parent}) }}">{{ 'form.cancel'|trans({}) }}</a>
+        {% elseif type is defined and type=="item" %}
+            <a class="btn" href="{{ path('admin_autocatalog_show', {'id':parent}) }}">{{ 'form.cancel'|trans({}) }}</a>
+        {% endif %}
     </div>
 </form>
 {% endblock %}

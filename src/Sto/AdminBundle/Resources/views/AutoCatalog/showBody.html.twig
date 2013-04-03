@@ -1,7 +1,7 @@
 {% extends 'StoAdminBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Автокаталог: Модели{% endblock %}
+{% block title %}Автокаталог: Кузов{% endblock %}
 
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
@@ -12,7 +12,7 @@
     </div>
 {% endif %}
 <p>
-    <a class="btn btn-info btn-small" href="{{ path('autocatalog_new', {'type':"model", 'parent':parent}) }}"><i class="icon-plus icon-white"></i> Добавить</a>
+    <a class="btn btn-info btn-small" href="{{ path('autocatalog_new', {'type':"body", 'parent':parent}) }}"><i class="icon-plus icon-white"></i> Добавить</a>
 </p>
 <table class="table table-hover table-condensed">
     <thead>
@@ -27,11 +27,11 @@
     {% for entity in entities %}
         <tr>
             <td>{{ entity.id }}</td>
-            <td><a href="{{ path('admin_autocatalog_show_body', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td><a href="{{ path('admin_autocatalog_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             <td>{% if entity.visible %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
             <td>
-                <a href="{{ path('autocatalog_edit', { 'id': entity.id, 'parent':parent, 'type':'model' }) }}" class="icon-pencil" title="Редактировать"></a>
-                <a href="{{ path('autocatalog_delete', { 'id': entity.id, 'parent':parent, 'type':'model' }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                <a href="{{ path('autocatalog_edit', { 'id': entity.id, 'parent':parent, 'type':'body' }) }}" class="icon-pencil" title="Редактировать"></a>
+                <a href="{{ path('autocatalog_delete', { 'id': entity.id, 'parent':parent, 'type':'body' }) }}" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{entity.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
             </td>
         </tr>

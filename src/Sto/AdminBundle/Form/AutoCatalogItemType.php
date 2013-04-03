@@ -17,9 +17,15 @@ class AutoCatalogItemType extends AbstractType
             ->add('visible', null, [
                 'label' => 'Видимость'
             ])
-            ->add('parent', null, [
-                'label' => 'dict.fields.parent'
-            ])
+            ->add('parent', 'entity', array(
+                'label' => 'dict.fields.parent',
+                'class' => 'StoCoreBundle:AutoCatalogBody',
+                'query_builder' => function($repository) { return $repository->createQueryBuilder('ab')
+                    //->where('ab.discr = :discr')
+                    //->setParameter('discr', 'autocatalog_body')
+                    ->orderBy('ab.name', 'ASC'); },
+                'property' => 'name',
+            ))
             ->add('bodyType', null, [
                 'label' => 'Тип кузова'
             ])
@@ -44,6 +50,7 @@ class AutoCatalogItemType extends AbstractType
             ->add('endProduction', null, [
                 'label' => 'Окончание выпуска'
             ])
+
         ;
     }
 

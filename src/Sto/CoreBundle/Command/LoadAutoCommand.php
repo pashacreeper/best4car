@@ -7,10 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand,
     Symfony\Component\Console\Output\OutputInterface;
 use Sto\CoreBundle\Entity\AutoCatalog,
     Sto\CoreBundle\Entity\AutoCatalogCar,
+    Sto\CoreBundle\Entity\AutoCatalogModel,
+    Sto\CoreBundle\Entity\AutoCatalogBody,
     Sto\CoreBundle\Entity\AutoCatalogItem;
 
 class LoadAutoCommand extends ContainerAwareCommand
 {
+
+    private $Catalog;
+
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         parent::initialize($input, $output); //initialize parent class method
@@ -40,14 +45,20 @@ class LoadAutoCommand extends ContainerAwareCommand
         if ($mark != '')
             $output->writeln(' '.$mark);
         $mark = iconv('UTF-8', 'windows-1251', $mark);
+        $Catalog = array();
         $aCatalog = $this->parseMainPage($output, $mark);
-        $iMarks = 0; $iModel = 0; $iBody = 0; $iKompl = 0;
-        $output->writeln('Parsing finished.');
+        //$output->writeln('Parsing finished.');
         if (count($aCatalog)>0)
             $output->writeln('Importing data...');
         else
             $output->writeln('No data found');
 
+        //$this->pushToDb($aCatalog);
+    }
+
+
+    private function pushToDb($output, $aCatalog = array()){
+        $iMarks = 0; $iModel = 0; $iBody = 0; $iKompl = 0;
         foreach ($aCatalog as $sMark => $aModels) {
             $rs =$this->manager->getRepository('StoCoreBundle:AutoCatalogCar')->findOneByName($sMark);
             if ($rs) {
@@ -66,7 +77,7 @@ class LoadAutoCommand extends ContainerAwareCommand
                     $oModel = $rs;
                     $output->writeln('   Model: '. $sModel.' was in database');
                 } else {
-                    $oModel = new AutoCatalogCar;
+                    $oModel = new AutoCatalogModel;
                     $oModel->setName($sModel);
                     $oModel->setParent($oMark);
                     $this->manager->persist($oModel);
@@ -79,7 +90,7 @@ class LoadAutoCommand extends ContainerAwareCommand
                         $oBody = $rs;
                         $output->writeln('      Body: '.$sBody.' was in database');
                     } else {
-                        $oBody = new AutoCatalogCar;
+                        $oBody = new AutoCatalogBody;
                         $oBody->setName($sBody);
                         $oBody->setParent($oModel);
                         $this->manager->persist($oBody);
@@ -127,10 +138,15 @@ class LoadAutoCommand extends ContainerAwareCommand
         foreach ($marks[2] as $key=>$mark) {
             $output->writeln('Scanning mark '.iconv('windows-1251', 'UTF-8', $mark).'...');
             if ($str!='') {
-                if ($str==$mark)
+                if ($str==$mark){
                     $auto[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
-            } else
+                    //$this->catalog[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
+                }
+            } else{
                 $auto[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
+                //$this->catalog[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
+            }
+            $this->pushToDb($output, $auto);
         }
 
         return $auto;

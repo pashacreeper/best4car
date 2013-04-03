@@ -13,7 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({ *
  *     "autocatalog_item"               = "AutoCatalogItem",
- *     "autocatalog_car"                = "AutoCatalogCar"
+ *     "autocatalog_car"                = "AutoCatalogCar",
+ *     "autocatalog_model"              = "AutoCatalogModel",
+ *     "autocatalog_body"                = "AutoCatalogBody"
  * })
  */
 class AutoCatalog
