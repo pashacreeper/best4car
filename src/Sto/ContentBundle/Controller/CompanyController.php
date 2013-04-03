@@ -9,6 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sto\CoreBundle\Entity\Company;
 
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 class CompanyController extends Controller
 {
     /**
@@ -48,4 +52,27 @@ class CompanyController extends Controller
             'company' => $company
         ];
     }
+
+    /**
+     * Ajax get companies
+     *
+     * @Route("/ajax/getall", name="company_ajax_get_all")
+     */
+    public function getAllAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $companies = $em->getRepository('StoCoreBundle:Company')
+            ->createQueryBuilder('company')
+            ->getQuery()
+            ->getArrayResult();
+
+        if (!$companies)
+            return new Responce(500, 'Companies Not found.');
+
+        $response = new Response(json_encode(array('companies' => $companies)));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
 }

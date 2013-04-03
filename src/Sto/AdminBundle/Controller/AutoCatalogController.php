@@ -85,7 +85,7 @@ class AutoCatalogController extends Controller
     public function newAction()
     {
         return [
-            'form' => $this->createForm(new AutoCatalogType, new AutoCatalog)->createView(),
+            'form' => $this->createForm(new AutoCatalogType, new AutoCatalogCar)->createView(),
         ];
     }
 
@@ -98,7 +98,7 @@ class AutoCatalogController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new AutoCatalog;
+        $entity  = new AutoCatalogCar;
         $form = $this->createForm(new AutoCatalogType, $entity);
         $form->bind($request);
 

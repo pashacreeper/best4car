@@ -21,28 +21,28 @@ class AutoCatalogItemType extends AbstractType
                 'label' => 'dict.fields.parent'
             ])
             ->add('bodyType', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Тип кузова'
             ])
             ->add('engineVolume', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Объем двигателя'
             ])
             ->add('power', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Мощность'
             ])
             ->add('privod', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Привод'
             ])
             ->add('transmission', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Коробка передач'
             ])
             ->add('transmissionCount', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Кол-о передач'
             ])
             ->add('startProduction', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Начало выпуска'
             ])
             ->add('endProduction', null, [
-                'label' => 'dict.fields.parent'
+                'label' => 'Окончание выпуска'
             ])
         ;
     }

@@ -13,10 +13,10 @@
 </form>
 {% endblock %}
 
-{% block content_tag 'class="container" style="width:100%; height: 100%;"' %}
+{% block content_tag 'class="container" style="width:100%; height: 100%; min-height: 100%; margin-bottom: -60px;"' %}
 
 {% block content %}
-<div id="map" style="width: 100%; height: 100%; margin: 0; padding: 0;"></div>
+<div id="map" style="width: 100%; height: 100%; margin: 0; padding: 0; min-height: 100%; margin-bottom: -60px;"></div>
 
 {# Выбор города #}
 {% if cities %}
@@ -29,6 +29,19 @@
 </div>
 {% endif %}
 {# Конец выбора города #}
+
+
+
+{# Companies list #}
+<style type="text/css">
+    #home_compalies ul.hide { display: none; }
+</style>
+<div id="home_compalies" style="position: absolute; top: 50px; left: 40px; background-color: white; border: 1px solid gray; padding: 10px 20px; ">
+    <div><h4 style="cursor: pointer;">Companies list </h4></div>
+    <ul class="hide"></ul>
+</div>
+{# EOF Companies list #}
+
 {% endblock %}
 
 {% block foot_script %}
@@ -36,6 +49,30 @@
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript">
         ymaps.ready(init);
+
+        // companies list
+        $('#home_compalies').on("click", "h4", function() {
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('company_ajax_get_all') }}",
+                //data: {'id': id},
+                success: function(res) {
+                    if (res.companies)
+                    {
+                        var root = $('#home_compalies ul');
+                        root.empty(); // clear
+                        $.each(res.companies, function (index, company) {
+                            root.append("<li><a href=\"#\">" + company.name  + "</a></li>");
+                        });
+                    }
+                },
+                error: function(e) {
+                    console.log(e.message);
+                }
+            });
+
+            $('#home_compalies ul').toggleClass("hide");
+        });
 
         function init (companies) {
             var myMap = new ymaps.Map("map", {
