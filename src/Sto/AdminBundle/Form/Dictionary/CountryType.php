@@ -5,6 +5,7 @@ namespace Sto\AdminBundle\Form\Dictionary;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CountryType extends BaseType
 {
@@ -24,6 +25,18 @@ class CountryType extends BaseType
             ->add('image', null, [
                 'label' => 'city.fields.image',
                 'render_optional_text' => false,
+            ])
+            ->add('parent', 'entity', [
+                'label' => 'dict.fields.parent',
+                'required' => false,
+                'render_optional_text' => false,
+                'empty_value' => "Выберите страну",
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is null')
+                        ->orderBy('country.name', 'ASC');
+                },
             ])
         ;
     }

@@ -30,8 +30,6 @@
 {% endif %}
 {# Конец выбора города #}
 
-
-
 {# Companies list #}
 <style type="text/css">
     #home_compalies ul.hide { display: none; }
@@ -50,12 +48,10 @@
     <script type="text/javascript">
         ymaps.ready(init);
 
-        // companies list
         $('#home_compalies').on("click", "h4", function() {
             $.ajax({
                 type: 'POST',
                 url: "{{ path('company_ajax_get_all') }}",
-                //data: {'id': id},
                 success: function(res) {
                     if (res.companies)
                     {
@@ -106,7 +102,6 @@
                 }, {
                     iconImageHref: "{{ asset('bundles/stocontent/images/company.png') }}", // картинка иконки
                     iconImageSize: [40, 28],
-                    // iconImageOffset: [-3, -28] // смещение картинки
                 });
                 myCollection.add(myPlacemark);
             }

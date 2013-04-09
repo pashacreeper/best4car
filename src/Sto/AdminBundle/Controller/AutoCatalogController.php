@@ -62,7 +62,6 @@ class AutoCatalogController extends Controller
         ];
     }
 
-
     /**
      * Finds and displays a AutoCatalog entity.
      *
@@ -95,8 +94,6 @@ class AutoCatalogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('StoCoreBundle:AutoCatalog')->findByParentId($id);
 
-
-
         return [
             'entities' => $entities,
             'parent' => $id,
@@ -114,21 +111,18 @@ class AutoCatalogController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $oParent = $em->getRepository('StoCoreBundle:AutoCatalog')->find($parent);
-        if ($type=="mark"){
+        if ($type=="mark") {
             $entity  = new AutoCatalogCar;
             $form = $this->createForm(new AutoCatalogType, $entity);
-        }
-        elseif ($type=="model"){
+        } elseif ($type=="model") {
             $entity  = new AutoCatalogModel;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogModelType, $entity);
-        }
-        elseif ($type=="body"){
+        } elseif ($type=="body") {
             $entity  = new AutoCatalogBody;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogBodyType, $entity);
-        }
-        elseif ($type=="item"){
+        } elseif ($type=="item") {
             $entity  = new AutoCatalogItem;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogItemType, $entity);
@@ -152,21 +146,18 @@ class AutoCatalogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $oParent = $em->getRepository('StoCoreBundle:AutoCatalog')->find($parent);
-        if ($type=="mark"){
+        if ($type=="mark") {
             $entity  = new AutoCatalogCar;
             $form = $this->createForm(new AutoCatalogType, $entity);
-        }
-        elseif ($type=="model"){
+        } elseif ($type=="model") {
             $entity  = new AutoCatalogModel;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogModelType, $entity);
-        }
-        elseif ($type=="body"){
+        } elseif ($type=="body") {
             $entity  = new AutoCatalogBody;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogBodyType, $entity);
-        }
-        elseif ($type=="item"){
+        } elseif ($type=="item") {
             $entity  = new AutoCatalogItem;
             $entity->setParent($oParent);
             $form = $this->createForm(new AutoCatalogItemType, $entity);
@@ -178,7 +169,6 @@ class AutoCatalogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
 
             return $this->generateRedirect($type, $parent);
         }
@@ -298,7 +288,8 @@ class AutoCatalogController extends Controller
         return $this->generateRedirect($type, $parent);
     }
 
-    private function generateRedirect($type, $parent){
+    private function generateRedirect($type, $parent)
+    {
         if ($type=="model")
             return $this->redirect($this->generateUrl('admin_autocatalog_show_model', ['id'=>$parent]));
         elseif ($type=="body")

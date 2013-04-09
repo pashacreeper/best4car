@@ -17,9 +17,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Country extends Base
 {
     /**
-     * @Assert\File(
-     *     maxSize="2M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * @Assert\Image(
+     *     maxSize="512k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="1024",
+     *     maxHeight="1024"
      * )
      * @Vich\UploadableField(mapping="country_icon", fileNameProperty="iconName")
      * @var File $icon
@@ -33,9 +35,11 @@ class Country extends Base
     protected $iconName;
 
     /**
-     * @Assert\File(
-     *     maxSize="2M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * @Assert\Image(
+     *     maxSize="2048k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="2048",
+     *     maxHeight="2048"
      * )
      * @Vich\UploadableField(mapping="country_image", fileNameProperty="imageName")
      * @var File $icon

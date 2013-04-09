@@ -108,16 +108,13 @@ class DictionaryController extends Controller
             case 'country':
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Country');
                 break;
-            case 'city':
-                $repository = $em->getRepository('StoCoreBundle:Dictionary\City');
-                break;
             default:
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
                 break;
         }
 
         $dictionaries = $repository->createQueryBuilder('dictionary')
-            ->orderBy('dictionary.id')
+            ->orderBy('dictionary.id, dictionary.parent')
             ->getQuery()
             ->getResult()
         ;
@@ -154,9 +151,6 @@ class DictionaryController extends Controller
                 break;
             case 'country':
                 $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\Country);
-                break;
-            case 'city':
-                $form = $this->createForm(new DictionaryForm\CityType, new DictionaryEntity\City);
                 break;
             default:
                 $form = $this->createForm(new DictionaryForm\BaseType, new DictionaryEntity\Base);
@@ -202,10 +196,6 @@ class DictionaryController extends Controller
             case 'country':
                 $entity  = new DictionaryEntity\Country;
                 $form = $this->createForm(new DictionaryForm\CountryType, $entity);
-                break;
-            case 'city':
-                $entity  = new DictionaryEntity\City;
-                $form = $this->createForm(new DictionaryForm\CityType, $entity);
                 break;
             default:
                 $entity  = new DictionaryEntity\Base;
@@ -262,10 +252,6 @@ class DictionaryController extends Controller
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
                 break;
-            case 'city':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\City')->findOneById($id);
-                $editForm = $this->createForm(new DictionaryForm\CityType, $entity);
-                break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -291,7 +277,7 @@ class DictionaryController extends Controller
      *
      * @Route("/{id}/{dictionary}/update", name="dictionary_update")
      * @Method("POST")
-     * @Template("StoCoreBundle:Dictionary:edit.html.twig")
+     * @Template("StoAdminBundle:Dictionary:edit.html.twig")
      */
     public function updateAction(Request $request, $id, $dictionary)
     {
@@ -321,10 +307,6 @@ class DictionaryController extends Controller
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
                 break;
-            case 'city':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\City')->findOneById($id);
-                $editForm = $this->createForm(new DictionaryForm\CityType, $entity);
-                break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -347,7 +329,7 @@ class DictionaryController extends Controller
 
         return [
             'entity' => $entity,
-            '$dictionary' => $dictionary,
+            'dictionary' => $dictionary,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ];

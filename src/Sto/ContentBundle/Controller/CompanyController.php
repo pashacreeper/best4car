@@ -3,15 +3,13 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sto\CoreBundle\Entity\Company;
-
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CompanyController extends Controller
 {
@@ -29,8 +27,9 @@ class CompanyController extends Controller
             ->getArrayResult()
         ;
 
-        $cities = $em->getRepository('StoCoreBundle:Dictionary\City')
+        $cities = $em->getRepository('StoCoreBundle:Dictionary\Country')
             ->createQueryBuilder('city')
+            ->where('city.parent is not null')
             ->getQuery()
             ->getArrayResult();
 
@@ -74,5 +73,4 @@ class CompanyController extends Controller
 
         return $response;
     }
-
 }

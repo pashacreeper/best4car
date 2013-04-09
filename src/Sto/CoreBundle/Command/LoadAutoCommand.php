@@ -56,8 +56,8 @@ class LoadAutoCommand extends ContainerAwareCommand
         //$this->pushToDb($aCatalog);
     }
 
-
-    private function pushToDb($output, $aCatalog = array()){
+    private function pushToDb($output, $aCatalog = array())
+    {
         $iMarks = 0; $iModel = 0; $iBody = 0; $iKompl = 0;
         foreach ($aCatalog as $sMark => $aModels) {
             $rs =$this->manager->getRepository('StoCoreBundle:AutoCatalogCar')->findOneByName($sMark);
@@ -138,11 +138,11 @@ class LoadAutoCommand extends ContainerAwareCommand
         foreach ($marks[2] as $key=>$mark) {
             $output->writeln('Scanning mark '.iconv('windows-1251', 'UTF-8', $mark).'...');
             if ($str!='') {
-                if ($str==$mark){
+                if ($str==$mark) {
                     $auto[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
                     //$this->catalog[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
                 }
-            } else{
+            } else {
                 $auto[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
                 //$this->catalog[iconv('windows-1251', 'UTF-8', $mark)] = $this->getModel($output, $marks[1][$key]);
             }

@@ -97,7 +97,7 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
             $manager->persist($vCountry);
 
             foreach ($cities as $shortName => $city) {
-                $vCity = new Dictionary\City;
+                $vCity = new Dictionary\Country;
                 $vCity->setName($city);
                 $vCity->setParent($vCountry);
                 $vCity->setShortName($shortName ? $shortName : 'CODE');

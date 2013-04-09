@@ -32,13 +32,22 @@
         <title>BEST4CAR &middot; {% block title 'BEST4CAR' %}</title>
     </head>
 {% endblock %}
+
+{% block body_tag '<body>' %}
+
 {% block body %}
         <div id="wrap">
 {% block navbar_container %}
 {% block navbar %}{{ mopa_bootstrap_navbar('frontendNavbar') }}{% endblock %}
+{% include "StoContentBundle:City:city.html.twig" %}
 {% endblock %}
-
-{% block aside %}{% endblock %}
+            <div class="row-fluid">
+                <div class="container">
+                {% block header %}{% endblock %}
+                <hr style="margin:0;">
+                </div>
+            </div>
+            {% block aside %}{% endblock %}
             <div {% block content_tag 'class="container"' %} >
                 {% block search %}{% endblock %}
                 {% block content %}{% endblock %}

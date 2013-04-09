@@ -18,7 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     "work"               = "Work",
  *     "currency"           = "Currency",
  *     "country"            = "Country",
- *     "city"               = "City"
  * })
  */
 class Base

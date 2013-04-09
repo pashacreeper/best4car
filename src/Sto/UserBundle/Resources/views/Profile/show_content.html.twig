@@ -1,86 +1,83 @@
-<ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#personal">Личная информация</a></li>
-    <li><a href="#garage">Гараж</a></li>
-    <li><a href="#feedbacks">Отзывы пользователя</a></li>
-
-</ul>
-
+<div class="row-fluid">
+    <div class="pull-right">
+        <ul class="nav nav-pills" id="myTab">
+            <li class="active"><a href="#personal">Личная информация</a></li>
+            <li><a href="#garage">Гараж</a></li>
+            <li><a href="#feedbacks">Отзывы пользователя</a></li>
+        </ul>
+    </div>
+</div>
+<hr style="margin: 5px 0;">
 <div class="tab-content">
-
     <div class="tab-pane active" id="personal">
-        <div class="span6">
+        <div class="row-fluid">
+            <div class="span4">
+                <center>
 
-            <div class="span10">
-                <img src="{{ user.avatar }}" width="90" heigth="100" class="img-rounded" style="margin-bottom:20px;">
+{% if user.avatar %}
+                    <img src="{{ user.avatar }}" width="90" heigth="100" class="img-rounded" style="margin-bottom:20px;">
+{% else %}
+                    <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="width:200px" class="img-polaroid"/>
+{% endif %}
+                </center>
             </div>
-            <div class="span6">
-                <p>Логин: {{ user.username }}</p>
-            </div>
-            <div class='span6'>
-                <p>E-mail: {{ user.email }}</p>
-            </div>
-            <div class='span6'>
+            <div class="span8">
                 <p>Имя: {{ user.firstName }}</p>
-            </div>
-            <div class='span6'>
+                <p>E-mail: {{ user.email }}</p>
                 <p>Телефон: {{ user.phoneNumber }}</p>
-            </div>
-            <div class='span6'>
                 <p>Дата рождения: {{ user.birthDate|date('d.m.Y') }}</p>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <p>Рейтинг: {{ user.rating }}</p>
+                    </div>
+                    <div class="span6">
+                        <p>Рейтиновая группа: {{ user.ratingGroup.name }}</p>
+                    </div>
+                </div>
+                <h5>Внешние профили</h5>
+                <hr style="margin: 5px 0;">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <p>Вконтакте: <a href="{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
+                        <p>Автопрфиль: <a href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
+                    </div>
+                    <div class="span6">
+                        <p>Facebook: <a href="{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a></p>
+                        <p>Google +: <a href="{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a></p>
+                    </div>
+                </div>
+                <h5>О себе:</h5>
+                <hr style="margin: 5px 0;">
+                <div class="row-fluid">
+                    <div class="span11">
+{% if user.description %}
+                        <div class="well">
+                            {{ user.description }}
+                        </div>
+{% else %}
+                        <div class="well">
+                            Пользователь не оставил информации о себе.
+                        </div>
+{% endif %}
+                    </div>
+                </div>
             </div>
-            <div class='span6'>
-                <p>Пол: {{ user.gender }}</p>
-            </div>
-            <div class='span6'>
-                <p>Autoprofileslinks: <a href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
-            </div>
-            <div class='span6'>
-                <p>Рейтиновая группа: {{ user.ratingGroup.name }}</p>
-            </div>
-            <div class='span6'>
-                <p>Рейтинг: {{ user.rating }}</p>
-            </div>
-            <div class='span6'>
-                <p>Ссылка на Вконтакте: <a href="{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
-            </div>
-            <div class='span6'>
-                <p>Ссылка на Facebook: <a href="{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a></p>
-            </div>
-            <div class='span6'>
-                <p>Ссылка на GP: <a href="{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a></p>
-            </div>
-
-            <div class='span10'>
-                <p>О себе: {{ user.description }}</p>
-            </div>
-
         </div>
     </div>
-
     <div class="tab-pane" id="garage">
         <div class="span6">
             Garage Info Coming soon.
         </div>
     </div>
-
     <div class="tab-pane" id="feedbacks">
         <div class="span6">
             Feedbacks For this User Coming soon.
         </div>
     </div>
-
 </div>
-
-
-
-
-<div class="row"></div>
-
 <div class="form-actions">
-    <a href="{{ path('fos_user_profile_edit') }}">Редактировать</a>
+    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">Редактировать</a>
 </div>
-
-
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault();

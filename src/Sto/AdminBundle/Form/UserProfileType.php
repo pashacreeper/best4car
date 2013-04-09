@@ -13,97 +13,82 @@ class UserProfileType extends BaseType
 
         $builder
             ->add('firstName', null, [
-                    'label' => 'Имя',
-                ])
-            // ->add('lastName', null, [
-            //         'label' => 'Фамилия',
-            //     ])
+                'label' => 'Имя',
+            ])
             ->add('rating', null, [
-                    'label' => 'Рейтинг',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Рейтинг',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('phoneNumber', null, [
-                    'label' => 'Номер телефона',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Номер телефона',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('ratingGroupId', null, [
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('avatar', null, [
-                    'label' => 'Аватара',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Аватара',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('birthDate', 'date', [
-                    'label' => 'Дата рождения',
-                    'required' => false,
-                    'render_optional_text' => false,
-                    'widget' => 'single_text',
-                    'datepicker' => true
-                ])
+                'label' => 'Дата рождения',
+                'required' => false,
+                'render_optional_text' => false,
+                'widget' => 'single_text',
+                'datepicker' => true
+            ])
             ->add('gender','choice', [
-                    'label' => 'Пол',
-                    'required' => false,
-                    'render_optional_text' => false,
-                    'choices' => array('male'=>'Male', 'female'=>'Female'),
-                    'expanded' => true,
-                ])
+                'label' => 'Пол',
+                'required' => false,
+                'render_optional_text' => false,
+                'choices' => array('male'=>'Male', 'female'=>'Female'),
+                'expanded' => true,
+            ])
             ->add('cityId', null, [
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('linkVK', null, [
-                    'label' => 'Ссылка на профиль vk.com',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Ссылка на профиль vk.com',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('linkFB', null, [
-                    'label' => 'Ссылка на профиль facebook.com',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Ссылка на профиль facebook.com',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('linkGP', null, [
-                    'label' => 'Ссылка на профиль plus.google.com',
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'label' => 'Ссылка на профиль plus.google.com',
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('autoProfilesLinks', null, [
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('contentGroupId', null, [
-                    'required' => false,
-                    'render_optional_text' => false,
-                ])
+                'required' => false,
+                'render_optional_text' => false,
+            ])
             ->add('description', 'textarea', [
-                    'label' => 'О себе',
-                    'required' => false,
-                    'render_optional_text' => false,
-                    'attr' => [
-                        'rows' => 4,
-                        'class '=> 'span9'
-                    ]
-                ])
-            // ->add('job', null, [
-            //         'label' => 'Род занятий',
-            //         'required' => false,
-            //         'render_optional_text' => false,
-            //         'class' => 'StoCoreBundle:Dictionary',
-            //         'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
-            //                  return $repository->createQueryBuilder('s')
-            //                         ->where('s.parentId = ?1')
-            //                         ->setParameter(1, 6);
-            //              }
-            //     ])
-            ;
-
+                'label' => 'О себе',
+                'required' => false,
+                'render_optional_text' => false,
+                'attr' => [
+                    'rows' => 4,
+                    'class '=> 'span9'
+                ]
+            ])
+        ;
     }
 
     public function getName()
     {
-        return 'sto_adminbundle_user_profile';
+        return 'sto_adminbundle_userprofiletype';
     }
 }

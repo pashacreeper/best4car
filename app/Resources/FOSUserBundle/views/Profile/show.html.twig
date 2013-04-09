@@ -1,5 +1,12 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
+{% block title %}Профиль пользователя &middot; {{ app.user.username }} {% endblock %}
+{% block header %}Профиль пользователя - {{ user.username }}</h4>{% endblock %}
+
+{% block content_tag 'id="content" class="container"' %}
+{% block content %}
 {% block fos_user_content %}
 {% include "StoUserBundle:Profile:show_content.html.twig" %}
 {% endblock fos_user_content %}
+{% endblock %}

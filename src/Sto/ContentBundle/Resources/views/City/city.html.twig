@@ -1,0 +1,64 @@
+{# Cities list #}
+<style type="text/css">
+    #city-list ul.hide-ul { display: none; }
+</style>
+<div id="city-list">
+    <ul id="city-list-ul" class="hide-ul" style="position: absolute; top: 50px; left: 440px; background-color: white; border: 1px solid gray; padding: 10px 20px; z-index:100;"></ul>
+</div>
+{# EOF Cities list #}
+
+
+<script type="text/javascript">
+// cities list
+    $(document).ready(function(){
+        $.ajax({
+                type: 'POST',
+                url: "{{ path('get_user_city') }}",
+                success: function(res) {
+                    $('#choice-city a').text(res.user_city);
+                }
+        });
+        $('#choice-city > a').on("click", function() {
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('city_ajax') }}",
+
+                success: function(res) {
+                    if (res.cities)
+                    {
+                        var root = $('ul#city-list-ul');
+                        root.empty(); // clear
+                        $.each(res.cities, function (index, city) {
+                            root.append('<li><a class="city-link" href="#">' + city.name  + '</a></li>');
+                        });
+                    }
+                },
+                error: function(e) {
+                    console.log(e.message);
+                }
+            });
+
+            $('#city-list ul').toggleClass("hide-ul");
+        });
+        $('a.city-link').live('click',function(){
+            console.log($(this));
+            var route = "{{ url('city_ajax_save') }}?city="+$(this).html();
+            console.log('route', route);
+            $('#choice-city a').html($(this).html());
+            $('#city-list ul').toggleClass("hide-ul");
+            $.ajax({
+                type: 'POST',
+
+                url: route,
+                data: 'city/'+ $(this).html(),
+                success: function(res) {
+                    console.log('result', res);
+                },
+                error: function(e){
+                    console.log('error', e.message);
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -7,29 +7,33 @@
         </tr>
     </thead>
     <tbody>
-    {% for row in dictionaries %}
-        <tr id="row_{{ row.id }}">
+{% for country in dictionaries %}
+        <tr id="row_{{ country.id }}">
             <td>
                 <center>
-{% if row.iconName %}
-                <img src="/../{{ storage_path }}/countries/{{ row.iconName }}" alt="{{ row.name }}" width="30"/>
+{% if country.iconName %}
+                <img src="/../{{ storage_path }}/countries/{{ country.iconName }}" alt="{{ country.name }}" width="30"/>
 {% else %}
                 <img src="http://placehold.it/30x20" alt="Изображение отсутствует" width="30"/>
 {% endif %}
                 </center>
             </td>
             <td>
-                {{ row.shortName }}
+                {{ country.shortName }}
             </td>
             <td>
-                <a href="#" class="name" data-type="text" data-pk="{{ row.id }}" data-inputclass="input-xxlarge">{{ row.name }}</a>
+                <a href="#" class="name" data-type="text" data-pk="{{ country.id }}" data-inputclass="input-xxlarge">{{ country.name }}</a>
             </td>
             <td>
                 <center>
-                    <a href="{{ path('dictionary_edit', { 'id': row.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
-                    <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{row.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+{% if country.parent %}
+                    <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
+                    <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{country.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+{% else %}
+                    <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
+{% endif %}
                 </center>
             </td>
         </tr>
-    {% endfor %}
+{% endfor %}
     </tbody>

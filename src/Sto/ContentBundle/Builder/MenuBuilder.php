@@ -28,15 +28,15 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             'route' => 'content_deals',
             'extras' => [],
         ]);
-        $menu->addChild('Клубы', [
-            'uri' => '#',
-            'extras' => [],
-        ]);
-        $menu->addChild('Эксперты', [
-            'uri' => '#',
-            'extras' => [],
-        ]);
 
+        // $menu->addChild('Клубы', [
+        //     'uri' => '#',
+        //     'extras' => [],
+        // ]);
+        // $menu->addChild('Эксперты', [
+        //     'uri' => '#',
+        //     'extras' => [],
+        // ]);
         return $menu;
     }
 
@@ -45,6 +45,12 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $menu = $this->factory->createItem('root');
         $context = $this->securityContext;
         $menu->setChildrenAttribute('class', 'nav pull-right');
+
+        $menu->addChild('Ваш город', [
+            'uri' => '#',
+            'extras' => [],
+            'attributes' => ['id' => 'choice-city'],
+        ]);
 
         $user = $context->getToken()->getUser();
 
