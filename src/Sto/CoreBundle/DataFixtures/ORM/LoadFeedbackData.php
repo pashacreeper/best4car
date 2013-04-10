@@ -16,7 +16,7 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         $lastNames = ['Смирнов','Иванов','Кузнецов','Попов','Соколов'];
 
         for ($i=1; $i < 21; $i++) {
-            $feedback = (new FeedbackCompany)
+            $feedback = (new FeedbackCompany($this->getReference("user[" . rand(1,30) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
                 // ->setMastername($lastNames[rand(0,4)] . ' И.П.')
@@ -29,7 +29,6 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
                 ->setMinuses('')
                 ->setTargetRating('СТО')
                 ->setPublished(rand(0,1))
-                ->setUser($this->getReference("user[" . rand(1,30) . "]"))
                 ->setCompany($this->getReference("company[" . rand(1,38) . "]"))
             ;
 
@@ -38,7 +37,7 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         }
 
         for ($i=21; $i < 41; $i++) {
-            $feedback = (new FeedbackDeal)
+            $feedback = (new FeedbackDeal($this->getReference("user[" . rand(1,30) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
                 // ->setMastername($lastNames[rand(0,4)] . ' И.П.')
@@ -51,7 +50,6 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
                 ->setMinuses('')
                 ->setTargetRating('СТО')
                 ->setPublished(rand(0,1))
-                ->setUser($this->getReference("user[" . rand(1,30) . "]"))
                 ->setDeal($this->getReference("deal[" . rand(1,40) . "]"))
             ;
 

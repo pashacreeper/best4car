@@ -29,7 +29,7 @@ class Company extends Base
      *     maxWidth="1024",
      *     maxHeight="1024"
      * )
-     * @Vich\UploadableField(mapping="city_icon", fileNameProperty="iconName")
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconName")
      */
     protected $icon;
 

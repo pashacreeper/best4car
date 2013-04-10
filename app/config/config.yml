@@ -123,65 +123,63 @@ knp_paginator:
     template:
         pagination: StoAdminBundle:Pagination:sliding.html.twig
 
+
 vich_uploader:
     db_driver: orm # or mongodb
+    twig: true
+    gaufrette: false # set to true to enable gaufrette support
+    storage: vich_uploader.storage.file_system
     mappings:
         country_image:
-            uri_prefix: /images/country
+            uri_prefix: /%storage_path%/country
             upload_destination: %kernel.root_dir%/../web/%storage_path%/countries
-            delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
+            delete_on_remove:  true
             delete_on_update: true
         country_icon:
             uri_prefix: /%storage_path%/countries
             upload_destination: %kernel.root_dir%/../web/%storage_path%/countries
-            delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
+            delete_on_remove:  true
             delete_on_update: true
-        city_image:
-            uri_prefix: /images/city
-            upload_destination: %kernel.root_dir%/../web/%storage_path%/cities
-            delete_on_remove:  true
+        company_type_icon:
+            uri_prefix: /%storage_path%/company_type_icon
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/company_logo
             namer: vich_uploader.namer_uniqid
-            delete_on_update: true
-        city_icon:
-            uri_prefix: /%storage_path%/cities
-            upload_destination: %kernel.root_dir%/../web/%storage_path%/cities
-            delete_on_remove:  true
-            namer: vich_uploader.namer_uniqid
+            delete_on_remove: true
             delete_on_update: true
         user_photo:
-            uri_prefix: /images/user_photo/
+            uri_prefix: /%storage_path%/user_photo
             upload_destination: %kernel.root_dir%/../web/%storage_path%/user_photo
             namer: vich_uploader.namer_uniqid
             delete_on_remove: true
             delete_on_update: true
         company_logo:
-            uri_prefix: /images/company_logo/
+            uri_prefix: /%storage_path%/company_logo
             upload_destination: %kernel.root_dir%/../web/%storage_path%/company_logo
             namer: vich_uploader.namer_uniqid
             delete_on_remove: true
             delete_on_update: true
         deal_image:
-            uri_prefix: /images/deal_image
+            uri_prefix: /%storage_path%/deal_image
             upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
             delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
         deal_image2:
-            uri_prefix: /images/deal_image
+            uri_prefix: /%storage_path%/deal_image
             upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
             delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
         deal_image3:
-            uri_prefix: /images/deal_image
+            uri_prefix: /%storage_path%/deal_image
             upload_destination: %kernel.root_dir%/../web/%storage_path%/deal_image
             delete_on_remove:  true
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
         company_gallery:
-            uri_prefix: /images/company/company_gallery
+            uri_prefix: /%storage_path%/company/company_gallery
             upload_destination: %kernel.root_dir%/../web/%storage_path%/company/company_gallery
             delete_on_remove: true
             delete_on_update: true

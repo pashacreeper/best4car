@@ -12,7 +12,7 @@
             <td>
                 <center>
 {% if country.iconName %}
-                <img src="/../{{ storage_path }}/countries/{{ country.iconName }}" alt="{{ country.name }}" width="30"/>
+                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="30"/>
 {% else %}
                 <img src="http://placehold.it/30x20" alt="Изображение отсутствует" width="30"/>
 {% endif %}

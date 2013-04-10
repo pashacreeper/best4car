@@ -9,30 +9,38 @@ class UserProfileType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         $builder
             ->add('firstName', null, [
                 'label' => 'Имя',
+            ])
+            ->add('email', null, [
+                'label' => 'E-mail',
             ])
             ->add('rating', null, [
                 'label' => 'Рейтинг',
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'input-small'
+                ]
             ])
             ->add('phoneNumber', null, [
-                'label' => 'Номер телефона',
+                'label' => 'Телефон',
                 'required' => false,
                 'render_optional_text' => false,
             ])
-            ->add('ratingGroupId', null, [
+            ->add('ratingGroup', null, [
                 'required' => false,
                 'render_optional_text' => false,
             ])
             ->add('avatar', null, [
                 'label' => 'Аватара',
+                'label_render' => false,
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'display:none;'
+                ]
             ])
             ->add('birthDate', 'date', [
                 'label' => 'Дата рождения',
@@ -45,33 +53,34 @@ class UserProfileType extends BaseType
                 'label' => 'Пол',
                 'required' => false,
                 'render_optional_text' => false,
-                'choices' => array('male'=>'Male', 'female'=>'Female'),
+                'choices' => [
+                    'male'=>'Male',
+                    'female'=>'Female'
+                ],
                 'expanded' => true,
             ])
-            ->add('cityId', null, [
+            ->add('city', null, [
+                'label' => 'Город',
                 'required' => false,
-                'render_optional_text' => false,
+                'render_optional_text' => false
             ])
             ->add('linkVK', null, [
-                'label' => 'Ссылка на профиль vk.com',
+                'label' => 'ВКонтакте',
                 'required' => false,
                 'render_optional_text' => false,
             ])
             ->add('linkFB', null, [
-                'label' => 'Ссылка на профиль facebook.com',
+                'label' => 'Facebook',
                 'required' => false,
                 'render_optional_text' => false,
             ])
             ->add('linkGP', null, [
-                'label' => 'Ссылка на профиль plus.google.com',
+                'label' => 'Google+',
                 'required' => false,
                 'render_optional_text' => false,
             ])
             ->add('autoProfilesLinks', null, [
-                'required' => false,
-                'render_optional_text' => false,
-            ])
-            ->add('contentGroupId', null, [
+                'label' => 'Авто профиль',
                 'required' => false,
                 'render_optional_text' => false,
             ])

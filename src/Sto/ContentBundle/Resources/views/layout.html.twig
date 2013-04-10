@@ -14,6 +14,7 @@
     'bundles/stocore/css/bootstrap.css'
     'bundles/stocore/css/font-awesome.css'
     'bundles/stocontent/css/style.css'
+    'bundles/stocontent/css/fontello.css'
     'bundles/stocore/css/bootstrap-responsive.css'
 %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -41,7 +42,7 @@
 {% block navbar %}{{ mopa_bootstrap_navbar('frontendNavbar') }}{% endblock %}
 {% include "StoContentBundle:City:city.html.twig" %}
 {% endblock %}
-            <div class="row-fluid">
+            <div id="header" class="row-fluid">
                 <div class="container">
                 {% block header %}{% endblock %}
                 <hr style="margin:0;">
@@ -55,31 +56,31 @@
             <div id="push"></div>
         </div>
 {% block footer %}
-<div id="footer">
-    <div class="container">
-        <p class="muted credit">
-            <div class="row">
-                <div class="span4">
-                    &copy; 2013, BEST4CAR <a href="#">Условия использования сайта</a>
-                </div>
-                <div class="span5">
-                    <a href="#">О проекте</a>
-                    <a href="#">Рекламодателям</a>
-                    <a href="#">Помощь</a>
-                    <a href="#">Тур</a>
-                    <a href="#">Обратная связь</a>
-                </div>
-                <div class="span3">
-                    Мы в социальных сетях:
-                     <a href="#"><i class="icon-vkontakte"></i></a>
-                     <a href="#"><i class="icon-facebook"></i></a>
-                     <a href="#"><i class="icon-twitter"></i></a>
-                     <a href="#"><i class="icon-googleplus"></i></a>
-                </div>
+        <div id="footer">
+            <div class="container">
+                <p class="muted credit">
+                    <div class="row">
+                        <div class="span4">
+                            &copy; 2013, BEST4CAR <a href="#">Условия использования сайта</a>
+                        </div>
+                        <div class="span5">
+                            <a href="#">О проекте</a>
+                            <a href="#">Рекламодателям</a>
+                            <a href="#">Помощь</a>
+                            <a href="#">Тур</a>
+                            <a href="#">Обратная связь</a>
+                        </div>
+                        <div class="span3">
+                            Мы в социальных сетях:
+                             <a href="#"><i class="icon-b4c-vkontakte"></i></a>
+                             <a href="#"><i class="icon-b4c-facebook"></i></a>
+                             <a href="#"><i class="icon-b4c-twitter"></i></a>
+                             <a href="#"><i class="icon-b4c-googleplus"></i></a>
+                        </div>
+                    </div>
+                </p>
             </div>
-        </p>
-    </div>
-</div>
+        </div>
 {% endblock %}
 {% block foot_script %}
 {% javascripts

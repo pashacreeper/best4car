@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8edaa90aaa4e32584794f8c63ff220c5",
+    "hash": "f1a0c41a610f428daeeb8bdb0827d1b9",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -1243,81 +1243,6 @@
             "time": "2013-03-14 09:30:30"
         },
         {
-            "name": "knplabs/gaufrette",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/Gaufrette.git",
-                "reference": "bafb3ad404d9e34c593bae30e2a1c61ee111f382"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/bafb3ad404d9e34c593bae30e2a1c61ee111f382",
-                "reference": "bafb3ad404d9e34c593bae30e2a1c61ee111f382",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "amazonwebservices/aws-sdk-for-php": "1.5.*",
-                "doctrine/dbal": ">=2.3",
-                "dropbox-php/dropbox-php": "*",
-                "herzult/php-ssh": "*",
-                "phpspec/phpspec2": "dev-master",
-                "phpunit/phpunit": "3.7.*",
-                "rackspace/php-cloudfiles": "*",
-                "rackspace/php-opencloud": "dev-master"
-            },
-            "suggest": {
-                "amazonwebservices/aws-sdk-for-php": "to use the Amazon S3 adapter",
-                "doctrine/dbal": "to use the Doctrine DBAL adapter",
-                "dropbox-php/dropbox-php": "to use the Dropbox adapter",
-                "ext-apc": "to use the APC adapter",
-                "ext-curl": "*",
-                "ext-fileinfo": "*",
-                "ext-mbstring": "*",
-                "ext-mongo": "*",
-                "ext-zip": "to use the Zip adapter",
-                "knplabs/knp-gaufrette-bundle": "*",
-                "rackspace/php-opencloud": "to use Opencloud adapter"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Gaufrette": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "The contributors",
-                    "homepage": "http://github.com/knplabs/Gaufrette/contributors"
-                },
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                }
-            ],
-            "description": "PHP5 library that provides a filesystem abstraction layer",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "abstraction",
-                "file",
-                "filesystem",
-                "media"
-            ],
-            "time": "2013-03-25 12:59:27"
-        },
-        {
             "name": "knplabs/knp-components",
             "version": "1.2.2",
             "source": {
@@ -1377,66 +1302,6 @@
                 "paginator"
             ],
             "time": "2013-02-20 12:05:07"
-        },
-        {
-            "name": "knplabs/knp-gaufrette-bundle",
-            "version": "dev-master",
-            "target-dir": "Knp/Bundle/GaufretteBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpGaufretteBundle.git",
-                "reference": "013f50495b58c4d241e5cc993cb58592e179ff98"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpGaufretteBundle/zipball/013f50495b58c4d241e5cc993cb58592e179ff98",
-                "reference": "013f50495b58c4d241e5cc993cb58592e179ff98",
-                "shasum": ""
-            },
-            "require": {
-                "knplabs/gaufrette": "0.2.*@dev",
-                "symfony/framework-bundle": "2.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/console": "2.*",
-                "symfony/yaml": "2.*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Knp\\Bundle\\GaufretteBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Antoine Hérault",
-                    "email": "antoine.herault@gmail.com",
-                    "homepage": "https://github.com/Herzult"
-                },
-                {
-                    "name": "The contributors",
-                    "homepage": "https://github.com/knplabs/KnpGaufretteBundle/contributors"
-                }
-            ],
-            "description": "Allows to easily use the Gaufrette library in a Symfony project",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "abstraction",
-                "file",
-                "filesystem",
-                "media"
-            ],
-            "time": "2013-03-01 13:08:05"
         },
         {
             "name": "knplabs/knp-menu",
@@ -1898,12 +1763,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "8af10934fe14e9c2aec91143d26c3983f2bc7a61"
+                "reference": "0a865fd449e51b12d114a0bbf9d388a985d24432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/8af10934fe14e9c2aec91143d26c3983f2bc7a61",
-                "reference": "8af10934fe14e9c2aec91143d26c3983f2bc7a61",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/0a865fd449e51b12d114a0bbf9d388a985d24432",
+                "reference": "0a865fd449e51b12d114a0bbf9d388a985d24432",
                 "shasum": ""
             },
             "require": {
@@ -1956,7 +1821,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2013-04-09 07:20:24"
+            "time": "2013-04-09 08:29:47"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2064,12 +1929,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioDistributionBundle.git",
-                "reference": "edc23c499626993e4aaad3de2e4bd93d4d8d990c"
+                "reference": "6ba9c464d8cf408b1e5699673d6b7ce1eb0ead28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/edc23c499626993e4aaad3de2e4bd93d4d8d990c",
-                "reference": "edc23c499626993e4aaad3de2e4bd93d4d8d990c",
+                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/6ba9c464d8cf408b1e5699673d6b7ce1eb0ead28",
+                "reference": "6ba9c464d8cf408b1e5699673d6b7ce1eb0ead28",
                 "shasum": ""
             },
             "require": {
@@ -2101,7 +1966,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2013-04-05 06:44:39"
+            "time": "2013-04-09 09:20:26"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2430,12 +2295,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "12b7073607cb413a1e4cf7ee9bc7180f09fe96f7"
+                "reference": "c8bd45b2c7b50969b6ae46607d925fbd544d918f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/12b7073607cb413a1e4cf7ee9bc7180f09fe96f7",
-                "reference": "12b7073607cb413a1e4cf7ee9bc7180f09fe96f7",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/c8bd45b2c7b50969b6ae46607d925fbd544d918f",
+                "reference": "c8bd45b2c7b50969b6ae46607d925fbd544d918f",
                 "shasum": ""
             },
             "require": {
@@ -2510,7 +2375,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-04-07 15:51:54"
+            "time": "2013-04-09 16:02:56"
         },
         {
             "name": "twig/extensions",
@@ -2713,8 +2578,6 @@
         "knplabs/knp-menu": 20,
         "knplabs/knp-menu-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
-        "knplabs/gaufrette": 20,
-        "knplabs/knp-gaufrette-bundle": 20,
         "mopa/bootstrap-bundle": 20,
         "vich/uploader-bundle": 20
     },

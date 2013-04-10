@@ -31,8 +31,6 @@ class FeedbackController extends Controller
      */
     public function indexAction()
     {
-    //  var_dump($this->getUser()->getGroups()); exit;
-
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
         $filter_published = $session->get('filter_published');
@@ -226,14 +224,13 @@ class FeedbackController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('StoCoreBundle:Feedback')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Feedback entity.');
         }
 
-        $editForm = $this->createForm(new FeedbackType(), $entity);
+        $editForm = $this->createForm(new FeedbackType, $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(

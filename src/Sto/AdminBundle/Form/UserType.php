@@ -32,11 +32,6 @@ class UserType extends AbstractType
                 'required' => true,
                 'type' => 'password',
             ])
-            // ->add('enabled', null, [
-            //     'label' => 'Активен',
-            //     'required' => false,
-            //     'render_optional_text' => false
-            // ])
             ->add('groups', null, [
                 'label' => 'Группа',
                 'render_optional_text' => false,
@@ -82,7 +77,7 @@ class UserType extends AbstractType
                 'choices' => ['Мужской', 'Женский'],
                 'render_optional_text' => false
             ])
-            ->add('cityId', null, [
+            ->add('city', null, [
                 'label' => 'Город',
                 'render_optional_text' => false
             ])

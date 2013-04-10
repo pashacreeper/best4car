@@ -1,10 +1,20 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash, advanced_flash %}
+
 <div class="row-fluid">
-    <div class="pull-right">
-        <ul class="nav nav-pills" id="myTab">
-            <li class="active"><a href="#personal">Личная информация</a></li>
-            <li><a href="#garage">Гараж</a></li>
-            <li><a href="#feedbacks">Отзывы пользователя</a></li>
-        </ul>
+    <div class="span10 offset1">
+        <div class="pull-right">
+            <ul class="nav nav-pills" id="myTab">
+                <li class="active">
+                    <a href="#personal"><i class="icon-b4c-user"></i> Профиль</a>
+                </li>
+                <li>
+                    <a href="#garage"><i class="icon-b4c-garage"></i> Гараж</a>
+                </li>
+                <li>
+                    <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ user.feedbacks|length }}</span></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <hr style="margin: 5px 0;">
@@ -13,43 +23,87 @@
         <div class="row-fluid">
             <div class="span4">
                 <center>
-
 {% if user.avatar %}
-                    <img src="{{ user.avatar }}" width="90" heigth="100" class="img-rounded" style="margin-bottom:20px;">
+                    <img id="avatar" src="{{ vich_uploader_asset(user, 'avatar') }}" style="width:200px" class="img-polaroid"/>
 {% else %}
                     <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="width:200px" class="img-polaroid"/>
 {% endif %}
                 </center>
             </div>
             <div class="span8">
-                <p>Имя: {{ user.firstName }}</p>
-                <p>E-mail: {{ user.email }}</p>
-                <p>Телефон: {{ user.phoneNumber }}</p>
-                <p>Дата рождения: {{ user.birthDate|date('d.m.Y') }}</p>
+                <h5>Общая информация</h5>
                 <div class="row-fluid">
-                    <div class="span6">
-                        <p>Рейтинг: {{ user.rating }}</p>
-                    </div>
-                    <div class="span6">
-                        <p>Рейтиновая группа: {{ user.ratingGroup.name }}</p>
+                    <div class="span10">
+                        <div class="well">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <p><b>{{ user.firstName }}</b></p>
+                                    <p><i class="icon-b4c-phone"></i> {{ user.phoneNumber }}</p>
+                                    <p>
+                                        <i class="icon-b4c-star"></i>
+                                        <i class="icon-b4c-star"></i>
+                                        <i class="icon-b4c-star-half"></i>
+                                        <i class="icon-b4c-star-empty"></i>
+                                        <i class="icon-b4c-star-empty"></i>
+                                    </p>
+                                </div>
+                                <div class="span6">
+                                    <p><i class="icon-b4c-calendar"></i> {{ user.birthDate|date('d.m.Y') }}</p>
+                                    <p><i class="icon-b4c-mail"></i> {{ user.email }}</p>
+                                    <p><i class="icon-b4c-group"></i> {{ user.ratingGroup.name }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h5>Внешние профили</h5>
-                <hr style="margin: 5px 0;">
                 <div class="row-fluid">
-                    <div class="span6">
-                        <p>Вконтакте: <a href="{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
-                        <p>Автопрфиль: <a href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
-                    </div>
-                    <div class="span6">
-                        <p>Facebook: <a href="{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a></p>
-                        <p>Google +: <a href="{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a></p>
+                    <div class="span10">
+                        <div class="well">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <p>
+                                        <i class="icon-b4c-vkontakte"></i>
+{% if user.linkVK  %}
+                                         <a href="{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a>
+{% else %}
+                                         <a href="#">Ссылка на профиль отсутствует</a>
+{% endif %}
+                                    </p>
+                                    <p>
+                                        <i class="icon-b4c-truck"></i>
+{% if user.autoProfilesLinks  %}
+                                     <a href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a>
+{% else %}
+                                     <a href="#">Ссылка на профиль отсутствует</a>
+{% endif %}
+                                    </p>
+                                </div>
+                                <div class="span6">
+                                    <p>
+                                        <i class="icon-b4c-facebook"></i>
+{% if user.linkFB  %}
+                                         <a href="{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a>
+{% else %}
+                                         <a href="#">Ссылка на профиль отсутствует</a>
+{% endif %}
+                                    </p>
+                                    <p>
+                                        <i class="icon-b4c-googleplus"></i>
+{% if user.linkGP  %}
+                                         <a href="{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a>
+{% else %}
+                                         <a href="#">Ссылка на профиль отсутствует</a>
+{% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h5>О себе:</h5>
-                <hr style="margin: 5px 0;">
                 <div class="row-fluid">
-                    <div class="span11">
+                    <div class="span10">
 {% if user.description %}
                         <div class="well">
                             {{ user.description }}
@@ -63,24 +117,78 @@
                 </div>
             </div>
         </div>
+        <hr style="margin: 5px 0;">
+        <div class="offset1">
+            <div class="control-group">
+                <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">Редактировать</a>
+            </div>
+        </div>
     </div>
     <div class="tab-pane" id="garage">
-        <div class="span6">
-            Garage Info Coming soon.
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                {{ advanced_flash(true, 'СКОРО!', 'Данная страница находится в разработке.', false, true) }}
+            </div>
         </div>
     </div>
     <div class="tab-pane" id="feedbacks">
-        <div class="span6">
-            Feedbacks For this User Coming soon.
+        <div class="row-fluid">
+{% if user.feedbacks %}
+{% for feedback in user.feedbacks %}
+            <div class="span10 offset1">
+                <blockquote>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <i class="icon-b4c-star"></i>
+                            <i class="icon-b4c-star"></i>
+                            <i class="icon-b4c-star"></i>
+                            <i class="icon-b4c-star"></i>
+                            <i class="icon-b4c-star-half"></i>
+                        </div>
+                        <div class="span6">
+                            <p class="pull-right">
+                                <i class="icon-b4c-thumbs-up"></i> 15
+                                <i class="icon-b4c-thumbs-down"></i> 53
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <p>{{ feedback.content }}</p>
+                    </div>
+                </blockquote>
+{% if feedback.feedbackAnswer %}
+                <div class="row-fluid">
+                    <blockquote class="well">
+                        <div class="row-fluid">
+                            <div class="span7">
+                                <p>{{ feedback.feedbackAnswer.answer }}</p>
+                            </div>
+                            <div class="span5">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <center><img src="http://placehold.it/39x39"></center>
+                                    </div>
+                                    <div class="span8">
+                                        <h5>{{ feedback.feedbackAnswer.owner.firstName }} {{ feedback.feedbackAnswer.owner.lastName }}</h5>
+                                        <p><small>Старший менеджер</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <p class="pull-right muted">
+                                <i class="icon-thumbs-up"></i> 15
+                                <i class="icon-thumbs-down"></i> 53
+                            </p>
+                        </div>
+                    </blockquote>
+                </div>
+{% endif %}
+            </div>
+{% endfor %}
+{% else %}
+            {{ advanced_flash(true, 'СКОРО!', 'Пользователь не оставлял отзывы.', false, true) }}
+{% endif %}
         </div>
     </div>
 </div>
-<div class="form-actions">
-    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">Редактировать</a>
-</div>
-<script>
-    $('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-</script>

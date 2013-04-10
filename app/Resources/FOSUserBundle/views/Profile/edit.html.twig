@@ -1,5 +1,10 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'StoContentBundle::layout.html.twig' %}
 
-{% block fos_user_content %}
+{% block title %}Профиль пользователя &middot; {{ app.user.username }} {% endblock %}
+{% block header %}Профиль пользователя - {{ app.user.username }}</h4>{% endblock %}
+
+{% block content_tag 'id="content" class="container"' %}
+
+{% block content %}
 {% include "StoUserBundle:Profile:edit_content.html.twig" %}
-{% endblock fos_user_content %}
+{% endblock %}

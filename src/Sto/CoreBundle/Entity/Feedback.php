@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sto\UserBundle\Entity\User;
 
 /**
  * Feedback
@@ -58,7 +59,7 @@ class Feedback
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="feedbacks")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -108,6 +109,13 @@ class Feedback
      * @ORM\JoinColumn(name="currency_level_id", referencedColumnName="id")
      */
     private $currencyLevel;
+
+    public function __construct(User $user = null)
+    {
+        if ($user) {
+            $this->setUser($user);
+        }
+    }
 
     /**
      * Get id
@@ -334,7 +342,12 @@ class Feedback
      */
     public function setUser(\Sto\UserBundle\Entity\User $user = null)
     {
-        $this->user = $user;
+        if ($user) {
+            $this->user = $user;
+            $this->userId = $user->getId();
+
+            $user->addFeedbacks($this);
+        }
 
         return $this;
     }

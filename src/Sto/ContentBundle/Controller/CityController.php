@@ -26,6 +26,7 @@ class CityController extends Controller
             $city = 'Ваш город';
         $response = new Response(json_encode(array('user_city' => $city)));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -56,7 +57,8 @@ class CityController extends Controller
      * Ajax save city
      * @Route("/ajax/save-city", name="city_ajax_save")
      */
-    public function saveCityAjax(Request $request){
+    public function saveCityAjax(Request $request)
+    {
         $session = $request->getSession();
         if ($request->get('city')) {
             $session->set('user_city', $request->get('city'));
@@ -66,6 +68,7 @@ class CityController extends Controller
 
         $response = new Response(json_encode(array('result' => $city)));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 }

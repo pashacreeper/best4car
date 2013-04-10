@@ -5,12 +5,13 @@ namespace Sto\UserBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
+    Symfony\Component\HttpFoundation\File\File,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
     Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Entity\Dictionary,
+    Sto\CoreBundle\Entity\Feedback,
     Sto\UserBundle\Entity\Group,
     Sto\UserBundle\Entity\RatingGroup;
-use Symfony\Component\HttpFoundation\File\File,
-    Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -73,13 +74,11 @@ class User extends BaseUser
     private $phoneNumber;
 
     /**
-     * @Assert\File(
+     * @Assert\Image(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="user_photo", fileNameProperty="avatarUrl")
-     *
-     * @var File $avatar
      */
     protected $avatar;
 
@@ -87,7 +86,6 @@ class User extends BaseUser
      * @var string $avatarUrl
      *
      * @ORM\Column(name="avatar_url", type="string", length=255, nullable=true)
-     *
      */
     protected $avatarUrl;
 
@@ -107,9 +105,9 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="city_id", type="integer", nullable=true)
+     * @ORM\Column(name="city", type="string", nullable=true)
      */
-    protected $cityId;
+    protected $city;
 
     /**
      * @var string
@@ -147,32 +145,11 @@ class User extends BaseUser
     private $linkGarage;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="content_group_id", type="integer", nullable=true)
-     */
-    protected $contentGroupId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
-
-    /**
-     * @var integer
-     *
-     * ORM\Column(name="job_id", type="integer", nullable=true)
-     */
-    // protected $jobId;
-
-    /**
-     *
-     * ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary")
-     * ORM\JoinColumn(name="job_id", referencedColumnName="id")
-     */
-    // private $job;
 
     /**
      * @var string
@@ -182,9 +159,7 @@ class User extends BaseUser
     private $subscriptions;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="feedbacks", type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Feedback", mappedBy="user", cascade={"all"})
      */
     private $feedbacks;
 
@@ -215,11 +190,12 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->gender = 'male';
+        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public static function getGenders()
     {
-        return array('male', 'female');
+        return ['male', 'female'];
     }
 
     /**
@@ -422,26 +398,26 @@ class User extends BaseUser
     }
 
     /**
-     * Set cityId
+     * Set city
      *
-     * @param  string $cityId
+     * @param  string $city
      * @return User
      */
-    public function setCityId($cityId)
+    public function setCity($city)
     {
-        $this->cityId = $cityId;
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * Get cityId
+     * Get city
      *
      * @return string
      */
-    public function getCityId()
+    public function getCity()
     {
-        return $this->cityId;
+        return $this->city;
     }
 
     /**
@@ -560,29 +536,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set contentGroupId
-     *
-     * @param  string $contentGroupId
-     * @return User
-     */
-    public function setContentGroupId($contentGroupId)
-    {
-        $this->contentGroupId = $contentGroupId;
-
-        return $this;
-    }
-
-    /**
-     * Get contentGroupId
-     *
-     * @return string
-     */
-    public function getContentGroupId()
-    {
-        return $this->contentGroupId;
-    }
-
-    /**
      * Set description
      *
      * @param  string $description
@@ -604,29 +557,6 @@ class User extends BaseUser
     {
         return $this->description;
     }
-
-    /**
-     * Set jobId
-     *
-     * @param  string $jobId
-     * @return User
-     */
-    // public function setJobId($jobId)
-    // {
-    //     $this->jobId = $jobId;
-
-    //     return $this;
-    // }
-
-    /**
-     * Get jobId
-     *
-     * @return string
-     */
-    // public function getJobId()
-    // {
-    //     return $this->jobId;
-    // }
 
     /**
      * Set subscriptions
@@ -652,29 +582,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set feedbacks
-     *
-     * @param  string $feedbacks
-     * @return User
-     */
-    public function setFeedbacks($feedbacks)
-    {
-        $this->feedbacks = $feedbacks;
-
-        return $this;
-    }
-
-    /**
-     * Get feedbacks
-     *
-     * @return string
-     */
-    public function getFeedbacks()
-    {
-        return $this->feedbacks;
-    }
-
-    /**
      * Set requests
      *
      * @param  string $requests
@@ -696,18 +603,6 @@ class User extends BaseUser
     {
         return $this->requests;
     }
-
-    // public function getJob()
-    // {
-    //     return $this->job;
-    // }
-
-    // public function setJob(Dictionary $job)
-    // {
-    //     $this->job = $job;
-
-    //     return $this;
-    // }
 
     public function getGroups()
     {
@@ -743,5 +638,31 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Add feedback
+     */
+    public function addFeedbacks(Feedback $feedback)
+    {
+        $this->feedbacks[] = $feedback;
+
+        return $this;
+    }
+
+    /**
+     * Remove feedback
+     */
+    public function removeFeedback(Feedback $feedback)
+    {
+        $this->feedbacks->removeElement($feedback);
+    }
+
+    /**
+     * Get feedbacks
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
     }
 }

@@ -39,7 +39,6 @@
     <ul class="hide"></ul>
 </div>
 {# EOF Companies list #}
-
 {% endblock %}
 
 {% block foot_script %}
@@ -53,10 +52,9 @@
                 type: 'POST',
                 url: "{{ path('company_ajax_get_all') }}",
                 success: function(res) {
-                    if (res.companies)
-                    {
+                    if (res.companies) {
                         var root = $('#home_compalies ul');
-                        root.empty(); // clear
+                        root.empty();
                         $.each(res.companies, function (index, company) {
                             root.append("<li><a href=\"#\">" + company.name  + "</a></li>");
                         });
@@ -77,14 +75,6 @@
                 behaviors: ["default", "scrollZoom"]
             }),
             bounds = myMap.getBounds(),
-            styleKeys = [
-                "twirl#lightblueIcon", "twirl#whiteIcon", "twirl#greenIcon",
-                "twirl#redIcon", "twirl#yellowIcon",
-                "twirl#darkblueIcon", "twirl#nightIcon",
-                "twirl#greyIcon", "twirl#blueIcon",
-                "twirl#orangeIcon", "twirl#darkorangeIcon",
-                "twirl#pinkIcon", "twirl#violetIcon"
-            ],
             myPlacemark,
             myCollection = new ymaps.GeoObjectCollection();
 

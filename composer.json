@@ -32,8 +32,6 @@
         "knplabs/knp-menu": "2.0.*@dev",
         "knplabs/knp-menu-bundle": "2.0.*@dev",
         "knplabs/knp-paginator-bundle": "2.3.*@dev",
-        "knplabs/gaufrette": "0.2.*@dev",
-        "knplabs/knp-gaufrette-bundle": "0.2.*@dev",
 
         "leafo/lessphp": "v0.3.9",
         "twitter/bootstrap": "v2.3.1",
