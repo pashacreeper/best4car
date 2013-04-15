@@ -49,4 +49,17 @@ class DealController extends Controller
             'deal' => $deal
         ];
     }
+
+    /**
+     * @Route("/deal/{id}/write-feedback", name="write_deal_feedback")
+     * @Method("GET")
+     * @Template()
+     * @ParamConverter("deal", class="StoCoreBundle:Deal")
+     */
+    public function writeFeedbackAction(Deal $deal){
+
+        return [
+            'deal' => $deal,
+        ];
+    }
 }

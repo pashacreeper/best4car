@@ -3,7 +3,7 @@
 namespace Sto\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Responce,
+    Symfony\Component\HttpFoundation\Response,
     Symfony\Component\Translation\Translator,
     Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -49,14 +49,14 @@ class DictionaryController extends Controller
         $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('pk'));
 
         if (!$entity) {
-            return new Responce(500, 'Dictionary Not found.');
+            return new Response(500, 'Dictionary Not found.');
         }
 
         $entity->setName($request->get('value'));
         $em->persist($entity);
         $em->flush();
 
-        return new Responce(200);
+        return new Response(200);
     }
 
     /**
@@ -71,13 +71,13 @@ class DictionaryController extends Controller
         $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('id'));
 
         if (!$entity) {
-            return new Responce(500, 'Dictionary Not found.');
+            return new Response(500, 'Dictionary Not found.');
         }
 
         $em->remove($entity);
         $em->flush();
 
-        return new Responce(200);
+        return new Response(200);
     }
 
     /**

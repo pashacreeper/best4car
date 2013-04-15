@@ -14,14 +14,17 @@ use FOS\RestBundle\Controller\FOSRestController,
 use Sto\CoreBundle\Entity\Dictionary;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
+// use Sto\CoreBundle\Entity\Dictionary;
+
+
 /**
  * Dictionary controller.
  */
-class APIDictionaryController extends FOSRestController
+class APIDictionaryController extends APIBaseController
 {
     /**
      * @ApiDoc(
-     *  description="Get Dictionary By Id",
+     *  description="Получить словарь по Id",
      *  statusCodes={
      *         200="Returned when successful",
      *         404="Returned when the Dictionary is not found"}
@@ -36,211 +39,68 @@ class APIDictionaryController extends FOSRestController
      */
     public function getAction($id)
     {
-        $serializer = $this->container->get('serializer');
-        $data = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Dictionary')->find($id);
-
-        if ($data === NULL)
-            return new Response($serializer->serialize(array("message" => "Not found dictionary", "type" => "error", "code" => 404, ), 'json'), 404);
-        else
-            return new Response($serializer->serialize($data, 'json'));
+        return parent::getAction($id);
     }
 
     /**
      * @ApiDoc(
-     *  resource=true,
-     *  description="Create Dictionary",
-     *  input="Sto\AdminBundle\Form\DictionaryType",
+     *  description="Получить список Акций",
      *  statusCodes={
      *         200="Returned when successful"
      *         }
      * )
-     * @Rest\View
-     * @Route("/api/dictionary/", name="api_dictionary_add")
-     * @Method({"POST"})
-     */
-    public function addAction()
-    {
-        $serializer = $this->container->get('serializer');
-        // hardcoded "Coming Soon"
-        return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
-
-        $content = $this->get("request")->getContent();
-
-        if (!empty($content)) {
-            print_r($content);
-            die();
-            // try {
-
-                $data = array();
-                // $data = $serializer->deserialize($content, 'Sto\CoreBundle\Entity\Dictionary', 'json');
-            // } catch (Exception $e) {
-            //     return new Response($serializer->serialize(array("message" => $e->message, "type" => "error", "code" => $e->code, ), 'json'), $e->code);
-            // }
-
-        } else {
-            throw $this->createNotFoundException('No content posted');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($data);
-        $em->flush();
-
-        $response = new Response();
-        $response->setStatusCode(200);
-        // $response->headers->set('Location', $this->generateUrl('get_product', array('id' => $data->getId()), true));
-        return $response;
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Update Dictionary",
-     *  input="Sto\AdminBundle\Form\DictionaryType",
-     *  statusCodes={
-     *         200="Returned when successful"
-     *         }
-     * )
-     * @Rest\View
-     * @Route("/api/dictionary/", name="api_dictionary_update")
-     * @Method({"PUT"})
-     */
-    public function updateAction()
-    {
-        $serializer = $this->container->get('serializer');
-        // hardcoded "Coming Soon"
-        return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
-
-        $content = $this->get("request")->getContent();
-        if (!empty($content)) {
-            $data = $serializer->deserialize($content, 'Sto\CoreBundle\Entity\Dictionary', 'json');
-        } else {
-            throw $this->createNotFoundException('No content posted');
-        }
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($data);
-        $em->flush();
-
-        // $entity = $em->getRepository('StoCoreBundle:Dictionary')->find($id);
-
-        $response = new Response();
-        $response->setStatusCode(201);
-        $response->headers->set('Location',
-            $this->generateUrl(
-                'get_product', array('id' => $data->getId()),
-                true // absolute
-            )
-        );
-
-        return $response;
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Delete Dictionary",
-     *  statusCodes={
-     *         200="Returned when successful"
-     *         }
-     * )
-     *
-     * @param  integer    $id
-     * @return Dictionary
+     * @return List Of Deals
      *
      * @Rest\View
-     * @Route("/api/dictionary/", name="api_dictionary_delete", requirements={"id" = "\d+"} )
-     * @Method({"DELETE"})
-     */
-    public function deleteAction()
-    {
-        $serializer = $this->container->get('serializer');
-        // hardcoded "Coming Soon"
-        return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
-
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary')->find($id);
-
-        if (!$entity) {
-            return new Response($serializer->serialize(array("message" => "Not found dictionary", "type" => "error", "code" => 404, ), 'json'), 404);
-            // throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
-        }
-
-        $em->remove($entity);
-        $em->flush();
-
-        $response = new Response();
-        $response->setStatusCode(200);
-
-        return $response;
-    }
-
-    /**
-     * @ApiDoc(
-     *  description="Get All Dictionaries",
-     *  statusCodes={
-     *         200="Returned when successful"
-     *         }
-     * )
-     *
-     * @Rest\View
-     * @Route("/api/dictionary/all", name="api_dictionary_all")
+     * @Route("/api/dictionary/deal_list", name="api_dictionary_list_of_deals")
      * @Method({"GET"})
      */
-    public function allAction()
+    public function getDealListAction()
     {
-        $serializer = $this->container->get('serializer');
+        $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary')->findAll();
-
-        return new Response($serializer->serialize($data, 'json'));
-    }
-
-    /**
-     * @param  integer $parent_id Parent Id
-     * @return List    Of Dictionarioes
-     *
-     * @Rest\View
-     * @Route("/api/dictionary/list/{parent_id}", name="api_dictionary_list_by_id", requirements={"parent_id" = "\d+"})
-     * @Method({"GET"})
-     */
-    private function listByParentIdAction($parent_id)
-    {
-        $serializer = $this->container->get('serializer');
-        $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary')
-                ->createQueryBuilder('entity')
-                ->where('entity.parentId =:filter_parent_id')
-                ->setParameter('filter_parent_id', $parent_id)
-                // ->orderBy('entity.name')
-                ->getQuery()
-                ->getResult();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\Deal')
+            ->createQueryBuilder('d')
+            ->select('d.id, d.name')
+            ->getQuery()
+            ->getArrayResult()
+        ;
 
         return new Response($serializer->serialize($data, 'json'));
     }
 
     /**
      * @ApiDoc(
-     *  description="Get List of Services from Dictionary",
+     *  description="Получить список Типов работ",
      *  statusCodes={
      *         200="Returned when successful"
      *         }
      * )
-     * @return List Of Dictionarioes
+     * @return List Of Works
      *
      * @Rest\View
-     * @Route("/api/dictionary/services_list", name="api_dictionary_list_of_services")
+     * @Route("/api/dictionary/work_list", name="api_dictionary_list_of_works")
      * @Method({"GET"})
      */
-    public function getServicesListAction()
+    public function getWorkListAction()
     {
-        $head_id = $this->container->getParameter('dictionary_services_list_id');
+        $serializer = $this->container->get('jms_serializer');
 
-        return $this->listByParentIdAction($head_id);
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\Work')
+            ->createQueryBuilder('w')
+            ->select('w.id, w.name')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
     }
 
     /**
      * @ApiDoc(
-     *  description="Get List of Company Types from Dictionary",
+     *  description="Получить список Типов компаний",
      *  statusCodes={
      *         200="Returned when successful"
      *         }
@@ -253,19 +113,27 @@ class APIDictionaryController extends FOSRestController
      */
     public function getCompanyTypesListAction()
     {
-        $head_id = $this->container->getParameter('dictionary_company_types_id');
+        $serializer = $this->container->get('jms_serializer');
 
-        return $this->listByParentIdAction($head_id);
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\Company')
+            ->createQueryBuilder('c')
+            ->select('c.id, c.name')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
     }
 
     /**
      * @ApiDoc(
-     *  description="Get List of currencies from Dictionary",
+     *  description="Получить список Валют",
      *  statusCodes={
      *         200="Returned when successful"
      *         }
      * )
-     * @return List Of Dictionarioes
+     * @return List Of currencies_list
      *
      * @Rest\View
      * @Route("/api/dictionary/currencies_list", name="api_dictionary_list_of_currencies")
@@ -273,19 +141,27 @@ class APIDictionaryController extends FOSRestController
      */
     public function getCurrenciesListAction()
     {
-        $head_id = $this->container->getParameter('dictionary_currencies_id');
+        $serializer = $this->container->get('jms_serializer');
 
-        return $this->listByParentIdAction($head_id);
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\Currency')
+            ->createQueryBuilder('c')
+            ->select('c.id, c.name, c.shortName')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
     }
 
     /**
      * @ApiDoc(
-     *  description="Get List of Additional services from Dictionary",
+     *  description="Получить список Дополнительных услуг",
      *  statusCodes={
      *         200="Returned when successful"
      *         }
      * )
-     * @return List Of Dictionarioes
+     * @return List Of additional_services_list
      *
      * @Rest\View
      * @Route("/api/dictionary/additional_services_list", name="api_dictionary_list_of_additional_services")
@@ -293,8 +169,16 @@ class APIDictionaryController extends FOSRestController
      */
     public function getAdditionalServicesListAction()
     {
-        $head_id = $this->container->getParameter('dictionary_additional_services_id');
+        $serializer = $this->container->get('jms_serializer');
 
-        return $this->listByParentIdAction($head_id);
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
+            ->createQueryBuilder('ac')
+            ->select('ac.id, ac.name')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
     }
 }

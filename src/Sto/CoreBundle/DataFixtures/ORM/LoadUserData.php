@@ -19,6 +19,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $firstNames = ['John', 'Mark', 'Lenny', 'Robert', 'Denial'];
         $lastNames = ['McCormack', 'Clapton', 'Plant', 'Woodman', 'Brown', 'Young'];
         $roles = ['user', 'admin', 'manager'];
+        $cities = ['Москва','Челябинск','Красноярск','Владивосток'];
 
         for ($j=1; $j < 31; $j++) {
             shuffle($firstNames);
@@ -43,6 +44,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setLinkGarage( '#' );
             $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
             $user->setGroups([$this->getReference("groups[".($j == 1 ? 6 :  rand(0,5) )."]")]);
+            $user->setCity($cities[rand(0,3)]);
             $encoder = $this->container
                 ->get('security.encoder_factory')
                 ->getEncoder($user)

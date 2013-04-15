@@ -99,16 +99,7 @@ class Feedback
      */
     private $ip;
 
-    /**
-     * @ORM\Column(name="currency_level_id", type="integer", nullable=true)
-     */
-    private $currencyLevelId;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Base")
-     * @ORM\JoinColumn(name="currency_level_id", referencedColumnName="id")
-     */
-    private $currencyLevel;
 
     public function __construct(User $user = null)
     {
@@ -428,16 +419,6 @@ class Feedback
         return $this;
     }
 
-    public function getCurrencyLevel()
-    {
-        return $this->currencyLevel;
-    }
 
-    public function setCurrencyLevel(\Sto\CoreBundle\Entity\Dictionary\Base $level)
-    {
-        $this->currencyLevel = $level;
-
-        return $this;
-    }
 
 }

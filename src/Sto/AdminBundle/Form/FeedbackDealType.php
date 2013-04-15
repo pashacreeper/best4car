@@ -52,17 +52,7 @@ class FeedbackDealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('currencyLevel', 'entity', [
-                'label' => 'Оценка уровня цен',
-                'required' => false,
-                'render_optional_text' => false,
-                'class' => 'StoCoreBundle:Dictionary',
-                'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
-                         return $repository->createQueryBuilder('s')
-                                ->where('s.parentId = ?1')
-                                ->setParameter(1, 5);
-                     }
-            ])
+
         ;
     }
 

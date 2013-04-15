@@ -43,11 +43,20 @@ class APIUserController extends FOSRestController
     public function getAction($id)
     {
 
-        $serializer = $this->container->get('serializer');
-        $data = $this->getDoctrine()->getManager()->getRepository('StoUserBundle:User')->find($id);
+        $serializer = $this->container->get('jms_serializer');
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->createQueryBuilder()
+            ->select('b.username,  b.email,  b.roles,  b.id,  b.firstName,  b.lastName,  b.rating,  b.ratingGroupId,  b.phoneNumber,  b.gender,  b.city,  b.linkGarage')
+            ->from('StoUserBundle:User', 'b')
+            ->where('b.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getArrayResult()
+        ;
 
         if ($data === NULL)
-            return new Response($serializer->serialize(array("message" => "Not found user", "type" => "error", "code" => 404, ), 'json'), 404);
+            return new Response($serializer->serialize(array("message" => "Not found User", "type" => "error", "code" => 404, ), 'json'), 404);
         else
             return new Response($serializer->serialize($data, 'json'));
 
@@ -68,7 +77,7 @@ class APIUserController extends FOSRestController
      */
     public function addAction()
     {
-        $serializer = $this->container->get('serializer');
+        $serializer = $this->container->get('jms_serializer');
         // hardcoded "Coming Soon"
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
     }
@@ -88,33 +97,7 @@ class APIUserController extends FOSRestController
      */
     public function updateAction()
     {
-        $serializer = $this->container->get('serializer');
-        // hardcoded "Coming Soon"
-        return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
-    }
-
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Delete User",
-     *  statusCodes={
-     *         200="Returned when successful"
-     *         }
-     * )
-     *
-     *
-     * @param  integer $id
-     * @return User
-     *
-     * @Rest\View
-     * @Route("/api/user/", name="api_user_delete", requirements={"id" = "\d+"} )
-     *
-     * @Method({"DELETE"})
-     */
-    public function deleteAction()
-    {
-        $serializer = $this->container->get('serializer');
+        $serializer = $this->container->get('jms_serializer');
         // hardcoded "Coming Soon"
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
     }
@@ -136,7 +119,7 @@ class APIUserController extends FOSRestController
     public function loginAction()
     {
 
-        $serializer = $this->container->get('serializer');
+        $serializer = $this->container->get('jms_serializer');
         // hardcoded "Coming Soon"
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
 
@@ -159,7 +142,7 @@ class APIUserController extends FOSRestController
     public function logoutAction()
     {
 
-        $serializer = $this->container->get('serializer');
+        $serializer = $this->container->get('jms_serializer');
         // hardcoded "Coming Soon"
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
 

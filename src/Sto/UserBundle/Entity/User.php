@@ -103,7 +103,7 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="city", type="string", nullable=true)
      */
