@@ -101,18 +101,6 @@
 {% block foot_script %}
 {{ parent() }}
 {% if edit_form.iconMap is defined  or edit_form.iconSmall is defined or edit_form.iconLarge is defined or edit_form.icon is defined or edit_form.image is defined %}
-<script>
-     $('[data-image]').click().change(function () {
-        if (this.files && this.files[0]) {
-            var img_data = $(this).data('image');
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-         }
-     });
-
-</script>
+<script type="text/javascript" src="{{ asset('bundles/stoadmin/js/script.js') }}"></script>
 {% endif %}
 {% endblock %}

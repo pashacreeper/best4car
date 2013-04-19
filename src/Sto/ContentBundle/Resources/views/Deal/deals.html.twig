@@ -115,5 +115,12 @@
             {% endif %}
         </div>
     </div>
+    {% if not (deals.paginationData.current == deals.paginationData.last) %}
+    <div class="row-fluid">
+        <div class="span12">
+            <a class="btn" href="#" rel="{{ deals.paginationData.current }}" data-page="2">More...</a>
+        </div>
+    </div>
+    {% endif %}
 
 

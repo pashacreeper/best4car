@@ -62,15 +62,11 @@
     </div>
     <div class="row-fluid" data-content="deals">
 
-    <div class="span12">
-    {{ render(controller('StoContentBundle:Deal:deals')) }}
-    </div>
-    </div>
-    <div class="row-fluid">
         <div class="span12">
-            <a href="#" rel="2" data-page="2">More...</a>
+            {{ render(controller('StoContentBundle:Deal:deals')) }}
         </div>
     </div>
+
 </div>
 </div>
 
@@ -80,12 +76,12 @@
 {% block foot_script %}
 <script type="text/javascript">
     $('[data-page]').live('click', function(){
-        var page = parseInt($(this).attr('rel'));
-        $(this).attr('rel', page+1);
+        var page = parseInt($(this).attr('rel'))+1;
+        $(this).parent('div.span12').parent('div.row-fluid').remove();
+        $('[data-page]').attr('rel', page+1);
         $.ajax({
             type: 'POST',
             url: "{{ path('deals_show') }}?page="+page,
-            //data: {'filter_dict_name': $('#' + tab_id + ' .filter_dict_name').val()},
             success: function(html) {
                 $('[data-content]').append(html);
 

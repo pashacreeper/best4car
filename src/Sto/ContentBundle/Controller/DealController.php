@@ -57,8 +57,11 @@ class DealController extends Controller
             10
         );
 
+        //$page_params = $deals->getPaginationData();
+
         return [
             'deals' => $deals,
+            //'params' => $page_params,
         ];
     }
 
