@@ -131,7 +131,7 @@ vich_uploader:
     storage: vich_uploader.storage.file_system
     mappings:
         country_image:
-            uri_prefix: /%storage_path%/country
+            uri_prefix: /%storage_path%/countries
             upload_destination: %kernel.root_dir%/../web/%storage_path%/countries
             namer: vich_uploader.namer_uniqid
             delete_on_remove:  true
@@ -143,8 +143,8 @@ vich_uploader:
             delete_on_remove:  true
             delete_on_update: true
         company_type_icon:
-            uri_prefix: /%storage_path%/company_type_icon
-            upload_destination: %kernel.root_dir%/../web/%storage_path%/company_logo
+            uri_prefix: /%storage_path%/company_icon
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/company_icon
             namer: vich_uploader.namer_uniqid
             delete_on_remove: true
             delete_on_update: true
@@ -184,6 +184,15 @@ vich_uploader:
             delete_on_remove: true
             delete_on_update: true
             namer: vich_uploader.namer_uniqid
+        catalog_icons:
+            uri_prefix: /%storage_path%/catalog/icons
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/catalog/icons
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
 
 # nelmo api config enabled
 nelmio_api_doc: ~
+
+jms_security_extra:
+    secure_all_services: true

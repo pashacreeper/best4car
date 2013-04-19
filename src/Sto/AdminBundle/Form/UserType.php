@@ -64,7 +64,10 @@ class UserType extends AbstractType
             ])
             ->add('avatar', null, [
                 'label' => 'Аватар',
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'avatar',
+                ]
             ])
             ->add('birthDate', null, [
                 'label' => 'Дата рождения',

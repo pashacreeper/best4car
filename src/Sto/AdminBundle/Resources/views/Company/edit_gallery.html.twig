@@ -9,7 +9,11 @@
 <form action="{{ path('company_update_image', {id: company.id, image_id:image.id}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
     <div class="control-group">
         <div class="span12">
-            <img title="{{ image.name }}" alt="{{ image.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ image.imageName }}" class="img-rounded" style="width: 260px;">
+{% if not form_errors(form.image) %}
+           <img data-image="image" title="{{ image.name }}" alt="{{ image.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ image.imageName }}" class="img-rounded" style="width: 260px;">
+{% else %}
+           <img data-image="image" title="{{ image.name }}" alt="{{ image.name }}"  src="{{ asset('bundles/stocore/images/notimage.png') }}" class="img-rounded" style="width: 260px;">
+{% endif %}
         </div>
         <div class="span12">
             {{ form_row(form.image) }}
@@ -25,8 +29,23 @@
     <div class="row"></div>
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}" />
-        <a href="{{ path('deals') }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
+        <a href="{{ path('company_gallery', {id: company.id}) }}" class="btn">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
 
+{% endblock %}
+
+{% block foot_script %}
+<script type="text/javascript" >
+    $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
+</script>
 {% endblock %}

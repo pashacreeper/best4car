@@ -24,9 +24,11 @@ class DealController extends Controller
             ->getResult()
         ;
 
+
+
         $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\Deal')
             ->createQueryBuilder('dictionary')
-            ->orderBy('dictionary.name', 'ASC')
+            ->orderBy('dictionary.position', 'ASC')
             ->getQuery()
             ->getResult()
         ;
@@ -34,6 +36,29 @@ class DealController extends Controller
         return [
             'deals' => $deals,
             'dictionaries' => $dealsTypes
+        ];
+    }
+
+    /**
+     * @Route("/deals/show", name="deals_show")
+     * @Method("POST")
+     * @Template()
+     */
+    public function dealsAction(){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('StoCoreBundle:Deal')
+            ->createQueryBuilder('deal')
+            ->getQuery()
+        ;
+
+        $deals = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page',1),
+            10
+        );
+
+        return [
+            'deals' => $deals,
         ];
     }
 
@@ -56,8 +81,8 @@ class DealController extends Controller
      * @Template()
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
      */
-    public function writeFeedbackAction(Deal $deal){
-
+    public function writeFeedbackAction(Deal $deal)
+    {
         return [
             'deal' => $deal,
         ];

@@ -15,10 +15,104 @@
             {{ form_row(edit_form.parent) }}
         </div>
     </div>
+{% if edit_form.icon is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.icon) }}
+        </div>
+        <div class="span6">
+{% if entity.icon and not form_errors(edit_form.icon) %}
+            <img data-image="icon" src="{{ vich_uploader_asset(entity, 'icon') }}" style="width:70px" class="img-polaroid"/>
+{% else %}
+             <img data-image="icon" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+{% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if edit_form.image is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.image) }}
+        </div>
+        <div class="span6">
+{% if entity.image and not form_errors(edit_form.image) %}
+            <img data-image="image" src="{{ vich_uploader_asset(entity, 'image') }}" style="width:100px" class="img-polaroid"/>
+{% else %}
+             <img data-image="image" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+{% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if edit_form.iconMap is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.iconMap) }}
+        </div>
+        <div class="span6">
+{% if entity.iconMap and not form_errors(edit_form.iconMap) %}
+            <img data-image="iconMap" src="{{ vich_uploader_asset(entity, 'iconMap') }}" style="width:70px" class="img-polaroid"/>
+{% else %}
+             <img data-image="iconMap" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+{% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if edit_form.iconSmall is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.iconSmall) }}
+        </div>
+        <div class="span6">
+{% if entity.iconSmall and not form_errors(edit_form.iconSmall) %}
+            <img data-image="iconSmall" src="{{ vich_uploader_asset(entity, 'iconSmall') }}" style="width:100px" class="img-polaroid"/>
+{% else %}
+            <img data-image="iconSmall" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+{% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if edit_form.iconLarge is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(edit_form.iconLarge) }}
+        </div>
+        <div class="span6">
+{% if entity.iconLarge and not form_errors(edit_form.iconLarge) %}
+            <img data-image="iconLarge" src="{{ vich_uploader_asset(entity, 'iconLarge') }}" style="width:200px" class="img-polaroid"/>
+{% else %}
+            <img data-image="iconLarge" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:200px" class="img-polaroid"/>
+{% endif %}
+        </div>
+    </div>
+{% endif %}
+
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.edit'|trans({}) }}"/>
         <a class="btn" href="{{ path('dictionary') }}">{{ 'form.cancel'|trans({}) }}</a>
     </div>
 </form>
+
+{% endblock %}
+{% block foot_script %}
+{{ parent() }}
+{% if edit_form.iconMap is defined  or edit_form.iconSmall is defined or edit_form.iconLarge is defined or edit_form.icon is defined or edit_form.image is defined %}
+<script>
+     $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
+
+</script>
+{% endif %}
 {% endblock %}

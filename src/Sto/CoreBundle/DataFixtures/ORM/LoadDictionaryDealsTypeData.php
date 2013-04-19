@@ -23,6 +23,7 @@ class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixt
         foreach ($works as $key => $name) {
             $dictionary = (new Dictionary\Deal)
                 ->setName($name)
+                ->setPosition($key)
             ;
             $manager->persist($dictionary);
             $this->addReference("dealsTypes[{$key}]", $dictionary);

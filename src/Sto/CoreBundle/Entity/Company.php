@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File,
     Symfony\Component\Validator\Constraints as Assert;
 use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Company
@@ -102,18 +103,18 @@ class Company
     protected $logoName;
 
     /**
-     * @var string
+     * @var array
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="working_time", type="string", length=255)
+     * @ORM\Column(name="working_time", type="array")
      */
     private $workingTime;
 
     /**
-     * @var string
+     * @var array
      *
      * @Assert\NotBlank()
-     * @ORM\Column(name="phones", type="string", length=255)
+     * @ORM\Column(name="phones", type="array")
      */
     private $phones;
 
@@ -215,13 +216,6 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="managers", type="string", length=255, nullable=true)
-     */
-    private $managers;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="administrator_contact_info", type="string", length=255, nullable=true)
      */
     private $administratorContactInfo;
@@ -257,7 +251,7 @@ class Company
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating_group_id", type="integer")
+     * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
      */
     protected $ratingGroupId;
 
@@ -280,6 +274,15 @@ class Company
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\User", inversedBy="companies")
+     * @ORM\JoinTable(name="company_user_relationship",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
+     */
+    protected $managers;
+
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
@@ -291,6 +294,7 @@ class Company
         $this->specialization = new \Doctrine\Common\Collections\ArrayCollection();
         $this->service = new \Doctrine\Common\Collections\ArrayCollection();
         $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->managers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -373,6 +377,24 @@ class Company
     }
 
     /**
+     * Set Phones
+     */
+    public function setPhones($phones)
+    {
+        $this->phones = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
      * Set web
      *
      * @param  string  $web
@@ -423,6 +445,13 @@ class Company
     public function getSpecialization()
     {
         return $this->specialization;
+    }
+
+    public function setServices($services)
+    {
+        $this->services = $services;
+
+        return $this;
     }
 
     /**
@@ -532,29 +561,6 @@ class Company
     public function getWorkingTime()
     {
         return $this->workingTime;
-    }
-
-    /**
-     * Set phones
-     *
-     * @param  string  $phones
-     * @return Company
-     */
-    public function setPhones($phones)
-    {
-        $this->phones = $phones;
-
-        return $this;
-    }
-
-    /**
-     * Get phones
-     *
-     * @return string
-     */
-    public function getPhones()
-    {
-        return $this->phones;
     }
 
     /**
@@ -834,29 +840,6 @@ class Company
     }
 
     /**
-     * Set managers
-     *
-     * @param  string  $managers
-     * @return Company
-     */
-    public function setManagers($managers)
-    {
-        $this->managers = $managers;
-
-        return $this;
-    }
-
-    /**
-     * Get managers
-     *
-     * @return string
-     */
-    public function getManagers()
-    {
-        return $this->managers;
-    }
-
-    /**
      * Set administratorContactInfo
      *
      * @param  string  $administratorContactInfo
@@ -1060,5 +1043,42 @@ class Company
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set managers
+     *
+     */
+    public function addManager(\Sto\userBundle\Entity\User $manager)
+    {
+        $this->managers[] = $manager;
+
+        return $this;
+    }
+
+    /**
+     * remove manager
+     * @param  \Sto\UserBundle\Entity\User $manager
+     */
+    public function removeManager(\Sto\UserBundle\Entity\User $manager){
+        $this->managers->removeElement($manager);
+    }
+
+    /**
+     * Get managers
+     *
+     */
+    public function getManagers()
+    {
+        return $this->managers;
+    }
+
+    public function getArrayManagers()
+    {
+        $result = array();
+        foreach ($this->managers as $key => $value) {
+            $result[] = $value;
+        }
+        return $result;
     }
 }

@@ -21,10 +21,16 @@ class CountryType extends BaseType
             ->add('icon', null, [
                 'label' => 'city.fields.icon',
                 'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'icon',
+                ]
             ])
             ->add('image', null, [
                 'label' => 'city.fields.image',
                 'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'image',
+                ]
             ])
             ->add('parent', 'entity', [
                 'label' => 'dict.fields.parent',

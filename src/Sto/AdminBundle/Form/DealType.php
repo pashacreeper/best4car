@@ -48,7 +48,10 @@ class DealType extends AbstractType
                 'property_path' => 'image',
                 'required' => false,
                 'label_render' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'image1'
+                ]
             ])
             ->add('image2', 'file', [
                 'label' => 'Image2',
@@ -56,7 +59,10 @@ class DealType extends AbstractType
                 'property_path' => 'image2',
                 'required' => false,
                 'label_render' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'image2'
+                ]
             ])
             ->add('image3', 'file', [
                 'label' => 'Image3',
@@ -64,7 +70,10 @@ class DealType extends AbstractType
                 'property_path' => 'image3',
                 'required' => false,
                 'label_render' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'image3'
+                ]
             ])
             ->add('terms', null, [
                 'label' => 'Terms',

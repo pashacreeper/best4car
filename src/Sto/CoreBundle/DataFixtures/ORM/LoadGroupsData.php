@@ -23,7 +23,7 @@ class LoadGroupsData extends AbstractFixture implements FixtureInterface, Contai
             'Менеджеры'         => ['ROLE_MANAGER', 'ROLE_USER'],
             'Редакторы'         => ['ROLE_EDITOR', 'ROLE_USER'],
             'Модераторы'        => ['ROLE_MODERATOR', 'ROLE_USER'],
-            'Администраторы'    => ['ROLE_ADMIN', 'ROLE_MODERATOR']
+            'Администраторы'    => ['ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_EDITOR', 'ROLE_MANAGER']
         ];
 
         $i = 0;

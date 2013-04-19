@@ -8,10 +8,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Sto\CoreBundle\Entity\Company,
     Sto\CoreBundle\Entity\CompanyGallery,
     Sto\AdminBundle\Form\CompanyType,
-    Sto\AdminBundle\Form\CompanyGalleryType;
+    Sto\AdminBundle\Form\CompanyGalleryType,
+    Sto\AdminBundle\Form\CompanyManagerType;
+
+
 
 /**
  * Company controller.
@@ -73,11 +77,12 @@ class CompanyController extends Controller
     {
         $company  = new Company;
         $form = $this->createForm(new CompanyType, $company);
+
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setUpdatedAt(new \DateTime());
+            $company->setUpdatedAt(new \DateTime());
             $em->persist($company);
             $em->flush();
 
@@ -103,7 +108,6 @@ class CompanyController extends Controller
         if (!$company) {
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
-
         $editForm = $this->createForm(new CompanyType('edit'), $company);
 
         return [
@@ -130,8 +134,8 @@ class CompanyController extends Controller
 
         $editForm = $this->createForm(new CompanyType('edit'), $company);
         $editForm->bind($request);
-
         if ($editForm->isValid()) {
+
             $em->persist($company);
             $em->flush();
 
@@ -270,5 +274,82 @@ class CompanyController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('company_gallery', ['id'=>$id]));
+    }
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/managers", name="company_managers")
+     * @Template("StoAdminBundle:Company:show_managers.html.twig")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function showManagersAction($company)
+    {
+
+        $form = $this->createForm(new CompanyManagerType, $company);
+
+        //$em = $this->getDoctrine()->getManager();
+        //$companyUsers = $em->getRepository()
+
+        return [
+            'company' => $company,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Edits an existing Company entity.
+     *
+     * @Route("/{id}/manaegrs/add", name="company_managers_add")
+     * @Method("POST")
+     * @Template("StoAdminBundle:Company:edit.html.twig")
+     */
+    public function addManagersAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->find($id);
+
+        if (!$company) {
+            throw $this->createNotFoundException('Unable to find Company entity.');
+        }
+
+        $form = $this->createForm(new CompanyManagerType(), $company);
+        $form->bind($request);
+        if ($form->isValid()) {
+
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('company_managers', ['id'=>$id]));
+        }
+
+        return [
+            'company'   => $company,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Deletes a Manager.
+     *
+     * @Route("/{id}/delete_manager/{user_id}", name="company_delete_manager")
+     */
+    public function deleteManagerAction(Request $request, $id, $user_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
+
+        if (!$company) {
+            throw $this->createNotFoundException('Unable to find Company entity.');
+        }
+
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($user_id);
+
+        $company->removeManager($user);
+
+        $em->remove($company);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('company_managers', ['id'=>$id]));
     }
 }

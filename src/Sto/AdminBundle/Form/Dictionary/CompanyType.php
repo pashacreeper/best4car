@@ -14,9 +14,26 @@ class CompanyType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('icon', null, [
-                'label' => 'city.fields.icon',
+            ->add('iconMap', null, [
+                'label' => 'dict.icon.map',
                 'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'iconMap',
+                ]
+            ])
+            ->add('iconLarge', null, [
+                'label' => 'dict.icon.large',
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'iconLarge',
+                ]
+            ])
+            ->add('iconSmall', null, [
+                'label' => 'dict.icon.small',
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'iconSmall',
+                ]
             ])
             ->add('parent', 'entity', [
                 'label' => 'dict.fields.parent',

@@ -7,6 +7,76 @@
 
 {% block content %}
 <form action="{{ path('dictionary_create', {'dictionary': dictionary}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.name) }}
+        </div>
+        {% if form.parent  %}
+        <div class="span6">
+            {{ form_row(form.parent) }}
+        </div>
+        {% endif %}
+    </div>
+
+
+    {% if form.icon is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.icon) }}
+        </div>
+        <div class="span6">
+
+             <img data-image="icon" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if form.image is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.image) }}
+        </div>
+        <div class="span6">
+
+             <img data-image="image" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if form.iconMap is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.iconMap) }}
+        </div>
+        <div class="span6">
+
+             <img data-image="iconMap" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if form.iconSmall is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.iconSmall) }}
+        </div>
+        <div class="span6">
+
+             <img data-image="iconSmall" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if form.iconLarge is defined %}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.iconLarge) }}
+        </div>
+        <div class="span6">
+             <img data-image="iconLarge" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:200px" class="img-polaroid"/>
+        </div>
+    </div>
+    {% endif %}
     {{ form_widget(form) }}
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
@@ -14,3 +84,23 @@
     </div>
 </form>
 {% endblock %}
+
+
+
+{% if form.iconMap is defined  or form.iconSmall is defined or form.iconLarge is defined or form.icon is defined or form.image is defined %}
+    {% block foot_script %}
+    {{ parent() }}
+    <script>
+            $('[data-image]').click().change(function () {
+                if (this.files && this.files[0]) {
+                    var img_data = $(this).data('image');
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                 }
+             });
+    </script>
+    {% endblock %}
+{% endif %}

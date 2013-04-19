@@ -16,10 +16,10 @@
         </div>
         <div class="span6">
             <div class="controls">
-{% if entity.avatarUrl %}
-                <img src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}" width="160"/>
+{% if entity.avatarUrl and not form_errors(edit_form.avatar) %}
+                <img data-image="avatar" src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}" width="160"/>
 {% else %}
-                <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
+                <img data-image="avatar" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
 {% endif %}
             </div>
             {{ form_row(edit_form.avatar, {'label_render': false}) }}
@@ -96,5 +96,16 @@
     $(".select2").select2({
         placeholder: "Выберите группу"
     });
+
+    $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
 </script>
 {% endblock %}

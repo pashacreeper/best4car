@@ -99,8 +99,6 @@ class Feedback
      */
     private $ip;
 
-
-
     public function __construct(User $user = null)
     {
         if ($user) {
@@ -418,7 +416,5 @@ class Feedback
 
         return $this;
     }
-
-
 
 }

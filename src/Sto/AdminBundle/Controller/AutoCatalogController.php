@@ -7,263 +7,66 @@ use Symfony\Component\HttpFoundation\Request,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\AutoCatalog,
-    Sto\CoreBundle\Entity\AutoCatalogCar,
-    Sto\CoreBundle\Entity\AutoCatalogModel,
-    Sto\CoreBundle\Entity\AutoCatalogBody,
-    Sto\CoreBundle\Entity\AutoCatalogItem;
-
-use Sto\AdminBundle\Form\AutoCatalogType,
-    Sto\AdminBundle\Form\AutoCatalogModelType,
-    Sto\AdminBundle\Form\AutoCatalogBodyType,
-    Sto\AdminBundle\Form\AutoCatalogItemType;
+use Sto\CoreBundle\Entity\Catalog;
 
 /**
  * AutoCatalog controller.
  *
- * @Route("/autocatalog")
+ * @Route("/catalog")
  */
 class AutoCatalogController extends Controller
 {
+    private $levels = ['marks' => 'models', 'models' => 'items'];
+
     /**
      * Lists all AutoCatalog entities.
      *
-     * @Route("/", name="admin_autocatalog")
+     * @Route("/", name="admin_catalog")
+     * @Route("/{level}/{parent}", name="admin_catalog_with_level")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($level = 'marks', $parent = null)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('StoCoreBundle:AutoCatalog')->findByParentId(NULL);
+        if (!isset($this->levels[$level])) {
+            throw $this->createNotFoundException('Page not found!');
+        }
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $query = $qb
+            ->select('catalog')
+            ->from('StoCoreBundle:Catalog\Base','catalog')
+            ->where(
+                ($parent == null) ? $qb->expr()->isNull('catalog.parentId') : $qb->expr()->eq('catalog.parentId', $qb->expr()->literal($parent))
+            )
+            ->orderBy('catalog.name')
+            ->getQuery()
+        ;
+
+        $pagination = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1),
+            $this->get('request')->query->get('numItemsPerPage', $this->container->getParameter('pagination_default_value'))
+        );
 
         return [
-            'entities' => $entities,
+            'catalog' => $pagination,
+            'level' => $this->levels[$level]
         ];
     }
 
     /**
      * Finds and displays a AutoCatalog entity.
      *
-     * @Route("/{id}/show-model", name="admin_autocatalog_show_model")
+     * @Route("items/{parent}", name="admin_catalog_items_show")
      * @Template()
      */
-    public function showModelAction($id)
+    public function showItemsAction($parent)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('StoCoreBundle:AutoCatalog')->findByParentId($id);
-
-        /*if (!$entities) {
-            throw $this->createNotFoundException('Unable to find AutoCatalog entity.');
-        }*/
+        $items = $em->getRepository('StoCoreBundle:Catalog\ModelFull')->findByParentId($parent);
 
         return [
-            'entities' => $entities,
-            'parent' => $id,
-        ];
-    }
-
-    /**
-     * Finds and displays a AutoCatalog entity.
-     *
-     * @Route("/{id}/show-body", name="admin_autocatalog_show_body")
-     * @Template()
-     */
-    public function showBodyAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('StoCoreBundle:AutoCatalog')->findByParentId($id);
-
-        /*if (!$entities) {
-            throw $this->createNotFoundException('Unable to find AutoCatalog entity.');
-        }*/
-
-        return [
-            'entities' => $entities,
-            'parent' => $id,
-        ];
-    }
-
-    /**
-     * Finds and displays a AutoCatalog entity.
-     *
-     * @Route("/{id}/show", name="admin_autocatalog_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('StoCoreBundle:AutoCatalog')->findByParentId($id);
-
-        return [
-            'entities' => $entities,
-            'parent' => $id,
-        ];
-    }
-
-    /**
-     * Displays a form to create a new Dictionary entity.
-     *
-     * @Route("/new/{parent}/{type}", name="autocatalog_new", defaults={"parent" = "NULL", "type" = "mark"})
-     * @Template()
-     */
-    public function newAction($parent, $type='mark')
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $oParent = $em->getRepository('StoCoreBundle:AutoCatalog')->find($parent);
-        if ($type=="mark") {
-            $entity  = new AutoCatalogCar;
-            $form = $this->createForm(new AutoCatalogType, $entity);
-        } elseif ($type=="model") {
-            $entity  = new AutoCatalogModel;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogModelType, $entity);
-        } elseif ($type=="body") {
-            $entity  = new AutoCatalogBody;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogBodyType, $entity);
-        } elseif ($type=="item") {
-            $entity  = new AutoCatalogItem;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogItemType, $entity);
-        }
-
-        return [
-            'form' => $form->createView(),
-            'type' => $type,
-            'parent' => $parent,
-        ];
-    }
-
-    /**
-     * Creates a new Dictionary entity.
-     *
-     * @Route("/create/{parent}/{type}", name="autocatalog_create", defaults={"type" = "mark"})
-     * @Method("POST")
-     * @Template("StoAdminBundle:AutoCatalog:new.html.twig")
-     */
-    public function createAction(Request $request, $parent, $type="mark")
-    {
-        $em = $this->getDoctrine()->getManager();
-        $oParent = $em->getRepository('StoCoreBundle:AutoCatalog')->find($parent);
-        if ($type=="mark") {
-            $entity  = new AutoCatalogCar;
-            $form = $this->createForm(new AutoCatalogType, $entity);
-        } elseif ($type=="model") {
-            $entity  = new AutoCatalogModel;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogModelType, $entity);
-        } elseif ($type=="body") {
-            $entity  = new AutoCatalogBody;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogBodyType, $entity);
-        } elseif ($type=="item") {
-            $entity  = new AutoCatalogItem;
-            $entity->setParent($oParent);
-            $form = $this->createForm(new AutoCatalogItemType, $entity);
-        }
-        //$form = $this->createForm(new AutoCatalogType, $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->generateRedirect($type, $parent);
-        }
-
-        return [
-            'entity' => $entity,
-            'form' => $form->createView(),
-            'type' => $type,
-            'parent' => $parent,
-        ];
-    }
-
-    /**
-     * Displays a form to edit an existing Dictionary entity.
-     *
-     * @Route("/{id}/edit/{parent}/{type}", name="autocatalog_edit", defaults={"parent" = "NULL", "type" = "mark"})
-     * @Template()
-     */
-    public function editAction($id, $parent, $type)
-    {
-        $em = $this->getDoctrine()->getManager();
-        if ($type=="mark")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogCar')->find($id);
-        elseif($type=="model")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogModel')->find($id);
-        elseif($type=="body")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogBody')->find($id);
-        elseif ($type=="item")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogItem')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
-        }
-        if ($entity instanceof AutoCatalogItem)
-            $editForm = $this->createForm(new AutoCatalogItemType, $entity);
-        else if ($entity instanceof AutoCatalogBody)
-            $editForm = $this->createForm(new AutoCatalogBodyType, $entity);
-        else if ($entity instanceof AutoCatalogModel)
-            $editForm = $this->createForm(new AutoCatalogModelType, $entity);
-        else
-            $editForm = $this->createForm(new AutoCatalogType, $entity);
-
-        return [
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'type' => $type,
-            'parent' => $parent,
-        ];
-    }
-
-    /**
-     * Edits an existing Dictionary entity.
-     *
-     * @Route("/{id}/update/{parent}/{type}", name="autocatalog_update", defaults={"parent" = "NULL", "type" = "mark"})
-     * @Method("POST")
-     * @Template("StoAdminBundle:AutoCatalog:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id, $parent, $type)
-    {
-        $em = $this->getDoctrine()->getManager();
-        if ($type=="mark")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogCar')->find($id);
-        elseif($type=="model")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogModel')->find($id);
-        elseif($type=="body")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogBody')->find($id);
-        elseif ($type=="item")
-            $entity = $em->getRepository('StoCoreBundle:AutoCatalogItem')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
-        }
-
-        if ($entity instanceof AutoCatalogItem)
-            $editForm = $this->createForm(new AutoCatalogItemType, $entity);
-        else if ($entity instanceof AutoCatalogBody)
-            $editForm = $this->createForm(new AutoCatalogBodyType, $entity);
-        else if ($entity instanceof AutoCatalogModel)
-            $editForm = $this->createForm(new AutoCatalogModelType, $entity);
-        else
-            $editForm = $this->createForm(new AutoCatalogType, $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->generateRedirect($type, $parent);
-        }
-
-        return [
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'type' => $type,
-            'parent' => $parent,
+            'items' => $items,
         ];
     }
 
@@ -276,7 +79,7 @@ class AutoCatalogController extends Controller
     public function deleteAction(Request $request, $id, $type, $parent)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:AutoCatalog')->findOneById($id);
+        $entity = $em->getRepository('StoCoreBundle:Catalog\Base')->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
@@ -286,17 +89,5 @@ class AutoCatalogController extends Controller
         $em->flush();
 
         return $this->generateRedirect($type, $parent);
-    }
-
-    private function generateRedirect($type, $parent)
-    {
-        if ($type=="model")
-            return $this->redirect($this->generateUrl('admin_autocatalog_show_model', ['id'=>$parent]));
-        elseif ($type=="body")
-            return $this->redirect($this->generateUrl('admin_autocatalog_show_body', ['id'=>$parent]));
-        elseif ($type=="item")
-            return $this->redirect($this->generateUrl('admin_autocatalog_show', ['id'=>$parent]));
-        else
-            return $this->redirect($this->generateUrl('admin_autocatalog'));
     }
 }

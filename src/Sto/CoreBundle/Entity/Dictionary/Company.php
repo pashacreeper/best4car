@@ -21,7 +21,47 @@ class Company extends Base
     private $companies;
 
     /**
-     * @var File $icon
+     * @var File $iconMap
+     *
+     * @Assert\Image(
+     *     maxSize="256k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="256",
+     *     maxHeight="256"
+     * )
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameMap")
+     */
+    protected $iconMap;
+
+    /**
+     * @var string $iconNameMap
+     *
+     * @ORM\Column(type="string", length=255, name="icon_name_map", nullable=true)
+     */
+    protected $iconNameMap;
+
+    /**
+     * @var File $iconSmall
+     *
+     * @Assert\Image(
+     *     maxSize="256k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="512",
+     *     maxHeight="512"
+     * )
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameSmall")
+     */
+    protected $iconSmall;
+
+    /**
+     * @var string $iconNameSmall
+     *
+     * @ORM\Column(type="string", length=255, name="icon_name_small", nullable=true)
+     */
+    protected $iconNameSmall;
+
+    /**
+     * @var File $iconLarge
      *
      * @Assert\Image(
      *     maxSize="512k",
@@ -29,16 +69,16 @@ class Company extends Base
      *     maxWidth="1024",
      *     maxHeight="1024"
      * )
-     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconName")
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameLarge")
      */
-    protected $icon;
+    protected $iconLarge;
 
     /**
-     * @var string $iconName
+     * @var string $iconNameLarge
      *
-     * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
+     * @ORM\Column(type="string", length=255, name="icon_name_large", nullable=true)
      */
-    protected $iconName;
+    protected $iconNameLarge;
 
     /**
      * @var \DateTime
@@ -48,15 +88,15 @@ class Company extends Base
     private $updatedAt;
 
     /**
-     * Set icon
+     * Set iconMap
      *
-     * @param  string  $icon
+     * @param  string  $iconMap
      * @return Country
      */
-    public function setIcon($icon)
+    public function setIconMap($iconMap)
     {
-        $this->icon = $icon;
-        if ($icon instanceof UploadedFile) {
+        $this->iconMap = $iconMap;
+        if ($iconMap instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
 
@@ -64,13 +104,64 @@ class Company extends Base
     }
 
     /**
-     * Get icon
+     * Get iconMap
      *
      * @return string
      */
-    public function getIcon()
+    public function getIconMap()
     {
-        return $this->icon;
+        return $this->iconMap;
+    }
+
+    /**
+     * Set iconSmall
+     *
+     * @param  string  $iconSmall
+     * @return Country
+     */
+    public function setIconSmall($iconSmall)
+    {
+        $this->iconSmall = $iconSmall;
+        if ($iconSmall instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get iconSmall
+     *
+     * @return string
+     */
+    public function getIconSmall()
+    {
+        return $this->iconSmall;
+    }
+    /**
+     * Set iconLarge
+     *
+     * @param  string  $iconLarge
+     * @return Country
+     */
+    public function setIconLarge($iconLarge)
+    {
+        $this->iconLarge = $iconLarge;
+        if ($iconLarge instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get iconLarge
+     *
+     * @return string
+     */
+    public function getIconLarge()
+    {
+        return $this->iconLarge;
     }
 
     public function setUpdatedAt($date)

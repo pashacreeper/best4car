@@ -1,57 +1,63 @@
 <?php
 
-namespace Sto\CoreBundle\Entity;
+namespace Sto\CoreBundle\Entity\Catalog;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AutoCatalog
+ * Base
  *
- * @ORM\Table(name="autocatalog")
- * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\AutoCatalogRepository")
+ * @ORM\Entity()
+ * @ORM\Table(name="auto_catalog")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({ *
- *     "autocatalog_item"               = "AutoCatalogItem",
- *     "autocatalog_car"                = "AutoCatalogCar",
- *     "autocatalog_model"              = "AutoCatalogModel",
- *     "autocatalog_body"                = "AutoCatalogBody"
+ * @ORM\DiscriminatorMap({
+ *     "mark"       = "Mark",
+ *     "model"      = "Model",
+ *     "modelFull"  = "ModelFull",
+ *     "details"    = "Details"
  * })
  */
-class AutoCatalog
+class Base
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AutoCatalog", mappedBy="parent" , cascade={"remove"})
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $children;
+    protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AutoCatalog", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id" )
+     * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
      */
-    private $parent;
+    protected $children;
 
     /**
-     * @var integer
-     *
+     * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
+
+    /**
      * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
-    private $parentId;
+    protected $parentId;
+
+    /**
+     * @ORM\Column(name="uri", type="string", length=255, nullable=true)
+     */
+    protected $uri;
 
     /**
      * @var boolean
      * @ORM\Column(name="visible", type="boolean")
      */
-    private $visible;
+    protected $visible;
 
     /**
      * Constructor
@@ -60,12 +66,12 @@ class AutoCatalog
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->visible = true;
+
+        return $this;
     }
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -73,10 +79,31 @@ class AutoCatalog
     }
 
     /**
+     * Set name
+     *
+     * @param  string $name
+     * @return Base
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set parentId
      *
-     * @param  integer     $parentId
-     * @return AutoCatalog
+     * @param  integer $parentId
+     * @return Base
      */
     public function setParentId($parentId)
     {
@@ -87,8 +114,6 @@ class AutoCatalog
 
     /**
      * Get parentId
-     *
-     * @return integer
      */
     public function getParentId()
     {
@@ -97,9 +122,8 @@ class AutoCatalog
 
     /**
      * Set parent
-     *
      */
-    public function setParent(AutoCatalog $parent = null)
+    public function setParent(Base $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -111,7 +135,6 @@ class AutoCatalog
 
     /**
      * Get parent
-     *
      */
     public function getParent()
     {
@@ -120,9 +143,8 @@ class AutoCatalog
 
     /**
      * Add children
-     *
      */
-    public function addChildren(AutoCatalog $children)
+    public function addChildren(Base $children)
     {
         $this->children[] = $children;
 
@@ -131,21 +153,40 @@ class AutoCatalog
 
     /**
      * Remove children
-     *
      */
-    public function removeChildren(AutoCatalog $children)
+    public function removeChildren(Base $children)
     {
         $this->children->removeElement($children);
+
+        return $this;
     }
 
     /**
      * Get children
-     *
-     * @return Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Set uri
+     *
+     * @param string $uri
+     */
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
+
+        return $this;
+    }
+
+    /**
+     * Get uri
+     */
+    public function getUri()
+    {
+        return $this->uri;
     }
 
     public function isVisible()
@@ -160,13 +201,8 @@ class AutoCatalog
         return $this;
     }
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
     public function __toString()
     {
-        return $this->getName();
+        return $this->name;
     }
 }

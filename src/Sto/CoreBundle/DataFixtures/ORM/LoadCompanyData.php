@@ -12,6 +12,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $phone_type = ['Рабочий', 'Факс'];
+
         $company = new Company;
         $company->setName('Автопродикс');
         $company->setSlogan('ВЕСЬ НИССАН ЗА ОДИН ВИЗИТ!');
@@ -41,8 +43,28 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             copy($from, $to);
         }
         $company->setLogoName('1.png');
-        $company->setWorkingTime('09:00 - 21:00');
-        $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
+        $company->setWorkingTime([
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Пн - Пт',
+                ],
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Сб - Вс',
+                ]
+            ]);
+        $company->setPhones([
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ],
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ]
+        ]);
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
         $company->setAddress('197374, Санкт-Петербург, ул. Школьная д. 71 корпус 3');
@@ -56,7 +78,10 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 Группа компаний «Автопродикс» является крупнейшим официальным дилером Nissan и единственным официальным дилером Infiniti в Северо-Западном регионе.');
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500) . ' р.');
-        $company->setManagers('1, 2, 3, 4');
+
+        for($i = 0; $i <= rand(1,2); $i++)
+            $company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
+
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -95,8 +120,28 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             copy($from, $to);
         }
         $company->setLogoName('2.png');
-        $company->setWorkingTime('09:00 - 21:00');
-        $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
+        $company->setWorkingTime([
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Пн - Пт',
+                ],
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Сб - Вс',
+                ]
+            ]);
+        $company->setPhones([
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ],
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ]
+        ]);
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
         $company->setAddress('Санкт-Петербург, пр. Елизарова, д. 34');
@@ -109,7 +154,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setDescription('Благодаря узкой специализации на марках Volkswagen, Audi, SKODA и SEAT (концернVAG), наша СТО имеет хорошее техническое оснащение специализированным немецким оборудованием для диагностики и ремонта именно Вашего автомобиля, и можете быть уверенны в том, что Вы не потратите лишнего времени из-за отсутствия у специалиста инструмента, необходимого для ремонта.');
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500) . ' р.');
-        $company->setManagers('1, 2, 3, 4');
+        for($i = 0; $i <= 2; $i++)
+            $company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -158,8 +204,28 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             }
 
             $company->setLogoName($i . '.png');
-            $company->setWorkingTime('10:00 - 20:00');
-            $company->setPhones('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
+            $company->setWorkingTime([
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Пн - Пт',
+                ],
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'description' => 'Сб - Вс',
+                ]
+            ]);
+            $company->setPhones([
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ],
+                [
+                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ]
+            ]);
             $company->setSkype('altauto');
             $company->setEmail('info@altauto.ru');
             $company->setAddress('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -172,7 +238,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setHourPrice(rand(500,4500) . ' р.');
-            $company->setManagers('1, 2, 3, 4');
+            for($k = 1; $k <= 2; $k++)
+                $company->addManager($this->getReference("user[".rand(1, $k*15)."]"));
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');

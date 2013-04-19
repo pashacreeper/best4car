@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Sto\AdminBundle\Form\CompanyPhoneType,
+    Sto\AdminBundle\Form\CompanyWorkingTimeType;;
 
 class CompanyType extends AbstractType
 {
@@ -22,18 +24,62 @@ class CompanyType extends AbstractType
             ->add('name', 'text', [
                 'label' => 'Сокращенное наименование'
             ])
-            ->add('phones', null, [
-                'label' => 'Телефон',
-                'attr' => [
-                    'data-mask' => '+7 (999) 999-99-99'
-                ]
-            ])
+            ->add('phones','collection', array(
+                'label' => ' ',
+                'type' => new CompanyPhoneType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'show_legend' => false,
+                'widget_add_btn' =>[
+                    'icon' => 'plus-sign',
+                    'label' => 'add phone',
+                    'attr' => [
+                         'class' => 'btn btn-primary btn-small'
+                    ]
+                ],
+                'options' => array( // options for collection fields
+                    'label_render' => false,
+                    'widget_remove_btn' => [
+                        'label' => '-',
+                        'attr' => [
+                            'class' => 'btn btn-danger btn-small '
+                        ]
+                    ],
+                    'widget_control_group' => false,
+                )
+            ))
             ->add('address', null, [
                 'label' => 'Адрес',
             ])
-            ->add('workingTime', null, [
+            /*->add('workingTime', null, [
                 'label' => 'Время работы',
-            ])
+            ])*/
+            ->add('workingTime','collection', array(
+                'label' => 'Рабочее время',
+                'type' => new CompanyWorkingTimeType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'show_legend' => false,
+                'widget_add_btn' =>[
+                    'icon' => 'plus-sign',
+                    'label' => ' ',
+                    'attr' => [
+                         'class' => 'btn btn-primary btn-small'
+                    ]
+                ],
+                'options' => array( // options for collection fields
+                    'label_render' => false,
+                    'widget_remove_btn' => [
+                        'label' => '-',
+                        'attr' => [
+                            'class' => 'btn btn-danger btn-small '
+                        ]
+                    ],
+                    'widget_control_group' => false,
+                )
+            ))
             ->add('hourPrice', null, [
                 'label' => 'Hour price',
                 'required' => false,
@@ -73,7 +119,10 @@ class CompanyType extends AbstractType
             ->add('logo', null, [
                 'label' => 'Logo',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'data-image' => 'logo',
+                ]
             ])
             ->add('visible', null, [
                 'label' => 'Visible',

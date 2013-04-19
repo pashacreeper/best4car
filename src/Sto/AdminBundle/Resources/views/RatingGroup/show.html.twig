@@ -6,11 +6,6 @@
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-{% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
 <h4>Пользователи</h4>
 <table class="table table-hover table-condensed table-bordered table-striped">
     <thead>

@@ -186,6 +186,11 @@ class User extends BaseUser
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Company", mappedBy="managers")
+     */
+    private $companies;
+
     public function __construct()
     {
         parent::__construct();

@@ -16,7 +16,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 // use Sto\CoreBundle\Entity\Dictionary;
 
-
 /**
  * Dictionary controller.
  */

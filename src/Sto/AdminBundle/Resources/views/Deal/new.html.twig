@@ -46,7 +46,7 @@
         <div class="span3 offset2">
             <div class="control-group">
                 <div class="control">
-                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                    <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
                     {{ form_errors(form.image) }}
                     {{ form_widget(form.image) }}
                 </div>
@@ -55,7 +55,7 @@
         <div class="span3">
             <div class="control-group">
                 <div class="control">
-                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                    <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
                     {{ form_errors(form.image2) }}
                     {{ form_widget(form.image2) }}
                 </div>
@@ -64,7 +64,7 @@
         <div class="span3">
             <div class="control-group">
                 <div class="control">
-                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                    <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
                     {{ form_errors(form.image3) }}
                     {{ form_widget(form.image3) }}
                 </div>
@@ -102,6 +102,17 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script type="text/javascript" >
+    $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
+
     $(".select2").select2({
     });
 </script>

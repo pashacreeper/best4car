@@ -15,9 +15,6 @@ use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 // use Sto\CoreBundle\Entity\Dictionary\City;
 
 // use Sto\CoreBundle\Entity\Dictionary\Country;
@@ -89,7 +86,7 @@ class APICityController extends APIBaseController
      *         }
      * )
      *
-     * @param  integer    $id
+     * @param integer $id
      *
      * @Rest\View
      * @Route("/all_by_country/{id}", name="api_city_all_by_country", requirements={"id" = "\d+"} )

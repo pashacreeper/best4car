@@ -46,10 +46,10 @@
         <div class="span3 offset2">
             <div class="control-group">
                 <div class="control">
-{% if deal.imageName %}
-                    <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" width="120" class="img-polaroid"/>
+{% if not form_errors(edit_form.image) and deal.imageName %}
+                    <img data-image="image1" src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
 {% else %}
-                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                    <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image) }}
                     {{ form_widget(edit_form.image) }}
@@ -59,10 +59,10 @@
         <div class="span3">
             <div class="control-group">
                 <div class="control">
-{% if deal.imageName2 %}
-                        <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
+{% if not form_errors(edit_form.image2) and deal.imageName2 %}
+                        <img data-image="image2" src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
 {% else %}
-                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                        <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image2) }}
                     {{ form_widget(edit_form.image2) }}
@@ -72,10 +72,10 @@
         <div class="span3">
             <div class="control-group">
                 <div class="control">
-{% if deal.imageName3 %}
-                        <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName3 }}" width="120" class="img-polaroid"/>
+{% if not form_errors(edit_form.image3) and deal.imageName3 %}
+                        <img data-image="image3" src="/../{{ storage_path }}/deal_image/{{ deal.imageName3 }}" width="120" class="img-polaroid"/>
 {% else %}
-                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                        <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
                     {{ form_errors(edit_form.image3) }}
                     {{ form_widget(edit_form.image3) }}
@@ -114,6 +114,17 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script type="text/javascript" >
+    $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
+
     $(".select2").select2({
     });
 </script>

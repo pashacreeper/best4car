@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    //JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Feedback,
     Sto\CoreBundle\Entity\FeedbackAnswer,
     Sto\CoreBundle\Entity\FeedbackCompany,
@@ -105,7 +106,7 @@ class FeedbackController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'form' => $answer_form->createView(),
         );
     }
@@ -118,44 +119,61 @@ class FeedbackController extends Controller
      */
     public function saveAnswerAction(Request $request, $feedback_id, $id=0)
     {
-        if ($id!=0) {
+        if ($this->get('security.context')->isGranted('ROLE_MANAGER')) {
             $em = $this->getDoctrine()->getManager();
-            $entity_answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+            $entity = $em->getRepository('StoCoreBundle:Feedback')->find($feedback_id);
+
+            if ($entity instanceof FeedbackCompany){
+                $company = $entity->getCompany();
+                if (!in_array($this->getUser(), $company->getArrayManagers()) ){
+                    $this->get('session')->getFlashBag()->add('notice', 'You are not a manager of this company!');
+                    return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
+                }
+            }
+            elseif ($entity instanceof FeedbackDeal){
+                $deal = $entity->getDeal();
+                $company = $deal->getCompany();
+                if (!in_array($this->getUser(), $company->getArrayManagers()) ){
+                    $this->get('session')->getFlashBag()->add('notice', 'You are not a manager of this company!');
+                    return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
+                }
+            }
+
+            if ($id!=0) {
+                $entity_answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->find($id);
+            }
+
+            if (!$entity->getFeedbackAnswer()) {
+                $entity_answer = new FeedbackAnswer();
+                $answer_form = $this->createForm(new FeedbackAnswerType, $entity_answer);
+            } else {
+                $entity_answer = $entity->getFeedbackAnswer();
+                $answer_form = $this->createForm(new FeedbackAnswerType, $entity_answer);
+            }
+
+            $answer_form->bind($request);
+            if ($answer_form->isValid()) {
+
+                $em2 = $this->getDoctrine()->getManager();
+                $entity_answer->setOwner($this->getUser());
+                $entity_answer->setDate(new \DateTime("now"));
+                $entity_answer->setFeedback($entity);
+                $em2->persist($entity_answer);
+                $em2->flush();
+                $entity->setFeedbackAnswer($entity_answer);
+                $em->persist($entity);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('saved_notice', 'Answer was saved!');
+
+                return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
+            }
+
+            return array(
+                'entity'      => $entity,
+                'form' => $answer_form->createView(),
+            );
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Feedback')->find($feedback_id);
-
-        if (!$entity->getFeedbackAnswer()) {
-            $entity_answer = new FeedbackAnswer();
-            $answer_form = $this->createForm(new FeedbackAnswerType, $entity_answer);
-        } else {
-            $entity_answer = $entity->getFeedbackAnswer();
-            $answer_form = $this->createForm(new FeedbackAnswerType, $entity_answer);
-        }
-
-        $answer_form->bind($request);
-        if ($answer_form->isValid()) {
-
-            $em2 = $this->getDoctrine()->getManager();
-            $entity_answer->setOwner($this->getUser());
-            $entity_answer->setDate(new \DateTime("now"));
-            $entity_answer->setFeedback($entity);
-            $em2->persist($entity_answer);
-            $em2->flush();
-            $entity->setFeedbackAnswer($entity_answer);
-            $em->persist($entity);
-            $em->flush();
-
-            $this->get('session')->setFlash('notice', 'Answer was saved!');
-
-            return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'form' => $answer_form->createView(),
-        );
     }
 
     /**

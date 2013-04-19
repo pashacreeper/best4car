@@ -58,6 +58,13 @@ class Base
     private $parentId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -188,5 +195,23 @@ class Base
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * set Position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * get Position
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 }

@@ -114,7 +114,7 @@ class DictionaryController extends Controller
         }
 
         $dictionaries = $repository->createQueryBuilder('dictionary')
-            ->orderBy('dictionary.id, dictionary.parent')
+            ->orderBy('dictionary.position, dictionary.id, dictionary.parent')
             ->getQuery()
             ->getResult()
         ;
@@ -172,6 +172,7 @@ class DictionaryController extends Controller
      */
     public function createAction(Request $request, $dictionary)
     {
+        $em = $this->getDoctrine()->getManager();
         switch ($dictionary) {
             case 'company':
                 $entity  = new DictionaryEntity\Company;
@@ -179,6 +180,17 @@ class DictionaryController extends Controller
                 break;
             case 'deal':
                 $entity  = new DictionaryEntity\Deal;
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
+                $item = $repository->createQueryBuilder('d')
+                    ->orderBy('d.position', 'DESC')
+                    ->setMaxResults(1)
+                    ->getQuery()
+                    ->getResult();
+                if (isset($item[0]))
+                    $position = $item[0]->getPosition()+1;
+                else
+                    $position = 1;
+                $entity->setPosition($position);
                 $form = $this->createForm(new DictionaryForm\DealType, $entity);
                 break;
             case 'service':
@@ -205,7 +217,6 @@ class DictionaryController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -262,13 +273,10 @@ class DictionaryController extends Controller
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return [
             'entity' => $entity,
             'dictionary' => $dictionary,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ];
     }
 
@@ -317,7 +325,6 @@ class DictionaryController extends Controller
             throw $this->createNotFoundException($this->get('translator')->trans('dict.errors.unable_2_find'));
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -331,7 +338,6 @@ class DictionaryController extends Controller
             'entity' => $entity,
             'dictionary' => $dictionary,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ];
     }
 
@@ -362,5 +368,62 @@ class DictionaryController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    /**
+     * Change Position a Dictionary entity.
+     *
+     * @Route("/change-position", name="change_position_ajax")
+     * @Method("POST")
+     */
+    public function changeDealPositionAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($request->get('id'));
+
+        if (!$entity) {
+            return new Response(500, 'Dictionary Not found.');
+        }
+
+        $action = $request->get('action');
+
+        $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
+        $query = $repository->createQueryBuilder('dictionary');
+
+        if ($action == 'up') {
+            $query->where('dictionary.position < :current_position')
+            ->orderBy('dictionary.position', 'DESC');
+        } elseif ($action == 'down') {
+            $query->where('dictionary.position > :current_position')
+            ->orderBy('dictionary.position', 'ASC');
+        } else {
+            return new Response(500, 'Action "'.$action.'" is not a position action.');
+        }
+
+        $item = $query ->setParameter('current_position', $entity->getPosition())
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        if (!$item[0])
+            return new Response(500, 'Dictionary Not found.');
+
+        $buf_position = $entity->getPosition();
+        $entity->setPosition($item[0]->getPosition());
+
+        $em->persist($entity);
+        $em->flush();
+
+        $query = $repository->createQueryBuilder('StoCoreBundle:Dictionary\Deal');
+        $query->update('StoCoreBundle:Dictionary\Deal','d')
+            ->set('d.position', '?1')
+            ->where('d.id = ?2')
+            ->setParameter(1, $buf_position)
+            ->setParameter(2, $item[0]->getId())
+            ->getQuery()
+            ->execute();
+
+        return new Response($request->get('id'));
     }
 }

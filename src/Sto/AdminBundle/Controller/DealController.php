@@ -123,7 +123,7 @@ class DealController extends Controller
      *
      * @Route("/{id}/update", name="deal_update")
      * @Method("POST")
-     * @Template("StoCoreBundle:Deal:edit.html.twig")
+     * @Template("StoAdminBundle:Deal:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

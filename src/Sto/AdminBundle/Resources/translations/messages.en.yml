@@ -69,6 +69,10 @@ dict:
         filterby_name: Filter by Name
     btn:
         create_new: Create a new dictionary
+    icon:
+        map: Иконка на карте
+        small: Маленькая иконка
+        large: Большая иконка
 
 #Form
 form:

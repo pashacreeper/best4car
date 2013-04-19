@@ -72,11 +72,6 @@
 
 <h4>Ответ на отзыв</h4>
 <hr />
-{% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
 {% if entity.feedbackAnswer %}
     {% include 'StoAdminBundle:FeedbackAnswer:edit.html.twig' with {'entity': entity.feedbackAnswer, 'feedback_id':entity.id} %}
 {% else %}

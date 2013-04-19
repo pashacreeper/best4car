@@ -17,7 +17,7 @@
             <th>Адрес</th>
             <th>Рейтинг</th>
             <th></th>
-            <th width="50"></th>
+            <th width="65"></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,14 @@
                 <span class="badge badge-info">{{ specialization }}</span>
 {% endfor %}
             </td>
-            <td>{{ company.workingTime }}</td>
+            <td>
+                {% if company.workingTime|length > 0 %}
+                    {% for time in company.workingTime %}
+                        {{ time.description }}: {{ time.from|date('H:i') }} - {{ time.till|date('H:i') }}
+                        {% if loop.last != true %},{% endif %}
+                    {% endfor %}
+                {% endif %}
+            </td>
             <td>{{ company.address }}</td>
             <td><center>{{ company.rating }}</center></td>
             <td>
@@ -47,6 +54,7 @@
             <td>
                 <a href="{{ path('company_edit', { 'id': company.id }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a>
                 <a href="{{ path('company_gallery', { 'id': company.id }) }}" class="icon-picture" title="Фотогаллерея"></a>
+                <a href="{{ path('company_managers', { 'id': company.id }) }}" class="icon-user" title="Менеджеры"></a>
                 <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ company.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
             </td>
         </tr>

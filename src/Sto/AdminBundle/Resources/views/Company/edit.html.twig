@@ -2,7 +2,15 @@
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
 {% block title %}Редактирование компании{% endblock %}
+{% block head_style %}
+    {{ parent() }}
+    <style>
+    div.collection-item div.control-group div.controls {
+        margin-left: 1px;
+    }
+    </style>
 
+{% endblock %}
 {% block header %}
 <div class="row-fluid">
     <div class="span6">
@@ -33,10 +41,10 @@
                 </div>
                 <div class="span6">
                     <div class="controls">
-{% if company.logoName %}
-                        <img src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" width="120" class="img-circle"/>
+{% if company.logoName and not form_errors(edit_form.logo) %}
+                        <img data-image="logo" src="/../{{ storage_path }}/company_logo/{{ company.logoName }}" width="120" class="img-circle"/>
 {% else %}
-                        <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
+                        <img  data-image="logo" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
 {% endif %}
                     </div>
                     {{ form_row(edit_form.logo, {'label_render': false}) }}
@@ -109,5 +117,16 @@
 <script type="text/javascript" >
     $(".select2").select2({
     });
+
+    $('[data-image]').click().change(function () {
+        if (this.files && this.files[0]) {
+            var img_data = $(this).data('image');
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('[data-image="'+img_data+'"]').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         }
+     });
 </script>
 {% endblock %}

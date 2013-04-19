@@ -6,12 +6,6 @@
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-{% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
-
 <form action="{{ path('feedback_filter') }}" method="post" id="filter-form" class="form-inline">
     <div class="row-fluid">
         <div class="span3">

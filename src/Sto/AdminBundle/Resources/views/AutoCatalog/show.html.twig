@@ -6,11 +6,6 @@
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-{% if app.session.hasFlash('notice') %}
-    <div class="flash-notice">
-        {{ app.session.flash('notice') }}
-    </div>
-{% endif %}
 <p><a class="btn btn-info btn-small" href="{{ path('autocatalog_new', {"type":"item", 'parent':parent}) }}"><i class="icon-plus icon-white"></i> Добавить</a></p>
 <table class="table table-hover table-condensed">
     <thead>

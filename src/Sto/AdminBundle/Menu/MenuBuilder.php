@@ -71,7 +71,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                 'route' => 'deals',
             ));
             $systemManagement->addChild('Управление автокаталогом', array(
-                'route' => 'admin_autocatalog',
+                'route' => 'admin_catalog',
             ));
         }
 
