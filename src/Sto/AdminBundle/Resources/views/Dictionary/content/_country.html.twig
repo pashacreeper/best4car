@@ -12,9 +12,17 @@
             <td>
                 <center>
 {% if country.iconName %}
+    {% if country.parent %}
+                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="20"/>
+    {% else %}
                 <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="30"/>
+    {% endif %}
 {% else %}
+    {% if country.parent %}
+                <img src="http://placehold.it/20x30" alt="Изображение отсутствует" width="20"/>
+    {% else %}
                 <img src="http://placehold.it/30x20" alt="Изображение отсутствует" width="30"/>
+    {% endif %}
 {% endif %}
                 </center>
             </td>
