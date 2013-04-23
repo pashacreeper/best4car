@@ -56,6 +56,7 @@ class CompanyController extends Controller
      * Ajax get companies
      *
      * @Route("/ajax/getall", name="company_ajax_get_all")
+     * @Template()
      */
     public function getAllAjaxAction(Request $request)
     {
@@ -68,7 +69,56 @@ class CompanyController extends Controller
         if (!$companies)
             return new Responce(500, 'Companies Not found.');
 
+        return [
+            'companies' => $companies,
+        ];
+    }
+
+    /**
+     * Ajax get companies
+     *
+     * @Route("/ajax/get-company-types", name="copmpany_ajax_get_search_comopany_types")
+     */
+    public function getSearchCompanyTypesAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $companies = $em->getRepository('StoCoreBundle:Dictionary\Company')
+            ->createQueryBuilder('company')
+            ->where('company.parent is null')
+            ->getQuery()
+            ->getArrayResult();
+
+        if (!$companies)
+            return new Response(500, 'Companies Not found.');
+
         $response = new Response(json_encode(array('companies' => $companies)));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * Ajax get companies
+     *
+     * @Route("/ajax/get-company-subtypes", name="company_ajax_get_company_subtypes")
+     */
+    public function getSearchCompanySubtypesAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $companies = $em->getRepository('StoCoreBundle:Company')->find($request->get('type'));
+
+        $companies = $em->getRepository('StoCoreBundle:Dictionary\Company')
+            ->createQueryBuilder('company')
+            ->where('company.parentId = :type')
+            ->setParameter('type', $request->get('type'))
+            ->getQuery()
+            ->getArrayResult();
+
+        if (!$companies)
+            return new Response(500, 'Subtype Not found.');
+
+        $response = new Response(json_encode(array('subtypes' => $companies)));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

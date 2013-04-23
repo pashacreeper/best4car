@@ -1,0 +1,15 @@
+{% for item in companies %}
+    <div class="row-fluid">
+        <div class="span3">
+            <i class="icon-b4c-star"></i>{{item.rating}}<br />
+            <span style="font-size:10px;">Отзывов: 12</span>
+        </div>
+        <div class="span7">
+            <a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
+            <p>{{item.address}}<br />{{item.phones[0].phone}}</p><p><img src="http://placehold.it/25x25&text=F"> <img src="http://placehold.it/17x17&text=V"> <img src="http://placehold.it/17x17&text=T"></p>
+        </div>
+        <div class="span2">
+            <img src="http://placehold.it/25x25&text=F">
+        </div>
+    </div>
+{% endfor %}

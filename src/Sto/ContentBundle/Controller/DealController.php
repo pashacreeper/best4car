@@ -3,6 +3,7 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
@@ -42,13 +43,18 @@ class DealController extends Controller
      * @Method("POST")
      * @Template()
      */
-    public function dealsAction()
+    public function dealsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
-            ->createQueryBuilder('deal')
-            ->getQuery()
-        ;
+            ->createQueryBuilder('deal');
+        if ($request->get('deal_type')) {
+            $deal_type = $request->get('deal_type');
+            $query->where('deal.typeId = :type')
+                ->setParameter('type', $request->get('deal_type'));
+        } else
+            $deal_type = 0;
+        $query->getQuery();
 
         $deals = $this->get('knp_paginator')->paginate(
             $query,
@@ -56,10 +62,9 @@ class DealController extends Controller
             10
         );
 
-        //$page_params = $deals->getPaginationData();
         return [
             'deals' => $deals,
-            //'params' => $page_params,
+            'deal_type' => $deal_type,
         ];
     }
 

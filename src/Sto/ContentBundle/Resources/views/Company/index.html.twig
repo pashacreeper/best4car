@@ -3,14 +3,25 @@
 
 {% block title 'Компании' %}
 
-{% block header %}
-<form class="form-search form-inline">
-    Я ищу компанию:
-    <div class="input-append">
-        <input type="text" class="search-query span9" placeholder="Все компании">
-        <button type="submit" class="btn btn-primary">Найти</button>
+{% block aside %}
+    <div class="well" style="margin-top:40px; margin-bottom:0; padding-bottom:0;">
+        <form class="form-search form-inline" style="margin-bottom:5px;">
+            Я ищу компанию:
+            <div class="input-append">
+                <input type="text" class="search-query span9" placeholder="Все компании">
+                <button type="submit" class="btn btn-primary">Найти</button>
+            </div>
+        </form>
+        <p style="font-size:10px; margin-left:120px;">
+            Напрмер: <a href="#">ремонт двигателя, Mazda 3, 1.6, 2010, север спб</a>
+        </p>
+        <div class="row-fluid">
+            <div class="span4">
+                <a href="#" class="show-list">Show list</a>
+            </div>
+            <div class="span3 pull-right"><a href="#" class="show-search">Расширенный поиск</a></div>
+        </div>
     </div>
-</form>
 {% endblock %}
 
 {% block content_tag 'class="container" style="width:100%; height: 100%; min-height: 100%; margin-bottom: -60px;"' %}
@@ -31,42 +42,140 @@
 {# Конец выбора города #}
 
 {# Companies list #}
-<style type="text/css">
-    #home_compalies ul.hide { display: none; }
-</style>
-<div id="home_compalies" style="position: absolute; top: 50px; left: 40px; background-color: white; border: 1px solid gray; padding: 10px 20px; ">
-    <div><h4 style="cursor: pointer;">Companies list </h4></div>
-    <ul class="hide"></ul>
+<div class="hide" id="home_compalies" style="position: absolute; top: 155px; left: 0px; width:350px; background-color: white; border: 1px solid gray; padding: 10px 20px; height:740px; overflow-y:scroll;">
+    {#<div><h4 style="cursor: pointer;">Companies list </h4></div>#}
 </div>
+
 {# EOF Companies list #}
+
+{# search #}
+<style type="text/css">
+    form div.buttons a.btn {
+        width: 12px;
+    }
+</style>
+<div class="hide" id="home_search" style="position: absolute; top: 155px; right:0px; width:250px; background-color: black; border: 1px solid gray; padding: 10px 20px; color:#fff;">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <form>
+                        <label>Тип компании</label>
+                        <select name="company_type" class="company-type-search" data-serarch-form="company-type">
+                            <option value=0></option>
+                        </select>
+                        <label>Подтип компании</label>
+                        <select name="company_type" class="company-subtype-search" data-serarch-form="company-subtype">
+                            <option value=0></option>
+                        </select>
+                        <label>Специализация на марке</label>
+                        <select name="company_type" class="company-mark-search" data-serarch-form="company-mark">
+                            <option value=0></option>
+                        </select>
+
+                        <label>Рейтинг от</label>
+                        <div class="row-fluid">
+                            <div class="span7">
+                                <div id="search-slider" style="margin-left:10px;"></div>
+                            </div>
+                            <div class="span4">
+                                <input type="text" value='0' style="width:40px;" />
+                            </div>
+                        </div>
+
+                        <label>Время работы</label>
+                        <a href="#" class="btn btn-primary">24ч</a>
+                        <a href="#" class="btn btn-primary">До поздна</a>
+                        <a href="#" class="btn">Выходные</a>
+                        <label>Дополнительные</label>
+                        <div class="row-fluid buttons">
+                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                        </div>
+                        <label><input type="checkbox" value=1 />Только с акциями</label>
+                    </form>
+                </div>
+            </div>
+
+</div>
+
+{# EOF search #}
+
+{% endblock %}
+
+{% block head_style %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.css') }}" type="text/css" rel="stylesheet"  />
 {% endblock %}
 
 {% block foot_script %}
 {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+
+    <script type="text/javascript" src="{{asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js')}}"></script>
     <script type="text/javascript">
+
+        $("#search-slider").slider({min:0, max:10});
+
         ymaps.ready(init);
 
-        $('#home_compalies').on("click", "h4", function() {
+        $('.show-list').on("click", function() {
             $.ajax({
                 type: 'POST',
                 url: "{{ path('company_ajax_get_all') }}",
-                success: function(res) {
-                    if (res.companies) {
-                        var root = $('#home_compalies ul');
-                        root.empty();
-                        $.each(res.companies, function (index, company) {
-                            root.append("<li><a href=\"#\">" + company.name  + "</a></li>");
-                        });
-                    }
+                success: function(html) {
+                    console.log(html);
+                    var root = $('#home_compalies');
+                    root.empty();
+                    root.append(html);
                 },
                 error: function(e) {
                     console.log(e.message);
                 }
             });
-
-            $('#home_compalies ul').toggleClass("hide");
+            $('#home_compalies').toggleClass("hide");
         });
+
+
+        $('.show-search').on("click", function() {
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('copmpany_ajax_get_search_comopany_types') }}",
+                success: function(res){
+                    var company_type = $('.company-type-search');
+                     $.each(res.companies, function (index, company) {
+                            company_type.append('<option value="'+company.id+'">'+company.name+'</option>');
+                        });
+                },
+                error: function(e){
+                    console.log(e.message);
+                }
+            });
+            $('#home_search').toggleClass("hide");
+        });
+
+        $('.company-type-search').change(function(){
+            var current_type = $('.company-type-search').val();
+            var route = "{{ url('company_ajax_get_company_subtypes') }}?type="+current_type;
+            $.ajax({
+                type: 'POST',
+                url: route,
+                data: 'type/'+current_type,
+                success: function(res){
+                    var company_subtype = $('.company-subtype-search');
+                    $.each(res.subtypes, function (index, subtype) {
+                        company_subtype.append('<option value="'+subtype.id+'">'+subtype.name+'</option>');
+                    });
+                },
+                error: function(e){
+                    console.log(e.message);
+                }
+            });
+        });
+
 
         function init (companies) {
             var myMap = new ymaps.Map("map", {

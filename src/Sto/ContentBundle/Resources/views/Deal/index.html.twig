@@ -22,7 +22,7 @@
         <ul class="sideMenu">
 {% for dealsType in dictionaries %}
             <li>
-                <a href="#">{{ dealsType.name }}</a>
+                <a href="#" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</a>
                 <span>{{ dealsType.deals|length }}</span>
             </li>
 {% endfor %}
@@ -77,11 +77,12 @@
 <script type="text/javascript">
     $('[data-page]').live('click', function(){
         var page = parseInt($(this).attr('rel'))+1;
+        var deal_type = $(this).data('deal-type');
         $(this).parent('div.span12').parent('div.row-fluid').remove();
         $('[data-page]').attr('rel', page+1);
         $.ajax({
             type: 'POST',
-            url: "{{ path('deals_show') }}?page="+page,
+            url: "{{ path('deals_show') }}?page="+page+"&deal_type="+deal_type,
             success: function(html) {
                 $('[data-content]').append(html);
 
@@ -92,5 +93,23 @@
         });
         return false;
     });
+
+    $('.sideMenu > li > a').on('click', function(){
+        var type_id = $(this).data('deal-type');
+        var route = "{{ path('deals_show') }}?deal_type="+type_id;
+        $.ajax({
+            type: 'POST',
+            url: route,
+            success: function(res){
+                $('[data-content]').empty();
+                $('[data-content]').append(res);
+            },
+            error: function(e){
+                console.log(e.message);
+            }
+        });
+        return false;
+    });
+
 </script>
 {% endblock %}

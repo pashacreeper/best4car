@@ -42,16 +42,21 @@
                                         </div>
                                     </div>
                                     <div class="span6">
-                                        <h5>Автосалон</h5>
-                                        <h2>{{ company.phones }}</h2>
-                                        <dl class="dl-horizontal">
-                                            <dt>Отдел зап.частей</dt>
-                                            <dd>320-0021</dd>
-                                            <dt>Сервис</dt>
-                                            <dd>320-0022</dd>
-                                            <dt>Факс</dt>
-                                            <dd>320-0023</dd>
-                                        </dl>
+                                        {% for phone in company.phones %}
+                                            {% if loop.first %}
+                                                <h5>{{ phone.description }}</h5>
+                                                <h2>{{ phone.phone }}</h2>
+                                                {% if company.phones|length > 1 %}
+                                                    <dl>
+                                                {% endif %}
+                                            {% else %}
+                                                <dt>{{ phone.description }}</dt>
+                                                <dd>{{ phone.phone }}</dd>
+                                                {% if loop.last %}
+                                                    </dl>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +175,7 @@
                                                     </div>
                                                     <div class="span10">
                                                         <p>{{ manager.firstName ~' '~ manager.lastName }}</p>
-                                                        <h6>{{ manager.phone }}</h6>
+                                                        <h6>{{ manager.phoneNumber }}</h6>
                                                     </div>
                                                 </div>
                                             </div>

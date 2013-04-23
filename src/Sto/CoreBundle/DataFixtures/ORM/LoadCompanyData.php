@@ -79,8 +79,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500) . ' р.');
 
-        for($i = 0; $i <= rand(1,2); $i++)
-            $company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
+        //for($i = 0; $i <= rand(1,2); $i++)
+            //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
 
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
@@ -154,8 +154,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setDescription('Благодаря узкой специализации на марках Volkswagen, Audi, SKODA и SEAT (концернVAG), наша СТО имеет хорошее техническое оснащение специализированным немецким оборудованием для диагностики и ремонта именно Вашего автомобиля, и можете быть уверенны в том, что Вы не потратите лишнего времени из-за отсутствия у специалиста инструмента, необходимого для ремонта.');
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500) . ' р.');
-        for($i = 0; $i <= 2; $i++)
-            $company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
+        //for($i = 0; $i <= 2; $i++)
+            //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -238,8 +238,8 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setHourPrice(rand(500,4500) . ' р.');
-            for($k = 1; $k <= 2; $k++)
-                $company->addManager($this->getReference("user[".rand(1, $k*15)."]"));
+            //for($k = 1; $k <= 2; $k++)
+                //$company->addManager($this->getReference("user[".rand(1, $k*15)."]"));
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
