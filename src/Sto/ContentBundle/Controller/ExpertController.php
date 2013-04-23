@@ -14,7 +14,6 @@ class ExpertController extends Controller
      */
     public function indexAction()
     {
-        return [
-        ];
+        return [];
     }
 }

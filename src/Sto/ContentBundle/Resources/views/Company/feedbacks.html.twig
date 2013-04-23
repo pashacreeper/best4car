@@ -1,0 +1,74 @@
+{% for feedback in feedbacks %}
+<div class="row-fluid">
+    <div class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/64x64">
+            <p><center>556</center></p>
+        </div>
+    </div>
+    <div class="span10">
+        <p>StreetRacker</p>
+        <h3>{{ feedback.user.lastName }} {{ feedback.user.firstName }}</h3>
+        <p>АвтоПрофи</p>
+        <blockquote>
+            <div class="row-fluid">
+                <div class="span4">
+                    <i class="icon-b4c-star"></i>
+                    <i class="icon-b4c-star"></i>
+                    <i class="icon-b4c-star"></i>
+                    <i class="icon-b4c-star-half"></i>
+                    <i class="icon-b4c-star-empty"></i>
+                </div>
+                <div class="span4">
+                    {#p>Цена: <img src="http://placehold.it/25x25"></p>#}
+                </div>
+                <div class="span4">
+                    <p class="pull-right">
+                        <i class="icon-b4c-thumbs-up"></i> 15
+                        <i class="icon-b4c-thumbs-down"></i> 53
+                    </p>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <p>{{ feedback.content }}</p>
+                <a href="#" class="pull-right">Пожаловаться</a>
+            </div>
+        </blockquote>
+        {% if feedback.feedbackAnswer %}
+        <div class="row-fluid">
+            <blockquote class="well">
+                <div class="row-fluid">
+                    <div class="span7">
+                        <p>{{ feedback.feedbackAnswer.answer }}</p>
+                    </div>
+                    <div class="span5">
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <center><img src="http://placehold.it/39x39"></center>
+                            </div>
+                            <div class="span8">
+                                <h5>{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</h5>
+                                <p><small>Старший менеджер</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <p class="pull-right muted">
+                        <i class="icon-b4c-thumbs-up"></i> 15
+                        <i class="icon-b4c-thumbs-down"></i> 53
+                    </p>
+                </div>
+            </blockquote>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% if not (feedbacks.paginationData.current == feedbacks.paginationData.last) %}
+<div class="row-fluid">
+    <div class="span12">
+        <a class="btn" href="{{ path('feedbacks_show', {'id':companyId}) }}" rel="{{ feedbacks.paginationData.current }}" data-page="2">More...</a>
+    </div>
+</div>
+{% endif %}

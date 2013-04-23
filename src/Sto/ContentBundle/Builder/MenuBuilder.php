@@ -28,7 +28,6 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             'route' => 'content_deals',
             'extras' => [],
         ]);
-
         // $menu->addChild('Клубы', [
         //     'uri' => '#',
         //     'extras' => [],

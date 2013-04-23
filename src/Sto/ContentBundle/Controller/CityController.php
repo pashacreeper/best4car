@@ -22,9 +22,10 @@ class CityController extends Controller
     {
         $session = $this->getRequest()->getSession();
         $city = $session->get('user_city');
-        if (!$city)
+        if (!$city) {
             $city = 'Ваш город';
-        $response = new Response(json_encode(array('user_city' => $city)));
+        }
+        $response = new Response(json_encode(['user_city' => $city]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -42,12 +43,14 @@ class CityController extends Controller
             ->createQueryBuilder('city')
             ->where('city.parent is not null')
             ->getQuery()
-            ->getArrayResult();
+            ->getArrayResult()
+        ;
 
-        if (!$cities)
+        if (!$cities) {
             return new Responce(500, 'Companies Not found.');
+        }
 
-        $response = new Response(json_encode(array('cities' => $cities)));
+        $response = new Response(json_encode(['cities' => $cities]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -66,7 +69,7 @@ class CityController extends Controller
 
         $city = $session->get('user_city');
 
-        $response = new Response(json_encode(array('result' => $city)));
+        $response = new Response(json_encode(['result' => $city]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

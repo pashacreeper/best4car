@@ -31,7 +31,8 @@ class CompanyController extends Controller
             ->createQueryBuilder('city')
             ->where('city.parent is not null')
             ->getQuery()
-            ->getArrayResult();
+            ->getArrayResult()
+        ;
 
         return [
             'companies' => json_encode($companies),
@@ -64,10 +65,12 @@ class CompanyController extends Controller
         $companies = $em->getRepository('StoCoreBundle:Company')
             ->createQueryBuilder('company')
             ->getQuery()
-            ->getArrayResult();
+            ->getArrayResult()
+        ;
 
-        if (!$companies)
+        if (!$companies) {
             return new Responce(500, 'Companies Not found.');
+        }
 
         return [
             'companies' => $companies,
@@ -86,12 +89,14 @@ class CompanyController extends Controller
             ->createQueryBuilder('company')
             ->where('company.parent is null')
             ->getQuery()
-            ->getArrayResult();
+            ->getArrayResult()
+        ;
 
-        if (!$companies)
+        if (!$companies) {
             return new Response(500, 'Companies Not found.');
+        }
 
-        $response = new Response(json_encode(array('companies' => $companies)));
+        $response = new Response(json_encode(['companies' => $companies]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -105,22 +110,48 @@ class CompanyController extends Controller
     public function getSearchCompanySubtypesAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $companies = $em->getRepository('StoCoreBundle:Company')->find($request->get('type'));
-
         $companies = $em->getRepository('StoCoreBundle:Dictionary\Company')
             ->createQueryBuilder('company')
             ->where('company.parentId = :type')
             ->setParameter('type', $request->get('type'))
             ->getQuery()
-            ->getArrayResult();
+            ->getArrayResult()
+        ;
 
-        if (!$companies)
+        if (!$companies) {
             return new Response(500, 'Subtype Not found.');
+        }
 
-        $response = new Response(json_encode(array('subtypes' => $companies)));
+        $response = new Response(json_encode(['subtypes' => $companies]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+    /**
+     * @Route("/company-feedbacks/{id}", name="feedbacks_show")
+     * @Method("POST")
+     * @Template()
+     */
+    public function feedbacksAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('StoCoreBundle:FeedbackCompany')
+            ->createQueryBuilder('fc')
+            ->where('fc.companyId = :company')
+            ->setParameter('company', $id)
+            ->getQuery()
+        ;
+
+        $feedbacks = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page',1),
+            3
+        );
+
+        return [
+            'feedbacks' => $feedbacks,
+            'companyId' => $id,
+        ];
     }
 }
