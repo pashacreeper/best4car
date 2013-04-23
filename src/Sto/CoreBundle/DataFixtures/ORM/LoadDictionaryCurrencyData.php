@@ -38,6 +38,6 @@ class LoadDictionaryCurrencyData extends AbstractFixture implements OrderedFixtu
 
     public function getOrder()
     {
-        return 24;
+        return 14;
     }
 }

@@ -1,0 +1,23 @@
+<thead>
+    <tr>
+        <th>Название</th>
+        <th width="50">Видим</th>
+        <th width="60"></th>
+    </tr>
+</thead>
+<tbody>
+{% for item in catalog %}
+    <tr>
+        <td class="name">
+            <a href="{{ path('admin_catalog_with_level', { 'level': 'modification', 'parent' : item.id }) }}">{{ item.name }}</a>
+        </td>
+        <td><i class="icon-{% if item.visible %}ok{% else %}remove{% endif %}"></i></td>
+        <td>
+            <center>
+                <a href="{{ path('admin_catalog_edit', { 'level': level, 'id' : item.id }) }}" class="icon-edit" title="Редактировать"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{item.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+            </center>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

@@ -29,6 +29,6 @@ class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureIn
 
     public function getOrder()
     {
-        return 92;
+        return 52;
     }
 }

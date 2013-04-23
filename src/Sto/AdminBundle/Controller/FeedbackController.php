@@ -123,18 +123,19 @@ class FeedbackController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('StoCoreBundle:Feedback')->find($feedback_id);
 
-            if ($entity instanceof FeedbackCompany){
+            if ($entity instanceof FeedbackCompany) {
                 $company = $entity->getCompany();
-                if (!in_array($this->getUser(), $company->getArrayManagers()) ){
+                if (!in_array($this->getUser(), $company->getArrayManagers()) ) {
                     $this->get('session')->getFlashBag()->add('notice', 'You are not a manager of this company!');
+
                     return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
                 }
-            }
-            elseif ($entity instanceof FeedbackDeal){
+            } elseif ($entity instanceof FeedbackDeal) {
                 $deal = $entity->getDeal();
                 $company = $deal->getCompany();
-                if (!in_array($this->getUser(), $company->getArrayManagers()) ){
+                if (!in_array($this->getUser(), $company->getArrayManagers()) ) {
                     $this->get('session')->getFlashBag()->add('notice', 'You are not a manager of this company!');
+
                     return $this->redirect($this->generateUrl('feedbacks_show', array('id' => $entity->getId())));
                 }
             }

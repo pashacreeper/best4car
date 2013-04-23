@@ -132,6 +132,6 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
 
     public function getOrder()
     {
-        return 21;
+        return 11;
     }
 }

@@ -61,16 +61,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.1",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "v1.1"
+                "reference": "v1.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/v1.1",
-                "reference": "v1.1",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/v1.1.1",
+                "reference": "v1.1.1",
                 "shasum": ""
             },
             "require": {
@@ -81,6 +81,11 @@
                 "doctrine/cache": "1.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Common\\Annotations\\": "lib/"
@@ -110,7 +115,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -123,7 +128,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2013-03-17 14:03:10"
+            "time": "2013-04-20 08:30:17"
         },
         {
             "name": "doctrine/cache",
@@ -816,12 +821,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "d182cd27c85242e1f2e8d55703981bfbac56cdf7"
+                "reference": "061d226c28f406fdb5cd7d6dad620413447a30b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/d182cd27c85242e1f2e8d55703981bfbac56cdf7",
-                "reference": "d182cd27c85242e1f2e8d55703981bfbac56cdf7",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/061d226c28f406fdb5cd7d6dad620413447a30b9",
+                "reference": "061d226c28f406fdb5cd7d6dad620413447a30b9",
                 "shasum": ""
             },
             "require": {
@@ -880,7 +885,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2013-04-10 15:15:04"
+            "time": "2013-04-21 17:58:02"
         },
         {
             "name": "friendsofsymfony/user-bundle",

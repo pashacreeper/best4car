@@ -41,5 +41,4 @@ class CompanyManagerType extends AbstractType
         return 'sto_admin_company_manager';
     }
 
-
 }

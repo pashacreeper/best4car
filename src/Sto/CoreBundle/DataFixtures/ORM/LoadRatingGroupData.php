@@ -42,6 +42,6 @@ class LoadRatingGroupData extends AbstractFixture implements FixtureInterface, C
 
     public function getOrder()
     {
-        return 51;
+        return 22;
     }
 }

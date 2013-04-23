@@ -43,7 +43,7 @@ class LoadACCommand extends ContainerAwareCommand
 
         $marks = $this->parseMarks($output, $input->getOption('mark'));
         $models = $this->parseModels($output, $marks);
-        $this->parseModelFull($output, $models);
+        $this->parseModification($output, $models);
 
         $output->write("<comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[Done parsing]</info>  Auto catalog\n");
     }
@@ -58,7 +58,7 @@ class LoadACCommand extends ContainerAwareCommand
         foreach ($nodes->query(CssSelector::toXPath('div.cars_list_column > div > a')) as $node) {
             $marks[$node->nodeValue] = (new Catalog\Mark)
                 ->setName(trim($node->nodeValue))
-                ->setUri(trim($node->getAttribute('href')))
+                ->setUri(self::URI_PRIMARY . trim($node->getAttribute('href')))
             ;
             $this->manager->persist($marks[$node->nodeValue]);
             $output->write("  <comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[{$node->nodeValue}]</info> --> write to DB\n");
@@ -74,14 +74,14 @@ class LoadACCommand extends ContainerAwareCommand
         libxml_use_internal_errors(true);
         foreach ($marks as $mark) {
             $catalog = new DOMDocument;
-            $catalog->loadHTMLFile(self::URI_PRIMARY . $mark->getUri());
+            $catalog->loadHTMLFile($mark->getUri());
 
             $nodes = new DOMXPath($catalog);
             foreach ($nodes->query(CssSelector::toXPath('div.cars_list_column > div > a')) as $node) {
                 $models[$mark->getName() . " - " . $node->nodeValue] = (new Catalog\Model)
                     ->setParent($mark)
                     ->setName(trim($node->nodeValue))
-                    ->setUri(trim($node->getAttribute('href')))
+                    ->setUri(self::URI_PRIMARY . trim($node->getAttribute('href')))
                 ;
                 $this->manager->persist($models[$mark->getName() . " - " . $node->nodeValue]);
                 $output->write("  <comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[{$mark->getName()}] - {$node->nodeValue}</info> --> write to DB\n");
@@ -93,50 +93,60 @@ class LoadACCommand extends ContainerAwareCommand
         return $models;
     }
 
-    public function parseModelFull(OutputInterface $output, $models)
+    public function parseModification(OutputInterface $output, $models)
     {
         libxml_use_internal_errors(true);
         foreach ($models as $model) {
             $catalog = new \DOMDocument;
-            $catalog->loadHTMLFile(self::URI_PRIMARY . $model->getUri());
+            $catalog->loadHTMLFile($model->getUri());
 
-            $nodes = new \DOMXPath($catalog);
-            $headers = $nodes->query(CssSelector::toXPath('div.orange_title > span'));
-            $contents = $nodes->query(CssSelector::toXPath('table.cars_list_table'));
+            $nodes = new DOMXPath($catalog);
+            foreach ($nodes->query(CssSelector::toXPath('div.cars_list > table.cars_list_table > tr')) as $key => $node) {
+                if ($node->getAttribute('class') == "header") {
+                    continue;
+                } else {
+                    $columns = $node->getElementsByTagName('td');
+                    for ($j=0; $j < $columns->length; $j++) {
+                        $column[$j] = $columns->item($j);
+                    }
 
-            for ($i=0; $i < $headers->length; $i++) {
-                $header = $headers->item($i);
-                $modelsFull[$i] = (new Catalog\ModelFull)
-                    ->setParent($model)
-                    ->setName(trim($header->nodeValue))
-                ;
-                $this->manager->persist($modelsFull[$i]);
-                $output->write("  <comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[{$modelsFull[$i]->getParent()->getParent()->getName()}] - [{$modelsFull[$i]->getParent()->getName()}] - {$modelsFull[$i]->getName()}</info> --> write to DB\n");
-
-                $content = $contents->item($i);
-                $rows = $content->getElementsByTagName('tr');
-                foreach ($rows as $key=>$row) {
-                    if ($key > 0) {
-                        $columns = $row->getElementsByTagName('td');
-                        for ($j=0; $j < $columns->length; $j++) {
-                            $column[$j] = $columns->item($j);
-                        }
-
-                        $details = (new Catalog\Details)
-                            ->setParent($modelsFull[$i])
-                            ->setName(trim($column[0]->nodeValue))
-                            ->setNumberOfDoors((int) (trim($column[1]->nodeValue)) ? (int) trim($column[1]->nodeValue) : null)
-                            ->setEngine((int) (trim($column[2]->nodeValue)) ? (int) trim($column[2]->nodeValue) : null)
-                            ->setPower((int) (trim($column[3]->nodeValue)) ? (int) trim($column[3]->nodeValue) : null)
-                            ->setFullSpeed((int) (trim($column[4]->nodeValue)) ? (int) trim($column[4]->nodeValue) : null)
-                            ->setBodyType((int) (trim($column[5]->nodeValue)) ? trim($column[5]->nodeValue) : null)
-                            ->setStartOfProduction(trim($column[6]->nodeValue))
-                            ->setClosingOfProduction(trim($column[7]->nodeValue))
+                    $v = $column[0]->getElementsByTagName('a');
+                    if ($v->length) {
+                        $modofication = (new Catalog\Modification)
+                            ->setParent($model)
+                            ->setName(trim($v->item(0)->nodeValue))
+                            ->setUri(self::URI_PRIMARY . trim($v->item(0)->getAttribute('href')))
+                            ->setNumberOfDoors((int) trim($column[1]->nodeValue) ? (int) trim($column[1]->nodeValue) : null)
+                            ->setEngine((int) trim($column[2]->nodeValue) ? (int) trim($column[2]->nodeValue) : null)
+                            ->setPower((int) trim($column[3]->nodeValue) ? (int) trim($column[3]->nodeValue) : null)
+                            ->setFullSpeed((int) trim($column[4]->nodeValue) ? (int) trim($column[4]->nodeValue) : null)
+                            ->setBodyType(((int) trim($column[5]->nodeValue) or strlen(trim($column[5]->nodeValue))) ? trim($column[5]->nodeValue) : null)
+                            ->setStartOfProduction((int) (trim($column[6]->nodeValue)) ? trim($column[6]->nodeValue) : null)
+                            ->setClosingOfProduction((int) (trim($column[7]->nodeValue)) ? trim($column[7]->nodeValue) : null)
                         ;
 
-                        $this->manager->persist($details);
+                        $this->manager->persist($modofication);
+                        $output->write("  <comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[{$model->getParent()->getName()}] - [{$model->getName()}] - {$modofication->getName()}</info> - <question>With detail</question> --> write to DB\n");
+                    } else {
+                        $v = $column[0]->getElementsByTagName('span');
+
+                        $modofication = (new Catalog\Modification)
+                            ->setParent($model)
+                            ->setName(trim($v->item(0)->nodeValue))
+                            ->setNumberOfDoors((int) trim($column[1]->nodeValue) ? (int) trim($column[1]->nodeValue) : null)
+                            ->setEngine((int) trim($column[2]->nodeValue) ? (int) trim($column[2]->nodeValue) : null)
+                            ->setPower((int) trim($column[3]->nodeValue) ? (int) trim($column[3]->nodeValue) : null)
+                            ->setFullSpeed((int) trim($column[4]->nodeValue) ? (int) trim($column[4]->nodeValue) : null)
+                            ->setBodyType(((int) trim($column[5]->nodeValue) or strlen(trim($column[5]->nodeValue))) ? trim($column[5]->nodeValue) : null)
+                            ->setStartOfProduction((int) (trim($column[6]->nodeValue)) ? trim($column[6]->nodeValue) : null)
+                            ->setClosingOfProduction((int) (trim($column[7]->nodeValue)) ? trim($column[7]->nodeValue) : null)
+                        ;
+
+                        $this->manager->persist($modofication);
+                        $output->write("  <comment>".(new \DateTime('now'))->format('H:i:s')."</comment>  <info>[{$model->getParent()->getName()}] - [{$model->getName()}] - {$modofication->getName()}</info> - <error>Without detail</error> --> write to DB\n");
                     }
                 }
+
                 $this->manager->flush();
             }
         }

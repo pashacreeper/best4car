@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity\Catalog;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Base
@@ -12,10 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
- *     "mark"       = "Mark",
- *     "model"      = "Model",
- *     "modelFull"  = "ModelFull",
- *     "details"    = "Details"
+ *     "mark"         = "Mark",
+ *     "model"        = "Model",
+ *     "modification" = "Modification"
  * })
  */
 class Base
@@ -28,6 +28,7 @@ class Base
     protected $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
@@ -49,6 +50,7 @@ class Base
     protected $parentId;
 
     /**
+     * @Assert\Url()
      * @ORM\Column(name="uri", type="string", length=255, nullable=true)
      */
     protected $uri;

@@ -254,6 +254,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 61;
+        return 31;
     }
 }

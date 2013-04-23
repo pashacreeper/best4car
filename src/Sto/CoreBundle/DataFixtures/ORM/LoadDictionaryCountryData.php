@@ -109,6 +109,6 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
 
     public function getOrder()
     {
-        return 25;
+        return 15;
     }
 }

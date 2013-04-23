@@ -5,11 +5,11 @@ namespace Sto\CoreBundle\Entity\Catalog;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Model
+ * Modification
  *
  * @ORM\Entity()
  */
-class Details extends Base
+class Modification extends Base
 {
     /**
      * @ORM\Column(type="integer", name="number_of_doors", nullable=true)

@@ -8,14 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use Sto\CoreBundle\Entity\Company,
     Sto\CoreBundle\Entity\CompanyGallery,
     Sto\AdminBundle\Form\CompanyType,
     Sto\AdminBundle\Form\CompanyGalleryType,
     Sto\AdminBundle\Form\CompanyManagerType;
-
-
 
 /**
  * Company controller.
@@ -290,7 +287,6 @@ class CompanyController extends Controller
 
         //$em = $this->getDoctrine()->getManager();
         //$companyUsers = $em->getRepository()
-
         return [
             'company' => $company,
             'form' => $form->createView(),

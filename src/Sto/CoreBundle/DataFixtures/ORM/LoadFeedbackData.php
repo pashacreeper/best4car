@@ -62,6 +62,6 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
 
     public function getOrder()
     {
-        return 91;
+        return 51;
     }
 }

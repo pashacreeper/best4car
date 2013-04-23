@@ -34,6 +34,6 @@ class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixt
 
     public function getOrder()
     {
-        return 23;
+        return 13;
     }
 }

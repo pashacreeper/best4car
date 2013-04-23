@@ -27,6 +27,6 @@ class LoadDictionaryAdditionalServiceData extends AbstractFixture implements Ord
 
     public function getOrder()
     {
-        return 22;
+        return 12;
     }
 }

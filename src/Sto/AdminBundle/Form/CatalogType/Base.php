@@ -1,12 +1,12 @@
 <?php
 
-namespace Sto\AdminBundle\Form;
+namespace Sto\AdminBundle\Form\CatalogType;
 
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AutoCatalogType extends AbstractType
+class Base extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -15,23 +15,20 @@ class AutoCatalogType extends AbstractType
                 'label' => 'dict.fields.name'
             ])
             ->add('visible', null, [
-                'label' => 'Видимость'
+                'label' => 'Отображать'
             ])
-            /*->add('parent', null, [
-                'label' => 'dict.fields.parent'
-            ])*/
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\AutoCatalog'
+            'data_class' => 'Sto\CoreBundle\Entity\Catalog\Base'
         ]);
     }
 
     public function getName()
     {
-        return 'sto_admin_autocatalog';
+        return 'sto_admin_auto_catalog_base';
     }
 }

@@ -1058,9 +1058,10 @@ class Company
 
     /**
      * remove manager
-     * @param  \Sto\UserBundle\Entity\User $manager
+     * @param \Sto\UserBundle\Entity\User $manager
      */
-    public function removeManager(\Sto\UserBundle\Entity\User $manager){
+    public function removeManager(\Sto\UserBundle\Entity\User $manager)
+    {
         $this->managers->removeElement($manager);
     }
 
@@ -1079,6 +1080,7 @@ class Company
         foreach ($this->managers as $key => $value) {
             $result[] = $value;
         }
+
         return $result;
     }
 }

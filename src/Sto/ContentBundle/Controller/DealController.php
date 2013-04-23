@@ -24,8 +24,6 @@ class DealController extends Controller
             ->getResult()
         ;
 
-
-
         $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\Deal')
             ->createQueryBuilder('dictionary')
             ->orderBy('dictionary.position', 'ASC')
@@ -44,7 +42,8 @@ class DealController extends Controller
      * @Method("POST")
      * @Template()
      */
-    public function dealsAction(){
+    public function dealsAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
@@ -58,7 +57,6 @@ class DealController extends Controller
         );
 
         //$page_params = $deals->getPaginationData();
-
         return [
             'deals' => $deals,
             //'params' => $page_params,
