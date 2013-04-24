@@ -216,6 +216,19 @@ class Company
     /**
      * @var string
      *
+     * @ORM\Column(name="currency_id", type="integer", length=255, nullable=true)
+     */
+    private $currencyId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     */
+    private $currency;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="administrator_contact_info", type="string", length=255, nullable=true)
      */
     private $administratorContactInfo;
@@ -839,6 +852,16 @@ class Company
         return $this->hourPrice;
     }
 
+    public function setCurrency($currency){
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getCurrency(){
+        return $this->currency;
+    }
+
     /**
      * Set administratorContactInfo
      *
@@ -1082,5 +1105,11 @@ class Company
         }
 
         return $result;
+    }
+
+    public function setManagers($managers){
+        $this->managers = $managers;
+
+        return $this;
     }
 }

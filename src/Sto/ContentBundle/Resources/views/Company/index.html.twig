@@ -55,53 +55,49 @@
     }
 </style>
 <div class="hide" id="home_search" style="position: absolute; top: 155px; right:0px; width:250px; background-color: black; border: 1px solid gray; padding: 10px 20px; color:#fff;">
+    <div class="row-fluid">
+        <div class="span12">
+            <form>
+                <label>Тип компании</label>
+                <select name="company_type" class="company-type-search" data-serarch-form="company-type">
+                    <option value=0></option>
+                </select>
+                <label>Подтип компании</label>
+                <select name="company_type" class="company-subtype-search" data-serarch-form="company-subtype">
+                    <option value=0></option>
+                </select>
+                <label>Специализация на марке</label>
+                <select name="company_type" class="company-mark-search" data-serarch-form="company-mark">
+                    <option value=0></option>
+                </select>
 
-            <div class="row-fluid">
-                <div class="span12">
-                    <form>
-                        <label>Тип компании</label>
-                        <select name="company_type" class="company-type-search" data-serarch-form="company-type">
-                            <option value=0></option>
-                        </select>
-                        <label>Подтип компании</label>
-                        <select name="company_type" class="company-subtype-search" data-serarch-form="company-subtype">
-                            <option value=0></option>
-                        </select>
-                        <label>Специализация на марке</label>
-                        <select name="company_type" class="company-mark-search" data-serarch-form="company-mark">
-                            <option value=0></option>
-                        </select>
-
-                        <label>Рейтинг от</label>
-                        <div class="row-fluid">
-                            <div class="span7">
-                                <div id="search-slider" style="margin-left:10px;"></div>
-                            </div>
-                            <div class="span4">
-                                <input type="text" value='0' style="width:40px;" />
-                            </div>
-                        </div>
-
-                        <label>Время работы</label>
-                        <a href="#" class="btn btn-primary">24ч</a>
-                        <a href="#" class="btn btn-primary">До поздна</a>
-                        <a href="#" class="btn">Выходные</a>
-                        <label>Дополнительные</label>
-                        <div class="row-fluid buttons">
-                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
-                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
-                        <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
-                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
-                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
-                        <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
-                        </div>
-                        <label><input type="checkbox" value=1 />Только с акциями</label>
-                    </form>
+                <label>Рейтинг от</label>
+                <div class="row-fluid">
+                    <div class="span7">
+                        <div id="search-slider" style="margin-left:10px;"></div>
+                    </div>
+                    <div class="span4">
+                        <input type="text" value='0' style="width:40px;" />
+                    </div>
                 </div>
-            </div>
-
+                <label>Время работы</label>
+                <a href="#" class="btn btn-primary">24ч</a>
+                <a href="#" class="btn btn-primary">До поздна</a>
+                <a href="#" class="btn">Выходные</a>
+                <label>Дополнительные</label>
+                <div class="row-fluid buttons">
+                <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                <a href="#" class="btn btn-primary"><i class="icon-b4c-spin"></i></a>
+                <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                <a href="#" class="btn"><i class="icon-b4c-spin"></i></a>
+                </div>
+                <label><input type="checkbox" value=1 />Только с акциями</label>
+            </form>
+        </div>
+    </div>
 </div>
-
 {# EOF search #}
 
 {% endblock %}
@@ -114,14 +110,10 @@
 {% block foot_script %}
 {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-
     <script type="text/javascript" src="{{asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bundles/stocore/js/geolocation-button.js')}}"></script>
     <script type="text/javascript">
-
         $("#search-slider").slider({min:0, max:10});
-
-        ymaps.ready(init);
-
         $('.show-list').on("click", function() {
             $.ajax({
                 type: 'POST',
@@ -139,7 +131,6 @@
             $('#home_compalies').toggleClass("hide");
         });
 
-
         $('.show-search').on("click", function() {
             $.ajax({
                 type: 'POST',
@@ -148,7 +139,7 @@
                     var company_type = $('.company-type-search');
                      $.each(res.companies, function (index, company) {
                             company_type.append('<option value="'+company.id+'">'+company.name+'</option>');
-                        });
+                    });
                 },
                 error: function(e){
                     console.log(e.message);
@@ -176,8 +167,7 @@
             });
         });
 
-
-        function init (companies) {
+        ymaps.ready(function (companies) {
             var myMap = new ymaps.Map("map", {
                 center: [59.95, 30.31],
                 zoom: 11,
@@ -251,7 +241,23 @@
                 balloonContentBodyLayout:'my#superlayout',
                 balloonMinWidth: 600
             });
+
+            var button = new GeolocationButton({
+                data : {
+                    image : "{{ asset('bundles/stocontent/images/wifi.png') }}",
+                    plsImage : "{{ asset('bundles/stocontent/images/man.png') }}",
+                    lImage : "{{ asset('bundles/stocontent/images/loader.gif') }}",
+                    title : 'Определить мое местоположение'
+                },
+                geolocationOptions: {
+                    enableHighAccuracy : true
+                }
+            },{
+                selectOnClick: false
+            });
+
+            myMap.controls.add(button, { top : 20, left : 20 });
             myMap.geoObjects.add(myCollection);
-        }
+        });
     </script>
 {% endblock %}

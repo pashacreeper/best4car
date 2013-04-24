@@ -24,6 +24,7 @@ class LoadDictionaryCurrencyData extends AbstractFixture implements OrderedFixtu
             'NOK' => 'Норвежская крона'
         ];
 
+        $i = 0;
         foreach ($currencys as $shortName => $name) {
             $dictionary = (new Dictionary\Currency)
                 ->setShortName($shortName)
@@ -31,6 +32,8 @@ class LoadDictionaryCurrencyData extends AbstractFixture implements OrderedFixtu
             ;
 
             $manager->persist($dictionary);
+            $this->addReference("currencies[{$i}]", $dictionary);
+            $i++;
         }
 
         $manager->flush();

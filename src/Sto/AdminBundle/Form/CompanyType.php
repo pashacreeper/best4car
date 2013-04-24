@@ -83,7 +83,12 @@ class CompanyType extends AbstractType
             ->add('hourPrice', null, [
                 'label' => 'Hour price',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'input-small'
+                ],
+            ])
+            ->add('currency', null, [
             ])
             ->add('rating', null, [
                 'label' => 'Рейтинг',
