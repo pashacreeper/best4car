@@ -36,6 +36,8 @@ class AppKernel extends Kernel
             new Sto\ContentBundle\StoContentBundle(),
             new Sto\AdminBundle\StoAdminBundle(),
             new Sto\UserBundle\StoUserBundle(),
+
+            new Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

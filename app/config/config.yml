@@ -196,3 +196,44 @@ nelmio_api_doc: ~
 
 jms_security_extra:
     secure_all_services: true
+
+
+liip_imagine:
+    cache_prefix: /%storage_path%/cache
+    filter_sets:
+        company_logo_filter:
+            quality: 100
+            filters:
+                relative_resize: { widen: 120 }
+        user_photo_filter:
+            quality: 100
+            filters:
+                relative_resize: { widen: 120 }
+        company_gallery_filter:
+            quality: 100
+            filters:
+                relative_resize: { widen: 150 }
+        deal_filter:
+            quality: 100
+            filters:
+                relative_resize: { widen: 120 }
+        dictionary_icon:
+            quality: 100
+            filters:
+                relative_resize: { widen: 70 }
+        dictionary_image:
+            quality: 100
+            filters:
+                relative_resize: { widen: 100 }
+        dictionary_icon_map:
+            quality: 100
+            filters:
+                relative_resize: { widen: 70 }
+        dictionary_icon_small:
+            quality: 100
+            filters:
+                relative_resize: { widen: 100 }
+        dictionary_icon_large:
+            quality: 100
+            filters:
+                relative_resize: { widen: 200 }

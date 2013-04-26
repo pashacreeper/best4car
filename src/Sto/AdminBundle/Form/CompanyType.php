@@ -20,6 +20,9 @@ class CompanyType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //$em = $options['em'];
+        //var_dump($options['em']); exit;
+
         $builder
             ->add('name', 'text', [
                 'label' => 'Сокращенное наименование'
@@ -57,7 +60,7 @@ class CompanyType extends AbstractType
             ])*/
             ->add('workingTime','collection', array(
                 'label' => 'Рабочее время',
-                'type' => new CompanyWorkingTimeType(),
+                'type' => new CompanyWorkingTimeType($options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
@@ -266,6 +269,14 @@ class CompanyType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\Company'
         ]);
+
+        $resolver->setRequired(array(
+            'em',
+        ));
+
+        $resolver->setAllowedTypes(array(
+            'em' => 'Doctrine\Common\Persistence\ObjectManager',
+        ));
     }
 
     public function getName()

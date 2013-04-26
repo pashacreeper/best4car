@@ -37,7 +37,7 @@
             <td>
                 {% if company.workingTime|length > 0 %}
                     {% for time in company.workingTime %}
-                        {{ time.description }}: {{ time.from|date('H:i') }} - {{ time.till|date('H:i') }}
+                        {{ time.dayFrom }}-{{ time.dayTill }}: {{ time.from|date('H:i') }} - {{ time.till|date('H:i') }}
                         {% if loop.last != true %},{% endif %}
                     {% endfor %}
                 {% endif %}

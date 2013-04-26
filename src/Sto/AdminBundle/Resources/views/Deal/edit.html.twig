@@ -47,7 +47,7 @@
             <div class="control-group">
                 <div class="control">
 {% if not form_errors(edit_form.image) and deal.imageName %}
-                    <img data-image="image1" src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
+                    <img data-image="image1" src="{{ vich_uploader_asset(deal,'image') | imagine_filter('deal_filter') }}" class="img-polaroid"/>
 {% else %}
                     <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
@@ -60,7 +60,7 @@
             <div class="control-group">
                 <div class="control">
 {% if not form_errors(edit_form.image2) and deal.imageName2 %}
-                        <img data-image="image2" src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" width="120" class="img-polaroid"/>
+                        <img data-image="image2" src="{{ vich_uploader_asset(deal,'image2') | imagine_filter('deal_filter') }}" class="img-polaroid"/>
 {% else %}
                         <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}
@@ -73,7 +73,7 @@
             <div class="control-group">
                 <div class="control">
 {% if not form_errors(edit_form.image3) and deal.imageName3 %}
-                        <img data-image="image3" src="/../{{ storage_path }}/deal_image/{{ deal.imageName3 }}" width="120" class="img-polaroid"/>
+                        <img data-image="image3" src="{{ vich_uploader_asset(deal,'image3') | imagine_filter('deal_filter') }}" class="img-polaroid"/>
 {% else %}
                         <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
 {% endif %}

@@ -17,9 +17,9 @@
         <div class="span6">
             <div class="controls">
 {% if entity.avatarUrl and not form_errors(edit_form.avatar) %}
-                <img data-image="avatar" src="/../{{ storage_path }}/user_photo/{{ entity.avatarUrl }}" width="160"/>
+                <img data-image="avatar" src="{{ vich_uploader_asset(entity,'avatar') | imagine_filter('user_photo_filter') }}"  class="img-circle"/>
 {% else %}
-                <img data-image="avatar" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-circle"/>
+                <img data-image="avatar" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('user_photo_filter') }}" class="img-circle"/>
 {% endif %}
             </div>
             {{ form_row(edit_form.avatar, {'label_render': false}) }}

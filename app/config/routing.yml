@@ -28,3 +28,7 @@ sto_core:
     resource: "@StoCoreBundle/Controller/"
     type:     annotation
     prefix:   /
+
+_imagine:
+    resource: .
+    type:     imagine

@@ -10,7 +10,8 @@
 <form class="form-horizontal" action="{{ path('company_managers_add', {'id':company.id}) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Добавить"/>
+        <input type="submit" class="btn btn-primary" value="Добавить менеджера(-ов)"/>
+        <a href="{{ path('companies') }}" class="btn">Отмена</a>
     </div>
 </form>
 

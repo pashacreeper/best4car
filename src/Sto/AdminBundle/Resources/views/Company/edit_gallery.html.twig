@@ -10,7 +10,7 @@
     <div class="control-group">
         <div class="span12">
 {% if not form_errors(form.image) %}
-           <img data-image="image" title="{{ image.name }}" alt="{{ image.name }}"  src="/../{{ storage_path }}/company/company_gallery/{{ image.imageName }}" class="img-rounded" style="width: 260px;">
+           <img data-image="image" title="{{ image.name }}" alt="{{ image.name }}"  src="{{ vich_uploader_asset(image,'image') | imagine_filter('company_gallery_filter') }}" class="img-rounded">
 {% else %}
            <img data-image="image" title="{{ image.name }}" alt="{{ image.name }}"  src="{{ asset('bundles/stocore/images/notimage.png') }}" class="img-rounded" style="width: 260px;">
 {% endif %}

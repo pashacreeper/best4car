@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "work"               = "Work",
  *     "currency"           = "Currency",
  *     "country"            = "Country",
+ *     "day_of_week"        = "WeekDay",
  * })
  */
 class Base

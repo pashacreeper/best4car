@@ -10,6 +10,8 @@ use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Sto\CoreBundle\Entity\Dictionary\WeekDay;
+
 /**
  * Company
  *

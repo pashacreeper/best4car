@@ -22,9 +22,9 @@
         </div>
         <div class="span6">
 {% if entity.icon and not form_errors(edit_form.icon) %}
-            <img data-image="icon" src="{{ vich_uploader_asset(entity, 'icon') }}" style="width:70px" class="img-polaroid"/>
+            <img data-image="icon" src="{{ vich_uploader_asset(entity, 'icon') | imagine_filter('dictionary_icon') }}" style="width:70px" class="img-polaroid"/>
 {% else %}
-             <img data-image="icon" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+             <img data-image="icon" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('dictionary_icon') }}" style="width:70px" class="img-polaroid"/>
 {% endif %}
         </div>
     </div>
@@ -37,9 +37,9 @@
         </div>
         <div class="span6">
 {% if entity.image and not form_errors(edit_form.image) %}
-            <img data-image="image" src="{{ vich_uploader_asset(entity, 'image') }}" style="width:100px" class="img-polaroid"/>
+            <img data-image="image" src="{{ vich_uploader_asset(entity, 'image') | imagine_filter('dictionary_image') }}" style="width:100px" class="img-polaroid"/>
 {% else %}
-             <img data-image="image" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+             <img data-image="image" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('dictionary_image') }}" style="width:100px" class="img-polaroid"/>
 {% endif %}
         </div>
     </div>
@@ -52,9 +52,9 @@
         </div>
         <div class="span6">
 {% if entity.iconMap and not form_errors(edit_form.iconMap) %}
-            <img data-image="iconMap" src="{{ vich_uploader_asset(entity, 'iconMap') }}" style="width:70px" class="img-polaroid"/>
+            <img data-image="iconMap" src="{{ vich_uploader_asset(entity, 'iconMap') | imagine_filter('dictionary_icon_map') }}" style="width:70px" class="img-polaroid"/>
 {% else %}
-             <img data-image="iconMap" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
+             <img data-image="iconMap" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('dictionary_icon_map') }}" style="width:70px" class="img-polaroid"/>
 {% endif %}
         </div>
     </div>
@@ -67,9 +67,9 @@
         </div>
         <div class="span6">
 {% if entity.iconSmall and not form_errors(edit_form.iconSmall) %}
-            <img data-image="iconSmall" src="{{ vich_uploader_asset(entity, 'iconSmall') }}" style="width:100px" class="img-polaroid"/>
+            <img data-image="iconSmall" src="{{ vich_uploader_asset(entity, 'iconSmall') | imagine_filter('dictionary_icon_small') }}" style="width:100px" class="img-polaroid"/>
 {% else %}
-            <img data-image="iconSmall" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
+            <img data-image="iconSmall" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('dictionary_icon_small') }}" style="width:100px" class="img-polaroid"/>
 {% endif %}
         </div>
     </div>
@@ -82,9 +82,9 @@
         </div>
         <div class="span6">
 {% if entity.iconLarge and not form_errors(edit_form.iconLarge) %}
-            <img data-image="iconLarge" src="{{ vich_uploader_asset(entity, 'iconLarge') }}" style="width:200px" class="img-polaroid"/>
+            <img data-image="iconLarge" src="{{ vich_uploader_asset(entity, 'iconLarge') | imagine_filter('dictionary_icon_large') }}" style="width:200px" class="img-polaroid"/>
 {% else %}
-            <img data-image="iconLarge" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:200px" class="img-polaroid"/>
+            <img data-image="iconLarge" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('dictionary_icon_large') }}" style="width:200px" class="img-polaroid"/>
 {% endif %}
         </div>
     </div>

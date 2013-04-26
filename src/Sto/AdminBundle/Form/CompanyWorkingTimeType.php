@@ -1,42 +1,55 @@
 <?php
 namespace Sto\AdminBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
+use Sto\AdminBundle\Form\DataTransformer\DayOfWeekTransformer;
+use Doctrine\ORM\EntityManager;
 
 class CompanyWorkingTimeType extends AbstractType
 {
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entityManager = $this->em;
+        $transformer = new DayOfWeekTransformer($entityManager);
+
         $builder
             ->add('from', 'time',[
                 'label_render' => false,
-                'attr' => [
-                    //'data-mask' => '+7 (999) 999-99-99',
-                    //'placeholder' => 'Телефон',
-                    //'class' => 'input-medium'
-                ],
             ])
             ->add('till', 'time',
                 [
                     'label_render' => false,
-                    'attr' => [
-                        //'placeholder' => 'Описание',
-                        //'class' => 'input-small'
-                    ]
                 ]
             )
-            ->add('description', 'text',
-                [
+            ->add(
+                $builder->create('dayFrom', 'entity', [
                     'label_render' => false,
-                    'required' => false,
-
+                    'class' => 'Sto\CoreBundle\Entity\Dictionary\WeekDay',
                     'attr' => [
-                        'placeholder' => 'Описание',
-                        //'class' => 'input-small'
-                    ]
-                ]
+                        'class' => 'input-medium'
+                    ],
+                ])
+                ->addModelTransformer($transformer)
+            )
+            ->add(
+                $builder->create('dayTill', 'entity', [
+                    'label_render' => false,
+                    'class' => 'Sto\CoreBundle\Entity\Dictionary\WeekDay',
+                    'attr' => [
+                        'class' => 'input-medium'
+                    ],
+                ])
+                ->addModelTransformer($transformer)
             )
             ;
     }

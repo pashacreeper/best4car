@@ -59,7 +59,7 @@ class CompanyController extends Controller
     public function newAction()
     {
         return [
-            'form' => $this->createForm(new CompanyType, new Company)->createView(),
+            'form' => $this->createForm(new CompanyType, new Company, ['em'=>$em = $this->getDoctrine()->getManager()])->createView(),
         ];
     }
 
@@ -73,7 +73,7 @@ class CompanyController extends Controller
     public function createAction(Request $request)
     {
         $company  = new Company;
-        $form = $this->createForm(new CompanyType, $company);
+        $form = $this->createForm(new CompanyType, $company, ['em'=>$em = $this->getDoctrine()->getManager()]);
 
         $form->bind($request);
 
@@ -105,7 +105,10 @@ class CompanyController extends Controller
         if (!$company) {
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
-        $editForm = $this->createForm(new CompanyType('edit'), $company);
+        $editForm = $this->createForm(new CompanyType('edit'), $company, array(
+                'em' => $this->getDoctrine()->getManager(),
+            ));
+
 
         return [
             'company'   => $company,
@@ -129,7 +132,9 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $editForm = $this->createForm(new CompanyType('edit'), $company);
+        $editForm = $this->createForm(new CompanyType('edit'), $company, array(
+                'em' => $this->getDoctrine()->getManager(),
+            ));
         $editForm->bind($request);
         if ($editForm->isValid()) {
 

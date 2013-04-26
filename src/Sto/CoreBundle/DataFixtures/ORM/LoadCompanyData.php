@@ -47,12 +47,14 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Пн - Пт',
+                    'dayFrom' => 'Пн',
+                    'dayTill' => 'Вт'
                 ],
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Сб - Вс',
+                    'dayFrom' => 'Сб',
+                    'dayTill' => 'Вс'
                 ]
             ]);
         $company->setPhones([
@@ -125,12 +127,14 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Пн - Пт',
+                    'dayFrom' => 'Пн',
+                    'dayTill' => 'Вт'
                 ],
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Сб - Вс',
+                    'dayFrom' => 'Сб',
+                    'dayTill' => 'Вс'
                 ]
             ]);
         $company->setPhones([
@@ -210,12 +214,14 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Пн - Пт',
+                    'dayFrom' => 'Пн',
+                    'dayTill' => 'Вт'
                 ],
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'description' => 'Сб - Вс',
+                    'dayFrom' => 'Сб',
+                    'dayTill' => 'Вс'
                 ]
             ]);
             $company->setPhones([
