@@ -17,57 +17,48 @@
         </div>
         {% endif %}
     </div>
-
-
-    {% if form.icon is defined %}
+{% if form.icon is defined %}
     <div class="row-fluid">
         <div class="span6">
             {{ form_row(form.icon) }}
         </div>
         <div class="span6">
-
              <img data-image="icon" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
         </div>
     </div>
-    {% endif %}
-
-    {% if form.image is defined %}
+{% endif %}
+{% if form.image is defined %}
     <div class="row-fluid">
         <div class="span6">
             {{ form_row(form.image) }}
         </div>
         <div class="span6">
-
              <img data-image="image" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
         </div>
     </div>
-    {% endif %}
-
-    {% if form.iconMap is defined %}
+{% endif %}
+{% if form.iconMap is defined %}
     <div class="row-fluid">
         <div class="span6">
             {{ form_row(form.iconMap) }}
         </div>
         <div class="span6">
-
              <img data-image="iconMap" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:70px" class="img-polaroid"/>
         </div>
     </div>
-    {% endif %}
-
-    {% if form.iconSmall is defined %}
+{% endif %}
+{% if form.iconSmall is defined %}
     <div class="row-fluid">
         <div class="span6">
             {{ form_row(form.iconSmall) }}
         </div>
         <div class="span6">
-
              <img data-image="iconSmall" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:100px" class="img-polaroid"/>
         </div>
     </div>
-    {% endif %}
+{% endif %}
 
-    {% if form.iconLarge is defined %}
+{% if form.iconLarge is defined %}
     <div class="row-fluid">
         <div class="span6">
             {{ form_row(form.iconLarge) }}
@@ -76,7 +67,8 @@
              <img data-image="iconLarge" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:200px" class="img-polaroid"/>
         </div>
     </div>
-    {% endif %}
+{% endif %}
+
     {{ form_widget(form) }}
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
@@ -85,9 +77,9 @@
 </form>
 {% endblock %}
 
-{% if form.iconMap is defined  or form.iconSmall is defined or form.iconLarge is defined or form.icon is defined or form.image is defined %}
 {% block foot_script %}
 {{ parent() }}
+{% if form.iconMap is defined  or form.iconSmall is defined or form.iconLarge is defined or form.icon is defined or form.image is defined %}
     <script type="text/javascript" src="{{ asset('bundles/stoadmin/js/script.js') }}"></script>
-{% endblock %}
 {% endif %}
+{% endblock %}

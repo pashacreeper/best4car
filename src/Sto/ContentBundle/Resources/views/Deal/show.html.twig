@@ -14,7 +14,7 @@
 {# Tabs menu #}
 <ul class="nav nav-tabs" id="FeedbackTabs">
     <li class="active"><a href="#info">Информация</a></li>
-    <li><a href="#feedbacks">Отзывы <span>{{ deal.feedbacks|length }}</span></a></li>
+    <li><a href="#feedbacks">Отзывы <span>{{ deal.feedbacks | length }}</span></a></li>
 </ul>
 {# /tabs menu #}
 <div class="tab-content">
@@ -94,9 +94,15 @@
                 </div>
             </div>
             <div class="span4">
-                    <a href="#" class="btn btn-large" style="width:200px;">Я пойду <span class="pull-right">245</span></a>
-                    <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">24</span></a>
-                    <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
+                {% if app.user %}
+                <a href="#" class="btn btn-large" style="width:200px;">Я пойду <span class="pull-right">245</span></a>
+                <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
+                {% else %}
+                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Я пойду <span class="pull-right">245</span></a>
+                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Оставить отзыв</a>
+                {% endif %}
+                <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
+
             </div>
         </div>
 
@@ -125,85 +131,83 @@
                     Показано <b>{{ deal.feedbacks|length }}</b> отзывов
                 </p>
 
-                <div class="feedback span12" style="margin-bottom:15px;">
-                    <div class="row-fluid">
-                        <div class="span2">
-                            <img src="" style="background: #000; width:70px; height:70px;" />
-                        </div>
-                        <div class="span10" style="height:70px;">
-                            <p style="margin-bottom:0;">StreetRacker</p>
-                            <a href="#"><strong>Иванов Семён</strong></a>
-                            <p style="margin-bottom:0;">АвтоПрофи</p>
-                        </div>
-                        <span class="span2" style="margin-left:0;">556</span>
-                        <div class="span9" style="border: 1px solid #000;">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-empty"></i>
-                            <span class="pull-right">
-                                <a href="#" class="icon-thumbs-up">15</a>
-                                <a href="#" class="icon-thumbs-down">34</a>
-                            </span>
-                            <p>
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Feedback -->
 
-                <div class="feedback span12" style="margin-bottom:15px;">
-                    <div class="row-fluid">
-                        <div class="span2">
-                            <img src="" style="background: #000; width:70px; height:70px;" />
-                        </div>
-                        <div class="span10" style="height:70px;">
-                            <p style="margin-bottom:0;">StreetRacker</p>
-                            <a href="#"><strong>Иванов Семён</strong></a>
-                            <p style="margin-bottom:0;">АвтоПрофи</p>
-                        </div>
-                        <span class="span2" style="margin-left:0;">556</span>
-                        <div class="span9" style="border: 1px solid #000;">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-empty"></i>
-                            <span class="pull-right">
-                                <a href="#" class="icon-thumbs-up">15</a>
-                                <a href="#" class="icon-thumbs-down">34</a>
-                            </span>
-                            <p>
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy
-                            </p>
-                        </div>
 
+                {% for item in deal.feedbacks %}
+
+                    <div class="feedback span12" style="margin-bottom:15px;">
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <img src="" style="background: #000; width:70px; height:70px;" />
+                            </div>
+                            <div class="span10" style="height:70px;">
+                                <p style="margin-bottom:0;">{{ item.user.username }}</p>
+                                <a href="#"><strong>{{ item.user.firstName }} {{ item.user.lastName }}</strong></a>
+
+                                <p style="margin-bottom:0;"> {{ item.user.ratingGroup.name }}</p>
+                            </div>
+                            <span class="span2" style="margin-left:0;">556</span>
+                            <div class="span9" style="border: 1px solid #000;">
+                                <i class="icon-b4c-star"></i>
+                                <i class="icon-b4c-star"></i>
+                                <i class="icon-b4c-star"></i>
+                                <i class="icon-b4c-star-half"></i>
+                                <i class="icon-b4c-star-empty"></i>
+
+                                <span class="pull-right">
+                                    <!-- hardcoded pluses and minuses -->
+                                    <i class="icon-b4c-thumbs-up"></i> {{ item.minuses }} 14
+                                    <i class="icon-b4c-thumbs-down"></i> {{ item.pluses }} 53
+                                </span>
+                                <p>{{ item.content }}</p>
+                            </div>
+
+                        {% if item.feedbackAnswer %}
+                        <!-- Feedback answer -->
 
                         <div class="span9 offset2" style="border: 1px solid #000; background:#ccc;">
                             <div class="row-fluid">
-                                <p class="span7">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less </p>
+                                <p class="span7">
+                                    {{ item.feedbackAnswer.answer }}
+
+                                </p>
                                 <div class="span4">
                                     <img src="" class="span3" style="background:#000; width:40px; height:40px;" />
                                     <div class="span9">
-                                        <a href="#"><strong>Петров Всеволод</strong></a>
-                                        <p style="margin-bottom:0;">Старший менеджер</p>
+                                        <a href="#"><strong> {{ item.feedbackAnswer.owner.firstName }} {{ item.feedbackAnswer.owner.lastName }}</strong></a>
+                                        <p style="margin-bottom:0;">{{ item.feedbackAnswer.owner.ratingGroup.name }}</p>
                                         <span class="pull-right">
-                                            <a href="#" class="icon-thumbs-up">15</a>
-                                            <a href="#" class="icon-thumbs-down">34</a>
+                                            <i class="icon-b4c-thumbs-up"></i> 15
+                                            <i class="icon-b4c-thumbs-down"></i> 53
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {% endif %}
+
+                        <!-- /EOF Feedback answer -->
+
+
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+
+                <!-- /EOF Feedback -->
+
                 <center><a href="#" class="btn">Показать еще</a></center>
 
             </div>
             <div class="span4">
-                    <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">24</span></a>
-                    <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
+                {% if app.user %}
+                <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
+                {% else %}
+                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Оставить отзыв</a>
+                {% endif %}
+
+                <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
             </div>
         {#{% if deal.feedbacks|length > 0 %}
             <div class="row">

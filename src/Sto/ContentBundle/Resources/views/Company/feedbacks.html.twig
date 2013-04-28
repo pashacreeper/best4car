@@ -7,9 +7,9 @@
         </div>
     </div>
     <div class="span10">
-        <p>StreetRacker</p>
+        <p>{{ feedback.user.username }}</p>
         <h3>{{ feedback.user.lastName }} {{ feedback.user.firstName }}</h3>
-        <p>АвтоПрофи</p>
+        <p>{{ feedback.user.ratingGroup.name }}</p>
         <blockquote>
             <div class="row-fluid">
                 <div class="span4">

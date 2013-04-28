@@ -4,8 +4,8 @@
 {% block title 'Компании' %}
 
 {% block aside %}
-    <div class="well" style="margin-top:40px; margin-bottom:0; padding-bottom:0;">
-        <form class="form-search form-inline" style="margin-bottom:5px;">
+    <div class="well" style=" z-index:90; width: 100%; position: absolute; margin: 40px 0 0 0; padding: 20px 0 0 0; border: 0px; overflow: hidden">
+        <form class="form-search form-inline" style="margin-bottom:5px; padding: 0 0 0 20px;">
             Я ищу компанию:
             <div class="input-append">
                 <input type="text" class="search-query span9" placeholder="Все компании">
@@ -225,12 +225,12 @@
                             '</div>' +
                             '<div class="span6">' +
                                 '<h5>Телефон</h5>' +
-                                '<p>$[properties.phone]</p>' +
+                                '<p>$[properties.phone.0.phone]</p>' +
                                 '<h5>Время работы</h5>' +
                                 '<p>09:00-21:00 (пн-пт)</p>' +
                                 '<p>09:00-20:00 (сб-вс)</p>' +
                                 '<h5>Сайт</h5>' +
-                                '<a href="#">$[properties.web]</a>' +
+                                '<a href="$[properties.web]">$[properties.web]</a>' +
                             '</div>' +
                         '</div>' +
                     '</div>' +
@@ -256,7 +256,7 @@
                 selectOnClick: false
             });
 
-            myMap.controls.add(button, { top : 20, left : 20 });
+            myMap.controls.add(button, { top : 180, left : 20 });
             myMap.geoObjects.add(myCollection);
         });
     </script>
