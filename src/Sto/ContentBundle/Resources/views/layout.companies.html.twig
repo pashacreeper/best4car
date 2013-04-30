@@ -42,6 +42,7 @@
 {% block navbar_container %}
 {% block navbar %}{{ mopa_bootstrap_navbar('frontendNavbar') }}{% endblock %}
 {% include "StoContentBundle:City:city.html.twig" %}
+{% include "StoContentBundle:User:registration_type.html.twig" %}
 {% endblock %}
 
 {% block aside %}{% endblock %}
@@ -88,5 +89,11 @@
 %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript">
+    $('#registration-link > a').on('click', function(){
+        $('#registrationModal').modal('toggle');
+        return false;
+    });
+</script>
 {% endblock %}
 {% endblock %}

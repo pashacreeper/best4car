@@ -29,14 +29,19 @@ class CompanyController extends Controller
             ->where('company.visible = true')
         ;
 
-        if ($request->get('search')) {
-            $query->andWhere($query->expr()->orx(
-                $query->expr()->like('company.name',':search'),
-                $query->expr()->like('company.fullName',':search'),
-                $query->expr()->like('company.description',':search'),
-                $query->expr()->like('company.slogan',':search')
-            ))
-            ->setParameter('search', '%' . $request->get('search') . '%');
+        if ($request->isMethod('POST') and $request->get('search')) {
+            $words = explode(" ", trim($request->get('search')));
+
+            foreach ($words as $word) {
+                $query->andWhere($query->expr()->orx(
+                    $query->expr()->like('company.name',':search'),
+                    $query->expr()->like('company.fullName',':search'),
+                    $query->expr()->like('company.description',':search'),
+                    $query->expr()->like('company.slogan',':search'),
+                    $query->expr()->like('s.name',':search')
+                ))
+                ->setParameter('search', '%' . $word . '%');
+            }
         }
         $companies = $query
             ->getQuery()

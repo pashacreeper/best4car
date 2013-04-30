@@ -26,6 +26,7 @@
         "friendsofsymfony/rest-bundle": "0.12.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
 
+
         "nelmio/api-doc-bundle": "2.2.0",
 
         "knplabs/knp-menu": "2.0.*@dev",

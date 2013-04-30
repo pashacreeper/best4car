@@ -1,0 +1,50 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}регистрация пользователя{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+<form action="{{ path('registration_car_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+<div class="row-fluid">
+    <div class="span6 offset3">
+        <div class="row-fluid">
+            <div class="span4">{{ form_label(form.firstName) }}</div>
+            <div class="span8">{{ form_widget(form.firstName) }} {{ form_errors(form.firstName) }}</div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">{{ form_label(form.lastName) }}</div>
+            <div class="span8">{{ form_widget(form.lastName) }} {{ form_errors(form.lastName) }}</div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">{{ form_label(form.username) }}</div>
+            <div class="span8">{{ form_widget(form.username) }} {{ form_errors(form.username) }}</div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">{{ form_label(form.email) }}</div>
+            <div class="span8">{{ form_widget(form.email) }} {{ form_errors(form.email) }}</div>
+        </div>
+        <div class="row-fluid">
+
+            <div class="span8">{{ form_widget(form.plainPassword) }} {{ form_errors(form.plainPassword) }}</div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">{{ form_label(form.captcha) }}</div>
+            <div class="span8">{{ form_widget(form.captcha) }} {{ form_errors(form.captcha) }}</div>
+        </div>
+
+        {{ form_widget(form) }}
+        <div class="form-actions row-fluid">
+            <div class="span4">
+                <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
+            </div>
+            <div class="span4">
+                <p style="font-size: 10px;">Регистрируясь, вы соглашаетесь с <a href="#" target="_blank">условиями использования сайта</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
+{% endblock %}

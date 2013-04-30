@@ -38,6 +38,8 @@ class AppKernel extends Kernel
             new Sto\UserBundle\StoUserBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
+
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
