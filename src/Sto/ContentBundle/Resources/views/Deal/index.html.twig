@@ -6,10 +6,10 @@
 {% block aside %}
 <div class="container">
     <div class="well">
-        <form class="form-search form-inline" style="margin-bottom:5px;">
+        <form method="post" action="{{ path('content_deals') }}" class="form-search form-inline" style="margin-bottom:5px;">
             Я ищу акцию:
             <div class="input-append">
-                <input type="text" class="search-query span9" placeholder="Все акции">
+                <input type="text" class="search-query span9" placeholder="Все акции" name="search">
                 <button type="submit" class="btn btn-primary">Найти</button>
             </div>
         </form>

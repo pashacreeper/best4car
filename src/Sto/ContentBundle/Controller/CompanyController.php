@@ -14,15 +14,31 @@ use Sto\CoreBundle\Entity\Company;
 class CompanyController extends Controller
 {
     /**
-     * @Route("/companies", name="content_companies")
-     * @Method("GET")
+     * @Route("/catalog", name="content_companies")
+     * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Company')
-            ->createQueryBuilder('company')
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company');
+        $query = $repository->createQueryBuilder('company')
+            ->select('company, s')
+            ->join('company.specialization', 's')
+            ->where('company.visible = true')
+        ;
+
+        if ($request->get('search')) {
+            $query->andWhere($query->expr()->orx(
+                $query->expr()->like('company.name',':search'),
+                $query->expr()->like('company.fullName',':search'),
+                $query->expr()->like('company.description',':search'),
+                $query->expr()->like('company.slogan',':search')
+            ))
+            ->setParameter('search', '%' . $request->get('search') . '%');
+        }
+        $companies = $query
             ->getQuery()
             ->getArrayResult()
         ;
@@ -36,7 +52,7 @@ class CompanyController extends Controller
 
         return [
             'companies' => json_encode($companies),
-            'cities' => $cities
+            'cities' => $cities,
         ];
     }
 
@@ -64,8 +80,10 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $companies = $em->getRepository('StoCoreBundle:Company')
             ->createQueryBuilder('company')
+            ->where('company.visible = true')
+            ->orderBy('company.rating', 'DESC')
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
         ;
 
         if (!$companies) {

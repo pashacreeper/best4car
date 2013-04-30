@@ -14,13 +14,29 @@ class DealController extends Controller
 {
     /**
      * @Route("/deals", name="content_deals")
+     * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $deals = $em->getRepository('StoCoreBundle:Deal')
-            ->createQueryBuilder('deal')
+        $repository = $em->getRepository('StoCoreBundle:Deal');
+        $query = $repository->createQueryBuilder('deal')
+            ->where('deal.endDate > :endDate')
+            ->setParameter('endDate', new \DateTime('now'));
+        ;
+
+        if ($request->get('search')) {
+            $query->andWhere($query->expr()->orx(
+                $query->expr()->like('deal.name',':search'),
+                $query->expr()->like('deal.description',':search'),
+                $query->expr()->like('deal.services',':search'),
+                $query->expr()->like('deal.terms',':search')
+            ))
+            ->setParameter('search', '%' . $request->get('search') . '%');
+        }
+
+        $deals = $query
             ->getQuery()
             ->getResult()
         ;
@@ -47,10 +63,13 @@ class DealController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
-            ->createQueryBuilder('deal');
+            ->createQueryBuilder('deal')
+            ->where('deal.endDate > :endDate')
+            ->setParameter('endDate', new \DateTime('now'))
+        ;
         if ($request->get('deal_type')) {
             $deal_type = $request->get('deal_type');
-            $query->where('deal.typeId = :type')
+            $query->andWhere('deal.typeId = :type')
                 ->setParameter('type', $request->get('deal_type'));
         } else
             $deal_type = 0;

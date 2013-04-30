@@ -9,8 +9,8 @@
         "symfony/symfony": "2.2.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*",
-        "doctrine/data-fixtures": "1.0.*@dev",
-        "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
+        "doctrine/data-fixtures": "1.0.*",
+        "doctrine/doctrine-fixtures-bundle": "2.1.*",
         "twig/extensions": "1.0.*",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.2.*",
@@ -34,26 +34,26 @@
 
         "leafo/lessphp": "v0.3.9",
         "twitter/bootstrap": "v2.3.1",
-        "mopa/bootstrap-bundle": "2.1.*@dev",
+        "mopa/bootstrap-bundle": "2.2.*",
 
         "vich/uploader-bundle": "dev-master",
         "liip/imagine-bundle": "dev-master",
 
-        "elao/web-profiler-extra-bundle": "2.3.*@dev"
+        "elao/web-profiler-extra-bundle": "2.3.*"
     },
     "repositories": [
         {
             "type": "package",
             "package": {
-                "version": "master",
+                "version": "v0.3.9",
                 "name": "leafo/lessphp",
                 "source": {
                     "url": "git://github.com/leafo/lessphp.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "v0.3.9"
                 },
                 "dist": {
-                    "url": "https://github.com/leafo/lessphp/zipball/master",
+                    "url": "https://github.com/leafo/lessphp/zipball/v0.3.9",
                     "type": "zip"
                 }
             }

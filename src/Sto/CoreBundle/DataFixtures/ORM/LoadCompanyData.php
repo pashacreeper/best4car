@@ -74,7 +74,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setCreatetDate(new \DateTime('now'));
         $company->setPhotos('Photos');
         $company->setSocialNetworks('http://vk.com/infinitiauto');
-        $company->setRating(rand(500,600));
+        $company->setRating(rand(30,99)/10);
         $company->setReviews('1,2,3,4,5');
         $company->setDescription('Группа компаний «Автопродикс» является официальным дилером и представляет весь модельный ряд легковых и грузопассажирских автомобилей Nissan, Renault и Infiniti. Компания «Автопродикс» уже более 17 лет на автомобильном рынке, является самым старейшим и крупнейшим в Санкт-Петерурге дилером. Автопродикс входит в тройку самых крупных автодилеров России и предлагает своим клиентам полный спектр услуг: продажа автомобилей в кредит и лизинг, автострахование, высокий уровень сервиса. В нашем автоцентре квалифицированный персонал поможет Вам выбрать автомобиль, идеально отвечающий Вашим требованиям и впоследствии получать качественное и высокопрофессиональное обслуживание. Таким образом, наша миссия - предоставить свободу выбора и максимально возможный комфорт и свободу выбора.
 Группа компаний «Автопродикс» является крупнейшим официальным дилером Nissan и единственным официальным дилером Infiniti в Северо-Западном регионе.');
@@ -154,7 +154,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setCreatetDate(new \DateTime('now'));
         $company->setPhotos('Photos');
         $company->setSocialNetworks('http://vk.com/diligens');
-        $company->setRating(rand(500,600));
+        $company->setRating(rand(30,99)/10);
         $company->setReviews('1,2,3,4,5');
         $company->setDescription('Благодаря узкой специализации на марках Volkswagen, Audi, SKODA и SEAT (концернVAG), наша СТО имеет хорошее техническое оснащение специализированным немецким оборудованием для диагностики и ремонта именно Вашего автомобиля, и можете быть уверенны в том, что Вы не потратите лишнего времени из-за отсутствия у специалиста инструмента, необходимого для ремонта.');
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
@@ -184,7 +184,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setSlogan('Slogan - ' . $i);
             $company->setFullName('Full name test company - ' . $i);
             $company->setWeb('http://www.test' . $i .'.ru');
-            for ($k=1; $k < rand(3,5); $k++) {
+            for ($k=rand(1,3); $k < rand(4,5); $k++) {
                 $company->addSpecialization($this->getReference("companiesTypesParent[{$k}]"));
             }
             for ($k=1; $k < rand(3,5); $k++) {
@@ -241,7 +241,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setCreatetDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
             $company->setPhotos('Photos');
             $company->setSocialNetworks('Facebook, Vk, Google+');
-            $company->setRating($rating);
+            $company->setRating(rand(30,99)/10);
             $company->setReviews('1,2,3,4,5');
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');

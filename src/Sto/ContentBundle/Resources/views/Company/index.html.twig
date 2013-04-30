@@ -5,10 +5,10 @@
 
 {% block aside %}
     <div class="well" style=" z-index:90; width: 100%; position: absolute; margin: 40px 0 0 0; padding: 20px 0 0 0; border: 0px; overflow: hidden">
-        <form class="form-search form-inline" style="margin-bottom:5px; padding: 0 0 0 20px;">
+        <form method="post" action="{{ path('content_companies') }}" class="form-search form-inline" style="margin-bottom:5px; padding: 0 0 0 20px;">
             Я ищу компанию:
             <div class="input-append">
-                <input type="text" class="search-query span9" placeholder="Все компании">
+                <input type="text" class="search-query span9" placeholder="Все компании" name="search">
                 <button type="submit" class="btn btn-primary">Найти</button>
             </div>
         </form>
@@ -176,11 +176,13 @@
             bounds = myMap.getBounds(),
             myPlacemark,
             myCollection = new ymaps.GeoObjectCollection();
-
             var companies = {{ companies|raw }};
             for (var key in companies) {
                 var val = companies[key];
-
+                if (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined)
+                    var iconMap = "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap;
+                else
+                    var iconMap = "{{ asset('bundles/stocontent/images/company.png') }}";
                 myPlacemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -188,8 +190,9 @@
                     phone: val.phones,
                     web: val.web,
                     logo: val.logoName,
+                    rating: val.rating,
                 }, {
-                    iconImageHref: "{{ asset('bundles/stocontent/images/company.png') }}", // картинка иконки
+                    iconImageHref: iconMap, // картинка иконки
                     iconImageSize: [40, 28],
                 });
                 myCollection.add(myPlacemark);
@@ -207,7 +210,7 @@
                                 '<address style="0">$[properties.address]</address>' +
                             '</div>' +
                             '<div class="span4">' +
-                                '<h4><i class="icon-star"></i> 8.0</h4>' +
+                                '<h4><i class="icon-b4c-star"></i> $[properties.rating]</h4>' +
                                 '<p>Очень хорошо</p>' +
                             '</div>' +
                         '</div>' +

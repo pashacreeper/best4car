@@ -9,9 +9,6 @@
  */
 function GeolocationButton(params, options) {
     GeolocationButton.superclass.constructor.call(this, params, options);
-
-    console.log(params);
-
     // Расширяем опции по умолчанию теми, что передали в конструкторе.
     this._options = ymaps.util.extend({
         // Не центрировать карту.

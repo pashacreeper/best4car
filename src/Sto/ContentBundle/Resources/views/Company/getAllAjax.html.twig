@@ -2,14 +2,25 @@
     <div class="row-fluid">
         <div class="span3">
             <i class="icon-b4c-star"></i>{{item.rating}}<br />
-            <span style="font-size:10px;">Отзывов: 12</span>
+            <span style="font-size:10px;">Отзывов: {{item.feedbacks|length}}</span>
         </div>
         <div class="span7">
             <a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
-            <p>{{item.address}}<br />{{item.phones[0].phone}}</p><p><img src="http://placehold.it/25x25&text=F"> <img src="http://placehold.it/17x17&text=V"> <img src="http://placehold.it/17x17&text=T"></p>
+            <p>{{item.address}}<br />{{item.phones[0].phone}}</p>
+            <p>
+{% for key, specialization in item.specialization %}
+{% if key %}
+                <img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 17px;height: 17px;">
+{% else %}
+                <img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 25px;height: 25px;">
+{% endif %}
+{% endfor %}
+            </p>
         </div>
         <div class="span2">
-            <img src="http://placehold.it/25x25&text=F">
+{% if item.deals|length %}
+            <img src="{{ asset('bundles/stocontent/images/company_with_deals.png') }}">
+{% endif %}
         </div>
     </div>
 {% endfor %}

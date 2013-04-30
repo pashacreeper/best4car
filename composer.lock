@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "198bdb6c5fef3529353ddae9ffa340d3",
+    "hash": "b50076a2be19bd12d6ead0dfc1b0dfe6",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -179,7 +179,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -245,7 +245,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -334,36 +334,22 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "dev-master",
+            "version": "v1.0.0-ALPHA3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "6924952026b77ff492da559b04ad166d25c611cb"
+                "reference": "v1.0.0-ALPHA3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/6924952026b77ff492da559b04ad166d25c611cb",
-                "reference": "6924952026b77ff492da559b04ad166d25c611cb",
+                "url": "https://github.com/doctrine/data-fixtures/zipball/v1.0.0-ALPHA3",
+                "reference": "v1.0.0-ALPHA3",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.2,<2.5-dev",
                 "php": ">=5.3.2"
             },
-            "require-dev": {
-                "doctrine/orm": ">=2.2,<2.5-dev"
-            },
-            "suggest": {
-                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
-                "doctrine/orm": "For loading ORM fixtures",
-                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
-            },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Common\\DataFixtures": "lib/"
@@ -385,7 +371,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2013-04-11 23:14:04"
+            "time": "2012-09-20 03:26:34"
         },
         {
             "name": "doctrine/dbal",
@@ -522,31 +508,25 @@
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
-            "version": "dev-master",
+            "version": "v2.1.0-ALPHA",
             "target-dir": "Doctrine/Bundle/FixturesBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890"
+                "reference": "v2.1.0-ALPHA"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/5696cd636df7cbfaf4d1c45ed2922438968cf890",
-                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/v2.1.0-ALPHA",
+                "reference": "v2.1.0-ALPHA",
                 "shasum": ""
             },
             "require": {
                 "doctrine/data-fixtures": "*",
-                "doctrine/doctrine-bundle": ">=1.0,<2.0",
                 "php": ">=5.3.2",
-                "symfony/doctrine-bridge": ">=2.1.0,<2.4-dev"
+                "symfony/symfony": ">=2.0"
             },
             "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Bundle\\FixturesBundle": ""
@@ -576,7 +556,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2013-04-27 11:57:35"
+            "time": "2012-01-18 16:33:12"
         },
         {
             "name": "doctrine/inflector",
@@ -765,7 +745,7 @@
         },
         {
             "name": "elao/web-profiler-extra-bundle",
-            "version": "dev-master",
+            "version": "v2.3.0b1",
             "target-dir": "Elao/WebProfilerExtraBundle",
             "source": {
                 "type": "git",
@@ -1467,7 +1447,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1864,41 +1844,16 @@
             "version": "v0.3.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/leafo/lessphp.git",
+                "url": "git://github.com/leafo/lessphp.git",
                 "reference": "v0.3.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/v0.3.9",
-                "reference": "v0.3.9",
-                "shasum": ""
+                "url": "https://github.com/leafo/lessphp/zipball/v0.3.9",
+                "reference": null,
+                "shasum": null
             },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.3-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "lessc.inc.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Leaf Corcoran",
-                    "email": "leafot@gmail.com",
-                    "homepage": "http://leafo.net"
-                }
-            ],
-            "description": "lessphp is a compiler for LESS written in PHP.",
-            "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-03-02 16:13:31"
+            "type": "library"
         },
         {
             "name": "liip/imagine-bundle",
@@ -2017,17 +1972,17 @@
         },
         {
             "name": "mopa/bootstrap-bundle",
-            "version": "dev-master",
+            "version": "v2.2.0-alpha1",
             "target-dir": "Mopa/Bundle/BootstrapBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "0833afccc0850485299d4fe21df26da2d0453a75"
+                "reference": "v2.2.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/0833afccc0850485299d4fe21df26da2d0453a75",
-                "reference": "0833afccc0850485299d4fe21df26da2d0453a75",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/v2.2.0-alpha1",
+                "reference": "v2.2.0-alpha1",
                 "shasum": ""
             },
             "require": {
@@ -2075,7 +2030,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-04-27 09:06:14"
+            "time": "2013-04-21 11:26:50"
         },
         {
             "name": "mopa/composer-bridge",
@@ -2971,18 +2926,14 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "doctrine/data-fixtures": 20,
-        "doctrine/doctrine-fixtures-bundle": 20,
         "jms/serializer-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
         "knplabs/knp-menu": 20,
         "knplabs/knp-menu-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
-        "mopa/bootstrap-bundle": 20,
         "vich/uploader-bundle": 20,
-        "liip/imagine-bundle": 20,
-        "elao/web-profiler-extra-bundle": 20
+        "liip/imagine-bundle": 20
     },
     "platform": {
         "php": ">=5.4.0"
