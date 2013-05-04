@@ -95,6 +95,7 @@
 
 {% block foot_script %}
 {{ parent() }}
+{{ tinymce_init() }}
 {% javascripts
     'bundles/stocore/js/select2.js'
     'bundles/stocore/js/bootstrap-inputmask.js'

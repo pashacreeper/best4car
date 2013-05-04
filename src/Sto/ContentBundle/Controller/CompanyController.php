@@ -152,7 +152,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/company-feedbacks/{id}", name="feedbacks_show")
+     * @Route("/company-feedbacks/{id}", name="company_feedbacks_show")
      * @Method("POST")
      * @Template()
      */

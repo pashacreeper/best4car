@@ -32,3 +32,6 @@ sto_core:
 _imagine:
     resource: .
     type:     imagine
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

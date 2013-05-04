@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-    //JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Feedback,
     Sto\CoreBundle\Entity\FeedbackAnswer,
     Sto\CoreBundle\Entity\FeedbackCompany,
@@ -316,23 +315,6 @@ class FeedbackController extends Controller
         $em->flush();
 
         $this->get('session')->setFlash('notice', 'Feedback was removed!');
-
-        /*
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('StoCoreBundle:Feedback')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Feedback entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-*/
 
         return $this->redirect($this->generateUrl('feedbacks'));
     }

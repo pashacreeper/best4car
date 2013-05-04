@@ -3,6 +3,10 @@
 
 {% block title %}Отзыв{% endblock %}
 
+{% block head_script %}
+    {{ parent() }}
+{% endblock %}
+
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
@@ -11,7 +15,7 @@
     <tbody>
         <tr>
             <th width="220">Отзыв</th>
-            <td>{{ entity.content }}</td>
+            <td>{{ entity.content|raw }}</td>
         </tr>
         <tr>
             <th>Дата посещения</th>

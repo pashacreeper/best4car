@@ -25,6 +25,7 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -38,8 +39,7 @@ class AppKernel extends Kernel
             new Sto\UserBundle\StoUserBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
-
-            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -11,8 +11,19 @@ class FeedbackType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', null, [
-                'label' => 'Отзыв'
+            ->add('content', 'genemu_tinymce', [
+                'label' => 'Отзыв',
+                'required' => false,
+                'render_optional_text' => false,
+                'configs' => [
+                    'entity_encoding' => "raw",
+                    'language' => 'ru',
+                    'menubar' => false,
+                    'statusbar' => false,
+                    'resize' => false,
+                    'width' =>'100%',
+                    'height' => 150
+                ],
             ])
             ->add('visitDate', 'date', [
                 'label' => 'Дата посещения',
@@ -47,17 +58,6 @@ class FeedbackType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            // ->add('currencyLevel', 'entity', [
-            //     'label' => 'Оценка уровня цен',
-            //     'required' => false,
-            //     'render_optional_text' => false,
-            //     'class' => 'StoCoreBundle:Dictionary',
-            //     'query_builder' => function (\Sto\CoreBundle\Repository\DictionaryRepository $repository) {
-            //              return $repository->createQueryBuilder('s')
-            //                     ->where('s.parentId = ?1')
-            //                     ->setParameter(1, 5);
-            //          }
-            // ])
         ;
     }
 

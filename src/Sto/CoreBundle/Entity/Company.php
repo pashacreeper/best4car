@@ -10,8 +10,6 @@ use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Sto\CoreBundle\Entity\Dictionary\WeekDay;
-
 /**
  * Company
  *
@@ -854,13 +852,15 @@ class Company
         return $this->hourPrice;
     }
 
-    public function setCurrency($currency){
+    public function setCurrency($currency)
+    {
         $this->currency = $currency;
 
         return $this;
     }
 
-    public function getCurrency(){
+    public function getCurrency()
+    {
         return $this->currency;
     }
 
@@ -1109,7 +1109,8 @@ class Company
         return $result;
     }
 
-    public function setManagers($managers){
+    public function setManagers($managers)
+    {
         $this->managers = $managers;
 
         return $this;

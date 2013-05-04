@@ -4,7 +4,6 @@ namespace Sto\AdminBundle\Form;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 use Sto\AdminBundle\Form\DataTransformer\DayOfWeekTransformer;
 use Doctrine\ORM\EntityManager;
 

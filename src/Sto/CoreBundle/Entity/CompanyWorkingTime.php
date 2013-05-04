@@ -38,45 +38,51 @@ class CompanyWorkingTime
      */
     private $dayTill;
 
-
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setFrom($from){
+    public function setFrom($from)
+    {
         $this->from = $from;
 
         return $this;
     }
 
-    public function getFrom(){
+    public function getFrom()
+    {
         return $this->from;
     }
 
-    public function setTill($till){
+    public function setTill($till)
+    {
         $this->till = $till;
 
         return $this;
     }
 
-    public function setDayFrom($day){
+    public function setDayFrom($day)
+    {
         $this->dayFrom = $day;
 
         return $this;
     }
 
-    public function getDayFrom(){
+    public function getDayFrom()
+    {
         return $this->dayFrom;
     }
 
-    public function setDayTill($day){
+    public function setDayTill($day)
+    {
         $this->dayTill = $day;
 
         return $this;
     }
 
-    public function getDayTill(){
+    public function getDayTill()
+    {
         return $this->dayTill;
     }
 }
-

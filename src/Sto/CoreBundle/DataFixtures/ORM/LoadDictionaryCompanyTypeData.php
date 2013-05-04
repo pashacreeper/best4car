@@ -102,8 +102,6 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
             ],
         ];
 
-
-
         $i = 1;
         $j = 1;
         $k = 1;
@@ -127,7 +125,6 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
                 copy($from, $to);
             }
             $dictionaryParent->setIconNameMap($k.'.png');
-
 
             $manager->persist($dictionaryParent);
             $this->addReference("companiesTypesParent[{$i}]", $dictionaryParent);

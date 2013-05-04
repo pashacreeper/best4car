@@ -58,7 +58,7 @@ class APICityController extends APIBaseController
      * )
      *
      * @Rest\View
-     * @Route("/all", name="api_city_all")
+     * @Route("/all", name="api_city_all", options={"expose"=true})
      * @Method({"GET"})
      */
     public function allAction()
@@ -89,7 +89,7 @@ class APICityController extends APIBaseController
      * @param integer $id
      *
      * @Rest\View
-     * @Route("/all_by_country/{id}", name="api_city_all_by_country", requirements={"id" = "\d+"} )
+     * @Route("/all_by_country/{id}", name="api_city_all_by_country", requirements={"id" = "\d+"}, options={"expose"=true} )
      * @Method({"GET"})
      */
     public function allByCountryAction($id)

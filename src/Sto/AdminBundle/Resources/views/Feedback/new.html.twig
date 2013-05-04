@@ -3,11 +3,40 @@
 
 {% block title %}Создание отзыва{% endblock %}
 
+{% block head_script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
+    {{ form_javascript(form) }}
+{% endblock %}
+
 {% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
 
 {% block content %}
-<form action="{{ path('feedbacks_create', {'feedback':feedback_type}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal"    >
-    {{ form_widget(form) }}
+<form action="{{ path('feedbacks_create', {'feedback':feedback_type}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.visitDate) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.feedbackRating) }}
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            {{ form_row(form.content) }}
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.car) }}
+            {{ form_row(form.mastername) }}
+            {{ form_row(form.published) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.statenumber) }}
+            {{ form_row(form.orderNumber) }}
+        </div>
+    </div>
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
         <a class="btn" href="{{ path('feedbacks') }}">{{ 'form.cancel'|trans({}) }}</a>

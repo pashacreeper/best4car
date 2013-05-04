@@ -68,7 +68,7 @@
 {% if not (feedbacks.paginationData.current == feedbacks.paginationData.last) %}
 <div class="row-fluid">
     <div class="span12">
-        <a class="btn" href="{{ path('feedbacks_show', {'id':companyId}) }}" rel="{{ feedbacks.paginationData.current }}" data-page="2">More...</a>
+        <a class="btn" href="{{ path('company_feedbacks_show', {'id':companyId}) }}" rel="{{ feedbacks.paginationData.current }}" data-page="2">More...</a>
     </div>
 </div>
 {% endif %}

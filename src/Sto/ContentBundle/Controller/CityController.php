@@ -32,36 +32,13 @@ class CityController extends Controller
     }
 
     /**
-     * Ajax get cities
-     *
-     * @Route("/ajax/get-cities", name="city_ajax")
-     */
-    public function getCitiesAjax(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $cities = $em->getRepository('StoCoreBundle:Dictionary\Country')
-            ->createQueryBuilder('city')
-            ->where('city.parent is not null')
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
-        if (!$cities) {
-            return new Responce(500, 'Companies Not found.');
-        }
-
-        $response = new Response(json_encode(['cities' => $cities]));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
      * Ajax save city
      * @Route("/ajax/save-city", name="city_ajax_save")
      */
     public function saveCityAjax(Request $request)
     {
+        // @TODO set 2 sess Object OR Id
+
         $session = $request->getSession();
         if ($request->get('city')) {
             $session->set('user_city', $request->get('city'));

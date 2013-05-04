@@ -109,7 +109,6 @@ class CompanyController extends Controller
                 'em' => $this->getDoctrine()->getManager(),
             ));
 
-
         return [
             'company'   => $company,
             'edit_form' => $editForm->createView(),

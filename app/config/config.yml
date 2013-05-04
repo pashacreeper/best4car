@@ -191,12 +191,10 @@ vich_uploader:
             delete_on_update: true
             namer: vich_uploader.namer_uniqid
 
-# nelmo api config enabled
 nelmio_api_doc: ~
 
 jms_security_extra:
     secure_all_services: true
-
 
 liip_imagine:
     cache_prefix: /%storage_path%/cache
@@ -238,8 +236,8 @@ liip_imagine:
             filters:
                 relative_resize: { widen: 200 }
 
+genemu_form:
+    tinymce:
+        enabled: true
+        theme:   modern
 
-gregwar_captcha:
-    width: 200
-    height: 50
-    length: 5

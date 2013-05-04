@@ -113,13 +113,15 @@ class Company extends Base
         return $this->iconMap;
     }
 
-    public function setIconNameMap($icon){
+    public function setIconNameMap($icon)
+    {
         $this->iconNameMap = $icon;
 
         return $this;
     }
 
-    public function getIconNameMap(){
+    public function getIconNameMap()
+    {
         return $this->iconNameMap;
     }
 
@@ -149,13 +151,15 @@ class Company extends Base
         return $this->iconSmall;
     }
 
-    public function setIconNameSnall($icon){
+    public function setIconNameSnall($icon)
+    {
         $this->iconNameSmall = $icon;
 
         return $this;
     }
 
-    public function getIconNameSmall(){
+    public function getIconNameSmall()
+    {
         return $this->iconNameSmall;
     }
 
@@ -185,13 +189,15 @@ class Company extends Base
         return $this->iconLarge;
     }
 
-    public function setIconNameLarge($icon){
+    public function setIconNameLarge($icon)
+    {
         $this->iconNameLarge = $icon;
 
         return $this;
     }
 
-    public function getIconNameLarge(){
+    public function getIconNameLarge()
+    {
         return $this->iconNameLarge;
     }
 
@@ -206,6 +212,5 @@ class Company extends Base
     {
         return $this->updatedAt;
     }
-
 
 }

@@ -11,12 +11,19 @@ class FeedbackAnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('answer', 'textarea', [
+            ->add('answer', 'genemu_tinymce', [
                 'label'=>'Ответ',
-                'attr' => [
-                    'rows' => 4,
-                    'class' => 'span10'
-                ]
+                'required' => false,
+                'render_optional_text' => false,
+                'configs' => [
+                    'entity_encoding' => "raw",
+                    'language' => 'ru',
+                    'menubar' => false,
+                    'statusbar' => false,
+                    'resize' => false,
+                    'width' =>'100%',
+                    'height' => 150
+                ],
             ])
         ;
     }

@@ -109,6 +109,10 @@
 
 {% block foot_script %}
 {{ parent() }}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript" src="{{asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('bundles/stocore/js/geolocation-button.js')}}"></script>
