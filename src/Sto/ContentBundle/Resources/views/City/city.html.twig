@@ -1,16 +1,3 @@
-{# Cities list #}
-<!--
-<style type="text/css">
-    #city-list ul.hide-ul { display: none; }
-</style>
-<div id="city-list">
-    <ul id="city-list-ul" class="hide-ul" style="position: absolute; top: 50px; left: 440px; background-color: white; border: 1px solid gray; padding: 10px 20px; z-index:100;"></ul>
-</div>
-
--->
-{# EOF Cities list #}
-
-
 <!-- Modal -->
 <div id="modalChooseCity" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
         style="  width: 750px; margin-left: -375px;">
@@ -80,7 +67,6 @@
                             url: Routing.generate('api_city_all_by_country', { id: cid }),
                             success: function(res) {
                                 res = eval(res);
-                                console.log(res);
                                 var coun_area = $('#country-' + cid);
                                 coun_area.empty();
 
@@ -94,7 +80,7 @@
                                     coun_area.append(
                                         '<p>'+
                                         '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +
-                                        '<a href="#city-' + city.id  + '" id="a-city-' + city.id  + '" class="city-link">' + city.name  + '</a></li></p>' 
+                                        '<a href="#city-' + city.id  + '" id="a-city-' + city.id  + '" class="city-link">' + city.name  + '</a></li></p>'
                                         );
                                 });
                             },
@@ -114,9 +100,7 @@
 
         });
         $('a.city-link').live('click',function(){
-            console.log($(this));
             var route = "{{ url('city_ajax_save') }}?city="+$(this).html();
-            console.log('route', route);
             $('#choice-city a').html($(this).html());
             $.ajax({
                 type: 'POST',

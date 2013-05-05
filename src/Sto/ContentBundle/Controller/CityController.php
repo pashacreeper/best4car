@@ -21,11 +21,12 @@ class CityController extends Controller
     public function getUserCity()
     {
         $session = $this->getRequest()->getSession();
-        $city = $session->get('user_city');
-        if (!$city) {
-            $city = 'Ваш город';
-        }
-        $response = new Response(json_encode(['user_city' => $city]));
+        $city_name = $session->get('user_city_name');
+
+        if(!$city_name)
+            $city_name = "Ваш город";
+
+        $response = new Response(json_encode(['user_city' => $city_name ]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -37,16 +38,16 @@ class CityController extends Controller
      */
     public function saveCityAjax(Request $request)
     {
-        // @TODO set 2 sess Object OR Id
-
         $session = $request->getSession();
-        if ($request->get('city')) {
-            $session->set('user_city', $request->get('city'));
-        }
 
-        $city = $session->get('user_city');
+        if ($request->get('city_id'))
+            $session->set('user_city_id', $request->get('city_id') );
+        if ($request->get('city_name'))
+            $session->set('user_city_name', $request->get('city_name') );
 
-        $response = new Response(json_encode(['result' => $city]));
+        $city_name = $session->get('user_city_name');
+
+        $response = new Response(json_encode(['result' => $city_name ]));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

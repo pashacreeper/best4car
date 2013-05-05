@@ -57,14 +57,14 @@
         <p class="muted credit">
             <div class="row">
                 <div class="span4">
-                    &copy; 2013, BEST4CAR <a href="#">Условия использования сайта</a>
+                    &copy; 2013, BEST4CAR <a href="{{ path('info_rules_2_use') }}">Условия использования сайта</a>
                 </div>
                 <div class="span5">
-                    <a href="#">О проекте</a>
-                    <a href="#">Рекламодателям</a>
-                    <a href="#">Помощь</a>
-                    <a href="#">Тур</a>
-                    <a href="#">Обратная связь</a>
+                    <a href="{{ path('info_about') }}">О проекте</a>
+                    <a href="{{ path('info_advertisers') }}">Рекламодателям</a>
+                    <a href="{{ path('info_help') }}">Помощь</a>
+                    <a href="{{ path('info_tur') }}">Тур</a>
+                    <a href="{{ path('info_contact') }}">Обратная связь</a>
                 </div>
                 <div class="span3">
                     Мы в социальных сетях:
@@ -82,6 +82,8 @@
 {% javascripts
     'bundles/stocore/js/bootstrap.js'
     'bundles/stocore/js/holder.js'
+    'bundles/stocore/js/jquery.scrollTo-min.js'
+
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'

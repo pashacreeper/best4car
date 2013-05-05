@@ -241,3 +241,5 @@ aside {
 #content {
     background-color: #ffffff;
 }
+
+.listActive{ border: 1px solid red; }

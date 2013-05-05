@@ -1,5 +1,5 @@
 {% for item in companies %}
-    <div class="row-fluid">
+    <div class="row-fluid listItemCompany" id="list-company{{ item.id }}">
         <div class="span3">
             <i class="icon-b4c-star"></i>{{item.rating}}<br />
             <span style="font-size:10px;">Отзывов: {{item.feedbacks|length}}</span>
