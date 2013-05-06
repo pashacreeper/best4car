@@ -202,7 +202,6 @@ class Deal
      */
     protected $auto;
 
-
     public function __construct()
     {
         $this->startDate = new \DateTime('now');

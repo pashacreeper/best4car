@@ -35,8 +35,6 @@ class Company
      */
     private $name;
 
-
-
     /**
      * @var string
      *
@@ -342,7 +340,6 @@ class Company
     {
         return $this->name;
     }
-
 
     /**
      * Set slogan

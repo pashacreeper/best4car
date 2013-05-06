@@ -4,12 +4,10 @@ namespace Sto\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
-
 
 class RegistrationController extends BaseController
 {
@@ -23,8 +21,6 @@ class RegistrationController extends BaseController
 
         $user = $userManager->createUser();
         $user->setEnabled(true);
-
-
 
         $user->setRatingGroupId(1);
         $user->addRole('ROLE_USER');
@@ -44,16 +40,16 @@ class RegistrationController extends BaseController
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    if ($registration_type!='company'){
+                    if ($registration_type!='company') {
                         $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
                         $response = new RedirectResponse($url);
-                    }
-                    else {
+                    } else {
                         $url = $this->container->get('router')->generate('registration_company_owner');
                         $response = new RedirectResponse($url);
                         /*$em = $this->getDoctrine()->getManager();
                         $company = new Company;
                         $cForm = $this->createForm(new CompanyType(), $company, ['em'=>$em = $this->getDoctrine()->getManager()]);
+
                         return [
                             //'user' => $user,
                             //'form' => $form->createView(),

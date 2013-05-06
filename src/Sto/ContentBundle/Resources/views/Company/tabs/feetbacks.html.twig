@@ -1,0 +1,33 @@
+<div class="row-fluid">
+    <div class="span8" data-content="feedbacks">
+        <div class="row-fluid">
+            <div class="span4">
+                <ul class="nav nav-tabs">
+                    <li><small>Сортировать по:</small></li>
+                    <li class="active">
+                        <a href="#">дате</a>
+                    </li>
+                    <li><a href="#">рейтингу</a></li>
+                </ul>
+            </div>
+            <div class="span8">
+                <ul class="nav nav-tabs">
+                    <li><small>Показывать:</small></li>
+                    <li class="active">
+                        <a href="#">все</a>
+                    </li>
+                    <li><a href="#">положительные</a></li>
+                    <li><a href="#">отрицательные</a></li>
+                    <li><a href="#">полезные</a></li>
+                </ul>
+            </div>
+        </div>
+        {{ render(controller('StoContentBundle:Company:feedbacks', {'id':company.id})) }}
+    </div>
+    <div class="span4">
+        <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв</a>
+        <div class="thumbnail">
+            <img src="http://placehold.it/240x400">
+        </div>
+    </div>
+</div>

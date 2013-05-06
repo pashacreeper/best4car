@@ -31,6 +31,7 @@ class UserController extends Controller
     {
         $user = new User();
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
+
         return [
             'user' => $user,
             'form' => $form->createView()
@@ -47,35 +48,30 @@ class UserController extends Controller
     public function checkOwnerAction(Request $request)
     {
         $errorFlag = false;
-        if ($request->get('_username') && $request->get('_password'))
-        {
+        if ($request->get('_username') && $request->get('_password')) {
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')->findOneBy(['username' => $request->get('_username')]);
-            if (!$user){
+            if (!$user) {
                 $errors = 'Username is incorrect!';
                 $errorFlag = true;
-            }
-            else {
+            } else {
                 $encoder = $this->container
                     ->get('security.encoder_factory')
                     ->getEncoder($user)
                 ;
-                if (!($user->getPassword()==$encoder->encodePassword($request->get('_password'), $user->getSalt()))){
+                if (!($user->getPassword()==$encoder->encodePassword($request->get('_password'), $user->getSalt()))) {
                     $errors = 'Password is incorrect!';
                     $errorFlag = true;
                 }
             }
-        }
-        else {
+        } else {
             $errors = 'No data in form!';
             $errorFlag = true;
         }
 
-        if (!$errorFlag){
+        if (!$errorFlag) {
             return $this->redirect($this->generateUrl('add_company', ['id'=>$user->getId()]));
         }
-
-
 
         $user = new User();
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
@@ -156,8 +152,6 @@ class UserController extends Controller
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
         $form->bind($request);
 
-
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $ratingGroup = $em->getRepository('StoUserBundle:RatingGroup')->find(1);
@@ -168,7 +162,7 @@ class UserController extends Controller
 
             $another_user = $em->getRepository('StoUserBundle:User')->findBy(['username'=>$user->getUsername()]);
             $another_email = $em->getRepository('StoUserBundle:User')->findBy(['email'=>$user->getEmail()]);
-            if ($another_user || $another_email){
+            if ($another_user || $another_email) {
                 if ($another_user)
                     $form->get('username')->addError(new FormError('Пользователь с таким ником уже зарегистрирован!'));
                 if ($another_email)
@@ -182,7 +176,6 @@ class UserController extends Controller
 
             $em->persist($user);
             $em->flush();
-
 
             return $this->redirect($this->generateUrl('add_company', ['id'=>$user->getId()]));
         }

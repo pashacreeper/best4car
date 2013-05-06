@@ -15,11 +15,6 @@ use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-// use Sto\CoreBundle\Entity\Dictionary\City;
-
-// use Sto\CoreBundle\Entity\Dictionary\Country;
-// use Sto\CoreBundle\Entity\DictionaryCity as City;
-
 /**
  * City controller.
  * @Route("/api/city")
@@ -28,7 +23,6 @@ class APICityController extends APIBaseController
 {
 
     /**
-     *
      * @ApiDoc(
      *  description="Получить город по Id",
      *  statusCodes={
@@ -49,7 +43,6 @@ class APICityController extends APIBaseController
     }
 
     /**
-     *
      * @ApiDoc(
      *  description="Получить все города",
      *  statusCodes={
@@ -74,11 +67,9 @@ class APICityController extends APIBaseController
         ;
 
         return new Response($serializer->serialize($data, 'json'));
-
     }
 
     /**
-     *
      * @ApiDoc(
      *  description="Получить все города по id страны",
      *  statusCodes={
@@ -108,5 +99,4 @@ class APICityController extends APIBaseController
 
         return new Response($serializer->serialize($data, 'json'));
     }
-
 }

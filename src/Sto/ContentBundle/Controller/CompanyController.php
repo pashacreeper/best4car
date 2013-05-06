@@ -104,57 +104,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Ajax get companies
-     *
-     * @Route("/ajax/get-company-types", name="copmpany_ajax_get_search_comopany_types")
-     */
-    public function getSearchCompanyTypesAjaxAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Dictionary\Company')
-            ->createQueryBuilder('company')
-            ->where('company.parent is null')
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
-        if (!$companies) {
-            return new Response(500, 'Companies Not found.');
-        }
-
-        $response = new Response(json_encode(['companies' => $companies]));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
-     * Ajax get companies
-     *
-     * @Route("/ajax/get-company-subtypes", name="company_ajax_get_company_subtypes")
-     */
-    public function getSearchCompanySubtypesAjaxAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Dictionary\Company')
-            ->createQueryBuilder('company')
-            ->where('company.parentId = :type')
-            ->setParameter('type', $request->get('type'))
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
-        if (!$companies) {
-            return new Response(500, 'Subtype Not found.');
-        }
-
-        $response = new Response(json_encode(['subtypes' => $companies]));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
      * @Route("/company-feedbacks/{id}", name="company_feedbacks_show")
      * @Method("POST")
      * @Template()

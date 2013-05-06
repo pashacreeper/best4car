@@ -4,7 +4,6 @@ namespace Sto\CoreBundle\Controller;
 
 use Symfony\Component\Serializer\Serializer,
     Symfony\Component\HttpFoundation\Response,
-    // Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\HttpKernel\Exception\HttpException,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
 use FOS\RestBundle\Controller\FOSRestController,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations as Rest;
-
 use Sto\CoreBundle\Entity\Dictionary\Base;
 
 /**
@@ -41,22 +39,6 @@ class APIBaseController extends FOSRestController
         else
             return new Response($serializer->serialize($data, 'json'));
     }
-
-    // public function allAction()
-    // {
-    //     $serializer = $this->container->get('jms_serializer');
-
-    //     $em = $this->getDoctrine()->getManager();
-    //     $data = $em->getRepository('StoCoreBundle:Dictionary\Country')
-    //         ->createQueryBuilder('dictionary')
-    //         ->where('dictionary.parent is NOT null')
-    //         ->getQuery()
-    //         ->getArrayResult()
-    //     ;
-
-    //     return new Response($serializer->serialize($data, 'json'));
-
-    // }
 
     public function deleteAction($id)
     {

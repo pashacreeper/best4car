@@ -1,0 +1,58 @@
+<style type="text/css">
+    form div.buttons a.btn {
+        width: 12px;
+    }
+</style>
+<div class="hide" id="home_search" style="position: absolute; top: 155px; right:0px; width:25%; background-color: black; border: 1px solid gray; padding: 10px 20px; color:#fff;">
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Тип компании</label>
+        <select name="company_type" class="company-type-search span12" data-serarch-form="company-type">
+            <option value="0">Все</option>
+        </select>
+    </div>
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Подтип компании</label>
+        <select name="company_type" class="company-subtype-search span12" data-serarch-form="company-subtype">
+            <option value="0">Все</option>
+        </select>
+    </div>
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Специализация на марке</label>
+        <select name="company_type" class="company-mark-search span12" data-serarch-form="company-mark">
+            <option value=0></option>
+        </select>
+    </div>
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Рейтинг от</label>
+        <div class="row-fluid">
+            <div class="span10">
+                <div id="search-slider" style="margin-left:10px;"></div>
+            </div>
+            <div class="span2">
+                <input type="text" value='0' style="width:40px;" />
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Время работы</label>
+        <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox">
+            <button type="button" class="span4 btn btn-primary active"> 24ч </button>
+            <button type="button" class="span4 btn">До поздна</button>
+            <button type="button" class="span4 btn">Выходные</button>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <label class="span12" style="margin: 0;padding: 0;">Дополнительные</label>
+        <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox">
+            <button type="button" class="span2 btn btn-success active"><i class="icon-b4c-truck"></i></button>
+            <button type="button" class="span2 btn"><i class="icon-b4c-signal"></i></button>
+            <button type="button" class="span2 btn"><i class="icon-b4c-tv"></i></button>
+            <button type="button" class="span2 btn"><i class="icon-b4c-coffee"></i></button>
+            <button type="button" class="span2 btn"><i class="icon-b4c-restaurant"></i></button>
+            <button type="button" class="span2 btn"><i class="icon-b4c-credit-card"></i></button>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <label><input type="checkbox" value=1 />Только с акциями</label>
+    </div>
+</div>

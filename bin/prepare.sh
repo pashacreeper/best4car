@@ -11,6 +11,7 @@ php app/console doctrine:schema:create
 php app/console doctrine:fixtures:load -n
 
 # clear cache
+php app/console cache:warmup -e=prod
 php app/console cache:clear -e=prod
 
 # assets install

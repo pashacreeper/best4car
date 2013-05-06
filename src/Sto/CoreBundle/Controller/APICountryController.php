@@ -22,7 +22,6 @@ use Sto\CoreBundle\Entity\Dictionary\Country;
  */
 class APICountryController extends APIBaseController
 {
-
     /**
      * @ApiDoc(
      *      description="Получить страну по Id",
@@ -35,7 +34,6 @@ class APICountryController extends APIBaseController
      * @Route("/{id}", name="api_country_get", requirements={"id" = "\d+"} )
      * @Method({"GET"})
      */
-
     public function getAction($id)
     {
         return parent::getAction($id);
@@ -66,5 +64,4 @@ class APICountryController extends APIBaseController
 
         return new Response($serializer->serialize($data, 'json'));
     }
-
 }

@@ -1,0 +1,34 @@
+<div class="row-fluid">
+    <div class="span8">
+        <div class="row-fluid">
+            <span class="span12"><h3>Действующие акции компании</h3></span>
+        </div>
+{% for deal in company.deals %}
+            <div class="row-fluid" style="margin-bottom:10px;">
+                <div class="span8"><img src="http://placehold.it/494x280"></div>
+                <div class="span4">
+                    <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
+                    <p>
+                        <strong>
+                            {{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}
+                        </strong><br />
+                        Все автомобили
+                    </p>
+                    <p style="vertical-align:bottom;">
+                        {{ deal.feedbacks | length }} отзыв(ов)
+                        <br />
+                        35 заинтересовавшихся
+                    </p>
+                </div>
+            </div>
+{% endfor %}
+        <p>
+            <h5><a href="#">Показать архивные акции</a></h5>
+        </p>
+    </div>
+    <div class="span4">
+        <div class="thumbnail">
+            <img src="http://placehold.it/240x400">
+        </div>
+    </div>
+</div>

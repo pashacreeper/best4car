@@ -14,8 +14,6 @@ use FOS\RestBundle\Controller\FOSRestController,
 use Sto\CoreBundle\Entity\Dictionary;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-// use Sto\CoreBundle\Entity\Dictionary;
-
 /**
  * Dictionary controller.
  */
@@ -107,10 +105,10 @@ class APIDictionaryController extends APIBaseController
      * @return List Of Dictionarioes
      *
      * @Rest\View
-     * @Route("/api/dictionary/company_types_list", name="api_dictionary_list_of_company_types")
+     * @Route("/api/dictionary/company_types", name="api_dictionary_company_types", options={"expose"=true})
      * @Method({"GET"})
      */
-    public function getCompanyTypesListAction()
+    public function getCompanyTypesAction()
     {
         $serializer = $this->container->get('jms_serializer');
 
@@ -118,7 +116,30 @@ class APIDictionaryController extends APIBaseController
         $data = $em->getRepository('StoCoreBundle:Dictionary\Company')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
+            ->where('c.parent is null')
             ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
+    }
+
+    /**
+     * @Rest\View
+     * @Route("/api/dictionary/sub_company_types_for/{id}", name="api_dictionary_sub_company_types", options={"expose"=true})
+     * @Method({"GET"})
+     */
+    public function getSubCompanyTypesListAction($id)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\Company')
+            ->createQueryBuilder('c')
+            ->select('c.id, c.name')
+            ->where('c.parent = :companyType')
+            ->getQuery()
+            ->setParameter('companyType', $id)
             ->getArrayResult()
         ;
 
