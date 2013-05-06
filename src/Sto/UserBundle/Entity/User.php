@@ -55,7 +55,7 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating_group_id", type="integer")
+     * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
      */
     protected $ratingGroupId;
 
@@ -196,6 +196,8 @@ class User extends BaseUser
         parent::__construct();
         $this->gender = 'male';
         $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ratingGroupId = 1;
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public static function getGenders()

@@ -16,9 +16,21 @@
     'bundles/stocontent/css/style.css'
     'bundles/stocontent/css/fontello.css'
     'bundles/stocore/css/bootstrap-responsive.css'
+    '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less'
 %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 {% endstylesheets %}
+
+<style type="text/css">
+    #previous-page {
+        position:absolute;
+        top: 42px;
+        /*left: px;*/
+        height: 67px;
+        /*z-index: 2000;*/
+    }
+</style>
+
 {% endblock %}
 {% block head_script %}
 {% javascripts
@@ -38,9 +50,15 @@
 
 {% block body %}
         <div id="wrap">
+            <div class="well span1" id="previous-page">
+                <a href="#" onclick="history.back(); return false;">
+                    <center><br /> Назад</center>
+                </a>
+            </div>
 {% block navbar_container %}
 {% block navbar %}{{ mopa_bootstrap_navbar('frontendNavbar') }}{% endblock %}
 {% include "StoContentBundle:City:city.html.twig" %}
+{% include "StoContentBundle:User:registration_type.html.twig" %}
 {% endblock %}
             <div id="header" class="row-fluid">
                 <div class="container">
@@ -92,5 +110,11 @@
 %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript">
+    $('#registration-link > a').on('click', function(){
+        $('#registrationModal').modal('toggle');
+        return false;
+    });
+</script>
 {% endblock %}
 {% endblock %}

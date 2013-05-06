@@ -9,7 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sto\CoreBundle\Entity\Company;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sto\CoreBundle\Entity\Company,
+    Sto\CoreBundle\Entity\FeedbackCompany,
+    Sto\ContentBundle\Form\FeedbackCompanyType;
 
 class CompanyController extends Controller
 {
@@ -176,5 +179,56 @@ class CompanyController extends Controller
             'feedbacks' => $feedbacks,
             'companyId' => $id,
         ];
+    }
+
+    /**
+     * @Route("/company/{id}/feedback/add", name="content_company_feedbacks_add")
+     * @Method("GET")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template()
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function addFeedbackAction(Company $company)
+    {
+        $form = $this->createForm(new FeedbackCompanyType, (new FeedbackCompany)->setCompany($company));
+
+        return [
+            'form' => $form->createView(),
+            'company' => $company
+        ];
+    }
+
+    /**
+     * @Route("/company/{id}/feedback/create", name="content_company_feedbacks_create")
+     * @Method("POST")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template("StoContentBundle:Company:addFeedback.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function createFeedbackAction(Request $request, Company $company)
+    {
+        $entity = new FeedbackCompany;
+        $form = $this->createForm(new FeedbackCompanyType(), $entity);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity->setUser($this->getUser())
+                ->setCompany($company)
+                ->setPluses(0)
+                ->setMinuses(0)
+                ->setPublished(false)
+                ->setIp($request->getClientIp())
+            ;
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_company_show', array('id' => $company->getId())));
+        }
+
+        return array(
+            'form'   => $form->createView(),
+            'company' => $company
+        );
     }
 }

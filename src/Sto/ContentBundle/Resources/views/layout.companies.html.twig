@@ -16,6 +16,7 @@
     'bundles/stocontent/css/style.css'
     'bundles/stocontent/css/fontello.css'
     'bundles/stocore/css/bootstrap-responsive.css'
+    '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less'
 %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 {% endstylesheets %}
@@ -38,10 +39,10 @@
 
 {% block body %}
         <div id="wrap1" style="width:100%; height: 100%; min-height: 100%; margin-bottom: -60px;">
-
 {% block navbar_container %}
 {% block navbar %}{{ mopa_bootstrap_navbar('frontendNavbar') }}{% endblock %}
 {% include "StoContentBundle:City:city.html.twig" %}
+{% include "StoContentBundle:User:registration_type.html.twig" %}
 {% endblock %}
 
 {% block aside %}{% endblock %}
@@ -90,5 +91,11 @@
 %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+<script type="text/javascript">
+    $('#registration-link > a').on('click', function(){
+        $('#registrationModal').modal('toggle');
+        return false;
+    });
+</script>
 {% endblock %}
 {% endblock %}

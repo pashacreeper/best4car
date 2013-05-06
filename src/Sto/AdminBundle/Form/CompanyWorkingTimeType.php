@@ -25,11 +25,9 @@ class CompanyWorkingTimeType extends AbstractType
             ->add('from', 'time',[
                 'label_render' => false,
             ])
-            ->add('till', 'time',
-                [
+            ->add('till', 'time',[
                     'label_render' => false,
-                ]
-            )
+                ])
             ->add(
                 $builder->create('dayFrom', 'entity', [
                     'label_render' => false,

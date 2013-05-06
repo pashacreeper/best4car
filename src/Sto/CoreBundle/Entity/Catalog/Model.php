@@ -11,4 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Model extends Base
 {
+    public function __toString()
+    {
+        return $this->getParent() . " - " . $this->getName();
+    }
 }

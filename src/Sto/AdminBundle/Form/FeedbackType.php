@@ -50,7 +50,7 @@ class FeedbackType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('feedbackRating', null, [
+            ->add('feedbackRating', 'genemu_jqueryrating', [
                 'label' => 'Оценка отзыва'
             ])
             ->add('published', null, [

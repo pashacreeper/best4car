@@ -1,0 +1,32 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Регистрация пользователя{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+<div class="row-fluid">
+    <div class="span6 offset3">
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
+        {{ form_row(form.captcha) }}
+
+        {{ form_widget(form) }}
+        <div class="form-actions row-fluid">
+            <div class="span4">
+                <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
+            </div>
+            <div class="span4">
+                <p style="font-size: 10px;">Регистрируясь, вы соглашаетесь с <a href="#" target="_blank">условиями использования сайта</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</form>
+{% endblock %}

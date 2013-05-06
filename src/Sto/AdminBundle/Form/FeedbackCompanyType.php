@@ -17,6 +17,7 @@ class FeedbackCompanyType extends FeedbackType
                 'required' => false,
                 'render_optional_text' => false,
             ])
+
         ;
     }
 

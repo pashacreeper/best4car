@@ -41,9 +41,6 @@
                               <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                         </div>
                     </div>
-
-
-
                     <div class="span8">
                         {% if deal.description is not empty %}
                             <h4>Описание акции</h4>
@@ -53,10 +50,8 @@
                         <p>Еще Траут показал, что рекламное сообщество порождает PR, полагаясь на инсайдерскую информацию. Молодежная аудитория продуцирует стратегический пресс-клиппинг, используя опыт предыдущих кампаний. Интеграция подсознательно порождает целевой трафик, используя опыт предыдущих кампаний</p>
                         <div style="height:60px; border:1px solid #000; background-color: #cccccc;"><span class="span4" style="font-weight:bold; font-size:16px;">Контакты</span><p class="span8" style="fon-size:10px;">Мария Кожевникова
     <br /><span style="font-size: 16px;">+7 495 788-62-61</span></p></div>
-
                     </div>
                     <div class="span3">
-                        {#div id="map" style="width:260px; height:270px"></div>#}
                         <h4>Сроки проведения</h4>
                         <p>{{ deal.startDate|date("d.m.Y") }} – {{ deal.endDate|date("d.m.Y") }}</p>
                         <hr>
@@ -69,47 +64,17 @@
                         <h4 style="margin-bottom:0px;">Автомобили</h4> <span style="font-size:10px; margin-bottom:10px;">удовлетворяющие условиям акции</span>
                         <p>BMW старше 3х лет</p>
                         <hr>
-
-
                     </div>
-                    {#<div class="span3">
-                        <h3>Другие акции</h3>
-                        {% for d in deal.company.deals %}
-                            <div>
-                                <a href="{{ path('content_deal_show', {'id': d.id }) }}">
-                        {% if deal.imageName is not empty %}
-                                    <img src="/../{{ storage_path }}/deal_image/{{ d.imageName }}" class="img-polaroid" style="width: 260px; height: 80px;">
-                        {% else %}
-                                    <img src="holder.js/260x80/text:Фото" class="img-polaroid">
-                        {% endif %}
-                                </a>
-                                <p>{{ d.name }}</p>
-                                <p>{{ d.company }}</p>
-                                <p>с {{ d.startTime|date("H:m") }} до {{ d.endTime|date("H:m") }}</p>
-                            </div>
-                        {% endfor %}
-                        {% for i in 1..3 %}
-                        {% endfor %}
-                    </div>#}
                 </div>
             </div>
             <div class="span4">
-                {% if app.user %}
-                <a href="#" class="btn btn-large" style="width:200px;">Я пойду <span class="pull-right">245</span></a>
-                <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
-                {% else %}
                 <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Я пойду <span class="pull-right">245</span></a>
-                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Оставить отзыв</a>
-                {% endif %}
+                <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
                 <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
-
             </div>
         </div>
-
     </div>
     {# end of deal info #}
-
-
     {# Tab feedbacks #}
     <div class="tab-pane" id="feedbacks">
         <div class="row-fluid">
@@ -130,12 +95,8 @@
                 <p class="span12" style="font-size:12px;">
                     Показано <b>{{ deal.feedbacks|length }}</b> отзывов
                 </p>
-
                 <!-- Feedback -->
-
-
                 {% for item in deal.feedbacks %}
-
                     <div class="feedback span12" style="margin-bottom:15px;">
                         <div class="row-fluid">
                             <div class="span2">
@@ -144,7 +105,6 @@
                             <div class="span10" style="height:70px;">
                                 <p style="margin-bottom:0;">{{ item.user.username }}</p>
                                 <a href="#"><strong>{{ item.user.firstName }} {{ item.user.lastName }}</strong></a>
-
                                 <p style="margin-bottom:0;"> {{ item.user.ratingGroup.name }}</p>
                             </div>
                             <span class="span2" style="margin-left:0;">556</span>
@@ -154,23 +114,19 @@
                                 <i class="icon-b4c-star"></i>
                                 <i class="icon-b4c-star-half"></i>
                                 <i class="icon-b4c-star-empty"></i>
-
                                 <span class="pull-right">
                                     <!-- hardcoded pluses and minuses -->
                                     <i class="icon-b4c-thumbs-up"></i> {{ item.minuses }} 14
                                     <i class="icon-b4c-thumbs-down"></i> {{ item.pluses }} 53
                                 </span>
-                                <p>{{ item.content }}</p>
+                                <p>{{ item.content|raw }}</p>
                             </div>
-
-                        {% if item.feedbackAnswer %}
+{% if item.feedbackAnswer %}
                         <!-- Feedback answer -->
-
                         <div class="span9 offset2" style="border: 1px solid #000; background:#ccc;">
                             <div class="row-fluid">
                                 <p class="span7">
-                                    {{ item.feedbackAnswer.answer }}
-
+                                    {{ item.feedbackAnswer.answer|raw }}
                                 </p>
                                 <div class="span4">
                                     <img src="" class="span3" style="background:#000; width:40px; height:40px;" />
@@ -185,47 +141,20 @@
                                 </div>
                             </div>
                         </div>
-
-                        {% endif %}
-
+{% endif %}
                         <!-- /EOF Feedback answer -->
-
-
                         </div>
                     </div>
                 {% endfor %}
-
                 <!-- /EOF Feedback -->
-
                 <center><a href="#" class="btn">Показать еще</a></center>
-
             </div>
             <div class="span4">
-                {% if app.user %}
-                <a href="{{ path("write_deal_feedback", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
-                {% else %}
-                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Оставить отзыв</a>
-                {% endif %}
-
+                <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
                 <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
             </div>
-        {#{% if deal.feedbacks|length > 0 %}
-            <div class="row">
-        {% for feedback in deal.feedbacks %}
-                <div class="span4">
-                    <p>{{ feedback.content }}</p>
-                    <p>{{ feedback.user }} (StreetRacker)</p>
-                </div>
-        {% endfor %}
-            </div>
-        {% else %}
-            <div class="row">
-                <h3>Отзывы о акции отсутствуют. Оставте свой отзыв первым!</h3>
-            </div>
-        {% endif %}#}
         </div>
     </div>
-
     {# end of feedbacks #}
 </div>
 {% endblock %}
@@ -234,14 +163,11 @@
 {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript">
-
         // Tabs
         $('#FeedbackTabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         })
-        // /tabs
-
         ymaps.ready(init);
         function init () {
             var gps = '{{ deal.company.gps|raw }}';

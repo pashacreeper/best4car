@@ -35,6 +35,8 @@ class Company
      */
     private $name;
 
+
+
     /**
      * @var string
      *
@@ -105,7 +107,6 @@ class Company
     /**
      * @var array
      *
-     * @Assert\NotBlank()
      * @ORM\Column(name="working_time", type="array")
      */
     private $workingTime;
@@ -113,7 +114,6 @@ class Company
     /**
      * @var array
      *
-     * @Assert\NotBlank()
      * @ORM\Column(name="phones", type="array")
      */
     private $phones;
@@ -342,6 +342,7 @@ class Company
     {
         return $this->name;
     }
+
 
     /**
      * Set slogan

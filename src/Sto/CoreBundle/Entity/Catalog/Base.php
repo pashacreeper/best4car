@@ -205,6 +205,10 @@ class Base
 
     public function __toString()
     {
-        return $this->name;
+        if ($this->getParent()) {
+            return $this->getParent() . " - " . $this->getName();
+        } else {
+            return $this->getName;
+        }
     }
 }

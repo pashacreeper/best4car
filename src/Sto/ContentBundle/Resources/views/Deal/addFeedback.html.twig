@@ -1,0 +1,50 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title deal.name %}
+
+{% block head_style %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block head_script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <h3>Ваш отзыв о компании</h3>
+    <p>{{ deal.name }}</p>
+</div>
+<div class="row-fluid">
+    <div class="span8">
+        <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            <div class="row-fluid">
+                <div class="well">
+                    <div class="span12">
+                        {{ form_row(form.feedbackRating) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            <div class="form-actions">
+                <input type="submit" class="btn btn-primary" value="Отправить отзыв"/>
+            </div>
+        </form>
+    </div>
+    <div class="span4">
+        <div class="thumbnail">
+            <img src="http://placehold.it/240x400">
+        </div>
+    </div>
+</div>
+{% endblock %}

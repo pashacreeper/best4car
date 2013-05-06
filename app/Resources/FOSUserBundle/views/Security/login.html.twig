@@ -54,6 +54,13 @@
                 {% if error %}
                 {{ flash('error', 'Incorrect Username or Password!', true, true) }}
                 {% endif %}
+                {% if app.session.started %}
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="alert alert-success">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                 <input type="text" class="input-block-level" placeholder="E-mail" id="username" name="_username" value="{{ last_username }}" />
                 <input type="password" class="input-block-level" placeholder="Password" id="password" name="_password" />

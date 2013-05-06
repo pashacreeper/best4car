@@ -26,6 +26,7 @@
         "friendsofsymfony/rest-bundle": "0.12.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
 
+
         "nelmio/api-doc-bundle": "2.2.0",
 
         "knplabs/knp-menu": "2.0.*@dev",
@@ -38,12 +39,13 @@
 
         "vich/uploader-bundle": "dev-master",
         "liip/imagine-bundle": "dev-master",
-        
+
         "friendsofsymfony/jsrouting-bundle": "1.1.5",
 
         "elao/web-profiler-extra-bundle": "2.3.*",
 
-        "genemu/form-bundle": "2.2.*@dev"
+        "genemu/form-bundle": "2.2.*@dev",
+        "gregwar/captcha-bundle": "dev-master"
     },
     "repositories": [
         {

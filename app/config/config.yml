@@ -106,6 +106,9 @@ fos_user:
     profile:
         form:
             type: sto_adminbundle_userprofiletype
+    registration:
+        form:
+            type: sto_contentbundle_registration
 
 mopa_bootstrap:
     form:
@@ -241,3 +244,7 @@ genemu_form:
         enabled: true
         theme:   modern
 
+gregwar_captcha:
+    width:  200
+    height: 50
+    length: 5

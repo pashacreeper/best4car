@@ -193,6 +193,16 @@ class Deal
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
+     * @ORM\JoinTable(name="deals_auto",
+     *      joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
+     * )
+     */
+    protected $auto;
+
+
     public function __construct()
     {
         $this->startDate = new \DateTime('now');
@@ -672,6 +682,18 @@ class Deal
         if ($image3 instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
+
+        return $this;
+    }
+
+    public function getAuto()
+    {
+        return $this->auto;
+    }
+
+    public function setAuto($auto)
+    {
+        $this->auto = $auto;
 
         return $this;
     }

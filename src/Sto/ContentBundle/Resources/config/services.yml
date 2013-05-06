@@ -33,3 +33,9 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: main }
+
+    sto_content.registration.form.type:
+        class: Sto\ContentBundle\Form\RegistrationType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: sto_contentbundle_registration }

@@ -129,4 +129,9 @@ class Modification extends Base
     {
         return $this->closingOfProduction;
     }
+
+    public function __toString()
+    {
+        return $this->getParent() . " - " . $this->getName();
+    }
 }

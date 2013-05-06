@@ -84,6 +84,10 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             $menu->addChild('Регистрация', [
                 'route' => 'fos_user_registration_register',
                 'extras' => [],
+                'attributes' => [
+                    'id' => 'registration-link',
+                    'data-modal' => 'registrationModal',
+                ],
             ]);
         }
 

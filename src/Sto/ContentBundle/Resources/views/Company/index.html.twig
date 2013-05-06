@@ -176,95 +176,7 @@
                 zoom: 11,
                 behaviors: ["default", "scrollZoom"]
             });
-            myCollection = new ymaps.GeoObjectCollection();
-            var companies = {{ companies|raw }};
-            for (var key in companies) {
-                var val = companies[key];
-
-                if (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined)
-                    var iconMap = "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap;
-                else
-                    var iconMap = "{{ asset('bundles/stocontent/images/company.png') }}";
-
-                var vid = val.id;
-                myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
-                    id: val.id,
-                    name: val.name,
-                    address: val.address,
-                    phone: val.phones,
-                    web: val.web,
-                    logo: val.logoName,
-                    rating: val.rating,
-                }, {
-                    iconImageHref: iconMap, // картинка иконки
-                    iconImageSize: [40, 28],
-                });
-                myCollection.add(myPlacemark2);
-            } // for
-
-            myCollection.each(function(ob){
-                ob.events.add('click', function(){
-                    (function(obPlacemark){
-
-                        var cid = obPlacemark.properties.get('id');
-                        var listObj = $("#list-company" + cid);
-
-                        if (listObj.length && listObj.is(':visible')){
-                            obPlacemark.balloon.open();// WHY Open ????? But it works
-                            $('.listItemCompany').removeClass('listActive');
-                            listObj.addClass('listActive');
-                            $('#home_compalies').scrollTo(listObj);
-                        }
-                    })(ob);
-                });
-            });
-
-            var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
-                '<div class="row-fluid">' +
-                    '<div class="span2">' +
-                        '<img src="/../{{ storage_path }}/company_logo/$[properties.logo]" class="img-polaroid">' +
-                    '</div>' +
-                    '<div class="span10">' +
-                        '<div class="row-fluid">' +
-                            '<div class="span8">' +
-                                '<h4><a href="../company/$[properties.id]">$[properties.name]</a></h4>' +
-                                '<address style="0">$[properties.address]</address>' +
-                            '</div>' +
-                            '<div class="span4">' +
-                                '<h4><i class="icon-b4c-star"></i> $[properties.rating]</h4>' +
-                                '<p>Очень хорошо</p>' +
-                            '</div>' +
-                        '</div>' +
-                        '<hr style="margin: 5px 0;"/>' +
-                        '<div class="row-fluid">' +
-                            '<div class="span6">' +
-                                '<p><img src="http://placehold.it/30x30"> СТО</p>' +
-                                '<p><img src="http://placehold.it/30x30"> Мойка</p>' +
-                                '<p><img src="http://placehold.it/30x30"> Автосалон</p>' +
-                                '<p><img src="http://placehold.it/30x30"> Страхование</p>' +
-                                '<hr />' +
-                                '<img src="http://placehold.it/30x30"> ' +
-                                '<img src="http://placehold.it/30x30"> ' +
-                                '<img src="http://placehold.it/30x30"> ' +
-                            '</div>' +
-                            '<div class="span6">' +
-                                '<h5>Телефон</h5>' +
-                                '<p>$[properties.phone.0.phone]</p>' +
-                                '<h5>Время работы</h5>' +
-                                '<p>09:00-21:00 (пн-пт)</p>' +
-                                '<p>09:00-20:00 (сб-вс)</p>' +
-                                '<h5>Сайт</h5>' +
-                                '<a href="$[properties.web]">$[properties.web]</a>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>'
-            );
-            ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
-            myCollection.options.set({
-                balloonContentBodyLayout:'my#superlayout',
-                balloonMinWidth: 600
-            });
+            var myCollection = new ymaps.GeoObjectCollection();
 
             var buttonMyPlace = new GeolocationButton({
                 data : {
@@ -281,7 +193,151 @@
             });
 
             myMap.controls.add(buttonMyPlace, { top : 180, left : 20 });
-            myMap.geoObjects.add(myCollection);
+
+            addPlacemarks({{ companies|raw }});// call function
+
+            myMap.events.add('actionend', function (evt) {
+                filterDataByZoom(myMap.getZoom());
+            });
+
+            function addPlacemarks(companies){
+                for (var key in companies) {
+                    var val = companies[key];
+
+                    if (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined)
+                        var iconMap = "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap;
+                    else
+                        var iconMap = "{{ asset('bundles/stocontent/images/company.png') }}";
+
+                    var vid = val.id;
+                    myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
+                        id: val.id,
+                        name: val.name,
+                        address: val.address,
+                        phone: val.phones,
+                        web: val.web,
+                        logo: val.logoName,
+                        rating: val.rating,
+                    }, {
+                        iconImageHref: iconMap, // картинка иконки
+                        iconImageSize: [40, 28],
+                    });
+                    myCollection.add(myPlacemark2);
+                } // for
+
+                myCollection.each(function(ob){
+                    ob.events.add('click', function(){
+                        (function(obPlacemark){
+
+                            var cid = obPlacemark.properties.get('id');
+                            var listObj = $("#list-company" + cid);
+
+                            if (listObj.length && listObj.is(':visible')){
+                                obPlacemark.balloon.open();// WHY Open ????? But it works
+                                $('.listItemCompany').removeClass('listActive');
+                                listObj.addClass('listActive');
+                                $('#home_compalies').scrollTo(listObj);
+                            }
+                        })(ob);
+                    });
+                });
+
+                var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div class="row-fluid">' +
+                        '<div class="span2">' +
+                            '<img src="/../{{ storage_path }}/company_logo/$[properties.logo]" class="img-polaroid">' +
+                        '</div>' +
+                        '<div class="span10">' +
+                            '<div class="row-fluid">' +
+                                '<div class="span8">' +
+                                    '<h4><a href="../company/$[properties.id]">$[properties.name]</a></h4>' +
+                                    '<address style="0">$[properties.address]</address>' +
+                                '</div>' +
+                                '<div class="span4">' +
+                                    '<h4><i class="icon-b4c-star"></i> $[properties.rating]</h4>' +
+                                    '<p>Очень хорошо</p>' +
+                                '</div>' +
+                            '</div>' +
+                            '<hr style="margin: 5px 0;"/>' +
+                            '<div class="row-fluid">' +
+                                '<div class="span6">' +
+                                    '<p><img src="http://placehold.it/30x30"> СТО</p>' +
+                                    '<p><img src="http://placehold.it/30x30"> Мойка</p>' +
+                                    '<p><img src="http://placehold.it/30x30"> Автосалон</p>' +
+                                    '<p><img src="http://placehold.it/30x30"> Страхование</p>' +
+                                    '<hr />' +
+                                    '<img src="http://placehold.it/30x30"> ' +
+                                    '<img src="http://placehold.it/30x30"> ' +
+                                    '<img src="http://placehold.it/30x30"> ' +
+                                '</div>' +
+                                '<div class="span6">' +
+                                    '<h5>Телефон</h5>' +
+                                    '<p>$[properties.phone.0.phone]</p>' +
+                                    '<h5>Время работы</h5>' +
+                                    '<p>09:00-21:00 (пн-пт)</p>' +
+                                    '<p>09:00-20:00 (сб-вс)</p>' +
+                                    '<h5>Сайт</h5>' +
+                                    '<a href="$[properties.web]">$[properties.web]</a>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>'
+                );
+                ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
+                myCollection.options.set({
+                    balloonContentBodyLayout:'my#superlayout',
+                    balloonMinWidth: 600
+                });
+                myMap.geoObjects.add(myCollection);
+            }
+
+
+            function filterDataByZoom(indexZoom) {
+
+                myMap.geoObjects.each(function (geoCollection) {
+                    geoCollection.each(function (item) {
+                            geoCollection.remove(item);
+                    });
+                });
+                addPlacemarks({{ companies|raw }});// call function
+
+                myMap.geoObjects.each(function (geoCollection) {
+                    geoCollection.each(function (item) {
+                        var rat =  parseFloat( item.properties.get('rating') );
+                        if (!showByRate( indexZoom, rat)) {
+                            geoCollection.remove(item);
+                        }
+                    });
+                });
+
+                // 01 apply filter 2 map
+                $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
+                    var id = element.id.replace('list-company', '');
+                    var el = $(element);
+                    var rating = parseFloat( el.find('div.span3 span.rating').text() );
+                    if (showByRate( indexZoom, rating) ) {
+                        el.show();
+                    } else {
+                        el.hide();
+                    }
+                });
+
+            } // function
+
+            function showByRate(pZoom, pRating ){
+                if (pZoom < 11 && pRating > 9)
+                    return true;
+                if (pZoom == 11 && pRating > 9)
+                    return true;
+                if (pZoom == 12 && pRating > 7)
+                    return true;
+                if (pZoom == 13 && pRating > 5)
+                    return true;
+                if (pZoom == 14 && pRating > 3)
+                    return true;
+                return false;
+            }
+
         });
     </script>
 {% endblock %}

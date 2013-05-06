@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sto\CoreBundle\Entity\Deal;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sto\CoreBundle\Entity\Deal,
+    Sto\CoreBundle\Entity\FeedbackDeal,
+    Sto\ContentBundle\Form\FeedbackDealType;
 
 class DealController extends Controller
 {
@@ -101,15 +104,54 @@ class DealController extends Controller
     }
 
     /**
-     * @Route("/deal/{id}/write-feedback", name="write_deal_feedback")
+     * @Route("/deal/{id}/feedback/add", name="content_deal_feedbacks_add")
      * @Method("GET")
-     * @Template()
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
+     * @Template()
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
-    public function writeFeedbackAction(Deal $deal)
+    public function addFeedbackAction(Deal $deal)
     {
+        $form = $this->createForm(new FeedbackDealType, (new FeedbackDeal)->setDeal($deal));
+
         return [
-            'deal' => $deal,
+            'form' => $form->createView(),
+            'deal' => $deal
         ];
+    }
+
+    /**
+     * @Route("/deal/{id}/feedback/create", name="content_deal_feedbacks_create")
+     * @Method("POST")
+     * @ParamConverter("deal", class="StoCoreBundle:Deal")
+     * @Template("StoContentBundle:Deal:addFeedback.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function createFeedbackAction(Request $request, Deal $deal)
+    {
+        $entity = new FeedbackDeal;
+        $form = $this->createForm(new FeedbackDealType(), $entity);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity->setUser($this->getUser())
+                ->setVisitDate(new \DateTime('now'))
+                ->setDeal($deal)
+                ->setPluses(0)
+                ->setMinuses(0)
+                ->setPublished(false)
+                ->setIp($request->getClientIp())
+            ;
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_deal_show', array('id' => $deal->getId())));
+        }
+
+        return array(
+            'form'   => $form->createView(),
+            'deal' => $deal
+        );
     }
 }

@@ -42,6 +42,14 @@ class DealType extends AbstractType
                     'class' => 'select2'
                 ]
             ])
+            ->add('auto', null, [
+                'label' => 'Автомабили',
+                'required' => false,
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
             ->add('image', 'file', [
                 'label' => 'Image',
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',

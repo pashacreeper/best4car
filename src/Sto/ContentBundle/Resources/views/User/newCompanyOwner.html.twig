@@ -1,0 +1,95 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}регистрация компании{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+    a.disabled {
+        color: gray;
+    }
+</style>
+<ul class="nav nav-tabs">
+    <li><a href="#personal-data" data-toggle="tab">Личные данные</a></li>
+    <li><a href="#" class="disabled" data-toggle="tab">Общие сведения</a></li>
+    <li><a href="#" class="disabled" data-toggle="tab">Профиль деятельности</a></li>
+    <li><a href="#" class="disabled" data-toggle="tab">Контактные данные</a></li>
+    <li><a href="#" class="disabled" data-toggle="tab">Фотографии</a></li>
+</ul>
+<div class="tab-content">
+    {# Personal data #}
+    <div class="tab-pane active" id="personal-data">
+        <div class="row-fluid">
+            <div class="span12">
+                <p>Для регистрации компании необходимо вначале зарегистрировать личный профиль. Вы можете создать новый или войти под существующим.</p>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <h4>У меня нет личного профиля на Best4Car <br /> и я хочу создать новый</h4>
+                <form name="register-form" action="{{ path('registration_company_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.plainPassword) }}
+                    {{ form_row(form.captcha) }}
+
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn" value="Зарегистрироваться" />
+                </form>
+            </div>
+            <div class="span4">
+                {# Loggin #}
+                <h4>У меня уже есть профиль</h4>
+                <p>Пожалуйста авторизируйтесь</p>
+                <form action="{{ path("content_register_company_with_owner") }}" method="post" class="form-signin">
+                    {% if errorFlag is defined and errorFlag %}
+                        {{ flash('error', errors, true, true) }}
+                    {% endif %}
+                    {#<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />#}
+                    <input type="text" class="input-block-level" placeholder="E-mail" id="username" name="_username" value="{% if last_username is defined %}{{last_username}}{% endif %}" />
+                    <input type="password" class="input-block-level" placeholder="Password" id="password" name="_password" />
+                    <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Sign in" />
+                </form>
+                {#% render controller("FOSUserBundle:Security:login") %#}
+
+
+                {# eof loggin #}
+
+
+                <hr>
+                {# loggin with sicial networks #}
+                <h4>Войти, используя соцсети</h4>
+
+                {# eof loggin social #}
+            </div>
+        </div>
+
+    </div>
+    {# EOF Personal data #}
+
+
+</div>
+
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+
+{% javascripts
+    'bundles/stocore/js/select2.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript">
+
+    $('a.disabled').click(function(){
+        return false;
+    });
+</script>
+{% endblock %}
