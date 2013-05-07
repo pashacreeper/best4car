@@ -46,6 +46,10 @@ class DealController extends Controller
 
         $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\Deal')
             ->createQueryBuilder('dictionary')
+            ->select('dictionary, deals')
+            ->join('dictionary.deals', 'deals')
+            ->where('deals.endDate > :endDate')
+            ->setParameter('endDate', new \DateTime('now'))
             ->orderBy('dictionary.position', 'ASC')
             ->getQuery()
             ->getResult()
@@ -53,7 +57,8 @@ class DealController extends Controller
 
         return [
             'deals' => $deals,
-            'dictionaries' => $dealsTypes
+            'dictionaries' => $dealsTypes,
+            'countFeededDeals' => count($countFeededDeals)
         ];
     }
 
@@ -72,8 +77,18 @@ class DealController extends Controller
         ;
         if ($request->get('deal_type')) {
             $deal_type = $request->get('deal_type');
-            $query->andWhere('deal.typeId = :type')
-                ->setParameter('type', $request->get('deal_type'));
+            if ($deal_type>0) {
+                $query->andWhere('deal.typeId = :type')
+                    ->setParameter('type', $request->get('deal_type'));
+            } elseif ($deal_type == -2) {
+                $query->join('deal.feedbacks', 'f')
+                ->andWhere('f.content is not null')
+                ;
+            }
+            /*elseif ($deal_type == -1) {
+                $query->andWhere('deal.typeId = :type')
+                    ->setParameter('type', $request->get('deal_type'));
+            }*/
         } else
             $deal_type = 0;
         $query->getQuery();

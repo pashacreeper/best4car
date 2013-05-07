@@ -30,6 +30,15 @@
                 <span>{{ dealsType.deals|length }}</span>
             </li>
 {% endfor %}
+            <li></li>
+            <li>
+                <a href="#" data-deal-type="-1">Популярные</a>
+                <span>21</span>
+            </li>
+            <li>
+                <a href="#" data-deal-type="-2">С отзывами</a>
+                <span>{{ countFeededDeals }}</span>
+            </li>
         </ul>
     </aside>
 {% endblock %}

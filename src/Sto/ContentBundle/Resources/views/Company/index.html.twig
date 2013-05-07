@@ -59,18 +59,32 @@
 
 {% block head_style %}
     {{ parent() }}
+    <link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet"  />
     <link href="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.css') }}" type="text/css" rel="stylesheet"  />
 {% endblock %}
 
 {% block foot_script %}
     {{ parent() }}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ asset('bundles/stocore/js/select2.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript" src="{{asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('bundles/stocore/js/geolocation-button.js')}}"></script>
     <script type="text/javascript">
-        $("#search-slider").slider({min:0, max:10});
+        $(".select2").select2();
+
+        $( "#search-slider" ).slider({
+            range: "max",
+            min: 1,
+            max: 10,
+            value: 5,
+            slide: function( event, ui ) {
+                $( "input.rating" ).val( ui.value );
+            }
+        });
+        $("input.rating").val($( "#search-slider").slider("value"));
+
         $('.show-list').on("click", function() {
             $.ajax({
                 type: 'POST',
@@ -88,30 +102,46 @@
         });
 
         $('.show-search').on("click", function () {
-            $.ajax({
-                dataType: "json",
-                url :  Routing.generate('api_dictionary_company_types'),
-                success: function (res) {
-                    $.each(res, function (index, type) {
-                        $('.company-type-search').append('<option value="'+type.id+'">'+type.name+'</option>');
-                    });
-                },
-                error: function(e){
-                    console.log(e.message);
-                }
-            });
+            if ($('select.company-type-search > option').length < 2) {
+                $.ajax({
+                    dataType: "json",
+                    url :  Routing.generate('api_dictionary_company_types'),
+                    success: function (res) {
+                        $.each(res, function (index, type) {
+                            $('select.company-type-search').append('<option value="'+type.id+'">'+type.name+'</option>');
+                        });
+                    },
+                    error: function (e){
+                        console.log(e.message);
+                    }
+                });
+            };
+            if ($('select.company-mark-search > option').length < 2) {
+                $.ajax({
+                    dataType: "json",
+                    url :  Routing.generate('api_auto_catalog_get_marks'),
+                    success: function (res) {
+                        $.each(res, function (index, mark) {
+                            $('select.company-mark-search').append('<option value="'+mark.id+'">'+mark.name+'</option>');
+                        });
+                    },
+                    error: function(e){
+                        console.log(e.message);
+                    }
+                });
+            }
             $('#home_search').toggleClass("hide");
         });
 
-        $('.company-type-search').change(function () {
+        $('select.company-type-search').change(function () {
             $.ajax({
                 dataType: "json",
-                url: Routing.generate('api_dictionary_sub_company_types', { id: $('.company-type-search').val() }),
+                url: Routing.generate('api_dictionary_sub_company_types', { id: $('select.company-type-search').val() }),
                 success: function (res) {
-                    $('.company-subtype-search').empty();
-                    $('.company-subtype-search').append('<option value="0">Все</option>');
+                    $('select.company-subtype-search').empty();
+                    $('select.company-subtype-search').append('<option value="0">Все</option>');
                     $.each(res, function (index, subtype) {
-                        $('.company-subtype-search').append('<option value="'+subtype.id+'">'+subtype.name+'</option>');
+                        $('select.company-subtype-search').append('<option value="'+subtype.id+'">'+subtype.name+'</option>');
                     });
                 },
                 error: function(e){
@@ -167,6 +197,8 @@
                         web: val.web,
                         logo: val.logoName,
                         rating: val.rating,
+                        specialization_html: val.specialization_template,
+                        workingTime_html: val.workingTime_template
                     }, {
                         iconImageHref: iconMap, // картинка иконки
                         iconImageSize: [40, 28],
@@ -203,17 +235,14 @@
                                     '<address style="0">$[properties.address]</address>' +
                                 '</div>' +
                                 '<div class="span4">' +
-                                    '<h4><i class="icon-b4c-star"></i> $[properties.rating]</h4>' +
+                                    '<h4><i class="icon-b4c-star"></i>$[properties.rating]</h4>' +
                                     '<p>Очень хорошо</p>' +
                                 '</div>' +
                             '</div>' +
                             '<hr style="margin: 5px 0;"/>' +
                             '<div class="row-fluid">' +
                                 '<div class="span6">' +
-                                    '<p><img src="http://placehold.it/30x30"> СТО</p>' +
-                                    '<p><img src="http://placehold.it/30x30"> Мойка</p>' +
-                                    '<p><img src="http://placehold.it/30x30"> Автосалон</p>' +
-                                    '<p><img src="http://placehold.it/30x30"> Страхование</p>' +
+                                    '$[properties.specialization_html]' +
                                     '<hr />' +
                                     '<img src="http://placehold.it/30x30"> ' +
                                     '<img src="http://placehold.it/30x30"> ' +
@@ -223,8 +252,7 @@
                                     '<h5>Телефон</h5>' +
                                     '<p>$[properties.phone.0.phone]</p>' +
                                     '<h5>Время работы</h5>' +
-                                    '<p>09:00-21:00 (пн-пт)</p>' +
-                                    '<p>09:00-20:00 (сб-вс)</p>' +
+                                    '$[properties.workingTime_html]' +
                                     '<h5>Сайт</h5>' +
                                     '<a href="$[properties.web]">$[properties.web]</a>' +
                                 '</div>' +

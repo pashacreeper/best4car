@@ -58,6 +58,17 @@ class CompanyController extends Controller
             ->getArrayResult()
         ;
 
+        foreach ($companies as $key => $value) {
+            $rs = $this->render('StoContentBundle:Company:specialization_list.html.twig', [
+                    'specializations' => $value['specialization']
+                ]);
+            $companies[$key]['specialization_template'] =$rs->getContent();
+
+            $companies[$key]['workingTime_template'] = $this->render('StoContentBundle:Company:workingTime_list.html.twig', [
+                    'workingTime' => $value['workingTime']
+                ])->getContent();
+        }
+
         return [
             'companies' => json_encode($companies),
             'cities' => $cities,

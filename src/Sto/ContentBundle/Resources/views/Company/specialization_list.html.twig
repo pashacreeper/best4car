@@ -1,0 +1,13 @@
+{% if specializations %}
+    {% for item in specializations %}
+        <p>
+            {% if item.iconNameSmall %}
+                <img src="{{ vich_uploader_asset(item,'iconSmall') }}" value="no-image">
+            {% else %}
+                <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:30px;">
+
+            {% endif %}
+            {{ item.name }}
+        </p>
+    {% endfor %}
+{% endif %}
