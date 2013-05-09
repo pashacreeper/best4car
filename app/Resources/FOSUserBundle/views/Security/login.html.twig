@@ -56,7 +56,7 @@
     <div class="row-fluid" style="margin-top: 100px;">
         <div class="span6 offset3 well">
             <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
-                <legend>Please Sign In</legend>
+                <legend>Вход</legend>
                 {% if error %}
                 {{ flash('error', 'Incorrect Username or Password!', true, true) }}
                 {% endif %}
@@ -68,14 +68,12 @@
                     {% endfor %}
                 {% endif %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                <input type="text" class="input-block-level" placeholder="E-mail" id="username" name="_username" value="{{ last_username }}" />
-                <input type="password" class="input-block-level" placeholder="Password" id="password" name="_password" />
-                <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Sign in" />
+                <input type="text" class="input-block-level" placeholder="Логин" id="username" name="_username" value="{{ last_username }}" />
+                <input type="password" class="input-block-level" placeholder="Пароль" id="password" name="_password" />
+                <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Войти" />
                 <br />
                 <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Sign in with Vkontakte" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-4x"></i></a>
             </form>
-
-
         </div>
     </div>
 {% endblock fos_user_content %}

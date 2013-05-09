@@ -20,7 +20,6 @@
                     <i class="icon-b4c-star-empty"></i>
                 </div>
                 <div class="span4">
-                    {#p>Цена: <img src="http://placehold.it/25x25"></p>#}
                 </div>
                 <div class="span4">
                     <p class="pull-right">
@@ -30,7 +29,7 @@
                 </div>
             </div>
             <div class="row-fluid">
-                <p>{{ feedback.content }}</p>
+                <p>{{ feedback.content|raw }}</p>
                 <a href="#" class="pull-right">Пожаловаться</a>
             </div>
         </blockquote>
@@ -39,7 +38,7 @@
             <blockquote class="well">
                 <div class="row-fluid">
                     <div class="span7">
-                        <p>{{ feedback.feedbackAnswer.answer }}</p>
+                        <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
                     </div>
                     <div class="span5">
                         <div class="row-fluid">
