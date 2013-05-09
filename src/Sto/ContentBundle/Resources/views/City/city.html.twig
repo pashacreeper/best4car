@@ -6,7 +6,6 @@
         <h3 id="myModalLabel">Ваш город</h3>
     </div>
     <div class="modal-body">
-        <!-- Vertical tabs -->
         <div class="tabbable tabs-left">
             <ul class="nav nav-tabs">
                 <li><a href="#tab1" data-toggle="tab">Loading....</a></li>
@@ -17,7 +16,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -25,96 +23,75 @@
 </div>
 <!-- EOF Modal -->
 
-
 <script type="text/javascript">
-// cities list
     $(document).ready(function(){
         $.ajax({
-                type: 'POST',
-                url: "{{ path('get_user_city') }}",
-                success: function(res) {
-                    $('#choice-city a').text(res.user_city);
-                }
+            type: 'POST',
+            url: "{{ path('get_user_city') }}",
+            success: function(res) {
+                $('#choice-city a').text(res.user_city);
+            }
         });
+
         $('#choice-city > a').on("click", function() {
             $('#modalChooseCity').modal('toggle');
+            $.getJSON(Routing.generate('api_country_all'))
+            .done(function (countries) {
+                var root = $('#modalChooseCity .tabbable ul');
+                var tab_root = $('#modalChooseCity .tabbable .tab-content');
+                root.empty(); // clear on each call - @TODO instead of clear - check for empty
+                tab_root.empty();
+                var frst_id = null;
+                $.each(countries, function (index, country) {
+                    if (index == 0)
+                        frst_id = country.id;
+                    root.append('<li><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '" data-toggle="tab">' + country.name  + '</a></li>' );
+                    tab_root.append( '<div class="tab-pane" id="country-' + country.id  + '">Loading...</div>' );
+                });
 
-            $.ajax({
-                type: 'GET',
-                url: "{{ path('api_country_all') }}",
+                $('#modalChooseCity .tabbable ul li > a').on("click", function() {
+                    var cid = this.id.split("-").pop();
+                    $.getJSON(Routing.generate('api_city_all_by_country', { id: cid }))
+                    .done(function (json) {
+                        var coun_area = $('#country-' + cid);
+                        coun_area.empty();
 
-                success: function(res) {
-                    var root = $('#modalChooseCity .tabbable ul');
-                    var tab_root = $('#modalChooseCity .tabbable .tab-content');
-                    root.empty(); // clear on each call - @TODO instead of clear - check for empty
-                    tab_root.empty();
-                    res = eval(res);
-                    console.log(res);
+                        $.each(json, function (index, city) {
+                            var img_src = (!city.image) ? "{{ asset('bundles/stocore/images/notimage.png') }}" : "/../{{ storage_path }}/company_icon/" + city.image;
 
-                    var frst_id = null;
-                    $.each(res, function (index, country) {
-                        if (index == 0)
-                            frst_id = country.id;
-                        root.append('<li><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '" data-toggle="tab">' + country.name  + '</a></li>' );
-                        tab_root.append( '<div class="tab-pane" id="country-' + country.id  + '">Loading...</div>' );
-                    });
-
-                    // add Onclick on Country
-                    $('#modalChooseCity .tabbable ul li > a').on("click", function() {
-                        var cid = this.id.split("-").pop();
-                        $.ajax({
-                            type: 'GET',
-                            url: Routing.generate('api_city_all_by_country', { id: cid }),
-                            success: function(res) {
-                                res = eval(res);
-                                var coun_area = $('#country-' + cid);
-                                coun_area.empty();
-
-                                $.each(res, function (index, city) {
-                                    var img_src = null;
-                                    if ( !city.image ) {
-                                        img_src = "{{ asset('bundles/stocore/images/notimage.png') }}";
-                                    } else {
-                                        img_src = "/../{{ storage_path }}/company_icon/" + img_src;
-                                    }
-                                    coun_area.append(
-                                        '<p>'+
-                                        '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +
-                                        '<a href="#city-' + city.id  + '" id="a-city-' + city.id  + '" class="city-link">' + city.name  + '</a></li></p>'
-                                        );
-                                });
-                            },
-                            error: function(e) {
-                                console.log(e.message);
-                            }
+                            coun_area.append(
+                                '<p>'+
+                                '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +
+                                '<a href="#city-' + city.id  + '" id="a-city-' + city.id  + '" class="city-link">' + city.name  + '</a></li></p>'
+                            );
                         });
+                    })
+                    .fail(function (e) {
+                        console.log(e.message);
                     });
+                });
 
-                    $('#a-country-' + frst_id).click();
-
-                },
-                error: function(e) {
-                    console.log(e.message);
-                }
+                $('#a-country-' + frst_id).click();
+            })
+            .fail(function (e) {
+                console.log(e.message);
             });
-
         });
+
         $('a.city-link').live('click',function(){
-            var route = "{{ url('city_ajax_save') }}?city="+$(this).html();
             $('#choice-city a').html($(this).html());
             $.ajax({
                 type: 'POST',
-
-                url: route,
+                url: "{{ url('city_ajax_save') }}?city="+$(this).html(),
                 data: 'city/'+ $(this).html(),
                 success: function(res) {
-                    console.log('result', res);
                     $('#modalChooseCity').modal('hide');
                 },
                 error: function(e){
                     console.log('error', e.message);
                 }
             });
+
             return false;
         });
     });

@@ -36,18 +36,6 @@
 {% block content %}
 <div id="map" style="width: 100%; height: 100%; margin: 0; padding: 0; min-height: 100%; margin-bottom: -60px;"></div>
 
-{# Выбор города #}
-{% if cities %}
-<div id="cities" style="display:none;">
-    <ul>
-    {% for city in cities %}
-        <li><a href="#">{{ city.name }}</a></li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-{# Конец выбора города #}
-
 {# Companies list #}
 {% include 'StoContentBundle::Company/_companiesList.html.twig' %}
 {# EOF Companies list #}
@@ -65,91 +53,14 @@
 
 {% block foot_script %}
     {{ parent() }}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ asset('bundles/stocore/js/select2.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-    <script type="text/javascript" src="{{asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('bundles/stocore/js/geolocation-button.js')}}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('bundles/stocore/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/stocore/js/geolocation-button.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/stocontent/js/script.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-        $(".select2").select2();
-
-        $( "#search-slider" ).slider({
-            range: "max",
-            min: 1,
-            max: 10,
-            value: 5,
-            slide: function( event, ui ) {
-                $( "input.rating" ).val( ui.value );
-            }
-        });
-        $("input.rating").val($( "#search-slider").slider("value"));
-
-        $('.show-list').on("click", function() {
-            $.ajax({
-                type: 'POST',
-                url: "{{ path('company_ajax_get_all') }}",
-                success: function(html) {
-                    var root = $('#home_compalies');
-                    root.empty();
-                    root.append(html);
-                },
-                error: function(e) {
-                    console.log(e.message);
-                }
-            });
-            $('#home_compalies').toggleClass("hide");
-        });
-
-        $('.show-search').on("click", function () {
-            if ($('select.company-type-search > option').length < 2) {
-                $.ajax({
-                    dataType: "json",
-                    url :  Routing.generate('api_dictionary_company_types'),
-                    success: function (res) {
-                        $.each(res, function (index, type) {
-                            $('select.company-type-search').append('<option value="'+type.id+'">'+type.name+'</option>');
-                        });
-                    },
-                    error: function (e){
-                        console.log(e.message);
-                    }
-                });
-            };
-            if ($('select.company-mark-search > option').length < 2) {
-                $.ajax({
-                    dataType: "json",
-                    url :  Routing.generate('api_auto_catalog_get_marks'),
-                    success: function (res) {
-                        $.each(res, function (index, mark) {
-                            $('select.company-mark-search').append('<option value="'+mark.id+'">'+mark.name+'</option>');
-                        });
-                    },
-                    error: function(e){
-                        console.log(e.message);
-                    }
-                });
-            }
-            $('#home_search').toggleClass("hide");
-        });
-
-        $('select.company-type-search').change(function () {
-            $.ajax({
-                dataType: "json",
-                url: Routing.generate('api_dictionary_sub_company_types', { id: $('select.company-type-search').val() }),
-                success: function (res) {
-                    $('select.company-subtype-search').empty();
-                    $('select.company-subtype-search').append('<option value="0">Все</option>');
-                    $.each(res, function (index, subtype) {
-                        $('select.company-subtype-search').append('<option value="'+subtype.id+'">'+subtype.name+'</option>');
-                    });
-                },
-                error: function(e){
-                    console.log(e.message);
-                }
-            });
-        });
-
         ymaps.ready(function (companies) {
             var myMap = new ymaps.Map("map", {
                 center: [59.95, 30.31],
@@ -157,7 +68,6 @@
                 behaviors: ["default", "scrollZoom"]
             });
             var myCollection = new ymaps.GeoObjectCollection();
-
             var buttonMyPlace = new GeolocationButton({
                 data : {
                     image : "{{ asset('bundles/stocontent/images/wifi.png') }}",
@@ -179,14 +89,37 @@
                 filterDataByZoom(myMap.getZoom());
             });
 
+            $('[data-serarch-form]').change(function () {
+                $.ajax({
+                   type: "POST",
+                   url: Routing.generate('api_auto_get_companies_with_filter'),
+                   data: $('#advanced-search-form').serialize(),
+                   dataType: 'json'
+                }).done(function (json) {
+                    myMap.geoObjects.each(function (geoCollection) {
+                        geoCollection.each(function (item) {
+                            geoCollection.remove(item);
+                        });
+                    });
+                    addPlacemarks(json);
+
+                    myMap.geoObjects.each(function (geoCollection) {
+                        geoCollection.each(function (item) {
+                            var rat =  parseFloat( item.properties.get('rating') );
+                            if (!showByRate( myMap.getZoom(), rat)) {
+                                geoCollection.remove(item);
+                            }
+                        });
+                    });
+
+                });
+            });
+
             function addPlacemarks(companies){
                 for (var key in companies) {
                     var val = companies[key];
 
-                    if (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined)
-                        var iconMap = "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap;
-                    else
-                        var iconMap = "{{ asset('bundles/stocontent/images/company.png') }}";
+                    var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
 
                     var vid = val.id;
                     myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
@@ -206,10 +139,9 @@
                     myCollection.add(myPlacemark2);
                 } // for
 
-                myCollection.each(function(ob){
+                myCollection.each(function (ob) {
                     ob.events.add('click', function(){
                         (function(obPlacemark){
-
                             var cid = obPlacemark.properties.get('id');
                             var listObj = $("#list-company" + cid);
 
@@ -243,10 +175,6 @@
                             '<div class="row-fluid">' +
                                 '<div class="span6">' +
                                     '$[properties.specialization_html]' +
-                                    '<hr />' +
-                                    '<img src="http://placehold.it/30x30"> ' +
-                                    '<img src="http://placehold.it/30x30"> ' +
-                                    '<img src="http://placehold.it/30x30"> ' +
                                 '</div>' +
                                 '<div class="span6">' +
                                     '<h5>Телефон</h5>' +
@@ -271,7 +199,7 @@
             function filterDataByZoom(indexZoom) {
                 myMap.geoObjects.each(function (geoCollection) {
                     geoCollection.each(function (item) {
-                            geoCollection.remove(item);
+                        geoCollection.remove(item);
                     });
                 });
                 addPlacemarks({{ companies|raw }});// call function
@@ -285,18 +213,17 @@
                     });
                 });
 
-                // 01 apply filter 2 map
                 $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
                     var id = element.id.replace('list-company', '');
                     var el = $(element);
-                    var rating = parseFloat( el.find('div.span3 span.rating').text() );
-                    if (showByRate( indexZoom, rating) ) {
+                    var rating = parseFloat(el.find('div.span3 span.rating').text());
+                    if (showByRate(indexZoom, rating)) {
                         el.show();
                     } else {
                         el.hide();
                     }
                 });
-            } // function
+            }
 
             function showByRate(pZoom, pRating ){
                 if (pZoom < 11 && pRating > 9)

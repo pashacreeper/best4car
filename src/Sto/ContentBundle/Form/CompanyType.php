@@ -17,7 +17,6 @@ class CompanyType extends AbstractType
             ->add('name', 'text', [
                 'label' => 'Сокращенное наименование'
             ])
-
             ->add('phones','collection', array(
                 'label' => 'Телефон',
                 'type' => new CompanyPhoneType(),

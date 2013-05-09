@@ -2,13 +2,10 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller,
-    Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sto\CoreBundle\Entity\Dictionary\City;
 
 class CityController extends Controller
@@ -21,10 +18,7 @@ class CityController extends Controller
     public function getUserCity()
     {
         $session = $this->getRequest()->getSession();
-        $city_name = $session->get('user_city_name');
-
-        if(!$city_name)
-            $city_name = "Ваш город";
+        $city_name = ($session->get('user_city_name')) ? $session->get('user_city_name') : "Ваш город";
 
         $response = new Response(json_encode(['user_city' => $city_name ]));
         $response->headers->set('Content-Type', 'application/json');

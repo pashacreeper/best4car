@@ -41,6 +41,8 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

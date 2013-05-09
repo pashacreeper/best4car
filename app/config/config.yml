@@ -248,3 +248,22 @@ gregwar_captcha:
     width:  200
     height: 50
     length: 5
+
+hwi_oauth:
+    resource_owners:
+        vkontakte:
+            type:          vkontakte
+            client_id:     %vk_client_id%
+            client_secret: %vk_client_secret%
+            scope:         ""
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            vkontakte: vkId
+    connect: ~
+    http_client:
+        timeout:       5
+        verify_peer:   true
+        ignore_errors: true
+        max_redirects: 5

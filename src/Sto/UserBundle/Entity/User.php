@@ -119,6 +119,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="vk_id", type="string", length=255, nullable=true)
+     */
+    private $vkId;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="link_fb", type="string", length=255, nullable=true)
      */
     private $linkFB;
@@ -448,6 +455,29 @@ class User extends BaseUser
     public function getLinkVK()
     {
         return $this->linkVK;
+    }
+
+    /**
+     * Set vkId
+     *
+     * @param  string $linkVK
+     * @return User
+     */
+    public function setVKId($vkId)
+    {
+        $this->vkId = $vkId;
+
+        return $this;
+    }
+
+    /**
+     * Get vkId
+     *
+     * @return string
+     */
+    public function getVKId()
+    {
+        return $this->vkId;
     }
 
     /**

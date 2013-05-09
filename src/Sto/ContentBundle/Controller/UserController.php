@@ -2,16 +2,15 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\UserBundle\Entity\User,
-    Sto\CoreBundle\Entity\Company,
-    Sto\ContentBundle\Form\RegistrationType,
-    Sto\ContentBundle\Form\RegistrationCompanyType,
-    Sto\ContentBundle\Form\CompanyType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\UserBundle\Entity\User;
+use Sto\CoreBundle\Entity\Company;
+use Sto\ContentBundle\Form\RegistrationType;
+use Sto\ContentBundle\Form\CompanyType;
 use Symfony\Component\Form\FormError;
 
 /**
@@ -29,11 +28,9 @@ class UserController extends Controller
      */
     public function newCarOwnerAction()
     {
-        $user = new User();
-        $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
+        $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), new User);
 
         return [
-            'user' => $user,
             'form' => $form->createView()
         ];
     }
@@ -70,7 +67,7 @@ class UserController extends Controller
         }
 
         if (!$errorFlag) {
-            return $this->redirect($this->generateUrl('add_company', ['id'=>$user->getId()]));
+            return $this->redirect($this->generateUrl('add_company', ['id' => $user->getId()]));
         }
 
         $user = new User();
@@ -94,8 +91,7 @@ class UserController extends Controller
      */
     public function createCarOwnerAction(Request $request)
     {
-
-        $user  = new User();
+        $user = new User();
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
         $form->bind($request);
 
@@ -109,10 +105,10 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('content_companies'));
         }
 
-        return array(
+        return [
             'user' => $user,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -126,15 +122,9 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
 
-        /*$em = $this->getDoctrine()->getManager();
-        $company = new Company;
-        $cForm = $this->createForm(new CompanyType(), $company, ['em'=>$em = $this->getDoctrine()->getManager()]);*/
-
         return [
             'user' => $user,
             'form' => $form->createView(),
-            /*'company' => $company,
-            'cForm' => $cForm->createView()*/
         ];
     }
 
@@ -147,7 +137,6 @@ class UserController extends Controller
      */
     public function createCompanyOwnerAction(Request $request)
     {
-
         $user  = new User();
         $form = $this->createForm(new RegistrationType('Sto\UserBundle\Entity\User'), $user);
         $form->bind($request);
@@ -168,10 +157,10 @@ class UserController extends Controller
                 if ($another_email)
                     $form->get('email')->addError(new FormError('Пользователь с таким почтовым адресом уже зарегистрирован!'));
 
-                return array(
+                return [
                     'user' => $user,
-                    'form'   => $form->createView(),
-                );
+                    'form' => $form->createView(),
+                ];
             }
 
             $em->persist($user);
@@ -180,10 +169,10 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('add_company', ['id'=>$user->getId()]));
         }
 
-        return array(
+        return [
             'user' => $user,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -195,11 +184,11 @@ class UserController extends Controller
     public function newCompanyAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('StoUserBundle:User')->find($id);
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($id);
 
         $company = new Company();
         $company->addManager($user);
-        $cForm = $this->createForm(new CompanyType(), $company, ['em'=>$em]);
+        $cForm = $this->createForm(new CompanyType(), $company, ['em' => $em]);
 
         return [
             'company' => $company,
@@ -219,9 +208,6 @@ class UserController extends Controller
     {
         $company  = new Company();
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
-        /*print "<pre>";
-        print_r($request);
-        print "</pre>"; exit;*/
 
         $form->bind($request);
         if ($form->isValid()) {
@@ -237,10 +223,39 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
-        return array(
+        return [
             'company' => $company,
             'user' => $id,
-            'cForm'   => $form->createView(),
-        );
+            'cForm' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Registration company
+     *
+     * @Route("/check-vk-user", name="content_check_vk_user")
+     * @Template()
+     */
+    public function checkVkUserAction(Request $request){
+        //var_dump($this->container->getParameter('vk_client_id')); exit;
+        $hash = $request->get('hash');
+        $uid = $request->get('uid');
+        $first_name = $request->get('first_name');
+        $last_name = $request->get('last_name');
+        if ($hash == md5($this->container->getParameter('vk_client_id').$uid.$this->container->getParameter('vk_client_secret'))){
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('StoUserBundle:User')->findOneBy(['linkVK' => $uid]);
+            //$user = $em->getRepository('StoUserBundle:User')->findOneBy(['id' => 1]);
+            if ($user){
+                /*return $this->redirect($this->generateUrl('login_check', [
+                        '_username' => $user->getUsername(),
+                        '_password' => $user->getPassword()
+                    ]));*/
+                exit('YES');
+            }
+        }
+        exit('NO');
+        return [
+        ];
     }
 }

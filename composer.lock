@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6e61fccd083ab2dd0892d9865993d6be",
+    "hash": "311b871605d865ad6e5321acadd0cdc3",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -980,12 +980,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "b77fc8b35f76f523c219224afc8f068cdb9baf24"
+                "reference": "b694cb3fe5d0769ece7d9042aa4513713dcf905e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/b77fc8b35f76f523c219224afc8f068cdb9baf24",
-                "reference": "b77fc8b35f76f523c219224afc8f068cdb9baf24",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/b694cb3fe5d0769ece7d9042aa4513713dcf905e",
+                "reference": "b694cb3fe5d0769ece7d9042aa4513713dcf905e",
                 "shasum": ""
             },
             "require": {
@@ -1037,21 +1037,21 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-05-04 01:14:40"
+            "time": "2013-05-09 09:57:59"
         },
         {
             "name": "genemu/form-bundle",
-            "version": "2.2.x-dev",
+            "version": "2.1.x-dev",
             "target-dir": "Genemu/Bundle/FormBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/genemu/GenemuFormBundle.git",
-                "reference": "179882c711fc9da36f4affe94002ada29a691636"
+                "reference": "29d449950bef5202c57d5d20f7ddc9d254e6f16a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/179882c711fc9da36f4affe94002ada29a691636",
-                "reference": "179882c711fc9da36f4affe94002ada29a691636",
+                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/29d449950bef5202c57d5d20f7ddc9d254e6f16a",
+                "reference": "29d449950bef5202c57d5d20f7ddc9d254e6f16a",
                 "shasum": ""
             },
             "require": {
@@ -1108,7 +1108,7 @@
                 "extra form",
                 "form"
             ],
-            "time": "2013-04-29 13:59:15"
+            "time": "2013-05-01 15:40:40"
         },
         {
             "name": "gregwar/captcha",
@@ -1211,6 +1211,92 @@
                 "visual"
             ],
             "time": "2013-04-24 16:11:08"
+        },
+        {
+            "name": "hwi/oauth-bundle",
+            "version": "0.2.3",
+            "target-dir": "HWI/Bundle/OAuthBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hwi/HWIOAuthBundle.git",
+                "reference": "0.2.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/0.2.3",
+                "reference": "0.2.3",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/buzz": ">=0.7,<1.0",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0,<2.3-dev",
+                "symfony/security-bundle": ">=2.0,<2.3-dev"
+            },
+            "require-dev": {
+                "doctrine/orm": ">=2.1,<2.4-dev",
+                "friendsofsymfony/user-bundle": ">=1.2,<2.0",
+                "symfony/twig-bundle": ">=2.0,<2.3-dev",
+                "symfony/validator": ">=2.0,<2.3-dev"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "to use Doctrine user provider",
+                "friendsofsymfony/user-bundle": "to connect FOSUB with this bundle",
+                "symfony/twig-bundle": "to use the Twig hwi_oauth_* functions"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "HWI\\Bundle\\OAuthBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Geoffrey Bachelet",
+                    "email": "geoffrey.bachelet@gmail.com",
+                    "homepage": "https://github.com/ubermuda"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/hwi/HWIOAuthBundle/contributors"
+                },
+                {
+                    "name": "Alexander",
+                    "email": "iam.asm89@gmail.com"
+                },
+                {
+                    "name": "Joseph Bielawski",
+                    "email": "stloyd@gmail.com"
+                }
+            ],
+            "description": "Support for authenticating users via oauth in Symfony2.",
+            "homepage": "http://github.com/hwi/HWIOAuthBundle",
+            "keywords": [
+                "facebook",
+                "firewall",
+                "github",
+                "google",
+                "linkedin",
+                "oauth",
+                "oauth1",
+                "oauth2",
+                "security",
+                "sensio connect",
+                "twitter",
+                "vkontakte",
+                "windows live",
+                "yahoo"
+            ],
+            "time": "2013-05-06 20:08:29"
         },
         {
             "name": "imagine/imagine",
@@ -2062,6 +2148,54 @@
                 "minification"
             ],
             "time": "2013-02-24 17:22:20"
+        },
+        {
+            "name": "kriswallsmith/buzz",
+            "version": "v0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "v0.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/v0.9",
+                "reference": "v0.9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Buzz": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2013-02-19 00:26:38"
         },
         {
             "name": "leafo/lessphp",
@@ -3115,22 +3249,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "3c5febb112a41e53c8b67ed5afffb3ccbbb177ac"
+                "reference": "v0.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/3c5febb112a41e53c8b67ed5afffb3ccbbb177ac",
-                "reference": "3c5febb112a41e53c8b67ed5afffb3ccbbb177ac",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/v0.8.1",
+                "reference": "v0.8.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": ">=2.0,<2.3-dev"
+                "symfony/framework-bundle": ">=2.0,<3.0"
             },
             "require-dev": {
                 "doctrine/common": "@stable",
                 "doctrine/dbal": "@stable",
-                "doctrine/mongodb": "dev-master",
                 "doctrine/mongodb-odm": "dev-master",
                 "doctrine/orm": "@stable",
                 "knplabs/knp-gaufrette-bundle": "0.2.*",
@@ -3138,6 +3271,7 @@
             },
             "suggest": {
                 "knplabs/knp-gaufrette-bundle": "*",
+                "phpunit/phpunit": "~3.7@stable",
                 "symfony/doctrine-bundle": "*",
                 "symfony/mongodb-odm-bundle": "*"
             },
@@ -3164,7 +3298,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2013-02-27 10:53:08"
+            "time": "2013-05-08 15:47:58"
         }
     ],
     "packages-dev": [

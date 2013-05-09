@@ -1,13 +1,23 @@
 {% if specializations %}
     {% for item in specializations %}
-        <p>
+        {% if loop.index <= 4 %}
+            <p>
+                {% if item.iconNameSmall %}
+                    <img src="{{ vich_uploader_asset(item,'iconSmall') }}" value="no-image">
+                {% else %}
+                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:30px;">
+                {% endif %}
+                {{ item.name }}
+            </p>
+            {% if loop.index == 4 %}
+                <hr />
+            {% endif %}
+        {% else %}
             {% if item.iconNameSmall %}
                 <img src="{{ vich_uploader_asset(item,'iconSmall') }}" value="no-image">
             {% else %}
                 <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:30px;">
-
             {% endif %}
-            {{ item.name }}
-        </p>
+        {% endif %}
     {% endfor %}
 {% endif %}

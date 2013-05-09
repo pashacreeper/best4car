@@ -4,14 +4,14 @@ namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sto\CoreBundle\Entity\Deal,
-    Sto\CoreBundle\Entity\FeedbackDeal,
-    Sto\ContentBundle\Form\FeedbackDealType;
+use Sto\CoreBundle\Entity\Deal;
+use Sto\CoreBundle\Entity\FeedbackDeal;
+use Sto\ContentBundle\Form\FeedbackDealType;
 
 class DealController extends Controller
 {
@@ -54,6 +54,14 @@ class DealController extends Controller
             ->getQuery()
             ->getResult()
         ;
+
+        $countFeededDeals = $repository->createQueryBuilder('deal')
+            ->join('deal.feedbacks', 'f')
+            ->where('deal.endDate > :endDate AND f.content is not null')
+            ->setParameter('endDate', new \DateTime('now'))
+            ->getQuery()
+            ->getResult()
+       ;
 
         return [
             'deals' => $deals,

@@ -28,3 +28,6 @@ parameters:
     dictionary_currencies_id: 4
 
     storage_path: storage/images
+
+    vk_client_id: 3630517
+    vk_client_secret: JlE0Nr6K1AcEnAjtL0tT

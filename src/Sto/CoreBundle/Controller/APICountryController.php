@@ -5,11 +5,9 @@ namespace Sto\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Dictionary\Country;
@@ -46,7 +44,7 @@ class APICountryController extends APIBaseController
      *         }
      * )
      * @Rest\View
-     * @Route("/all", name="api_country_all")
+     * @Route("/all", name="api_country_all", options={"expose"=true})
      * @Method({"GET"})
      */
     public function allAction()

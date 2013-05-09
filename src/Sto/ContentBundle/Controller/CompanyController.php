@@ -3,16 +3,15 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sto\CoreBundle\Entity\Company,
-    Sto\CoreBundle\Entity\FeedbackCompany,
-    Sto\ContentBundle\Form\FeedbackCompanyType;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\FeedbackCompany;
+use Sto\ContentBundle\Form\FeedbackCompanyType;
 
 class CompanyController extends Controller
 {
@@ -51,27 +50,18 @@ class CompanyController extends Controller
             ->getArrayResult()
         ;
 
-        $cities = $em->getRepository('StoCoreBundle:Dictionary\Country')
-            ->createQueryBuilder('city')
-            ->where('city.parent is not null')
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
         foreach ($companies as $key => $value) {
-            $rs = $this->render('StoContentBundle:Company:specialization_list.html.twig', [
-                    'specializations' => $value['specialization']
-                ]);
-            $companies[$key]['specialization_template'] =$rs->getContent();
+            $companies[$key]['specialization_template'] = $this
+                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
+            ;
 
-            $companies[$key]['workingTime_template'] = $this->render('StoContentBundle:Company:workingTime_list.html.twig', [
-                    'workingTime' => $value['workingTime']
-                ])->getContent();
+            $companies[$key]['workingTime_template'] = $this
+                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
+            ;
         }
 
         return [
-            'companies' => json_encode($companies),
-            'cities' => $cities,
+            'companies' => json_encode($companies)
         ];
     }
 
@@ -91,19 +81,13 @@ class CompanyController extends Controller
     /**
      * Ajax get companies
      *
-     * @Route("/ajax/getall", name="company_ajax_get_all")
+     * @Route("/ajax/getall", name="company_ajax_get_all", options={"expose"=true})
      * @Template()
      */
     public function getAllAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Company')
-            ->createQueryBuilder('company')
-            ->where('company.visible = true')
-            ->orderBy('company.rating', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
+        $companies = $em->getRepository('StoCoreBundle:Company')->getVisibleCompanies();
 
         if (!$companies) {
             return new Responce(500, 'Companies Not found.');
@@ -183,12 +167,12 @@ class CompanyController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_company_show', array('id' => $company->getId())));
+            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
         }
 
-        return array(
-            'form'   => $form->createView(),
+        return [
+            'form'    => $form->createView(),
             'company' => $company
-        );
+        ];
     }
 }
