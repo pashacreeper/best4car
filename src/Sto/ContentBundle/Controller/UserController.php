@@ -236,17 +236,18 @@ class UserController extends Controller
      * @Route("/check-vk-user", name="content_check_vk_user")
      * @Template()
      */
-    public function checkVkUserAction(Request $request){
+    public function checkVkUserAction(Request $request)
+    {
         //var_dump($this->container->getParameter('vk_client_id')); exit;
         $hash = $request->get('hash');
         $uid = $request->get('uid');
         $first_name = $request->get('first_name');
         $last_name = $request->get('last_name');
-        if ($hash == md5($this->container->getParameter('vk_client_id').$uid.$this->container->getParameter('vk_client_secret'))){
+        if ($hash == md5($this->container->getParameter('vk_client_id').$uid.$this->container->getParameter('vk_client_secret'))) {
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')->findOneBy(['linkVK' => $uid]);
             //$user = $em->getRepository('StoUserBundle:User')->findOneBy(['id' => 1]);
-            if ($user){
+            if ($user) {
                 /*return $this->redirect($this->generateUrl('login_check', [
                         '_username' => $user->getUsername(),
                         '_password' => $user->getPassword()
@@ -255,6 +256,7 @@ class UserController extends Controller
             }
         }
         exit('NO');
+
         return [
         ];
     }

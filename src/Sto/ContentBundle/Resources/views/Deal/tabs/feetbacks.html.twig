@@ -38,18 +38,18 @@
                     <blockquote>
                         <div class="row-fluid">
                             <div class="span4">
-                                <input class="star" type="radio" value="1" disabled="disabled" {% if item.feedbackRating == 1 %} checked="checked" {% endif %}/>
-                                <input class="star" type="radio" value="2" disabled="disabled" {% if item.feedbackRating == 2 %} checked="checked" {% endif %}/>
-                                <input class="star" type="radio" value="3" disabled="disabled" {% if item.feedbackRating == 3 %} checked="checked" {% endif %}/>
-                                <input class="star" type="radio" value="4" disabled="disabled" {% if item.feedbackRating == 4 %} checked="checked" {% endif %}/>
-                                <input class="star" type="radio" value="5" disabled="disabled" {% if item.feedbackRating == 5 %} checked="checked" {% endif %}/>
+                                <input class="star fb-{{ item.id }}" type="radio" value="1" disabled="disabled" {% if item.feedbackRating == 1 %} checked="checked" {% endif %}/>
+                                <input class="star fb-{{ item.id }}" type="radio" value="2" disabled="disabled" {% if item.feedbackRating == 2 %} checked="checked" {% endif %}/>
+                                <input class="star fb-{{ item.id }}" type="radio" value="3" disabled="disabled" {% if item.feedbackRating == 3 %} checked="checked" {% endif %}/>
+                                <input class="star fb-{{ item.id }}" type="radio" value="4" disabled="disabled" {% if item.feedbackRating == 4 %} checked="checked" {% endif %}/>
+                                <input class="star fb-{{ item.id }}" type="radio" value="5" disabled="disabled" {% if item.feedbackRating == 5 %} checked="checked" {% endif %}/>
                             </div>
                             <div class="span4">
                             </div>
                             <div class="span4">
                                 <p class="pull-right">
-                                    <i class="icon-b4c-thumbs-up"></i> {{ item.pluses }}
-                                    <i class="icon-b4c-thumbs-down"></i> {{ item.minuses }}
+                            <a href="#" data-like="link" data-feedback="{{item.id}}"><i class="icon-b4c-thumbs-up"></i></a> <span data-like="count">{{ item.pluses }}</span>
+                            <a href="#" data-dislike="link" data-feedback="{{item.id}}"><i class="icon-b4c-thumbs-down"></i></a> <span data-dislike="count">{{ item.minuses }}</span>
                                 </p>
                             </div>
                         </div>

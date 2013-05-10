@@ -377,6 +377,13 @@ class Feedback
         return $this;
     }
 
+    public function addPlus()
+    {
+        $this->pluses++;
+
+        return $this;
+    }
+
     public function getMinuses()
     {
         return $this->minuses;
@@ -385,6 +392,13 @@ class Feedback
     public function setMinuses($count)
     {
         $this->minuses = $count;
+
+        return $this;
+    }
+
+    public function addMinus()
+    {
+        $this->minuses++;
 
         return $this;
     }

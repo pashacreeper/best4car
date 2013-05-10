@@ -487,13 +487,15 @@ class User extends BaseUser
         return $this->vkontakteId;
     }
 
-    public function setVkontakteAccessToken($token){
+    public function setVkontakteAccessToken($token)
+    {
         $this->vkontakteAccessToken = $token;
 
         return $this;
     }
 
-    public function getVkontakteAccessToken(){
+    public function getVkontakteAccessToken()
+    {
         return $this->vkontakteAccessToken;
     }
 

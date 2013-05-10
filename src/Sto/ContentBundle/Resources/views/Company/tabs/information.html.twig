@@ -64,6 +64,7 @@
                 <div class="row-fluid">
                     <h4>Специализация и услуги</h4>
                     <div class="accordion" id="accordion">
+{% for specialization in company.specialization %}
                         <div class="accordion-group">
                             <div class="accordion-heading">
                                 <div class="row-fluid">
@@ -71,74 +72,22 @@
                                         <center><img src="http://placehold.it/44x46"></center>
                                     </div>
                                     <div class="span10">
-                                        <a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">СТО</a>
+                                        <a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">{{ specialization.name }}</a>
                                         <p>Независимый мультибрендовый</p>
                                     </div>
                                 </div>
                             </div>
-                            <div id="collapseOne" class="accordion-body collapse in">
-                                <div class="accordion-inner">
-                                    <div class="row-fluid">
-                                        <div class="span2">
-                                            <center><img src="http://placehold.it/32x33"></center>
-                                        </div>
-                                        <div class="span10">
-                                            <h5>Техническое обслуживание (ТО)</h5>
-                                            <p>Еще Траут показал, что рекламное сообщество порождает PR, полагаясь на инсайдерскую информацию. Молодежная аудитория продуцирует стратегический пресс-клиппинг, используя опыт предыдущих кампаний.</p>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span2">
-                                            <center><img src="http://placehold.it/32x33"></center>
-                                        </div>
-                                        <div class="span10">
-                                            <h5>Кузовной ремонт</h5>
-                                            <p>Молодежная аудитория продуцирует стратегический пресс-клиппинг, используя опыт предыдущих кампаний. Интеграция подсознательно порождает целевой трафик, используя опыт предыдущих кампаний.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <center><img src="http://placehold.it/44x46"></center>
-                                    </div>
-                                    <div class="span10">
-                                        <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">Мойка</a>
-                                        <p>Автоматическая портальная</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <div class="row-fluid">
-                                    <div class="span2">
-                                        <center><img src="http://placehold.it/44x46"></center>
-                                    </div>
-                                    <div class="span10">
-                                        <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">Автосалон</a>
-                                        <p>Независимый мультибрэндовый</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{% endfor %}
                     </div>
                 </div>
                 <div class="row-fluid">
                     <h4>Дополнительные услуги</h4>
+{% for additionalService in company.additionalServices %}
                     <div class="row-fluid">
-                        <div class="row-fluid">
-                            <div class="span6"><img src="http://placehold.it/32x32"> Бесплатный Wi-Fi</div>
-                            <div class="span6"><img src="http://placehold.it/32x32"> Комната отдыха</div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span6"><img src="http://placehold.it/32x32"> Выдача авто на время ремонта</div>
-                            <div class="span6"><img src="http://placehold.it/32x32"> Детская зона</div>
-                        </div>
+                       <img src="http://placehold.it/32x32"> {{ additionalService.name }}
                     </div>
+{% endfor %}
                 </div>
                 <div class="row-fluid">
                     <h4>О компании</h4>

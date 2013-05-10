@@ -45,10 +45,11 @@ class FeedbackCompany extends Feedback
     /**
      * Set PriceLevel
      *
-     * @param  entity  $price
+     * @param  entity   $price
      * @return Feedback
      */
-    public function setPriceLevel(\Sto\CoreBundle\Entity\Dictionary\PriceLevel $price){
+    public function setPriceLevel(\Sto\CoreBundle\Entity\Dictionary\PriceLevel $price)
+    {
         $this->priceLevel = $price;
 
         return $this;
@@ -59,7 +60,8 @@ class FeedbackCompany extends Feedback
      *
      * @return entity
      */
-    public function getPriceLevel(){
+    public function getPriceLevel()
+    {
         return $this->priceLevel;
     }
 

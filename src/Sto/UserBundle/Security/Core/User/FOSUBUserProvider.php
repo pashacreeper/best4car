@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 
 class FOSUBUserProvider extends BaseClass
 {
-
     protected $em;
 
     /**
@@ -24,6 +23,7 @@ class FOSUBUserProvider extends BaseClass
         $this->em = $em;
         $this->properties  = $properties;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -71,8 +71,7 @@ class FOSUBUserProvider extends BaseClass
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
-            //I have set all requested data with the user's username
-            //modify here with relevant data
+            //I have set all requested data with the user's username modify here with relevant data
             $user->setUsername($username);
             $user->setEmail($username);
             $user->setPassword($username);
@@ -82,16 +81,12 @@ class FOSUBUserProvider extends BaseClass
             $user_name = explode(' ', $user_data['response']['user_name']);
             $user->setFirstName($user_name[0]);
             $user->setLastName($user_name[1]);
-            if ($user_data['response']['user_name'] == 1)
-                $gender = 'female';
-            else
-                $gender = 'male';
-            $user->setGender($gender);
+            $user->setGender(($user_data['response']['user_name'] == 1) ? 'female' : 'male');
 
             $ratingGroup = $this->em->getRepository('StoUserBundle:RatingGroup')->find(1);
             $user->setRatingGroup($ratingGroup);
-
             $this->userManager->updateUser($user);
+
             return $user;
         }
 
@@ -106,5 +101,4 @@ class FOSUBUserProvider extends BaseClass
 
         return $user;
     }
-
 }
