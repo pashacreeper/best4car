@@ -37,6 +37,11 @@ class FeedbackCompanyType extends FeedbackType
                 'required' => false,
                 'render_optional_text' => false
             ])
+            ->add('priceLevel', null, [
+                'label' => 'Уровень цен',
+                'required' => false,
+                'render_optional_text' => false
+            ])
         ;
     }
 

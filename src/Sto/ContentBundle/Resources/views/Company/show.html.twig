@@ -3,6 +3,16 @@
 
 {% block title company.name %}
 
+{% block head_style %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block head_script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="row-fluid">
         <section class="container">

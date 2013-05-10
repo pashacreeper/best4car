@@ -9,22 +9,29 @@
     <div class="span10">
         <p>{{ feedback.user.username }}</p>
         <h3>{{ feedback.user.lastName }} {{ feedback.user.firstName }}</h3>
-        <p>{{ feedback.user.ratingGroup.name }}</p>
+        <p class="row-fluid">
+            <span class="span8">
+                {{ feedback.user.ratingGroup.name }}
+            </span>
+            <span class="span4">
+                Дата: {{ feedback.date|date("d.m.Y") }}
+            </span>
+        </p>
         <blockquote>
             <div class="row-fluid">
                 <div class="span4">
-                    <i class="icon-b4c-star"></i>
-                    <i class="icon-b4c-star"></i>
-                    <i class="icon-b4c-star"></i>
-                    <i class="icon-b4c-star-half"></i>
-                    <i class="icon-b4c-star-empty"></i>
+                    <input class="star" type="radio" value="1" disabled="disabled" {% if feedback.feedbackRating == 1 %} checked="checked" {% endif %}/>
+                    <input class="star" type="radio" value="2" disabled="disabled" {% if feedback.feedbackRating == 2 %} checked="checked" {% endif %}/>
+                    <input class="star" type="radio" value="3" disabled="disabled" {% if feedback.feedbackRating == 3 %} checked="checked" {% endif %}/>
+                    <input class="star" type="radio" value="4" disabled="disabled" {% if feedback.feedbackRating == 4 %} checked="checked" {% endif %}/>
+                    <input class="star" type="radio" value="5" disabled="disabled" {% if feedback.feedbackRating == 5 %} checked="checked" {% endif %}/>
                 </div>
                 <div class="span4">
                 </div>
                 <div class="span4">
                     <p class="pull-right">
-                        <i class="icon-b4c-thumbs-up"></i> 15
-                        <i class="icon-b4c-thumbs-down"></i> 53
+                        <i class="icon-b4c-thumbs-up"></i> {{ feedback.pluses }}
+                        <i class="icon-b4c-thumbs-down"></i> {{ feedback.minuses }}
                     </p>
                 </div>
             </div>
@@ -51,12 +58,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row-fluid">
-                    <p class="pull-right muted">
-                        <i class="icon-b4c-thumbs-up"></i> 15
-                        <i class="icon-b4c-thumbs-down"></i> 53
-                    </p>
                 </div>
             </blockquote>
         </div>

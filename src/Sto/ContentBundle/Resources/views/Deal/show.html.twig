@@ -3,6 +3,16 @@
 
 {% block title 'Акции' %}
 
+{% block head_style %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block head_script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row-fluid">
     <div class="span8"><h3>{{ deal.name }}</h3></div>
@@ -18,144 +28,12 @@
 </ul>
 {# /tabs menu #}
 <div class="tab-content">
-    {# deal info #}
     <div class="tab-pane active" id="info">
-        <div class="row-fluid">
-            <div class="span8">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div id="myCarousel" class="carousel slide">
-                              <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                              </ol>
-                              <!-- Carousel items -->
-                              <div class="carousel-inner">
-                                <div class="active item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
-                                <div class="item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
-                                <div class="item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
-                              </div>
-                              <!-- Carousel nav -->
-                              <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                              <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-                        </div>
-                    </div>
-                    <div class="span8">
-                        {% if deal.description is not empty %}
-                            <h4>Описание акции</h4>
-                            <p>{{ deal.description }}</p>
-                        {% endif %}
-                        <h4>Условия участия</h4>
-                        <p>Еще Траут показал, что рекламное сообщество порождает PR, полагаясь на инсайдерскую информацию. Молодежная аудитория продуцирует стратегический пресс-клиппинг, используя опыт предыдущих кампаний. Интеграция подсознательно порождает целевой трафик, используя опыт предыдущих кампаний</p>
-                        <div style="height:60px; border:1px solid #000; background-color: #cccccc;"><span class="span4" style="font-weight:bold; font-size:16px;">Контакты</span><p class="span8" style="fon-size:10px;">Мария Кожевникова
-    <br /><span style="font-size: 16px;">+7 495 788-62-61</span></p></div>
-                    </div>
-                    <div class="span3">
-                        <h4>Сроки проведения</h4>
-                        <p>{{ deal.startDate|date("d.m.Y") }} – {{ deal.endDate|date("d.m.Y") }}</p>
-                        <hr>
-                        <h4>Время проведения</h4>
-                        <p>{{ deal.startTime|date("H:m") }} – {{ deal.endTime|date("H:m") }}</p>
-                        <hr>
-                        <h4>Место проведения</h4>
-                        <p>{{ deal.company.address }}</p>
-                        <hr>
-                        <h4 style="margin-bottom:0px;">Автомобили</h4> <span style="font-size:10px; margin-bottom:10px;">удовлетворяющие условиям акции</span>
-                        <p>BMW старше 3х лет</p>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-            <div class="span4">
-                <a class="btn btn-large" style="width:200px;margin-top:10px;" href="{{ path('fos_user_security_login') }}">Я пойду <span class="pull-right">245</span></a>
-                <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
-                <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
-            </div>
-        </div>
+{% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
     </div>
-    {# end of deal info #}
-    {# Tab feedbacks #}
     <div class="tab-pane" id="feedbacks">
-        <div class="row-fluid">
-            <div class="span8">
-                <div class="span12">
-                    Сортировать:
-                    <a href="#">по дате</a>
-                    <a href="#">по рейтингу</a>
-                    <div class="pull-right">
-                        Показывать:
-                        <a href="#">все</a>
-                        <a href="#">положительные</a>
-                        <a href="#">отрицательные</a>
-                        <a href="#">полезные</a>
-                    </div>
-                    <hr />
-                </div>
-                <p class="span12" style="font-size:12px;">
-                    Показано <b>{{ deal.feedbacks|length }}</b> отзывов
-                </p>
-                <!-- Feedback -->
-                {% for item in deal.feedbacks %}
-                    <div class="feedback span12" style="margin-bottom:15px;">
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <img src="" style="background: #000; width:70px; height:70px;" />
-                            </div>
-                            <div class="span10" style="height:70px;">
-                                <p style="margin-bottom:0;">{{ item.user.username }}</p>
-                                <a href="#"><strong>{{ item.user.firstName }} {{ item.user.lastName }}</strong></a>
-                                <p style="margin-bottom:0;"> {{ item.user.ratingGroup.name }}</p>
-                            </div>
-                            <span class="span2" style="margin-left:0;">556</span>
-                            <div class="span9" style="border: 1px solid #000;">
-                                <i class="icon-b4c-star"></i>
-                                <i class="icon-b4c-star"></i>
-                                <i class="icon-b4c-star"></i>
-                                <i class="icon-b4c-star-half"></i>
-                                <i class="icon-b4c-star-empty"></i>
-                                <span class="pull-right">
-                                    <!-- hardcoded pluses and minuses -->
-                                    <i class="icon-b4c-thumbs-up"></i> {{ item.minuses }}
-                                    <i class="icon-b4c-thumbs-down"></i> {{ item.pluses }}
-                                </span>
-                                <p>{{ item.content|raw }}</p>
-                            </div>
-{% if item.feedbackAnswer %}
-                        <!-- Feedback answer -->
-                        <div class="span9 offset2" style="border: 1px solid #000; background:#ccc;">
-                            <div class="row-fluid">
-                                <p class="span7">
-                                    {{ item.feedbackAnswer.answer|raw }}
-                                </p>
-                                <div class="span4">
-                                    <img src="" class="span3" style="background:#000; width:40px; height:40px;" />
-                                    <div class="span9">
-                                        <a href="#"><strong> {{ item.feedbackAnswer.owner.firstName }} {{ item.feedbackAnswer.owner.lastName }}</strong></a>
-                                        <p style="margin-bottom:0;">{{ item.feedbackAnswer.owner.ratingGroup.name }}</p>
-                                        <span class="pull-right">
-                                            <i class="icon-b4c-thumbs-up"></i> 15
-                                            <i class="icon-b4c-thumbs-down"></i> 53
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-{% endif %}
-                        <!-- /EOF Feedback answer -->
-                        </div>
-                    </div>
-                {% endfor %}
-                <!-- /EOF Feedback -->
-                <center><a href="#" class="btn">Показать еще</a></center>
-            </div>
-            <div class="span4">
-                <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>
-                <a href="#"><img src="" style="background: #000000; width:240px; height:400px; margin-top: 10px;" /></a>
-            </div>
-        </div>
+{% include 'StoContentBundle::Deal/tabs/feetbacks.html.twig' %}
     </div>
-    {# end of feedbacks #}
 </div>
 {% endblock %}
 
@@ -163,7 +41,6 @@
 {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript">
-        // Tabs
         $('#FeedbackTabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');

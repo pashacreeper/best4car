@@ -12,6 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
 class FeedbackCompany extends Feedback
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="price_level_id", type="integer")
+     */
+    private $priceLevelId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\PriceLevel")
+     * @ORM\JoinColumn(name="price_level_id", referencedColumnName="id")
+     */
+    private $priceLevel;
+
+    /**
      * @ORM\Column(name="company_rating", type="integer")
      */
     private $companyRating;
@@ -26,6 +41,27 @@ class FeedbackCompany extends Feedback
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
+
+    /**
+     * Set PriceLevel
+     *
+     * @param  entity  $price
+     * @return Feedback
+     */
+    public function setPriceLevel(\Sto\CoreBundle\Entity\Dictionary\PriceLevel $price){
+        $this->priceLevel = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get PriceLevel
+     *
+     * @return entity
+     */
+    public function getPriceLevel(){
+        return $this->priceLevel;
+    }
 
     /**
      * Set comapnyRating

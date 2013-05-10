@@ -108,6 +108,9 @@ class DictionaryController extends Controller
             case 'country':
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Country');
                 break;
+            case 'price_level':
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel');
+                break;
             default:
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
                 break;
@@ -151,6 +154,9 @@ class DictionaryController extends Controller
                 break;
             case 'country':
                 $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\Country);
+                break;
+            case 'price_level':
+                $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\PriceLevel);
                 break;
             default:
                 $form = $this->createForm(new DictionaryForm\BaseType, new DictionaryEntity\Base);
@@ -209,6 +215,10 @@ class DictionaryController extends Controller
                 $entity  = new DictionaryEntity\Country;
                 $form = $this->createForm(new DictionaryForm\CountryType, $entity);
                 break;
+            case 'price_level':
+                $entity  = new DictionaryEntity\PriceLevel;
+                $form = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
+                break;
             default:
                 $entity  = new DictionaryEntity\Base;
                 $form = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -263,6 +273,10 @@ class DictionaryController extends Controller
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
                 break;
+            case 'price_level':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
+                break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -314,6 +328,10 @@ class DictionaryController extends Controller
             case 'country':
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CountryType, $entity);
+                break;
+            case 'price_level':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
                 break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);

@@ -88,7 +88,7 @@ class UserType extends AbstractType
                 'label' => 'ВКонтакте',
                 'render_optional_text' => false
             ])
-            ->add('vkId', null, [
+            ->add('vkontakteId', null, [
                 'label' => 'Id пользователя Вконтакте',
                 'render_optional_text' => false,
                 'required' => false,

@@ -95,6 +95,11 @@ class Feedback
     private $feedbackAnswer;
 
     /**
+     * @ORM\Column(name="date_feedback", type="date")
+     */
+    private $date;
+
+    /**
      * @ORM\Column(name="ip", type="string", length=255, nullable=true)
      */
     private $ip;
@@ -104,6 +109,8 @@ class Feedback
         if ($user) {
             $this->setUser($user);
         }
+
+        $this->date = new \DateTime('now');
     }
 
     /**
@@ -417,4 +424,15 @@ class Feedback
         return $this;
     }
 
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
 }

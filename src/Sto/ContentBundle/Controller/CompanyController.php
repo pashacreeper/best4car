@@ -66,7 +66,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/company/{id}", name="content_company_show")
+     * @Route("/company/{id}", name="content_company_show", options={"expose"=true})
      * @Method("GET")
      * @Template()
      * @ParamConverter("company", class="StoCoreBundle:Company")

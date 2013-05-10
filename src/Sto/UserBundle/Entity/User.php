@@ -121,7 +121,14 @@ class User extends BaseUser
      *
      * @ORM\Column(name="vk_id", type="string", length=255, nullable=true)
      */
-    private $vkId;
+    private $vkontakteId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vk_access_token", type="string", length=255, nullable=true)
+     */
+    private $vkontakteAccessToken;
 
     /**
      * @var string
@@ -463,9 +470,9 @@ class User extends BaseUser
      * @param  string $linkVK
      * @return User
      */
-    public function setVKId($vkId)
+    public function setVkontakteId($vkId)
     {
-        $this->vkId = $vkId;
+        $this->vkontakteId = $vkId;
 
         return $this;
     }
@@ -475,9 +482,19 @@ class User extends BaseUser
      *
      * @return string
      */
-    public function getVKId()
+    public function getVkontakteId()
     {
-        return $this->vkId;
+        return $this->vkontakteId;
+    }
+
+    public function setVkontakteAccessToken($token){
+        $this->vkontakteAccessToken = $token;
+
+        return $this;
+    }
+
+    public function getVkontakteAccessToken(){
+        return $this->vkontakteAccessToken;
     }
 
     /**

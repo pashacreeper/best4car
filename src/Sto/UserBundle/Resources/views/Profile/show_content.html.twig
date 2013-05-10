@@ -50,7 +50,7 @@
                                 <div class="span6">
                                     <p><i class="icon-b4c-calendar"></i> {{ user.birthDate|date('d.m.Y') }}</p>
                                     <p><i class="icon-b4c-mail"></i> {{ user.email }}</p>
-                                    <p><i class="icon-b4c-group"></i> {{ user.ratingGroup.name }}</p>
+                                    <p><i class="icon-b4c-group"></i> {% if user.ratingGroup %}{{ user.ratingGroup.name }}{% endif %}</p>
                                 </div>
                             </div>
                         </div>
