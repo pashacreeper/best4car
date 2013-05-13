@@ -4,14 +4,12 @@ namespace Sto\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity,
-    Symfony\Component\HttpFoundation\File\File,
-    Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert;
-use Sto\CoreBundle\Entity\Dictionary,
-    Sto\CoreBundle\Entity\Feedback,
-    Sto\UserBundle\Entity\Group,
-    Sto\UserBundle\Entity\RatingGroup;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Sto\CoreBundle\Entity\Feedback;
+use Sto\UserBundle\Entity\Group;
+use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -103,11 +101,17 @@ class User extends BaseUser
     protected $gender;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     */
+    private $city;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", nullable=true)
+     * @ORM\Column(name="city_id", type="integer")
      */
-    protected $city;
+    private $cityId;
 
     /**
      * @var string
@@ -419,27 +423,30 @@ class User extends BaseUser
         return $this->gender;
     }
 
-    /**
-     * Set city
-     *
-     * @param  string $city
-     * @return User
-     */
-    public function setCity($city)
+    public function setCity(\Sto\CoreBundle\Entity\Dictionary\Country $city)
     {
         $this->city = $city;
+        $this->cityId = $city->getId();
+        $city->addUser($this);
 
         return $this;
     }
 
-    /**
-     * Get city
-     *
-     * @return string
-     */
     public function getCity()
     {
         return $this->city;
+    }
+
+    public function setCityId($cityId)
+    {
+        $this->cityId = $cityId;
+
+        return $this;
+    }
+
+    public function getCityId()
+    {
+        return $this->cityId;
     }
 
     /**

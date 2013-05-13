@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function editAction($user)
     {
-        $editForm = $this->createForm(new UserType(), $user);
+        $editForm = $this->createForm(new UserType, $user);
 
         return [
             'entity'    => $user,
@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     public function updateAction(Request $request, $user)
     {
-        $editForm = $this->createForm(new UserType(), $user);
+        $editForm = $this->createForm(new UserType, $user);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {

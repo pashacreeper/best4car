@@ -59,9 +59,10 @@
     <script src="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/stocontent/js/script.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
+        var gps = {% if app.user %} '{{ app.user.city.gps }}' {% else %} '59.91789232285739,30.325057499999957' {% endif %};
         ymaps.ready(function (companies) {
             var myMap = new ymaps.Map("map", {
-                center: [59.95, 30.31],
+                center: [gps.split(",")[0], gps.split(",")[1]],
                 zoom: 11,
                 behaviors: ["default", "scrollZoom"]
             });

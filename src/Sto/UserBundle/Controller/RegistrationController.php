@@ -46,16 +46,6 @@ class RegistrationController extends BaseController
                     } else {
                         $url = $this->container->get('router')->generate('registration_company_owner');
                         $response = new RedirectResponse($url);
-                        /*$em = $this->getDoctrine()->getManager();
-                        $company = new Company;
-                        $cForm = $this->createForm(new CompanyType(), $company, ['em'=>$em = $this->getDoctrine()->getManager()]);
-
-                        return [
-                            //'user' => $user,
-                            //'form' => $form->createView(),
-                            'company' => $company,
-                            'cForm' => $cForm->createView()
-                        ];*/
                     }
                 }
 

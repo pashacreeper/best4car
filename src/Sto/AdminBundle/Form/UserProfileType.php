@@ -4,6 +4,7 @@ namespace Sto\AdminBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
+use Doctrine\ORM\EntityRepository;
 
 class UserProfileType extends BaseType
 {
@@ -59,10 +60,17 @@ class UserProfileType extends BaseType
                 ],
                 'expanded' => true,
             ])
-            ->add('city', null, [
+            ->add('city', 'entity', [
                 'label' => 'Город',
-                'required' => false,
-                'render_optional_text' => false
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('linkVK', null, [
                 'label' => 'ВКонтакте',

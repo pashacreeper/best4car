@@ -2,12 +2,12 @@
 
 namespace Sto\AdminBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use Sto\AdminBundle\Form\CompanyPhoneType,
-    Sto\AdminBundle\Form\CompanyWorkingTimeType;;
+use Sto\AdminBundle\Form\CompanyPhoneType;
+use Sto\AdminBundle\Form\CompanyWorkingTimeType;;
 
 class CompanyType extends AbstractType
 {
@@ -49,6 +49,18 @@ class CompanyType extends AbstractType
                     'widget_control_group' => false,
                 )
             ))
+            ->add('city', 'entity', [
+                'label' => 'Город',
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
             ->add('address', null, [
                 'label' => 'Адрес',
             ])

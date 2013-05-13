@@ -2,19 +2,19 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\Feedback,
-    Sto\CoreBundle\Entity\FeedbackAnswer,
-    Sto\CoreBundle\Entity\FeedbackCompany,
-    Sto\CoreBundle\Entity\FeedbackDeal,
-    Sto\AdminBundle\Form\FeedbackType,
-    Sto\AdminBundle\Form\FeedbackCompanyType,
-    Sto\AdminBundle\Form\FeedbackDealType,
-    Sto\AdminBundle\Form\FeedbackAnswerType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\CoreBundle\Entity\Feedback;
+use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\FeedbackCompany;
+use Sto\CoreBundle\Entity\FeedbackDeal;
+use Sto\AdminBundle\Form\FeedbackType;
+use Sto\AdminBundle\Form\FeedbackCompanyType;
+use Sto\AdminBundle\Form\FeedbackDealType;
+use Sto\AdminBundle\Form\FeedbackAnswerType;
 
 /**
  * Feedback controller.

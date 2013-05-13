@@ -2,10 +2,9 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Doctrine\ORM\EntityRepository;
 
 class RegistrationType extends BaseType
 {
@@ -55,6 +54,18 @@ class RegistrationType extends BaseType
                 'second_options' => ['label' => 'form.password_confirmation'],
                 'invalid_message' => 'fos_user.password.mismatch',
             ])
+            ->add('city', 'entity', [
+                'label' => 'Город',
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
             ->add('captcha', 'captcha',[
                 'reload' => true,
                 'bypass_code' => '1234567',
@@ -62,21 +73,8 @@ class RegistrationType extends BaseType
                     'class' => 'input-xlarge'
                 ]
             ])
-            /*->add('ratingGroupId', 'hidden', [
-                'attr' => [
-                    'value' => '1'
-                ]
-            ])*/
-            ;
         ;
     }
-
-    /*public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'Sto\UserBundle\Entity\User'
-        ]);
-    }*/
 
     public function getName()
     {

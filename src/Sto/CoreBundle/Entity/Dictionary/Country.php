@@ -3,10 +3,11 @@
 namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File,
-    Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Country
@@ -59,6 +60,28 @@ class Country extends Base
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(name="gps", type="string", nullable=true)
+     */
+    private $gps;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Company")
+     */
+    private $companies;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\UserBundle\Entity\User")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->companies = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * Set icon
@@ -158,5 +181,55 @@ class Country extends Base
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function addCompany(\Sto\CoreBundle\Entity\Company $company)
+    {
+        $this->companies[] = $company;
+
+        return $this;
+    }
+
+    public function removeCompany(\Sto\CoreBundle\Entity\Company $company)
+    {
+        $this->companies->removeElement($company);
+
+        return $this;
+    }
+
+    public function getCompanies()
+    {
+        return $this->companies->toArray();
+    }
+
+    public function addUser(\Sto\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    public function removeUser(\Sto\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getUsers()
+    {
+        return $this->users->toArray();
+    }
+
+    public function setGps($gps)
+    {
+        $this->gps = $gps;
+
+        return $this;
+    }
+
+    public function getGps()
+    {
+        return $this->gps;
     }
 }

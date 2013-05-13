@@ -2,9 +2,10 @@
 
 namespace Sto\AdminBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
 {
@@ -80,9 +81,17 @@ class UserType extends AbstractType
                 'choices' => ['Мужской', 'Женский'],
                 'render_optional_text' => false
             ])
-            ->add('city', null, [
+            ->add('city', 'entity', [
                 'label' => 'Город',
-                'render_optional_text' => false
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('linkVK', null, [
                 'label' => 'ВКонтакте',

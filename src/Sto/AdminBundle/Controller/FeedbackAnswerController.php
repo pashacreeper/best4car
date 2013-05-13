@@ -2,13 +2,13 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\CoreBundle\Entity\FeedbackAnswer,
-    Sto\AdminBundle\Form\FeedbackAnswerType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\AdminBundle\Form\FeedbackAnswerType;
 
 /**
  * FeedbackAnswer controller.

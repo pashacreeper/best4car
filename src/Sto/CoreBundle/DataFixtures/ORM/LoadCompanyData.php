@@ -5,7 +5,6 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-
 use sto\CoreBundle\Entity\Company;
 
 class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
@@ -81,7 +80,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
-
+        $company->setCity($this->getReference('city[spb]'));
         //for($i = 0; $i <= rand(1,2); $i++)
             //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
 
@@ -124,28 +123,28 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         }
         $company->setLogoName('2.png');
         $company->setWorkingTime([
-                [
-                    'from' => new \DateTime(rand(8,12).':00:00'),
-                    'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Пн',
-                    'dayTill' => 'Вт'
-                ],
-                [
-                    'from' => new \DateTime(rand(8,12).':00:00'),
-                    'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Сб',
-                    'dayTill' => 'Вс'
-                ]
-            ]);
+            [
+                'from' => new \DateTime(rand(8,12).':00:00'),
+                'till' => new \DateTime(rand(15,20).':00:00'),
+                'dayFrom' => 'Пн',
+                'dayTill' => 'Вт'
+            ],
+            [
+                'from' => new \DateTime(rand(8,12).':00:00'),
+                'till' => new \DateTime(rand(15,20).':00:00'),
+                'dayFrom' => 'Сб',
+                'dayTill' => 'Вс'
+            ]
+        ]);
         $company->setPhones([
-                [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
-                    'description' => $phone_type[rand(0,1)],
-                ],
-                [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
-                    'description' => $phone_type[rand(0,1)],
-                ]
+            [
+                'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'description' => $phone_type[rand(0,1)],
+            ],
+            [
+                'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'description' => $phone_type[rand(0,1)],
+            ]
         ]);
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
@@ -160,6 +159,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
+        $company->setCity($this->getReference('city[spb]'));
         //for($i = 0; $i <= 2; $i++)
             //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
@@ -247,6 +247,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setHourPrice(rand(500,4500));
             $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
+            $company->setCity($this->getReference('city[spb]'));
             //for($k = 1; $k <= 2; $k++)
                 //$company->addManager($this->getReference("user[".rand(1, $k*15)."]"));
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');

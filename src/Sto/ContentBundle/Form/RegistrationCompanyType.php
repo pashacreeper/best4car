@@ -2,16 +2,15 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationCompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('firstName', null, [
                 'label' => 'Имя',
                 'render_optional_text' => false,
@@ -42,6 +41,18 @@ class RegistrationCompanyType extends AbstractType
                 ],
                 'required' => true,
                 'type' => 'password',
+            ])
+            ->add('city', 'entity', [
+                'label' => 'Город',
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('captcha', 'captcha',[
                 'reload' => true

@@ -294,6 +294,19 @@ class Company
      */
     protected $managers;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city_id", type="integer")
+     */
+    private $cityId;
+
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
@@ -1112,5 +1125,30 @@ class Company
         $this->managers = $managers;
 
         return $this;
+    }
+
+    public function setCity(\Sto\CoreBundle\Entity\Dictionary\Country $city)
+    {
+        $this->city = $city;
+        $city->addCompany($this);
+
+        return $this;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function setCityId($cityId)
+    {
+        $this->cityId = $cityId;
+
+        return $this;
+    }
+
+    public function getCityId()
+    {
+        return $this->cityId;
     }
 }
