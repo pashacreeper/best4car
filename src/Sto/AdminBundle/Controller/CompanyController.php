@@ -2,17 +2,17 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sto\CoreBundle\Entity\Company,
-    Sto\CoreBundle\Entity\CompanyGallery,
-    Sto\AdminBundle\Form\CompanyType,
-    Sto\AdminBundle\Form\CompanyGalleryType,
-    Sto\AdminBundle\Form\CompanyManagerType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyGallery;
+use Sto\AdminBundle\Form\CompanyType;
+use Sto\AdminBundle\Form\CompanyGalleryType;
+use Sto\AdminBundle\Form\CompanyManagerType;
 
 /**
  * Company controller.
@@ -286,11 +286,8 @@ class CompanyController extends Controller
      */
     public function showManagersAction($company)
     {
-
         $form = $this->createForm(new CompanyManagerType, $company);
 
-        //$em = $this->getDoctrine()->getManager();
-        //$companyUsers = $em->getRepository()
         return [
             'company' => $company,
             'form' => $form->createView(),

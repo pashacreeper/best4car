@@ -212,6 +212,7 @@ class User extends BaseUser
         $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ratingGroupId = 1;
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enabled = true;
     }
 
     public static function getGenders()

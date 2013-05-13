@@ -2,13 +2,14 @@
 
 namespace Sto\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
-    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sto\UserBundle\Entity\User,
-    Sto\AdminBundle\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sto\UserBundle\Entity\User;
+use Sto\AdminBundle\Form\UserType;
 
 /**
  * User controller.
@@ -39,9 +40,9 @@ class UserController extends Controller
             $this->get('request')->query->get('numItemsPerPage', $def_limit)
         );
 
-        return array(
+        return [
             'pagination' => $pagination,
-        );
+        ];
     }
 
     /**
@@ -49,23 +50,13 @@ class UserController extends Controller
      *
      * @Route("/{id}/show", name="admin_user_show")
      * @Template()
+     * @ParamConverter("user", class="StoUserBundle:User")
      */
-    public function showAction($id)
+    public function showAction($user)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('StoUserBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [
+            'entity' => $user,
+        ];
     }
 
     /**
@@ -76,13 +67,11 @@ class UserController extends Controller
      */
     public function newAction()
     {
-        $entity = new User();
-        $form   = $this->createForm(new UserType(), $entity);
+        $form   = $this->createForm(new UserType, new User);
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return [
+            'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -94,8 +83,8 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new User();
-        $form = $this->createForm(new UserType(), $entity);
+        $entity  = new User;
+        $form = $this->createForm(new UserType, $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -106,36 +95,28 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('admin_user'));
         }
 
-        return array(
+        return [
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing User entity.
      *
      * @Route("/{id}/edit", name="admin_user_edit")
+     * @Method("GET")
      * @Template()
+     * @ParamConverter("user", class="StoUserBundle:User")
      */
-    public function editAction($id)
+    public function editAction($user)
     {
-        $em = $this->getDoctrine()->getManager();
+        $editForm = $this->createForm(new UserType(), $user);
 
-        $entity = $em->getRepository('StoUserBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $editForm = $this->createForm(new UserType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [
+            'entity'    => $user,
+            'edit_form' => $editForm->createView(),
+        ];
     }
 
     /**
@@ -143,35 +124,26 @@ class UserController extends Controller
      *
      * @Route("/{id}/update", name="admin_user_update")
      * @Method("POST")
-     * @Template("StoUserBundle:User:edit.html.twig")
+     * @Template("StoAdminBundle:User:edit.html.twig")
+     * @ParamConverter("user", class="StoUserBundle:User")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $user)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('StoUserBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new UserType(), $entity);
+        $editForm = $this->createForm(new UserType(), $user);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $entity->setRating($entity->getRating());
-            $em->persist($entity);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_user'));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [
+            'entity'    => $user,
+            'edit_form' => $editForm->createView(),
+        ];
     }
 
     /**
@@ -179,28 +151,14 @@ class UserController extends Controller
      *
      * @Route("/{id}/delete", name="admin_user_delete")
      * @Method("POST")
+     * @ParamConverter("user", class="StoUserBundle:User")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $user)
     {
-        // before delete - delete all data related 2 this user
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoUserBundle:User')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
-
-        $em->remove($entity);
+        $em->remove($user);
         $em->flush();
 
         return $this->redirect($this->generateUrl('admin_user'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
     }
 }
