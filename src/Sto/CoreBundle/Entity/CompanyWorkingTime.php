@@ -1,4 +1,5 @@
 <?php
+
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 class CompanyWorkingTime
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

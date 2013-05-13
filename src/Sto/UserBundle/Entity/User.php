@@ -101,7 +101,7 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country", inversedBy="users")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;

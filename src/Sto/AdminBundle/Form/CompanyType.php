@@ -266,6 +266,14 @@ class CompanyType extends AbstractType
                         'style' => 'width: 100%'
                     ]
                 ])
+                ->add('autos', null, [
+                    'label' => 'Автомабили',
+                    'required' => false,
+                    'render_optional_text' => false,
+                    'attr' => [
+                        'class' => 'select2'
+                    ]
+                ])
             ;
         }
     }

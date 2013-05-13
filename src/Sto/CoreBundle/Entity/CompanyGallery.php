@@ -1,10 +1,11 @@
 <?php
+
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File,
-    Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Entity\Company;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -18,8 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class CompanyGallery
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,7 +26,6 @@ class CompanyGallery
     private $id;
 
     /**
-     * @var string
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
@@ -39,28 +37,20 @@ class CompanyGallery
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="company_gallery", fileNameProperty="imageName")
-     *
-     * @var File $image
      */
     protected $image;
 
     /**
-     * @var string $logoName
-     *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     protected $imageName;
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="visible", type="boolean")
      */
     private $visible;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;

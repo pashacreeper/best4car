@@ -16,13 +16,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Company extends Base
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Company")
-     */
-    private $companies;
-
-    /**
-     * @var File $iconMap
-     *
      * @Assert\Image(
      *     maxSize="256k",
      *     mimeTypes={"image/png", "image/jpeg"},
@@ -34,15 +27,11 @@ class Company extends Base
     protected $iconMap;
 
     /**
-     * @var string $iconNameMap
-     *
      * @ORM\Column(type="string", length=255, name="icon_name_map", nullable=true)
      */
     protected $iconNameMap;
 
     /**
-     * @var File $iconSmall
-     *
      * @Assert\Image(
      *     maxSize="256k",
      *     mimeTypes={"image/png", "image/jpeg"},
@@ -54,15 +43,11 @@ class Company extends Base
     protected $iconSmall;
 
     /**
-     * @var string $iconNameSmall
-     *
      * @ORM\Column(type="string", length=255, name="icon_name_small", nullable=true)
      */
     protected $iconNameSmall;
 
     /**
-     * @var File $iconLarge
-     *
      * @Assert\Image(
      *     maxSize="512k",
      *     mimeTypes={"image/png", "image/jpeg"},
@@ -74,15 +59,11 @@ class Company extends Base
     protected $iconLarge;
 
     /**
-     * @var string $iconNameLarge
-     *
      * @ORM\Column(type="string", length=255, name="icon_name_large", nullable=true)
      */
     protected $iconNameLarge;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;

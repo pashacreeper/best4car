@@ -72,7 +72,6 @@ class Deal
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image", fileNameProperty="imageName")
-     * @var File $image
      */
     private $image;
 
@@ -87,7 +86,6 @@ class Deal
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image2", fileNameProperty="imageName2")
-     * @var File $image2
      */
     private $image2;
 
@@ -102,7 +100,6 @@ class Deal
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image3", fileNameProperty="imageName3")
-     * @var File $image3
      */
     private $image3;
 
@@ -196,8 +193,8 @@ class Deal
     /**
      * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
      * @ORM\JoinTable(name="deals_auto",
-     *      joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
      * )
      */
     protected $auto;

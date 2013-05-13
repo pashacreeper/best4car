@@ -25,13 +25,11 @@ class Country extends Base
      *     maxHeight="1024"
      * )
      * @Vich\UploadableField(mapping="country_icon", fileNameProperty="iconName")
-     * @var File $icon
      */
     protected $icon;
 
     /**
      * @ORM\Column(type="string", length=255, name="icon_name", nullable=true)
-     * @var string $iconName
      */
     protected $iconName;
 
@@ -43,20 +41,15 @@ class Country extends Base
      *     maxHeight="2048"
      * )
      * @Vich\UploadableField(mapping="country_image", fileNameProperty="imageName")
-     * @var File $icon
      */
     protected $image;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="image_name", type="string", length=255, nullable=true)
      */
     private $imageName;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -67,12 +60,12 @@ class Country extends Base
     private $gps;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Company")
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\Company", mappedBy="city")
      */
     private $companies;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\UserBundle\Entity\User")
+     * @ORM\OneToMany(targetEntity="\Sto\UserBundle\Entity\User", mappedBy="city")
      */
     private $users;
 

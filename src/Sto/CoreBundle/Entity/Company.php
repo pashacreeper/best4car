@@ -3,9 +3,9 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File,
-    Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,8 +20,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Company
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,29 +27,22 @@ class Company
     private $id;
 
     /**
-     * @var string
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="slogan", type="string", length=255, nullable=true)
      */
     private $slogan;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="full_name", type="string", length=255, nullable=true)
      */
     private $fullName;
 
     /**
-     * @var string
-     *
      * @Assert\Url()
      * @ORM\Column(name="web", type="string", length=255, nullable=true)
      */
@@ -59,18 +50,18 @@ class Company
 
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
-     * @ORM\JoinTable(name="company_dictionary_parrent",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * @ORM\JoinTable(name="company_dictionary_company_type_parrent",
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
      * )
      */
     private $specialization;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
-     * @ORM\JoinTable(name="company_dictionary_children",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * @ORM\JoinTable(name="company_dictionary_company_type_children",
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
      * )
      */
     private $services;
@@ -78,8 +69,8 @@ class Company
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
      * @ORM\JoinTable(name="company_additional_service",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
      * )
      */
     private $additionalServices;
@@ -90,42 +81,30 @@ class Company
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logoName")
-     *
-     * @var File $logo
      */
     protected $logo;
 
     /**
-     * @var string $logoName
-     *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     protected $logoName;
 
     /**
-     * @var array
-     *
      * @ORM\Column(name="working_time", type="array")
      */
     private $workingTime;
 
     /**
-     * @var array
-     *
      * @ORM\Column(name="phones", type="array")
      */
     private $phones;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="skype", type="string", length=255, nullable=true)
      */
     private $skype;
 
     /**
-     * @var string
-     *
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email.",
      *     checkMX = true
@@ -135,52 +114,38 @@ class Company
     private $email;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="gps", type="string", length=255, nullable=true)
      */
     private $gps;
 
     /**
-     * @var \DateTime
-     *
      * @Assert\Date()
      * @ORM\Column(name="createt_date", type="date")
      */
     private $createtDate;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="photos", type="string", length=255, nullable=true)
      */
     private $photos;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="social_networks", type="string", length=255, nullable=true)
      */
     private $socialNetworks;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="rating", type="float", nullable=true)
      */
     private $rating;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="reviews", type="string", length=255, nullable=true)
      */
     private $reviews;
@@ -191,29 +156,21 @@ class Company
     private $deals;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="subscribable", type="boolean")
      */
     private $subscribable;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="hour_price", type="string", length=255, nullable=true)
      */
     private $hourPrice;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="currency_id", type="integer", length=255, nullable=true)
      */
     private $currencyId;
@@ -225,22 +182,16 @@ class Company
     private $currency;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="administrator_contact_info", type="string", length=255, nullable=true)
      */
     private $administratorContactInfo;
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="visible", type="boolean")
      */
     private $visible;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="notes", type="string", length=255, nullable=true)
      */
     private $notes;
@@ -253,15 +204,13 @@ class Company
     /**
      * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\Group", inversedBy="companies")
      * @ORM\JoinTable(name="company_group_relationship",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      * )
      */
     protected $groups;
 
     /**
-     * @var integer
-     *
      * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
      */
     protected $ratingGroupId;
@@ -279,8 +228,6 @@ class Company
     private $gallery;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -288,24 +235,31 @@ class Company
     /**
      * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\User", inversedBy="companies")
      * @ORM\JoinTable(name="company_user_relationship",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      * )
      */
     protected $managers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country",inversedBy="companies")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="city_id", type="integer")
      */
     private $cityId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
+     * @ORM\JoinTable(name="company_autos",
+     *     joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     * )
+     */
+    protected $autos;
 
     public function __construct()
     {
@@ -319,6 +273,7 @@ class Company
         $this->service = new \Doctrine\Common\Collections\ArrayCollection();
         $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->managers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->autos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1083,7 +1038,6 @@ class Company
 
     /**
      * Set managers
-     *
      */
     public function addManager(\Sto\userBundle\Entity\User $manager)
     {
@@ -1150,5 +1104,32 @@ class Company
     public function getCityId()
     {
         return $this->cityId;
+    }
+
+    /**
+     * Set auto
+     */
+    public function addAuto(\Sto\CoreBundle\Entity\Catalog\Base $auto)
+    {
+        $this->autos[] = $auto;
+
+        return $this;
+    }
+
+    /**
+     * remove auto
+     */
+    public function removeAuto(\Sto\CoreBundle\Entity\Catalog\Base $auto)
+    {
+        $this->autos->removeElement($auto);
+    }
+
+    /**
+     * Get managers
+     *
+     */
+    public function getAutos()
+    {
+        return $this->autos;
     }
 }

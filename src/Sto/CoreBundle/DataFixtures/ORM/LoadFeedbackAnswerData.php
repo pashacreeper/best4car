@@ -2,9 +2,9 @@
 
 namespace Sto\CoreBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface,
-    Doctrine\Common\DataFixtures\AbstractFixture,
-    Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
 
 class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureInterface
