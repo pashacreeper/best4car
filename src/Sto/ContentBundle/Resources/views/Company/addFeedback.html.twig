@@ -11,6 +11,7 @@
 {% block head_script %}
     {{ parent() }}
     <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('bundles/stocore/js/tiny_mce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
     {{ form_javascript(form) }}
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Base
@@ -43,26 +44,25 @@ class Base
 
     /**
      * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
+     * @Serializer\Exclude
      */
     private $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @Serializer\Exclude
      */
     private $parent;
 
     /**
-     * @var integer
-     *
      * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
     private $parentId;
 
     /**
-     * @var integer
-     *
      * @ORM\Column(name="position", type="integer", nullable=true)
+     * @Serializer\Exclude
      */
     private $position;
 

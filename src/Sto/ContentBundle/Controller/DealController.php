@@ -22,11 +22,15 @@ class DealController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $city = $this->get('sto_content.manager.city')->selectedCity();
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:Deal');
         $query = $repository->createQueryBuilder('deal')
+            ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
-            ->setParameter('endDate', new \DateTime('now'));
+            ->andWhere('dc.cityId = :city')
+            ->setParameter('endDate', new \DateTime('now'))
+            ->setParameter('city', $city->getId())
         ;
 
         if ($request->get('search')) {
@@ -48,8 +52,11 @@ class DealController extends Controller
             ->createQueryBuilder('dictionary')
             ->select('dictionary, deals')
             ->join('dictionary.deals', 'deals')
+            ->join('deals.company', 'dc')
             ->where('deals.endDate > :endDate')
+            ->andWhere('dc.cityId = :city')
             ->setParameter('endDate', new \DateTime('now'))
+            ->setParameter('city', $city->getId())
             ->orderBy('dictionary.position', 'ASC')
             ->getQuery()
             ->getResult()
@@ -57,8 +64,11 @@ class DealController extends Controller
 
         $countFeededDeals = $repository->createQueryBuilder('deal')
             ->join('deal.feedbacks', 'f')
+            ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate AND f.content is not null')
+            ->andWhere('dc.cityId = :city')
             ->setParameter('endDate', new \DateTime('now'))
+            ->setParameter('city', $city->getId())
             ->getQuery()
             ->getResult()
        ;
@@ -77,11 +87,15 @@ class DealController extends Controller
      */
     public function dealsAction(Request $request)
     {
+        $city = $this->get('sto_content.manager.city')->selectedCity();
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
+            ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
+            ->andWhere('dc.cityId = :city')
             ->setParameter('endDate', new \DateTime('now'))
+            ->setParameter('city', $city->getId())
         ;
         if ($request->get('deal_type')) {
             $deal_type = $request->get('deal_type');

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Country
@@ -25,6 +26,7 @@ class Country extends Base
      *     maxHeight="1024"
      * )
      * @Vich\UploadableField(mapping="country_icon", fileNameProperty="iconName")
+     * @Serializer\Exclude
      */
     protected $icon;
 
@@ -41,6 +43,7 @@ class Country extends Base
      *     maxHeight="2048"
      * )
      * @Vich\UploadableField(mapping="country_image", fileNameProperty="imageName")
+     * @Serializer\Exclude
      */
     protected $image;
 
@@ -51,6 +54,7 @@ class Country extends Base
 
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @Serializer\Exclude
      */
     private $updatedAt;
 
@@ -61,11 +65,13 @@ class Country extends Base
 
     /**
      * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\Company", mappedBy="city")
+     * @Serializer\Exclude
      */
     private $companies;
 
     /**
      * @ORM\OneToMany(targetEntity="\Sto\UserBundle\Entity\User", mappedBy="city")
+     * @Serializer\Exclude
      */
     private $users;
 

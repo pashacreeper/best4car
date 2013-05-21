@@ -2,10 +2,10 @@
 
 namespace Sto\ContentBundle\Builder;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\Security\Core\SecurityContext,
-    Symfony\Component\Routing\Router,
-    Symfony\Component\Translation\Translator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Translation\Translator;
 use FOS\UserBundle\Model\UserInterface;
 use Mopa\Bundle\BootstrapBundle\Navbar\AbstractNavbarMenuBuilder;
 
@@ -28,14 +28,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             'route' => 'content_deals',
             'extras' => [],
         ]);
-        // $menu->addChild('Клубы', [
-        //     'uri' => '#',
-        //     'extras' => [],
-        // ]);
-        // $menu->addChild('Эксперты', [
-        //     'uri' => '#',
-        //     'extras' => [],
-        // ]);
+
         return $menu;
     }
 

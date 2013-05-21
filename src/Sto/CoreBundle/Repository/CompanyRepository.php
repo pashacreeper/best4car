@@ -45,4 +45,16 @@ class CompanyRepository extends EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getCompaniesByCity($city)
+    {
+        return $this->createQueryBuilder('company')
+            ->where('company.visible = true')
+            ->andWhere('company.cityId = :city')
+            ->orderBy('company.rating', 'DESC')
+            ->setParameter('city', $city->getId())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

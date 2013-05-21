@@ -25,12 +25,12 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $.ajax({
-            type: 'POST',
-            url: "{{ path('get_user_city') }}",
-            success: function(res) {
-                $('#choice-city a').text(res.user_city);
-            }
+        $.getJSON(Routing.generate('api_city_selected'))
+        .done(function (json) {
+            $('#choice-city a').text(json.city);
+        })
+        .fail(function (e) {
+            console.log(e.message);
         });
 
         $('#choice-city > a').on("click", function() {
@@ -62,7 +62,7 @@
                             coun_area.append(
                                 '<p>'+
                                 '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +
-                                '<a href="#city-' + city.id  + '" id="a-city-' + city.id  + '" class="city-link">' + city.name  + '</a></li></p>'
+                                '<a href="#" class="city-link" data-city-id="' + city.id + '" data-city-name="' + city.name + '">' + city.name  + '</a></li></p>'
                             );
                         });
                     })
@@ -79,17 +79,20 @@
         });
 
         $('a.city-link').live('click',function(){
-            $('#choice-city a').html($(this).html());
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('city_ajax_save') }}?city="+$(this).html(),
-                data: 'city/'+ $(this).html(),
-                success: function(res) {
-                    $('#modalChooseCity').modal('hide');
-                },
-                error: function(e){
-                    console.log('error', e.message);
-                }
+            $('#choice-city a').html($(this).data('city-name'));
+
+            $.getJSON(Routing.generate('api_city_choice', { id: $(this).data('city-id') }))
+            .done(function (city) {
+                $('#modalChooseCity').modal('hide');
+
+                $.getJSON(Routing.generate('api_get_companies'))
+                .done(function (companies) {
+                     $('#home_compalies').addClass("hide");
+                    renderMap(city.gps, companies);
+                })
+            })
+            .fail(function (json) {
+                console.log(json.message);
             });
 
             return false;

@@ -9,7 +9,6 @@ security:
             # vk login
             id: fos_user.user_manager
 
-
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
 
@@ -43,14 +42,8 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
-    #factories:
-    #    - "%kernel.root_dir%/../vendor/bundles/HWI/Bundle/OAuthBundle/Resources/config/security_factory.xml"
-
     #role_hierarchy:
     #    ROLE_REDACTOR:    ROLE_USER
     #    ROLE_MODERATOR:   ROLE_USER
     #    ROLE_ADMIN:       ROLE_MODERATOR
     #    ROLE_SUPER_ADMIN: ROLE_ADMIN
-
-
-

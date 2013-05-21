@@ -6,13 +6,6 @@ parameters:
     database_user:     root
     database_password: ~
 
-    database_second_driver:   pdo_mysql
-    database_second_host:     localhost
-    database_second_port:     ~
-    database_second_name:     sto_second
-    database_second_user:     root
-    database_second_password: ~
-
     mailer_transport:  smtp
     mailer_host:       localhost
     mailer_user:       ~

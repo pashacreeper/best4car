@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,12 +24,15 @@ class CompanyController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $city = $this->get('sto_content.manager.city')->selectedCity();
 
-        $repository = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company');
+        $repository = $em->getRepository('StoCoreBundle:Company');
         $query = $repository->createQueryBuilder('company')
             ->select('company, s')
             ->join('company.specialization', 's')
             ->where('company.visible = true')
+            ->andWhere('company.cityId = :city')
+            ->setParameter('city', $city->getId())
         ;
 
         if ($request->isMethod('POST') and $request->get('search')) {
@@ -61,7 +65,8 @@ class CompanyController extends Controller
         }
 
         return [
-            'companies' => json_encode($companies)
+            'companies' => json_encode($companies),
+            'city' => $city
         ];
     }
 
@@ -87,10 +92,10 @@ class CompanyController extends Controller
     public function getAllAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Company')->getVisibleCompanies();
+        $companies = $em->getRepository('StoCoreBundle:Company')->getCompaniesByCity($this->get('sto_content.manager.city')->selectedCity());
 
         if (!$companies) {
-            return new Responce(500, 'Companies Not found.');
+            return new Response('Companies Not found.', 500);
         }
 
         return [

@@ -36,6 +36,7 @@ class APICompanyController extends FOSRestController
     public function getCompanies()
     {
         $serializer = $this->container->get('jms_serializer');
+        $city = $this->get('sto_content.manager.city')->selectedCity();
 
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company');
@@ -43,6 +44,8 @@ class APICompanyController extends FOSRestController
             ->select('company, s')
             ->join('company.specialization', 's')
             ->where('company.visible = true')
+            ->andWhere('company.cityId = :city')
+            ->setParameter('city', $city->getId())
         ;
 
         $companies = $query

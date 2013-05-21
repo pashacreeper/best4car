@@ -56,7 +56,7 @@ class APICountryController extends APIBaseController
             ->createQueryBuilder('dictionary')
             ->where('dictionary.parent is null')
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
         ;
 
         return new Response($serializer->serialize($data, 'json'));
