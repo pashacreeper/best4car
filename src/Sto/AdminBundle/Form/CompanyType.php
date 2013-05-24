@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Sto\AdminBundle\Form\CompanyPhoneType;
-use Sto\AdminBundle\Form\CompanyWorkingTimeType;;
+use Sto\ContentBundle\Form\CompanyWorkingTimeType;;
 
 class CompanyType extends AbstractType
 {

@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  *     "country"            = "Country",
  *     "day_of_week"        = "WeekDay",
  *     "price_level"        = "PriceLevel",
+ *     "contact_type"       = "ContactType",
  * })
  */
 class Base

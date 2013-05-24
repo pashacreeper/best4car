@@ -26,6 +26,7 @@ class LoadDictionaryWeekDaysData extends AbstractFixture implements OrderedFixtu
             $dictionary = (new Dictionary\WeekDay)
                 ->setShortName($shortName)
                 ->setName($name)
+                ->setPosition($i)
             ;
 
             $manager->persist($dictionary);

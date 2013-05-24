@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sto\CoreBundle\Entity\CompanyManager;
 
 /**
  * Company
@@ -261,6 +262,31 @@ class Company
      */
     protected $autos;
 
+    /**
+     * @ORM\Column(name="vk_link", type="string", length=255, nullable=true)
+     */
+    private $linkVK;
+
+    /**
+     * @ORM\Column(name="twitter_link", type="string", length=255, nullable=true)
+     */
+    private $linkTW;
+
+    /**
+     * @ORM\Column(name="fb_link", type="string", length=255, nullable=true)
+     */
+    private $linkFB;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyManager", mappedBy="company", cascade={"all"})
+     */
+    private $companyManager;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\Contacts", mappedBy="company", cascade={"all"})
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
@@ -274,6 +300,8 @@ class Company
         $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->managers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->autos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -957,7 +985,7 @@ class Company
 
     public function __toString()
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getGroups()
@@ -1132,4 +1160,83 @@ class Company
     {
         return $this->autos;
     }
+
+    public function getLinkVK()
+    {
+        return $this->linkVK;
+    }
+
+    public function setLinkVK($link)
+    {
+        $this->linkVK = $link;
+
+        return $this;
+    }
+
+    public function getLinkFB()
+    {
+        return $this->linkFB;
+    }
+
+    public function setLinkFB($link)
+    {
+        $this->linkFB = $link;
+
+        return $this;
+    }
+
+    public function getLinkTW()
+    {
+        return $this->linkTW;
+    }
+
+    public function setLinkTW($link)
+    {
+        $this->linkTW = $link;
+
+        return $this;
+    }
+
+    public function getCompanyManager()
+    {
+        return $this->companyManager;
+    }
+
+    public function addCompanyManager(CompanyManager $manager)
+    {
+        $manager->setCompany($this);
+        $this->companyManager[] = $manager;
+
+        return $this;
+    }
+
+    public function removeCompanyManager(CompanyManager $manager)
+    {
+        $this->companyManager->remove($manager);
+    }
+
+    public function setCompanyManager($managers)
+    {
+        $this->companyManager = $managers;
+
+        return $this;
+    }
+
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    public function addContact($contact)
+    {
+        $this->contacts[] =  $contact;
+
+        return $this;
+    }
+
+    public function removeContact($contact)
+    {
+        $this->contacts->remove($contact);
+    }
+
 }

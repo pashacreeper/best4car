@@ -7,7 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Sto\AdminBundle\Form\CompanyPhoneType;
-use Sto\AdminBundle\Form\CompanyWorkingTimeType;;
+use Sto\ContentBundle\Form\CompanyWorkingTimeType;
+use Sto\ContentBundle\Form\CompanyManagerType;
+use Sto\AdminBundle\Form\CompanyGalleryType;
 
 class CompanyType extends AbstractType
 {
@@ -18,7 +20,7 @@ class CompanyType extends AbstractType
                 'label' => 'Сокращенное наименование'
             ])
             ->add('phones','collection', array(
-                'label' => 'Телефон',
+                'label' => ' ',
                 'type' => new CompanyPhoneType(),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -58,7 +60,7 @@ class CompanyType extends AbstractType
                 'label' => 'Адрес',
             ])
             ->add('workingTime','collection', array(
-                'label' => 'Рабочее время',
+                'label' => ' ',
                 'type' => new CompanyWorkingTimeType($options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -102,7 +104,8 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
+                    'style' => 'width:100%;'
                 ]
             ])
             ->add('specialization', 'entity', [
@@ -115,7 +118,8 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
+                    'style' => 'width:100%;'
                 ]
             ])
             ->add('logo', null, [
@@ -149,7 +153,7 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('additionalServices', 'entity', [
+            /*->add('additionalServices', 'entity', [
                 'label' => 'Additional services',
                 'required' => false,
                 'render_optional_text' => false,
@@ -161,8 +165,22 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
+                    'style' => 'width:500px;'
                 ]
+            ])*/
+            ->add('additionalServices', 'entity', [
+                'label' => 'Additional services',
+                'required' => false,
+                'render_optional_text' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'class' => 'StoCoreBundle:Dictionary\AdditionalService',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('ct')
+                        ->orderBy('ct.name')
+                    ;
+                },
             ])
             ->add('skype', null, [
                 'label' => 'Skype',
@@ -197,6 +215,97 @@ class CompanyType extends AbstractType
                     'data-mask' => '99.99,99.99',
                 ]
             ])
+            ->add('linkVK', 'text', [
+                'label' => 'Группа Vkontakte',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('linkFB', 'text', [
+                'label' => 'Страница Facebook',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('linkTW', 'text', [
+                'label' => 'Twitter',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            //->add('companyManager', new CompanyManagerType())
+            ->add('companyManager','collection', array(
+                'label' => ' ',
+                'type' => new CompanyManagerType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'show_legend' => false,
+                'widget_add_btn' =>[
+                    'icon' => 'plus-sign',
+                    'label' => 'add manager',
+                    'attr' => [
+                         'class' => 'btn btn-primary btn-small'
+                    ]
+                ],
+                'options' => array( // options for collection fields
+                    'label_render' => false,
+                    'widget_remove_btn' => [
+                        'label' => '-',
+                        'attr' => [
+                            'class' => 'btn btn-danger btn-small '
+                        ]
+                    ],
+                    'widget_control_group' => false,
+                )
+            ))
+            ->add('contacts','collection', array(
+                'label' => ' ',
+                'type' => new CompanyContactsType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'show_legend' => false,
+                'widget_add_btn' =>[
+                    'icon' => 'plus-sign',
+                    'label' => 'add contact',
+                    'attr' => [
+                         'class' => 'btn btn-primary btn-small'
+                    ]
+                ],
+                'options' => array( // options for collection fields
+                    'label_render' => false,
+                    'widget_remove_btn' => [
+                        'label' => '-',
+                        'attr' => [
+                            'class' => 'btn btn-danger btn-small '
+                        ]
+                    ],
+                    'widget_control_group' => false,
+                )
+            ))
+            ->add('gallery','collection', array(
+                'label' => ' ',
+                'type' => new CompanyGalleryType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'show_legend' => false,
+                'widget_add_btn' =>[
+                    'icon' => 'plus-sign',
+                    'label' => 'add photo',
+                    'attr' => [
+                         'class' => 'btn btn-primary btn-small'
+                    ]
+                ],
+                'options' => array( // options for collection fields
+                    'label_render' => false,
+                    'widget_remove_btn' => [
+                        'label' => '-',
+                        'attr' => [
+                            'class' => 'btn btn-danger btn-small '
+                        ]
+                    ],
+                    'widget_control_group' => false,
+                )
+            ))
         ;
     }
 

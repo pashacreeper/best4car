@@ -70,12 +70,12 @@ class Feedback
     private $feedbackRating;
 
     /**
-     * @ORM\Column(name="pluses", type="string")
+     * @ORM\Column(name="pluses", type="integer")
      */
     private $pluses;
 
     /**
-     * @ORM\Column(name="minuses", type="string")
+     * @ORM\Column(name="minuses", type="integer")
      */
     private $minuses;
 

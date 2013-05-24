@@ -11,7 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Company;
-use Sto\CoreBundle\Entity\FeedbackCompany;
+use Sto\CoreBundle\Entity\FeedbackCompany,
+    Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 
 class CompanyController extends Controller
@@ -124,9 +125,27 @@ class CompanyController extends Controller
             3
         );
 
+        if ($this->getUser()) {
+            $manager = $em->getRepository('StoUserBundle:User')
+                ->createQueryBuilder('user')
+                ->select('user')
+                ->join('user.companies', 'company')
+                ->where('user.id = :user_id AND company.id = :company')
+                ->setParameter('user_id', $this->getUser()->getId())
+                ->setParameter('company', $id)
+                ->getQuery()
+                ->getResult()
+                ;
+        }
+        if (isset($manager) && count($manager)>0)
+            $isManager = true;
+        else
+            $isManager = false;
+
         return [
             'feedbacks' => $feedbacks,
             'companyId' => $id,
+            'isManager' => $isManager,
         ];
     }
 
@@ -179,5 +198,29 @@ class CompanyController extends Controller
             'form'    => $form->createView(),
             'company' => $company
         ];
+    }
+
+    /**
+     * @Route("/company/{id}/feedback-answer/add", name="content_company_feedbacks_answer_add")
+     * @Method("POST")
+     * @Template()
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function addFeedbackAnswerAction(Request $request, $id)
+    {
+        $feedback_id = $request->get('feedback_id');
+        $em = $this->getDoctrine()->getManager();
+        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
+        if (!$feedback)
+            return new Responce(500, 'Feedback Not found.');
+        $answer = new FeedbackAnswer();
+        $answer->setAnswer($request->get('answer'));
+        $answer->setOwner($this->getUser());
+        $answer->setFeedback($feedback);
+        $answer->setDate(new \DateTime('now'));
+        $em->persist($answer);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('content_company_show', ['id' => $id]));
     }
 }

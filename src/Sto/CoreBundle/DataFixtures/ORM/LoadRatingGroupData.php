@@ -17,9 +17,9 @@ class LoadRatingGroupData extends AbstractFixture implements FixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $groups = [
-            'Автолюбители' => [10, 99],
-            'Автоэксперты' => [100, 499],
-            'Автопрофи'    => [500, 100000],
+            'Автолюбители' => [10, 99, 1],
+            'Автоэксперты' => [100, 499, 3],
+            'Автопрофи'    => [500, 100000, 7],
         ];
 
         $i = 0;
@@ -28,6 +28,7 @@ class LoadRatingGroupData extends AbstractFixture implements FixtureInterface, C
             $group->setName($name);
             $group->setMinRating($ratings[0]);
             $group->setMaxRating($ratings[1]);
+            $group->setMultiplier($ratings[2]);
             $manager->persist($group);
             $this->addReference("rating_groups[{$i}]", $group);
             $i++;

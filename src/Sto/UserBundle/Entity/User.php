@@ -10,7 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\UserBundle\Entity\Group;
 use Sto\UserBundle\Entity\RatingGroup;
+use Sto\UserBundle\Entity\Contacts;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Sto\CoreBundle\Entity\CompanyManager;
 
 /**
  * @ORM\Entity
@@ -209,6 +211,16 @@ class User extends BaseUser
      */
     private $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\Contacts", mappedBy="user", cascade={"all"})
+     */
+    private $contacts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyManager", mappedBy="user", cascade={"all"})
+     */
+    private $companyManager;
+
     public function __construct()
     {
         parent::__construct();
@@ -217,6 +229,13 @@ class User extends BaseUser
         $this->ratingGroupId = 1;
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->enabled = true;
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
     }
 
     public static function getGenders()
@@ -577,6 +596,17 @@ class User extends BaseUser
     }
 
     /**
+     * Get autoProfilesLinkCount
+     *
+     */
+    public function getAutoProfilesLinksCount()
+    {
+        $arr = strtok($this->autoProfilesLinks," ,;\t\n");
+
+        return count($arr);
+    }
+
+    /**
      * Set link_garage
      *
      * @param  string $link_garage
@@ -728,5 +758,52 @@ class User extends BaseUser
     public function getFeedbacks()
     {
         return $this->feedbacks;
+    }
+
+    /**
+     * Get Years Old
+     */
+    public function getYears()
+    {
+        if (!$this->birthDate)
+            return 0;
+        $str = $this->birthDate->format("d.m.Y");
+
+        return (int) ((date('Ymd') - date('Ymd', strtotime($str))) / 10000);
+    }
+
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contacts $contact)
+    {
+        $this->contacts[] = $contact;
+
+        return $this;
+    }
+
+    public function removeContact(Contacts $contact)
+    {
+        $this->contacts->removeElement($contact);
+    }
+
+    public function getCompanyManager()
+    {
+        return $this->companyManager;
+    }
+
+    public function addCompanyManager(CompanyManager $manager)
+    {
+        $manager->setCompany($this);
+        $this->companyManager[] = $manager;
+
+        return $this;
+    }
+
+    public function removeCompanyManager(CompanyManager $manager)
+    {
+        $this->companyManager->remove($manager);
     }
 }

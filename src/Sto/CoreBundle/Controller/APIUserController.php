@@ -3,6 +3,7 @@ namespace Sto\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -125,4 +126,162 @@ class APIUserController extends FOSRestController
 
         return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
     }
+
+    /**
+     * @ApiDoc(
+     *  description="save Personal User Data",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @Rest\View
+     * @Route("/api/user/save/personal", name="api_user_save_personal")
+     * @Method({"GET"})
+     */
+    public function savePersonalAction(Request $request)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+        if (!$user)
+            return new Response($serializer->serialize(array("message" => "Not found User", "type" => "error", "code" => 404), 'json'), 404);
+
+        $user->setFirstName($request->get('firstName'));
+        $user->setLastName($request->get('lastName'));
+        if ($request->get('lastName')!='')
+            $user->setUsername($request->get('userName'));
+        $user->setBirthDate(new \DateTime($request->get('birthDate')));
+        if ($request->get('city')>0) {
+            $city = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($request->get('city'));
+            if ($city) {
+                $user->setCity($city);
+            }
+        }
+        $em->persist($user);
+        $em->flush();
+
+        $data = $em->createQueryBuilder()
+            ->select('b.username, b.email,  b.id,  b.firstName,  b.lastName,  b.phoneNumber,  b.gender,  c.name as city, c.id as city_id')
+            ->from('StoUserBundle:User', 'b')
+            ->join('b.city', 'c')
+            ->where('b.id = :id')
+            ->setParameter('id', $this->getUser()->getId())
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        if ($data === NULL)
+            return new Response($serializer->serialize(["message" => "Not found User", "type" => "error", "code" => 404], 'json'), 404);
+        else {
+            $data[0]['years'] = $user->getYears();
+            $data[0]['birthDate'] = $request->get('birthDate');
+
+            return new Response($serializer->serialize($data, 'json'));
+        }
+    }
+
+     /**
+      * @ApiDoc(
+      *  description="Edit Description in User profile",
+      *  statusCodes={
+      *         200="Returned when successful"
+      *         }
+      * )
+      * @Rest\View
+      * @Route("/api/edit/description", name="api_edit_user_description")
+      * @Method({"POST"})
+      */
+    public function editDescriptionAction(Request $request)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $field = ucfirst($request->get('name'));
+        $value = $request->get('value');
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+        if (method_exists($user, 'set'.$field)) {
+            $user->{'set'.$field}($value);
+        } else {
+            return new Response($serializer->serialize(['message' => 'User doesn\'t have field '.$field, "type" => "error", "code"=>404], 'json'), 404);
+        }
+        $em->persist($user);
+        $em->flush();
+
+        $data[$field] = $value;
+
+        return new Response($serializer->serialize($data, 'json'));
+    }
+
+    /**
+     * @ApiDoc(
+     *  description="save User Contacts",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @Rest\View
+     * @Route("/api/user/save/contacts", name="api_user_save_contacts")
+     * @Method({"GET"})
+     */
+    public function saveContactsAction(Request $request)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $contacts = $request->get('contact');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($contacts as $contact_id => $value) {
+            $contact = $em->getRepository('StoUserBundle:Contacts')->findOneById($contact_id);
+            if ($contact) {
+                $contact->setValue($value['value']);
+                $type = $em->getRepository('StoCoreBundle:Dictionary\ContactType')->findOneById($value['type']);
+                if ($type) {
+                    $contact->setType($type);
+                }
+                $em->persist($contact);
+            }
+        }
+        $em->flush();
+
+        $data = $em->createQueryBuilder()
+            ->select('b.id,  b.value, t.id as type_id, t.name, t.prefix')
+            ->from('StoUserBundle:Contacts', 'b')
+            ->join('b.type', 't')
+            ->join('b.user', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $this->getUser()->getId())
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
+    }
+
+    /**
+     * @ApiDoc(
+     *  description="Remove User Contact",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @Rest\View
+     * @Route("/api/user/remove/contact", name="api_user_remove_contact")
+     * @Method({"GET"})
+     */
+    public function removeContactAction(Request $request)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $id = $request->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+        $contact = $em->getRepository('StoUserBundle:Contacts')->findOneById($id);
+        if (!$contact)
+            return new Response($serializer->serialize(array("message" => "Not found Contact", "type" => "error", "code" => 404), 'json'), 404);
+        $em->remove($contact);
+        $em->flush();
+
+        return new Response($serializer->serialize(array("message" => "Contact removed", "code" => 200), 'json'), 200);
+    }
+
 }

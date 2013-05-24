@@ -198,4 +198,32 @@ class APIDictionaryController extends APIBaseController
 
         return new Response($serializer->serialize($data, 'json'));
     }
+
+    /**
+     * @ApiDoc(
+     *  description="Получить список Типов контактов",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @return List Of Dictionarioes
+     *
+     * @Rest\View
+     * @Route("/api/dictionary/contact_types", name="api_dictionary_contact_types", options={"expose"=true})
+     * @Method({"GET"})
+     */
+    public function getContactTypesAction()
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Dictionary\ContactType')
+            ->createQueryBuilder('c')
+            ->select('c.id, c.prefix, c.name')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return new Response($serializer->serialize($data, 'json'));
+    }
 }

@@ -1,0 +1,110 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+
+{% block title %}Новая акция{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block head_style %}
+{{ parent() }}
+<link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block content %}
+<form action="{{ path('company_deal_create' ,{'id': company.id}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <div class="container">
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.type) }}
+        <div class=" control-group">
+            <label class="control-label required">
+                Сроки акции
+            </label>
+            <div class="controls">
+                {{ form_errors(form.startDate) }}
+                {{ form_widget(form.startDate) }}
+                {{ form_errors(form.endDate) }}
+                {{ form_widget(form.endDate) }}
+            </div>
+        </div>
+        <div class=" control-group">
+            <label class="control-label required">
+                Время акции
+            </label>
+            <div class="controls">
+                {{ form_errors(form.startTime) }}
+                {{ form_widget(form.startTime) }}
+                {{ form_errors(form.endTime) }}
+                {{ form_widget(form.endTime) }}
+            </div>
+        </div>
+        {{ form_row(form.auto) }}
+        {{ form_row(form.services) }}
+        {{ form_row(form.place) }}
+        {{ form_row(form.terms) }}
+    </div>
+    <hr style="margin: 0 0 20px 0;">
+    <div class="container">
+        <div class="span2">
+            <p>
+                Изображения акции</br><small><em>Изображения должны быть пропорции 16:9, не меньше 640 х 360 пикселей</br></br>Формат изображения: JPG, PNG, GIF не более 1Мь</em></small>
+                <p>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {{ form_errors(form.image) }}
+                            {{ form_widget(form.image) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {{ form_errors(form.image2) }}
+                            {{ form_widget(form.image2) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {{ form_errors(form.image3) }}
+                            {{ form_widget(form.image3) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin: 0 0 20px 0;">
+            {{ form_widget(form) }}
+            {{ form_rest(form) }}
+            <div class="form-actions">
+                {% if (activ_deals|length())  < 2 %}
+
+                <input type="submit"  class="btn btn-primary" value="Опубликовать" />
+                {% else %}
+                {{ flash(true, 'У вас две активных акции. Сохраните как черновик', false, true) }}
+                {% endif %}
+
+                <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
+            </div>
+        </form>
+        {% endblock %}
+
+        {% block foot_script %}
+        {{ parent() }}
+        {% javascripts
+        'bundles/stocore/js/select2.js'
+        'bundles/stocore/js/bootstrap-inputmask.js'
+        'bundles/stoadmin/js/script.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript" >
+        $(".select2").select2({width: "50%"});
+        </script>
+        {% endblock %}

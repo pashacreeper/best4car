@@ -4,11 +4,17 @@
             <span class="span12"><h3>Действующие акции компании</h3></span>
         </div>
         {% for key,deal in company.deals %}
-        {% if deal.endDate >= date() and deal.draft == false %}
+        {% if deal.endDate >= date() %}
+
         <div class="row-fluid thumbnail" style="margin-bottom:10px;">
             <div class="span8 "><img src="http://placehold.it/494x280"></div>
             <div class="span4">
-                <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
+                {% if deal.draft == true %}
+                <span class="label label-warning">Черновик</span>
+
+                {% endif %}
+
+                <h4><a href="{{ path('content_deal_show', {'id': deal.id}) }}"> {{ deal.name }} </a></h4>
                 <p>
                     <strong>
                         {{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}
@@ -22,14 +28,19 @@
                     <br />
                     35 заинтересовавшихся
                 </p>
-
+                <a class="btn btn-large btn-block" href="{{ path('company_deal_edit' ,{'id': company.id,'dealId': deal.id }) }}">Редактировать</a>
+                <a class="btn btn-large btn-block" href="{{ path('company_deal_delete' ,{'dealId':deal.id, 'id': company.id}) }}">Удалить</a>
             </div>
         </div>
         {% endif %}
         {% endfor %}
+        <p>
+            <h5><a href="{{ path('company_deal_arhive', {'id':company.id}) }}">Показать архивные акции</a></h5>
+        </p>
     </div>
     <div class="span4">
 
+        <a class="btn btn-large btn-block" href="{{ path('company_deal_new', {'id': company.id}) }}">Добавить акцию</a>
         <div class="thumbnail">
             <img src="http://placehold.it/240x400">
         </div>

@@ -11,7 +11,10 @@ use Sto\UserBundle\Entity\User;
 use Sto\CoreBundle\Entity\Company;
 use Sto\ContentBundle\Form\RegistrationType;
 use Sto\ContentBundle\Form\CompanyType;
+use Sto\ContentBundle\Form\UserPersonalType;
 use Symfony\Component\Form\FormError;
+use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\UserBundle\Entity\Contacts;
 
 /**
  * User controller.
@@ -187,7 +190,13 @@ class UserController extends Controller
         $user = $em->getRepository('StoUserBundle:User')->findOneById($id);
 
         $company = new Company();
-        $company->addManager($user);
+        $manager = new CompanyManager();
+        $manager->setUser($user);
+        $manager->setPhone($user->getPhoneNumber());
+        $manager->setCompany($company);
+
+        //$company->addManager($user);
+        $company->addCompanyManager($manager);
         $cForm = $this->createForm(new CompanyType(), $company, ['em' => $em]);
 
         return [
@@ -207,12 +216,18 @@ class UserController extends Controller
     public function createCompanyAction(Request $request, $id)
     {
         $company  = new Company();
+        $company->addContact(new Contacts());
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
-
+        // var_dump($request->request);
+        // var_dump($request->get('sto_content_company')); exit;
         $form->bind($request);
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')->find($id);
+
+            // var_dump($form->getData()); exit;
+
             $company->addManager($user);
             $company->setUpdatedAt(new \DateTime());
             $em->persist($company);
@@ -258,6 +273,28 @@ class UserController extends Controller
         exit('NO');
 
         return [
+        ];
+    }
+
+    /**
+     * Generate Form
+     *
+     * @Route("/generate-personal", name="content_get_personal_form")
+     * @Template("StoContentBundle:User:personal_form.html.twig")
+     */
+    public function generatePersonalFormAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoUserBundle:User')->find($this->getUser()->getId());
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        $form = $this->createForm(new UserPersonalType, $entity);
+
+        return [
+            'form' => $form->createView()
         ];
     }
 }

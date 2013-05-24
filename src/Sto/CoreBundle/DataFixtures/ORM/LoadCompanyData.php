@@ -46,14 +46,24 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Пн',
-                    'dayTill' => 'Вт'
+                    'day' => [
+                        'string' => 'Пн-Пт',
+                        'array' => [
+                            $this->getReference('week_day[0]')->getId(),
+                            $this->getReference('week_day[4]')->getId(),
+                        ]
+                    ],
                 ],
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Сб',
-                    'dayTill' => 'Вс'
+                    'day' => [
+                        'string' => 'Сб-Вс',
+                        'array' => [
+                            $this->getReference('week_day[5]')->getId(),
+                            $this->getReference('week_day[6]')->getId(),
+                        ]
+                    ],
                 ]
             ]);
         $company->setPhones([
@@ -126,14 +136,24 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             [
                 'from' => new \DateTime(rand(8,12).':00:00'),
                 'till' => new \DateTime(rand(15,20).':00:00'),
-                'dayFrom' => 'Пн',
-                'dayTill' => 'Вт'
+                'day' => [
+                    'string' => 'Пн-Пт',
+                    'array' => [
+                        $this->getReference('week_day[0]')->getId(),
+                        $this->getReference('week_day[4]')->getId(),
+                    ]
+                ],
             ],
             [
                 'from' => new \DateTime(rand(8,12).':00:00'),
                 'till' => new \DateTime(rand(15,20).':00:00'),
-                'dayFrom' => 'Сб',
-                'dayTill' => 'Вс'
+                'day' => [
+                    'string' => 'Сб-Вс',
+                    'array' => [
+                        $this->getReference('week_day[5]')->getId(),
+                        $this->getReference('week_day[6]')->getId(),
+                    ]
+                ],
             ]
         ]);
         $company->setPhones([
@@ -214,14 +234,24 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Пн',
-                    'dayTill' => 'Вт'
+                    'day' => [
+                        'string' => 'Пн-Пт',
+                        'array' => [
+                            $this->getReference('week_day[0]')->getId(),
+                            $this->getReference('week_day[4]')->getId(),
+                        ]
+                    ],
                 ],
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'dayFrom' => 'Сб',
-                    'dayTill' => 'Вс'
+                    'day' => [
+                        'string' => 'Сб-Вс',
+                        'array' => [
+                            $this->getReference('week_day[5]')->getId(),
+                            $this->getReference('week_day[6]')->getId(),
+                        ]
+                    ],
                 ]
             ]);
             $company->setPhones([

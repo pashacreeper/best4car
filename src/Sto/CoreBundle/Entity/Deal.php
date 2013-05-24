@@ -30,7 +30,6 @@ class Deal
 
     /**
      * @var integer
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="company_id", type="integer")
      */
@@ -169,8 +168,6 @@ class Deal
     private $contactInformation;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="type_id", type="integer", length=255)
      */
@@ -190,6 +187,13 @@ class Deal
      */
     private $updatedAt;
 
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="draft", type="boolean")
+     */
+    private $draft;
+
     /**
      * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
      * @ORM\JoinTable(name="deals_auto",
@@ -204,6 +208,7 @@ class Deal
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
         $this->feedbacks = new ArrayCollection();
+        $this->draft = false;
     }
 
     /**
@@ -216,6 +221,24 @@ class Deal
         return $this->id;
     }
 
+    /**
+     * Get Draft
+     * @return boolean
+     */
+    public function getDraft()
+    {
+        return $this->draft;
+    }
+    /**
+     * Set Draft
+     * @param Deal
+     */
+     public function setDraft($draft)
+    {
+        $this->draft = $draft;
+
+        return $this;
+    }
     /**
      * Set companyId
      *
@@ -509,7 +532,7 @@ class Deal
      */
     public function getTypeId()
     {
-        return $this->type;
+        return $this->typeId;
     }
 
     /**
@@ -521,7 +544,7 @@ class Deal
     public function setType($type)
     {
         $this->type = $type;
-
+        $this->typeId = $type->getId();
         $type->addDeal($this);
 
         return $this;

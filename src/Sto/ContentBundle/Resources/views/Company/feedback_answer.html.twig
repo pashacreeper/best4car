@@ -1,0 +1,23 @@
+{% if feedback %}
+<div class="row-fluid">
+    <blockquote class="well" data-answer-block-edit="{{ feedback.id }}">
+        <div class="row-fluid">
+            <div class="span7">
+                <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
+                <a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <center><img src="http://placehold.it/39x39"></center>
+                    </div>
+                    <div class="span8">
+                        <h5>{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</h5>
+                        <p><small>Старший менеджер</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </blockquote>
+</div>
+{% endif %}

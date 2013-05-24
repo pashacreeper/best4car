@@ -30,7 +30,11 @@
                 {% include 'StoContentBundle::Company/tabs/feetbacks.html.twig' %}
             </div>
             <div class="tab-pane" id="deals">
-                {% include 'StoContentBundle::Company/tabs/deals.html.twig' %}
+                {% if app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MANAGER') %}
+                   {% include 'StoContentBundle::Company/tabs/dealsManager.html.twig' %}
+                {% else %}
+                   {% include 'StoContentBundle::Company/tabs/deals.html.twig' %}
+                {% endif %}
             </div>
         </section>
     </div>
@@ -56,5 +60,89 @@
 
         return false;
     });
+
+    // Нажатие на кнопку добавления ответа на отзыв
+    $('a[data-feedback]').click(function(){
+        var feed_id = $(this).data('feedback');
+        $('div[data-answerform='+feed_id+']').toggle();
+        $(this).css('display', 'none');
+        return false;
+    });
+
+    // отмена добавления ответа
+    $('a[data-abort-answer]').click(function(){
+        var feed_id = $(this).data('abort-answer');
+        $('div[data-answerform='+feed_id+']').toggle();
+        $('a[data-feedback='+feed_id+']').css('display', 'block');
+        return false;
+    });
+
+    // сохранение нового ответа на отзыв
+    $('input[data-submit-form]').click(function(){
+        var feed_id = $(this).data('submit-form');
+        var answer = $('form[name="form'+feed_id+'"] textarea[name=answer]').val();
+        $.getJSON("{{ path('api_add_answer') }}",{'feedback_id': feed_id, 'answer':answer})
+        .done(function(data){
+            $('div[data-answer-block="'+feed_id+'"]').append(data.content);
+            $('div[data-answerform='+feed_id+']').toggle();
+        })
+        .fail(function(e){
+            console.log(e.message);
+        })
+
+        return false;
+    });
+
+
+    // Вывод формы редактирования
+    $('a[data-feedback-edit]').live('click', function(){
+        var feed_id = $(this).data('feedback-edit');
+        var answer_id = $(this).data('answer-id');
+        $(this).css('display', 'none');
+        var answer = $(this).parent().find('p').html();
+        $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'none');
+        $('blockquote[data-answer-block-edit="'+feed_id+'"]').parent().append(generateAnswerFrom(feed_id, answer_id, answer));
+        var answer = $('textarea[data-answer-textarea="'+feed_id+'"]').val();
+
+        return false;
+    });
+
+    // Сохранение отредактированного отзыва
+    $('input[data-submit-edit-form]').live('click', function(){
+        var feed_id = $(this).data('submit-edit-form');
+        var answer_id = $(this).data('answer-id');
+        var answer = $('#zorro').val();
+        $.getJSON("{{ path('api_edit_answer') }}",{'feedback_id': feed_id, 'answer':answer, 'answer_id': answer_id})
+        .done(function(data){
+            $('.block'+feed_id).remove();
+            var answer_p = $('a[data-answer-id="'+answer_id+'"]').parent().find('p');
+            $(answer_p).html(answer);
+            $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'block');
+            $('a[data-feedback-edit="'+feed_id+'"]').css('display', 'block');
+        })
+        .fail(function(e){
+            console.log(e.message);
+        })
+
+        return false;
+    });
+
+    function generateAnswerFrom(feed_id, answer_id, answer){
+        var content = '\
+            <blockquote class="well block'+feed_id+'">\
+                <form method="POST">\
+                    <div class="row-fluid">\
+                        <div class="span9">\
+                            <textarea id="zorro" name="answer" data-answer-textarea="'+feed_id+'">'+answer+'</textarea>\
+                        </div>\
+                        <div class="span3">\
+                            <input class="btn" data-submit-edit-form="'+feed_id+'" data-answer-id="'+answer_id+'" type="button" value="Отправить" />\
+                            <a href="#" data-abort-answer="'+feed_id+'">Отмена</a>\
+                        </div>\
+                    </div>\
+                </form>\
+            </blockquote>';
+        return content;
+    };
 </script>
 {% endblock %}

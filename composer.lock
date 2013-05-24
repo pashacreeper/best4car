@@ -179,7 +179,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -243,7 +243,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -315,7 +315,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -612,7 +612,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -1481,7 +1481,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -2231,12 +2231,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "v0.10.0"
+                "reference": "ec523f6b7bf4ca6427ce1cbc95a427d432f4b24c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/v0.10.0",
-                "reference": "v0.10.0",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/ec523f6b7bf4ca6427ce1cbc95a427d432f4b24c",
+                "reference": "ec523f6b7bf4ca6427ce1cbc95a427d432f4b24c",
                 "shasum": ""
             },
             "require": {
@@ -2276,7 +2276,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2013-05-17 08:18:26"
+            "time": "2013-05-23 09:09:30"
         },
         {
             "name": "monolog/monolog",
@@ -3236,12 +3236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "ca7305a64222a277550f48eeafbba03301d4e3f8"
+                "reference": "f0e0b6a1440740d3cb78932f9b4022b2f54b68e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/ca7305a64222a277550f48eeafbba03301d4e3f8",
-                "reference": "ca7305a64222a277550f48eeafbba03301d4e3f8",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/f0e0b6a1440740d3cb78932f9b4022b2f54b68e1",
+                "reference": "f0e0b6a1440740d3cb78932f9b4022b2f54b68e1",
                 "shasum": ""
             },
             "require": {
@@ -3285,7 +3285,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2013-05-20 19:06:47"
+            "time": "2013-05-23 13:48:25"
         }
     ],
     "packages-dev": [

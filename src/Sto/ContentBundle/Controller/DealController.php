@@ -10,11 +10,205 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Deal;
+use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
+use Sto\ContentBundle\Form\DealType;
 
 class DealController extends Controller
 {
+    /**
+     * Archive a Deal entity.
+     * @Template()
+     * @Route("/company/{id}/deals/arhive", name="company_deal_arhive")
+     * @Method("GET")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function archiveDealAction(Company $company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('StoCoreBundle:Deal');
+        $query = $repository->createQueryBuilder('deal')
+            ->where('deal.endDate < :endDate ')
+            ->andwhere('deal.companyId = :company')
+            ->setParameters(['endDate'=> new \DateTime('now'),'company'=> $company->getId()])
+        ;
+
+        $arhive_deals = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return [
+            'archive_deal' => $arhive_deals,
+            'companyId'    => $company->getId(),
+        ];
+    }
+
+    /**
+     * Deletes a Deal entity.
+     *
+     * @Route("/company/{id}/deals/{dealId}/delete", name="company_deal_delete")
+     * @Method({"GET","POST"})
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function deleteDealAction(Request $request,  $dealId, Company $company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('StoCoreBundle:Deal')->findOneById($dealId);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Deal entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+    }
+
+    /**
+     * Displays a form to create a new Deal entity.
+     *
+     * @Route("/company/{id}/deal/new", name="company_deal_new")
+     * @Method({"GET"})
+     * @Template()
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function newDealAction(Company $company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('StoCoreBundle:Deal');
+        $query = $repository->createQueryBuilder('deal')
+            ->where('deal.endDate > :endDate ')
+            ->andwhere('deal.companyId = :company')
+            ->andWhere('deal.draft = false')
+            ->setParameters(['endDate'=> new \DateTime('now'),'company'=> $company->getId()]);
+        $activ_deals = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $deal = new Deal;
+        $deal->setCompany($company);
+        $form = $this->createForm(new DealType, $deal);
+
+        return [
+            'form'        => $form->createView(),
+            'company'     => $company,
+            'activ_deals' => $activ_deals
+        ];
+    }
+
+    /**
+     * Creates a new Deal entity.
+     *
+     * @Route("/company/{id}/deal/create", name="company_deal_create")
+     * @Method({"POST"})
+     * @Template("StoContentBundle:Deal:newDeal.html.twig")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function createDealAction(Request $request, Company $company)
+    {
+        $deal = (new Deal)->setCompany($company);
+        $form = $this->createForm(new DealType, $deal);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            if ($request->get("draft")) {
+                $deal->setDraft(true);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($deal);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+        }
+
+        return [
+            'deal' => $deal,
+            'form' => $form->createView(),
+            'company' => $company
+        ];
+    }
+
+   /**
+     * Displays a form to edit an existing Deal entity.
+     *
+     * @Route("/company/{id}/deal/{dealId}/edit", name="company_deal_edit")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template()
+     */
+   public function editDealAction(Company $company ,$dealId)
+   {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('StoCoreBundle:Deal');
+        $deal = $repository->findOneById($dealId);
+
+        if (!$deal) {
+            throw $this->createNotFoundException('Unable to find Deal entity.');
+        }
+
+        $activ_deals = $repository->createQueryBuilder('deal')
+            ->where('deal.endDate > :endDate ')
+            ->andwhere('deal.companyId = :company')
+            ->andWhere('deal.draft = false')
+            ->setParameters([
+                'endDate'=> new \DateTime('now'),
+                'company'=> $company->getId()
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $editForm = $this->createForm(new DealType, $deal);
+
+        return [
+            'deal'        => $deal,
+            'edit_form'   => $editForm->createView(),
+            'companyId'   => $company->getId(),
+            'activ_deals' => $activ_deals
+        ];
+    }
+
+    /**
+     * Edits an existing Deal entity.
+     *
+     * @Route("/company/{companyId}/deal/{id}/update", name="company_deal_update")
+     * @Method({"POST"})
+     * @Template("StoContentBundle:Deal:editDeal.html.twig")
+     */
+    public function updateDealAction(Request $request, $id, $companyId )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
+
+        if ($request->get("draft") !== null) {
+            $deal->setDraft($deal->getDraft() xor true);
+        }
+
+        if (!$deal) {
+            throw $this->createNotFoundException('Unable to find Deal entity.');
+        }
+
+        $editForm = $this->createForm(new DealType, $deal);
+        $editForm->bind($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($deal);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_company_show',['id'=>$companyId]));
+        }
+
+        return array(
+            'deal'      => $deal,
+            'edit_form' => $editForm->createView(),
+            'companyId' => $companyId
+        );
+    }
+
     /**
      * @Route("/deals", name="content_deals")
      * @Method({"GET", "POST"})
@@ -29,8 +223,10 @@ class DealController extends Controller
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameter('endDate', new \DateTime('now'))
-            ->setParameter('city', $city->getId())
+            ->setParameters([
+                'endDate' => new \DateTime('now'),
+                'city' => $city->getId()
+            ])
         ;
 
         if ($request->get('search')) {
@@ -39,7 +235,7 @@ class DealController extends Controller
                 $query->expr()->like('deal.description',':search'),
                 $query->expr()->like('deal.services',':search'),
                 $query->expr()->like('deal.terms',':search')
-            ))
+                ))
             ->setParameter('search', '%' . $request->get('search') . '%');
         }
 
@@ -55,8 +251,10 @@ class DealController extends Controller
             ->join('deals.company', 'dc')
             ->where('deals.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameter('endDate', new \DateTime('now'))
-            ->setParameter('city', $city->getId())
+            ->setParameters([
+                'endDate' => new \DateTime('now'),
+                'city' => $city->getId()
+            ])
             ->orderBy('dictionary.position', 'ASC')
             ->getQuery()
             ->getResult()
@@ -67,11 +265,13 @@ class DealController extends Controller
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate AND f.content is not null')
             ->andWhere('dc.cityId = :city')
-            ->setParameter('endDate', new \DateTime('now'))
-            ->setParameter('city', $city->getId())
+            ->setParameters([
+                'endDate' => new \DateTime('now'),
+                'city' => $city->getId()
+            ])
             ->getQuery()
             ->getResult()
-       ;
+        ;
 
         return [
             'deals' => $deals,
@@ -94,37 +294,39 @@ class DealController extends Controller
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameter('endDate', new \DateTime('now'))
-            ->setParameter('city', $city->getId())
+            ->setParameter([
+                'endDate' => new \DateTime('now'),
+                'city' => $city->getId()
+            ])
         ;
+
         if ($request->get('deal_type')) {
             $deal_type = $request->get('deal_type');
-            if ($deal_type>0) {
+            if ($deal_type > 0) {
                 $query->andWhere('deal.typeId = :type')
-                    ->setParameter('type', $request->get('deal_type'));
+                    ->setParameter('type', $request->get('deal_type'))
+                ;
             } elseif ($deal_type == -2) {
                 $query->join('deal.feedbacks', 'f')
-                ->andWhere('f.content is not null')
+                    ->andWhere('f.content is not null')
                 ;
+            } else {
+                $deal_type = 0;
             }
-            /*elseif ($deal_type == -1) {
-                $query->andWhere('deal.typeId = :type')
-                    ->setParameter('type', $request->get('deal_type'));
-            }*/
-        } else
-            $deal_type = 0;
-        $query->getQuery();
 
-        $deals = $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page',1),
-            10
-        );
+            $query->getQuery();
 
-        return [
-            'deals' => $deals,
-            'deal_type' => $deal_type,
-        ];
+            $deals = $this->get('knp_paginator')->paginate(
+                $query,
+                $this->get('request')->query->get('page',1),
+                10
+            );
+
+            return [
+                'deals' => $deals,
+                'deal_type' => $deal_type,
+            ];
+        }
     }
 
     /**
@@ -183,12 +385,12 @@ class DealController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_deal_show', array('id' => $deal->getId())));
+            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
         }
 
-        return array(
-            'form'   => $form->createView(),
+        return [
+            'form' => $form->createView(),
             'deal' => $deal
-        );
+        ];
     }
 }

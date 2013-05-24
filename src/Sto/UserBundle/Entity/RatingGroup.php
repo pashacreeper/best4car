@@ -46,6 +46,12 @@ class RatingGroup
     private $users;
 
     /**
+     * @var integer;
+     * @ORM\Column(name="multiplier", type="integer")
+     */
+    private $multiplier;
+
+    /**
      * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Company", mappedBy="ratingGroup")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
@@ -207,5 +213,28 @@ class RatingGroup
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Get multiplier
+     *
+     * @return integer $multiplier
+     */
+    public function getMultiplier()
+    {
+        return $this->multiplier;
+    }
+
+    /**
+     * Set multiplier
+     *
+     * @param  integer     $multiplier
+     * @return RatingGroup
+     */
+    public function setMultiplier($multiplier)
+    {
+        $this->multiplier = $multiplier;
+
+        return $this;
     }
 }

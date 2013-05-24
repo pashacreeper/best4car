@@ -1,13 +1,26 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block head_style %}
+{{ parent() }}
+<link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block content %}
 <div class="row-fluid">
     <div class="span8">
         <div class="row-fluid">
-            <span class="span12"><h3>Действующие акции компании</h3></span>
+            <span class="span12"><h3>Архив компании</h3></span>
         </div>
-        {% for key,deal in company.deals %}
-        {% if deal.endDate >= date() and deal.draft == false %}
+        {% for deal in archive_deal %}
         <div class="row-fluid thumbnail" style="margin-bottom:10px;">
             <div class="span8 "><img src="http://placehold.it/494x280"></div>
             <div class="span4">
+                {% if deal.draft == true %}
+                <span class="label label-warning">Черновик</span>
+                {% endif %}
                 <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
                 <p>
                     <strong>
@@ -22,11 +35,11 @@
                     <br />
                     35 заинтересовавшихся
                 </p>
-
+                <a class="btn btn-large btn-block" href="{{ path('company_deal_delete' ,{'dealId': deal.id , 'id': companyId}) }}">Удалить</a>
             </div>
         </div>
-        {% endif %}
         {% endfor %}
+
     </div>
     <div class="span4">
 
@@ -35,3 +48,4 @@
         </div>
     </div>
 </div>
+{% endblock %}

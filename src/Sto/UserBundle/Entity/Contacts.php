@@ -1,0 +1,160 @@
+<?php
+
+namespace Sto\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User Contacts
+ *
+ * @ORM\Table(name="user_contacts")
+ * @ORM\Entity(repositoryClass="Sto\UserBundle\Repository\ContactsRepository")
+ */
+class Contacts
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @ORM\Column(name="value", type="string")
+     */
+    private $value;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="contacts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Company", inversedBy="contacts")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary\ContactType")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string      $name
+     * @return RatingGroup
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param  integer     $userId
+     * @return RatingGroup
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Add user
+     *
+     * @param  \Sto\UserBundle\Entity\User $user
+     * @return RatingGroup
+     */
+    public function setUser(\Sto\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType(\Sto\CoreBundle\Entity\Dictionary\ContactType $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function setCompany(\Sto\CoreBundle\Entity\Company $company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function __toString()
+    {
+        return $this->getValue();
+    }
+}
