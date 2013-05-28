@@ -17,8 +17,8 @@
                 <div class="span6">
                     {% if deals[i+1] is defined %}
                     <a href="{{ path('content_deal_show', {'id': deals[i+1].id }) }}">
-                    <img src="/../{{ storage_path }}/deal_image/{{ deals[i+1].imageName }}" class="img-polaroid">
-                    <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+1].imageName }}" class="img-polaroid">
+                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
                             {{deals[i+1].name}}
                         </div>
                     </a>
@@ -27,8 +27,8 @@
                 <div class="span6">
                     {% if deals[i+2] is defined %}
                     <a href="{{ path('content_deal_show', {'id': deals[i+2].id }) }}">
-                    <img src="/../{{ storage_path }}/deal_image/{{ deals[i+2].imageName }}" class="img-polaroid">
-                    <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+2].imageName }}" class="img-polaroid">
+                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
                             {{deals[i+2].name}}
                         </div>
                     </a>
@@ -41,8 +41,8 @@
                 <div class="span6">
                     {% if deals[i+3] is defined %}
                     <a href="{{ path('content_deal_show', {'id': deals[i+3].id }) }}">
-                    <img src="/../{{ storage_path }}/deal_image/{{ deals[i+3].imageName }}" class="img-polaroid">
-                    <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+3].imageName }}" class="img-polaroid">
+                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
                             {{deals[i+3].name}}
                         </div>
                     </a>
@@ -51,8 +51,8 @@
                 <div class="span6">
                     {% if deals[i+4] is defined %}
                     <a href="{{ path('content_deal_show', {'id': deals[i+4].id }) }}">
-                    <img src="/../{{ storage_path }}/deal_image/{{ deals[i+4].imageName }}" class="img-polaroid">
-                    <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+4].imageName }}" class="img-polaroid">
+                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
                             {{deals[i+4].name}}
                         </div>
                     </a>
@@ -77,48 +77,48 @@
         <div class="span3">
             {% if deals[i+6] is defined %}
             <a href="{{ path('content_deal_show', {'id': deals[i+6].id }) }}">
-            <img src="/../{{ storage_path }}/deal_image/{{ deals[i+6].imageName }}" class="img-polaroid">
-            <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+6].name}}
-                        </div>
+                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+6].imageName }}" class="img-polaroid">
+                <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                    {{deals[i+6].name}}
+                </div>
             </a>
             {% endif %}
         </div>
         <div class="span3">
             {% if deals[i+7] is defined %}
             <a href="{{ path('content_deal_show', {'id': deals[i+7].id }) }}">
-            <img src="/../{{ storage_path }}/deal_image/{{ deals[i+7].imageName }}" class="img-polaroid">
-            <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+7].name}}
-                        </div>
+                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+7].imageName }}" class="img-polaroid">
+                <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                    {{deals[i+7].name}}
+                </div>
             </a>
             {% endif %}
         </div>
         <div class="span3">
             {% if deals[i+8] is defined %}
             <a href="{{ path('content_deal_show', {'id': deals[i+8].id }) }}">
-            <img src="/../{{ storage_path }}/deal_image/{{ deals[i+8].imageName }}" class="img-polaroid">
-            <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+8].name}}
-                        </div>
+                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+8].imageName }}" class="img-polaroid">
+                <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                    {{deals[i+8].name}}
+                </div>
             </a>
             {% endif %}
         </div>
         <div class="span3">
             {% if deals[i+9] is defined %}
             <a href="{{ path('content_deal_show', {'id': deals[i+9].id }) }}">
-            <img src="/../{{ storage_path }}/deal_image/{{ deals[i+9].imageName }}" class="img-polaroid">
-            <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+9].name}}
-                        </div>
+                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+9].imageName }}" class="img-polaroid">
+                <div style="position:relative; width:auto; bottom:45px; left:10px;">
+                    {{deals[i+9].name}}
+                </div>
             </a>
             {% endif %}
         </div>
     </div>
-    {% if not (deals.paginationData.current == deals.paginationData.last) %}
+{% if not (deals.paginationData.current == deals.paginationData.last) %}
     <div class="row-fluid">
         <div class="span12">
             <a class="btn" href="#" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2">More...</a>
         </div>
     </div>
-    {% endif %}
+{% endif %}

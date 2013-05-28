@@ -19,6 +19,6 @@ class GroupController extends BaseClass
      */
     public function listAction()
     {
-        parent();
+        return parent::listAction();
     }
 }

@@ -282,7 +282,7 @@ class DealController extends Controller
 
     /**
      * @Route("/deals/show", name="deals_show")
-     * @Method("POST")
+     * @Method({"POST"})
      * @Template()
      */
     public function dealsAction(Request $request)
@@ -294,39 +294,37 @@ class DealController extends Controller
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameter([
+            ->setParameters([
                 'endDate' => new \DateTime('now'),
                 'city' => $city->getId()
             ])
         ;
 
-        if ($request->get('deal_type')) {
-            $deal_type = $request->get('deal_type');
-            if ($deal_type > 0) {
-                $query->andWhere('deal.typeId = :type')
-                    ->setParameter('type', $request->get('deal_type'))
-                ;
-            } elseif ($deal_type == -2) {
-                $query->join('deal.feedbacks', 'f')
-                    ->andWhere('f.content is not null')
-                ;
-            } else {
-                $deal_type = 0;
-            }
-
-            $query->getQuery();
-
-            $deals = $this->get('knp_paginator')->paginate(
-                $query,
-                $this->get('request')->query->get('page',1),
-                10
-            );
-
-            return [
-                'deals' => $deals,
-                'deal_type' => $deal_type,
-            ];
+        $deal_type = $request->get('deal_type') ? $request->get('deal_type') : 0;
+        if ($deal_type > 0) {
+            $query->andWhere('deal.typeId = :type')
+                ->setParameter('type', $request->get('deal_type'))
+            ;
+        } elseif ($deal_type == -2) {
+            $query->join('deal.feedbacks', 'f')
+                ->andWhere('f.content is not null')
+            ;
+        } else {
+            $deal_type = 0;
         }
+
+        $query->getQuery();
+
+        $deals = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page',1),
+            10
+        );
+
+        return [
+            'deals' => $deals,
+            'deal_type' => $deal_type,
+        ];
     }
 
     /**

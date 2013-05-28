@@ -11,6 +11,12 @@ class WorkType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder
+            ->add('description', null, [
+                'label' => 'dict.fields.description',
+                'render_optional_text' => false
+            ])
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

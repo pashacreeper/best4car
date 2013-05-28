@@ -104,6 +104,11 @@ class Feedback
      */
     private $ip;
 
+    /**
+     * @ORM\OneToMany(targetEntity="FeedbackEvaluation", mappedBy="feedback")
+     */
+    private $evaluation;
+
     public function __construct(User $user = null)
     {
         if ($user) {

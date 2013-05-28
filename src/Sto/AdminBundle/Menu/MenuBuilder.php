@@ -52,6 +52,12 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                     'icon' => 'rating_group',
                 ),
             ));
+            $systemManagement->addChild('Настройка показателей рейтингов', array(
+                'route' => 'rating_points',
+                'extras' => array(
+                    'icon' => 'rating_points',
+                ),
+            ));
             $systemManagement->addChild('Управление отзывами', array(
                 'route' => 'feedbacks',
                 'extras' => array(

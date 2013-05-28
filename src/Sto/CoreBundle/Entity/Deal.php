@@ -59,11 +59,13 @@ class Deal
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="services", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Dictionary\Work")
+     * @ORM\JoinTable(name="deals_services",
+     *     joinColumns={@ORM\JoinColumn(name="services_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
+     * )
      */
-    private $services;
+     private $services;
 
     /**
      *@Assert\File(

@@ -62,6 +62,7 @@ dict:
         parent: Parent
         actions: Actions
         code: Code
+        description: Descriptions
     title:
         edit: Dictionary edit
         new: Dictionary creation

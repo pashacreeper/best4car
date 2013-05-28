@@ -24,15 +24,23 @@ class CalcUsersRatingCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $ratingPointsRegistration = 10;
-        $ratingPointsGarage = 20;
-        $ratingPointsSocialNetwork = 10;
-        $ratingPointsForums = 10;
-        $ratingPointsFeedback = 5;
-        $minFeedbacks = 10;
-        $ratingPointsUseful = 2;
-        $ratingPointsUseless = -5;
         $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $ratingPoint = $em->getRepository('StoCoreBundle:RatingPoints')->findAll();
+        $ratePts = [];
+        foreach ($ratingPoint as $row) {
+            $ratePts[$row->getPointName()]= $row->getValue();
+        }
+        $ratingPointsRegistration = $ratePts['registration'];
+        $ratingPointsGarage = $ratePts['carInGarage'];
+        $ratingPointsSocialNetwork = $ratePts['linkToSocialNetwork'];
+        $ratingPointsForums = $ratePts['linkToAutoForums'];
+        $ratingPointsFeedback = $ratePts['ownReview'];
+        $minFeedbacks = $ratePts['minFeedbacks'];
+        $ratingPointsUseful = $ratePts['plusFeedbacks'];
+        $ratingPointsUseless = $ratePts['minusFeedbacks'];
+        $ratingPointsAnother = $ratePts['anotherReview'];
+
         $name = $input->getArgument('name');
         if (!$name)
             $users = $em->getRepository('StoUserBundle:User')->findAll();
@@ -66,6 +74,7 @@ class CalcUsersRatingCommand extends ContainerAwareCommand
                     }
                 }
             }
+            // Another feedbacks
             $output->writeln(" -> " . $rating);
             $user->setRating($rating);
             $em->persist($user);

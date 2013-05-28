@@ -5,7 +5,7 @@
         <div class="row-fluid">
             <div class="span9">
                 <h1>Вы: <span id="user-name">{{ user.firstName }} {{ user.lastName }}, {{ user.username }}</span> </h1>
-                {{ user.ratingGroup.name }} - <span id="user-city">{{ user.city.name }}</span>, <span id="user-years">{{ user.years }}</span> год(а)
+                {% if user.ratingGroup %}{{ user.ratingGroup.name }}{% endif %} - <span id="user-city">{{ user.city.name }}</span>, <span id="user-years">{{ user.years }}</span> год(а)
                 <a href="#" id="personal-edit" class="icon-b4c-edit icon-2x" data-placement="bottom" data-original-title="A Title"></a>
                 <div id="personal-data-edit" style="display:none;">
                     <form>

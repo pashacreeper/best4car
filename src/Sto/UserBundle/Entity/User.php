@@ -55,6 +55,13 @@ class User extends BaseUser
     /**
      * @var integer
      *
+     * @ORM\Column(name="rating_bonus", type="integer", nullable=true)
+     */
+    protected $ratingBonus;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
      */
     protected $ratingGroupId;
@@ -221,6 +228,11 @@ class User extends BaseUser
      */
     private $companyManager;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedbackEvaluation", mappedBy="user")
+     */
+    private $evaluation;
+
     public function __construct()
     {
         parent::__construct();
@@ -231,6 +243,7 @@ class User extends BaseUser
         $this->enabled = true;
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rating = 0;
     }
 
     public function __toString()
@@ -310,6 +323,29 @@ class User extends BaseUser
     public function getRating()
     {
         return $this->rating;
+    }
+
+    /**
+     * Set bonus rating
+     *
+     * @param  string $ratingBonus
+     * @return User
+     */
+    public function setRatingBonus($ratingBonus)
+    {
+        $this->ratingBonus = $ratingBonus;
+
+        return $this;
+    }
+
+    /**
+     * Get rating bonus
+     *
+     * @return string
+     */
+    public function getRatingBonus()
+    {
+        return $this->ratingBonus;
     }
 
     /**
