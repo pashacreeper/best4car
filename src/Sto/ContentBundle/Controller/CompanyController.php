@@ -11,8 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Company;
-use Sto\CoreBundle\Entity\FeedbackCompany,
-    Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\FeedbackCompany;
+use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 
 class CompanyController extends Controller
@@ -73,14 +73,16 @@ class CompanyController extends Controller
 
     /**
      * @Route("/company/{id}", name="content_company_show", options={"expose"=true})
+     * @Route("/company/{id}/{tab}", name="content_company_show_tab", options={"expose"=true})
      * @Method("GET")
      * @Template()
      * @ParamConverter("company", class="StoCoreBundle:Company")
      */
-    public function showAction(Company $company)
+    public function showAction(Company $company, $tab = 'information')
     {
         return [
-            'company' => $company
+            'company' => $company,
+            'tab'     => $tab
         ];
     }
 

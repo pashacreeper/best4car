@@ -46,16 +46,20 @@ class DayOfWeekTransformer implements DataTransformerInterface
                     $buf_position = $day->getPosition();
                     $flag_start = true;
                 } else {
-                    if ($day->getPosition()==$buf_position+1) {
+                    if ($day->getPosition()==$buf_position+1 && $key != count($weekDay)-1) {
                         $buf_key = $key;
                         $buf_position++;
                     } else {
                         $flag_start = false;
                         if ($buf_key >= 0) {
+                            if ($key == count($weekDay)-1){
+                                $buf_key = $key;
+                            }
                             $res .= '-'.$weekDay[$buf_key]->getShortName();
                             $buf_key = -1;
                         }
-                        $res .= ', '.$day->getShortName();
+                        if ($key != count($weekDay)-1)
+                            $res .= ', '.$day->getShortName();
                     }
                 }
             }

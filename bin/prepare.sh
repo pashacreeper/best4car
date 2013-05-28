@@ -1,7 +1,7 @@
 rm -rf app/cache/* app/logs/*
 
 #!/bin/bash
-php composer.phar install
+php composer.phar install --dev
 
 # clear, create db and load data
 php app/console doctrine:schema:drop --force

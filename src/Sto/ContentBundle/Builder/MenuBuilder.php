@@ -47,6 +47,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $user = $context->getToken()->getUser();
 
         if (is_object($user) && $user instanceof UserInterface) {
+            $companies = $user->getCompanies();
             $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, ['caret' => true]);
             $profile->addChild('Профиль', [
                 'route' => 'fos_user_profile_show',
@@ -63,6 +64,48 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
                 ]);
             }
             $this->addDivider($profile);
+            if ($context->isGranted('ROLE_MANAGER')) {
+                foreach ($companies as $key => $company) {
+                    $profile->addChild((($key+1)).'.Компания "'.$company->getName().'"', [
+                        'uri' => '#',
+                        'extras' => [],
+                    ]);
+                    $profile->addChild(($key+1).'-Информация' , [
+                        'route' => 'content_company_show_tab',
+                        'routeParameters'=> [
+                            'id'=>$company->getId(),
+                            'tab'=>'information'
+                            ],
+                        'extras' => [
+                            'icon' => 'info-signs',
+                        ],
+                    ]);
+                    $profile->addChild(($key+1).'-Отзывы' , [
+                        'route' => 'content_company_show_tab',
+                        'routeParameters'=> [
+                            'id'=>$company->getId(),
+                            'tab'=>'feetbacks'
+                            ],
+                        'extras' => [
+                            'icon' => 'info-sign',
+                        ],
+                    ]);
+                    $profile->addChild(($key+1).'-Акции' , [
+                        'route' => 'content_company_show_tab',
+                        'routeParameters'=> [
+                            'id'=>$company->getId(),
+                            'tab'=>'deals'
+                            ],
+                        'extras' => [
+                            'icon' => 'info-sign',
+                        ],
+                    ]);
+                 $this->addDivider($profile);
+                }
+
+            }
+
+
             $profile->addChild($translator->trans('menu.logout'), [
                 'route' => 'fos_user_security_logout',
                 'extras' => [

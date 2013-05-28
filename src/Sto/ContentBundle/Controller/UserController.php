@@ -216,20 +216,17 @@ class UserController extends Controller
     public function createCompanyAction(Request $request, $id)
     {
         $company  = new Company();
-        $company->addContact(new Contacts());
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
-        // var_dump($request->request);
-        // var_dump($request->get('sto_content_company')); exit;
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $company->setUpdatedAt(new \DateTime());
+
             $user = $em->getRepository('StoUserBundle:User')->find($id);
 
-            // var_dump($form->getData()); exit;
 
             $company->addManager($user);
-            $company->setUpdatedAt(new \DateTime());
             $em->persist($company);
             $em->flush();
 

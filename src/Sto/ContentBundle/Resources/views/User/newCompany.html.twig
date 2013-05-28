@@ -11,6 +11,7 @@
         color: gray;
     }
 </style>
+<form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
 <ul class="nav nav-tabs" id="registerTab">
     <li style="padding: 8px 10px;">
         <span>Личные данные</span>
@@ -49,8 +50,9 @@
         </div>
 {% endif %}
     </div>
+
     <div class="tab-pane active" id="general-data">
-        <form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
+
             <div class="row-fluid">
                 <div class="span10">
                     {{ form_row(cForm.fullName) }}
@@ -177,8 +179,9 @@
                     <a href="#contact-info" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+    </form>
 </div>
 {% endblock %}
 
@@ -200,6 +203,10 @@
     });
 
     $('a[data-toggle="tab"]').click(function () {
+
+
+
+
         $('div.control-group').attr('class', 'control-group');
 
         var next_tab_name = $(this).attr('href').substring(1, $(this).attr('href').length);
@@ -207,7 +214,9 @@
         var current_tab = tab.substring(1, tab.length);
         var errorFlag = false;
 
+
         $('div#'+current_tab+' input').each(function (n, element) {
+            console.log($(element).attr('name')+': ', $(element).val());
             var flag = false;
             if ($(element).attr('required')=='required' && $(element).val().length<1) {
                 if (!flag) $(element).focus();

@@ -842,4 +842,16 @@ class User extends BaseUser
     {
         $this->companyManager->remove($manager);
     }
+
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
+    public function setCompanies($companies)
+    {
+        $this->companies = $companies;
+
+        return $this;
+    }
 }

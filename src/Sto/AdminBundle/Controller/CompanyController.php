@@ -74,7 +74,6 @@ class CompanyController extends Controller
     {
         $company  = new Company;
         $form = $this->createForm(new CompanyType, $company, ['em'=>$em = $this->getDoctrine()->getManager()]);
-
         $form->bind($request);
 
         if ($form->isValid()) {

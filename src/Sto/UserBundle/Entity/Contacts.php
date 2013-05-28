@@ -28,10 +28,22 @@ class Contacts
     private $value;
 
     /**
+     * @var integer
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     */
+    private $userId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="contacts")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="company_id", type="integer", nullable=true)
+     */
+    private $companyId;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Company", inversedBy="contacts")
@@ -39,6 +51,12 @@ class Contacts
      */
     private $company;
 
+
+    /**
+     * @var integer
+     * @ORM\Column(name="type_id", type="integer", nullable=true)
+     */
+    private $typeId;
     /**
      * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Dictionary\ContactType")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
@@ -124,6 +142,19 @@ class Contacts
         return $this->user;
     }
 
+
+    public function getTypeId()
+    {
+        return $this->typeId;
+    }
+
+    public function setTypeId($typeId)
+    {
+        $this->typeId = $typeId;
+
+        return $this;
+    }
+
     /**
      * Get user
      *
@@ -137,6 +168,18 @@ class Contacts
     public function setType(\Sto\CoreBundle\Entity\Dictionary\ContactType $type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    public function setCompanyId($companyId)
+    {
+        $this->companyId = $companyId;
 
         return $this;
     }

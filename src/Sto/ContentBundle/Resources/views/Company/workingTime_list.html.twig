@@ -1,5 +1,5 @@
 {% if workingTime %}
     {% for item in workingTime %}
-        <p>{{item.from|date('H:i')}}-{{item.till|date('H:i')}} ({{item.day.string}})</p>
+        <p>{{item.from|date('H:i')}}-{{item.till|date('H:i')}} ({{item.days.string}})</p>
     {% endfor %}
 {% endif %}

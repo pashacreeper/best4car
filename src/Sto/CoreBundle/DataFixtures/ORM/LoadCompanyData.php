@@ -46,7 +46,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'day' => [
+                    'days' => [
                         'string' => 'Пн-Пт',
                         'array' => [
                             $this->getReference('week_day[0]')->getId(),
@@ -57,7 +57,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'day' => [
+                    'days' => [
                         'string' => 'Сб-Вс',
                         'array' => [
                             $this->getReference('week_day[5]')->getId(),
@@ -136,7 +136,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             [
                 'from' => new \DateTime(rand(8,12).':00:00'),
                 'till' => new \DateTime(rand(15,20).':00:00'),
-                'day' => [
+                'days' => [
                     'string' => 'Пн-Пт',
                     'array' => [
                         $this->getReference('week_day[0]')->getId(),
@@ -147,7 +147,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             [
                 'from' => new \DateTime(rand(8,12).':00:00'),
                 'till' => new \DateTime(rand(15,20).':00:00'),
-                'day' => [
+                'days' => [
                     'string' => 'Сб-Вс',
                     'array' => [
                         $this->getReference('week_day[5]')->getId(),
@@ -234,7 +234,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'day' => [
+                    'days' => [
                         'string' => 'Пн-Пт',
                         'array' => [
                             $this->getReference('week_day[0]')->getId(),
@@ -245,7 +245,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 [
                     'from' => new \DateTime(rand(8,12).':00:00'),
                     'till' => new \DateTime(rand(15,20).':00:00'),
-                    'day' => [
+                    'days' => [
                         'string' => 'Сб-Вс',
                         'array' => [
                             $this->getReference('week_day[5]')->getId(),

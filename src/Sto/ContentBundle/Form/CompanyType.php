@@ -153,22 +153,6 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            /*->add('additionalServices', 'entity', [
-                'label' => 'Additional services',
-                'required' => false,
-                'render_optional_text' => false,
-                'multiple' => true,
-                'class' => 'StoCoreBundle:Dictionary\AdditionalService',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('ct')
-                        ->orderBy('ct.name')
-                    ;
-                },
-                'attr' => [
-                    'class' => 'select2',
-                    'style' => 'width:500px;'
-                ]
-            ])*/
             ->add('additionalServices', 'entity', [
                 'label' => 'Additional services',
                 'required' => false,
@@ -230,7 +214,6 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            //->add('companyManager', new CompanyManagerType())
             ->add('companyManager','collection', array(
                 'label' => ' ',
                 'type' => new CompanyManagerType(),
@@ -311,21 +294,21 @@ class CompanyType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Company'
-        ]);
-
-        $resolver->setRequired(array(
-            'em',
-        ));
-
-        $resolver->setAllowedTypes(array(
-            'em' => 'Doctrine\Common\Persistence\ObjectManager',
-        ));
+        $resolver
+            ->setDefaults([
+                'data_class' => 'Sto\CoreBundle\Entity\Company'
+            ])
+            ->setRequired([
+                'em',
+            ])
+            ->setAllowedTypes([
+                'em' => 'Doctrine\Common\Persistence\ObjectManager',
+            ])
+        ;
     }
 
     public function getName()
     {
-        return 'sto_content_company';
+        return 'sto_content_company_registration';
     }
 }

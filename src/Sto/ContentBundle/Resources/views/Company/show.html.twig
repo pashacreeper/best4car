@@ -17,19 +17,19 @@
     <div class="row-fluid">
         <section class="container">
             <ul class="nav nav-pills">
-                <li class="active"><a data-toggle="tab" href="#information">Информация</a></li>
-                <li><a data-toggle="tab" href="#feetbacks">Отзывы</a></li>
-                <li><a data-toggle="tab" href="#deals">Акции</a></li>
+                <li {% if tab == 'information' %} class="active" {% endif %}><a data-toggle="tab" href="#information">Информация</a></li>
+                <li {% if tab == 'feetbacks' %} class="active" {% endif %} ><a data-toggle="tab" href="#feetbacks">Отзывы</a></li>
+                <li {% if tab == 'deals' %} class="active" {% endif %} ><a data-toggle="tab" href="#deals">Акции</a></li>
             </ul>
         </section>
         <section class="tab-content container">
-            <div class="tab-pane active" id="information">
+            <div class="tab-pane{% if tab == 'information' %} active{% endif %}" id="information">
                 {% include 'StoContentBundle::Company/tabs/information.html.twig' %}
             </div>
-            <div class="tab-pane" id="feetbacks">
+            <div class="tab-pane{% if tab == 'feetbacks' %} active{% endif %}" id="feetbacks">
                 {% include 'StoContentBundle::Company/tabs/feetbacks.html.twig' %}
             </div>
-            <div class="tab-pane" id="deals">
+            <div class="tab-pane{% if tab == 'deals' %} active{% endif %}" id="deals">
                 {% if app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MANAGER') %}
                    {% include 'StoContentBundle::Company/tabs/dealsManager.html.twig' %}
                 {% else %}
