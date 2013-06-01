@@ -14,6 +14,8 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\UserBundle\Entity\User;
+use Sto\CoreBundle\Entity\FeedbackEvaluation;
 
 /**
  * APi Feedback controller.
@@ -41,20 +43,34 @@ class APIFeedbackController extends FOSRestController
         if ($request->get('feedback_id')) {
             $feedback_id = $request->get('feedback_id');
         } else {
-            return new Response(404, 'Not found feddback id');
+            return new Response(404, 'Not found feedback id');
         }
 
         $em = $this->getDoctrine()->getManager();
+
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
         if (!$feedback) {
             return new Response(404, 'Not found feedback');
         }
 
-        $feedback->addPlus();
-        $em->persist($feedback);
-        $em->flush();
+        $user = $this->getUser();
+        $evaluation = $em->getRepository('StoCoreBundle:FeedbackEvaluation')->findOneBy(['feedback'=>$feedback_id, 'user'=>$user->getId()]);
 
-        return new Response($serializer->serialize(['pluses'=>$feedback->getPluses(), 'id'=>$feedback_id], 'json'));
+        if (count($evaluation)==0) {
+            $evaluation = new FeedbackEvaluation($user, $feedback, true);
+            $feedback->addPlus();
+            $em->persist($evaluation);
+            $em->flush();
+        } else
+            if (!$evaluation->getReview()) {
+                // если есть дизлайк - меняем знак на противоположный и корректируем +/-
+                $evaluation->setReview(true);
+                $feedback->subMinus();
+                $em->persist($evaluation);
+                $em->flush();
+            }
+
+        return new Response($serializer->serialize(['pluses'=>$feedback->getPluses(), 'minuses'=>$feedback->getMinuses(), 'id'=>$feedback_id, 'user' => $user->getId(), 'val'=>$evaluation->getReview(), 'msg' => '2'], 'json'));
     }
 
     /**
@@ -85,11 +101,24 @@ class APIFeedbackController extends FOSRestController
             return new Response(404, 'Not found feedback');
         }
 
-        $feedback->addMinus();
-        $em->persist($feedback);
-        $em->flush();
+        $user = $this->getUser();
+        $evaluation = $em->getRepository('StoCoreBundle:FeedbackEvaluation')->findOneBy(['feedback'=>$feedback_id, 'user'=>$user->getId()]);
 
-        return new Response($serializer->serialize(['minuses'=>$feedback->getMinuses(), 'id'=>$feedback_id], 'json'));
+        if (count($evaluation)==0) {
+            $evaluation = new FeedbackEvaluation($user, $feedback, false);
+            $feedback->addMinus();
+            $em->persist($evaluation);
+            $em->flush();
+        } else
+            if ($evaluation->getReview()) {
+                // если есть лайк - меняем знак на противоположный и корректируем +/-
+                $evaluation->setReview(false);
+                $feedback->subPlus();
+                $em->persist($evaluation);
+                $em->flush();
+            }
+
+        return new Response($serializer->serialize(['pluses'=>$feedback->getPluses(), 'minuses'=>$feedback->getMinuses(), 'id'=>$feedback_id, 'val'=>$evaluation->getReview()], 'json'));
     }
 
     /**

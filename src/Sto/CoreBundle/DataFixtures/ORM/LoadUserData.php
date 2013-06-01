@@ -42,7 +42,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setRating( $rating );
             $user->setLinkGarage( '#' );
             $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
-            $user->setGroups([$this->getReference("groups[".($j == 1 ? 6 :  rand(0,5) )."]")]);
+            if ($j == 1) {
+                  $user->setGroups([$this->getReference("groups[6]")]);
+            } elseif (($j % 3) == 0)
+             $user->setGroups([$this->getReference("groups[3]")]);
+            else $user->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
             $user->setCity($this->getReference('city[spb]'));
             $encoder = $this->container
                 ->get('security.encoder_factory')

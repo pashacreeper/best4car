@@ -56,7 +56,7 @@ class CompanyGallery
     private $updatedAt;
 
     /**
-     * @ORM\Column(name="company_id", type="integer")
+     * @ORM\Column(name="company_id", type="integer", nullable=true)
      */
     private $companyId;
 
@@ -168,6 +168,18 @@ class CompanyGallery
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function setCompanyId($id)
+    {
+        $this->companyId = $id;
+
+        return $this;
+    }
+
+    public function getCompanyId()
+    {
+        return $this->companyId;
     }
 
     public function getCompany()

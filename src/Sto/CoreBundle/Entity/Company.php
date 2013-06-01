@@ -1041,6 +1041,8 @@ class Company
      */
     public function addGallery(CompanyGallery $gallery)
     {
+        //$gallery->setCompanyId($this->getId());
+        //$gallery->setCompany($this);
         $this->gallery[] = $gallery;
 
         return $this;
@@ -1052,6 +1054,13 @@ class Company
     public function removeGallery(CompanyGallery $gallery)
     {
         $this->gallery->removeElement($gallery);
+    }
+
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+
+        return $this;
     }
 
     /**

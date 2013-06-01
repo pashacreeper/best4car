@@ -64,7 +64,7 @@ class DealController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
     }
 
     /**
@@ -79,12 +79,14 @@ class DealController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:Deal');
-        $query = $repository->createQueryBuilder('deal')
+        $activ_deals = $repository->createQueryBuilder('deal')
             ->where('deal.endDate > :endDate ')
             ->andwhere('deal.companyId = :company')
             ->andWhere('deal.draft = false')
-            ->setParameters(['endDate'=> new \DateTime('now'),'company'=> $company->getId()]);
-        $activ_deals = $query
+            ->setParameters([
+                'endDate'=> new \DateTime('now'),
+                'company'=> $company->getId()
+            ])
             ->getQuery()
             ->getResult()
         ;
@@ -119,11 +121,21 @@ class DealController extends Controller
                 $deal->setDraft(true);
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($deal);
-            $em->flush();
+            $user = $this->get('security.context')->getToken()->getUser();
+            $resolution = false;
+            foreach ($company->getManagers() as $key => $value) {
+                if ( $value->getUserName() == $user->getUserName()) {
+                    $resolution = true;
+                    break;
+                }
+            }
+            if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($deal);
+                $em->flush();
+            }
 
-            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+            return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
         }
 
         return [
@@ -142,35 +154,35 @@ class DealController extends Controller
      */
    public function editDealAction(Company $company ,$dealId)
    {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('StoCoreBundle:Deal');
-        $deal = $repository->findOneById($dealId);
+    $em = $this->getDoctrine()->getManager();
+    $repository = $em->getRepository('StoCoreBundle:Deal');
+    $deal = $repository->findOneById($dealId);
 
-        if (!$deal) {
-            throw $this->createNotFoundException('Unable to find Deal entity.');
-        }
-
-        $activ_deals = $repository->createQueryBuilder('deal')
-            ->where('deal.endDate > :endDate ')
-            ->andwhere('deal.companyId = :company')
-            ->andWhere('deal.draft = false')
-            ->setParameters([
-                'endDate'=> new \DateTime('now'),
-                'company'=> $company->getId()
-            ])
-            ->getQuery()
-            ->getResult()
-        ;
-
-        $editForm = $this->createForm(new DealType, $deal);
-
-        return [
-            'deal'        => $deal,
-            'edit_form'   => $editForm->createView(),
-            'companyId'   => $company->getId(),
-            'activ_deals' => $activ_deals
-        ];
+    if (!$deal) {
+        throw $this->createNotFoundException('Unable to find Deal entity.');
     }
+
+    $activ_deals = $repository->createQueryBuilder('deal')
+        ->where('deal.endDate > :endDate ')
+        ->andwhere('deal.companyId = :company')
+        ->andWhere('deal.draft = false')
+        ->setParameters([
+            'endDate'=> new \DateTime('now'),
+            'company'=> $company->getId()
+        ])
+        ->getQuery()
+        ->getResult()
+    ;
+
+    $editForm = $this->createForm(new DealType, $deal);
+
+    return [
+        'deal'        => $deal,
+        'edit_form'   => $editForm->createView(),
+        'companyId'   => $company->getId(),
+        'activ_deals' => $activ_deals
+    ];
+}
 
     /**
      * Edits an existing Deal entity.
@@ -196,17 +208,28 @@ class DealController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($deal);
-            $em->flush();
+            $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
+            $user = $this->get('security.context')->getToken()->getUser();
+            $resolution = false;
+            foreach ($company->getManagers() as $key => $value) {
+                if ( $value->getUserName() == $user->getUserName()) {
+                    $resolution = true;
+                    break;
+                }
+            }
+            if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
+                $em->persist($deal);
+                $em->flush();
+            }
 
-            return $this->redirect($this->generateUrl('content_company_show',['id'=>$companyId]));
+            return $this->redirect($this->generateUrl('content_company_show_tab',['id'=>$companyId, 'tab'=>'deals']));
         }
 
-        return array(
+        return [
             'deal'      => $deal,
             'edit_form' => $editForm->createView(),
             'companyId' => $companyId
-        );
+        ];
     }
 
     /**
@@ -231,12 +254,13 @@ class DealController extends Controller
 
         if ($request->get('search')) {
             $query->andWhere($query->expr()->orx(
-                $query->expr()->like('deal.name',':search'),
-                $query->expr()->like('deal.description',':search'),
-                $query->expr()->like('deal.services',':search'),
-                $query->expr()->like('deal.terms',':search')
+                    $query->expr()->like('deal.name',':search'),
+                    $query->expr()->like('deal.description',':search'),
+                    $query->expr()->like('deal.services',':search'),
+                    $query->expr()->like('deal.terms',':search')
                 ))
-            ->setParameter('search', '%' . $request->get('search') . '%');
+                ->setParameter('search', '%' . $request->get('search') . '%')
+            ;
         }
 
         $deals = $query
@@ -341,11 +365,58 @@ class DealController extends Controller
     }
 
     /**
+     * @Route("/deal-feedbacks/{id}", name="deal_feedbacks_show")
+     * @Method("POST")
+     * @Template()
+     */
+    public function feedbacksAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('StoCoreBundle:FeedbackDeal')
+            ->createQueryBuilder('fd')
+            ->where('fd.dealId = :deal')
+            ->setParameter('deal', $id)
+            ->getQuery()
+        ;
+
+        $feedbacks = $this->get('knp_paginator')->paginate(
+            $query,
+            $this->get('request')->query->get('page',1),
+            3
+        );
+
+        $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
+
+        $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+            ->createQueryBuilder('cm')
+            ->where('cm.userId = :user_id AND cm.companyId = :company')
+            ->setParameter('user_id', $this->getUser()->getId())
+            ->setParameter('company', $deal->getCompanyId())
+            ->getQuery()
+            ->getResult()
+            ;
+        if ($manager) {
+            $isManager = true;
+        } else {
+            $isManager = false;
+        }
+
+        $date = new \DateTime();
+        $date->modify('-15 hours');
+
+        return [
+            'feedbacks' => $feedbacks,
+            'dealId' => $id,
+            'isManager' => $isManager,
+            'date' => $date
+        ];
+    }
+
+    /**
      * @Route("/deal/{id}/feedback/add", name="content_deal_feedbacks_add")
      * @Method("GET")
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
      * @Template()
-     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function addFeedbackAction(Deal $deal)
     {
@@ -388,6 +459,62 @@ class DealController extends Controller
 
         return [
             'form' => $form->createView(),
+            'deal' => $deal
+        ];
+    }
+
+    /**
+     * @Route("/deal/{id}/feedback/{feedbackId}/edit", name="content_deal_feedbacks_edit")
+     * @ParamConverter("deal", class="StoCoreBundle:Deal")
+     * @Template()
+     */
+    public function editFeedbackAction(Deal $deal,$feedbackId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('StoCoreBundle:FeedbackDeal');
+        $feedback = $repository->findOneById($feedbackId);
+
+        if (!$feedback) {
+            throw $this->createNotFoundException('Unable to find FeedbackDeal entity.');
+        }
+        ;
+        $editForm = $this->createForm(new FeedbackDealType, $feedback->setDeal($deal));
+
+        return [
+            'editForm' => $editForm->createView(),
+            'deal' => $deal,
+            'feedback' => $feedback
+        ];
+    }
+
+    /**
+     * @Route("/deal/{id}/feedback/{feedbackId}/update", name="content_deal_feedbacks_update")
+     * @Method("POST")
+     * @ParamConverter("deal", class="StoCoreBundle:Deal")
+     * @Template("StoContentBundle:Deal:editFeedback.html.twig")
+     */
+    public function updateFeedbackAction(Request $request, Deal $deal,$feedbackId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $feedback = $em->getRepository('StoCoreBundle:FeedbackDeal')->findOneById($feedbackId);
+
+        if (!$feedback) {
+            throw $this->createNotFoundException('Unable to find FeedbackDeal entity.');
+        }
+
+        $editForm = $this->createForm(new FeedbackDealType, $feedback);
+        $editForm->bind($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($feedback);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
+        }
+
+        return [
+            'feedback' => $feedback,
+            'editForm' => $editForm->createView(),
             'deal' => $deal
         ];
     }

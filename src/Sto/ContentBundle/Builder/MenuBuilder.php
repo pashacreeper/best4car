@@ -105,7 +105,6 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 
             }
 
-
             $profile->addChild($translator->trans('menu.logout'), [
                 'route' => 'fos_user_security_logout',
                 'extras' => [

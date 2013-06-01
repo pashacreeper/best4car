@@ -30,10 +30,20 @@ class CompanyManager
     private $phone;
 
     /**
+     * @ORM\Column(name="user_id", type="integer")
+     */
+    private $userId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="companyManager")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @ORM\Column(name="company_id", type="integer")
+     */
+    private $companyId;
 
     /**
      * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Company", inversedBy="companyManager", cascade={"persist"})
@@ -109,6 +119,18 @@ class CompanyManager
         return $this->user;
     }
 
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    public function setCompanyId($id)
+    {
+        $this->companyId = $id;
+
+        return $this;
+    }
+
     public function getCompany()
     {
         return $this->company;
@@ -120,4 +142,5 @@ class CompanyManager
 
         return $this;
     }
+
 }

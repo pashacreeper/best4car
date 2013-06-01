@@ -52,7 +52,7 @@ class DayOfWeekTransformer implements DataTransformerInterface
                     } else {
                         $flag_start = false;
                         if ($buf_key >= 0) {
-                            if ($key == count($weekDay)-1){
+                            if ($key == count($weekDay)-1) {
                                 $buf_key = $key;
                             }
                             $res .= '-'.$weekDay[$buf_key]->getShortName();

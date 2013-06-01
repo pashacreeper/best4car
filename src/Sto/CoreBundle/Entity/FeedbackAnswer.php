@@ -29,7 +29,7 @@ class FeedbackAnswer
 
     /**
      * @var string
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
@@ -56,6 +56,11 @@ class FeedbackAnswer
      * @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      */
     private $feedback;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime('now');
+    }
 
     /**
      * Get id

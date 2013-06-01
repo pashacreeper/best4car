@@ -95,7 +95,7 @@ class Feedback
     private $feedbackAnswer;
 
     /**
-     * @ORM\Column(name="date_feedback", type="date")
+     * @ORM\Column(name="date_feedback", type="datetime")
      */
     private $date;
 
@@ -356,7 +356,7 @@ class Feedback
     /**
      * Get user
      *
-     * @return \Sto\UserBundle\Emtity\User
+     * @return \Sto\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -389,6 +389,14 @@ class Feedback
         return $this;
     }
 
+    public function subPlus()
+    {
+        $this->pluses--;
+        $this->minuses++;
+
+        return $this;
+    }
+
     public function getMinuses()
     {
         return $this->minuses;
@@ -404,6 +412,14 @@ class Feedback
     public function addMinus()
     {
         $this->minuses++;
+
+        return $this;
+    }
+
+    public function subMinus()
+    {
+        $this->minuses--;
+        $this->pluses++;
 
         return $this;
     }

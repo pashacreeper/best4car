@@ -51,7 +51,6 @@ class Contacts
      */
     private $company;
 
-
     /**
      * @var integer
      * @ORM\Column(name="type_id", type="integer", nullable=true)
@@ -141,7 +140,6 @@ class Contacts
     {
         return $this->user;
     }
-
 
     public function getTypeId()
     {

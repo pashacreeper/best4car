@@ -118,7 +118,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="city_id", type="integer")
+     * @ORM\Column(name="city_id", type="integer", nullable=true)
      */
     private $cityId;
 
@@ -233,6 +233,18 @@ class User extends BaseUser
      */
     private $evaluation;
 
+    /**
+     * @ORM\Column(name="using_email", type="boolean")
+     */
+    private $usingEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_vk", type="string", length=255, nullable=true)
+     */
+    private $avatarVk;
+
     public function __construct()
     {
         parent::__construct();
@@ -244,6 +256,7 @@ class User extends BaseUser
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
         $this->rating = 0;
+        $this->usingEmail = true;
     }
 
     public function __toString()
@@ -853,5 +866,29 @@ class User extends BaseUser
         $this->companies = $companies;
 
         return $this;
+    }
+
+    public function isUsingEmail()
+    {
+        return $this->usingEmail;
+    }
+
+    public function setUsingEmail($val)
+    {
+        $this->usingEmail = $val;
+
+        return $this;
+    }
+
+    public function setAvatarVk($avatar)
+    {
+        $this->avatarVk = $avatar;
+
+        return $this;
+    }
+
+    public function getAvatarVk()
+    {
+        return $this->avatarVk;
     }
 }

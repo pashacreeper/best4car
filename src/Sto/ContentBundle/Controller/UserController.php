@@ -14,7 +14,7 @@ use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\UserPersonalType;
 use Symfony\Component\Form\FormError;
 use Sto\CoreBundle\Entity\CompanyManager;
-use Sto\UserBundle\Entity\Contacts;
+use Sto\ContentBundle\Form\AdditionalUserType;
 
 /**
  * User controller.
@@ -23,6 +23,22 @@ use Sto\UserBundle\Entity\Contacts;
  */
 class UserController extends Controller
 {
+    /**
+     * User Profile
+     *
+     * @Route("/profile/{id}", name="user_profile")
+     * @Template()
+     */
+    public function showUserAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($id);
+
+        return [
+            'user' => $user
+        ];
+    }
+
     /**
      * Registration car owner
      *
@@ -225,7 +241,6 @@ class UserController extends Controller
 
             $user = $em->getRepository('StoUserBundle:User')->find($id);
 
-
             $company->addManager($user);
             $em->persist($company);
             $em->flush();
@@ -250,7 +265,6 @@ class UserController extends Controller
      */
     public function checkVkUserAction(Request $request)
     {
-        //var_dump($this->container->getParameter('vk_client_id')); exit;
         $hash = $request->get('hash');
         $uid = $request->get('uid');
         $first_name = $request->get('first_name');
@@ -258,19 +272,13 @@ class UserController extends Controller
         if ($hash == md5($this->container->getParameter('vk_client_id').$uid.$this->container->getParameter('vk_client_secret'))) {
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')->findOneBy(['linkVK' => $uid]);
-            //$user = $em->getRepository('StoUserBundle:User')->findOneBy(['id' => 1]);
             if ($user) {
-                /*return $this->redirect($this->generateUrl('login_check', [
-                        '_username' => $user->getUsername(),
-                        '_password' => $user->getPassword()
-                    ]));*/
                 exit('YES');
             }
         }
         exit('NO');
 
-        return [
-        ];
+        return [];
     }
 
     /**
@@ -292,6 +300,66 @@ class UserController extends Controller
 
         return [
             'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * After VK accounting
+     *
+     * @Route("/vk-accounting", name="user-vk-accounting")
+     * @Template("StoContentBundle:User:vk_additional.html.twig")
+     * @Method("GET")
+     */
+    public function vkAdditionalAction()
+    {
+        if (!$this->getUser()->isUsingEmail()) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('StoUserBundle:User')->find($this->getUser()->getId());
+
+            $form = $this->createForm(new AdditionalUserType(), $user);
+
+            return [
+                'form' => $form->createView(),
+                'user' => $user
+            ];
+        }
+
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    /**
+     * After VK accounting
+     *
+     * @Route("/vk-accounting/save", name="user_vk_account_save")
+     * @Template("StoContentBundle:User:vk_additional.html.twig")
+     * @Method("POST")
+     */
+    public function saveVkAdditionalAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->find($this->getUser()->getId());
+
+        $form = $this->createForm(new AdditionalUserType(), $user);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $user->setUsingEmail(true);
+            $password = $user->getPassword();
+            $encoder = $this->container
+                ->get('security.encoder_factory')
+                ->getEncoder($user)
+            ;
+            $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        }
+
+        return [
+            'form' => $form->createView(),
+            'user' => $user
         ];
     }
 }

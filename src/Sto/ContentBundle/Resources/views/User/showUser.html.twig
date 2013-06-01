@@ -1,4 +1,12 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash, advanced_flash %}
+
+{% block title %}Профиль пользователя &middot; {{ user.username }} {% endblock %}
+{% block header %}Профиль пользователя - {{ user.username }}</h4>{% endblock %}
+
+{% block content_tag 'id="content" class="container"' %}
+
+{% block content %}
 
 <div class="row-fluid">
     <div class="span10 offset1">
@@ -6,23 +14,6 @@
             <div class="span9">
                 <h1>Вы: <span id="user-name">{{ user.firstName }} {{ user.lastName }}, {{ user.username }}</span> </h1>
                 {% if user.ratingGroup %}{{ user.ratingGroup.name }}{% endif %} - <span id="user-city">{{ user.city.name }}</span>, <span id="user-years">{{ user.years }}</span> год(а)
-                <a href="#" id="personal-edit" class="icon-b4c-edit icon-2x" data-placement="bottom" data-original-title="A Title"></a>
-                <div id="personal-data-edit" style="display:none;">
-                    <form>
-                        <label>Имя</label>
-                        <input type="text" name="firstName" required="required" value="{{ user.firstName }}" />
-                        <label>Фамилия</label>
-                        <input type="text" name="lastName" required="required" value="{{ user.LastName }}" />
-                        <label>Псевдоним</label>
-                        <input type="text" name="userName" required="required" value="{{ user.username }}" />
-                        <label>Возраст</label>
-                        <input class="dp" type="text" name="birthDate" value="{% if user.birthDate %}{{ user.birthDate|date('d.m.Y') }}{% endif %}" />
-                        <label>Город</label>
-                        <select name="city"></select>
-                        <input type="button" id="save-personal-data" class="btn btn-primary" value="ОК" />
-                        <a id="abort-personal-data" class="btn" href="#">Отмена</a>
-                    </form>
-                </div>
             </div>
             <div class="span2 offset1">
                 <span style="font-size:12px;">Ваш рейтинг:</span><br />
@@ -59,17 +50,9 @@
                 <center>
 {% if user.avatar %}
                     <img id="avatar" src="{{ vich_uploader_asset(user, 'avatar') }}" style="width:200px" class="img-polaroid"/>
-{% elseif user.avatarVk %}
-                    <img id="avatar" src="{{ user.avatarVk }}" style="width:200px" class="img-polaroid"/>
 {% else %}
                     <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="width:200px" class="img-polaroid"/>
 {% endif %}
-                <p>Соеденить аккаунт с:</p>
-                {% if user.vkontakteId == null %}
-                    <p>
-                         <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-2x"></i></a>
-                    </p>
-                {% endif %}
                 </center>
             </div>
             <div class="span8">
@@ -103,7 +86,7 @@
                             {# Left column#}
                             <div class="span8">
                                 <div class="profile-contacts" style="">
-                                    <h4>Контактные данные <a href="#" class="pull-right  icon-b4c-edit" id="edit-contacts"></a></h4>
+                                    <h4>Контактные данные</h4>
                                     <div class="contact-data">
                                         {% if user.contacts %}
                                         <dl class="dl-horizontal" id="contacts-list">
@@ -122,7 +105,7 @@
                                     </div>
                                 </div>
                                 <hr />
-                                <h4>О себе <a href="#" class="pull-right  icon-b4c-edit" id="edit-description"></a></h4>
+                                <h4>О себе</h4>
                                     {% if user.description %}
                                         <p id="description" data-type="textarea" data-pk="1" data-original-title="О себе" data-name="description">{{ user.description }}</p>
                                     {% else %}
@@ -133,7 +116,7 @@
 
                             {# Right column #}
                             <div class="span4">
-                                <h4>Автоклубы <a href="#" class="pull-right  icon-b4c-edit" id="edit-autoclubs"></a></h4>
+                                <h4>Автоклубы</h4>
 
                                 <a href="#">Landrover Club SPB</a>
                                 <p>
@@ -182,7 +165,7 @@
                             <h3>{{ feedback.user.lastName }} {{ feedback.user.firstName }}</h3>
                             <p class="row-fluid">
                                 <span class="span8">
-                                    {{ feedback.user.ratingGroup.name }}
+                                    {% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}
                                 </span>
                                 <span class="span4">
                                     Дата: {{ feedback.date|date("d.m.Y") }}
@@ -244,3 +227,14 @@
     </div>
     {# EOF Feedbacks #}
 </div>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+    <script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    </script>
+{% endblock %}

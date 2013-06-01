@@ -61,6 +61,9 @@
                 {{ flash('error', 'Incorrect Username or Password!', true, true) }}
                 {% endif %}
                 {% if app.session.started %}
+                    {% if is_expr_granted("hasRole('ROLE_FROZEN')") %}
+                    {{ flash('error', 'Ваш аккаунт заблокирован !', true, true) }}
+                    {% endif %}
                     {% for flashMessage in app.session.flashbag.get('notice') %}
                         <div class="alert alert-success">
                             {{ flashMessage }}
@@ -72,7 +75,7 @@
                 <input type="password" class="input-block-level" placeholder="Пароль" id="password" name="_password" />
                 <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Войти" />
                 <br />
-                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-3x"></i></a>
+                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-3x"></i></a>
             </form>
         </div>
     </div>

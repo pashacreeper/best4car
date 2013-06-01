@@ -61,23 +61,34 @@ class FOSUBUserProvider extends BaseClass
         $username = $response->getUsername();
 
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
-        //when the user is registrating
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
             $setter = 'set'.ucfirst($service);
             $setter_id = $setter.'Id';
             $setter_token = $setter.'AccessToken';
-            // create new user here
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
-            //I have set all requested data with the user's username modify here with relevant data
-            $user->setUsername($username);
+            $url = 'https://api.vk.com/method/users.get?fields=sex,city,nickname,photo_max_orig&access_token='.$response->getAccessToken();
+            $additional_data=json_decode(file_get_contents($url));
+            $photo = $additional_data->response[0]->photo_max_orig;
+            $city_id = $additional_data->response[0]->city;
+            $city=file_get_contents('https://api.vk.com/method/places.getCityById?cid='.$city_id);
+
+            $nickname = $additional_data->response[0]->nickname;
+            if ($nickname != '') {
+                $user->setUsername($nickname);
+            } else {
+                $user->setUsername($username);
+            }
+            $user->setAvatarVk($photo);
             $user->setEmail($username);
             $user->setPassword($username);
             $user->setEnabled(true);
+            $user->setUsingEmail(false);
 
             $user_data = $response->getResponse();
+
             $user_name = explode(' ', $user_data['response']['user_name']);
             $user->setFirstName($user_name[0]);
             $user->setLastName($user_name[1]);
@@ -85,6 +96,19 @@ class FOSUBUserProvider extends BaseClass
 
             $ratingGroup = $this->em->getRepository('StoUserBundle:RatingGroup')->find(1);
             $user->setRatingGroup($ratingGroup);
+            $cities = $this->em->getRepository('StoCoreBundle:Dictionary\Country')
+                ->createQueryBuilder('dictionary')
+                ->where('dictionary.parent is NOT null')
+                ->getQuery()
+                ->getResult()
+            ;
+            if ($cities) {
+                $oCity = $cities[0];
+            }
+            if (isset($oCity)) {
+                $user->setCity($oCity);
+            }
+
             $this->userManager->updateUser($user);
 
             return $user;

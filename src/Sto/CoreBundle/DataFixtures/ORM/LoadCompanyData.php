@@ -91,8 +91,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
         $company->setCity($this->getReference('city[spb]'));
-        //for($i = 0; $i <= rand(1,2); $i++)
-            //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
+           for ($i=15; $i < 30; $i = $i+12) {
+                    $company->addManager($this->getReference("user[{$i}]"));
+                }
 
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
@@ -180,6 +181,10 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
         $company->setCity($this->getReference('city[spb]'));
+            for ($i=3; $i < 30; $i = $i+12) {
+                    $company->addManager($this->getReference("user[{$i}]"));
+                }
+
         //for($i = 0; $i <= 2; $i++)
             //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
@@ -278,6 +283,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setHourPrice(rand(500,4500));
             $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
             $company->setCity($this->getReference('city[spb]'));
+            $company->addManager($this->getReference("user[".(rand(1,10)*3)."]"));
             //for($k = 1; $k <= 2; $k++)
                 //$company->addManager($this->getReference("user[".rand(1, $k*15)."]"));
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');

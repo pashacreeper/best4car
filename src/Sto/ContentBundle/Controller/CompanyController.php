@@ -64,6 +64,9 @@ class CompanyController extends Controller
                 ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
             ;
         }
+        if ($this->get('security.context')->isGranted('ROLE_FROZEN')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
 
         return [
             'companies' => json_encode($companies),
@@ -76,13 +79,15 @@ class CompanyController extends Controller
      * @Route("/company/{id}/{tab}", name="content_company_show_tab", options={"expose"=true})
      * @Method("GET")
      * @Template()
-     * @ParamConverter("company", class="StoCoreBundle:Company")
      */
-    public function showAction(Company $company, $tab = 'information')
+    public function showAction($id, $tab = 'information')
     {
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
+
         return [
             'company' => $company,
-            'tab'     => $tab
+            'tab'     => $tab,
         ];
     }
 
@@ -137,17 +142,19 @@ class CompanyController extends Controller
                 ->setParameter('company', $id)
                 ->getQuery()
                 ->getResult()
-                ;
+            ;
         }
-        if (isset($manager) && count($manager)>0)
-            $isManager = true;
-        else
-            $isManager = false;
+
+        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
+
+        $date = new \DateTime();
+        $date->modify('-15 hours');
 
         return [
             'feedbacks' => $feedbacks,
             'companyId' => $id,
             'isManager' => $isManager,
+            'date' => $date
         ];
     }
 
@@ -156,7 +163,6 @@ class CompanyController extends Controller
      * @Method("GET")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      * @Template()
-     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function addFeedbackAction(Company $company)
     {
@@ -199,6 +205,53 @@ class CompanyController extends Controller
         return [
             'form'    => $form->createView(),
             'company' => $company
+        ];
+    }
+
+    /**
+     * @Route("/company/feedback/{id}/edit", name="content_company_feedbacks_edit")
+     * @Method("GET")
+     * @ParamConverter("feedback", class="StoCoreBundle:Feedback")
+     * @Template("StoContentBundle:Company:addFeedback.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function editFeedbackAction(FeedbackCompany $feedback)
+    {
+        $form = $this->createForm(new FeedbackCompanyType, $feedback);
+
+        return [
+            'form' => $form->createView(),
+            'feedback' => $feedback,
+            'company' => $feedback->getCompany(),
+            'feededit' => true,
+        ];
+    }
+
+    /**
+     * @Route("/company/{id}/feedback/update", name="content_company_feedbacks_update")
+     * @Method("POST")
+     * @ParamConverter("feedback", class="StoCoreBundle:Feedback")
+     * @Template("StoContentBundle:Company:addFeedback.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function updateFeedbackAction(Request $request, FeedbackCompany $feedback)
+    {
+        $form = $this->createForm(new FeedbackCompanyType(), $feedback);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($feedback);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_company_show', ['id' => $feedback->getCompany()->getId()]));
+        }
+
+        return [
+            'form'    => $form->createView(),
+            'feedback' => $feedback,
+            'company' => $feedback->getCompany(),
+            'feededit' => true,
         ];
     }
 

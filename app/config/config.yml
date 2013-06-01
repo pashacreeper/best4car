@@ -221,7 +221,7 @@ hwi_oauth:
             type:          vkontakte
             client_id:     %vk_client_id%
             client_secret: %vk_client_secret%
-            scope:         ""
+            scope:         "offline, email"
     firewall_name: main
     fosub:
         username_iterations: 30

@@ -1,0 +1,16 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Дополнительная информация{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+    <h1>Дополнительная информация</h1>
+    {% if form is defined %}
+        <form name="register-form" action="{{ path('user_vk_account_save') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            {{ form_widget(form) }}
+            <input type="submit" name="additional_info_submit" value="Отправить" class="btn">
+        </form>
+    {% endif %}
+{% endblock %}
