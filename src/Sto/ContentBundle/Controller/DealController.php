@@ -395,11 +395,7 @@ class DealController extends Controller
             ->getQuery()
             ->getResult()
             ;
-        if ($manager) {
-            $isManager = true;
-        } else {
-            $isManager = false;
-        }
+        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
         $date = new \DateTime();
         $date->modify('-15 hours');
@@ -517,5 +513,29 @@ class DealController extends Controller
             'editForm' => $editForm->createView(),
             'deal' => $deal
         ];
+    }
+
+    /**
+     * @Route("/deal/{id}/feedback-answer/add", name="content_deal_feedbacks_answer_add")
+     * @Method("POST")
+     * @Template()
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function addFeedbackAnswerAction(Request $request, $id)
+    {
+        $feedback_id = $request->get('feedback_id');
+        $em = $this->getDoctrine()->getManager();
+        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
+        if (!$feedback)
+            return new Responce(500, 'Feedback Not found.');
+        $answer = new FeedbackAnswer();
+        $answer->setAnswer($request->get('answer'));
+        $answer->setOwner($this->getUser());
+        $answer->setFeedback($feedback);
+        $answer->setDate(new \DateTime('now'));
+        $em->persist($answer);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('content_deal_show', ['id' => $id]));
     }
 }
