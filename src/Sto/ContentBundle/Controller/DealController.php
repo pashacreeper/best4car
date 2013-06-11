@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Deal;
 use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
 use Sto\ContentBundle\Form\DealType;
@@ -363,8 +364,23 @@ class DealController extends Controller
      */
     public function showAction(Deal $deal)
     {
+        if ($this->getUser()) {
+            $em = $this->getDoctrine()->getManager();
+            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+                ->createQueryBuilder('cm')
+                ->where('cm.userId = :user_id AND cm.companyId = :company')
+                ->setParameter('user_id', $this->getUser()->getId())
+                ->setParameter('company', $deal->getCompany()->getId())
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        $isManager = (isset($manager) && count($manager)>0) ? true : false;
+
         return [
-            'deal' => $deal
+            'deal' => $deal,
+            'isManager' => $isManager
         ];
     }
 
@@ -391,14 +407,16 @@ class DealController extends Controller
 
         $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
 
-        $manager = $em->getRepository('StoCoreBundle:CompanyManager')
-            ->createQueryBuilder('cm')
-            ->where('cm.userId = :user_id AND cm.companyId = :company')
-            ->setParameter('user_id', $this->getUser()->getId())
-            ->setParameter('company', $deal->getCompanyId())
-            ->getQuery()
-            ->getResult()
-            ;
+        if ($this->getUser()) {
+            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+                ->createQueryBuilder('cm')
+                ->where('cm.userId = :user_id AND cm.companyId = :company')
+                ->setParameter('user_id', $this->getUser()->getId())
+                ->setParameter('company', $deal->getCompanyId())
+                ->getQuery()
+                ->getResult()
+                ;
+        }
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
         $date = new \DateTime();

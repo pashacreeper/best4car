@@ -20,7 +20,7 @@
 
     <aside class="visible-desktop">
         <ul class="sideMenu">
-                <li>
+                <li class="active">
                     <a href="#" data-deal-type="0">Все акции</a>
                     <span>{{ deals|length }}</span>
                 </li>
@@ -47,8 +47,8 @@
 {% block content %}
     <div class="row-fluid">
 {% if deals|length > 0 %}
-        <h3 class=" span9 offset1">
-            Лучшие спецпредложения города
+        <h3 class="span9 offset1" data-block="deals-type">
+            Все акции - {{ deals | length }}
         </h3>
         <div class="row-fluid">
             <div id="myCarousel" class="carousel slide span12">
@@ -116,6 +116,10 @@
     $('.sideMenu > li > a').on('click', function(){
         var type_id = $(this).data('deal-type');
         var route = "{{ path('deals_show') }}?deal_type="+type_id;
+        $('.sideMenu li.active').removeAttr('class');
+        $(this).parent('li').attr('class', 'active');
+        $('[ data-block="deals-type"]').empty();
+        $('[ data-block="deals-type"]').append($(this).text()+' - '+$(this).parent().find('span').text());
         $.ajax({
             type: 'POST',
             url: route,
@@ -129,5 +133,12 @@
         });
         return false;
     });
+
+    $('a.deal-link').hover(function(){
+        $(this).find('div.hide').css('display', 'block');
+    }, function(){
+        $(this).find('div.hide').css('display', 'none');
+    }
+    );
 </script>
 {% endblock %}

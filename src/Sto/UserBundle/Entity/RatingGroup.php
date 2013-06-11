@@ -52,12 +52,6 @@ class RatingGroup
     private $multiplier;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Company", mappedBy="ratingGroup")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
-     */
-    private $companies;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -198,16 +192,6 @@ class RatingGroup
     public function getUsers()
     {
         return $this->users;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCompanies()
-    {
-        return $this->companies;
     }
 
     public function __toString()

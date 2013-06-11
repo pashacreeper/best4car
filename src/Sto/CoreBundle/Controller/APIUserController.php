@@ -14,7 +14,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\UserBundle\Entity\User;
 use Sto\UserBundle\Entity\Contacts;
 
-
 /**
  * User controller.
  */
@@ -233,6 +232,7 @@ class APIUserController extends FOSRestController
         $contacts = $request->get('contact');
 
         $em = $this->getDoctrine()->getManager();
+        if ($contacts) {
         foreach ($contacts as $contact_id => $value) {
             $contact = $em->getRepository('StoUserBundle:Contacts')->findOneById($contact_id);
             if ($contact) {
@@ -243,6 +243,7 @@ class APIUserController extends FOSRestController
                 }
                 $em->persist($contact);
             }
+        }
         }
         if ($request->get('add')) {
             $new_contact = new Contacts();

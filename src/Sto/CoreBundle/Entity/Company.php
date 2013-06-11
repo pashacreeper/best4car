@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Sto\UserBundle\Entity\RatingGroup;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sto\CoreBundle\Entity\CompanyManager;
@@ -219,18 +218,6 @@ class Company
      * )
      */
     protected $groups;
-
-    /**
-     * @ORM\Column(name="rating_group_id", type="integer", nullable=true)
-     */
-    protected $ratingGroupId;
-
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\RatingGroup", inversedBy="companies")
-     * @ORM\JoinColumn(name="rating_group_id", referencedColumnName="id")
-     */
-    protected $ratingGroup;
 
     /**
      * @ORM\OneToMany(targetEntity="CompanyGallery", mappedBy="company", cascade={"all"})
@@ -1036,18 +1023,6 @@ class Company
     public function setGroups($group)
     {
         $this->groups = $group;
-
-        return $this;
-    }
-
-    public function getRatingGroup()
-    {
-        return $this->ratingGroup;
-    }
-
-    public function setRatingGroup(RatingGroup $group)
-    {
-        $this->ratingGroup = $group;
 
         return $this;
     }

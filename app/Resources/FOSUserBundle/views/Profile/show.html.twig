@@ -25,6 +25,7 @@
 <script type="text/javascript" src="{{ asset('bundles/stocore/js/bootstrap-editable.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/stocontent/js/bootstrap-datepicker.js') }}"></script>
 <script>
+var select;
     $('#myTab a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
@@ -41,7 +42,7 @@
 
     $(document).ready(function(){
 	/* Editing About */
-        var select;
+
 	    $('#description').editable({
 	        "mode" : "popup",
 	        url: "{{ path('api_edit_user_description') }}"
@@ -64,17 +65,28 @@
     	}
     	else {
             $('dl#contacts-list').css('display', 'none');
+            var form =  '<form name="edit-contacts" method="post"><a href="#" class="btn" id="add-contacts-type">Добавить</a><br /><br />';
 	    	$.getJSON("{{ path('api_dictionary_contact_types') }}")
-		    .done(function(data){
-		    	var form =  '<form name="edit-contacts" method="post"><a href="#" class="btn" id="add-contacts-type">Добавить</a><br /><br />';
 
+            .done(function(data){
+
+		    	// var form =  '<form name="edit-contacts" method="post"><a href="#" class="btn" id="add-contacts-type">Добавить</a><br /><br />';
+                $.each(data, function(key,value){
+                    select +='<option value="'+value.id+'">'+value.name+'</option>';
+                    });
+                    console.log(select);
 		    	$('dl#contacts-list dt').each(function(key,value){
 		    		var contact_id = $(value).data('contact');
 		    		var type_id = $(value).data('pk');
 		    		var type_prefix = $(value).data('prefix');
+
 		    		var value = $('dd[data-type-pk="'+type_id+'"] > a').html();
                     var select_opt = '';
+
+
+
                     $.each(data, function(key,value){
+
                         slect_opt = '';
                         if (value.id == type_id)
                             select_opt += '<option value="'+value.id+'" class="'+value.id+'" data-prefix="'+value.prefix+'" selected="selected">'+value.name+'</option>';
@@ -82,19 +94,19 @@
                             select_opt += '<option value="'+value.id+'" class="'+value.id+'" data-prefix="'+value.prefix+'">'+value.name+'</option>';
                     });
 
-                    select = select_opt;
+                    // select = select_opt;
                     form += '<div class="row-fluid contact-block" data-contact-id="'+contact_id+'">';
 		    		form += '<select name="contact['+contact_id+'][type]" id="select-'+contact_id+'">'+select_opt+'</select><br />'+
 		    				'<span>'+type_prefix+' </span><input class="input-small" name="contact['+contact_id+'][value]" type="text" value="'+value+'" />'+
                             '<a href="#" data-contact-remove="'+contact_id+'" class="icon-b4c-trash"></a>'+
                             '<hr />'
                     form += '</div>';
-		    		$('div.contact-edit-form').empty();
 
-		    		$('div.contact-edit-form').append(form);
 
 		    	});
+                $('div.contact-edit-form').empty();
 
+                $('div.contact-edit-form').append(form);
                 $('div.contact-edit-form').append('<input type="button" class="btn btn-primary" id="save-contacts" value="OK" /><a href="#" class="btn" id="abort-contacts">Отмена</a><br /><br /></form>');
                 $('dl#contacts-list').css('display', 'none');
 		    	$('.contact-edit-form').css('display', 'block');
