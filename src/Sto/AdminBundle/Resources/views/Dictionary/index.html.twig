@@ -31,6 +31,7 @@
                     <li><a id="a_tab3" href="#tab3" data-toggle="tab" data-dictionary="country">Страны / Города</a></li>
                     <li><a id="a_tab4" href="#tab4" data-toggle="tab" data-dictionary="currency">Валюты</a></li>
                     <li><a id="a_tab6" href="#tab6" data-toggle="tab" data-dictionary="price_level">Уровни цен</a></li>
+                    <li><a id="a_tab7" href="#tab7" data-toggle="tab" data-dictionary="auto_services">Узлы и работы</a></li>
                 </ul>
             </div>
         </div>
@@ -56,6 +57,9 @@
         <center><i class="icon-spinner icon-spin icon-4x"></i></center>
     </div>
     <div class="tab-pane" id="tab6">
+        <center><i class="icon-spinner icon-spin icon-4x"></i></center>
+    </div>
+    <div class="tab-pane" id="tab7">
         <center><i class="icon-spinner icon-spin icon-4x"></i></center>
     </div>
 </div>
@@ -132,6 +136,16 @@
             url: "{{ path('dictionary_content') }}",
             success: function(html) {
                 $('#tab6').html(html);
+            }
+        });
+    });
+    $("#a_tab7").on('click', function(e){
+        $.ajax({
+            type: 'POST',
+            data: {'dictionary': 'auto_services' },
+            url: "{{ path('dictionary_content') }}",
+            success: function(html) {
+                $('#tab7').html(html);
             }
         });
     });

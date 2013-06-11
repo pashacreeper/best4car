@@ -130,6 +130,21 @@ class CompanyType extends AbstractType
                     'class' => 'select2'
                 ]
             ])
+            ->add('autoServices', 'entity', array(
+                'label' => 'Выберите работы',
+                'multiple' => true,
+                'class' => 'StoCoreBundle:Dictionary\autoServices',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('ct')
+                        ->where('ct.parent is not null')
+                        ->andWhere('ct.code is null')
+                        ->groupBy('ct.parent')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ))
             ->add('logo', null, [
                 'label' => 'Logo',
                 'required' => false,

@@ -26,22 +26,19 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <!-- <div class="pull-right"> -->
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="active" style="margin-left:80px;">
-                    <a href="#personal"><i class="icon-b4c-user"></i> Профиль</a>
-                </li>
-                <li>
-                    <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ user.feedbacks|length }}</span></a>
-                </li>
-                <li>
-                    <a href="#garage"><i class="icon-b4c-garage"></i> Гараж</a>
-                </li>
-            </ul>
-        <!-- </div> -->
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active" style="margin-left:80px;">
+                <a href="#personal"><i class="icon-b4c-user"></i> Профиль</a>
+            </li>
+            <li>
+                <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ user.feedbacks|length }}</span></a>
+            </li>
+            <li>
+                <a href="#garage"><i class="icon-b4c-garage"></i> Гараж</a>
+            </li>
+        </ul>
     </div>
 </div>
-<!-- <hr style="margin: 5px 0;"> -->
 <div class="tab-content">
     {# Profile tab #}
     <div class="tab-pane active" id="personal">
@@ -100,7 +97,6 @@
                                         {% endif %}
                                         <select id="all-types-select" style="display:none;"></select>
                                         <div class="well contact-edit-form" style="display:none">
-
                                         </div>
                                     </div>
                                 </div>
@@ -113,19 +109,13 @@
                                     {% endif %}
                             </div>
                             {# EOF Left Column #}
-
                             {# Right column #}
                             <div class="span4">
                                 <h4>Автоклубы</h4>
-
                                 <a href="#">Landrover Club SPB</a>
-                                <p>
-Повторный контакт, на первый взгляд, основан на опыте. Организация практического взаимодействия, в рамках сегодняшних воззрений.
-                                </p>
+                                <p>Повторный контакт, на первый взгляд, основан на опыте. Организация практического взаимодействия, в рамках сегодняшних воззрений.</p>
                                 <a href="#">Landrover Club SPB</a>
-                                <p>
-Повторный контакт, на первый взгляд, основан на опыте. Организация практического взаимодействия, в рамках сегодняшних воззрений.
-                                </p>
+                                <p>Повторный контакт, на первый взгляд, основан на опыте. Организация практического взаимодействия, в рамках сегодняшних воззрений.</p>
                             </div>
                             {# EOF Right column #}
                         </div>
@@ -135,7 +125,6 @@
         </div>
     </div>
     {# EOF Profile #}
-
     {# Garages tab #}
     <div class="tab-pane" id="garage">
         <div class="row-fluid">
@@ -145,13 +134,11 @@
         </div>
     </div>
     {# EOF Garages #}
-
     {# Feedbakcs tab #}
     <div class="tab-pane" id="feedbacks">
         <div class="row-fluid">
             <div class="span10 offset1">
             {% if user.feedbacks %}
-
                     {% for feedback in user.feedbacks %}
                     <div class="row-fluid">
                         <div class="span2">
@@ -218,7 +205,6 @@
                         </div>
                     </div>
                     {% endfor %}
-
             {% else %}
                 {{ advanced_flash(true, 'СКОРО!', 'Пользователь не оставлял отзывы.', false, true) }}
             {% endif %}

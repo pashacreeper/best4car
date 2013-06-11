@@ -5,27 +5,38 @@
                 <ul class="nav nav-tabs">
                     <li><small>Сортировать по:</small></li>
                     <li class="active">
-                        <a href="#">дате</a>
+                        <a href="#" data-tabs="sort-date">дате</a>
                     </li>
-                    <li><a href="#">рейтингу</a></li>
+                    <li><a href="#" data-tabs="sort-rating">рейтингу</a></li>
                 </ul>
             </div>
             <div class="span8">
                 <ul class="nav nav-tabs">
                     <li><small>Показывать:</small></li>
                     <li class="active">
-                        <a href="#">все</a>
+                        <a href="#" data-tabs="filter-all">все</a>
                     </li>
-                    <li><a href="#">положительные</a></li>
-                    <li><a href="#">отрицательные</a></li>
-                    <li><a href="#">полезные</a></li>
+                    <li><a href="#" data-tabs="filter-positive">положительные</a></li>
+                    <li><a href="#" data-tabs="filter-negative">отрицательные</a></li>
+                    <li><a href="#" data-tabs="filter-useful">полезные</a></li>
                 </ul>
             </div>
         </div>
-        {{ render(controller('StoContentBundle:Company:feedbacks', {'id':company.id})) }}
+        <div data-x-container="feedbacks">
+            {{ render(controller('StoContentBundle:Company:feedbacks', {'id':company.id})) }}
+        </div>
+        <script>function getCompanyId(){ return {{ company.id }}; }</script>
     </div>
     <div class="span4">
+            {% set manager = false %}
+            {% if app.security.isGranted('ROLE_USER') %}
+            {% for item in company.managers if  item.id == app.user.id  %}
+                 {% set manager = true %}
+            {% endfor %}
+            {% endif %}
+         {% if (not manager) and (not app.security.isGranted('ROLE_FROZEN')) and  (app.security.isGranted('ROLE_USER'))  %}
         <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв</a>
+        {% endif %}
         <div class="thumbnail">
             <img src="http://placehold.it/240x400">
         </div>

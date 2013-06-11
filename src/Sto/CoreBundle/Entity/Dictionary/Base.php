@@ -22,6 +22,7 @@ use JMS\Serializer\Annotation as Serializer;
  *     "day_of_week"        = "WeekDay",
  *     "price_level"        = "PriceLevel",
  *     "contact_type"       = "ContactType",
+ *     "auto_services"      = "AutoServices",
  * })
  */
 class Base

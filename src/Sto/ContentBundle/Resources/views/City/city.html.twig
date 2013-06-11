@@ -69,6 +69,7 @@
                     .fail(function (e) {
                         console.log(e.message);
                     });
+
                 });
 
                 $('#a-country-' + frst_id).click();
@@ -90,6 +91,7 @@
                      $('#home_compalies').addClass("hide");
                     renderMap(city.gps, companies);
                 })
+                 location.reload();
             })
             .fail(function (json) {
                 console.log(json.message);

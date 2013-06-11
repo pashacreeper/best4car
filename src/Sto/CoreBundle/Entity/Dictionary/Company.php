@@ -69,6 +69,17 @@ class Company extends Base
     private $updatedAt;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AutoServices")
+     */
+    private $autoServices;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Set iconMap
      *
      * @param  string  $iconMap
@@ -194,4 +205,15 @@ class Company extends Base
         return $this->updatedAt;
     }
 
+    public function setAutoServices($value)
+    {
+        $this->autoServices = $value;
+
+        return $this;
+    }
+
+    public function getAutoServices()
+    {
+        return $this->autoServices;
+    }
 }

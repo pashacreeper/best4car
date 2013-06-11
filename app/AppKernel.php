@@ -17,19 +17,23 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-
             new JMS\SerializerBundle\JMSSerializerBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
-            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 
@@ -41,8 +45,6 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
-
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -106,7 +106,7 @@
                                     <h4>Контактные данные <a href="#" class="pull-right  icon-b4c-edit" id="edit-contacts"></a></h4>
                                     <div class="contact-data">
                                         {% if user.contacts %}
-                                        <dl class="dl-horizontal" id="contacts-list">
+                                        <dl class="dl-horizontal" id="contacts-list" style="block">
                                             {% for contact in user.contacts %}
                                                 <dt style="text-align: left; width:80px;" data-pk="{{ contact.type.id }}" data-contact="{{ contact.id }}" data-prefix="{{ contact.type.prefix }}">{{ contact.type.name }}</dt>
                                                 <dd style="margin-left: 0;" data-type-pk="{{ contact.type.id }}">

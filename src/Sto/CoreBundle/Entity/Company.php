@@ -77,6 +77,15 @@ class Company
     private $additionalServices;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AutoServices")
+     * @ORM\JoinTable(name="company_auto_service",
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
+     */
+    private $autoServices;
+
+    /**
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
@@ -298,6 +307,7 @@ class Company
         $this->specialization = new \Doctrine\Common\Collections\ArrayCollection();
         $this->service = new \Doctrine\Common\Collections\ArrayCollection();
         $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->managers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->autos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
@@ -519,6 +529,36 @@ class Company
     public function getAdditionalServices()
     {
         return $this->additionalServices;
+    }
+
+    /**
+     * Set autoServices
+     *
+     * @param  string  $autoServices
+     * @return Company
+     */
+    public function addAutoServices($autoServices)
+    {
+        $this->autoServices[] = $autoServices;
+
+        return $this;
+    }
+
+    public function removeAutoServices($autoServices)
+    {
+        $this->autoServices->removeElement($autoServices);
+
+        return $this;
+    }
+
+    /**
+     * Get additionalServicautoServiceses
+     *
+     * @return string
+     */
+    public function getAutoServices()
+    {
+        return $this->autoServices;
     }
 
     /**
@@ -1213,7 +1253,7 @@ class Company
 
     public function addCompanyManager(CompanyManager $manager)
     {
-        $manager->setCompany($this);
+        //$manager->setCompany($this);
         $this->companyManager[] = $manager;
 
         return $this;

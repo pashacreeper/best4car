@@ -15,7 +15,6 @@
     'bundles/stocore/css/font-awesome.css'
     'bundles/stocontent/css/style.css'
     'bundles/stocontent/css/fontello.css'
-
     'bundles/stocore/css/bootstrap-responsive.css'
     '@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-datepicker.less'
 %}
@@ -84,9 +83,9 @@
                         </div>
                         <div class="span5">
                             <a href="{{ path('info_about') }}">О проекте</a>
-                            <a href="{{ path('info_advertisers') }}">Рекламодателям</a>
-                            <a href="{{ path('info_help') }}">Помощь</a>
-                            <a href="{{ path('info_tur') }}">Тур</a>
+                            <a href="{{ path('info_advertisers') }}">Для рекламодателей</a>
+                            <a href="{{ path('info_auto_business') }}">Для автобизнеса</a>
+                            <a href="{{ path('info_tour') }}">Тур</a>
                             <a href="{{ path('info_contact') }}">Обратная связь</a>
                         </div>
                         <div class="span3">
@@ -114,8 +113,9 @@
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <script type="text/javascript">
-    $('#registration-link > a').on('click', function(){
+    $('#registration-link > a').on('click', function () {
         $('#registrationModal').modal('toggle');
+
         return false;
     });
 </script>

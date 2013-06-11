@@ -41,9 +41,9 @@ class FeedbackEvaluation
     private $review;
 
     public function __construct(
+        $review,
         \Sto\UserBundle\Entity\User $user = null,
-        \Sto\CoreBundle\Entity\Feedback $feedback = null,
-        $review = true)
+        \Sto\CoreBundle\Entity\Feedback $feedback = null)
     {
         if ($user) {
             $this->setUser($user);
@@ -51,9 +51,7 @@ class FeedbackEvaluation
         if ($feedback) {
             $this->setFeedback($feedback);
         }
-        if ($review) {
-            $this->setReview($review);
-        }
+        $this->setReview($review);
     }
 
     /**

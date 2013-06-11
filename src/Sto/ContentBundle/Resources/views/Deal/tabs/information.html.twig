@@ -10,7 +10,7 @@
                       </ol>
                       <!-- Carousel items -->
                       <div class="carousel-inner">
-                        <div class="active item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
+                        <div class="item active"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
                         <div class="item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName2 }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
                         <div class="item"><img src="/../{{ storage_path }}/deal_image/{{ deal.imageName3 }}" class="img-polaroid" style="width: 100%; height: 40%;"></div>
                       </div>
@@ -25,23 +25,31 @@
                     <p>{{ deal.description }}</p>
                 {% endif %}
                 <h4>Условия участия</h4>
-                <p>Еще Траут показал, что рекламное сообщество порождает PR, полагаясь на инсайдерскую информацию. Молодежная аудитория продуцирует стратегический пресс-клиппинг, используя опыт предыдущих кампаний. Интеграция подсознательно порождает целевой трафик, используя опыт предыдущих кампаний</p>
-                <div style="height:60px; border:1px solid #000; background-color: #cccccc;"><span class="span4" style="font-weight:bold; font-size:16px;">Контакты</span><p class="span8" style="fon-size:10px;">Мария Кожевникова
-<br /><span style="font-size: 16px;">+7 495 788-62-61</span></p></div>
+                <p>{{ deal.terms}}</p>
+                <div style="height:60px; border:1px solid #000; background-color: #cccccc;"><span class="span4" style="font-weight:bold; font-size:16px;">Контакты</span><p class="span8" style="fon-size:10px;">{{ deal.contactInformation}}</p></div>
             </div>
             <div class="span3">
                 <h4>Сроки проведения</h4>
                 <p>{{ deal.startDate|date("d.m.Y") }} – {{ deal.endDate|date("d.m.Y") }}</p>
                 <hr>
                 <h4>Время проведения</h4>
-                <p>{{ deal.startTime|date("H:m") }} – {{ deal.endTime|date("H:m") }}</p>
+                <p>{{ deal.startTime|date("H:i") }} – {{ deal.endTime|date("H:i") }}</p>
                 <hr>
                 <h4>Место проведения</h4>
-                <p>{{ deal.company.address }}</p>
+                <p>{{ deal.place }}</p>
                 <hr>
                 <h4 style="margin-bottom:0px;">Автомобили</h4> <span style="font-size:10px; margin-bottom:10px;">удовлетворяющие условиям акции</span>
-                <p>BMW старше 3х лет</p>
+                <p>{% for car in deal.auto %}
+                    {{ car }}
+                {% endfor %}</p>
                 <hr>
+                {% if deal.autoServices %}
+                    <h4 style="margin-bottom:0px;">Работы</h4> <span style="font-size:10px; margin-bottom:10px;">удовлетворяющие условиям акции</span>
+                    {% for one in deal.autoServices %}
+                        {{ one.name() }} <br />
+                    {% endfor %}
+                    <hr>
+                {% endif %}
             </div>
         </div>
     </div>

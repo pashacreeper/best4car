@@ -36,7 +36,6 @@
                     {{ form_row(form.plainPassword) }}
                     {{ form_row(form.city) }}
                     {{ form_row(form.captcha) }}
-
                     {{ form_widget(form) }}
                     <input type="submit" class="btn" value="Зарегистрироваться" />
                 </form>
@@ -69,7 +68,7 @@
 {% endjavascripts %}
 
 <script type="text/javascript">
-    $('a.disabled').click(function(){
+    $('a.disabled').click(function () {
         return false;
     });
 </script>

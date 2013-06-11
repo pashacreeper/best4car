@@ -60,7 +60,7 @@ class UserType extends AbstractType
                 'label' => 'Номер телефона',
                 'render_optional_text' => false,
                 'attr' => [
-                    'data-mask' => '+7 (999) 999-99-99'
+                    'data-mask' => '999-99-99?-999'
                 ]
             ])
             ->add('avatar', null, [

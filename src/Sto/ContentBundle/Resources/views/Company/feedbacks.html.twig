@@ -1,5 +1,22 @@
+{% if app.security.isGranted('ROLE_MODERATOR') %}
+<div id="complainFeedbackAction" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Выберите одно из действий</h3>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-modal-action="hide" data-field="Hidden" data-value="true" class="btn">Скрыть</a>
+        <a href="#" data-modal-action="edit" data-type="company" class="btn">Отредактирвоать</a>
+        <a href="#" data-modal-action="delete" class="btn">Удалить</a>
+        <a href="#" data-modal-action="no_complain" data-field="Complain" data-value="false" class="btn">Снять жалобу</a>
+    </div>
+</div>
+{% endif %}
 {% for feedback in feedbacks %}
-<div class="row-fluid">
+<div class="row-fluid" data-feedback-block="{{ feedback.id }}">
     <div class="span2">
         <div class="thumbnail">
             <a href="{{ path('user_profile', {'id': feedback.user.id}) }}"><img src="http://placehold.it/64x64"></a>
@@ -18,15 +35,27 @@
             </span>
         </p>
         <blockquote>
+            {% if feedback.complain %}
+                <div class="row-fluid" data-complain-feedback="{{ feedback.id }}">
+                    <div class="span12">
+                        {% if app.security.isGranted('ROLE_MODERATOR') %}
+                            <a href="#complainFeedbackAction" data-feedback-id="{{ feedback.id }}" data-action="admin_complain"><span class="icon-b4c-attention"></span></a>
+                        {% else %}
+                            <span class="icon-b4c-attention"></span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
             <div class="row-fluid">
                 <div class="span4">
-                    <input class="star" type="radio" value="1" disabled="disabled" {% if feedback.feedbackRating == 1 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="2" disabled="disabled" {% if feedback.feedbackRating == 2 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="3" disabled="disabled" {% if feedback.feedbackRating == 3 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="4" disabled="disabled" {% if feedback.feedbackRating == 4 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="5" disabled="disabled" {% if feedback.feedbackRating == 5 %} checked="checked" {% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==1 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==2 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==3 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==4 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==5 %} checked="checked"{% endif %}/>
                 </div>
                 <div class="span4">
+                    Цена: {{ feedback.priceLevel is null ? 'не определена' : feedback.priceLevel }}
                 </div>
                 <div class="span4">
                     <p class="pull-right">
@@ -40,9 +69,9 @@
                     <div class="row-fluid">
                         <p>{{ feedback.content|raw }}</p>
                         {% if app.security.isGranted('ROLE_MODERATOR') %}
-                            <a href="{{ path('content_company_feedbacks_edit', {'id': feedback.company.id, 'feedbackId': feedback.id}) }}" >Редактировать</a>
+                            <a href="{{ path('content_company_feedbacks_edit', {'id': feedback.id}) }}" >Редактировать</a>
                         {% endif %}
-                        <a href="#" class="pull-right">Пожаловаться</a>
+                        <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="pull-right">Пожаловаться</a>
                     </div>
                </blockquote>
             </div>

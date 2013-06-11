@@ -20,14 +20,14 @@ class CompanyType extends AbstractType
                 'label' => 'Сокращенное наименование'
             ])
             ->add('phones','collection', array(
-                'label' => ' ',
+                'label' => '',
                 'type' => new CompanyPhoneType(),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
                 'show_legend' => false,
                 'widget_add_btn' =>[
-                    'icon' => 'plus-sign',
+                    'icon' => 'b4c-plus',
                     'label' => 'add phone',
                     'attr' => [
                          'class' => 'btn btn-primary btn-small'
@@ -67,7 +67,7 @@ class CompanyType extends AbstractType
                 'prototype' => true,
                 'show_legend' => false,
                 'widget_add_btn' =>[
-                    'icon' => 'plus-sign',
+                    'icon' => 'b4c-plus',
                     'label' => ' ',
                     'attr' => [
                          'class' => 'btn btn-primary btn-small'
@@ -85,7 +85,7 @@ class CompanyType extends AbstractType
                 )
             ))
             ->add('hourPrice', null, [
-                'label' => 'Hour price',
+                'label' => 'Стоимость нормочаса',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -93,9 +93,10 @@ class CompanyType extends AbstractType
                 ],
             ])
             ->add('currency', null, [
+                'label' => 'Валюта',
             ])
             ->add('services', 'entity', [
-                'label' => 'Services',
+                'label' => 'Услуги',
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
@@ -109,7 +110,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('specialization', 'entity', [
-                'label' => 'Specialization',
+                'label' => 'Основная специализация',
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
@@ -123,7 +124,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('logo', null, [
-                'label' => 'Logo',
+                'label' => 'Логотип компании',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -131,7 +132,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('slogan', 'textarea', [
-                'label' => 'Девиз',
+                'label' => 'Девиз (слоган)',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -154,7 +155,7 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false
             ])
             ->add('additionalServices', 'entity', [
-                'label' => 'Additional services',
+                'label' => 'Дополнительные услуги',
                 'required' => false,
                 'render_optional_text' => false,
                 'multiple' => true,
@@ -179,12 +180,12 @@ class CompanyType extends AbstractType
             ->add('createtDate', 'date', [
                 'widget' => 'single_text',
                 'datepicker' => true,
-                'label' => 'Createt date',
+                'label' => 'Начало работы на рынке',
                 'required' => false,
                 'render_optional_text' => false
             ])
             ->add('notes', 'textarea', [
-                'label' => 'Notes',
+                'label' => 'Дополнительное описание деятельности компании',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -196,7 +197,7 @@ class CompanyType extends AbstractType
                 'label' => 'Координаты Yandex-карты',
                 'required' => true,
                 'attr' => [
-                    'data-mask' => '99.99,99.99',
+                    'onclick'=>"$('#myModal').modal();"
                 ]
             ])
             ->add('linkVK', 'text', [
@@ -222,7 +223,7 @@ class CompanyType extends AbstractType
                 'prototype' => true,
                 'show_legend' => false,
                 'widget_add_btn' =>[
-                    'icon' => 'plus-sign',
+                    'icon' => 'b4c-user-add',
                     'label' => 'add manager',
                     'attr' => [
                          'class' => 'btn btn-primary btn-small'
@@ -247,7 +248,7 @@ class CompanyType extends AbstractType
                 'prototype' => true,
                 'show_legend' => false,
                 'widget_add_btn' =>[
-                    'icon' => 'plus-sign',
+                    'icon' => 'b4c-plus',
                     'label' => 'add contact',
                     'attr' => [
                          'class' => 'btn btn-primary btn-small'
@@ -272,7 +273,7 @@ class CompanyType extends AbstractType
                 'prototype' => true,
                 'show_legend' => false,
                 'widget_add_btn' =>[
-                    'icon' => 'plus-sign',
+                    'icon' => 'b4c-plus',
                     'label' => 'add photo',
                     'attr' => [
                          'class' => 'btn btn-primary btn-small'

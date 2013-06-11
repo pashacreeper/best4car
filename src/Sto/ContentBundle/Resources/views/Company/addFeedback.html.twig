@@ -76,6 +76,15 @@
         </div>
     </div>
 </div>
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input#sto_content_feedback_visitDate').datepicker();
+        });
+    </script>
+{% endblock %}
+
 {% else %}
 {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
 {% endif %}

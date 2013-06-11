@@ -74,6 +74,7 @@ class DealController extends Controller
      * @Method({"GET"})
      * @Template()
      * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function newDealAction(Company $company)
     {
@@ -109,6 +110,7 @@ class DealController extends Controller
      * @Method({"POST"})
      * @Template("StoContentBundle:Deal:newDeal.html.twig")
      * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function createDealAction(Request $request, Company $company)
     {
@@ -151,6 +153,7 @@ class DealController extends Controller
      * @Route("/company/{id}/deal/{dealId}/edit", name="company_deal_edit")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      * @Template()
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
    public function editDealAction(Company $company ,$dealId)
    {
@@ -190,6 +193,7 @@ class DealController extends Controller
      * @Route("/company/{companyId}/deal/{id}/update", name="company_deal_update")
      * @Method({"POST"})
      * @Template("StoContentBundle:Deal:editDeal.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function updateDealAction(Request $request, $id, $companyId )
     {
@@ -460,7 +464,7 @@ class DealController extends Controller
     }
 
     /**
-     * @Route("/deal/{id}/feedback/{feedbackId}/edit", name="content_deal_feedbacks_edit")
+     * @Route("/deal/{id}/feedback/{feedbackId}/edit", name="content_deal_feedbacks_edit", options={"expose"=true})
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
      * @Template()
      */

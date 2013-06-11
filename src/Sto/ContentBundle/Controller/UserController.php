@@ -239,6 +239,12 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $company->setUpdatedAt(new \DateTime());
 
+            $managers = $company->getCompanyManager();
+            foreach ($managers as $value) {
+                $value->setCompany($company);
+            }
+            $company->setCompanyManager($managers);
+
             $user = $em->getRepository('StoUserBundle:User')->find($id);
 
             $company->addManager($user);

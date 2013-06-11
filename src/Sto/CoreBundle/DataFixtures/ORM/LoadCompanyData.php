@@ -67,14 +67,14 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 ]
             ]);
         $company->setPhones([
-                [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
-                    'description' => $phone_type[rand(0,1)],
-                ],
-                [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
-                    'description' => $phone_type[rand(0,1)],
-                ]
+            [
+                'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'description' => $phone_type[rand(0,1)],
+            ],
+            [
+                'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'description' => $phone_type[rand(0,1)],
+            ]
         ]);
         $company->setSkype('altauto');
         $company->setEmail('infiniti-info@autoprodix.ru');
@@ -159,11 +159,11 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         ]);
         $company->setPhones([
             [
-                'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
                 'description' => $phone_type[rand(0,1)],
             ],
             [
-                'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
                 'description' => $phone_type[rand(0,1)],
             ]
         ]);
@@ -261,11 +261,11 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             ]);
             $company->setPhones([
                 [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
                     'description' => $phone_type[rand(0,1)],
                 ],
                 [
-                    'phone' => '+2 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
                     'description' => $phone_type[rand(0,1)],
                 ]
             ]);

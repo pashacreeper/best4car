@@ -35,7 +35,15 @@
                     <br />
                     35 заинтересовавшихся
                 </p>
+            {% set manager = false %}
+            {% if app.security.isGranted('ROLE_USER') %}
+            {% for item in company.managers if  item.id == app.user.id  %}
+                 {% set manager = true %}
+            {% endfor %}
+            {% endif %}
+                {% if app.security.isGranted('ROLE_ADMIN') or  manager  %}
                 <a class="btn btn-large btn-block" href="{{ path('company_deal_delete' ,{'dealId': deal.id , 'id': companyId}) }}">Удалить</a>
+                {% endif %}
             </div>
         </div>
         {% else %}

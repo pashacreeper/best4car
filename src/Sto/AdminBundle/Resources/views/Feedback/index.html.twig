@@ -62,6 +62,7 @@
             <th width="80">Что оцениваем</th>
             <th width="75">Опубликован</th>
             <th width="75">Ответ на отзыв</th>
+            <th width="25"></th>
             <th width="50"></th>
         </tr>
     </thead>
@@ -79,6 +80,7 @@
                 {% elseif entity.deal is defined and entity.deal %}{{ entity.deal.name }}{% else %}Компанию в целом{% endif %}</td>
             <td>{% if entity.published %}Да{% else %} Нет  {% endif %}</td>
             <td>{% if entity.feedbackAnswer %}Присутствует{% else %} Отсутствует  {% endif %}</td>
+            <td>{% if entity.complain %}<i class="icon-warning-sign" title="Присутсвует жалоба на этот отзыв"></i>{% endif %}</td>
             <td>
                 <a href="{{ path('feedbacks_show', { 'id': entity.id }) }}" class="icon-eye-close" title="Просмотр"></a>
                 <a href="{{ path('feedbacks_edit', { 'id': entity.id }) }}" class="icon-edit" title="{{ 'form.edit'|trans({}) }}"></a>

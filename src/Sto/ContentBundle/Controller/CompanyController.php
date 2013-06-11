@@ -14,9 +14,32 @@ use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
+use Sto\ContentBundle\Form\CompanyType;
 
 class CompanyController extends Controller
 {
+       /**
+     * @Route("/specialization", name="company_specialization")
+     * @Method({"POST","GET"})
+     */
+    public function specializationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $specialization = $request->get('specialization');
+        // var_dump($specialization);die();
+        $entity =$em->getRepository('StoCoreBundle:Dictionary\Company')
+            ->createQueryBuilder('services')
+            ->where('services.parent in (:specializationId)')
+            ->setParameter('specializationId',$specialization )
+            ->getQuery()
+            ->getArrayResult()
+        ;
+        $response = new Response(json_encode($entity), 200);
+        $response->headers->set('Content-Type',' application-json; charset=utf8');
+
+        return $response;
+    }
+
     /**
      * @Route("/catalog", name="content_companies")
      * @Method({"GET", "POST"})
@@ -85,9 +108,68 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
 
+        if ($this->getUser()) {
+            $manager = $em->getRepository('StoUserBundle:User')
+                ->createQueryBuilder('user')
+                ->select('user')
+                ->join('user.companyManager', 'company')
+                ->where('company.userId = :user_id AND company.companyId = :company')
+                ->setParameter('user_id', $this->getUser()->getId())
+                ->setParameter('company', $id)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
+
         return [
             'company' => $company,
             'tab'     => $tab,
+            'isManager' => $isManager
+        ];
+    }
+
+    /**
+     * @Route("/company-edit/{id}", name="content_company_edit")
+     * @Method("GET")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template("StoContentBundle:Company:editCompany.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function editCompanyAction(Company $company)
+    {
+        $form = $this->createForm(new CompanyType, $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+
+        return [
+            'cForm' => $form->createView(),
+            'company' => $company,
+        ];
+    }
+
+    /**
+     * @Route("/company-update/{id}", name="content_company_update")
+     * @Method("POST")
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template("StoContentBundle:Company:editCompany.html.twig")
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function updateCompanyAction(Request $request, Company $company)
+    {
+        $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+        }
+
+        return [
+            'cForm'    => $form->createView(),
+            'company' => $company,
         ];
     }
 
@@ -119,12 +201,19 @@ class CompanyController extends Controller
     public function feedbacksAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
         $query = $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
             ->setParameter('company', $id)
-            ->getQuery()
-        ;
+            ;
+
+        if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            $query->andWhere('fc.hidden = :hidden')
+                ->setParameter('hidden', false);
+        }
+
+        $query->getQuery();
 
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
@@ -209,7 +298,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @Route("/company/feedback/{id}/edit", name="content_company_feedbacks_edit")
+     * @Route("/company/feedback/{id}/edit", name="content_company_feedbacks_edit", options={"expose"=true})
      * @Method("GET")
      * @ParamConverter("feedback", class="StoCoreBundle:Feedback")
      * @Template("StoContentBundle:Company:addFeedback.html.twig")
@@ -278,4 +367,5 @@ class CompanyController extends Controller
 
         return $this->redirect($this->generateUrl('content_company_show', ['id' => $id]));
     }
+
 }

@@ -14,7 +14,7 @@
     {{ parent() }}
     <link href="{{ asset('bundles/stocontent/css/datepicker.css') }}" type="text/css" rel="stylesheet" media="screen" />
     <style type="text/css">
-        div.datepicker.dropdown-menu {
+        div.datepicker{
             z-index: 1200;
         }
     </style>
@@ -24,7 +24,6 @@
 {{ parent() }}
 <script type="text/javascript" src="{{ asset('bundles/stocore/js/bootstrap-editable.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/stocontent/js/bootstrap-datepicker.js') }}"></script>
-
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault();
@@ -33,28 +32,30 @@
 
     $('.dp').live('focus', function(){
         $(this).datepicker({
-            format: "dd.mm.YY"
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1950:2020',
+            format: "dd.mm.yyyy"
         });
     });
-    
+
     $(document).ready(function(){
-    	/* Editing About */
+	/* Editing About */
+        var select;
 	    $('#description').editable({
 	        "mode" : "popup",
 	        url: "{{ path('api_edit_user_description') }}"
 	    });
-	    $('#edit-description').on('click', function(e){    	
+	    $('#edit-description').on('click', function(e){
 	    	e.stopPropagation();
         	e.preventDefault();
  	    	$('#description').editable('toggle');
- 
+
  	    	return false;
  	   	});
 	    /* EOF Editing About */
     });
-    
 
-    /* Editing Contacts */
     $('#edit-contacts').click(function(){
     	if ($('dl#contacts-list').css('display')=='none'){
     		$('dl#contacts-list').css('display', 'block');
@@ -62,53 +63,63 @@
 	    	return false;
     	}
     	else {
+            $('dl#contacts-list').css('display', 'none');
 	    	$.getJSON("{{ path('api_dictionary_contact_types') }}")
 		    .done(function(data){
-		    	var form =  '<form name="edit-contacts" method="post">';
+		    	var form =  '<form name="edit-contacts" method="post"><a href="#" class="btn" id="add-contacts-type">Добавить</a><br /><br />';
+
 		    	$('dl#contacts-list dt').each(function(key,value){
 		    		var contact_id = $(value).data('contact');
 		    		var type_id = $(value).data('pk');
 		    		var type_prefix = $(value).data('prefix');
 		    		var value = $('dd[data-type-pk="'+type_id+'"] > a').html();
-		    		
                     var select_opt = '';
                     $.each(data, function(key,value){
+                        slect_opt = '';
                         if (value.id == type_id)
                             select_opt += '<option value="'+value.id+'" class="'+value.id+'" data-prefix="'+value.prefix+'" selected="selected">'+value.name+'</option>';
                         else
                             select_opt += '<option value="'+value.id+'" class="'+value.id+'" data-prefix="'+value.prefix+'">'+value.name+'</option>';
                     });
 
+                    select = select_opt;
                     form += '<div class="row-fluid contact-block" data-contact-id="'+contact_id+'">';
 		    		form += '<select name="contact['+contact_id+'][type]" id="select-'+contact_id+'">'+select_opt+'</select><br />'+
 		    				'<span>'+type_prefix+' </span><input class="input-small" name="contact['+contact_id+'][value]" type="text" value="'+value+'" />'+
-                            '<a href="#" data-contact-remove="'+contact_id+'" class="icon-trash">X</a>'+
+                            '<a href="#" data-contact-remove="'+contact_id+'" class="icon-b4c-trash"></a>'+
                             '<hr />'
                     form += '</div>';
 		    		$('div.contact-edit-form').empty();
-		    		$('div.contact-edit-form').append(form);                    
-		    	});
-                $('div.contact-edit-form').append('<input type="button" class="btn btn-primary" id="save-contacts" value="OK" /><a href="#" class="btn" id="abort-contacts">Отмена</a><br /><br /></form>');
 
-		    	$('dl#contacts-list').css('display', 'none');
+		    		$('div.contact-edit-form').append(form);
+
+		    	});
+
+                $('div.contact-edit-form').append('<input type="button" class="btn btn-primary" id="save-contacts" value="OK" /><a href="#" class="btn" id="abort-contacts">Отмена</a><br /><br /></form>');
+                $('dl#contacts-list').css('display', 'none');
 		    	$('.contact-edit-form').css('display', 'block');
 
-		    });			
+		    });
 	    }
-    	
-    	return false;
+
+
+
+        return false;
     });
-    
+    $('#add-contacts-type').live('click', function(){
+        $("#add-contacts-type").after('<div id="add" ><br /><br /><select id="add-select" name = "type-add">'+select+'</select><br /> <input type="text" name="add"></input></div>');
+        $('#add-contacts-type').css('display', 'none');
+    return false;
+    });
     $('#save-contacts').live('click', function(){
         var form = $('form[name="edit-contacts"]');
         $.getJSON("{{ path('api_user_save_contacts') }}?"+ form.serialize() )
         .done(function(data){
             console.log('data', data);
             var html = '';
-            $.each(data, function(key, contact){                
+            $.each(data, function(key, contact){
                 html += '<dt style="text-align: left; width:80px;" data-pk="'+contact.type_id +'" data-contact="'+contact.id+'" data-prefix="'+contact.prefix+'">'+contact.name+'</dt>'+
                 '<dd style="margin-left: 0;" data-type-pk="'+contact.type_id+'">';
-                
                 if (contact.prefix != ''){
                     html += '<a class="x-editable-contacts" href="'+contact.prefix+contact.value+'" data-pk="2" data-type="text" data-name="email" target="_blank">'+contact.value+'</a>';
                 }
@@ -119,20 +130,20 @@
             });
             $('dl#contacts-list').empty();
             $('dl#contacts-list').append(html);
-
             $('dl#contacts-list').css('display', 'block');
             $('.contact-edit-form').css('display', 'none');
         })
         .fail(function(e){
             console.log('Error', e);
         });
-       
+
         return false;
     });
 
     $('#abort-contacts').live('click', function(){
         $('dl#contacts-list').css('display', 'block');
         $('.contact-edit-form').css('display', 'none')
+
         return false;
     });
 
@@ -152,20 +163,18 @@
 
         return false;
     });
-    /* EOF Editing contacts */
 
-
-    /* Editing Personal data */
-    
     $('#save-personal-data').live('click',function(){
-    	var form = $(this).parent('form');
+        var form = $(this).parent('form');
         if ($(form).find('input[name="userName"]').val() == ''){
             $(form).find('input[name="userName"]').focus();
+
             return false;
         }
-    	$.getJSON("{{ path('api_user_save_personal') }}?"+form.serialize())
-    	.done(function(data){
+        $.getJSON("{{ path('api_user_save_personal') }}?"+form.serialize())
+        .done(function(data){
             data = data[0];
+            location.reload();
             $('#user-name').html(data.firstName+' '+data.lastName+', '+data.username );
             $('#user-city').html(data.city);
             $('#user-years').html(data.years);
@@ -175,56 +184,53 @@
             $('#personal-data-edit input[name="birthDate"]').val(data.birthDate);
             $('#personal-data-edit select[name="city"]').val(data.city_id);
             $('#personal-edit').popover('hide');
-    	})
-    	.fail(function(e){
-    		console.log('Error', e);
-    	});
+        })
+        .fail(function(e){
+            console.log('Error', e);
+        });
 
-    	return false;
+        return false;
     });
 
     $('#abort-personal-data').live('click', function(){
-    	$('#personal-edit').popover('hide');
-    	return false;
+        $('#personal-edit').popover('hide');
+
+        return false;
     });
 
     $.getJSON("{{ path('api_city_all') }}")
     .done(function(data){
-    	var cities = '<option value="0">Выберите город</option>';
+        var cities = '<option value="0">Выберите город</option>';
         var current_city = $('#user-city').text();
-    	$.each(data, function(key,value){
+        $.each(data, function(key,value){
             if (current_city == value.name)
-                cities += '<option value="'+value.id+'" selected="selected">'+value.name+'</option>';    
+                cities += '<option value="'+value.id+'" selected="selected">'+value.name+'</option>';
             else
-    		    cities += '<option value="'+value.id+'">'+value.name+'</option>';
-    	});
-    	cities += '<option value="-1">Свой вариант</option>';
-    	$('select[name="city"]').append(cities);
+                cities += '<option value="'+value.id+'">'+value.name+'</option>';
+        });
+        cities += '<option value="-1">Свой вариант</option>';
+        $('select[name="city"]').append(cities);
     })
     .fail(function(e){
-    	console.log(e);
+        console.log(e);
     });
 
     $.getJSON("{{ path('api_dictionary_contact_types') }}")
     .done(function(data){
-    	var types = '';
-    	$.each(data, function(key, value){
-    		types += '<option value="'+value.id+'" data-prefix="'+value.shortName+'">'+value.name+'</option>';
-    	});
-
+        var types = '';
+        $.each(data, function(key, value){
+            types += '<option value="'+value.id+'" data-prefix="'+value.shortName+'">'+value.name+'</option>';
+        });
     })
     .fail(function(e){
-    	console.log(e);
+        console.log(e);
     });
 
-
     $('#personal-edit').popover({
-    	html: true,
-    	content: function(){ 
-    		return $('div#personal-data-edit').html();
-    	}
-	});
-    /* EOF Editing Personal data */
-
+        html: true,
+        content: function(){
+            return $('div#personal-data-edit').html();
+        }
+    });
 </script>
 {% endblock %}

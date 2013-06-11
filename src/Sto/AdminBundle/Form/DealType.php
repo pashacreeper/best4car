@@ -5,6 +5,7 @@ namespace Sto\AdminBundle\Form;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class DealType extends AbstractType
 {
@@ -34,10 +35,19 @@ class DealType extends AbstractType
                     'style '=> 'width:100%'
                 ]
             ])
-            ->add('services', null, [
-                'label' => 'Services',
+            ->add('autoServices', null, [
+                'label' => 'Узлы и работы',
                 'required' => false,
                 'render_optional_text' => false,
+                'multiple' => true,
+                'class' => 'StoCoreBundle:Dictionary\autoServices',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('ct')
+                        ->where('ct.parent is not null')
+                        ->andWhere('ct.code is null')
+                        ->groupBy('ct.parent')
+                    ;
+                },
                 'attr' => [
                     'class' => 'select2'
                 ]

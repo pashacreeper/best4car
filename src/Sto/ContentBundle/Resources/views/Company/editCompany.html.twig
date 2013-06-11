@@ -11,11 +11,8 @@
         color: gray;
     }
 </style>
-<form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
+<form name="register-form" action="{{ path('content_company_update', {'id':company.id}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
 <ul class="nav nav-tabs" id="registerTab">
-    <li style="padding: 8px 10px;">
-        <span>Личные данные</span>
-    </li>
     <li class="active">
         <a href="#general-data" data-content="#general-data" data-toggle="tab">
 {% if form_errors(cForm.fullName) or form_errors(cForm.name) or form_errors(cForm.slogan) or form_errors(cForm.createtDate) or form_errors(cForm.logo) or form_errors(cForm.city) or form_errors(cForm.gps) %}
@@ -50,7 +47,9 @@
         </div>
 {% endif %}
     </div>
+
     <div class="tab-pane active" id="general-data">
+
             <div class="row-fluid">
                 <div class="span10">
                     {{ form_row(cForm.fullName) }}
@@ -145,14 +144,18 @@
                     {{ form_errors(cForm.email) }}
                     {{ form_row(cForm.contacts) }}
                     {{ form_errors(cForm.contacts) }}
+
                     <h4>Менеджеры компании:</h4>
                     <span>Вы можете указать других (кроме себя) менеджеров компании. Они должны уже быть зарегистрированы на сайте.</span>
                     {{ form_row(cForm.companyManager) }}
                     {{ form_errors(cForm.companyManager) }}
+
+
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span10">
+
                     <a href="#photos" class="btn pull-right" data-toggle="tab">Следующий шаг</a>
                     <a href="#business-profile" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
                 </div>
@@ -165,12 +168,13 @@
                     <span>Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании</span>
                     {{ form_row(cForm.gallery) }}
                     {{ form_errors(cForm.gallery) }}
+
                     {{ form_widget(cForm) }}
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span10">
-                    <input type="submit" class="btn pull-right" value="Зарегистрироваться" />
+                    <input type="submit" class="btn pull-right" value="Сохранить" />
                     <a href="#contact-info" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
                 </div>
             </div>
@@ -201,71 +205,82 @@
 {% endjavascripts %}
 <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
 <script type="text/javascript">
+
     ymaps.ready(init);
     var gCollection;
     var gps;
-    function init() {
+    function init(){
         mapCompany = new ymaps.Map ("myMap", {
             center: [59.933373, 30.357903],
             zoom: 10,
             behaviors: ["default", "scrollZoom"]
         });
-        attachReverseGeocode(mapCompany);
-        function attachReverseGeocode(myMap) {
-            myMap.events.add('click', function (e) {
-                var coords = e.get('coordPosition');
-                if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
-                ymaps.geocode(coords).then(function (res) {
-                    var names = [];
-                    res.geoObjects.each(function (obj) {
-                        names.push(obj.properties.get('name'));
-                    });
-                    gCollection = new ymaps.Placemark(coords, {
-                            iconContent: names[0],
-                            balloonContent: names.reverse().join(', ')
-                        },
-                        {preset:'twirl#redStretchyIcon', balloonMaxWidth:'250'}
-                    );
-                    myMap.geoObjects.add(gCollection);
-                    gps = coords;
+    attachReverseGeocode(mapCompany);
+    function attachReverseGeocode(myMap) {
+
+        myMap.events.add('click', function (e) {
+            var coords = e.get('coordPosition');
+            if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
+
+            ymaps.geocode(coords).then(function (res) {
+                var names = [];
+                res.geoObjects.each(function (obj) {
+                    names.push(obj.properties.get('name'));
                 });
+            gCollection = new ymaps.Placemark(coords, {
+                    iconContent:names[0],
+                    balloonContent:names.reverse().join(', ')
+                },
+                { preset:'twirl#redStretchyIcon',balloonMaxWidth:'250'}
+                );
+                myMap.geoObjects.add(gCollection);
+                gps = coords;
             });
-        }
+        });
     }
 
-    $("#save_madal").click(function () {
+}
+
+   $("#save_madal").click(function () {
         document.getElementById("sto_content_company_registration_gps").value =gps
         $('#myModal').modal('hide');
     });
 
     $(".select2").select2();
     $('#registerTab a:first').tab('show');
+
     $('a.disabled').click(function () {
         return false;
     });
-
-    $('#sto_content_company_registration_specialization').change(function () {
+    $('#sto_content_company_registration_specialization').change(function(){
         var specialization = $(this).val();
-        $.getJSON("{{ path('company_specialization') }}", {'specialization': specialization},
-            function (data) {
+        $.getJSON("{{ path('company_specialization') }}",{'specialization': specialization},
+              function(data){
                 $("#sto_content_company_registration_services").empty();
                 $('.select2').select2("destroy")
                 $(".select2").select2({});
-                $.each(data, function (key, val) {
-                    name = val['name']
-                    id = val['id']
-                    $("#sto_content_company_registration_services").append('<option value="'+id+'">'+name+'</option>');
+                $.each(data, function(key, val){
+                  name = val['name']
+                  id = val['id']
+                $("#sto_content_company_registration_services").append('<option value="'+id+'">'+name+'</option>');
                 });
-            }
-        )
-    });
+            })
+        })
+
+
 
     $('a[data-toggle="tab"]').click(function () {
+
+
+
+
         $('div.control-group').attr('class', 'control-group');
+
         var next_tab_name = $(this).attr('href').substring(1, $(this).attr('href').length);
         var tab = $('ul#registerTab li.active a').data('content');
         var current_tab = tab.substring(1, tab.length);
         var errorFlag = false;
+
 
         $('div#'+current_tab+' input').each(function (n, element) {
             console.log($(element).attr('name')+': ', $(element).val());
@@ -288,7 +303,6 @@
         if (!errorFlag) {
              $('ul#registerTab a[data-content="#'+next_tab_name+'"]').tab('show');
         }
-
         return false;
     });
 </script>

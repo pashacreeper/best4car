@@ -111,6 +111,9 @@ class DictionaryController extends Controller
             case 'price_level':
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel');
                 break;
+            case 'auto_services':
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\AutoServices');
+                break;
             default:
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
                 break;
@@ -122,6 +125,7 @@ class DictionaryController extends Controller
             ->getResult()
         ;
 
+        // var_dump($dictionaries);
         return [
             'dictionary' => $request->get('dictionary') ? $request->get('dictionary') : 'company',
             'dictionaries' => $dictionaries,
@@ -156,7 +160,10 @@ class DictionaryController extends Controller
                 $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\Country);
                 break;
             case 'price_level':
-                $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\PriceLevel);
+                $form = $this->createForm(new DictionaryForm\PriceLevel, new DictionaryEntity\PriceLevel);
+                break;
+            case 'auto_services':
+                $form = $this->createForm(new DictionaryForm\AutoServiceType, new DictionaryEntity\AutoServices);
                 break;
             default:
                 $form = $this->createForm(new DictionaryForm\BaseType, new DictionaryEntity\Base);
@@ -219,6 +226,10 @@ class DictionaryController extends Controller
                 $entity  = new DictionaryEntity\PriceLevel;
                 $form = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
                 break;
+            case 'auto_services':
+                $entity  = new DictionaryEntity\AutoServices;
+                $form = $this->createForm(new DictionaryForm\AutoServiceType, $entity);
+                break;
             default:
                 $entity  = new DictionaryEntity\Base;
                 $form = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -277,6 +288,10 @@ class DictionaryController extends Controller
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
                 break;
+            case 'auto_services':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\AutoServices')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\AutoServiceType, $entity);
+                break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\BaseType, $entity);
@@ -332,6 +347,10 @@ class DictionaryController extends Controller
             case 'price_level':
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\PriceLevel')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\PriceLevelType, $entity);
+                break;
+            case 'auto_services':
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\AutoServices')->findOneById($id);
+                $editForm = $this->createForm(new DictionaryForm\AutoServiceType, $entity);
                 break;
             default:
                 $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($id);

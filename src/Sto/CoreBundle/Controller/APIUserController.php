@@ -12,6 +12,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\UserBundle\Entity\User;
+use Sto\UserBundle\Entity\Contacts;
+
 
 /**
  * User controller.
@@ -229,6 +231,7 @@ class APIUserController extends FOSRestController
         $serializer = $this->container->get('jms_serializer');
 
         $contacts = $request->get('contact');
+
         $em = $this->getDoctrine()->getManager();
         foreach ($contacts as $contact_id => $value) {
             $contact = $em->getRepository('StoUserBundle:Contacts')->findOneById($contact_id);
@@ -241,6 +244,18 @@ class APIUserController extends FOSRestController
                 $em->persist($contact);
             }
         }
+        if ($request->get('add')) {
+            $new_contact = new Contacts();
+            $new_contact->setValue($request->get('add'));
+            $type = $em->getRepository('StoCoreBundle:Dictionary\ContactType')->findOneById($request->get('type-add'));
+                if ($type) {
+                    $new_contact->setType($type);
+                }
+            $new_contact->setUser($this->get('security.context')->getToken()->getUser());
+            $em->persist($new_contact);
+
+        }
+
         $em->flush();
 
         $data = $em->createQueryBuilder()

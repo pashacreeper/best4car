@@ -205,12 +205,22 @@ class Deal
      */
     protected $auto;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AutoServices")
+     * @ORM\JoinTable(name="deal_auto_service",
+     *     joinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
+     */
+    private $autoServices;
+
     public function __construct()
     {
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
         $this->feedbacks = new ArrayCollection();
         $this->draft = false;
+        $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -717,5 +727,35 @@ class Deal
         $this->auto = $auto;
 
         return $this;
+    }
+
+    /**
+     * Set autoServices
+     *
+     * @param  string  $autoServices
+     * @return Company
+     */
+    public function addAutoServices($autoServices)
+    {
+        $this->autoServices[] = $autoServices;
+
+        return $this;
+    }
+
+    public function removeAutoServices($autoServices)
+    {
+        $this->autoServices->removeElement($autoServices);
+
+        return $this;
+    }
+
+    /**
+     * Get additionalServicautoServiceses
+     *
+     * @return string
+     */
+    public function getAutoServices()
+    {
+        return $this->autoServices;
     }
 }

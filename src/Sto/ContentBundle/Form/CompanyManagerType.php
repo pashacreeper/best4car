@@ -15,14 +15,13 @@ class CompanyManagerType extends AbstractType
                 'label' => ' ',
                 'class' => 'StoUserBundle:User',
                 'attr' => [
-                    //'disabled' => "disabled"
                     'placeholder' => 'Менеджер',
                 ]
             ])
             ->add('phone', 'text', [
                 'label' => ' ',
                 'attr' => [
-                    'data-mask' => '+7 (999) 999-99-99',
+                    'data-mask' => '999-99-99?-999',
                     'placeholder' => 'Телефон',
                     'class' => 'input-medium'
                 ]

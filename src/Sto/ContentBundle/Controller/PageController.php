@@ -31,24 +31,6 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/help", name="info_help")
-     * @Template()
-     */
-    public function helpAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/contact", name="info_contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        return [];
-    }
-
-    /**
      * @Route("/advertisers", name="info_advertisers")
      * @Template()
      */
@@ -58,10 +40,28 @@ class PageController extends Controller
     }
 
     /**
-     * @Route("/tur", name="info_tur")
+     * @Route("/business", name="info_auto_business")
      * @Template()
      */
-    public function turAction()
+    public function autoBusinessAction()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/tour", name="info_tour")
+     * @Template()
+     */
+    public function tourAction()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/contact", name="info_contact")
+     * @Template()
+     */
+    public function contactAction()
     {
         return [];
     }

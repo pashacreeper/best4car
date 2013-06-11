@@ -109,6 +109,16 @@ class Feedback
      */
     private $evaluation;
 
+    /**
+     * @ORM\Column(name="is_complain", type="boolean", nullable=true)
+     */
+    private $complain;
+
+    /**
+     * @ORM\Column(name="is_hidden", type="boolean", nullable=true)
+     */
+    private $hidden;
+
     public function __construct(User $user = null)
     {
         if ($user) {
@@ -116,6 +126,7 @@ class Feedback
         }
 
         $this->date = new \DateTime('now');
+        $this->hidden = false;
     }
 
     /**
@@ -469,5 +480,29 @@ class Feedback
     public function getDate()
     {
         return $this->date;
+    }
+
+    public function setComplain($value)
+    {
+        $this->complain = $value;
+
+        return $this;
+    }
+
+    public function isComplain()
+    {
+        return $this->complain;
+    }
+
+    public function setHidden($value=true)
+    {
+        $this->hidden = $value;
+
+        return $this;
+    }
+
+    public function isHidden()
+    {
+        return $this->hidden;
     }
 }
