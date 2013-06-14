@@ -60,6 +60,7 @@
     <script src="{{ asset('bundles/stocontent/js/script.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         var city = '{{ city.gps }}';
+        var myMap;
 
         $.getJSON(Routing.generate('api_get_companies'))
         .done(function (companies) {
@@ -71,13 +72,14 @@
             ymaps.ready(init(city, companies));
 
             function init (city, companies) {
-                var myMap = new ymaps.Map("map", {
+                myMap = new ymaps.Map("map", {
                     center: [city.split(",")[0], city.split(",")[1]],
                     zoom: 11,
                     behaviors: ["default", "scrollZoom"]
                 });
 
                 var myCollection = new ymaps.GeoObjectCollection();
+                myMap.myCollection = myCollection;
                 var buttonMyPlace = new GeolocationButton({
                     data : {
                         image : "{{ asset('bundles/stocontent/images/wifi.png') }}",
@@ -127,11 +129,14 @@
                 });
 
                 function addPlacemarks (companies) {
+                    var sel;
+                    $('div.listItemCompanyPlain').each(function(){ if($(this).css('display')=='block'){ sel = $(this).attr('id').replace('x-list-company',''); }});
+
                     for (var key in companies) {
                         var val = companies[key];
 
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
-
+                        var iconSize = (sel == val.id)? [60,42]: [40,28];
                         var vid = val.id;
                         myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                             id: val.id,
@@ -145,7 +150,7 @@
                             workingTime_html: val.workingTime_template
                         }, {
                             iconImageHref: iconMap,
-                            iconImageSize: [40, 28],
+                            iconImageSize: iconSize,
                         });
                         myCollection.add(myPlacemark2);
                     }
@@ -157,9 +162,15 @@
 
                                 if (listObj.length && listObj.is(':visible')){
                                     obPlacemark.balloon.open();// WHY Open ????? But it works
-                                    $('.listItemCompany').removeClass('listActive');
-                                    listObj.addClass('listActive');
-                                    $('#home_compalies').scrollTo(listObj);
+                                    // $('.listItemCompany').removeClass('listActive');
+                                    // listObj.addClass('listActive');
+                                    $('.listItemCompanyPlain').each(function(){
+                                        $(this).hide();
+                                        $('#'+$(this).attr('data-correspond') ).show();
+                                    });
+                                    $('#'+$(listObj).attr('data-correspond')).show();
+                                    $(listObj).hide();
+                                    $('#home_compalies').scrollTo('#'+$(listObj).attr('data-correspond'));
                                 }
                             })(ob);
                         });
@@ -230,9 +241,10 @@
                         var el = $(element);
                         var rating = parseFloat(el.find('div.span3 span.rating').text());
                         if (showByRate(indexZoom, rating)) {
-                            el.show();
+                            if($('#'+el.attr('data-correspond')).css('display')=='none' ) { el.show(); }
                         } else {
                             el.hide();
+                            $('#'+el.attr('data-correspond')).hide();
                         }
                     });
                 }

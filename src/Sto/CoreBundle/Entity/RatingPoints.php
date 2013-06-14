@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class RatingPoints
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,30 +20,22 @@ class RatingPoints
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="point_name", type="string", length=50)
      */
     private $pointName;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="value", type="float")
      */
     private $value;
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -54,9 +44,6 @@ class RatingPoints
 
     /**
      * Set pointName
-     *
-     * @param  string       $pointName
-     * @return RatingPoints
      */
     public function setPointName($pointName)
     {
@@ -67,8 +54,6 @@ class RatingPoints
 
     /**
      * Get pointName
-     *
-     * @return string
      */
     public function getPointName()
     {
@@ -77,9 +62,6 @@ class RatingPoints
 
     /**
      * Set description
-     *
-     * @param  string       $description
-     * @return RatingPoints
      */
     public function setDescription($description)
     {
@@ -90,8 +72,6 @@ class RatingPoints
 
     /**
      * Get description
-     *
-     * @return string
      */
     public function getDescription()
     {
@@ -100,9 +80,6 @@ class RatingPoints
 
     /**
      * Set value
-     *
-     * @param  float        $value
-     * @return RatingPoints
      */
     public function setValue($value)
     {
@@ -113,8 +90,6 @@ class RatingPoints
 
     /**
      * Get value
-     *
-     * @return float
      */
     public function getValue()
     {

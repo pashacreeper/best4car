@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sto\UserBundle\Entity\User;
 
 /**
  * FeedbackEvaluation
@@ -13,8 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 class FeedbackEvaluation
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -34,30 +33,25 @@ class FeedbackEvaluation
     private $user;
 
     /**
-     * @var integer
-     *
      * @ORM\Column(name="review", type="boolean")
      */
     private $review;
 
-    public function __construct(
-        $review,
-        \Sto\UserBundle\Entity\User $user = null,
-        \Sto\CoreBundle\Entity\Feedback $feedback = null)
+    public function __construct($review, User $user = null, Feedback $feedback = null)
     {
         if ($user) {
             $this->setUser($user);
         }
+
         if ($feedback) {
             $this->setFeedback($feedback);
         }
+
         $this->setReview($review);
     }
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -66,9 +60,6 @@ class FeedbackEvaluation
 
     /**
      * Set review
-     *
-     * @param  boolean            $review
-     * @return FeedbackEvaluation
      */
     public function setReview($review)
     {
@@ -79,8 +70,6 @@ class FeedbackEvaluation
 
     /**
      * Get review
-     *
-     * @return boolean
      */
     public function getReview()
     {
@@ -89,11 +78,8 @@ class FeedbackEvaluation
 
     /**
      * Set user
-     *
-     * @param  \Sto\UserBundle\Entity\User $user
-     * @return FeedbackEvaluation
      */
-    public function setUser(\Sto\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -102,8 +88,6 @@ class FeedbackEvaluation
 
     /**
      * Get user
-     *
-     * @return \Sto\UserBundle\Entity\User $user
      */
     public function getUser()
     {
@@ -112,11 +96,8 @@ class FeedbackEvaluation
 
     /**
      * Set feedback
-     *
-     * @param  \Sto\CoreBundle\Entity\Feedback $feedback
-     * @return FeedbackEvaluation
      */
-    public function setFeedback(\Sto\CoreBundle\Entity\Feedback $feedback = null)
+    public function setFeedback(Feedback $feedback = null)
     {
         $this->feedback = $feedback;
 
@@ -125,8 +106,6 @@ class FeedbackEvaluation
 
     /**
      * Get user
-     *
-     * @return \Sto\CoreBundle\Entity\Feedback $feedback
      */
     public function getFeedback()
     {

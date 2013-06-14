@@ -1,47 +1,47 @@
-    <thead>
-        <tr>
-            <th width="65">Иконка</th>
-            <th width="65">Код</th>
-            <th>{{ "dict.fields.name"|trans({}) }}</th>
-            <th width="35">{{ "dict.fields.actions"|trans({}) }}</th>
-        </tr>
-    </thead>
-    <tbody>
+<thead>
+    <tr>
+        <th width="65">Иконка</th>
+        <th width="65">Код</th>
+        <th>{{ "dict.fields.name"|trans({}) }}</th>
+        <th width="35">{{ "dict.fields.actions"|trans({}) }}</th>
+    </tr>
+</thead>
+<tbody>
 {% for country in dictionaries %}
-        <tr id="row_{{ country.id }}">
-            <td>
-                <center>
+    <tr id="row_{{ country.id }}">
+        <td>
+            <center>
 {% if country.iconName %}
-    {% if country.parent %}
-                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="20"/>
-    {% else %}
-                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="30"/>
-    {% endif %}
-{% else %}
-    {% if country.parent %}
-                <img src="http://placehold.it/20x30" alt="Изображение отсутствует" width="20"/>
-    {% else %}
-                <img src="http://placehold.it/30x20" alt="Изображение отсутствует" width="30"/>
-    {% endif %}
-{% endif %}
-                </center>
-            </td>
-            <td>
-                {{ country.shortName }}
-            </td>
-            <td>
-                <a href="#" class="name" data-type="text" data-pk="{{ country.id }}" data-inputclass="input-xxlarge">{{ country.name }}</a>
-            </td>
-            <td>
-                <center>
 {% if country.parent %}
-                    <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
-                    <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{country.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="20"/>
 {% else %}
-                    <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
+                <img src="{{ vich_uploader_asset(country, 'icon') }}" alt="{{ country.name }}" width="30"/>
 {% endif %}
-                </center>
-            </td>
-        </tr>
+{% else %}
+{% if country.parent %}
+                <img src="http://placehold.it/20x30" alt="Изображение отсутствует" width="20"/>
+{% else %}
+                <img src="http://placehold.it/30x20" alt="Изображение отсутствует" width="30"/>
+{% endif %}
+{% endif %}
+            </center>
+        </td>
+        <td>
+            {{ country.shortName }}
+        </td>
+        <td>
+            <a href="#" class="name" data-type="text" data-pk="{{ country.id }}" data-inputclass="input-xxlarge">{{ country.name }}</a>
+        </td>
+        <td>
+            <center>
+{% if country.parent %}
+                <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
+                <a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{country.id}}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a>
+{% else %}
+                <a href="{{ path('dictionary_edit', { 'id': country.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
+{% endif %}
+            </center>
+        </td>
+    </tr>
 {% endfor %}
-    </tbody>
+</tbody>

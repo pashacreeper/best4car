@@ -19,7 +19,7 @@ class CompanyRepository extends EntityRepository
         ;
     }
 
-    public function getCompaniesWithFilter($companyType = null, $subComppanyType = null, $auto = null, $rating = null)
+    public function getCompaniesWithFilter($companyType = null, $subComppanyType = null, $auto = null, $rating = null, $filter = null)
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c, csp')
@@ -41,6 +41,9 @@ class CompanyRepository extends EntityRepository
             $qb->andwhere('c.rating BETWEEN :rating AND 10')
                 ->setParameter('rating', $rating)
             ;
+        }
+        if ($filter['24hours']) {
+
         }
 
         return $qb->getQuery()->getArrayResult();

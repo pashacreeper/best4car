@@ -41,7 +41,7 @@ class RegistrationController extends BaseController
 
                 if (null === $response = $event->getResponse()) {
                     if ($registration_type!='company') {
-                        $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
+                        $url = $this->container->get('router')->generate('content_companies');
                         $response = new RedirectResponse($url);
                     } else {
                         $url = $this->container->get('router')->generate('registration_company_owner');

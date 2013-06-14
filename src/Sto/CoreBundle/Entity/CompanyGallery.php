@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Sto\CoreBundle\Entity\Company;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -37,6 +36,7 @@ class CompanyGallery
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="company_gallery", fileNameProperty="imageName")
+     * @var File $image
      */
     protected $image;
 
@@ -66,15 +66,17 @@ class CompanyGallery
      */
     private $company;
 
-    public function __construct()
+    public function __construct(Company $company = null)
     {
+        if ($company) {
+            $this->setCompany($company);
+        }
+
         $this->visible = false;
     }
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -83,9 +85,6 @@ class CompanyGallery
 
     /**
      * Set name
-     *
-     * @param  string  $name
-     * @return Company
      */
     public function setName($name)
     {
@@ -96,8 +95,6 @@ class CompanyGallery
 
     /**
      * Get name
-     *
-     * @return string
      */
     public function getName()
     {
@@ -106,9 +103,6 @@ class CompanyGallery
 
     /**
      * Set image
-     *
-     * @param  string  $logo
-     * @return Company
      */
     public function setImage($image)
     {
@@ -122,8 +116,6 @@ class CompanyGallery
 
     /**
      * Get image
-     *
-     * @return string
      */
     public function getImage()
     {
@@ -137,9 +129,6 @@ class CompanyGallery
 
     /**
      * Set visible
-     *
-     * @param  boolean $visible
-     * @return Company
      */
     public function setVisible($visible)
     {
@@ -150,8 +139,6 @@ class CompanyGallery
 
     /**
      * Get visible
-     *
-     * @return boolean
      */
     public function isVisible()
     {
@@ -170,9 +157,15 @@ class CompanyGallery
         return $this->updatedAt;
     }
 
-    public function setCompanyId($id)
+    public function getCompany()
     {
-        $this->companyId = $id;
+        return $this->company;
+    }
+
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
+        $this->companyId = $company->getId();
 
         return $this;
     }
@@ -182,14 +175,9 @@ class CompanyGallery
         return $this->companyId;
     }
 
-    public function getCompany()
+    public function setCompanyId($companyId)
     {
-        return $this->company;
-    }
-
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
+        $this->companyId = $companyId;
 
         return $this;
     }

@@ -15,10 +15,9 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         $lastNames = ['Смирнов','Иванов','Кузнецов','Попов','Соколов'];
 
         for ($i=1; $i < 31; $i++) {
-            $feedback = (new FeedbackCompany($this->getReference("user[" . rand(1,30) . "]")))
+            $feedback = (new FeedbackCompany($this->getReference("user[" . rand(1,30) . "]"), $this->getReference("company[" . rand(1,38) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
-                // ->setMastername($lastNames[rand(0,4)] . ' И.П.')
                 ->setCar('Mazda 3')
                 ->setStatenumber('А0' . rand(12,98) . 'АА ' . rand(123, 987))
                 ->setordernumber('З/Н № ' . rand(123456, 987654))
@@ -28,7 +27,6 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
                 ->setMinuses(rand(10, 200))
                 ->setTargetRating('СТО')
                 ->setPublished(rand(0,1))
-                ->setCompany($this->getReference("company[" . rand(1,38) . "]"))
             ;
 
             $manager->persist($feedback);
@@ -36,10 +34,9 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         }
 
         for ($i=31; $i < 61; $i++) {
-            $feedback = (new FeedbackDeal($this->getReference("user[" . rand(1,30) . "]")))
+            $feedback = (new FeedbackDeal($this->getReference("user[" . rand(1,30) . "]"), $this->getReference("deal[" . rand(1,40) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
-                // ->setMastername($lastNames[rand(0,4)] . ' И.П.')
                 ->setCar('Mazda 3')
                 ->setStatenumber('А0' . rand(12,98) . 'АА ' . rand(123, 987))
                 ->setordernumber('З/Н № ' . rand(123456, 987654))
@@ -49,7 +46,6 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
                 ->setMinuses(rand(10, 200))
                 ->setTargetRating('СТО')
                 ->setPublished(rand(0,1))
-                ->setDeal($this->getReference("deal[" . rand(1,40) . "]"))
             ;
 
             $manager->persist($feedback);

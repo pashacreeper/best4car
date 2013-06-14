@@ -9,7 +9,9 @@ use JMS\Serializer\Annotation as Serializer;
  * Base
  *
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
- * @ORM\Table(name="dictionaries")
+ * @ORM\Table(name="dictionaries", indexes={
+ *     @ORM\Index(name="DICTIONARY_NAME_IDX", columns={"name"})
+ * })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({

@@ -1,0 +1,61 @@
+<div id="registrationCarModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myCarOwnerModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myCarOwnerModalLabel">Регистрация на Best4Car</h3>
+    </div>
+
+
+<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+<div class="modal-body">
+    <div class="row-fluid">
+        <div id="form-content" class="span6">
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            <table>
+                <tr><td>
+            {{ form_row(form.plainPassword) }}
+                </td><td valign="top">
+                    <a id="toggle-pass" href="#" class="" onclick="togglePass();" >Показать пароль</a>
+                </td></tr>
+            </table>
+            {{ form_row(form.city) }}
+            {{ form_row(form.captcha) }}
+            {{ form_widget(form) }}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div>
+        <table><tr>
+            <td width="50%">
+            <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
+            </td>
+            <td>
+            <p style="font-size: 10px;">Регистрируясь, вы соглашаетесь с <a href="#" target="_blank">условиями использования сайта</a></p>
+            </td>
+        </tr>
+        </table>
+    </div>
+</div>
+</form>
+</div>
+
+<script>
+    $('input[type="password"]').removeClass('input-xlarge').addClass('input-medium');
+    $('div#form-content div').css('margin-bottom','5px');
+    function togglePass() {
+        if($('#fos_user_registration_form_plainPassword_first').attr('type')=='password'){
+            $('#fos_user_registration_form_plainPassword_first').get(0).type = 'textbox';
+            $('#fos_user_registration_form_plainPassword_second').parent().parent().hide();
+            $('#toggle-pass').html("Скрыть пароль");
+            // document.getElementById("fos_user_registration_form_plainPassword_first").type = 'textbox';
+        } else {
+            $('#fos_user_registration_form_plainPassword_first').get(0).type = 'password';
+            $('#fos_user_registration_form_plainPassword_second').parent().parent().show();
+            $('#toggle-pass').html("Показать пароль");
+            // $('#fos_user_registration_form_plainPassword_first').attr('type','password');
+        }
+    }
+</script>

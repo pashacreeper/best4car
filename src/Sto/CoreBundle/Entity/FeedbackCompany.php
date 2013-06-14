@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sto\UserBundle\Entity\User;
 
 /**
  * FeedbackCompany
@@ -12,15 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class FeedbackCompany extends Feedback
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="price_level_id", type="integer")
      */
     private $priceLevelId;
 
     /**
-     * @var integer
-     *
      * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\PriceLevel")
      * @ORM\JoinColumn(name="price_level_id", referencedColumnName="id")
      */
@@ -42,11 +39,17 @@ class FeedbackCompany extends Feedback
      */
     private $company;
 
+    public function __construct(User $user = null, Company $company = null)
+    {
+        parent::__construct($user);
+
+        if ($company) {
+            $this->setCompany($company);
+        }
+    }
+
     /**
      * Set PriceLevel
-     *
-     * @param  entity   $price
-     * @return Feedback
      */
     public function setPriceLevel(\Sto\CoreBundle\Entity\Dictionary\PriceLevel $price)
     {
@@ -57,8 +60,6 @@ class FeedbackCompany extends Feedback
 
     /**
      * Get PriceLevel
-     *
-     * @return entity
      */
     public function getPriceLevel()
     {
@@ -67,9 +68,6 @@ class FeedbackCompany extends Feedback
 
     /**
      * Set comapnyRating
-     *
-     * @param  integer  $comapnyRating
-     * @return Feedback
      */
     public function setCompanyRating($companyRating)
     {
@@ -80,12 +78,22 @@ class FeedbackCompany extends Feedback
 
     /**
      * Get comapnyRating
-     *
-     * @return integer
      */
     public function getCompanyRating()
     {
         return $this->companyRating;
+    }
+
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    public function setCompanyId($companyId)
+    {
+        $this->companyId = $companyId;
+
+        return $this;
     }
 
     public function getCompany()
@@ -96,6 +104,7 @@ class FeedbackCompany extends Feedback
     public function setCompany(Company $company)
     {
         $this->company = $company;
+        $this->companyId = $company->getId();
 
         return $this;
     }

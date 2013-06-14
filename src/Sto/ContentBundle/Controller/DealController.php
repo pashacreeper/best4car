@@ -80,8 +80,8 @@ class DealController extends Controller
     public function newDealAction(Company $company)
     {
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('StoCoreBundle:Deal');
-        $activ_deals = $repository->createQueryBuilder('deal')
+        $activ_deals = $em->getRepository('StoCoreBundle:Deal')
+            ->createQueryBuilder('deal')
             ->where('deal.endDate > :endDate ')
             ->andwhere('deal.companyId = :company')
             ->andWhere('deal.draft = false')
@@ -93,8 +93,7 @@ class DealController extends Controller
             ->getResult()
         ;
 
-        $deal = new Deal;
-        $deal->setCompany($company);
+        $deal = new Deal($company);
         $form = $this->createForm(new DealType, $deal);
 
         return [
@@ -156,37 +155,37 @@ class DealController extends Controller
      * @Template()
      * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
-   public function editDealAction(Company $company ,$dealId)
-   {
-    $em = $this->getDoctrine()->getManager();
-    $repository = $em->getRepository('StoCoreBundle:Deal');
-    $deal = $repository->findOneById($dealId);
+    public function editDealAction(Company $company ,$dealId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('StoCoreBundle:Deal');
+        $deal = $repository->findOneById($dealId);
 
-    if (!$deal) {
-        throw $this->createNotFoundException('Unable to find Deal entity.');
+        if (!$deal) {
+            throw $this->createNotFoundException('Unable to find Deal entity.');
+        }
+
+        $activ_deals = $repository->createQueryBuilder('deal')
+            ->where('deal.endDate > :endDate ')
+            ->andwhere('deal.companyId = :company')
+            ->andWhere('deal.draft = false')
+            ->setParameters([
+                'endDate'=> new \DateTime('now'),
+                'company'=> $company->getId()
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $editForm = $this->createForm(new DealType, $deal);
+
+        return [
+            'deal'        => $deal,
+            'edit_form'   => $editForm->createView(),
+            'companyId'   => $company->getId(),
+            'activ_deals' => $activ_deals
+        ];
     }
-
-    $activ_deals = $repository->createQueryBuilder('deal')
-        ->where('deal.endDate > :endDate ')
-        ->andwhere('deal.companyId = :company')
-        ->andWhere('deal.draft = false')
-        ->setParameters([
-            'endDate'=> new \DateTime('now'),
-            'company'=> $company->getId()
-        ])
-        ->getQuery()
-        ->getResult()
-    ;
-
-    $editForm = $this->createForm(new DealType, $deal);
-
-    return [
-        'deal'        => $deal,
-        'edit_form'   => $editForm->createView(),
-        'companyId'   => $company->getId(),
-        'activ_deals' => $activ_deals
-    ];
-}
 
     /**
      * Edits an existing Deal entity.
@@ -438,7 +437,7 @@ class DealController extends Controller
      */
     public function addFeedbackAction(Deal $deal)
     {
-        $form = $this->createForm(new FeedbackDealType, (new FeedbackDeal)->setDeal($deal));
+        $form = $this->createForm(new FeedbackDealType, new FeedbackDeal($deal));
 
         return [
             'form' => $form->createView(),

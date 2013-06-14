@@ -214,11 +214,6 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Company", mappedBy="managers")
-     */
-    private $companies;
-
-    /**
      * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\Contacts", mappedBy="user", cascade={"all"})
      */
     private $contacts;
@@ -261,7 +256,7 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->getFirstName().' '.$this->getLastName();
+        return $this->username;
     }
 
     public static function getGenders()
@@ -854,18 +849,6 @@ class User extends BaseUser
     public function removeCompanyManager(CompanyManager $manager)
     {
         $this->companyManager->remove($manager);
-    }
-
-    public function getCompanies()
-    {
-        return $this->companies;
-    }
-
-    public function setCompanies($companies)
-    {
-        $this->companies = $companies;
-
-        return $this;
     }
 
     public function isUsingEmail()

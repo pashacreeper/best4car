@@ -51,6 +51,17 @@ class CompanyManager
      */
     private $company;
 
+    public function __construct(Copmany $company = null, User $user = null)
+    {
+        if ($company) {
+            $this->setCompany($company);
+        }
+
+        if ($user) {
+            $this->setUser($user);
+        }
+    }
+
     /**
      * Get id
      *
@@ -110,6 +121,7 @@ class CompanyManager
     public function setUser(\Sto\UserBundle\Entity\User $user)
     {
         $this->user = $user;
+        $this->userId = $user->getId();
 
         return $this;
     }
@@ -139,8 +151,8 @@ class CompanyManager
     public function setCompany(\Sto\CoreBundle\Entity\Company $company)
     {
         $this->company = $company;
+        $this->companyId = $company->getId();
 
         return $this;
     }
-
 }

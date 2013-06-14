@@ -102,7 +102,7 @@
             <a href="#" data-feedback="{{ feedback.id }}">Ответить</a>
             <div class="row-fluid new-answer" style="display:none;" data-answerform="{{ feedback.id }}">
             <blockquote class="well">
-                <form method="POST" name="form{{ feedback.id }}" action="{#{ path('content_company_feedbacks_answer_add', {'id':companyId}) }#}">
+                <form method="POST" name="form{{ feedback.id }}" action="">
                     <input type="hidden" name="feedback_id" value="{{ feedback.id }}" />
                     <div class="row-fluid">
                         <div class="span9">

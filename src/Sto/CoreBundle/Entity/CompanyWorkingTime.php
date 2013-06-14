@@ -16,13 +16,11 @@ class CompanyWorkingTime
      */
     private $id;
     /**
-     * @var time
      * @ORM\Column(type="time", nullable=true)
      */
     private $from;
 
     /**
-     * @var time
      * @ORM\Column(type="time", nullable=true)
      */
     private $till;

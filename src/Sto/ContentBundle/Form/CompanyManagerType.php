@@ -5,6 +5,7 @@ namespace Sto\ContentBundle\Form;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CompanyManagerType extends AbstractType
 {
@@ -14,6 +15,12 @@ class CompanyManagerType extends AbstractType
             ->add('user', 'entity', [
                 'label' => ' ',
                 'class' => 'StoUserBundle:User',
+                'query_builder' => function(EntityRepository $er) {
+                         return $er->createQueryBuilder('u')
+                            ->innerJoin('u.groups', 'g', 'WITH', "g.name = 'Менеджеры'")
+                       ;
+                    ;
+                },
                 'attr' => [
                     'placeholder' => 'Менеджер',
                 ]

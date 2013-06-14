@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Base
  *
  * @ORM\Entity()
- * @ORM\Table(name="auto_catalog")
+ * @ORM\Table(name="auto_catalog", indexes={@ORM\Index(name="AUTO_CATALOG_NAME_IDX", columns={"name"})})
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
@@ -205,10 +205,6 @@ class Base
 
     public function __toString()
     {
-        if ($this->getParent()) {
-            return $this->getParent() . " - " . $this->getName();
-        } else {
-            return $this->getName;
-        }
+        return $this->getName;
     }
 }

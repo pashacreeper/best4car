@@ -1,16 +1,14 @@
 {% for row in dictionaries %}
         <tr id="row_{{ row.id }}">
             <td style="padding-left:{{ level }}px">
-                <b><a href="#" class="name" data-type="text" data-pk="{{ row.id }}" data-inputclass="input-xxlarge">{{ row.name }}</a></b>
+                <a href="#" class="name" data-type="text" data-pk="{{ row.id }}" data-inputclass="input-xxlarge">{{ row.name }}</a>
             </td>
             <td>
-                <center>
-                    <a href="{{ path('dictionary_edit', { 'id': row.id, 'dictionary': dictionary}) }}" class="icon-edit"></a>
-                </center>
+                <center><a href="{{ path('dictionary_edit', { 'id': row.id, 'dictionary': dictionary}) }}" class="icon-edit"></a></center>
             </td>
         </tr>
-        {% if row.children|length > 0 %}
-            {% set level_child = level+30 %}
-            {{ include ('StoAdminBundle::Dictionary/content/__autoService_recurse.html.twig', {'dictionaries': row.children, 'level':level_child}) }}
-        {% endif %}
+{% if row.children|length > 0 %}
+        {% set level_child = level+30 %}
+        {{ include ('StoAdminBundle::Dictionary/content/__autoService_recurse.html.twig', {'dictionaries': row.children, 'level':level_child}) }}
+{% endif %}
 {% endfor %}

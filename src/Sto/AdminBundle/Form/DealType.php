@@ -7,8 +7,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
+use Sto\CoreBundle\Entity\Company;
+
 class DealType extends AbstractType
 {
+    private $company;
+
+    public function __construct(Company $company = null)
+    {
+        if ($company) {
+            $this->company = $company;
+        }
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -44,10 +55,16 @@ class DealType extends AbstractType
                     'class' => 'select2'
                 ]
             ])
-            ->add('auto', null, [
+            ->add('auto', 'entity', [
                 'label' => 'Автомабили',
                 'required' => false,
                 'render_optional_text' => false,
+                'class' => 'StoCoreBundle:Catalog\Base',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('catalog')
+                        ->where('catalog.parent is null')
+                    ;
+                },
                 'attr' => [
                     'class' => 'select2'
                 ]

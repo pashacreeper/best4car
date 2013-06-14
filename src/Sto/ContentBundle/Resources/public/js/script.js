@@ -67,4 +67,14 @@
             console.log( "Request Failed: " + textStatus + ', ' + error);
         });
     });
+
+    $('[data-toggle] > .btn').live('click',function(){
+        var self = $(this);
+        var setValue = (self.hasClass('active')) ? 0 : 1;
+        self.toggleClass(
+            self.parent().attr("toggle-mode")
+        );
+        $('[name="'+$(this).attr('toggle-item')+'"]').val( setValue ).change();
+    });
+
 })(jQuery)

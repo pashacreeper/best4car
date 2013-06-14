@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class FeedbackAnswer
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,19 +20,16 @@ class FeedbackAnswer
     private $id;
 
     /**
-     * @var string
      * @ORM\Column(name="answer", type="text")
      */
     private $answer;
 
     /**
-     * @var string
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
-     * @var integer
      * @ORM\Column(name="owner_id", type="integer")
      */
     private $ownerId;
@@ -46,7 +41,6 @@ class FeedbackAnswer
     private $owner;
 
     /**
-     * @var integer
      * @ORM\Column(name="feedback_id", type="integer")
      */
     private $feedbackId;
@@ -57,15 +51,17 @@ class FeedbackAnswer
      */
     private $feedback;
 
-    public function __construct()
+    public function __construct(Feedback $feedback = null)
     {
         $this->date = new \DateTime('now');
+
+        if ($feedback) {
+            $this->setFeedback($feedback);
+        }
     }
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -74,9 +70,6 @@ class FeedbackAnswer
 
     /**
      * Set answer
-     *
-     * @param  string         $answer
-     * @return FeedbackAnswer
      */
     public function setAnswer($answer)
     {
@@ -87,8 +80,6 @@ class FeedbackAnswer
 
     /**
      * Get answer
-     *
-     * @return string
      */
     public function getAnswer()
     {
@@ -97,9 +88,6 @@ class FeedbackAnswer
 
     /**
      * Set date
-     *
-     * @param  \DateTime      $date
-     * @return FeedbackAnswer
      */
     public function setDate($date)
     {
@@ -110,8 +98,6 @@ class FeedbackAnswer
 
     /**
      * Get date
-     *
-     * @return \DateTime
      */
     public function getDate()
     {
@@ -120,9 +106,6 @@ class FeedbackAnswer
 
     /**
      * Set owner
-     *
-     * @param  \Sto\UserBundle\Entity\User $owner
-     * @return FeedbackAnswer
      */
     public function setOwner(\Sto\UserBundle\Entity\User $owner = null)
     {
@@ -133,8 +116,6 @@ class FeedbackAnswer
 
     /**
      * Get owner
-     *
-     * @return \Sto\UserBundle\Entity\User
      */
     public function getOwner()
     {
@@ -143,11 +124,8 @@ class FeedbackAnswer
 
     /**
      * Set feedback
-     *
-     * @param  \Sto\CoreBundle\Entity\Feedback $feedback
-     * @return Feedback
      */
-    public function setFeedback(Feedback $feedback = null)
+    public function setFeedback(Feedback $feedback)
     {
         $this->feedback = $feedback;
         $this->feedbackId = $feedback->getId();
@@ -158,8 +136,6 @@ class FeedbackAnswer
 
     /**
      * Get feedback
-     *
-     * @return \Sto\CoreBundle\Entity\Feedback
      */
     public function getFeedback()
     {

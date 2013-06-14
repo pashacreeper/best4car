@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sto\UserBundle\Entity\User;
 
 /**
  * FeedbackDeal
@@ -27,11 +28,17 @@ class FeedbackDeal extends Feedback
      */
     private $deal;
 
+    public function __construct(User $user = null, Deal $deal = null)
+    {
+        parent::__construct($user);
+
+        if ($deal) {
+            $this->setDeal($deal);
+        }
+    }
+
     /**
      * Set dealRating
-     *
-     * @param  integer  $dealRating
-     * @return Feedback
      */
     public function setDealRating($dealRating)
     {
@@ -42,12 +49,22 @@ class FeedbackDeal extends Feedback
 
     /**
      * Get dealRating
-     *
-     * @return integer
      */
     public function getDealRating()
     {
         return $this->dealRating;
+    }
+
+    public function getDealId()
+    {
+        return $this->dealId;
+    }
+
+    public function setDealId($dealId)
+    {
+        $this->dealId = $dealId;
+
+        return $this;
     }
 
     public function getDeal()
@@ -58,6 +75,7 @@ class FeedbackDeal extends Feedback
     public function setDeal(Deal $deal)
     {
         $this->deal = $deal;
+        $this->dealId = $deal->getId();
 
         return $this;
     }

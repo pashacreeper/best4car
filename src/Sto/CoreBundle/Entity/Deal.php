@@ -2,13 +2,12 @@
 
 namespace Sto\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\Collections\ArrayCollection;
-use Sto\CoreBundle\Entity\Image;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Deal
@@ -20,8 +19,6 @@ use Sto\CoreBundle\Entity\Image;
 class Deal
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,31 +26,24 @@ class Deal
     private $id;
 
     /**
-     * @var integer
      * @Assert\NotBlank()
      * @ORM\Column(name="company_id", type="integer")
      */
     private $companyId;
 
     /**
-     * @var integer
-     *
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="deals")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
@@ -110,15 +100,11 @@ class Deal
     private $imageName3;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="terms", type="string", length=255, nullable=true)
      */
     private $terms;
 
     /**
-     * @var \DateTime
-     *
      * @Assert\NotBlank()
      * @Assert\Date()
      * @ORM\Column(name="start_date", type="date")
@@ -126,8 +112,6 @@ class Deal
     private $startDate;
 
     /**
-     * @var \DateTime
-     *
      * @Assert\NotBlank()
      * @Assert\Date()
      * @ORM\Column(name="end_date", type="date")
@@ -135,24 +119,18 @@ class Deal
     private $endDate;
 
     /**
-     * @var \DateTime
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="start_time", type="time")
      */
     private $startTime;
 
     /**
-     * @var \DateTime
-     *
      * @Assert\NotBlank()
      * @ORM\Column(name="end_time", type="time")
      */
     private $endTime;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="place", type="string", length=255, nullable=true)
      */
     private $place;
@@ -163,8 +141,6 @@ class Deal
     private $feedbacks;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="contact_information", type="string", length=255, nullable=true)
      */
     private $contactInformation;
@@ -183,15 +159,11 @@ class Deal
     private $type;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
-   /**
-     * @var string
-     *
+    /**
      * @ORM\Column(name="draft", type="boolean")
      */
     private $draft;
@@ -203,7 +175,7 @@ class Deal
      *     inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
      * )
      */
-    protected $auto;
+    private $auto;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AutoServices")
@@ -214,19 +186,21 @@ class Deal
      */
     private $autoServices;
 
-    public function __construct()
+    public function __construct(Company $company = null)
     {
+        $this->feedbacks = new ArrayCollection();
+        $this->autoServices = new ArrayCollection();
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
-        $this->feedbacks = new ArrayCollection();
         $this->draft = false;
-        $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if ($company) {
+            $this->setCompany($company);
+        }
     }
 
     /**
      * Get id
-     *
-     * @return integer
      */
     public function getId()
     {
@@ -235,27 +209,24 @@ class Deal
 
     /**
      * Get Draft
-     * @return boolean
      */
     public function getDraft()
     {
         return $this->draft;
     }
+
     /**
      * Set Draft
-     * @param Deal
      */
-     public function setDraft($draft)
+    public function setDraft($draft)
     {
         $this->draft = $draft;
 
         return $this;
     }
+
     /**
      * Set companyId
-     *
-     * @param  integer $companyId
-     * @return Deal
      */
     public function setCompanyId($companyId)
     {
@@ -266,8 +237,6 @@ class Deal
 
     /**
      * Get companyId
-     *
-     * @return integer
      */
     public function getCompanyId()
     {
@@ -296,9 +265,6 @@ class Deal
 
     /**
      * Set name
-     *
-     * @param  string $name
-     * @return Deal
      */
     public function setName($name)
     {
@@ -309,8 +275,6 @@ class Deal
 
     /**
      * Get name
-     *
-     * @return string
      */
     public function getName()
     {
@@ -319,9 +283,6 @@ class Deal
 
     /**
      * Set description
-     *
-     * @param  string $description
-     * @return Deal
      */
     public function setDescription($description)
     {
@@ -332,8 +293,6 @@ class Deal
 
     /**
      * Get description
-     *
-     * @return string
      */
     public function getDescription()
     {
@@ -342,9 +301,6 @@ class Deal
 
     /**
      * Set services
-     *
-     * @param  string $services
-     * @return Deal
      */
     public function setServices($services)
     {
@@ -355,8 +311,6 @@ class Deal
 
     /**
      * Get services
-     *
-     * @return string
      */
     public function getServices()
     {
@@ -365,9 +319,6 @@ class Deal
 
     /**
      * Set terms
-     *
-     * @param  string $terms
-     * @return Deal
      */
     public function setTerms($terms)
     {
@@ -378,8 +329,6 @@ class Deal
 
     /**
      * Get terms
-     *
-     * @return string
      */
     public function getTerms()
     {
@@ -388,9 +337,6 @@ class Deal
 
     /**
      * Set startDate
-     *
-     * @param  \DateTime $startDate
-     * @return Deal
      */
     public function setStartDate($startDate)
     {
@@ -401,8 +347,6 @@ class Deal
 
     /**
      * Get startDate
-     *
-     * @return \DateTime
      */
     public function getStartDate()
     {
@@ -411,9 +355,6 @@ class Deal
 
     /**
      * Set endDate
-     *
-     * @param  \DateTime $endDate
-     * @return Deal
      */
     public function setEndDate($endDate)
     {
@@ -424,8 +365,6 @@ class Deal
 
     /**
      * Get endDate
-     *
-     * @return \DateTime
      */
     public function getEndDate()
     {
@@ -434,9 +373,6 @@ class Deal
 
     /**
      * Set time
-     *
-     * @param  \DateTime $time
-     * @return Deal
      */
     public function setStartTime($startTime)
     {
@@ -447,8 +383,6 @@ class Deal
 
     /**
      * Get time
-     *
-     * @return \DateTime
      */
     public function getStartTime()
     {
@@ -457,9 +391,6 @@ class Deal
 
     /**
      * Set endTime
-     *
-     * @param  \DateTime $endTime
-     * @return Deal
      */
     public function setEndTime($endTime)
     {
@@ -470,8 +401,6 @@ class Deal
 
     /**
      * Get endTime
-     *
-     * @return \DateTime
      */
     public function getEndTime()
     {
@@ -480,9 +409,6 @@ class Deal
 
     /**
      * Set place
-     *
-     * @param  string $place
-     * @return Deal
      */
     public function setPlace($place)
     {
@@ -493,8 +419,6 @@ class Deal
 
     /**
      * Get place
-     *
-     * @return string
      */
     public function getPlace()
     {
@@ -503,9 +427,6 @@ class Deal
 
     /**
      * Set contactInformation
-     *
-     * @param  string $contactInformation
-     * @return Deal
      */
     public function setContactInformation($contactInformation)
     {
@@ -516,8 +437,6 @@ class Deal
 
     /**
      * Get contactInformation
-     *
-     * @return string
      */
     public function getContactInformation()
     {
@@ -526,9 +445,6 @@ class Deal
 
     /**
      * Set type
-     *
-     * @param  string $type
-     * @return Deal
      */
     public function setTypeId($typeId)
     {
@@ -539,8 +455,6 @@ class Deal
 
     /**
      * Get type
-     *
-     * @return string
      */
     public function getTypeId()
     {
@@ -549,9 +463,6 @@ class Deal
 
     /**
      * Set type
-     *
-     * @param  string $type
-     * @return Deal
      */
     public function setType($type)
     {
@@ -564,8 +475,6 @@ class Deal
 
     /**
      * Get type
-     *
-     * @return string
      */
     public function getType()
     {
@@ -592,8 +501,6 @@ class Deal
 
     /**
      * Get project
-     *
-     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFeedbacks()
     {
@@ -617,18 +524,6 @@ class Deal
         return $this->updatedAt;
     }
 
-    /**
-     * Set image
-     *
-     * @param  string $image
-     * @return Deal
-     */
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
     public function getImage()
     {
         return $this->image;
@@ -640,6 +535,7 @@ class Deal
 
         return $this;
     }
+
     public function getImageName()
     {
         return $this->imageName;
@@ -655,11 +551,6 @@ class Deal
         return $this;
     }
 
-    /**
-     * Get image
-     *
-     * @return string
-     */
     public function getImage2()
     {
         return $this->image2;
@@ -671,6 +562,7 @@ class Deal
 
         return $this;
     }
+
     public function getImageName2()
     {
         return $this->imageName2;
@@ -686,11 +578,6 @@ class Deal
         return $this;
     }
 
-    /**
-     * Get image
-     *
-     * @return string
-     */
     public function getImage3()
     {
         return $this->image3;
@@ -702,6 +589,7 @@ class Deal
 
         return $this;
     }
+
     public function getImageName3()
     {
         return $this->imageName3;
@@ -730,10 +618,7 @@ class Deal
     }
 
     /**
-     * Set autoServices
-     *
-     * @param  string  $autoServices
-     * @return Company
+     * Add autoServices
      */
     public function addAutoServices($autoServices)
     {
@@ -742,6 +627,9 @@ class Deal
         return $this;
     }
 
+    /**
+     * Remove autoServices
+     */
     public function removeAutoServices($autoServices)
     {
         $this->autoServices->removeElement($autoServices);
@@ -751,8 +639,6 @@ class Deal
 
     /**
      * Get additionalServicautoServiceses
-     *
-     * @return string
      */
     public function getAutoServices()
     {

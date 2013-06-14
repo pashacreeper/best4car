@@ -10,9 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\CompanyGallery;
+use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\AdminBundle\Form\CompanyType;
 use Sto\AdminBundle\Form\CompanyGalleryType;
-use Sto\AdminBundle\Form\CompanyManagerType;
+use Sto\ContentBundle\Form\CompanyManagerType;
 
 /**
  * Company controller.
@@ -131,11 +132,10 @@ class CompanyController extends Controller
         }
 
         $editForm = $this->createForm(new CompanyType('edit'), $company, array(
-                'em' => $this->getDoctrine()->getManager(),
-            ));
+            'em' => $this->getDoctrine()->getManager(),
+        ));
         $editForm->bind($request);
         if ($editForm->isValid()) {
-
             $em->persist($company);
             $em->flush();
 
@@ -189,7 +189,7 @@ class CompanyController extends Controller
 
     /**
      * Edits an existing Company entity.
-     *
+     * @Template("StoAdminBundle:Company:show_gallery.html.twig")
      * @Route("/{id}/save_image", name="company_save_image")
      * @ParamConverter("company", class="StoCoreBundle:Company")
      */
@@ -204,9 +204,13 @@ class CompanyController extends Controller
 
             $em->persist($companyGallery);
             $em->flush();
-
             return $this->redirect($this->generateUrl('company_gallery', ['id'=>$company->getId()]));
-        }
+        };
+        return [
+        'max_size'=>false,
+        'company' => $company,
+        'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -285,7 +289,8 @@ class CompanyController extends Controller
      */
     public function showManagersAction($company)
     {
-        $form = $this->createForm(new CompanyManagerType, $company);
+        $entity = new CompanyManager($company);
+        $form = $this->createForm(new CompanyManagerType, $entity);
 
         return [
             'company' => $company,
@@ -309,11 +314,12 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $form = $this->createForm(new CompanyManagerType(), $company);
+        $entity = new CompanyManager();
+        $form = $this->createForm(new CompanyManagerType(), $entity);
         $form->bind($request);
         if ($form->isValid()) {
-
-            $em->persist($company);
+            $entity->setCompany($company);
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('company_managers', ['id'=>$id]));
@@ -339,11 +345,10 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
 
-        $user = $em->getRepository('StoUserBundle:User')->findOneById($user_id);
+        $manager = $em->getRepository('StoCoreBundle:CompanyManager')->findOneById($user_id);
 
-        $company->removeManager($user);
+        $em->remove($manager);
 
-        $em->remove($company);
         $em->flush();
 
         return $this->redirect($this->generateUrl('company_managers', ['id'=>$id]));

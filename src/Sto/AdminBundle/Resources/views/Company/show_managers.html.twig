@@ -15,7 +15,7 @@
     </div>
 </form>
 
-{% if company.managers|length %}
+{% if company.companyManager|length %}
 <table class="table table-hover">
     <thead>
         <tr>
@@ -30,22 +30,22 @@
         </tr>
     </thead>
     <tbody>
-{% for user in company.managers %}
+{% for manager in company.companyManager %}
     <tr>
         <td>
-            {% if user.avatarUrl %}
-                <img src="/../{{ storage_path }}/user_photo/{{ user.avatarUrl }}" width="160"/>
+            {% if manager.user.avatarUrl %}
+                <img src="/../{{ storage_path }}/user_photo/{{ manager.user.avatarUrl }}" width="160"/>
             {% else %}
                 <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-rounded"/>
             {% endif %}
         </td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td>{{ user.birthDate|date('d.m.Y') }}</td>
-        <td>{{ user.email }}</td>
-        <td><a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ user.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a></td>
+        <td>{{ manager.user.username }}</td>
+        <td>{{ manager.user.firstName }}</td>
+        <td>{{ manager.user.lastName }}</td>
+        <td>{% if manager.phone %}{{ manager.phone }}{% else %}{{ manager.user.phoneNumber }}{% endif %}</td>
+        <td>{{ manager.user.birthDate|date('d.m.Y') }}</td>
+        <td>{{ manager.user.email }}</td>
+        <td><a href="#" data-delete-form="delete-form" data-delete-message="{{ 'form.sure_delete_message'|trans({}) }}" data-delete-item="{{ manager.id }}" class="icon-trash" title="{{ "form.delete"|trans({}) }}"></a></td>
     </tr>
 {% endfor %}
     </tbody>

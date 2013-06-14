@@ -91,9 +91,20 @@ class CompanyController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
+        $formFactory = $this->container->get('fos_user.registration.form.factory');
+        $userManager = $this->container->get('fos_user.user_manager');
+        $dispatcher = $this->container->get('event_dispatcher');
+        $user = $userManager->createUser();
+        $user->setEnabled(true);
+        $user->setRatingGroupId(1);
+        $user->addRole('ROLE_USER');
+        $form = $formFactory->createForm();
+        $form->setData($user);
+
         return [
             'companies' => json_encode($companies),
-            'city' => $city
+            'city' => $city,
+            'form' => $form->createView(),
         ];
     }
 
@@ -109,11 +120,9 @@ class CompanyController extends Controller
         $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
 
         if ($this->getUser()) {
-            $manager = $em->getRepository('StoUserBundle:User')
-                ->createQueryBuilder('user')
-                ->select('user')
-                ->join('user.companyManager', 'company')
-                ->where('company.userId = :user_id AND company.companyId = :company')
+            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+                ->createQueryBuilder('cm')
+                ->where('cm.userId = :user_id AND cm.companyId = :company')
                 ->setParameter('user_id', $this->getUser()->getId())
                 ->setParameter('company', $id)
                 ->getQuery()
@@ -222,11 +231,9 @@ class CompanyController extends Controller
         );
 
         if ($this->getUser()) {
-            $manager = $em->getRepository('StoUserBundle:User')
-                ->createQueryBuilder('user')
-                ->select('user')
-                ->join('user.companies', 'company')
-                ->where('user.id = :user_id AND company.id = :company')
+            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+                ->createQueryBuilder('cm')
+                ->where('cm.userId = :user_id AND cm.companyId = :company')
                 ->setParameter('user_id', $this->getUser()->getId())
                 ->setParameter('company', $id)
                 ->getQuery()

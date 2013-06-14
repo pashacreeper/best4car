@@ -29,14 +29,14 @@
         <script>function getCompanyId(){ return {{ company.id }}; }</script>
     </div>
     <div class="span4">
-            {% set manager = false %}
-            {% if app.security.isGranted('ROLE_USER') %}
-            {% for item in company.managers if  item.id == app.user.id  %}
+            {#% set manager = false %#}
+            {#% if app.security.isGranted('ROLE_USER') %}
+            {% for item in company.companyManagers if  item.id == app.user.id  %}
                  {% set manager = true %}
             {% endfor %}
-            {% endif %}
-         {% if (not manager) and (not app.security.isGranted('ROLE_FROZEN')) and  (app.security.isGranted('ROLE_USER'))  %}
-        <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв <span class="pull-right">{{ company.feedbacks | length }}</span></a>
+            {% endif %#}
+        {% if (not isManager) and (not app.security.isGranted('ROLE_FROZEN')) and  (app.security.isGranted('ROLE_USER'))  %}
+            <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв <span class="pull-right">{{ company.feedbacks | length }}</span></a>
         {% endif %}
         <div class="thumbnail">
             <img src="http://placehold.it/240x400">

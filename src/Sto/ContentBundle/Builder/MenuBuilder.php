@@ -47,7 +47,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $user = $context->getToken()->getUser();
 
         if (is_object($user) && $user instanceof UserInterface) {
-            $companies = $user->getCompanies();
+            $companies = $user->getCompanyManager();
             $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, ['caret' => true]);
             $profile->addChild('Профиль', [
                 'route' => 'fos_user_profile_show',
@@ -66,14 +66,14 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
             $this->addDivider($profile);
             if ($context->isGranted('ROLE_MANAGER')) {
                 foreach ($companies as $key => $company) {
-                    $profile->addChild((($key+1)).'.Компания "'.$company->getName().'"', [
+                    $profile->addChild((($key+1)).'.Компания "'.$company->getCompany()->getName().'"', [
                         'uri' => '#',
                         'extras' => [],
                     ]);
                     $profile->addChild(($key+1).'-Информация' , [
                         'route' => 'content_company_show_tab',
                         'routeParameters'=> [
-                            'id'=>$company->getId(),
+                            'id'=>$company->getCompany()->getId(),
                             'tab'=>'information'
                             ],
                         'extras' => [

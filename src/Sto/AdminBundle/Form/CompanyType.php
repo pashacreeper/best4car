@@ -2,12 +2,14 @@
 
 namespace Sto\AdminBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
+
 use Sto\AdminBundle\Form\CompanyPhoneType;
-use Sto\ContentBundle\Form\CompanyWorkingTimeType;;
+use Sto\ContentBundle\Form\CompanyWorkingTimeType;
+use Sto\ContentBundle\Form\CompanyManagerType;
 
 class CompanyType extends AbstractType
 {
@@ -132,6 +134,8 @@ class CompanyType extends AbstractType
             ])
             ->add('autoServices', 'entity', array(
                 'label' => 'Выберите работы',
+                'required' => false,
+                'render_optional_text' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Dictionary\autoServices',
                 'query_builder' => function(EntityRepository $er) {
@@ -249,20 +253,31 @@ class CompanyType extends AbstractType
                     'required' => false,
                     'render_optional_text' => false
                 ])
-                ->add('managers', 'entity', [
-                    'label' => 'Перечень менеджеров',
-                    'required' => false,
-                    'render_optional_text' => false,
-                    'class' => 'StoUserBundle:User',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->innerJoin('u.groups', 'g', 'WITH', "g.name = 'Менеджеры'")
-                       ;
-                    },
-                    'attr' => [
-                        'class' => 'select2'
-                    ]
-                ])
+                ->add('companyManager','collection', array(
+                    'label' => ' ',
+                    'type' => new CompanyManagerType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    'show_legend' => false,
+                    'widget_add_btn' =>[
+                        'icon' => 'b4c-user-add',
+                        'label' => 'add manager',
+                        'attr' => [
+                             'class' => 'btn btn-primary btn-small'
+                        ]
+                    ],
+                    'options' => array( // options for collection fields
+                        'label_render' => false,
+                        'widget_remove_btn' => [
+                            'label' => '-',
+                            'attr' => [
+                                'class' => 'btn btn-danger btn-small '
+                            ]
+                        ],
+                        'widget_control_group' => false,
+                    )
+                ))
                 ->add('administratorContactInfo', 'textarea', [
                     'label' => 'Administrator contact',
                     'required' => false,
@@ -285,10 +300,32 @@ class CompanyType extends AbstractType
                     'label' => 'Автомабили',
                     'required' => false,
                     'render_optional_text' => false,
+                    'class' => 'StoCoreBundle:Catalog\Base',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('catalog')
+                            ->where('catalog.parent is null')
+                        ;
+                    },
                     'attr' => [
                         'class' => 'select2'
                     ]
                 ])
+                ->add('linkVK', 'url', [
+                    'label' => 'Вконтакте',
+                    'required' => false,
+                    'render_optional_text' => false
+                ])
+                ->add('linkTW', 'url', [
+                    'label' => 'Twitter',
+                    'required' => false,
+                    'render_optional_text' => false
+                ])
+                ->add('linkFB', 'url', [
+                    'label' => 'Facebook ',
+                    'required' => false,
+                    'render_optional_text' => false
+                ])
+
             ;
         }
     }

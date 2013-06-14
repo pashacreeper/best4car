@@ -230,15 +230,6 @@ class Company
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\User", inversedBy="companies")
-     * @ORM\JoinTable(name="company_user_relationship",
-     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
-     */
-    protected $managers;
-
-    /**
      * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country",inversedBy="companies")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
@@ -295,7 +286,6 @@ class Company
         $this->service = new \Doctrine\Common\Collections\ArrayCollection();
         $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
         $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->managers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->autos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
@@ -1056,8 +1046,6 @@ class Company
      */
     public function addGallery(CompanyGallery $gallery)
     {
-        //$gallery->setCompanyId($this->getId());
-        //$gallery->setCompany($this);
         $this->gallery[] = $gallery;
 
         return $this;
@@ -1086,51 +1074,6 @@ class Company
     public function getGallery()
     {
         return $this->gallery;
-    }
-
-    /**
-     * Set managers
-     */
-    public function addManager(\Sto\userBundle\Entity\User $manager)
-    {
-        $this->managers[] = $manager;
-
-        return $this;
-    }
-
-    /**
-     * remove manager
-     * @param \Sto\UserBundle\Entity\User $manager
-     */
-    public function removeManager(\Sto\UserBundle\Entity\User $manager)
-    {
-        $this->managers->removeElement($manager);
-    }
-
-    /**
-     * Get managers
-     *
-     */
-    public function getManagers()
-    {
-        return $this->managers;
-    }
-
-    public function getArrayManagers()
-    {
-        $result = array();
-        foreach ($this->managers as $key => $value) {
-            $result[] = $value;
-        }
-
-        return $result;
-    }
-
-    public function setManagers($managers)
-    {
-        $this->managers = $managers;
-
-        return $this;
     }
 
     public function setCity(\Sto\CoreBundle\Entity\Dictionary\Country $city)
@@ -1228,7 +1171,6 @@ class Company
 
     public function addCompanyManager(CompanyManager $manager)
     {
-        //$manager->setCompany($this);
         $this->companyManager[] = $manager;
 
         return $this;
@@ -1262,5 +1204,4 @@ class Company
     {
         $this->contacts->remove($contact);
     }
-
 }

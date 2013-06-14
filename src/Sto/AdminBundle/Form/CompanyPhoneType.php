@@ -20,12 +20,12 @@ class CompanyPhoneType extends AbstractType
             ])
             ->add('description', 'text',
                 [
-                    'max_length' => 10,
+                    'max_length' => 35,
                     'required' => false,
                     'label_render' => false,
                     'attr' => [
                         'placeholder' => 'Описание',
-                        'class' => 'input-small'
+                        'class' => 'input-xlarge'
                     ]
                 ]
             );

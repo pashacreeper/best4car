@@ -14,7 +14,7 @@ class LoadCompanyManagerData extends AbstractFixture implements OrderedFixtureIn
 
         for ($i=1; $i<39; $i++) {
             $companyManager = (new CompanyManager)
-                ->setUser($this->getReference('user['.rand(1,3).']'))
+                ->setUser($this->getReference('user['.rand(1,10).']'))
                 ->setCompany($this->getReference('company['.$i.']'))
                 ->setPhone('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98))
             ;

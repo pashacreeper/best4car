@@ -247,7 +247,12 @@ class UserController extends Controller
 
             $user = $em->getRepository('StoUserBundle:User')->find($id);
 
-            $company->addManager($user);
+            $gallery = $company->getGallery();
+            foreach ($gallery as $value) {
+                $value->setCompany($company);
+            }
+            $company->setGallery($gallery);
+
             $em->persist($company);
             $em->flush();
 

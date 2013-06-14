@@ -30,31 +30,45 @@
                     <div id="search-slider" style="margin-left:10px;"></div>
                 </div>
                 <div class="span2">
-                    <input name="rating" class="rating" type="text" style="width:40px;"  data-serarch-form="rating"/>
+                    <input name="rating" class="rating" type="text" style="width:40px;"  data-serarch-form="rating" data-search="rating"/>
                 </div>
             </div>
         </div>
         <div class="row-fluid">
             <label class="span12" style="margin: 0;padding: 0;">Время работы</label>
-            <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox">
-                <button type="button" class="span4 btn btn-primary active"> 24ч </button>
-                <button type="button" class="span4 btn">До поздна</button>
-                <button type="button" class="span4 btn">Выходные</button>
+            <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox" toggle-mode="btn-primary">
+                <button type="button" class="span4 btn" toggle-item="24hours"> 24ч </button>
+                <input type="hidden" name="24hours" data-serarch-form="24hours" value="0">
+                <button type="button" class="span4 btn" toggle-item="late">До поздна</button>
+                <input type="hidden" name="late" data-serarch-form="late" value="0">
+                <button type="button" class="span4 btn"  toggle-item="weekends">Выходные</button>
+                <input type="hidden" name="weekends" data-serarch-form="weekends" value="0">
             </div>
         </div>
         <div class="row-fluid">
             <label class="span12" style="margin: 0;padding: 0;">Дополнительные</label>
-            <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox">
-                <button type="button" class="span2 btn btn-success active"><i class="icon-b4c-truck"></i></button>
-                <button type="button" class="span2 btn"><i class="icon-b4c-signal"></i></button>
-                <button type="button" class="span2 btn"><i class="icon-b4c-tv"></i></button>
-                <button type="button" class="span2 btn"><i class="icon-b4c-coffee"></i></button>
-                <button type="button" class="span2 btn"><i class="icon-b4c-restaurant"></i></button>
-                <button type="button" class="span2 btn"><i class="icon-b4c-credit-card"></i></button>
+            <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox" toggle-mode="btn-success">
+                <button type="button" class="span2 btn" toggle-item="evaquate" hint="Эвакуатор"><i class="icon-b4c-truck"></i></button>
+                <input type="hidden" name="evaquate" data-serarch-form="evaquate" value="0">
+                <button type="button" class="span2 btn" toggle-item="wifi"><i class="icon-b4c-signal"></i></button>
+                <input type="hidden" name="wifi" data-serarch-form="wifi" value="0">
+                <button type="button" class="span2 btn" toggle-item="tv"><i class="icon-b4c-tablet"></i></button>
+                <input type="hidden" name="tv" data-serarch-form="tv" value="0">
+                <button type="button" class="span2 btn" toggle-item="coffee"><i class="icon-b4c-coffee"></i></button>
+                <input type="hidden" name="coffee" data-serarch-form="coffee" value="0">
+                <button type="button" class="span2 btn" toggle-item="restaurant"><i class="icon-b4c-restaurant"></i></button>
+                <input type="hidden" name="restaurant" data-serarch-form="restaurant" value="0">
+                <button type="button" class="span2 btn" toggle-item="credit-card"><i class="icon-b4c-credit-card"></i></button>
+                <input type="hidden" name="credit-card" data-serarch-form="credit-card" value="0">
             </div>
         </div>
         <div class="row-fluid">
-            <label><input name="deals" type="checkbox" value="deals"/>Только с акциями</label>
+            <label for=""></label>
+            <!-- <label><input name="deals" type="checkbox" value="deals"/>Только с акциями</label> -->
+            <div class="row-fluid btn-group span12" data-toggle="buttons-checkbox" toggle-mode="btn-success">
+                <button type="button" class="span5 btn" toggle-item="deals"><i class="icon-b4c-star"></i>Только с акциями</button>
+                <input type="hidden" name="deals" data-serarch-form="deals" value="0">
+            </div>
         </div>
     </form>
 </div>
