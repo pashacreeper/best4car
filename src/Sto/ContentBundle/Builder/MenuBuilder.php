@@ -47,8 +47,8 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $user = $context->getToken()->getUser();
 
         if (is_object($user) && $user instanceof UserInterface) {
-            $companies = $user->getCompanyManager();
-            $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername(), false, ['caret' => true]);
+            $companies = $user->getCompanies();
+            $profile = $this->createDropdownMenuItem($menu, $translator->trans('menu.welcome') . ", " . $user->getUsername().'<br />'.$user->getRatingGroup()->getName().' - '.$user->getRating(), false, ['caret' => true]);
             $profile->addChild('Профиль', [
                 'route' => 'fos_user_profile_show',
                 'extras' => [

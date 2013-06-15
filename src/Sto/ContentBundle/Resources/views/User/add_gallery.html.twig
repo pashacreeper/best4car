@@ -1,0 +1,6 @@
+{% if form %}
+    <form action="{{ path('profile_user_gallery_upload') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {{ form_widget(form) }}
+        <input type="submit" value="Сохранить" >
+    </form>
+{% endif %}

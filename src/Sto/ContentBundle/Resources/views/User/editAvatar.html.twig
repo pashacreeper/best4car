@@ -1,0 +1,13 @@
+{% if form %}
+    <form action="{{ path('profile_update_user_avatar') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {% if user.avatarUrl and not form_errors(form.avatar) %}
+            <img data-image="avatar" src="{{ vich_uploader_asset(user,'avatar') | imagine_filter('user_photo_filter') }}" width="200px" class="img-polaroid"/>
+    {% else %}
+            <img data-image="avatar" src="{{ asset('bundles/stocore/images/notimage.png') | imagine_filter('user_photo_filter') }}" width="200px" class="img-polaroid"/>
+    {% endif %}
+        {{ form_errors(form) }}
+        {{ form_row(form.avatar) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Сохранить" >
+    </form>
+{% endif %}

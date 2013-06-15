@@ -15,6 +15,10 @@ use Sto\ContentBundle\Form\UserPersonalType;
 use Symfony\Component\Form\FormError;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\AdditionalUserType;
+use Sto\ContentBundle\Form\PhotoUserType;
+use Sto\UserBundle\Entity\UserGallery,
+    Sto\ContentBundle\Form\UserGalleryType;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * User controller.
@@ -372,5 +376,167 @@ class UserController extends Controller
             'form' => $form->createView(),
             'user' => $user
         ];
+    }
+
+    /**
+     * Edit Avatar
+     *
+     * @Route("/avatar/edit", name="profile_edit_user_avatar")
+     * @Template()
+     * @Method("GET")
+     */
+    public function editAvatarAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+
+        $form = $this->createForm(new PhotoUserType(), $user);
+
+        return [
+            'form' => $form->createView(),
+            'user' => $user,
+        ];
+    }
+
+    /**
+     * Edit Avatar
+     *
+     * @Route("/avatar/update", name="profile_update_user_avatar")
+     * @Template("StoContentBundle:User:editAvatar.html.twig")
+     * @Method("POST")
+     */
+    public function updateAvatarAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+
+        $form = $this->createForm(new PhotoUserType(), $user);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        }
+
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    /**
+     * avatar remove
+     *
+     * @Route("/avatar/remove/", name="profile_user_avatar_remove")
+     * @Method("GET")
+     */
+    public function removeAvatarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+
+        unlink($user->getAvatar()->getRealpath());
+        $user->setAvatarUrl(null);
+
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    /**
+     * gallery add
+     *
+     * @Route("/gallery/show/{id}", name="profile_user_gallery_show", defaults={"id" = 0})
+     * @Template("StoContentBundle:User:show_gallery.html.twig")
+     * @Method("GET")
+     */
+    public function showGalleryAction($id = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($id == 0 && $this->getUser()) {
+            $id = $this->getUser()->getId();
+        } elseif ($id == 0 && $this->getUser()==null) {
+            return new Responce(404, 'User Not found.');
+        }
+
+        $gallery = $em->getRepository('StoUserBundle:UserGallery')->findBy(['userId'=>$id]);
+
+        return [
+            'gallery' => $gallery,
+        ];
+    }
+
+    /**
+     * gallery remove
+     *
+     * @Route("/gallery/remove/{id}", name="profile_user_gallery_remove")
+     * @Method("GET")
+     */
+    public function removeGalleryAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $gallery = $em->getRepository('StoUserBundle:UserGallery')->findOneById($id);
+
+        if (!$gallery) {
+            return new Responce(404, 'Image Not found.');
+        }
+
+        if ($gallery->getUser() != $this->getUser())
+            return new Responce(403, 'It\'s not your image!');
+
+        $em->remove($gallery);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    /**
+     * gallery add
+     *
+     * @Route("/gallery/add", name="profile_user_gallery_add")
+     * @Template("StoContentBundle:User:add_gallery.html.twig")
+     * @Method("GET")
+     */
+    public function addGalleryAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+
+        $gallery = new UserGallery($user);
+        $form = $this->createForm(new UserGalleryType(), $gallery);
+
+        return [
+            'form' => $form->createView(),
+            'user' => $user,
+        ];
+    }
+
+    /**
+     *
+     * @Route("/gallery/upload", name="profile_user_gallery_upload")
+     * @Template("StoContentBundle:User:add_gallery.html.twig")
+     * @Method("POST")
+     */
+    public function uploadGalleryAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($this->getUser()->getId());
+
+        $gallery = new UserGallery($user);
+        $form = $this->createForm(new UserGalleryType(), $gallery);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em->persist($gallery);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        }
+
+        return $this->redirect($this->generateUrl('fos_user_profile_show'));
     }
 }

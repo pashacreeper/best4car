@@ -11,11 +11,12 @@ class LoadDictionaryAdditionalServiceData extends AbstractFixture implements Ord
 {
     public function load(ObjectManager $manager)
     {
-        $additionalService = ['Подменный автомобиль', 'Терминал оплаты по безналичному расчету, по банковской карте', 'Терминал быстрой оплаты мобильной связи, интернета и других услуг', 'Автобус до станции метро', 'Такси со скидкой (без оплаты)', 'Кондиционер', 'Банкомат', 'Wi-Fi', 'Клиентская зона, зона ожидания', 'Клиентская зона, зона ожидания с TV', 'Детская комната', 'Кафе', 'Кофе-машина', 'Аппарат по продаже напитков и шоколадных батончиков', 'Эвакуатор'];
+        $additionalService = [['evaquate','Подменный автомобиль'], ['credit-card','Терминал оплаты по безналичному расчету, по банковской карте'], ['credit-card','Терминал быстрой оплаты мобильной связи, интернета и других услуг'], ['metro','Автобус до станции метро'], ['evaquate','Такси со скидкой (без оплаты)'], ['waiting-room','Кондиционер'], ['credit-card','Банкомат'], ['wifi','Wi-Fi'], ['waiting-room','Клиентская зона, зона ожидания'], ['waiting-room','Клиентская зона, зона ожидания с TV'], ['waiting-room','Детская комната'], ['coffee','Кафе'], ['coffee','Кофе-машина'], ['coffee','Аппарат по продаже напитков и шоколадных батончиков'], ['evaquate','Эвакуатор']];
 
-        foreach ($additionalService as $key => $name) {
+        foreach ($additionalService as $key => $service) {
             $dictionary = (new Dictionary\AdditionalService)
-                ->setName($name)
+                ->setShortName($service[0])
+                ->setName($service[1])
             ;
 
             $manager->persist($dictionary);

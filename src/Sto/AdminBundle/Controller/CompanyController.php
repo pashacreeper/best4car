@@ -204,10 +204,11 @@ class CompanyController extends Controller
 
             $em->persist($companyGallery);
             $em->flush();
+
             return $this->redirect($this->generateUrl('company_gallery', ['id'=>$company->getId()]));
         };
+
         return [
-        'max_size'=>false,
         'company' => $company,
         'form' => $form->createView(),
         ];

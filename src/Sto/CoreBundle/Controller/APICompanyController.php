@@ -85,19 +85,21 @@ class APICompanyController extends FOSRestController
         $subComppanyType = ($request->get('sub_company_type')) ? ($request->get('sub_company_type')) : null;
         $auto = ($request->get('marks')) ? ($request->get('marks')) : null;
         $rating = ($request->get('rating')) ? ($request->get('rating')) : null;
-        $filter = [];
-        $filter['24hours'] = ($request->get('24hours')) ? ($request->get('24hours')) : null;
-        $filter['late'] = ($request->get('late')) ? ($request->get('late')) : null;
-        $filter['weekends'] = ($request->get('weekends')) ? ($request->get('weekends')) : null;
-        $filter['evaquate'] = ($request->get('evaquate')) ? ($request->get('evaquate')) : null;
-        $filter['wifi'] = ($request->get('wifi')) ? ($request->get('wifi')) : null;
-        $filter['tv'] = ($request->get('tv')) ? ($request->get('tv')) : null;
-        $filter['coffee'] = ($request->get('coffee')) ? ($request->get('coffee')) : null;
-        $filter['restaurant'] = ($request->get('restaurant')) ? ($request->get('restaurant')) : null;
-        $filter['credit-card'] = ($request->get('credit-card')) ? ($request->get('credit-card')) : null;
-        $filter['deals'] = ($request->get('deals')) ? ($request->get('deals')) : null;
+        $filter = []; $timing = [];
+        $timing['24hours'] = ($request->get('24hours')) ? ($request->get('24hours')) : null;
+        $timing['late'] = ($request->get('late')) ? ($request->get('late')) : null;
+        $timing['weekends'] = ($request->get('weekends')) ? ($request->get('weekends')) : null;
 
-        $companies = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company')->getCompaniesWithFilter($companyType, $subComppanyType, $auto, $rating, $filter);
+        $filter['evaqu'] = ($request->get('evaquate')) ? ($request->get('evaquate')) : null;
+        $filter['wifi'] = ($request->get('wifi')) ? ($request->get('wifi')) : null;
+        $filter['waiti'] = ($request->get('tv')) ? ($request->get('tv')) : null;
+        $filter['coffe'] = ($request->get('coffee')) ? ($request->get('coffee')) : null;
+        $filter['resta'] = ($request->get('restaurant')) ? ($request->get('restaurant')) : null;
+        $filter['credi'] = ($request->get('credit-card')) ? ($request->get('credit-card')) : null;
+
+        $deals = ($request->get('deals')) ? ($request->get('deals')) : null;
+
+        $companies = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company')->getCompaniesWithFilter($companyType, $subComppanyType, $auto, $rating, $filter, $deals, $timing);
 
         foreach ($companies as $key => $value) {
             $companies[$key]['specialization_template'] = $this

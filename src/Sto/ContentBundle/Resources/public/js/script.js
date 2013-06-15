@@ -74,7 +74,11 @@
         self.toggleClass(
             self.parent().attr("toggle-mode")
         );
-        $('[name="'+$(this).attr('toggle-item')+'"]').val( setValue ).change();
+        $('[data-toggle] > .btn').each(function(){
+            var vv = ($(this).hasClass('active'))? 1: 0;
+            $('[name="'+$(this).attr('toggle-item')+'"]').val(vv);
+        });
+        $('[name="'+self.attr('toggle-item')+'"]').val( setValue ).change();
     });
 
 })(jQuery)

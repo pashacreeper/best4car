@@ -136,6 +136,11 @@ class Deal
     private $place;
 
     /**
+     * @ORM\Column(name="gps", type="string", length=255, nullable=true)
+     */
+    private $gps;
+
+    /**
      * @ORM\OneToMany(targetEntity="FeedbackDeal", mappedBy="deal", cascade={"all"})
      */
     private $feedbacks;
@@ -197,6 +202,7 @@ class Deal
         if ($company) {
             $this->setCompany($company);
         }
+        $this->gps = $company->getGps();
     }
 
     /**
@@ -643,5 +649,28 @@ class Deal
     public function getAutoServices()
     {
         return $this->autoServices;
+    }
+
+        /**
+     * Set gps
+     *
+     * @param  string $gps
+     * @return Deal
+     */
+    public function setGps($gps)
+    {
+        $this->gps = $gps;
+
+        return $this;
+    }
+
+    /**
+     * Get gps
+     *
+     * @return string
+     */
+    public function getGps()
+    {
+        return $this->gps;
     }
 }

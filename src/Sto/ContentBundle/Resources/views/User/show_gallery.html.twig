@@ -1,0 +1,33 @@
+{% if gallery and gallery | length > 0 %}
+<div class="row-fluid">
+    <div class="span10">
+        <div id="myCarousel" class="carousel slide">
+            <ol class="carousel-indicators">
+                {% for item in gallery %}
+                    <li data-target="#myCarousel" data-slide-to="{{ item.id }}" {% if loop.first %}class="active">{% endif %}</li>
+                {% endfor %}
+            </ol>
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                {% for item in gallery %}
+                    <div class="{% if loop.first %}active{% endif %} item">
+                        <img src="{{ vich_uploader_asset(item, 'image') }}" alt="{{ item.name }}" style="width: 100%; height: 300px;"  >
+                        <div class="carousel-caption">
+                            <h4>
+                                {{ item.name }}
+                                {% if app.user == item.user %}
+                                    <a href="{{ path('profile_user_gallery_remove', {'id': item.id}) }}" class="pull-right icon-b4c-trash" style="color: #fff;"></a>
+                                {% endif %}
+                            </h4>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        </div>
+    </div>
+</div>
+{% endif %}

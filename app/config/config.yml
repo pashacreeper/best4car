@@ -158,6 +158,12 @@ vich_uploader:
             delete_on_remove: true
             delete_on_update: true
             namer: vich_uploader.namer_uniqid
+        user_gallery:
+            uri_prefix: /%storage_path%/user/gallery
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/user/gallery
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
 
 nelmio_api_doc: ~
 

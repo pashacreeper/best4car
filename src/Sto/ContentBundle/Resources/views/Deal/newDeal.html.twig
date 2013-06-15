@@ -93,18 +93,81 @@
                 <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
             </div>
         </form>
-        {% endblock %}
+        <div id="myModal" class="modal hide fade" style = "width:720px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body ">
+              <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
+          </div>
+          <div class="modal-footer" >
+            <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
+        </div>
+    </div>
+    {% endblock %}
 
-        {% block foot_script %}
-        {{ parent() }}
-        {% javascripts
-        'bundles/stocore/js/select2.js'
-        'bundles/stocore/js/bootstrap-inputmask.js'
-        'bundles/stoadmin/js/script.js'
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-        <script type="text/javascript" >
-        $(".select2").select2({width: "50%"});
-        </script>
-        {% endblock %}
+    {% block foot_script %}
+    {{ parent() }}
+    {% javascripts
+    'bundles/stocore/js/select2.js'
+    'bundles/stocore/js/bootstrap-inputmask.js'
+    'bundles/stoadmin/js/script.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript" >
+    $(".select2").select2({width: "50%"});
+    $('#sto_content_deal_place').after('<br/><a href="#" ;return false; id="deal_location">По месту размещения компании</a>');
+
+    var gCollection;
+    var gps = '{{ company.gps }}';
+    var addres;
+    var names = [];
+    ymaps.ready(init);
+    function init(){
+        mapCompany = new ymaps.Map ("myMap", {
+            center: [gps.split(",")[0], gps.split(",")[1]],
+            zoom: 15,
+            behaviors: ["default", "scrollZoom"]
+        });
+        myGeocode(mapCompany.getCenter(),mapCompany);
+
+        mapCompany.events.add('click', function (e) {
+            var coords = e.get('coordPosition');
+            if (gCollection != null) { mapCompany.geoObjects.remove(gCollection);};
+            myGeocode(coords,mapCompany);
+        });
+
+        function myGeocode(loc,Map){
+            names =[];
+            ymaps.geocode(loc).then(function (res) {
+
+                res.geoObjects.each(function (obj) {
+                    names.push(obj.properties.get('text'));
+
+                });
+                gCollection = new ymaps.Placemark(loc, {
+                    iconContent:names[0],
+                },
+                { preset:'twirl#redStretchyIcon',balloonMaxWidth:'250'}
+                );
+                Map.geoObjects.add(gCollection);
+                gps = loc;
+                addres = names[0]
+            });
+        }
+
+    }
+    $("#save_madal").click(function () {
+        document.getElementById("sto_content_deal_gps").value =gps;
+        document.getElementById("sto_content_deal_place").value =addres;
+
+        $('#myModal').modal('hide');
+    });
+    $("#deal_location").click(function () {
+        document.getElementById("sto_content_deal_place").value ='{{company.address}}';
+        document.getElementById("sto_content_deal_gps").value ='{{deal.company.gps}}';
+    })
+    </script>
+    {% endblock %}

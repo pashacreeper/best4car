@@ -134,7 +134,8 @@ class DealType extends AbstractType
             'required' => false,
             'render_optional_text' => false,
             'attr' => [
-            'class'=> 'input-xxlarge'
+            'class'=> 'input-xxlarge',
+            'onclick'=>"$('#myModal').modal();"
             ]
             ])
         ->add('contactInformation', 'textarea', [
@@ -155,6 +156,7 @@ class DealType extends AbstractType
             'class' => 'select2'
             ]
             ])
+        ->add('gps', 'hidden', [])
         ->add('companyId', 'hidden', [])
         ;
     }

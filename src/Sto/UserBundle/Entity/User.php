@@ -13,6 +13,7 @@ use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\Contacts;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\UserBundle\Entity\UserGallery;
 
 /**
  * @ORM\Entity
@@ -82,9 +83,10 @@ class User extends BaseUser
 
     /**
      * @Assert\Image(
-     *     maxSize="2M",
+     *     maxSize="1M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
+     * @Assert\NotBlank(groups={"user"})
      * @Vich\UploadableField(mapping="user_photo", fileNameProperty="avatarUrl")
      */
     protected $avatar;
@@ -240,6 +242,11 @@ class User extends BaseUser
      */
     private $avatarVk;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserGallery", mappedBy="user", cascade={"all"})
+     */
+    private $gallery;
+
     public function __construct()
     {
         parent::__construct();
@@ -252,6 +259,7 @@ class User extends BaseUser
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
         $this->rating = 0;
         $this->usingEmail = true;
+        $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -873,5 +881,40 @@ class User extends BaseUser
     public function getAvatarVk()
     {
         return $this->avatarVk;
+    }
+
+    /**
+     * Add gallery
+     */
+    public function addGallery(UserGallery $gallery)
+    {
+        $this->gallery[] = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Remove gallery
+     */
+    public function removeGallery(UserGallery $gallery)
+    {
+        $this->gallery->removeElement($gallery);
+    }
+
+    public function setGallery($gallery)
+    {
+        $this->gallery = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

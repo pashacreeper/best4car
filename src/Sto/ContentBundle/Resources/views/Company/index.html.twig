@@ -104,7 +104,7 @@
 
                 $('[data-serarch-form]').change(function () {
                     $.ajax({
-                       type: "POST",
+                       type: "GET",
                        url: Routing.generate('api_auto_get_companies_with_filter'),
                        data: $('#advanced-search-form').serialize(),
                        dataType: 'json'
