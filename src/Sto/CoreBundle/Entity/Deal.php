@@ -201,8 +201,8 @@ class Deal
 
         if ($company) {
             $this->setCompany($company);
+            $this->gps = $company->getGps();
         }
-        $this->gps = $company->getGps();
     }
 
     /**
