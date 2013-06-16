@@ -29,12 +29,6 @@
         <script>function getCompanyId(){ return {{ company.id }}; }</script>
     </div>
     <div class="span4">
-            {#% set manager = false %#}
-            {#% if app.security.isGranted('ROLE_USER') %}
-            {% for item in company.companyManagers if  item.id == app.user.id  %}
-                 {% set manager = true %}
-            {% endfor %}
-            {% endif %#}
         {% if (not isManager) and (not app.security.isGranted('ROLE_FROZEN')) and  (app.security.isGranted('ROLE_USER'))  %}
             <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв <span class="pull-right">{{ company.feedbacks | length }}</span></a>
         {% endif %}

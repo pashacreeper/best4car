@@ -19,8 +19,18 @@
 <div class="row-fluid" data-feedback-block="{{ feedback.id }}">
     <div class="span2">
         <div class="thumbnail">
-            <a href="{{ path('user_profile', {'id': feedback.user.id}) }}"><img src="http://placehold.it/64x64"></a>
-            <p><center>556</center></p>
+            <center>
+            <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
+{% if feedback.user.avatar %}
+            <img data-image="avatar" id="avatar" src="{{ vich_uploader_asset(feedback.user, 'avatar') }}" style="width:64px; height: 64px;" class="img-polaroid"/>
+{% elseif feedback.user.avatarVk %}
+            <img data-image="avatar" id="avatar" src="{{ feedback.user.avatarVk }}" style="width:64px; height: 64px;" class="img-polaroid"/>
+{% else %}
+            <img data-image="avatar" src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="width:64px; height: 64px;" class="img-polaroid"/>
+{% endif %}
+            </a>
+            <p>{{ feedback.user.rating }}</p>
+            </center>
         </div>
     </div>
     <div class="span10" data-answer-block="{{ feedback.id }}">
