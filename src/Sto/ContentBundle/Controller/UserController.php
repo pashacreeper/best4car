@@ -18,7 +18,6 @@ use Sto\ContentBundle\Form\AdditionalUserType;
 use Sto\ContentBundle\Form\PhotoUserType;
 use Sto\UserBundle\Entity\UserGallery,
     Sto\ContentBundle\Form\UserGalleryType;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * User controller.

@@ -51,12 +51,6 @@
             <div class="tab-pane{% if tab == 'feetbacks' %} active{% endif %}" id="feetbacks">
                 {{ include ('StoContentBundle::Company/tabs/feetbacks.html.twig', {'company': company}) }}
             </div>
-            {#% set manager = false %}
-            {% if app.security.isGranted('ROLE_USER') %}
-            {% if isManager %}
-                {% set manager = true %}
-            {% endif %}
-            {% endif %#}
             <div class="tab-pane{% if tab == 'deals' %} active{% endif %}" id="deals">
                 {% if app.security.isGranted('ROLE_ADMIN') or  isManager  %}
                    {% include 'StoContentBundle::Company/tabs/dealsManager.html.twig' %}

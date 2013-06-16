@@ -936,12 +936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "ab580c138577b0d4abae04547a17a01c85cd09f9"
+                "reference": "c406ce0e0414d496e53b5597d880b8c669f91d66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/ab580c138577b0d4abae04547a17a01c85cd09f9",
-                "reference": "ab580c138577b0d4abae04547a17a01c85cd09f9",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/c406ce0e0414d496e53b5597d880b8c669f91d66",
+                "reference": "c406ce0e0414d496e53b5597d880b8c669f91d66",
                 "shasum": ""
             },
             "require": {
@@ -952,7 +952,7 @@
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "*",
-                "swiftmailer/swiftmailer": ">=4.3,<5.0",
+                "swiftmailer/swiftmailer": ">=4.3, <6.0",
                 "symfony/validator": ">=2.1,<3.0",
                 "symfony/yaml": ">=2.1,<3.0",
                 "twig/twig": ">=1.5,<2.0",
@@ -996,7 +996,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-06-10 13:18:52"
+            "time": "2013-06-15 10:31:02"
         },
         {
             "name": "genemu/form-bundle",
@@ -2354,12 +2354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "ca1bc530fec294a891f7ed4ead3d5aa8b41931ed"
+                "reference": "732dedd43fa8df9c40775d857796869d9fc19f82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/ca1bc530fec294a891f7ed4ead3d5aa8b41931ed",
-                "reference": "ca1bc530fec294a891f7ed4ead3d5aa8b41931ed",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/732dedd43fa8df9c40775d857796869d9fc19f82",
+                "reference": "732dedd43fa8df9c40775d857796869d9fc19f82",
                 "shasum": ""
             },
             "require": {
@@ -2407,7 +2407,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-06-10 11:47:49"
+            "time": "2013-06-14 16:34:52"
         },
         {
             "name": "mopa/composer-bridge",
@@ -3243,12 +3243,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "46b0c37899e71911f743b008de5440cd30202b84"
+                "reference": "813e3919be1e985b15db1e591b67a9e4665ba2e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/46b0c37899e71911f743b008de5440cd30202b84",
-                "reference": "46b0c37899e71911f743b008de5440cd30202b84",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/813e3919be1e985b15db1e591b67a9e4665ba2e8",
+                "reference": "813e3919be1e985b15db1e591b67a9e4665ba2e8",
                 "shasum": ""
             },
             "require": {
@@ -3292,7 +3292,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2013-05-26 23:17:36"
+            "time": "2013-06-14 23:41:58"
         }
     ],
     "packages-dev": [

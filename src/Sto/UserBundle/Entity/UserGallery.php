@@ -10,8 +10,6 @@ use Sto\UserBundle\Entity\User;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * CompanyGallery
- *
  * @ORM\Table(name="user_gallery")
  * @ORM\Entity(repositoryClass="Sto\UserBundle\Repository\UserGalleryRepository")
  * @Vich\Uploadable

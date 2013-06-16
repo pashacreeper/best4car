@@ -5,8 +5,6 @@ namespace Sto\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * FeedbackAnswer
- *
  * @ORM\Table(name="rating_group")
  * @ORM\Entity(repositoryClass="Sto\UserBundle\Repository\RatingGroupRepository")
  */
