@@ -16,7 +16,7 @@ class LoadFeedbackAnswerData extends AbstractFixture implements OrderedFixtureIn
                 $feedbackAnswer = (new FeedbackAnswer)
                     ->setAnswer('Спасибо за Ваш отзыв! Будем рады видеть Вас снова!')
                     ->setDate(new \DateTime("now"))
-                    ->setOwner($this->getReference("user[" . rand(1,30) . "]"))
+                    ->setOwner($this->getReference("user[" . rand(1,3) . "]"))
                     ->setFeedback($this->getReference("feedback[" . $i . "]"))
                 ;
 

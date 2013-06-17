@@ -15,7 +15,7 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         $lastNames = ['Смирнов','Иванов','Кузнецов','Попов','Соколов'];
 
         for ($i=1; $i < 31; $i++) {
-            $feedback = (new FeedbackCompany($this->getReference("user[" . rand(1,30) . "]"), $this->getReference("company[" . rand(1,38) . "]")))
+            $feedback = (new FeedbackCompany($this->getReference("user[" . rand(1,3) . "]"), $this->getReference("company[" . rand(1,38) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
                 ->setCar('Mazda 3')
@@ -34,7 +34,7 @@ class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterfac
         }
 
         for ($i=31; $i < 61; $i++) {
-            $feedback = (new FeedbackDeal($this->getReference("user[" . rand(1,30) . "]"), $this->getReference("deal[" . rand(1,40) . "]")))
+            $feedback = (new FeedbackDeal($this->getReference("user[" . rand(1,3) . "]"), $this->getReference("deal[" . rand(1,40) . "]")))
                 ->setContent('Text content.')
                 ->setVisitDate(new \DateTime("now"))
                 ->setCar('Mazda 3')

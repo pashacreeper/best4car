@@ -11,14 +11,14 @@ class LoadCompanyManagerData extends AbstractFixture implements OrderedFixtureIn
 {
     public function load(ObjectManager $manager)
     {
-
-        for ($i=1; $i<39; $i++) {
-            $companyManager = (new CompanyManager)
-                ->setUser($this->getReference('user['.rand(1,10).']'))
-                ->setCompany($this->getReference('company['.$i.']'))
-                ->setPhone('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98))
-            ;
-
+        for ($j = 1; $j <= rand(1,3); $j++) {
+            for ($i = 1; $i < 4; $i++) {
+                    $companyManager = (new CompanyManager)
+                    ->setUser($this->getReference('manager[' . $j . ']'))
+                    ->setCompany($this->getReference('company[' . rand(1, 38) . ']'))
+                    ->setPhone('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98))
+                ;
+            }
             $manager->persist($companyManager);
         }
 

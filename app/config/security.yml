@@ -6,7 +6,7 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
-            # vk login username_email
+            #vk login username_email
             #id: fos_user.user_manager
 
     encoders:
@@ -41,6 +41,7 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
     #role_hierarchy:

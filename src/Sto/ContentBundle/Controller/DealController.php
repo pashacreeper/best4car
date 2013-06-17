@@ -437,7 +437,7 @@ class DealController extends Controller
      */
     public function addFeedbackAction(Deal $deal)
     {
-        $form = $this->createForm(new FeedbackDealType, new FeedbackDeal($deal));
+        $form = $this->createForm(new FeedbackDealType, new FeedbackDeal($this->getUser(), $deal));
 
         return [
             'form' => $form->createView(),

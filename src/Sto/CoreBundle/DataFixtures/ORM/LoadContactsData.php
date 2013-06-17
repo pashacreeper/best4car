@@ -16,7 +16,7 @@ class LoadContactsData extends AbstractFixture implements OrderedFixtureInterfac
         for ($i=0; $i<10; $i++) {
             $contact = (new Contacts)
                 ->setValue($contacts[rand(0,1)])
-                ->setUser($this->getReference('user['.rand(1,3).']'))
+                ->setUser($this->getReference('manager['.rand(1,3).']'))
                 ->setType($this->getReference('contact_types['.rand(0,2).']'))
             ;
 

@@ -94,7 +94,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-        $company->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
         $company->setLinkVK('http://vk.com/');
         $company->setLinkFB('http://facebook.com/');
         $company->setLinkTW('http://twitter.com/');
@@ -179,12 +178,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
         $company->setCity($this->getReference('city[spb]'));
-        //for($i = 0; $i <= 2; $i++)
-            //$company->addManager($this->getReference("user[".rand(1,$i*15)."]"));
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-        $company->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
         $company->setLinkVK('http://vk.com/');
         $company->setLinkFB('http://facebook.com/');
         $company->setLinkTW('http://twitter.com/');
@@ -282,7 +278,6 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
             $company->setLinkVK('http://vk.com/');
             $company->setLinkFB('http://facebook.com/');
             $company->setLinkTW('http://twitter.com/');

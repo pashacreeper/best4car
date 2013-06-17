@@ -26,15 +26,13 @@ class LoadGroupsData extends AbstractFixture implements FixtureInterface, Contai
             'Администраторы'    => ['ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_EDITOR', 'ROLE_MANAGER']
         ];
 
-        $i = 0;
         foreach ($groups as $name => $roles) {
             $group = new Group($name);
             foreach ($roles as $role) {
                 $group->addRole($role);
             }
             $manager->persist($group);
-            $this->addReference("groups[{$i}]", $group);
-            $i++;
+            $this->addReference("groups[{$name}]", $group);
         }
         $manager->flush();
     }

@@ -18,44 +18,32 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     {
         $firstNames = ['John', 'Mark', 'Lenny', 'Robert', 'Denial'];
         $lastNames = ['McCormack', 'Clapton', 'Plant', 'Woodman', 'Brown', 'Young'];
-        $roles = ['user', 'admin', 'manager'];
+        $roles = ['Администраторы' => 'admin', 'Менеджеры' => 'manager', 'Модераторы' => 'moderator', 'Пользователи' => 'user', 'Замороженные' => 'frozen', 'Заблокированные' => 'banned'];
         $cities = ['Москва','Челябинск','Красноярск','Владивосток'];
 
-        for ($j=1; $j < 31; $j++) {
-            shuffle($firstNames);
-            shuffle($lastNames);
-            $role = $j == 1 ? $roles[1] : $roles[rand(0,2)];
-            $rating = rand(10, 600);
-            if ($rating<100)
-                $rating_group_id = 0;
-            elseif ($rating>499)
-                $rating_group_id = 2;
-            else
-                $rating_group_id = 1;
-
-            $user = new User;
-            $user->setUsername(($j == 1 ? $role :  $role . $j ));
-            $user->setEmail(($j == 1 ? $role :  $role . $j ) . "@sto.com");
-            $user->setFirstName($firstNames[rand(0,4)]);
-            $user->setLastName($lastNames[rand(0,5)]);
-            $user->setPhoneNumber('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98));
-            $user->setRating( $rating );
-            $user->setLinkGarage( '#' );
-            $user->setRatingGroup($this->getReference("rating_groups[".$rating_group_id."]"));
-            if ($j == 1) {
-                  $user->setGroups([$this->getReference("groups[6]")]);
-            } elseif (($j % 3) == 0)
-             $user->setGroups([$this->getReference("groups[3]")]);
-            else $user->setGroups([$this->getReference("groups[".rand(0,5)."]")]);
-            $user->setCity($this->getReference('city[spb]'));
-            $encoder = $this->container
-                ->get('security.encoder_factory')
-                ->getEncoder($user)
-            ;
-            $user->setPassword($encoder->encodePassword($role, $user->getSalt()));
-
-            $manager->persist($user);
-            $this->addReference("user[{$j}]", $user);
+        foreach ($roles as $group => $role) {
+            for ($i=1; $i < 4; $i++) {
+                $user = new User;
+                $user->setUsername(($i == 1) ? $role : $role . $i)
+                    ->setEmail((($i == 1) ? $role : $role . $i) . "@sto.com")
+                    ->setFirstName($firstNames[rand(0,4)])
+                    ->setLastName($lastNames[rand(0,5)])
+                    ->setPhoneNumber('+7 (' . rand(123, 987) .') ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98))
+                    ->setLinkGarage('#')
+                    ->setCity($this->getReference('city[spb]'))
+                    ->setRating(rand(10, 700))
+                ;
+                $encoder = $this->container
+                    ->get('security.encoder_factory')
+                    ->getEncoder($user)
+                ;
+                $user->setPassword($encoder->encodePassword($role, $user->getSalt()))
+                    ->setRatingGroup($this->getReference("rating_groups[" . $this->getRatinGroup($user->getRating()) . "]"))
+                    ->setGroups([$this->getReference("groups[{$group}]")])
+                ;
+                $manager->persist($user);
+                $this->addReference("{$role}[{$i}]", $user);
+            }
         }
 
         $manager->flush();
@@ -69,5 +57,18 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     public function getOrder()
     {
         return 23;
+    }
+
+    public function getRatinGroup($rating)
+    {
+        if ($rating < 100) {
+            return 0;
+        }
+
+        if ($rating > 499) {
+            return 2;
+        }
+
+        return 1;
     }
 }
