@@ -104,19 +104,19 @@
             <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}
 
-    {% block foot_script %}
-    {{ parent() }}
-    {% javascripts
-    'bundles/stocore/js/select2.js'
-    'bundles/stocore/js/bootstrap-inputmask.js'
-    'bundles/stoadmin/js/script.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-    <script type="text/javascript" >
+{% block foot_script %}
+{{ parent() }}
+{% javascripts
+'bundles/stocore/js/select2.js'
+'bundles/stocore/js/bootstrap-inputmask.js'
+'bundles/stoadmin/js/script.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+<script type="text/javascript" >
     $(".select2").select2({width: "50%"});
     $('#sto_content_deal_place').after('<br/><a href="#" ;return false; id="deal_location">По месту размещения компании</a>');
 
@@ -167,7 +167,7 @@
     });
     $("#deal_location").click(function () {
         document.getElementById("sto_content_deal_place").value ='{{company.address}}';
-        document.getElementById("sto_content_deal_gps").value ='{{deal.company.gps}}';
+        document.getElementById("sto_content_deal_gps").value ='{{company.gps}}';
     })
-    </script>
-    {% endblock %}
+</script>
+{% endblock %}

@@ -49,10 +49,17 @@ class DealType extends AbstractType
             'label' => 'Автомабили',
             'required' => false,
             'render_optional_text' => false,
+            'multiple' => true,
+            'class' => 'StoCoreBundle:Catalog\Base',
+            'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('catalog')
+                    ->where('catalog.parent is null')
+                ;
+            },
             'attr' => [
-            'class' => 'select2'
+                'class' => 'select2'
             ]
-            ])
+        ])
         ->add('image', 'file', [
             'label' => 'Image',
             'data_class' => 'Symfony\Component\HttpFoundation\File\File',
@@ -165,7 +172,7 @@ class DealType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'Sto\CoreBundle\Entity\Deal'
-            ]);
+        ]);
     }
 
     public function getName()
