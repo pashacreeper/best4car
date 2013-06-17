@@ -36,17 +36,15 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
             $feedbacks = $company->getFeedbacks();
             if ($feedbacks->count()) {
                 $numerator = 0.0;
-                $denominator  = 0.0;
+                $denominator = 0.0;
                 foreach ($feedbacks as $feedback) {
                     $user = $feedback->getUser();
                     $ratingGroup = $user->getRatingGroup();
-                    $category = ($ratingGroup->getId()<=3) ? $ratingGroup->getId() - 1 : 2;
                     $categoryMultiplier = $ratingGroup->getMultiplier();
                     if(($feedbackCompany = $em->getRepository('StoCoreBundle:FeedbackCompany')->findOneBy(['user'=>$user->getId(), 'company'=>$company->getId()]))===null)
                         $usersRatingToCompany = 1;
                     else
-                        $usersRatingToCompany = $feedbackCompany->getCompanyRating();
-
+                        $usersRatingToCompany = $feedbackCompany->getFeedbackRating();
                     $trustMultiplier = ($feedback->getPluses()+$feedback->getMinuses() <> 0) ? $feedback->getPluses()/($feedback->getPluses()+$feedback->getMinuses()) : 1;
 
                     $numerator += $usersRatingToCompany * $categoryMultiplier * $trustMultiplier;

@@ -58,18 +58,24 @@
             {% endif %}
             <div class="row-fluid">
                 <div class="span4">
-                    <input class="star" type="radio" value="1" disabled="disabled" {% if feedback.feedbackRating == 1 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="2" disabled="disabled" {% if feedback.feedbackRating == 2 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="3" disabled="disabled" {% if feedback.feedbackRating == 3 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="4" disabled="disabled" {% if feedback.feedbackRating == 4 %} checked="checked" {% endif %}/>
-                    <input class="star" type="radio" value="5" disabled="disabled" {% if feedback.feedbackRating == 5 %} checked="checked" {% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==1 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==2 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==3 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==4 %} checked="checked"{% endif %}/>
+                    <input name="star{{feedback.id}}" disabled="disabled" type="radio" class="star"{% if feedback.feedbackRating==5 %} checked="checked"{% endif %}/>
                 </div>
                 <div class="span4">
                 </div>
                 <div class="span4">
                     <p class="pull-right">
-                        <a href="#" data-like="link" data-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-up"></i></a> <span data-like="count">{{ feedback.pluses }}</span>
-                        <a href="#" data-dislike="link" data-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-down"></i></a> <span data-dislike="count">{{ feedback.minuses }}</span>
+                        {% if app.security.isGranted('ROLE_USER') %}
+                        <a href="#" data-like="deal" data-like-feedback="{{feedback.id}}" ><i class="icon-b4c-thumbs-up"></i></a> <span data-like="count">{{ feedback.pluses }}</span>
+                        <a href="#" data-dislike="deal" data-dislike-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-down"></i></a> <span data-dislike="count">{{ feedback.minuses }}</span>
+                        {% else %}
+                        <i class="icon-b4c-thumbs-up"></i> <span data-like="deal" data-like-feedback="count">{{ feedback.pluses }}</span>
+                        <i class="icon-b4c-thumbs-down"></i> <span data-dislike="deal" data-dislike-feedback="count">{{ feedback.minuses }}</span>
+                        {% endif %}
+
                     </p>
                 </div>
             </div>

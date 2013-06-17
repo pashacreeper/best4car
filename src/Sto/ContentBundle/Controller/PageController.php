@@ -3,6 +3,7 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -10,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("/info")
  */
 
-class PageController extends Controller
+class PageController extends MainController
 {
     /**
      * @Route("/useRules", name="info_rules_2_use")

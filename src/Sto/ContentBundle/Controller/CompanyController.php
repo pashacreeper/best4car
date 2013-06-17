@@ -3,6 +3,7 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,7 +17,7 @@ use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 
-class CompanyController extends Controller
+class CompanyController extends MainController
 {
        /**
      * @Route("/specialization", name="company_specialization")

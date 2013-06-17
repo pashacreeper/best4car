@@ -34,15 +34,26 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 
     public function createRightSideDropdownMenu(Request $request, Translator $translator)
     {
+        $session = $request->getSession();
+
         $menu = $this->factory->createItem('root');
         $context = $this->securityContext;
         $menu->setChildrenAttribute('class', 'nav pull-right');
 
-        $menu->addChild('Ваш город', [
-            'uri' => '#',
-            'extras' => [],
-            'attributes' => ['id' => 'choice-city'],
-        ]);
+        if ($session->get('cityName')) {
+            $cityName = $session->get('cityName');
+            $menu->addChild($cityName, [
+                'uri' => '#',
+                'extras' => [],
+                'attributes' => ['id' => 'choice-city'],
+            ]);
+        } else {
+            $menu->addChild('Ваш город', [
+                'uri' => '#',
+                'extras' => [],
+                'attributes' => ['id' => 'choice-city'],
+            ]);
+        }
 
         $user = $context->getToken()->getUser();
 

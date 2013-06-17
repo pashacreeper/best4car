@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +25,7 @@ use Sto\UserBundle\Entity\UserGallery,
  *
  * @Route("/user")
  */
-class UserController extends Controller
+class UserController extends MainController
 {
     /**
      * User Profile

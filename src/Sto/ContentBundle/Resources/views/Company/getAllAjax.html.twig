@@ -7,7 +7,7 @@
         </div>
         <div class="span7">
             <a class="company-name" href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
-            <p>{{item.address}}<br />{{item.phones[0].phone}}</p>
+            <p>{{item.address}}<br />{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
             <p>
 {% for key, specialization in item.specialization %}
 {% if key %}
@@ -33,7 +33,7 @@
         </div>
         <div class="span9">
             <a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
-            <p>{{item.address}}<br />{{item.phones[0].phone}}</p>
+            <p>{{item.address}}<br />{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
             {% if item.deals|length %}
                 <div class="badge badge-important">Есть спецпредложения!</div>
             {% endif %}

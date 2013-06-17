@@ -24,7 +24,7 @@ class CityManager
         $serializer = $this->container->get('jms_serializer');
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        if ($session->get('city')) {
+        if ($session->has('city')) {
             $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Dictionary\Country','json');
         } else {
             $city = ($user instanceof User)? $user->getCity() : $this->em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById(102);

@@ -6,11 +6,7 @@
 {% block head_style %}
     {{ parent() }}
     <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
-    <style type="text/css">
-        .hide {
-            display: none;
-        }
-    </style>
+    <style type="text/css">.hide { display: none; }</style>
 {% endblock %}
 
 {% block head_script %}
@@ -20,24 +16,41 @@
 
 {% block content %}
 <div class="row-fluid">
-    <div class="span8"><h3>{{ deal.name }}</h3>{{ deal.company.name }}</div>
-    <div class="span4">
-        Рейтинг компании<br />
-        {{ deal.company.rating }}
+    <div class="span10">
+        <div class="row-fluid">
+            <h2 style="margin-bottom: 0px;">{{ deal.name }}</h2>
+        </div>
+        <div class="row-fluid">
+            {{ deal.company.name }}
+        </div>
+    </div>
+    <div class="span2">
+        <div class="row-fluid">
+            Рейтинг компании:
+        </div>
+        <div class="row-fluid">
+            <h2><i class="icon-b4c-star"></i> {{ deal.company.rating }}</h2>
+        </div>
     </div>
 </div>
-{# Tabs menu #}
-<ul class="nav nav-tabs" id="FeedbackTabs">
-    <li class="active"><a href="#info">Информация</a></li>
-    <li><a href="#feedbacks">Отзывы <span>{{ deal.feedbacks | length }}</span></a></li>
-</ul>
-{# /tabs menu #}
+
+<div class="row-fluid">
+    <ul class="nav nav-tabs" id="FeedbackTabs">
+        <li class="active">
+            <a href="#info"><i class="icon-b4c-info"></i> Информация</a>
+        </li>
+        <li>
+            <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ deal.feedbacks|length }}</span></a>
+        </li>
+    </ul>
+</div>
+
 <div class="tab-content">
     <div class="tab-pane active" id="info">
-{% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
+        {% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
     </div>
     <div class="tab-pane" id="feedbacks">
-{% include 'StoContentBundle::Deal/tabs/feetbacks.html.twig' %}
+        {% include 'StoContentBundle::Deal/tabs/feetbacks.html.twig' %}
     </div>
 </div>
 {% endblock %}
@@ -48,8 +61,6 @@
 <script src="{{ asset('bundles/stocontent/js/like.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/stocontent/js/feedbacks.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
-    //$('#complainFeedbackAction').modal('toggle');
-
     $('#FeedbackTabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
@@ -70,7 +81,7 @@
         myMap.geoObjects.add(myGeoObject);
     }
 
-    $('[data-page]').live('click', function(){
+    $('[data-page]').live('click', function () {
         var page = parseInt($(this).attr('rel'))+1;
         var path = $(this).attr('href');
         $(this).parent('div.span12').parent('div.row-fluid').remove();
@@ -87,43 +98,38 @@
         return false;
     });
 
-
-    // Нажатие на кнопку добавления ответа на отзыв
-    $('a[data-feedback-put]').click(function(){
+    $('a[data-feedback-put]').click(function () {
         var feed_id = $(this).data('feedback-put');
         $('div[data-answerform='+feed_id+']').toggle();
         $(this).css('display', 'none');
+
         return false;
     });
 
-    // отмена добавления ответа
-    $('a[data-abort-answer]').click(function(){
+    $('a[data-abort-answer]').click(function () {
         var feed_id = $(this).data('abort-answer');
         $('div[data-answerform='+feed_id+']').toggle();
         $('a[data-feedback-put='+feed_id+']').css('display', 'block');
+
         return false;
     });
 
-
-    // сохранение нового ответа на отзыв
-    $('input[data-submit-form]').click(function(){
+    $('input[data-submit-form]').click(function () {
         var feed_id = $(this).data('submit-form');
         var answer = $('form[name="form'+feed_id+'"] textarea[name=answer]').val();
         $.getJSON("{{ path('api_add_answer') }}",{'feedback_id': feed_id, 'answer':answer})
-        .done(function(data){
+        .done(function (data) {
             $('div[data-answer-block="'+feed_id+'"]').append(data.content);
             $('div[data-answerform='+feed_id+']').toggle();
         })
-        .fail(function(e){
+        .fail(function (e) {
             console.log(e.message);
         })
 
         return false;
     });
 
-
-    // Вывод формы редактирования
-    $('a[data-feedback-edit]').live('click', function(){
+    $('a[data-feedback-edit]').live('click', function () {
         var feed_id = $(this).data('feedback-edit');
         var answer_id = $(this).data('answer-id');
         $(this).css('display', 'none');
@@ -135,29 +141,26 @@
         return false;
     });
 
-
-    // Сохранение отредактированного отзыва
-    $('input[data-submit-edit-form]').live('click', function(){
+    $('input[data-submit-edit-form]').live('click', function () {
         var feed_id = $(this).data('submit-edit-form');
         var answer_id = $(this).data('answer-id');
         var answer = $('#zorro').val();
         $.getJSON("{{ path('api_edit_answer') }}",{'feedback_id': feed_id, 'answer':answer, 'answer_id': answer_id})
-        .done(function(data){
+        .done(function (data) {
             $('.block'+feed_id).remove();
             var answer_p = $('a[data-answer-id="'+answer_id+'"]').parent().find('p');
             $(answer_p).html(answer);
             $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'block');
             $('a[data-feedback-edit="'+feed_id+'"]').css('display', 'block');
         })
-        .fail(function(e){
+        .fail(function (e) {
             console.log(e.message);
         })
 
         return false;
     });
 
-
-    function generateAnswerFrom(feed_id, answer_id, answer){
+    function generateAnswerFrom (feed_id, answer_id, answer) {
         var content = '\
             <blockquote class="well block'+feed_id+'">\
                 <form method="POST">\
@@ -172,6 +175,7 @@
                     </div>\
                 </form>\
             </blockquote>';
+
         return content;
     };
 </script>

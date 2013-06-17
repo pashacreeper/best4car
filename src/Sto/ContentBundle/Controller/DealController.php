@@ -3,6 +3,7 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,7 +17,7 @@ use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
 use Sto\ContentBundle\Form\DealType;
 
-class DealController extends Controller
+class DealController extends MainController
 {
     /**
      * Archive a Deal entity.

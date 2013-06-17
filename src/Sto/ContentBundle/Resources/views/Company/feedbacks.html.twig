@@ -69,8 +69,13 @@
                 </div>
                 <div class="span4">
                     <p class="pull-right">
-                        <a href="#" data-like="link" data-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-up"></i></a> <span data-like="count">{{ feedback.pluses }}</span>
-                        <a href="#" data-dislike="link" data-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-down"></i></a> <span data-dislike="count">{{ feedback.minuses }}</span>
+                        {% if app.security.isGranted('ROLE_USER') %}
+                        <a href="#" data-like="company" data-like-feedback="{{feedback.id}}" ><i class="icon-b4c-thumbs-up"></i></a> <span data-like="count">{{ feedback.pluses }}</span>
+                        <a href="#" data-dislike="company" data-dislike-feedback="{{feedback.id}}"><i class="icon-b4c-thumbs-down"></i></a> <span data-dislike="count">{{ feedback.minuses }}</span>
+                        {% else %}
+                        <i class="icon-b4c-thumbs-up"></i> <span data-like="company" data-like-feedback="count">{{ feedback.pluses }}</span>
+                        <i class="icon-b4c-thumbs-down"></i> <span data-dislike="company" data-dislike-feedback="count">{{ feedback.minuses }}</span>
+                        {% endif %}
                     </p>
                 </div>
             </div>

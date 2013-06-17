@@ -1,19 +1,33 @@
 <div class="row-fluid">
     <div class="span8" data-content="feedbacks">
         <div class="span12">
-            Сортировать:
-            <a href="#">по дате</a>
-            <a href="#">по рейтингу</a>
-            <div class="pull-right">
-                Показывать:
-                <a href="#">все</a>
-                <a href="#">положительные</a>
-                <a href="#">отрицательные</a>
-                <a href="#">полезные</a>
+            <div class="span4">
+                <ul class="nav nav-tabs">
+                    <li><small>Сортировать по:</small></li>
+                    <li class="active">
+                        <a href="#" data-tabs="sort-date">дате</a>
+                    </li>
+                    <li><a href="#" data-tabs="sort-rating">рейтингу</a></li>
+                </ul>
+            </div>
+            <div class="span8">
+                <ul class="nav nav-tabs">
+                    <li><small>Показывать:</small></li>
+                    <li class="active">
+                        <a href="#" data-tabs="filter-all">все</a>
+                    </li>
+                    <li><a href="#" data-tabs="filter-positive">положительные</a></li>
+                    <li><a href="#" data-tabs="filter-negative">отрицательные</a></li>
+                    <li><a href="#" data-tabs="filter-useful">полезные</a></li>
+                </ul>
             </div>
             <hr />
         </div>
-        {{ render(controller('StoContentBundle:Deal:feedbacks', {'id':deal.id})) }}
+        <div data-x-container="feedbacks">
+            {{ render(controller('StoContentBundle:Deal:feedbacks', {'id':deal.id})) }}
+        </div>
+        <script>function getEntityId(){ return {{ deal.id }}; }</script>
+                    <input type="hidden" data-type="deal">
     </div>
     <div class="span4">
         <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>

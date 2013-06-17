@@ -209,7 +209,7 @@ class APIFeedbackController extends FOSRestController
         $serializer = $this->container->get('jms_serializer');
 
         if ($request->get('sort-tab')) {
-            $sort_tab = $request->get('sort-t   ab');
+            $sort_tab = $request->get('sort-tab');
         } else {
             return new Response('Not found sort tabs',404);
         }
@@ -219,18 +219,34 @@ class APIFeedbackController extends FOSRestController
             return new Response('Not found filter tabs',404);
         }
 
-        if ($request->get('company-id')) {
-            $company_id = $request->get('company-id');
+        if ($request->get('entity-id')) {
+            $entity_id = $request->get('entity-id');
         } else {
-            return new Response('Not found company id',404);
+            return new Response('Not found entity (company or deal) id',404);
+        }
+
+        if ($request->get('entity-type')) {
+            $entity_type = $request->get('entity-type');
+        } else {
+            return new Response('Not found entity type (company or deal)',404);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
-            ->createQueryBuilder('fc')
-            ->where('fc.companyId = :company')
-            ->setParameter('company', $company_id)
-        ;
+        if ($entity_type=='company') {
+            $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
+                ->createQueryBuilder('fc')
+                ->where('fc.companyId = :company')
+                ->setParameter('company', $entity_id)
+            ;
+        } elseif ($entity_type=='deal') {
+            $qb = $em->getRepository('StoCoreBundle:FeedbackDeal')
+                ->createQueryBuilder('fc')
+                ->where('fc.dealId = :deal')
+                ->setParameter('deal', $entity_id)
+            ;
+        } else {
+            return new Response('Entity type is not valid (company or deal)',404);
+        }
 
         switch ($filter_tab) {
         case("filter-positive"):
@@ -244,11 +260,12 @@ class APIFeedbackController extends FOSRestController
             break;
         }
 
-        if ($sort_tab != "sort-rating")
-            $qb->orderBy("fc.feedbackRating");
+        if ($sort_tab == "sort-rating")
+            $qb->orderBy("fc.feedbackRating","DESC");
         else
             $qb->orderBy("fc.date");
         $query = $qb->getQuery();
+        // print_r([$query->getSQL(), $query->getParameters()]);
 
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
@@ -256,17 +273,19 @@ class APIFeedbackController extends FOSRestController
             3
         );
 
-        if ($this->getUser()) {
-            $manager = $em->getRepository('StoUserBundle:User')
-                ->createQueryBuilder('user')
-                ->select('user')
-                ->join('user.companies', 'company')
-                ->where('user.id = :user_id AND company.id = :company')
-                ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $company_id)
-                ->getQuery()
-                ->getResult()
-            ;
+        if ($entity_type=='company') {
+            if ($this->getUser()) {
+                $manager = $em->getRepository('Sto\CoreBundle\Entity\CompanyManager')
+                    ->createQueryBuilder('m')
+                    ->select('m')
+                    ->join('m.company', 'company')
+                    ->where('m.id = :user_id AND company.id = :company')
+                    ->setParameter('user_id', $this->getUser()->getId())
+                    ->setParameter('company', $company_id)
+                    ->getQuery()
+                    ->getResult()
+                ;
+            }
         }
 
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
@@ -274,15 +293,27 @@ class APIFeedbackController extends FOSRestController
         $date = new \DateTime();
         $date->modify('-15 hours');
 
-        $content = $this->renderView(
-            'StoContentBundle:Company:feedbacks.html.twig',
-            [
-            'feedbacks' => $feedbacks,
-            'companyId' => $company_id,
-            'isManager' => $isManager,
-            'date' => $date
-            ])
-        ;
+        if ($entity_type=='company') {
+            $content = $this->renderView(
+                'StoContentBundle:Company:feedbacks.html.twig',
+                [
+                'feedbacks' => $feedbacks,
+                'companyId' => $entity_id,
+                'isManager' => $isManager,
+                'date' => $date
+                ])
+            ;
+        } else {
+            $content = $this->renderView(
+                'StoContentBundle:Deal:feedbacks.html.twig',
+                [
+                'feedbacks' => $feedbacks,
+                'dealId' => $entity_id,
+                'isManager' => $isManager,
+                'date' => $date
+                ])
+            ;
+        }
 
         return new Response($content, 200);
     }

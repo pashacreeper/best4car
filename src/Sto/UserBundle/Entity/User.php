@@ -257,7 +257,7 @@ class User extends BaseUser
         $this->enabled = true;
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->rating = 0;
+        $this->rating = 10;
         $this->usingEmail = true;
         $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
     }

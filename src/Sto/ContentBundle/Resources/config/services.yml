@@ -43,3 +43,8 @@ services:
     sto_content.manager.city:
         class: Sto\ContentBundle\Manager\CityManager
         arguments: [@doctrine.orm.entity_manager, @service_container]
+
+    sto_content.city.choice_listener:
+        class: Sto\ContentBundle\EventListener\ChoiceCityListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

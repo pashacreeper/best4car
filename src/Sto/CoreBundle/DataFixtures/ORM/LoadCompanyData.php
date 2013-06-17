@@ -187,7 +187,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($company);
         $this->addReference("company[2]", $company);
 
-        for ($i=3; $i < 39 ; $i++) {
+        for ($i=3; $i < 20 ; $i++) {
             $rating = rand(10, 600);
             if ($rating<100)
                 $rating_group_id = 0;
@@ -262,9 +262,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 ]
             ]);
             $company->setSkype('altauto');
+            $company->setGps( 59 . '.' . rand(85,98) . ', ' . 30 . '.' . rand(20,53) );
             $company->setEmail('info@altauto.ru');
             $company->setAddress('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setGps( 59 . '.' . rand(85,98) . ', ' . 30 . '.' . rand(20,53) );
             $company->setCreatetDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
             $company->setPhotos('Photos');
             $company->setSocialNetworks('Facebook, Vk, Google+');
@@ -275,6 +275,104 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setHourPrice(rand(500,4500));
             $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
             $company->setCity($this->getReference('city[spb]'));
+            $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setVisible(rand(0, 1));
+            $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setLinkVK('http://vk.com/');
+            $company->setLinkFB('http://facebook.com/');
+            $company->setLinkTW('http://twitter.com/');
+            $manager->persist($company);
+            $this->addReference("company[{$i}]", $company);
+        }
+
+        for ($i=20; $i < 39 ; $i++) {
+            $rating = rand(10, 600);
+            if ($rating<100)
+                $rating_group_id = 0;
+            elseif ($rating>499)
+                $rating_group_id = 2;
+            else
+                $rating_group_id = 1;
+
+            $company = new Company;
+            $company->setName('Test company - ' . $i);
+            $company->setSlogan('Slogan - ' . $i);
+            $company->setFullName('Full name test company - ' . $i);
+            $company->setWeb('http://www.test' . $i .'.ru');
+            for ($k=rand(1,3); $k < rand(4,5); $k++) {
+                $company->addSpecialization($this->getReference("companiesTypesParent[{$k}]"));
+            }
+            for ($k=1; $k < rand(3,5); $k++) {
+                $company->addServices($this->getReference("companiesTypesChildren[{$k}]"));
+            }
+            for ($k=0; $k < rand(3,14); $k++) {
+                $company->addAdditionalServices($this->getReference("additionalService[{$k}]"));
+            }
+
+            chdir(__DIR__ . '/../../../../../');
+            $from = "app/Resources/fixtures/company/".rand(1,42).".png";
+            $to = "web/storage/images/company_logo/". $i .".png";
+
+            if (!file_exists($from))
+                $from = "app/Resources/fixtures/company/2.png";
+
+            if (!is_dir(dirname($to))) {
+                mkdir(dirname($to), 0755, true);
+            }
+
+            if (!file_exists($to)) {
+                copy($from, $to);
+            }
+
+            $company->setLogoName($i . '.png');
+            $company->setWorkingTime([
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'days' => [
+                        'string' => 'Пн-Пт',
+                        'array' => [
+                            $this->getReference('week_day[0]')->getId(),
+                            $this->getReference('week_day[4]')->getId(),
+                        ]
+                    ],
+                ],
+                [
+                    'from' => new \DateTime(rand(8,12).':00:00'),
+                    'till' => new \DateTime(rand(15,20).':00:00'),
+                    'days' => [
+                        'string' => 'Сб-Вс',
+                        'array' => [
+                            $this->getReference('week_day[5]')->getId(),
+                            $this->getReference('week_day[6]')->getId(),
+                        ]
+                    ],
+                ]
+            ]);
+            $company->setPhones([
+                [
+                    'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ],
+                [
+                    'phone' => '+7 (812) ' . rand(123, 987) . '-' . rand(12, 98). '-' . rand(12, 98),
+                    'description' => $phone_type[rand(0,1)],
+                ]
+            ]);
+            $company->setSkype('altauto');
+            $company->setGps( 55 . '.' . rand(57,89) . ', ' . 37 . '.' . rand(36,84) );
+            $company->setEmail('info@altauto.ru');
+            $company->setAddress('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setCreatetDate(new \DateTime(rand(1, 28) . '-' . rand(1, 12) . '-' . rand(2011, 2020)));
+            $company->setPhotos('Photos');
+            $company->setSocialNetworks('Facebook, Vk, Google+');
+            $company->setRating(rand(30,99)/10);
+            $company->setReviews('1,2,3,4,5');
+            $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setHourPrice(rand(500,4500));
+            $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
+            $company->setCity($this->getReference('city[msk]'));
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
