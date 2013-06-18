@@ -5,6 +5,8 @@
             <div class="span7">
                 <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
                 <a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>
+                 <a href="#" id = "delete-feedback" data-type ="answer-id" data-delete-item="{{feedback.feedbackAnswer.id}}" class="icon-b4c-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                    <br/>
             </div>
             <div class="span5">
                 <div class="row-fluid">

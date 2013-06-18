@@ -6,9 +6,9 @@ $('a[data-action="complain"]').click(function(){
         if (data.complain == true){
             var block = ''+
             '<div class="row-fluid">'+
-                '<div class="span12">'+
-                        '<span class="icon-b4c-attention"></span>'+
-                '</div>'+
+            '<div class="span12">'+
+            '<span class="icon-b4c-attention"></span>'+
+            '</div>'+
             '</div>';
             $('div[data-answer-block="'+data.id+'"]').prepend(block);
             $('a[data-action="complain"][data-feedback-id="'+data.id+'"]').remove();
@@ -37,48 +37,54 @@ $('a[data-action="admin_complain"]').click(function(){
 });
 
 $('a[data-modal-action]').click(function(){
-     var action = $(this).data('modal-action');
-    var type = $(this).parents().data('type');
-    var data_id ;
+   var action = $(this).data('modal-action');
+   var type = $(this).parents().data('type');
+   var data_id ;
 
-    if (type == 'answer') {data_id = 'answer-id'} else {data_id = 'feedback-id'}
-        switch (action) {
-            case ('hide'):
-            setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
-            break;
-            case ('edit'):
-            if ($(this).data('type')=="company"){
-                var path = Routing.generate('content_company_feedbacks_edit', { id: $(this).data('feedback-id') });
-            }
-            else if ($(this).data('type')=="deal"){
-                var path = Routing.generate('content_deal_feedbacks_edit', { id: $(this).data('deal-id'),feedbackId: $(this).data('feedback-id') });
-            }
-            window.location.replace(path);
-            break;
-            case ('delete'):
-            deleteFeedback(data_id,$(this).data(data_id));
-            break;
-            case ('no_complain'):
-            setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
-            $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
-            break;
+   if (type == 'answer') {data_id = 'answer-id'} else {data_id = 'feedback-id'}
+    switch (action) {
+        case ('hide'):
+        setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
+        break;
+        case ('edit'):
+        if ($(this).data('type')=="company"){
+            var path = Routing.generate('content_company_feedbacks_edit', { id: $(this).data('feedback-id') });
         }
-        $('#complainFeedbackAction').modal('hide');
+        else if ($(this).data('type')=="deal"){
+            var path = Routing.generate('content_deal_feedbacks_edit', { id: $(this).data('deal-id'),feedbackId: $(this).data('feedback-id') });
+        }
+        window.location.replace(path);
+        break;
+        case ('delete'):
+        deleteFeedback(data_id,$(this).data(data_id));
+        break;
+        case ('no_complain'):
+        setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
+        $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
+        break;
+    }
+    $('#complainFeedbackAction').modal('hide');
 
-        return false;
+    return false;
 });
 
 function setFeedbackParameter(type,id, field, value){
 
-        $.getJSON(Routing.generate('api_feedback_set_parameter'), {'type':type,'id': id, 'field':field, 'value':value})
-        .done(function (data) {
-            console.log(data);
-        })
-        .fail(function(e) {
-            console.log('error', e.message);
-        })
-    }
+    $.getJSON(Routing.generate('api_feedback_set_parameter'), {'type':type,'id': id, 'field':field, 'value':value})
+    .done(function (data) {
+        console.log(data);
+    })
+    .fail(function(e) {
+        console.log('error', e.message);
+    })
+}
 
+$('#delete-feedback').live('click', function (){
+    var id = $(this).data('delete-item');
+    var type = $(this).data('type');
+    deleteFeedback(type,id);
+
+})
 
 function deleteFeedback(type,id){
     $.getJSON(Routing.generate('api_feedback_delete'), {'type':type,'id': id})
@@ -92,4 +98,7 @@ function deleteFeedback(type,id){
     .fail(function(e) {
         console.log('error', e.message);
     })
+
 }
+
+

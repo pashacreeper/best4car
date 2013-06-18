@@ -91,6 +91,7 @@
                         {% endif %}
                         {% if app.security.isGranted('ROLE_MODERATOR') or edit %}
                             <a href="{{ path('content_deal_feedbacks_edit', {'id': feedback.deal.id, 'feedbackId': feedback.id}) }}" >Редактировать</a>
+                            <a href="#" id = "delete-feedback" data-type ="feedback-id" data-delete-item="{{feedback.id}}" class="icon-b4c-trash" title="{{ "form.delete"|trans({}) }}"></a>
                         {% endif %}
                         {% if app.security.isGranted('IS_AUTHENTICATED_FULLY') %}
                         <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="pull-right">Пожаловаться</a>{% endif %}
@@ -115,7 +116,15 @@
                 <div class="row-fluid">
                     <div class="span7">
                         <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
-                        {% if isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR') %}<a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>{% endif %}<br/>
+                         {% set edit = false %}
+                        {% if app.security.isGranted('ROLE_USER') %}
+                            {% if (feedback.feedbackAnswer.minutes) <= 15 and (app.user.Id == feedback.feedbackAnswer.userId) %}
+                            {% set edit = true %}
+                            {% endif %}
+                        {% endif %}
+                        {% if isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR') or edit %}<a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>{% endif %}
+                        <a href="#" id = "delete-feedback" data-type ="answer-id" data-delete-item="{{feedback.feedbackAnswer.id}}" class="icon-b4c-trash" title="{{ "form.delete"|trans({}) }}"></a>
+                        <br/>
                         {% if app.security.isGranted('IS_AUTHENTICATED_FULLY') %}
                         <a href="#" data-action="complain-answer" data-answer-id="{{ feedback.feedbackAnswer.id }}" >Пожаловаться</a>{% endif %}
                     </div>

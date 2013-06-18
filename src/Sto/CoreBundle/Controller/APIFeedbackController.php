@@ -155,7 +155,7 @@ class APIFeedbackController extends FOSRestController
         $em->persist($oAnswer);
         $em->flush();
 
-        $data = $this->render('StoContentBundle:Company:feedback_answer.html.twig', ['feedback'=>$feedback]);
+          $data = $this->render('StoContentBundle:Company:feedback_answer.html.twig', ['feedback'=>$feedback]);
 
         return new Response($serializer->serialize($data, 'json'));
     }

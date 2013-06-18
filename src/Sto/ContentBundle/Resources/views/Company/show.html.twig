@@ -161,12 +161,14 @@
             $(answer_p).html(answer);
             $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'block');
             $('a[data-feedback-edit="'+feed_id+'"]').css('display', 'block');
+
         })
         .fail(function(e){
             console.log(e.message);
         })
 
         return false;
+
     });
     function generateAnswerFrom(feed_id, answer_id, answer){
         var content = '\
