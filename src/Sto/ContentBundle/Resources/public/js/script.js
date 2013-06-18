@@ -8,6 +8,9 @@
         value: 5,
         slide: function( event, ui ) {
             $( "input.rating" ).val( ui.value );
+        },
+        change: function( event, ui ) {
+            $("input[data-serarch-form='rating']").val( ui.value).change();
         }
     });
     $("input.rating").val($( "#search-slider").slider("value"));

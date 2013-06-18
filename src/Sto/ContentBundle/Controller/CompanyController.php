@@ -14,6 +14,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\FeedbackEvaluate;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 
@@ -212,18 +213,18 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('StoCoreBundle:FeedbackCompany')
+        $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
             ->setParameter('company', $id)
             ;
 
         if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
-            $query->andWhere('fc.hidden = :hidden')
+            $qb->andWhere('fc.hidden = :hidden')
                 ->setParameter('hidden', false);
         }
 
-        $query->getQuery();
+        $query = $qb->getQuery();
 
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,

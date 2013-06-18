@@ -27,7 +27,7 @@
             {{ render(controller('StoContentBundle:Deal:feedbacks', {'id':deal.id})) }}
         </div>
         <script>function getEntityId(){ return {{ deal.id }}; }</script>
-                    <input type="hidden" data-type="deal">
+        <input type="hidden" data-type="deal">
     </div>
     <div class="span4">
         <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Оставить отзыв <span class="pull-right">{{ deal.feedbacks | length }}</span></a>

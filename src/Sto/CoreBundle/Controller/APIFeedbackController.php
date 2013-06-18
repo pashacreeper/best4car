@@ -263,9 +263,8 @@ class APIFeedbackController extends FOSRestController
         if ($sort_tab == "sort-rating")
             $qb->orderBy("fc.feedbackRating","DESC");
         else
-            $qb->orderBy("fc.date");
+            $qb->orderBy("fc.date","DESC");
         $query = $qb->getQuery();
-        // print_r([$query->getSQL(), $query->getParameters()]);
 
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
@@ -281,7 +280,7 @@ class APIFeedbackController extends FOSRestController
                 ->join('m.company', 'company')
                 ->where('m.id = :user_id AND company.id = :company')
                 ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $company_id)
+                ->setParameter('company', $entity_id)
                 ->getQuery()
                 ->getResult()
                 ;

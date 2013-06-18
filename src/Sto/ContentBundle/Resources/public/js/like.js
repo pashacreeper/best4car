@@ -34,7 +34,7 @@ $('[data-tabs]').live('click', function() {
     $(this).parent().addClass('active');
     var filter = $('li.active > [data-tabs^="filter-"]').attr('data-tabs');
     var sort =$('li.active > [data-tabs^="sort-"]').attr('data-tabs');
-    var entType = $('[data-type]').data('type');
+    var entType = $('input[type="hidden"][data-type]').attr('data-type');
     $.get(Routing.generate('api_sort_filter'), {'sort-tab': sort, 'filter-tab': filter, 'entity-id': getEntityId(), 'entity-type': entType})
     .done(function (data) {
         $('[data-x-container="feedbacks"]').empty().append(data);
