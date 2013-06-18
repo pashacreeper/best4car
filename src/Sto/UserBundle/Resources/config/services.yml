@@ -1,23 +1,9 @@
 #Sto/UserBundle/Resources/services.yml
 parameters:
     my_user_provider.class: Sto\UserBundle\Security\Core\User\FOSUBUserProvider
-    # sto_user_security.component.authentication.handler.login_failure_handler.class: CCDNUser\SecurityBundle\Component\Authentication\Handler\LoginFailureHandler
-    # sto_user_security.component.authentication.handler.logout_success_handler.class: CCDNUser\SecurityBundle\Component\Authentication\Handler\LogoutSuccessHandler
 
 services:
     my_user_provider:
         class: "%my_user_provider.class%"
         #this is the place where the properties are passed to the UserProvider - see config.yml
-        arguments: [@fos_user.user_manager, @doctrine.orm.entity_manager, {vkontakte: vkontakteId}]
-
-    # sto_user_security.component.authentication.handler.login_failure_handler:
-    #     class:  %ccdn_user_security.component.authentication.handler.login_failure_handler.class%
-    #     arguments:  [@service_container, @router, @security.context]
-    #     tags:
-    #         - { name: 'monolog.logger', channel: 'security' } 
-
-    # sto_user_security.component.authentication.handler.logout_success_handler:
-    #     class:  %ccdn_user_security.component.authentication.handler.logout_success_handler.class%
-    #     arguments:  [@service_container, @router]
-    #     tags:
-    #         - { name: 'monolog.logger', channel: 'security' }
+        arguments: [@fos_user.user_manager, @doctrine.orm.entity_manager, {vkontakte: vkontakteId}, %mail_vk_register%]

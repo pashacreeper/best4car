@@ -14,11 +14,12 @@ class AdditionalUserType extends AbstractType
             ->add('email', null, [
                 'label' => 'Email'
             ])
-            ->add('password', null, [
+            ->add('password', 'password', [
                 'label' => 'Пароль'
             ])
             ->add('birthDate', 'date', [
-                'label' => 'Дата рождения'
+                'label' => 'Дата рождения',
+                'years' => range (1920, date('Y')),                
             ])
         ;
     }

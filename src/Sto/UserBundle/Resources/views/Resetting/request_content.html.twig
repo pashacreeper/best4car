@@ -1,0 +1,25 @@
+<center>
+	{% trans_default_domain 'FOSUserBundle' %}
+
+	<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="form-horizontal">
+		<div class="row-fluid">
+			<div class="span6 offset3">
+				<p>Для восстановления пароля введите адрес электронной почты, на которую зарегистрирован ваш профиль.</p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="well span6 offset3">
+			    <div>
+			        {% if invalid_username is defined %}
+			            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+			        {% endif %}
+			        <label for="username">Электронная почта
+			        <input type="text" id="username" name="username" required="required" /></label>
+			    </div>
+			    <div>
+			        <input type="submit" class="btn btn-primary" value="Отправить" />
+			    </div>
+		    </div> 
+	    </div>
+	</form>
+</center>

@@ -1,0 +1,12 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+
+{% block title %}Востановление пароля{% endblock %}
+
+{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+
+{% block content %}
+	{% block fos_user_content %}
+		{% include "StoUserBundle:Resetting:request_content.html.twig" %}
+	{% endblock fos_user_content %}
+{% endblock content %}

@@ -10,6 +10,8 @@ class FOSUBUserProvider extends BaseClass
 {
     protected $em;
 
+    protected $mailServer;
+
     /**
      * Constructor.
      *
@@ -17,11 +19,12 @@ class FOSUBUserProvider extends BaseClass
      * @param EntityManager        $em
      * @param array                $properties  Property mapping.
      */
-    public function __construct(UserManagerInterface $userManager, EntityManager $em, array $properties)
+    public function __construct(UserManagerInterface $userManager, EntityManager $em, array $properties, $mail_server)
     {
         $this->userManager = $userManager;
         $this->em = $em;
         $this->properties  = $properties;
+        $this->mailServer = $mail_server;
     }
 
     /**
@@ -82,7 +85,8 @@ class FOSUBUserProvider extends BaseClass
                 $user->setUsername($username);
             }
             $user->setAvatarVk($photo);
-            $user->setEmail($username);
+            $user->setEmail($username.'@'.$this->mailServer);
+
             $user->setPassword($username);
             $user->setEnabled(true);
             $user->setUsingEmail(false);

@@ -77,6 +77,8 @@
                 <br />
                 <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-3x"></i></a>
             </form>
+            <br />
+            <a href="{{ path('fos_user_resetting_request') }}">забыли пароль</a>
         </div>
     </div>
 {% endblock fos_user_content %}
