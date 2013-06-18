@@ -51,6 +51,16 @@ class FeedbackAnswer
      */
     private $feedback;
 
+    /**
+     * @ORM\Column(name="is_complain", type="boolean", nullable=true)
+     */
+    private $complain;
+
+    /**
+     * @ORM\Column(name="is_hidden", type="boolean", nullable=true)
+     */
+    private $hidden;
+
     public function __construct(Feedback $feedback = null)
     {
         $this->date = new \DateTime('now');
@@ -58,8 +68,20 @@ class FeedbackAnswer
         if ($feedback) {
             $this->setFeedback($feedback);
         }
+         $this->hidden = false;
     }
 
+   /**
+     * Get time for edit
+     */
+    public function getMinutes()
+    {
+        if (!$this->date)
+            return 0;
+        $str = $this->date->format("d.m.Y.H.i.s");
+
+        return (int) ((date('YmdHis') - date('YmdHis', strtotime($str)))/60);
+    }
     /**
      * Get id
      */
@@ -133,12 +155,39 @@ class FeedbackAnswer
 
         return $this;
     }
-
+    public function getFeedbackId()
+    {
+        return $this->feedbackId;
+    }
     /**
      * Get feedback
      */
     public function getFeedback()
     {
         return $this->feedback;
+    }
+
+       public function setComplain($value)
+    {
+        $this->complain = $value;
+
+        return $this;
+    }
+
+    public function isComplain()
+    {
+        return $this->complain;
+    }
+
+    public function setHidden($value)
+    {
+        $this->hidden = $value;
+
+        return $this;
+    }
+
+    public function isHidden()
+    {
+        return $this->hidden;
     }
 }

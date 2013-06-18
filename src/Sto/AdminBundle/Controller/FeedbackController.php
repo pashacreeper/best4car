@@ -23,6 +23,7 @@ use Sto\AdminBundle\Form\FeedbackAnswerType;
  */
 class FeedbackController extends Controller
 {
+
     /**
      * Lists all Feedback entities.
      *

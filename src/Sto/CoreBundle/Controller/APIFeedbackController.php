@@ -234,28 +234,28 @@ class APIFeedbackController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         if ($entity_type=='company') {
             $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
-                ->createQueryBuilder('fc')
-                ->where('fc.companyId = :company')
-                ->setParameter('company', $entity_id)
+            ->createQueryBuilder('fc')
+            ->where('fc.companyId = :company')
+            ->setParameter('company', $entity_id)
             ;
         } elseif ($entity_type=='deal') {
             $qb = $em->getRepository('StoCoreBundle:FeedbackDeal')
-                ->createQueryBuilder('fc')
-                ->where('fc.dealId = :deal')
-                ->setParameter('deal', $entity_id)
+            ->createQueryBuilder('fc')
+            ->where('fc.dealId = :deal')
+            ->setParameter('deal', $entity_id)
             ;
         } else {
             return new Response('Entity type is not valid (company or deal)',404);
         }
 
         switch ($filter_tab) {
-        case("filter-positive"):
+            case("filter-positive"):
             $qb->andWhere('fc.pluses > fc.minuses');
             break;
-        case("filter-negative"):
+            case("filter-negative"):
             $qb->andWhere('fc.pluses < fc.minuses');
             break;
-        case("filter-useful"):
+            case("filter-useful"):
             $qb->andWhere('fc.pluses > fc.minuses');
             break;
         }
@@ -271,19 +271,19 @@ class APIFeedbackController extends FOSRestController
             $query,
             $this->get('request')->query->get('page',1),
             3
-        );
+            );
 
         if ($entity_type=='company') {
             if ($this->getUser()) {
                 $manager = $em->getRepository('Sto\CoreBundle\Entity\CompanyManager')
-                    ->createQueryBuilder('m')
-                    ->select('m')
-                    ->join('m.company', 'company')
-                    ->where('m.id = :user_id AND company.id = :company')
-                    ->setParameter('user_id', $this->getUser()->getId())
-                    ->setParameter('company', $company_id)
-                    ->getQuery()
-                    ->getResult()
+                ->createQueryBuilder('m')
+                ->select('m')
+                ->join('m.company', 'company')
+                ->where('m.id = :user_id AND company.id = :company')
+                ->setParameter('user_id', $this->getUser()->getId())
+                ->setParameter('company', $company_id)
+                ->getQuery()
+                ->getResult()
                 ;
             }
         }
@@ -333,23 +333,46 @@ class APIFeedbackController extends FOSRestController
     {
         $serializer = $this->container->get('jms_serializer');
 
-        if (!$request->get('feedback_id'))
-            return new Response(404, 'Not found parameter feddback id');
+        if (!$request->get('data')) {
 
-        $feedback_id = $request->get('feedback_id');
+            if (!$request->get('feedback_id'))
+                return new Response(404, 'Not found parameter feddback id');
 
-        $em = $this->getDoctrine()->getManager();
-        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
-        if (!$feedback) {
-            return new Response(404, 'Not Found Feedback');
+            $feedback_id = $request->get('feedback_id');
+
+            $em = $this->getDoctrine()->getManager();
+            $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
+            if (!$feedback) {
+                return new Response(404, 'Not Found Feedback');
+            }
+
+            $feedback->setComplain(true);
+            $em->persist($feedback);
+            $em->flush();
+
+            return new Response($serializer->serialize(['id'=>$feedback_id, 'complain' => $feedback->isComplain()], 'json'));
         }
+        else {
+            if (!$request->get('answer_id'))
+                return new Response(404, 'Not found parameter answer_id');
 
-        $feedback->setComplain(true);
-        $em->persist($feedback);
-        $em->flush();
+            $answer_id = $request->get('answer_id');
 
-        return new Response($serializer->serialize(['id'=>$feedback_id, 'complain' => $feedback->isComplain()], 'json'));
+            $em = $this->getDoctrine()->getManager();
+            $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
+            if (!$answer) {
+                return new Response(404, 'Not Found answer');
+            }
+            $feedback_id = $answer->getFeedback()->getId();
+            $answer->setComplain(true);
+            $em->persist($answer);
+            $em->flush();
+
+            return new Response($serializer->serialize(['answer_id'=>$answer->GetId(),'id'=>$feedback_id, 'complain' => $answer->isComplain()], 'json'));
+
+        }
     }
+
 
     /**
      * @ApiDoc(
@@ -366,11 +389,12 @@ class APIFeedbackController extends FOSRestController
     public function setParameter(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
+        if (!$request->get('type') )
+           return new Response(404, 'Not found parameter type');
 
-        if (!$request->get('feedback_id'))
-            return new Response(404, 'Not found parameter feddback id');
+       if ($request->get('type') == 'feedback-id') {
 
-        $feedback_id = $request->get('feedback_id');
+        $feedback_id = $request->get('id');
 
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
@@ -386,9 +410,29 @@ class APIFeedbackController extends FOSRestController
         $feedback->{$method}($request->get('value'));
         $em->persist($feedback);
         $em->flush();
-
         return new Response($serializer->serialize(['id'=>$feedback_id, 'field' => $request->get('field'), 'value' => $request->get('value')], 'json'));
     }
+    else
+    {
+        $answer_id = $request->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+        $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
+        if (!$answer) {
+            return new Response(404, 'Not Found answer');
+        }
+
+        if (!$request->get('field') || !$request->get('value')) {
+            return new Response(404, 'Not Found Parameter');
+        }
+
+        $method = 'set'.$request->get('field');
+        $answer->{$method}($request->get('value'));
+        $em->persist($answer);
+        $em->flush();
+        return new Response($serializer->serialize(['id'=>$answer_id, 'field' => $request->get('field'), 'value' => $request->get('value')], 'json'));
+    }
+}
 
     /**
      * @ApiDoc(
@@ -405,21 +449,36 @@ class APIFeedbackController extends FOSRestController
     public function deleteFeedback(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
+        if (!$request->get('type') )
+            return new Response(404, 'Not found parameter type');
 
-        if (!$request->get('feedback_id'))
-            return new Response(404, 'Not found parameter feddback id');
+        if ($request->get('type') == 'feedback-id'){
+            $feedback_id = $request->get('id');
 
-        $feedback_id = $request->get('feedback_id');
+            $em = $this->getDoctrine()->getManager();
+            $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
+            if (!$feedback) {
+                return new Response(404, 'Not Found Feedback');
+            }
 
-        $em = $this->getDoctrine()->getManager();
-        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
-        if (!$feedback) {
-            return new Response(404, 'Not Found Feedback');
+            $em->remove($feedback);
+            $em->flush();
+
+            return new Response($serializer->serialize(['id'=>$feedback_id], 'json'));
         }
+        else{
+            $answer_id = $request->get('id');
 
-        $em->remove($feedback);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
+            if (!$answer) {
+                return new Response(404, 'Not Found answer');
+            }
+            $id = $answer->getFeedback()->getId();
+            $em->remove($answer);
+            $em->flush();
 
-        return new Response($serializer->serialize(['id'=>$feedback_id], 'json'));
+            return new Response($serializer->serialize(['id'=>$id], 'json'));
+        }
     }
 }

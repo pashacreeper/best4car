@@ -129,6 +129,18 @@ class Feedback
         $this->hidden = false;
     }
 
+   /**
+     * Get time for edit
+     */
+    public function getMinutes()
+    {
+        if (!$this->date)
+            return 0;
+        $str = $this->date->format("d.m.Y.H.i.s");
+
+        return (int) ((date('YmdHis') - date('YmdHis', strtotime($str)))/60);
+    }
+
     /**
      * Get id
      *
@@ -494,7 +506,7 @@ class Feedback
         return $this->complain;
     }
 
-    public function setHidden($value=true)
+    public function setHidden($value)
     {
         $this->hidden = $value;
 

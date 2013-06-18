@@ -7,9 +7,9 @@
     <div class="modal-body">
 
     </div>
-    <div class="modal-footer">
-        <a href="#" data-modal-action="hide" data-field="Hidden" data-value="true" class="btn">Скрыть</a>
-        <a href="#" data-modal-action="edit" data-type="deal" class="btn">Отредактирвоать</a>
+    <div class="modal-footer" data-type = "" id="feedback">
+        <a href="#" data-modal-action="hide" data-field="Hidden" data-value="1" class="btn">Скрыть</a>
+        <a href="#" data-modal-action="edit" data-type="deal" data-deal-id ="{{ dealId }}" class="btn" >Отредактировать</a>
         <a href="#" data-modal-action="delete" class="btn">Удалить</a>
         <a href="#" data-modal-action="no_complain" data-field="Complain" data-value="false" class="btn">Снять жалобу</a>
     </div>
@@ -49,7 +49,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         {% if app.security.isGranted('ROLE_MODERATOR') %}
-                            <a href="#complainFeedbackAction" data-target="#complainFeedbackAction" data-toggle="modal" data-feedback-id="{{ feedback.id }}" data-action="admin_complain"><span class=" icon-b4c-attention"></span></a>
+                            <a href="#complainFeedbackAction" data-target="#complainFeedbackAction" data-toggle="modal" data-feedback-id="{{ feedback.id }}"  data-action="admin_complain"><span class=" icon-b4c-attention"></span></a>
                         {% else %}
                             <span class=" icon-b4c-attention"></span>
                         {% endif %}
@@ -83,10 +83,17 @@
                 <blockquote class="well" data-messages-block-edit="{{ feedback.id }}">
                     <div class="row-fluid">
                         <p>{{ feedback.content|raw }}</p>
-                        {% if app.security.isGranted('ROLE_MODERATOR') %}
+                         {% set edit = false %}
+                        {% if app.security.isGranted('ROLE_USER') %}
+                            {% if (feedback.minutes) <= 15 and (app.user.Id == feedback.userId) %}
+                            {% set edit = true %}
+                            {% endif %}
+                        {% endif %}
+                        {% if app.security.isGranted('ROLE_MODERATOR') or edit %}
                             <a href="{{ path('content_deal_feedbacks_edit', {'id': feedback.deal.id, 'feedbackId': feedback.id}) }}" >Редактировать</a>
                         {% endif %}
-                        <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="pull-right">Пожаловаться</a>
+                        {% if app.security.isGranted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="pull-right">Пожаловаться</a>{% endif %}
                     </div>
                </blockquote>
             </div>
@@ -94,10 +101,23 @@
         {% if feedback.feedbackAnswer %}
         <div class="row-fluid">
             <blockquote class="well" data-answer-block-edit="{{ feedback.id }}">
+                 {% if feedback.feedbackAnswer.complain == true %}
+                <div class="row-fluid">
+                    <div class="span12">
+                        {% if app.security.isGranted('ROLE_MODERATOR') %}
+                            <a href="#complainFeedbackAction" data-target="#complainFeedbackAction" data-toggle="modal" data-answer-id="{{ feedback.feedbackAnswer.id }}"  data-action="admin_complain_answer"><span class=" icon-b4c-attention"></span></a>
+                        {% else %}
+                            <span class=" icon-b4c-attention"></span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
                 <div class="row-fluid">
                     <div class="span7">
                         <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
-                        {% if isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR') %}<a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>{% endif %}
+                        {% if isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR') %}<a href="#" data-feedback-edit="{{ feedback.id }}" data-answer-id="{{ feedback.feedbackAnswer.id }}">Редактировать</a>{% endif %}<br/>
+                        {% if app.security.isGranted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="#" data-action="complain-answer" data-answer-id="{{ feedback.feedbackAnswer.id }}" >Пожаловаться</a>{% endif %}
                     </div>
                     <div class="span5">
                         <div class="row-fluid">
@@ -112,6 +132,7 @@
                     </div>
                 </div>
             </blockquote>
+
         </div>
         {% elseif isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')%}
             <a href="#" data-feedback-put="{{ feedback.id }}">Ответить</a>
