@@ -244,7 +244,7 @@
         return false;
     });
 
-    $('#sto_content_company_registration_specialization').change(function () {
+    /*$('#sto_content_company_registration_specialization').change(function () {
         var specialization = $(this).val();
         $.getJSON("{{ path('company_specialization') }}", {'specialization': specialization},
             function (data) {
@@ -258,7 +258,7 @@
                 });
             }
         )
-    });
+    });*/
 
     $('a[data-toggle="tab"]').click(function () {
         $('div.control-group').attr('class', 'control-group');

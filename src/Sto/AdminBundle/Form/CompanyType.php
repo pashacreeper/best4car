@@ -255,7 +255,7 @@ class CompanyType extends AbstractType
                 ])
                 ->add('companyManager','collection', array(
                     'label' => ' ',
-                    'type' => new CompanyManagerType(),
+                    'type' => new CompanyManagerType($options['em']),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,

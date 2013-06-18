@@ -149,7 +149,7 @@ class CompanyType extends AbstractType
                     'class' => 'input-xxlarge'
                 ]
             ])
-            ->add('web', 'url', [
+            ->add('web', 'text', [
                 'label' => 'Адрес сайта',
                 'required' => false,
                 'render_optional_text' => false
@@ -217,7 +217,7 @@ class CompanyType extends AbstractType
             ])
             ->add('companyManager','collection', array(
                 'label' => ' ',
-                'type' => new CompanyManagerType(),
+                'type' => new CompanyManagerType($options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

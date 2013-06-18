@@ -43,7 +43,6 @@ class Company
     private $fullName;
 
     /**
-     * @Assert\Url()
      * @ORM\Column(name="web", type="string", length=255, nullable=true)
      */
     private $web;

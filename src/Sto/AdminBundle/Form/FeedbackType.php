@@ -22,7 +22,9 @@ class FeedbackType extends AbstractType
                     'statusbar' => false,
                     'resize' => false,
                     'width' =>'100%',
-                    'height' => 150
+                    'height' => 150,
+                    'plugins' => ['image', 'link', 'code', 'paste', 'emoticons'],
+                    'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
                 ],
             ])
             ->add('visitDate', 'date', [

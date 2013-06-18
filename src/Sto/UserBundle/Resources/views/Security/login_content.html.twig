@@ -1,0 +1,9 @@
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+	<input type="hidden" name="_target_path" value="add_company" />
+    <input type="text" id="username" placeholder="E-mail" name="_username" value="{{ last_username }}" />
+
+    <input type="password"  placeholder="Password" id="password" name="_password" />
+	<br />
+    <input type="submit" class="btn btn-primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+</form>

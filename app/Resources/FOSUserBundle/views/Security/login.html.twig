@@ -70,7 +70,7 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />                
                 <input type="text" class="input-block-level" placeholder="Логин" id="username" name="_username" value="{{ last_username }}" />
                 <input type="password" class="input-block-level" placeholder="Пароль" id="password" name="_password" />
                 <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Войти" />

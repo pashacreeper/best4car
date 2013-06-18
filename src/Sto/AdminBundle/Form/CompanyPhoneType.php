@@ -13,7 +13,7 @@ class CompanyPhoneType extends AbstractType
             ->add('phone', 'text',[
                 'label_render' => false,
                 'attr' => [
-                    'data-mask' => '999-99-99?-999',
+                    //'data-mask' => '(9*)9*',
                     'placeholder' => 'Телефон',
                     'class' => 'input-medium'
                 ],

@@ -27,8 +27,7 @@ class FeedbackType extends AbstractType
                     'width' =>'100%',
                     'height' => 250,
                     'plugins' => ['image', 'link', 'code', 'paste', 'emoticons'],
-                    'toolbar1' => 'undo redo | styleselect | paste copy cut | bold italic underline | alignleft aligncenter alignright alignjustify',
-                    'toolbar2' => 'bullist numlist outdent indent | link image | code | emoticons'
+                    'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
                 ],
             ])
         ;

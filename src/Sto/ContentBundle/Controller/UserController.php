@@ -19,6 +19,8 @@ use Sto\ContentBundle\Form\AdditionalUserType;
 use Sto\ContentBundle\Form\PhotoUserType;
 use Sto\UserBundle\Entity\UserGallery,
     Sto\ContentBundle\Form\UserGalleryType;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User controller.
@@ -90,7 +92,8 @@ class UserController extends MainController
         }
 
         if (!$errorFlag) {
-            return $this->redirect($this->generateUrl('add_company', ['id' => $user->getId()]));
+            $this->authenticateUser($user);
+            return $this->redirect($this->generateUrl('add_company'));
         }
 
         $user = new User();
@@ -189,7 +192,9 @@ class UserController extends MainController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('add_company', ['id'=>$user->getId()]));
+            $this->authenticateUser($user);
+
+            return $this->redirect($this->generateUrl('add_company'));
         }
 
         return [
@@ -201,13 +206,17 @@ class UserController extends MainController
     /**
      * Registration company
      *
-     * @Route("/new-company/user-{id}", name="add_company")
+     * @Route("/new-company/", name="add_company")
      * @Template()
      */
-    public function newCompanyAction($id)
+    public function newCompanyAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('StoUserBundle:User')->findOneById($id);
+
+        if (!$this->getUser())
+            return new Responce(404, 'User Not found.');
+
+        $user = $this->getUser();
 
         $company = new Company();
         $manager = new CompanyManager();
@@ -215,13 +224,12 @@ class UserController extends MainController
         $manager->setPhone($user->getPhoneNumber());
         $manager->setCompany($company);
 
-        //$company->addManager($user);
         $company->addCompanyManager($manager);
         $cForm = $this->createForm(new CompanyType(), $company, ['em' => $em]);
 
         return [
             'company' => $company,
-            'user' => $id,
+            'user' => $user->getId(),
             'cForm' => $cForm->createView()
         ];
     }
@@ -229,11 +237,11 @@ class UserController extends MainController
     /**
      * Creates a new User entity.
      *
-     * @Route("/create-company/user-{id}", name="registration_company_create")
+     * @Route("/create-company/", name="registration_company_create")
      * @Method("POST")
      * @Template("StoContentBundle:User:newCompany.html.twig")
      */
-    public function createCompanyAction(Request $request, $id)
+    public function createCompanyAction(Request $request)
     {
         $company  = new Company();
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
@@ -249,7 +257,8 @@ class UserController extends MainController
             }
             $company->setCompanyManager($managers);
 
-            $user = $em->getRepository('StoUserBundle:User')->find($id);
+            //$user = $em->getRepository('StoUserBundle:User')->find($id);
+            $user = $this->getUser();
 
             $gallery = $company->getGallery();
             foreach ($gallery as $value) {
@@ -262,12 +271,12 @@ class UserController extends MainController
 
             $this->get('session')->getFlashBag()->add('notice', 'Your company was added. Login please.');
 
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect($this->generateUrl('content_company_show', ['id'=>$company->getId()]));
         }
 
         return [
             'company' => $company,
-            'user' => $id,
+            'user' => $user->getId(),
             'cForm' => $form->createView(),
         ];
     }
@@ -538,5 +547,13 @@ class UserController extends MainController
         }
 
         return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    private function authenticateUser(UserInterface $user)
+    {
+        $providerKey = 'main'; // your firewall name
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+
+        $this->container->get('security.context')->setToken($token);
     }
 }

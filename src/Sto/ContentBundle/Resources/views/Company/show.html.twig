@@ -24,7 +24,9 @@
     {% endif %}
     <div class="row-fluid">
         <div class="span2">
-            <img src="{{ vich_uploader_asset(company, 'logo') }}" style="height: 75px;" />
+            {% if company.logo %}
+                <img src="{{ vich_uploader_asset(company, 'logo') }}" style="height: 75px;" />
+            {% endif %}
         </div>
         <div class="span7"><h3>{{ company.name }}</h3></div>
         <div class="span3">

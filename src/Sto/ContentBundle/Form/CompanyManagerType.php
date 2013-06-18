@@ -6,13 +6,25 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
+use Doctrine\ORM\EntityManager;
 
 class CompanyManagerType extends AbstractType
 {
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $entityManager = $this->em;
+        $transformer = new CompanyManagerTransformer($entityManager);
         $builder
-            ->add('user', 'entity', [
+            /*->add('user', 'entity', [
                 'label' => ' ',
                 'class' => 'StoUserBundle:User',
                 'query_builder' => function(EntityRepository $er) {
@@ -24,11 +36,18 @@ class CompanyManagerType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Менеджер',
                 ]
-            ])
+            ])*/
+            ->add(
+                $builder->create('user', 'text', [
+                    'label' => 'Ник пользователя',
+
+                ])
+                ->addModelTransformer($transformer)
+            )
             ->add('phone', 'text', [
                 'label' => ' ',
                 'attr' => [
-                    'data-mask' => '999-99-99?-999',
+                    //'data-mask' => '999-99-99?-999',
                     'placeholder' => 'Телефон',
                     'class' => 'input-medium'
                 ]
