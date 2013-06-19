@@ -350,8 +350,7 @@ class APIFeedbackController extends FOSRestController
             $em->flush();
 
             return new Response($serializer->serialize(['id'=>$feedback_id, 'complain' => $feedback->isComplain()], 'json'));
-        }
-        else {
+        } else {
             if (!$request->get('answer_id'))
                 return new Response(404, 'Not found parameter answer_id');
 
@@ -371,7 +370,6 @@ class APIFeedbackController extends FOSRestController
 
         }
     }
-
 
     /**
      * @ApiDoc(
@@ -409,10 +407,9 @@ class APIFeedbackController extends FOSRestController
         $feedback->{$method}($request->get('value'));
         $em->persist($feedback);
         $em->flush();
+
         return new Response($serializer->serialize(['id'=>$feedback_id, 'field' => $request->get('field'), 'value' => $request->get('value')], 'json'));
-    }
-    else
-    {
+    } else {
         $answer_id = $request->get('id');
 
         $em = $this->getDoctrine()->getManager();
@@ -429,6 +426,7 @@ class APIFeedbackController extends FOSRestController
         $answer->{$method}($request->get('value'));
         $em->persist($answer);
         $em->flush();
+
         return new Response($serializer->serialize(['id'=>$answer_id, 'field' => $request->get('field'), 'value' => $request->get('value')], 'json'));
     }
 }
@@ -451,7 +449,7 @@ class APIFeedbackController extends FOSRestController
         if (!$request->get('type') )
             return new Response(404, 'Not found parameter type');
 
-        if ($request->get('type') == 'feedback-id'){
+        if ($request->get('type') == 'feedback-id') {
             $feedback_id = $request->get('id');
 
             $em = $this->getDoctrine()->getManager();
@@ -464,8 +462,7 @@ class APIFeedbackController extends FOSRestController
             $em->flush();
 
             return new Response($serializer->serialize(['id'=>$feedback_id], 'json'));
-        }
-        else{
+        } else {
             $answer_id = $request->get('id');
 
             $em = $this->getDoctrine()->getManager();

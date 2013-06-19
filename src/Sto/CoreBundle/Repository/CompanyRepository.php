@@ -19,13 +19,16 @@ class CompanyRepository extends EntityRepository
         ;
     }
 
-    public function getCompaniesWithFilter($companyType = null, $subCompanyType = null, $auto = null, $rating = null, $filter = null, $deals = null, $timing = null)
+    public function getCompaniesWithFilter($city = null, $companyType = null, $subCompanyType = null, $auto = null, $rating = null, $filter = null, $deals = null, $timing = null)
     {
-        $qb = $this->createQueryBuilder('c')
-            ->select('c, csp')
-            ->join('c.specialization', 'csp')
-            ->join('c.services', 'cs')
-            ->where('c.visible = true')
+        $qb = $this->createQueryBuilder('company')
+            ->select('company, csp, fb, d')
+            ->join('company.specialization', 'csp')
+            ->join('company.services', 'cs')
+            ->leftJoin('company.feedbacks', 'fb')
+            ->where('company.visible = true')
+            ->andwhere('company.city = :city')
+            ->setParameter('city', $city->getId())
         ;
         if ($companyType) {
             $qb->andwhere('csp.id = :sp')
@@ -38,30 +41,35 @@ class CompanyRepository extends EntityRepository
             ;
         }
         if ($rating) {
-            $qb->andwhere('c.rating BETWEEN :rating AND 10')
+            $qb->andwhere('company.rating BETWEEN :rating-0.01 AND 10.01')
                 ->setParameter('rating', $rating)
             ;
         }
         $tabNum = 0;
         foreach ($filter as $key => $value) {
             if ($filter[$key]) {
-                $qb->join('c.additionalServices', "cas{$tabNum}")
+                $qb->join('company.additionalServices', "cas{$tabNum}")
                     ->andWhere($qb->expr()->like("cas{$tabNum}.shortName","'$key%'"))
                 ;
                 $tabNum++;
             }
         }
         if ($deals) {
-            $qb->join('c.deals', 'd')
-                ->andWhere(
+            $qb->join('company.deals', 'd')
+            // предполагаем что нужны компании с акциями вообще
+            // иначе разкомментировать следующее, тогда отбор пойдет по акциям по текущей дате
+/*                ->andWhere(
                     $qb->expr()->andX(
                         $qb->expr()->gte($qb->expr()->literal(date('Y-m-d')),'d.startDate'),
                         $qb->expr()->lte($qb->expr()->literal(date('Y-m-d')),'d.endDate')
                     )
-                )
+                )*/
             ;
+        } else {
+            $qb->leftJoin('company.deals', 'd');
         }
-        $query = $qb->getQuery();
+        $query = $qb->orderBy('company.rating','DESC')
+            ->getQuery();
         $result = $query->getArrayResult();
 
         if ($timing['weekends']) {

@@ -15,19 +15,36 @@
     });
     $("input.rating").val($( "#search-slider").slider("value"));
 
-    $('.show-list').on("click", function() {
+    doAjax = function() {
+        var aURL = null;
+        var aData = null;
+        if (!$('#home_search').hasClass('hide')){
+            aURL = Routing.generate('api_auto_get_companies_with_filter');
+            $('[data-serarch-form="responce-type"]').val("html");
+            aData = $('#advanced-search-form').serialize();
+            $('[data-serarch-form="responce-type"]').val("json");
+        } else {
+            // aURL = Routing.generate('company_ajax_get_all');
+            aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
+        }
         $.ajax({
-            type: 'POST',
-            url: Routing.generate('company_ajax_get_all'),
+            type: 'GET',
+            url: aURL,
+            data: aData,
             success: function(html) {
                 var root = $('#home_compalies');
                 root.empty();
                 root.append(html);
             },
-            error: function(e) {
-                console.log(e.message);
+            error: function(jqxhr, textStatus, errorThrown) {
+                console.log(textStatus + ": " + errorThrown);
             }
         });
+    }
+
+    // Показ компаний списком
+    $('.show-list').on("click", function(){
+        doAjax();
         $('#home_compalies').toggleClass("hide");
     });
 

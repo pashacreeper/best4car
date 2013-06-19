@@ -14,7 +14,6 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
-use Sto\CoreBundle\Entity\FeedbackEvaluate;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 
@@ -150,12 +149,27 @@ class CompanyController extends MainController
      */
     public function editCompanyAction(Company $company)
     {
-        $form = $this->createForm(new CompanyType, $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+        $em = $this->getDoctrine()->getManager();
+        $manager = $em->getRepository('StoCoreBundle:CompanyManager')
+            ->createQueryBuilder('cm')
+            ->where('cm.userId = :user_id AND cm.companyId = :company')
+            ->setParameter('user_id', $this->getUser()->getId())
+            ->setParameter('company', $id)
+            ->getQuery()
+            ->getResult()
+        ;
 
-        return [
-            'cForm' => $form->createView(),
-            'company' => $company,
-        ];
+        if (count($manager) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+
+            $form = $this->createForm(new CompanyType, $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+
+            return [
+                'cForm' => $form->createView(),
+                'company' => $company,
+            ];
+        } else
+
+            return new Response('Page Not found.', 404);
     }
 
     /**

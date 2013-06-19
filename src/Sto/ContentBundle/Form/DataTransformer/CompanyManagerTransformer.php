@@ -5,7 +5,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sto\UserBundle\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class CompanyManagerTransformer implements DataTransformerInterface
 {
@@ -29,18 +28,17 @@ class CompanyManagerTransformer implements DataTransformerInterface
      * @return array
      */
     public function reverseTransform($username)
-    {    
+    {
         if ($username == '')
             return null;
 
         $user = $this->om
             ->getRepository('StoUserBundle:User')
-            ->findOneBy(['username' => $username])            
+            ->findOneBy(['username' => $username])
         ;
 
         return $user;
 
-        
     }
 
     /**

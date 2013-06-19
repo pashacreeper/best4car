@@ -17,18 +17,18 @@
 {% endblock %}
 
 {% block content %}
-    {% if isManager  or app.security.isGranted('ROLE_ADMIN') %}
-        <div class="row-fluid">
-            <div class="span12"><a href="{{ path('content_company_edit', {'id': company.id}) }}">Редактирвоать</a></div>
-        </div>
-    {% endif %}
     <div class="row-fluid">
         <div class="span2">
             {% if company.logo %}
                 <img src="{{ vich_uploader_asset(company, 'logo') }}" style="height: 75px;" />
             {% endif %}
         </div>
-        <div class="span7"><h3>{{ company.name }}</h3></div>
+        <div class="span7">
+            <h3>{{ company.name }}</h3>
+            {% if isManager  or app.security.isGranted('ROLE_ADMIN') %}
+                <a class="btn" href="{{ path('content_company_edit', {'id': company.id}) }}"><i class="icon-b4c-edit"></i>Редактирвоать</a>
+            {% endif %}
+        </div>
         <div class="span3">
             <div class="row-fluid">
                 <h5>Рейтинг компании</h5>

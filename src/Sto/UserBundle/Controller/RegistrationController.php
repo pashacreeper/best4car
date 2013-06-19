@@ -14,16 +14,22 @@ class RegistrationController extends BaseController
     public function registerAction(Request $request)
     {
         $registration_type = $request->get('type');
-
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.registration.form.factory');
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->container->get('fos_user.user_manager');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->container->get('event_dispatcher');
 
         $user = $userManager->createUser();
-        $user->setEnabled(true);
+        // Установка Рейтинговой группы пользователя
+        $ratingGroupService = $this->container->get('rating_group');
+        $ratingGroup = $ratingGroupService->getRatingGroupByRating($user->getRating());
+        $user->setRatingGroup($ratingGroup);
+        // end
 
-        $user->setRatingGroupId(1);
         $user->addRole('ROLE_USER');
+        $user->setEnabled(true);
 
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, new UserEvent($user, $request));
 

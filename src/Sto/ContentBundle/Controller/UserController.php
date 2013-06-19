@@ -93,6 +93,7 @@ class UserController extends MainController
 
         if (!$errorFlag) {
             $this->authenticateUser($user);
+
             return $this->redirect($this->generateUrl('add_company'));
         }
 

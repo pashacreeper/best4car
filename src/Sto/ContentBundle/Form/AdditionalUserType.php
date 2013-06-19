@@ -19,7 +19,7 @@ class AdditionalUserType extends AbstractType
             ])
             ->add('birthDate', 'date', [
                 'label' => 'Дата рождения',
-                'years' => range (1920, date('Y')),                
+                'years' => range (1920, date('Y')),
             ])
         ;
     }

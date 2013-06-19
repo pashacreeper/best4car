@@ -936,12 +936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "11111860b3b4e77ddfc546e1e9879d04a4a84345"
+                "reference": "6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/11111860b3b4e77ddfc546e1e9879d04a4a84345",
-                "reference": "11111860b3b4e77ddfc546e1e9879d04a4a84345",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4",
+                "reference": "6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4",
                 "shasum": ""
             },
             "require": {
@@ -996,7 +996,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-06-16 19:00:43"
+            "time": "2013-06-19 09:25:41"
         },
         {
             "name": "genemu/form-bundle",
@@ -2238,12 +2238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "v0.10.1"
+                "reference": "c717653c229c9b6f0e855f2717b5d1f89ab064bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/v0.10.1",
-                "reference": "v0.10.1",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/c717653c229c9b6f0e855f2717b5d1f89ab064bb",
+                "reference": "c717653c229c9b6f0e855f2717b5d1f89ab064bb",
                 "shasum": ""
             },
             "require": {
@@ -2283,7 +2283,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2013-05-29 19:37:03"
+            "time": "2013-06-18 19:31:57"
         },
         {
             "name": "monolog/monolog",

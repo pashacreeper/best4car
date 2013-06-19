@@ -3,21 +3,18 @@
 namespace Sto\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\UserBundle\Controller\SecurityController as SecurityController;
-
-use Sto\UserBundle\Entity\User;
 
 /**
  * Description of UserController
  *
  */
-class UserController extends SecurityController {
-
-	/**
-	 * @Route("/login-form", name="login_form")
-	 */
+class UserController extends SecurityController
+{
+    /**
+     * @Route("/login-form", name="login_form")
+     */
     public function LoginBisAction()
     {
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
