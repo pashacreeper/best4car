@@ -936,12 +936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4"
+                "reference": "5214fbdfbe46bf4833aa6675382b113cbd4ff557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4",
-                "reference": "6cf71d104e2f46e1f4f5ff25b42fd5db0de811f4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5214fbdfbe46bf4833aa6675382b113cbd4ff557",
+                "reference": "5214fbdfbe46bf4833aa6675382b113cbd4ff557",
                 "shasum": ""
             },
             "require": {
@@ -996,7 +996,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-06-19 09:25:41"
+            "time": "2013-06-19 15:23:01"
         },
         {
             "name": "genemu/form-bundle",
@@ -2238,12 +2238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "c717653c229c9b6f0e855f2717b5d1f89ab064bb"
+                "reference": "b23a3bd4040c11318b42553ce6e5053e6e50de0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/c717653c229c9b6f0e855f2717b5d1f89ab064bb",
-                "reference": "c717653c229c9b6f0e855f2717b5d1f89ab064bb",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/b23a3bd4040c11318b42553ce6e5053e6e50de0f",
+                "reference": "b23a3bd4040c11318b42553ce6e5053e6e50de0f",
                 "shasum": ""
             },
             "require": {
@@ -2283,7 +2283,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2013-06-18 19:31:57"
+            "time": "2013-06-19 16:54:38"
         },
         {
             "name": "monolog/monolog",
@@ -2661,7 +2661,7 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
@@ -2707,17 +2707,17 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "v2.2.2"
+                "reference": "v2.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/v2.2.3",
+                "reference": "v2.2.3",
                 "shasum": ""
             },
             "require": {
@@ -2754,17 +2754,17 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "v2.2.2"
+                "reference": "v2.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/v2.2.3",
+                "reference": "v2.2.3",
                 "shasum": ""
             },
             "require": {
@@ -2972,17 +2972,17 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "target-dir": "Symfony/Bundle/SwiftmailerBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/SwiftmailerBundle.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "v2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/v2.3.1",
+                "reference": "v2.3.1",
                 "shasum": ""
             },
             "require": {
@@ -3027,16 +3027,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.2.2",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "v2.2.2"
+                "reference": "v2.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/v2.2.3",
+                "reference": "v2.2.3",
                 "shasum": ""
             },
             "require": {
@@ -3122,7 +3122,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-06-02 13:03:09"
+            "time": "2013-06-19 12:09:49"
         },
         {
             "name": "twig/extensions",

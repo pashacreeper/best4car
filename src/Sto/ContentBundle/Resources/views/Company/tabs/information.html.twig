@@ -164,7 +164,7 @@
         </div>
     </div>
     <div class="span4">
-        <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв <span class="pull-right">{{ company.feedbacks | length }}</span></a>
+        <a class="btn btn-large btn-block" href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв <span class="pull-right">{{ feedbacks | length }}</span></a>
         <a class="btn btn-large btn-block" href="{% if app.user %} # {% else %} {{ path('fos_user_security_login') }}{% endif %}">Добавить фото</a>
         {% if company.logo %}
             <div class="thumbnail">

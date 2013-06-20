@@ -141,6 +141,15 @@
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
                         var iconSize = (sel == val.id)? [60,42]: [40,28];
                         var vid = val.id;
+                        var img;
+                        if(showByRate (myMap.getZoom(),val.rating)){
+                            img = {
+                                iconImageHref: iconMap,
+                                iconImageSize: iconSize,
+                            };
+                        } else {
+                            img = { preset: 'twirl#blackClusterIcons' };
+                        }
                         myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                             id: val.id,
                             name: val.name,
@@ -151,10 +160,7 @@
                             rating: val.rating,
                             specialization_html: val.specialization_template,
                             workingTime_html: val.workingTime_template
-                        }, {
-                            iconImageHref: iconMap,
-                            iconImageSize: iconSize,
-                        });
+                        }, img);
                         myCollection.add(myPlacemark2);
                     }
 
@@ -234,7 +240,7 @@
                         geoCollection.each(function (item) {
                             var rat =  parseFloat( item.properties.get('rating') );
                             if (!showByRate( indexZoom, rat)) {
-                                geoCollection.remove(item);
+                                // geoCollection.remove(item);
                             }
                         });
                     });

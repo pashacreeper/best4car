@@ -130,13 +130,26 @@ class CompanyController extends MainController
                 ->getResult()
             ;
         }
+       $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
+            ->createQueryBuilder('fc')
+            ->where('fc.companyId = :company')
+            ->setParameter('company', $id)
+            ;
 
+        if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            $qb->andWhere('fc.hidden = :hidden')
+                ->setParameter('hidden', 0);
+        }
+
+        $query = $qb->getQuery()
+                    ->getResult();
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
         return [
             'company' => $company,
             'tab'     => $tab,
-            'isManager' => $isManager
+            'isManager' => $isManager,
+            'feedbacks'  => $query
         ];
     }
 

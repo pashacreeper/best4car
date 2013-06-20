@@ -40,11 +40,12 @@ $('a[data-modal-action]').click(function(){
    var action = $(this).data('modal-action');
    var type = $(this).parents().data('type');
    var data_id ;
-
    if (type == 'answer') {data_id = 'answer-id'} else {data_id = 'feedback-id'}
+
     switch (action) {
         case ('hide'):
         setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
+
         break;
         case ('edit'):
         if ($(this).data('type')=="company"){
@@ -60,9 +61,10 @@ $('a[data-modal-action]').click(function(){
         break;
         case ('no_complain'):
         setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
-        $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
+        // $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
         break;
     }
+    stateFeedback(data_id,$(this).data(data_id));
     $('#complainFeedbackAction').modal('hide');
 
     return false;
@@ -100,5 +102,40 @@ function deleteFeedback(type,id){
     })
 
 }
+function stateFeedback(type,id){
 
+        $.getJSON(Routing.generate('api_feedback_state'), {'type':type,'id': id})
+        .done(function (data) {
+            console.log(data);
+            if (type == 'feedback-id') {
+                if ( !data.complain && !data.hidden){
+                    $('[data-complain-feedback="'+id+'"]').remove();
+                }
+                if (data.hidden  ){
+                    $('[data-hidden-feedback="'+id+'"]').remove();
+                    $('div[data-moderator="'+id+'"]').append('<div class="span2" data-hidden-feedback="'+id+'"><span class="label label-warning">Скрыто</span></div>');
+                }
+                else{
+                    $('[data-hidden-feedback="'+id+'"]').remove();
+                }
+            }
+            else{
+                if ( !data.complain && !data.hidden){
+                    $('[data-complain-answer="'+id+'"]').remove();
+                }
+                if (data.hidden  ){
+                    $('[data-hidden-answer="'+id+'"]').remove();
+                    $('div[data-moderator-answer="'+id+'"]').append('<div class="span2" data-hidden-answer="'+id+'"><span class="label label-warning">Скрыто</span></div>');
+                }
+                else{
+                    $('[data-hidden-answer="'+id+'"]').remove();
+                }
+            }
+
+        })
+        .fail(function(e) {
+            console.log('error', e.message);
+        })
+
+}
 

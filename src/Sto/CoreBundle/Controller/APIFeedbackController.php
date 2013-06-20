@@ -155,7 +155,7 @@ class APIFeedbackController extends FOSRestController
         $em->persist($oAnswer);
         $em->flush();
 
-          $data = $this->render('StoContentBundle:Company:feedback_answer.html.twig', ['feedback'=>$feedback]);
+        $data = $this->render('StoContentBundle:Company:feedback_answer.html.twig', ['feedback'=>$feedback]);
 
         return new Response($serializer->serialize($data, 'json'));
     }
@@ -402,9 +402,17 @@ class APIFeedbackController extends FOSRestController
         if (!$request->get('field') || !$request->get('value')) {
             return new Response(404, 'Not Found Parameter');
         }
+        if ($request->get('field') == 'Hidden') {
+            $value = (($feedback->isHidden()) xor true);
+
+        }
+        else
+        {
+            $value = $request->get('value');
+        }
 
         $method = 'set'.$request->get('field');
-        $feedback->{$method}($request->get('value'));
+        $feedback->{$method}($value);
         $em->persist($feedback);
         $em->flush();
 
@@ -421,9 +429,16 @@ class APIFeedbackController extends FOSRestController
         if (!$request->get('field') || !$request->get('value')) {
             return new Response(404, 'Not Found Parameter');
         }
+        if ($request->get('field') == 'Hidden') {
+            $value = (($answer->isHidden()) xor true);
 
+        }
+        else
+        {
+            $value = $request->get('value');
+        }
         $method = 'set'.$request->get('field');
-        $answer->{$method}($request->get('value'));
+        $answer->{$method}($value);
         $em->persist($answer);
         $em->flush();
 
@@ -476,5 +491,43 @@ class APIFeedbackController extends FOSRestController
 
             return new Response($serializer->serialize(['id'=>$id], 'json'));
         }
+    }
+    /**
+     * @ApiDoc(
+     * description="Проверяет состояние отзыва (скрыт/жалоба)",
+     *     statusCodes={
+     *         200="Returned when successful",
+     *     }
+     * )
+     *
+     * @Rest\View
+     * @Route("/state-feedback", name="api_feedback_state", options={"expose"=true})
+     */
+    public function stateFeedback(Request $request)
+    {
+        $serializer = $this->container->get('jms_serializer');
+        if (!$request->get('type') )
+            return new Response(404, 'Not found parameter type');
+        if ($request->get('type') == 'feedback-id') {
+
+            $feedback_id = $request->get('id');
+
+            $em = $this->getDoctrine()->getManager();
+            $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
+            if (!$feedback) {
+                return new Response(404, 'Not Found Feedback');
+            }
+        }
+        else{
+            $answer_id = $request->get('id');
+
+            $em = $this->getDoctrine()->getManager();
+            $feedback = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
+            if (!$feedback) {
+                return new Response(404, 'Not Found FeedbackAnswer');
+            }
+        }
+
+        return new Response($serializer->serialize(['hidden'=>$feedback->isHidden(),'complain'=>$feedback->isComplain()], 'json'));
     }
 }
