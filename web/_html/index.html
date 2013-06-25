@@ -1,0 +1,1075 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Best4Car</title>	
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/selectbox.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style-index.css"/>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|PT+Sans+Caption&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<!--[if IE 7 ]><html class="ie7"> <![endif]-->
+		<!--[if IE 8 ]><html class="ie8"> <![endif]-->
+		<!--[if IE 9 ]><html class="ie9"> <![endif]-->
+		<!--[if (gte IE 10)|!(IE)]><!--><html> <!--<![endif]-->
+		<script src="bootstrap/js/jquery-1.6.1.js"></script>
+		<script src="bootstrap/js/jquery-ui-1.10.3.custom.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>		
+		<script src="bootstrap/js/selectbox.js"></script>
+		<script src="bootstrap/js/selectbox1.js"></script>
+		<script src="bootstrap/js/jquery.mousewheel.js"></script>
+		<script src="bootstrap/js/jquery.jscrollpane.js"></script>		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.scroll-pane').jScrollPane();
+			});
+		</script>
+		
+		<!--[if IE]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>	
+		<div id="map">
+			<div class="popupCardCompany">
+				<div class="popupCardCompanyTop">
+					<img src="bootstrap/img/logocompany.png" alt="" />
+					<div class="dataCompany">
+						<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+						<p class="adressCompany">Новочеркасский пр-д. 17</p>
+						<span class="spesialTerms">Спецпредложение!</span>
+					</div>
+					<p class="indexCardCompany">
+						<span class="indexbg"></span>
+						<span class="indexLevel">9.2</span></br>
+					</p>
+				</div>
+				<div class="popupCardCompanyCont">
+					<div class="servicesPart">
+						<ul class="services">
+							<li class="servisesItem">
+								<span class="iconProfilCompany wash"></span>Мойка
+							</li>
+							<li class="servisesItem">
+								<span class="iconProfilCompany showroom"></span>Автосалон
+							</li>
+							<li class="servisesItem">
+								<span class="iconProfilCompany cto"></span>СТО
+							</li>
+						</ul>
+						<ul class="servicesAdd">
+							<li class="servisesAddItem">
+								<span class="iconAddProfil wash">
+							</li>
+							<li class="servisesAddItem">
+								<span class="iconAddProfil wash">
+							</li>
+							<li class="servisesAddItem">
+								<span class="iconAddProfil wash">
+							</li>
+							<li class="servisesAddItem">
+								<span class="iconAddProfil wash">
+							</li>
+						</ul>
+					</div>
+					<div class="infoCompany">
+						<p class="infoCompanyLable">
+							Контактный телефон:</br><span>(812) 323-78-98</span>
+						</p>
+						<p class="infoCompanyLable">
+							Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+						</p>
+						<p class="infoCompanyLable">
+							Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+						</p>								
+					</div>
+				</div>
+				<svg id="myCanvas" width="20px" height="16px">
+					<polyline style="stroke-linejoin: miter; stroke: #9e9a94; stroke-width: 2; fill: #fff;" points="0 0, 10 7, 20 0"/>
+				</svg>
+			</div>
+		</div>
+		<header id="header">
+			<div class="topHeader">
+				<div class="logoCont">
+					<h1 class="logo"><a class="logoLink" href="index.html">best4car</a></h1>
+					<p class="slogan"><img src="bootstrap/img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+				</div>
+				<div class="navCont">
+					<ul class="navTop">
+						<li class="activTopNav" id="activTopNav">
+							<a class="navLink" href="index.html"><span class="navLinkIcon companys"></span>Компании</a>
+						</li>
+						<li class="navTopItem">
+							<a class="navLink" href="action.html"><span class="navLinkIcon actions"></span>Акции</a>
+						</li>
+						<li class="navTopItem">
+							<a class="navLink" href="clubs.html"><span class="navLinkIcon clubs"></span>Клубы</a>
+						</li>
+						<li class="navTopItem">
+							<a class="navLink" href="personal-info.html"><span class="navLinkIcon experts"></span>Эксперты</a>
+						</li>
+					</ul>
+					<script type="text/javascript">		
+						$(document).ready(function() {
+							$('.navTopItem').mouseenter(function() {										
+								$(this).children().css("opacity", "1");
+							});	
+							$('.navTopItem').mouseleave(function() {
+								$(this).children().css("opacity", "0.5");
+							});	
+						});		
+					</script>
+				</div>
+				<div id="accountIdentified" class="accountCont">
+					<a class="userImg btnUser" href="#"><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></a>
+					<p class="userName btnUser">Овчаренко Александр</p>
+					<p class="userInfo">Автолюбитель<span class="userInfoLevel"><span class="indexbg"></span>75</span></p>
+					<div class="userDropdown">
+						<div id="myCanvasTop" class="myCanvasTop"></div>							
+						<p class="popUpTitle">Ваш личный профиль</p>							
+						<ul class="userProfilCont">
+							<li class="userProfilItem">
+								<i class="iconProfilGray"></i>
+								<a href="#" class="google-blue">Профиль</a>
+							</li>
+							<li class="userProfilItem">
+								<i class="iconRemovReviewGray"></i>
+								<a href="#" class="facebook-blue">Ответы на отзыв</a>
+								<span class="amountProfil">231</span>
+							</li>								
+						</ul>
+						<p class="popUpTitle">Компания Транспорт-Сервис</p>							
+						<ul class="userProfilCont">
+							<li class="userProfilItem">
+								<i class="iconProfilGray"></i>
+								<a href="#" class="google-blue">Профиль</a>
+							</li>
+							<li class="userProfilItem">
+								<i class="iconReviewGray"></i>
+								<a href="#" class="facebook-blue">Отзывы</a>
+							</li>
+							<li class="userProfilItem">
+								<i class="iconActionGray"></i>
+								<a href="#" class="facebook-blue">Акции</a>
+							</li>
+						</ul>
+						<p class="userDropBot"><span class="btnExit primaryLink regisrationLink">Выйти</span></p>
+					</div>	
+					<script type="text/javascript">		
+						$(document).ready(function() {
+							$('.userDropdown').hide();
+							$('.btnUser').click(function() {
+								$('.userDropdown').toggle();
+							});	
+							$('.btnExit').click(function() {
+								$('.userDropdown').hide();
+								$('#accountIdentified').hide();
+								$('#accountUnIdentified').show();
+							});	
+						});		
+					</script>
+				</div>
+				<div id="accountUnIdentified" class="accountCont">
+					<span class="enter">Войти в профиль<i class="iconarrow"></i></span>					
+					<span class="registration regisrationLink">Регистрация</span>
+					<div class="enterDropdown">													
+						<p class="popUpTitle">Войти в профиль</p>
+						<form action method="post" class="">
+							<p class="contentLabel">
+								<label>Email</label>														
+								<input type="text" class="inputFormEnter">
+							</p>
+							<p class="contentLabel">
+								<label>Пароль</label>						
+								<input type="text" class="inputFormEnter">
+							</p>
+							<span class="btnEnter">Войти</span>
+							<p class="secondaryLink forgotPass">Забыли пароль?</p>								
+						</form>
+						<div class="enterCocial">
+							<span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+							<ul class="enterCocialIcon">
+								<li class="enterCocialIconItem">
+									<a href="#" class="google-blue">Goole+</a>
+								</li>
+								<li class="enterCocialIconItem">
+									<a href="#" class="facebook-blue">Facebook</a>
+								</li>
+								<li class="enterCocialIconItem">
+									<a href="#" class="vk-blue">Вконтакте</a>
+								</li>
+							</ul>
+						</div>
+						<span class="primaryLink regisrationLink">Регистрация</span>
+						<div id="myCanvasTop" class="myCanvasTop"></div>
+					</div>	
+					<script type="text/javascript">		
+						$(document).ready(function() {
+							$('.enterDropdown').hide();
+							$('.enter').click(function() {
+								$('.enterDropdown').show();
+							});	
+							$('.btnEnter').click(function() {
+								$('.enterDropdown').hide();
+							$('#accountUnIdentified').hide();
+								$('#accountIdentified').show();
+							});	
+						});		
+					</script>
+				</div>
+			</div>
+			<div class="bottomHeader row-fluid">
+				<div class="tounCont">
+					<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+					<p class="townSelect">Санкт-Петербург</p>
+					<div class="selectTownDropdown">							
+						<div class="selectTownDropdownTop">
+							<p class="popUpTitle">Укажите ваш город</p>
+						</div>						
+						<div class="selectTownDropdownCont tabs2">
+							<!-- Это сами вкладки -->
+							<ul class="countrySelectTab tabNavigation2">
+								<li class="countrySelectTabItem">										
+									<a href="#first2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+								</li>
+								<li class="countrySelectTabItem">
+									<a href="#second2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+								</li>
+								<li class="countrySelectTabItem">
+									<a href="#third2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+								</li>
+							</ul>
+							<!-- Это контейнеры содержимого -->  
+							<div id="first2" class="townSelectTabCont">
+								<ul class="townSelectTab">
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns activTown">Санкт-Петербург</p>
+										<span class="mark"></span>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Нижний-Новгород</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Санкт-Петербург</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Нижний-Новгород</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Санкт-Петербург</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Нижний-Новгород</p>
+									</li>
+								</ul>
+							</div>
+							<div id="second2" class="townSelectTabCont">
+								<ul class="townSelectTab">
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Киев</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Одесса</p>
+									</li>
+								</ul>
+							</div>
+							<div id="third2" class="townSelectTabCont">
+								<ul class="townSelectTab">
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Минск</p>
+									</li>
+									<li class="townSelectTabItem">
+										<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+										<p class="towns">Брест</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div id="myCanvasTop" class="myCanvasTop"></div>
+					</div>
+					<script>
+						$(document).ready(function () {
+							var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+							tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+							// далее обрабатывается клик по вкладке
+							$('.tabs2 ul.tabNavigation2 a').click(function () {
+								tabContainers.hide(); // прячем все табы
+								tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+								$('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+								$(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+								return false;
+							}).filter(':first').click();
+						});
+					</script>
+				</div>		
+				<div class="searchWrap">
+					<div class="searchCont">
+						<form class="form-search">
+							<label class="control-label" for="inputSearch">Я ищу:</label>							
+								<input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">															
+							<p class="searchExample">Например:  <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
+							<a href="#" class="btnSearch">									
+								<i class="iconSearch icon-search icon-white"></i>Найти
+							</a>
+						</form>
+					</div>
+				</div>							
+			</div>
+			<div class="contentTop">
+				<div class="contentTopLeft">
+					<div id="2" class="btnShoeLeftCont">
+						<div class="showLeftColumn">
+							<span class="hideBtn">
+								Скрыть
+							</span>						
+						</div>
+						<span class="hideLeftColumn">
+							Показать списком
+						</span>
+					</div>
+					<script type="text/javascript">		
+						$(document).ready(function() {
+							$('.hideLeftColumn').click(function() {
+								$('#map').css('left', '380px');
+							});
+							$('.showLeftColumn').click(function() {
+								$('#map').css('left', '0');
+							});	
+						});		
+					</script>	
+					<div class="selectLeftColumn">
+						<div class="assortSelect">
+							<span>Сортировать по:</span>
+							<div class="parametrAssort">
+								<div class="lineForm">
+									<select class="styled1">
+										<option value="">рейтингу</option>
+										<option value="">уровню цен</option>
+										<option value="">удаленности</option>
+									</select>  										
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>				
+				<div id="1"class="contentTopRight">
+					<span class="showRightSearch">
+						Скрыть расширенный поиск
+					</span>
+					<span class="hideRightSearch">
+						Показать расширенный поиск
+					</span>
+				</div>
+				<script type="text/javascript">		
+					$(document).ready(function() {
+						$('.hideRightSearch').click(function() {
+							$('#map').css('right', '340px');
+						});
+						$('.showRightSearch').click(function() {
+							$('#map').css('right', '0');
+						});	
+					});		
+				</script>	
+				<p class="contentTopCenter">
+					Все <span>150 </span>компаний вашего города
+				</p>
+			</div>
+		</header>			
+		<div id="block_2" class="contentLeft">
+			<div class="scroll-pane jspScrollable">						
+					<div class="cardCompanyItem" id="3">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_3">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_3">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+					<div class="cardCompanyItem" id="4">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_4">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_4">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+					<div class="cardCompanyItem" id="5">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_5">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_5">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+					<div class="cardCompanyItem" id="6">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_6">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_6">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+					<div class="cardCompanyItem" id="7">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_7">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_7">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+					<div class="cardCompanyItem" id="8">
+						<p class="index">
+							<span class="indexbg"></span>
+							<span class="indexLevel">9.2</span></br>
+							<span class="Otzyv">Отзывы: <span>12</span></span>
+						</p>
+						<div class="nameCompanyWrap">
+							<p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+							<p class="adressCompany">Новочеркасский пр-д. 17</p>
+							<p class="phoneCompany">8(812)987-65-43</p>								
+						</div>	
+						<div class="infoCompanyCont smallInfoCompany" id="blocSmall_8">									
+							<ul class="iconSpecialisation">
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>
+								<li class="iconSpecialisationitem">
+									<span class="iconProfilCompany wash">
+								</li>										
+							</ul>
+						</div>
+						<div class="infoCompanyCont bigInfoCompany" id="blocBig_8">									
+							<div class="popupCardCompanyCont">
+								<div class="servicesPart">
+									<ul class="services">
+										<li class="servisesItem">
+											<span class="iconProfilCompany wash"></span>Мойка
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany showroom"></span>Автосалон
+										</li>
+										<li class="servisesItem">
+											<span class="iconProfilCompany cto"></span>СТО
+										</li>
+									</ul>
+									<ul class="servicesAdd">
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+											</li>
+										<li class="servisesAddItem">
+											<span class="iconAddProfil wash">
+										</li>
+									</ul>
+								</div>
+								<div class="infoCompany">
+									<p class="infoCompanyLable">
+										Контактный телефон:</br><span>(812) 323-78-98</span>
+									</p>
+									<p class="infoCompanyLable">
+										Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+									</p>
+									<p class="infoCompanyLable">
+										Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+									</p>								
+								</div>
+							</div>
+						</div>								
+					</div>
+			</div>
+		</div>
+		<div id="block_1" class="contentRightWrap">
+			<div class="contentRight">
+				<form action method="post" class="inputTypeForm">
+					<p class="contentRightItem">
+						<label for="typeCompany">Тип компании</label>
+					</p>						
+					<div class="basket__cont__body__bottom__paper">
+						<div class="lineForm">
+							<select class="styled" id="typeCompany">
+								<option value="">Автосервис</option>
+								<option value="">Автомойка</option>
+								<option value="">Шиномонтаж</option>
+							</select>  										
+						</div>						
+					</div>
+					<p class="contentRightItem">
+						<label for="addtypeCompany">Подтип компании</label>
+					</p>						
+					<div class="basket__cont__body__bottom__paper">
+						<div class="lineForm">
+							<select class="styled" id="addtypeCompany">
+								<option value="">Лицензионные</option>
+								<option value="">Не лицензионные</option>
+								<option value="">Шиномонтаж</option>
+							</select>  										
+						</div>						
+					</div>	
+					<p class="contentRightItem">
+						<label for="inputBrandField">Специализация на марке</label>
+					</p>
+					<input type="text" id="inputBrandField" />					
+					<div class="reitingSlyder">
+						<p class="contentAmount">
+							<span id="lableAmount" for="amount">Минимальный рейтинг:</span>
+							<input type="text" id="amount" />
+						</p>
+						<div id="slider-range-max"></div>
+						<span class="indexSlyderLeft">1</span>
+						<span class="indexSlyderRight">10</span>
+					</div>
+					<p class="contentRightItem">
+						<label>Время работы</label>
+					</p>						
+					<ul class="btnFiltr-group">								 
+						<li><input id="CheckBox1" class="checkBox" type="checkbox"/><label class="btnFiltr btnFiltrFirst" for="CheckBox1">24 часа</label></li>
+						<li><input id="CheckBox2" class="checkBox" type="checkbox"/><label class="btnFiltr" for="CheckBox2">До поздна</label></li>
+						<li><input id="CheckBox3" class="checkBox" type="checkbox"/><label class="btnFiltr btnFiltrLast" for="CheckBox3">Выходные</label></li>
+					</ul>
+					<p class="contentRightItem">
+						<label>Дополнительные услуги</label>
+					</p>						
+					<ul class="btnFiltr-group dop">								 
+						<li>
+							<input id="CheckBox4" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr btnFiltrFirst" for="CheckBox4">
+								<i class="iconDopWork iconevacuation"></i>
+							</label>
+						</li>
+						<li>
+							<input id="CheckBox5" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr" for="CheckBox5">
+								<i class="iconDopWork iconwifi"></i>
+							</label>
+						</li>
+						<li>
+							<input id="CheckBox6" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr" for="CheckBox6">
+								<i class="iconDopWork iconotdyh"></i>
+							</label>
+						</li>
+						<li>
+							<input id="CheckBox7" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr" for="CheckBox7">
+								<i class="iconDopWork iconkofe"></i>
+							</label>
+						</li>
+						<li>
+							<input id="CheckBox8" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr" for="CheckBox8">
+								<i class="iconDopWork iconcard"></i>
+							</label>
+						</li>
+						<li>
+							<input id="CheckBox9" class="checkBox" type="checkbox"/>
+							<label class="btnFiltr btnFiltrLast" for="CheckBox9">
+								<i class="iconDopWork iconcafe"></i>
+							</label>
+						</li>
+					</ul>
+					<p class="contentRightItem labelCheckBox">
+						<span class="checkBox__autograf__wrap">
+							<input id="checkBox__autograf1" type="checkbox" value="off">
+							Только с акциями
+						</span>
+						<script type="text/javascript">
+							jQuery(document).ready(function(){
+								jQuery(".checkBox__autograf__wrap").mousedown(
+														function() {
+															 changeCheck(jQuery(this));												 
+														});
+														jQuery(".checkBox__autograf__wrap").each(
+														function() {												 
+															 changeCheckStart(jQuery(this));												 
+														});
+																								});
+														function changeCheck(el)
+														{
+															 var el = el,
+																  input = el.find("input").eq(0);
+															 if(!input.attr("checked")) {
+																el.css("background-position","0 -24px");	
+																input.attr("checked", true)
+															} else {
+																el.css("background-position","0 0");	
+																input.attr("checked", false)
+															}
+															 return true;
+														}
+														function changeCheckStart(el)
+														{
+														var el = el,
+																input = el.find("input").eq(0);
+															  if(input.attr("checked")) {
+																el.css("background-position","0 -24px");	
+																}
+															 return true;
+														}
+						</script>	
+					</p>
+					<p class="cleanSearch secondaryLink" id="cleanSearch">Очистить поиск</p>
+				</form>							
+			</div>
+		</div>
+		<section class="footer">
+			<div class="fotterCont">
+				<p class="footerLogo"></p>
+				<ul class="footerMenu">
+					<li class="footerMenuItem">
+						<a href="#">О проекте</a>
+					</li>
+					<li class="footerMenuItem">
+						<a href="#">Для рекламодателей</a>
+					</li>
+					<li class="footerMenuItem">
+						<a href="#">Для автобизнеса</a>
+					</li>
+					<li class="footerMenuItem">
+						<a href="#">Тур по сайту</a>
+					</li>
+					<li class="footerMenuItem">
+						<a href="#">Контакты</a>
+					</li>
+				</ul>
+				<ul class="footerCocial">
+					<li class="footerCocialItem">
+						<a href="#" class="google">Goole+</a>
+					</li>
+					<li class="footerCocialItem">
+						<a href="#" class="facebook">Facebook</a>
+					</li>
+					<li class="footerCocialItem">
+						<a href="#" class="vk">Вконтакте</a>
+					</li>
+				</ul>
+				<div id="linkUser"><a href="#">Условия использования сайта</a></div>
+			</div>
+		</section>
+			<div class="popupFirstVisit">
+			<i class="icon-remove-sign popupClose"></i>
+			<h3 class="titleFirstVisit">Впервый раз здесь?</h3>
+			<p class="contentFirstVisit">
+				Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
+			</p>
+			<a href="#" class="linkFirstVisitPeople">
+				<i class="iconPeople"></i>
+				<span>Возможности </br>для автовладельцев</span>
+			</a>
+			<a href="#" class="linkFirstVisitCompany">
+				<i class="iconCompany"></i>
+				<span>Возможности </br>для автокомпаний</span>
+			</a>
+		</div>
+		<script type="text/javascript">		
+					$(document).ready(function() {
+						$('.bigInfoCompany').hide();
+						$('.cardCompanyItem').click(function() {
+							$('#blocBig_' + this.id).slideToggle(0);
+							$('#blocSmall_' + this.id).slideToggle(0);
+						});											
+					});		
+		</script>
+		<script type="text/javascript">
+					var myMap;
+					ymaps.ready(init);
+					function init () {
+						myMap = new ymaps.Map('map', {
+							center:[55.76, 37.64],
+							zoom:10
+						});
+					}
+					function init () {
+						var myMap = new ymaps.Map('map', {
+								center: [56.136, 40.390],
+								zoom: 10
+							});						
+						myMap.controls
+							.add('zoomControl', { left: 5, top: 5 })
+							.add('typeSelector')
+							.add('smallZoomControl', { right: 5, top: 75 })
+							.add('mapTools', { left: 35, top: 5 });
+						var trafficControl = new ymaps.control.TrafficControl();
+						myMap.controls
+							.add(trafficControl)
+							.add(new ymaps.control.MiniMap({
+								type: 'yandex#publicMap'
+							}));
+					}
+		</script>	
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.selectTownDropdown').hide();
+				$('.townSelect').click(function() {
+					$('.selectTownDropdown').show();
+				});	
+				$('.townSelectTabItem').click(function() {
+					$('.selectTownDropdown').hide();
+				});	
+			});		
+		</script>
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.popupClose').click(function() {
+					$('.popupFirstVisit').hide();
+				});	
+			});		
+		</script>
+		<script type="text/javascript">			
+						$(document).ready(function(){
+							$(".showRightSearch").hide();
+							$("#block_1").hide();
+							$(".contentTopRight").click(function(){
+								$('#block_' + this.id).toggle();
+							});
+							$(".contentTopRight").click(function(){
+								$(".showRightSearch").toggle();
+							});
+							$(".contentTopRight").click(function(){
+								$(".hideRightSearch").toggle();
+							});												
+						});						
+		</script>
+		<script type="text/javascript">			
+						$(document).ready(function(){
+							$(".showLeftColumn").hide();
+							$("#block_2").hide();
+							$(".btnShoeLeftCont").click(function(){
+								$('#block_' + this.id).toggle();
+							});
+							$(".btnShoeLeftCont").click(function(){
+								$(".showLeftColumn").toggle();
+							});
+							$(".btnShoeLeftCont").click(function(){
+								$(".hideLeftColumn").toggle();
+							});												
+						});						
+		</script>
+		<script type="text/javascript">			
+						$(document).ready(function(){
+							$('.btnFiltr').click(function(){
+								$(this).toggleClass('btnFiltrActive');
+							});
+							$('#cleanSearch').click(function(){
+								$('.btnFiltr').removeClass('btnFiltrActive');
+								
+							});	
+						});						
+		</script>
+		<script>
+		  $(document).ready(function() {
+			$("#slider-range-max").slider({
+			  range: "max",
+			  min: 1,
+			  max: 10,
+			  value: 4,
+			  slide: function( event, ui ) {
+				$("#amount").val( ui.value );
+			  }
+			});
+			$("#amount").val( $("#slider-range-max").slider("value") );
+		  });
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('.typeahead').typeahead()
+			});
+		</script>
+	</body>
+</html>

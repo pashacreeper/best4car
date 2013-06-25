@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Best4Car</title>	
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/selectbox.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style-action.css"/>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|PT+Sans+Caption&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<!--[if IE 7 ]><html class="ie7"> <![endif]-->
+		<!--[if IE 8 ]><html class="ie8"> <![endif]-->
+		<!--[if IE 9 ]><html class="ie9"> <![endif]-->
+		<!--[if (gte IE 10)|!(IE)]><!--><html> <!--<![endif]-->
+		<script src="bootstrap/js/jquery-1.9.1.js"></script>
+		<script src="bootstrap/js/jquery-ui-1.10.3.custom.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>		
+		<script src="bootstrap/js/selectbox.js"></script>
+		<script src="bootstrap/js/selectbox1.js"></script>
+		<script src="bootstrap/js/jquery.jscrollpane.js"></script>
+		<script src="bootstrap/js/jquery.mousewheel.js"></script>
+		<script src="bootstrap/js/script.js"></script>
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.selectTownDropdown').hide();
+				$('.townSelect').click(function() {
+					$('.selectTownDropdown').show();
+				});	
+				$('.townSelectTabItem').click(function() {
+					$('.selectTownDropdown').hide();
+				});	
+			});		
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('.typeahead').typeahead()
+			});
+		</script>
+		<!--[if IE]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="main">
+			<header id="header">
+				<div class="topHeader">
+					<div class="logoCont">
+						<h1 class="logo"><a class="logoLink" href="index.html">best4car</a></h1>
+						<p class="slogan"><img src="bootstrap/img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+					</div>
+					<div class="navCont">
+						<ul class="navTop">
+							<li class="navTopItem">
+								<a class="navLink" href="index.html"><span class="navLinkIcon companys"></span>Компании</a>
+							</li>
+							<li class="activTopNav" id="activTopNav">
+								<a class="navLink" href="action.html"><span class="navLinkIcon actions"></span>Акции</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="clubs.html"><span class="navLinkIcon clubs"></span>Клубы</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="personal-info.html"><span class="navLinkIcon experts"></span>Эксперты</a>
+							</li>
+						</ul>
+						<script type="text/javascript">		
+								$(document).ready(function() {
+									$('.navTopItem').mouseenter(function() {										
+										$(this).children().css("opacity", "1");
+									});	
+									$('.navTopItem').mouseleave(function() {
+										$(this).children().css("opacity", "0.5");
+									});	
+								});		
+						</script>
+					</div>
+					<div id="accountIdentified" class="accountCont">
+						<a class="userImg btnUser" href="#"><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></a>
+						<p class="userName btnUser">Овчаренко Александр</p>
+						<p class="userInfo">Автолюбитель<span class="userInfoLevel"><span class="indexbg"></span>75</span></p>
+						<div class="userDropdown">
+							<div id="myCanvasTop" class="myCanvasTop"></div>							
+							<p class="popUpTitle">Ваш личный профиль</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconRemovReviewGray"></i>
+									<a href="#" class="facebook-blue">Ответы на отзыв</a>
+									<span class="amountProfil">231</span>
+								</li>								
+							</ul>
+							<p class="popUpTitle">Компания Транспорт-Сервис</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconReviewGray"></i>
+									<a href="#" class="facebook-blue">Отзывы</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconActionGray"></i>
+									<a href="#" class="facebook-blue">Акции</a>
+								</li>
+							</ul>
+							<p class="userDropBot"><span class="btnExit primaryLink regisrationLink">Выйти</span></p>
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.userDropdown').hide();
+								$('.btnUser').click(function() {
+									$('.userDropdown').toggle();
+								});	
+								$('.btnExit').click(function() {
+									$('.userDropdown').hide();
+									$('#accountIdentified').hide();
+									$('#accountUnIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+					<div id="accountUnIdentified" class="accountCont">
+						<span class="enter">Войти в профиль<i class="iconarrow"></i></span>					
+						<span class="registration regisrationLink">Регистрация</span>
+						<div class="enterDropdown">													
+							<p class="popUpTitle">Войти в профиль</p>
+							<form action method="post" class="">
+								<p class="contentLabel">
+									<label>Email</label>														
+									<input type="text" class="inputFormEnter">
+								</p>
+								<p class="contentLabel">
+									<label>Пароль</label>						
+									<input type="text" class="inputFormEnter">
+								</p>
+								<span class="btnEnter">Войти</span>
+								<p class="secondaryLink forgotPass">Забыли пароль?</p>								
+							</form>
+							<div class="enterCocial">
+								<span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+								<ul class="enterCocialIcon">
+									<li class="enterCocialIconItem">
+										<a href="#" class="google-blue">Goole+</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="facebook-blue">Facebook</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="vk-blue">Вконтакте</a>
+									</li>
+								</ul>
+							</div>
+							<span class="primaryLink regisrationLink">Регистрация</span>
+							<div id="myCanvasTop" class="myCanvasTop"></div>	
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.enterDropdown').hide();
+								$('.enter').click(function() {
+									$('.enterDropdown').show();
+								});	
+								$('.btnEnter').click(function() {
+									$('.enterDropdown').hide();
+									$('#accountUnIdentified').hide();
+									$('#accountIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+				</div>
+				<div class="bottomHeader row-fluid">
+					<div class="tounCont">
+						<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+						<p class="townSelect">Санкт-Петербург</p>
+						<div class="selectTownDropdown">							
+							<div class="selectTownDropdownTop">
+								<p class="popUpTitle">Укажите ваш город</p>
+							</div>						
+							<div class="selectTownDropdownCont tabs2">
+								<!-- Это сами вкладки -->
+								<ul class="countrySelectTab tabNavigation2">
+									<li class="countrySelectTabItem">										
+										<a href="#first2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+									</li>
+									<li class="countrySelectTabItem">
+										<a href="#second2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+									</li>
+									<li class="countrySelectTabItem">
+										<a href="#third2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+									</li>
+								</ul>
+								<!-- Это контейнеры содержимого -->  
+								<div id="first2" class="townSelectTabCont">
+									<ul class="townSelectTab">
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns activTown">Санкт-Петербург</p>
+											<span class="mark"></span>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Нижний-Новгород</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Санкт-Петербург</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Нижний-Новгород</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Санкт-Петербург</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Нижний-Новгород</p>
+										</li>
+									</ul>
+								</div>
+								<div id="second2" class="townSelectTabCont">
+									<ul class="townSelectTab">
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Киев</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Одесса</p>
+										</li>
+									</ul>
+								</div>
+								<div id="third2" class="townSelectTabCont">
+									<ul class="townSelectTab">
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Минск</p>
+										</li>
+										<li class="townSelectTabItem">
+											<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+											<p class="towns">Брест</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div id="myCanvasTop" class="myCanvasTop"></div>
+						</div>
+						<script>
+						$(document).ready(function () {
+							var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+							tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+							// далее обрабатывается клик по вкладке
+							$('.tabs2 ul.tabNavigation2 a').click(function () {
+								tabContainers.hide(); // прячем все табы
+								tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+								$('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+								$(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+								return false;
+							}).filter(':first').click();
+						});
+						</script>
+					</div>		
+					<div class="searchWrap">
+						<div class="searchCont">
+							<form class="form-search">
+								<label class="control-label" for="inputSearch">Я ищу:</label>							
+									<input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">															
+								<p class="searchExample">Например: <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
+								<a href="#" class="btnSearch">									
+									<i class="iconSearch icon-search icon-white"></i>Найти
+								</a>
+							</form>
+						</div>
+					</div>							
+				</div>
+			</header>
+			<section class="contentMain  row tabs">
+				<div class="contentWrap text-cont-l">
+					<div class="content text-cont-r">
+						<div id="leftBar" class="text-l">
+							<ul class="menuLeftBar">
+								<li class="menuLeftBarItem">
+									<span class="menuTagEmpty">Все акции</span>
+									<span class="acctBtn">231</span>									
+								</li>
+								<li class="menuLeftBarItem activeBar">
+									<span class="menuTagEmpty">Скидки</span>
+									<span class="acctBtn">231</span>
+									<i class="subActive"></i>
+								</li>
+								<li class="menuLeftBarItem">
+									<span class="menuTagEmpty">Клубные</span>
+									<span class="acctBtn">231</span>
+								</li>
+								<li class="menuLeftBarItem">
+									<span class="menuTagEmpty">Распродажи</span>
+									<span class="acctBtn">231</span>
+								</li>
+								<li class="menuLeftBarItem">
+									<span class="menuTagEmpty">Все акции</span>
+									<span class="acctBtn">231</span>
+								</li>
+							</ul>
+							<div class="deviderLeftMenu"></div>
+							<ul class="menuLeftBar leftBar2">
+								<li class="menuLeftBarItem">
+									<i class="iconLeftMPopular"></i>
+									<span class="menuTagEmpty">Популярные</span>
+									<span class="acctBtn">35</span>									
+								</li>
+								<li class="menuLeftBarItem">
+									<i class="iconLeftMReview"></i>
+									<span class="menuTagEmpty">С отзывами</span>
+									<span class="acctBtn">21</span>
+								</li>							
+							</ul>
+						</div>
+						<div id="rightBar" class="text-r">													
+							<div class="actionItemCont">
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>	
+							</div>																				
+							<div class="actionItemCont">
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>	
+							</div>
+							<div class="actionItemCont">
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>
+								<div class="actionItemMini">
+									<a href="#" class="actionItemLink">
+										<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />									
+										<div class="actionItemBottomWrap">
+											<div class="actionItemBottom">
+												<h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+												<p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+												<p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+											</div>	
+										</div>
+									</a>
+								</div>	
+							</div>		
+							<script type="text/javascript">		
+								$(document).ready(function() {
+									$('.actionItemLink').mouseenter(function() {										
+										$(this).children('.actionItemBottomWrap').css("top", "90px");
+									});	
+									$('.actionItemLink').mouseleave(function() {
+										$(this).children('.actionItemBottomWrap').css("top", "120px");
+									});	
+								});		
+							</script>
+							<div class="bottomContent">
+								<span class="secondaryLink saveDraft">Показать еще</span>
+							</div>
+						</div>
+						<div class="clear"></div>						
+					</div>					
+				</div>
+			</section>
+			<div class="shieldFooter"></div>
+			<section class="footer">
+				<div class="fotterCont">
+					<p class="footerLogo"></p>
+					<ul class="footerMenu">
+						<li class="footerMenuItem">
+							<a href="#">О проекте</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для рекламодателей</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для автобизнеса</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Тур по сайту</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Контакты</a>
+						</li>
+					</ul>
+					<ul class="footerCocial">
+						<li class="footerCocialItem">
+							<a href="#" class="google">Goole+</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="facebook">Facebook</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="vk">Вконтакте</a>
+						</li>
+					</ul>
+					<div id="linkUser"><a href="#">Условия использования сайта</a></div>
+				</div>
+			</section>
+		</div>	
+	</body>
+</html>

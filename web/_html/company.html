@@ -1,0 +1,854 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Best4Car</title>	
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/selectbox.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/styleCompany.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<!--[if IE 7 ]><html class="ie7"> <![endif]-->
+		<!--[if IE 8 ]><html class="ie8"> <![endif]-->
+		<!--[if IE 9 ]><html class="ie9"> <![endif]-->
+		<!--[if (gte IE 10)|!(IE)]><!--><html> <!--<![endif]-->
+		<script src="bootstrap/js/jquery-1.9.1.js"></script>
+		<script src="bootstrap/js/jquery-ui-1.10.3.custom.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>		
+		<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+		<script src="bootstrap/js/selectbox.js"></script>
+		<script src="bootstrap/js/selectbox1.js"></script>
+		<script src="bootstrap/js/jquery.jscrollpane.js"></script>
+		<script src="bootstrap/js/jquery.mousewheel.js"></script>	
+		<script src="bootstrap/js/script.js"></script>
+		<script src="bootstrap/js/slider.js"></script>	
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.selectTownDropdown').hide();
+				$('.townSelect').click(function() {
+					$('.selectTownDropdown').show();
+				});	
+				$('.townSelectTabItem').click(function() {
+					$('.selectTownDropdown').hide();
+				});	
+			});		
+		</script>
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.popupClose').click(function() {
+					$('.popupFirstVisit').hide();
+				});	
+			});		
+		</script>	
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.popupClose').click(function() {
+					$('.popupFirstVisit').hide();
+				});	
+			});		
+		</script>	
+		<!--[if IE]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="main">
+			<header id="header">
+				<div class="topHeader">
+					<div class="logoCont">
+						<h1 class="logo"><a class="logoLink" href="index.html">best4car</a></h1>
+						<p class="slogan"><img src="bootstrap/img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+					</div>
+					<div class="navCont">
+						<ul class="navTop">
+							<li class="activTopNav" id="activTopNav">
+								<a class="navLink" href="index.html"><span class="navLinkIcon companys"></span>Компании</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="action.html"><span class="navLinkIcon actions"></span>Акции</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="clubs.html"><span class="navLinkIcon clubs"></span>Клубы</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="personal-info.html"><span class="navLinkIcon experts"></span>Эксперты</a>
+							</li>
+						</ul>
+						<script type="text/javascript">		
+								$(document).ready(function() {
+									$('.navTopItem').mouseenter(function() {										
+										$(this).children().css("opacity", "1");
+									});	
+									$('.navTopItem').mouseleave(function() {
+										$(this).children().css("opacity", "0.5");
+									});	
+								});		
+						</script>
+					</div>
+					<div id="accountIdentified" class="accountCont">
+						<a class="userImg btnUser" href="#"><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></a>
+						<p class="userName btnUser">Овчаренко Александр</p>
+						<p class="userInfo">Автолюбитель<span class="userInfoLevel"><span class="indexbg"></span>75</span></p>
+						<div class="userDropdown">
+							<div id="myCanvasTop" class="myCanvasTop"></div>							
+							<p class="popUpTitle">Ваш личный профиль</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconRemovReviewGray"></i>
+									<a href="#" class="facebook-blue">Ответы на отзыв</a>
+									<span class="amountProfil">231</span>
+								</li>								
+							</ul>
+							<p class="popUpTitle">Компания Транспорт-Сервис</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconReviewGray"></i>
+									<a href="#" class="facebook-blue">Отзывы</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconActionGray"></i>
+									<a href="#" class="facebook-blue">Акции</a>
+								</li>
+							</ul>
+							<p class="userDropBot"><span class="btnExit primaryLink regisrationLink">Выйти</span></p>
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.userDropdown').hide();
+								$('.btnUser').click(function() {
+									$('.userDropdown').toggle();
+								});	
+								$('.btnExit').click(function() {
+									$('.userDropdown').hide();
+									$('#accountIdentified').hide();
+									$('#accountUnIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+					<div id="accountUnIdentified" class="accountCont">
+						<span class="enter">Войти в профиль<i class="iconarrow"></i></span>					
+						<span class="registration regisrationLink">Регистрация</span>
+						<div class="enterDropdown">
+							<div id="myCanvasTop" class="myCanvasTop"></div>							
+							<p class="popUpTitle">Войти в профиль</p>
+							<form action method="post" class="">
+								<p class="contentLabel">
+									<label>Email</label>														
+									<input type="text" class="inputFormEnter">
+								</p>
+								<p class="contentLabel">
+									<label>Пароль</label>						
+									<input type="text" class="inputFormEnter">
+								</p>
+								<span class="btnEnter">Войти</span>
+								<p class="secondaryLink forgotPass">Забыли пароль?</p>								
+							</form>
+							<div class="enterCocial">
+								<span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+								<ul class="enterCocialIcon">
+									<li class="enterCocialIconItem">
+										<a href="#" class="google-blue">Goole+</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="facebook-blue">Facebook</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="vk-blue">Вконтакте</a>
+									</li>
+								</ul>
+							</div>
+							<span class="primaryLink regisrationLink">Регистрация</span>	
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.enterDropdown').hide();
+								$('.enter').click(function() {
+									$('.enterDropdown').show();
+								});	
+								$('.btnEnter').click(function() {
+									$('.enterDropdown').hide();
+									$('#accountUnIdentified').hide();
+									$('#accountIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+				</div>
+				<div class="bottomHeader">
+					<div class="bottomHeaderCont">	
+						<div class="back">
+							<a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+						</div>
+						<div id="nameCompanyHeaderWrap">
+							<div class="nameCompanyHeader">
+								<span class="logoCompany"><img src="bootstrap/img/logocompany.png" alt=""></span>
+								<h1 class="titleNameCompany"><a href="#">Транспорт Сервис</a></h1>
+								<p class="sloganCompany">Отличная компания для отличных людей</p>
+							</div>	
+							<div class="indexCompany">
+								<p>Рейтинг:</p>
+								<span class="indexbg"></span>
+								<span class="indexLevel">9.2</span></br>
+							</div>
+						</div>	
+						<div class="tounCont">
+							<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+							<p class="townSelect">Санкт-Петербург</p>
+							<div class="selectTownDropdown">							
+								<div class="selectTownDropdownTop">
+									<p class="popUpTitle">Укажите ваш город</p>
+								</div>						
+								<div class="selectTownDropdownCont tabs2">
+									<!-- Это сами вкладки -->
+									<ul class="countrySelectTab tabNavigation2">
+										<li class="countrySelectTabItem">										
+											<a href="#first2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+										<li class="countrySelectTabItem">
+											<a href="#second2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+										<li class="countrySelectTabItem">
+											<a href="#third2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+									</ul>
+									<!-- Это контейнеры содержимого -->  
+									<div id="first2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns activTown">Санкт-Петербург</p>
+												<span class="mark"></span>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Санкт-Петербург</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Санкт-Петербург</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+										</ul>
+									</div>
+									<div id="second2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Киев</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Одесса</p>
+											</li>
+										</ul>
+									</div>
+									<div id="third2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Минск</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Брест</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="myCanvasTop" class="myCanvasTop"></div>
+							</div>
+							<script>
+							$(document).ready(function () {
+								var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+								tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+								// далее обрабатывается клик по вкладке
+								$('.tabs2 ul.tabNavigation2 a').click(function () {
+									tabContainers.hide(); // прячем все табы
+									tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+									$('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+									$(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+									return false;
+								}).filter(':first').click();
+							});
+							</script>
+						</div>	
+					</div>
+				</div>
+			</header>
+			<section class="contentMain  row tabs">
+				<!-- Это сами вкладки -->
+				<ul class="tabNavigation">
+					<li>
+						<a class="" href="#first">Информация</a>
+					</li>
+					<li>
+						<a class="" href="#second">Отзывы  6<span class="newPost">/ 15</span></a>
+					</li>
+					<li>
+						<a class="" href="#third">Акции  4<span class="newPost">/ 11</span></a>
+					</li>
+				</ul>
+				<!-- Это контейнеры содержимого -->    
+				<div id="first" class="content">
+					<div class="leftContent">
+						<div class="slider">
+							<div class="img__prev__wrap">	
+								<ul id="thumbnail" class="slide-wrap">
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo3.jpg"  alt="" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo2.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo3.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo2.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo1.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo3.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo3.jpg" />
+										</a>
+									</li>
+									<li class="slide-item">
+										<a class="linh__img__prev" href="#">
+											<img src="bootstrap/img/photo1.jpg" />
+										</a>
+									</li>													
+								</ul>
+								<span name="prev" class="navy prev-slide"></span>
+								<span name="next" class="navy next-slide"></span>
+							</div>
+						</div>
+						<div class="servicesSpecialisationWrap">
+							<script type="text/javascript">
+								$(document).ready(function(){
+									$('.accordion-body:not(:first)').hide();
+									$('.accordion-toggle').click(function(){
+										$('#collapse_' + this.id).toggle();
+										$('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');	
+									});
+									$('.showAll').click(function(){
+										$('.accordion-body').show();
+										$('.iconAccord').removeClass('iconChevronDown');	
+									});
+								});
+							</script>
+							<div class="accordion" id="accordion2">
+								<h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
+								<div class="accordion-group">
+									<div class="accordion-heading">
+										<div class="accordion-toggle" id="11">
+											<i class="iconProfilCompany cto"></i>
+											<p class="accordionTitle">СТО</p>
+											<p class="accordionDescription">Независимый мультибрендовый</p>
+											<span class="iconAccord iconChevron" id="iconCollapse_11"></span>
+										</div>
+									</div>
+									<div id="collapse_11" class="accordion-body">
+										<div class="accordion-inner">
+											<ul class="listServices">
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="accordion-group">
+									<div class="accordion-heading">
+										<div class="accordion-toggle" id="12">
+											<i class="iconProfilCompany cto"></i>
+											<p class="accordionTitle">СТО</p>
+											<p class="accordionDescription">Независимый мультибрендовый</p>
+											<span class="iconAccord iconChevronDown" id="iconCollapse_12"></span>
+										</div>
+									</div>
+									<div id="collapse_12" class="accordion-body">
+										<div class="accordion-inner">
+											<ul class="listServices">
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+												<li class="listServicesItem contentText">
+													Техническое обслуживание (ТО)
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<span class="showAll">Показать все</span>
+							</div>
+							<div class="additionalServices">
+								<h3 class="servicesSpecialisationTitle titleH2">Дополнительные услуги</h3>
+								<p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> Бесплатный Wi-Fi</p>
+								<p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> Бесплатный Wi-Fi</p>
+								<p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> Бесплатный Wi-Fi</p>
+								<p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> Бесплатный Wi-Fi</p>
+								<p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> Бесплатный Wi-Fi</p>
+							</div>
+							<p class="servicesSpecialisationTitle titleH2">О компании</p>
+							<p class="aboutCompanyCont contentText">
+								Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину. 
+							</p>
+							<p class="servicesSpecialisationTitle titleH2">Менеджеры компании:</p>
+							<div class="managerCompany">
+								<span><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
+								<p class="nameManager">Мария Кожевникова</p>
+								<p class="phoneManager">(812) 323-78-98</p>
+							</div>
+							<div class="managerCompany">
+								<span><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
+								<p class="nameManager">Мария Кожевникова</p>
+								<p class="phoneManager">(812) 323-78-98</p>
+							</div>
+						</div>
+						<div class="infoCompanyWrap">
+							<div class="infoCompanyItem">
+								<p class="servedBrendTitle titleH3">Обслуживаемые бренды:</p>
+								<p class="servedBrend"><i class="iconBrand mazda"></i>Mazda</p>
+								<p class="servedBrend"><i class="iconBrand toyota"></i>Toyota</p>
+								<p class="servedBrend"><i class="iconBrand honda"></i>Honda</p>
+								<p class="servedBrend"><i class="iconBrand infinity"></i>Infinity</p>
+							</div>
+							<div class="infoCompanyItem">
+								<p class="infoCompanyTitle contentText">Опыт работы: <span>5</span></p>
+								<p class="infoCompanyTitle contentText">Нормо-час: <span>1600руб.</span></p>
+							</div>
+							<div class="infoCompanyItem">
+								<p class="infoCompanyTitle titleH3">Адрес:</p>
+								<p class="infoCompanyDescription"><a href="#">СПб. пр. Космонавтов, 12</a></p>
+							</div>
+							<div class="infoCompanyItem">
+								<p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
+								<p class="infoCompanyAddTitle contentText">Автосалон:</p>
+								<p class="infoCompanyDescription">(812) 323-78-98</p>
+								<p class="infoCompanyAddTitle contentText">Отдел запчастей:<span class="phoneRight">(812) 323-78-98</span></p>
+								<p class="infoCompanyAddTitle contentText">Сервис:<span class="phoneRight">(812) 323-78-98</span></p>
+								<p class="infoCompanyAddTitle contentText">Факс:<span class="phoneRight">(812) 323-78-98</span></p>
+							</div>
+							<div class="infoCompanyItem">
+								<p class="infoCompanyTitle titleH3">Часы работы:</p>
+								<p class="infoCompanyDescription">9:00 - 21:00 (пн-пт)</p>
+								<p class="infoCompanyDescription">9:00 - 20:00 (сб-вс)</p>
+							</div>
+							<div class="infoCompanyItem">
+								<p class="infoCompanyAddTitle contentText">Сайт:</p>
+								<p class="infoCompanyDescription"><a class="linkContact" href="#">www.rolf-carline.ru</a></p>
+								<p class="infoCompanyAddTitle contentText">Skype:</p>
+								<p class="infoCompanyDescription"><a class="linkContact" href="#">rolf-carline</a></p>
+								<p class="infoCompanyAddTitle contentText">E-mail:</p>
+								<p class="infoCompanyDescription"><a class="linkContact" href="#">mitsubishi@rolf.ru</a></p>
+								<p class="infoCompanyAddTitle contentText">Отдел запчастей:<a class="linkContact addEmail " href="#">spareparts@rolf.ru</a></p>
+								<p class="infoCompanyAddTitle contentText">Сервис:<a class="linkContact addEmail" href="#">servis@rolf.ru</a></p>
+							</div>
+							<ul class="infoCompanySocialNet">
+								<li class="infoCompanySocialNetItem">
+									<a href="#"><i class="twit-blue"></i>Twitter</a>
+								</li>
+								<li class="infoCompanySocialNetItem">
+									<a href="#"><i class="facebook-blue"></i>Facebook</a>
+								</li>
+								<li class="infoCompanySocialNetItem">
+									<a href="#"><i class="vk-blue"></i>Вконтакте</a>
+								</li>
+							</ul>
+						</div>
+					</div>					
+					<div class="rightContent">
+						<span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>	
+						<span class="addPhotoBtn">Добавить фото<i class="addPhoto"></i></span>	
+						<div class="bannerImg">
+							<img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+						</div>
+					</div>	
+				</div>
+				<div id="second" class="content">
+					<div class="leftContent">
+						<div class="contentSelect">
+							<div class="assortSelect">
+								<span>Сортировать по:</span>
+								<div class="parametrAssort">
+									<div class="lineForm">
+										<select class="styled1">
+											<option value="">рейтингу</option>
+											<option value="">дате</option>
+										</select>  										
+									</div>
+								</div>							
+							</div>
+							<div class="showSelect">
+								<span>Показать по:</span>
+								<div class="parametrAssort">
+									<div class="lineForm">
+										<select class="styled1">
+											<option value="">все</option>
+											<option value="">положительные</option>
+											<option value="">отрицательные</option>
+											<option value="">полезные</option>
+										</select>  										
+									</div>
+								</div>	
+							</div>							
+						</div>
+						<p class="showTotal">
+							Показано:
+							<span class="parametShow">153</span>
+							отзыва
+						</p>
+						<script type="text/javascript">		
+											$(document).ready(function() {
+												$('.collapsCont').hide();
+												$('.collapsText').click(function() {
+													$('.collapsCont').show();
+													$('.collapsText').hide();
+												});													
+											});		
+						</script>					
+						<script type="text/javascript">		
+											$(document).ready(function() {
+												$('.popUpPrimary').hide();
+												$('.complainAlert').hide();
+												$('.complain').click(function() {
+													$('.complainAlert').show();
+												});
+												$('.complainAlert').click(function() {
+													$('.popUpPrimary').show();
+												});	
+												$('.popUpPrimary li').click(function() {
+													$('.popUpPrimary').hide();
+													$('.complainAlert').hide();
+												});	
+											});		
+						</script>
+						<div class="reviewContentItem">
+							<div class="reviewAccount">
+								<div  class="reviewAccountImg">
+									<a href="#">
+										<img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+									</a>
+								</div>
+								<span>153</span>
+							</div>
+							<div class="reviewWrap">
+								<div class="reviewTop">
+									<p class="reviewNick"><a href="#">StreetRacer</a></p>
+									<p class="reviewName"><a href="#">Иванов Семен</a></p>
+									<p class="reviewRang">Автолюбитель</p>
+									<span class="reviewData">18.02.2013</span>
+								</div>
+								<div class="reviewCont">
+									<div class="reviewContTop">
+										<!--http://habrahabr.ru/post/132807/-->							
+										<div class="vote-wrap">
+											<div class="vote-hover">
+												<div class="vote-block">
+													<div class="vote-stars">
+													</div>
+													<div class="vote-active">
+													</div>
+												</div>
+											</div>
+										</div>	
+										<span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+										<span class="negativReview disabledIconNegativ"><i class="negativReviewI"></i>53</span>
+										<span class="positivReview disabledIconPositiv"><i class="positivReviewI"></i>15</span>										
+										<p class="reviewContText">
+											Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.											
+										</p>
+										<span class="collapsText">( <span>показать полностью</span> )</span>
+										<p class="collapsCont">										
+											Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+										</p>
+										
+										<span class="primaryLink reply">Ответить</span>
+										<span class="primaryLink complain">Пожаловаться</span>
+										<i class="complainAlert"></i>
+										<div class="popUpPrimary">
+											<div id="myCanvasTop" class="myCanvasTop"></div>	
+											<ul>
+												<li><span class="primaryLink">Скрыть</span></li>
+												<li><span class="primaryLink">Редактировать</span></li>
+												<li><span class="primaryLink">Удалить</span></li>
+												<li><span class="primaryLink">Снять жалобу</span></li>
+											</ul>
+										</div>										
+									</div>
+									<div class="responseReviewCont">
+										<div class="reviewContBottomText">
+											<p class="reviewContText">
+												Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+											</p>
+										</div>
+										<div class="reviewContBottomAccount">
+											<div  class="responseReviewAccountImg">
+												<img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+											</div>
+											<span class="responseReviewData">18.02.2013</span>
+											<p class="responseReviewName">Иванов Семен</p>
+											<p class="responseReviewRang">Менеджер</p>
+											<p class="bottomReview">
+												<span class="negativReview"><i class="negativReviewI"></i>53</span>
+												<span class="positivReview"><i class="positivReviewI"></i>15</span>			
+											</p>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="reviewContentItem">
+							<div class="reviewAccount">
+								<div  class="reviewAccountImg">
+									<a href="#">
+										<img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+									</a>
+								</div>
+								<span>153</span>
+							</div>
+							<div class="reviewWrap">
+								<div class="reviewTop">
+									<p class="reviewNick"><a href="#">StreetRacer</a></p>
+									<p class="reviewName"><a href="#">Иванов Семен</a></p>
+									<p class="reviewRang">Автолюбитель</p>
+									<span class="reviewData">18.02.2013</span>
+								</div>
+								<div class="reviewCont">
+									<div class="reviewContTop">
+										<!--http://habrahabr.ru/post/132807/-->							
+										<div class="vote-wrap">
+											<div class="vote-hover">
+												<div class="vote-block">
+													<div class="vote-stars">
+													</div>
+													<div class="vote-active">
+													</div>
+												</div>
+											</div>
+										</div>	
+										<span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+										<span class="negativReview"><i class="negativReviewI"></i>53</span>
+												<span class="positivReview"><i class="positivReviewI"></i>15</span>										
+										<p class="reviewContText">
+											Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.											
+										</p>
+										<span class="collapsText">( <span>показать полностью</span> )</span>
+										<p class="collapsCont">										
+											Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+										</p>
+										
+										<span class="primaryLink reply">Ответить</span>
+										<span class="primaryLink complain">Пожаловаться</span>
+										<i class="complainAlert"></i>
+										<div class="popUpPrimary">
+											<div id="myCanvasTop" class="myCanvasTop"></div>	
+											<ul>
+												<li><span class="primaryLink">Скрыть</span></li>
+												<li><span class="primaryLink">Редактировать</span></li>
+												<li><span class="primaryLink">Удалить</span></li>
+												<li><span class="primaryLink">Снять жалобу</span></li>
+											</ul>
+										</div>
+										
+									</div>
+									<div class="responseReviewCont">
+										<div class="reviewContBottomText">
+											<p class="reviewContText">
+												Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+											</p>
+										</div>
+										<div class="reviewContBottomAccount">
+											<div  class="responseReviewAccountImg">
+												<img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+											</div>
+											<span class="responseReviewData">18.02.2013</span>
+											<p class="responseReviewName">Иванов Семен</p>
+											<p class="responseReviewRang">Менеджер</p>
+											<p class="bottomReview">
+												<span class="negativReview"><i class="negativReviewI"></i>53</span>
+												<span class="positivReview"><i class="positivReviewI"></i>15</span>			
+											</p>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rightContent">
+						<span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>	
+						<span class="addPhotoBtn">Добавить фото<i class="addPhoto"></i></span>	
+						<div class="bannerImg">
+							<img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+						</div>
+					</div>	
+				</div>
+				<div id="third" class="content">
+					<div class="leftContent">
+						<h1 class="title2">Действующие акции компании</h1>
+						<div class="actionItem">
+							<a href="#">
+								<img src="bootstrap/img/photo1.jpg" alt="фото пользователя" />
+							</a>
+							<div class="actionItemRight">
+								<h4 class=""><a href="#">Диагностика старых BMW всего за 1000 рублей!</a></h4>
+								<div class="actionItemBottom">
+									<p class="">Отзывов <span class="blue spanFloatRight">2</span></p>
+									<p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
+									<p class="">Период проведения </br><span class="blue">14.07.2013 - 21.07.2013</span></p>
+									<p class="">Автомобили</br><span class="blue">Toyota</span></p>
+								</div>
+							</div>
+						</div>
+						<div class="actionItem">
+							<a href="#">
+								<img src="bootstrap/img/photo2.jpg" alt="фото пользователя" />
+							</a>
+							<div class="actionItemRight">
+								<h4 class=""><a href="#">Диагностика старых BMW всего за 1000 рублей!</a></h4>
+								<div class="actionItemBottom">
+									<p class="">Отзывов <span class="blue spanFloatRight">2</span></p>
+									<p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
+									<p class="">Период проведения </br><span class="blue">14.07.2013 - 21.07.2013</span></p>
+									<p class="">Автомобили</br><span class="blue">Toyota</span></p>
+								</div>
+							</div>
+						</div>
+						<div class="actionItem">
+							<a href="#">
+								<img src="bootstrap/img/photo3.jpg" alt="фото пользователя" />
+							</a>
+							<div class="actionItemRight">
+								<h4 class=""><a href="#">Диагностика старых BMW всего за 1000 рублей!</a></h4>
+								<div class="actionItemBottom">
+									<p class="">Отзывов <span class="blue spanFloatRight">2</span></p>
+									<p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
+									<p class="">Период проведения </br><span class="blue">14.07.2013 - 21.07.2013</span></p>
+									<p class="">Автомобили</br><span class="blue">Toyota</span></p>
+								</div>
+							</div>
+						</div>						
+					</div>
+					<div class="rightContent">					
+						<div class="bannerImg">
+							<img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+						</div>
+					</div>	
+					<div class="bottomContent">
+						<span class="secondaryLink saveDraft">Показать архивные акции</span>
+					</div>
+				</div>
+				<script>
+				$(function () {
+					var tabContainers = $('.tabs > div'); // получаем массив контейнеров
+					tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+					// далее обрабатывается клик по вкладке
+					$('.tabs ul.tabNavigation a').click(function () {
+						tabContainers.hide(); // прячем все табы
+						tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+						$('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
+						$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+						return false;
+					}).filter(':first').click();
+				});
+				</script>
+				<script>
+				$(function () {
+					var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+					tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+					// далее обрабатывается клик по вкладке
+					$('.tabs2 ul.tabNavigation2 a').click(function () {
+						tabContainers.hide(); // прячем все табы
+						tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+						$('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+						$(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+						return false;
+					}).filter(':first').click();
+				});
+				</script>
+			</section>
+			<section class="footer">
+				<div class="fotterCont">
+					<p class="footerLogo"></p>
+					<ul class="footerMenu">
+						<li class="footerMenuItem">
+							<a href="#">О проекте</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для рекламодателей</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для автобизнеса</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Тур по сайту</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Контакты</a>
+						</li>
+					</ul>
+					<ul class="footerCocial">
+						<li class="footerCocialItem">
+							<a href="#" class="google">Goole+</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="facebook">Facebook</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="vk">Вконтакте</a>
+						</li>
+					</ul>
+					<div id="linkUser"><a href="#">Условия использования сайта</a></div>
+				</div>
+			</section>
+		</div>	
+	</body>
+</html>

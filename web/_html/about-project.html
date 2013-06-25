@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Best4Car</title>	
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/selectbox.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/styleCompany.css"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/style-about-project.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<!--[if IE 7 ]><html class="ie7"> <![endif]-->
+		<!--[if IE 8 ]><html class="ie8"> <![endif]-->
+		<!--[if IE 9 ]><html class="ie9"> <![endif]-->
+		<!--[if (gte IE 10)|!(IE)]><!--><html> <!--<![endif]-->
+		<script src="bootstrap/js/jquery-1.9.1.js"></script>
+		<script src="bootstrap/js/jquery-ui-1.10.3.custom.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>		
+		<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+		<script src="bootstrap/js/selectbox.js"></script>
+		<script src="bootstrap/js/selectbox1.js"></script>
+		<script src="bootstrap/js/jquery.jscrollpane.js"></script>
+		<script src="bootstrap/js/jquery.mousewheel.js"></script>
+		<script src="bootstrap/js/bootstrap-datetimepicker.min.js"></script>		
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.selectTownDropdown').hide();
+				$('.townSelect').click(function() {
+					$('.selectTownDropdown').show();
+				});	
+				$('.townSelectTabItem').click(function() {
+					$('.selectTownDropdown').hide();
+				});	
+			});		
+		</script>
+		<script type="text/javascript">		
+			$(document).ready(function() {
+				$('.popupClose').click(function() {
+					$('.popupFirstVisit').hide();
+				});	
+			});		
+		</script>		  
+		<!--[if IE]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="main">
+			<header id="header">
+				<div class="topHeader">
+					<div class="logoCont">
+						<h1 class="logo"><a class="logoLink" href="index.html">best4car</a></h1>
+						<p class="slogan"><img src="bootstrap/img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+					</div>
+					<div class="navCont">
+						<ul class="navTop">
+							<li class="navTopItem">
+								<a class="navLink" href="index.html"><span class="navLinkIcon companys"></span>Компании</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="action.html"><span class="navLinkIcon actions"></span>Акции</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="clubs.html"><span class="navLinkIcon clubs"></span>Клубы</a>
+							</li>
+							<li class="navTopItem">
+								<a class="navLink" href="personal-info.html"><span class="navLinkIcon experts"></span>Эксперты</a>
+							</li>
+						</ul>
+						<script type="text/javascript">		
+								$(document).ready(function() {
+									$('.navTopItem').mouseenter(function() {										
+										$(this).children().css("opacity", "1");
+									});	
+									$('.navTopItem').mouseleave(function() {
+										$(this).children().css("opacity", "0.5");
+									});	
+								});		
+						</script>
+					</div>
+					<div id="accountIdentified" class="accountCont">
+						<a class="userImg btnUser" href="#"><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></a>
+						<p class="userName btnUser">Овчаренко Александр</p>
+						<p class="userInfo">Автолюбитель<span class="userInfoLevel"><span class="indexbg"></span>75</span></p>
+						<div class="userDropdown">
+							<div id="myCanvasTop" class="myCanvasTop"></div>							
+							<p class="popUpTitle">Ваш личный профиль</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconRemovReviewGray"></i>
+									<a href="#" class="facebook-blue">Ответы на отзыв</a>
+									<span class="amountProfil">231</span>
+								</li>								
+							</ul>
+							<p class="popUpTitle">Компания Транспорт-Сервис</p>							
+							<ul class="userProfilCont">
+								<li class="userProfilItem">
+									<i class="iconProfilGray"></i>
+									<a href="#" class="google-blue">Профиль</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconReviewGray"></i>
+									<a href="#" class="facebook-blue">Отзывы</a>
+								</li>
+								<li class="userProfilItem">
+									<i class="iconActionGray"></i>
+									<a href="#" class="facebook-blue">Акции</a>
+								</li>
+							</ul>
+							<p class="userDropBot"><span class="btnExit primaryLink regisrationLink">Выйти</span></p>
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.userDropdown').hide();
+								$('.btnUser').click(function() {
+									$('.userDropdown').toggle();
+								});	
+								$('.btnExit').click(function() {
+									$('.userDropdown').hide();
+									$('#accountIdentified').hide();
+									$('#accountUnIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+					<div id="accountUnIdentified" class="accountCont">
+						<span class="enter">Войти в профиль<i class="iconarrow"></i></span>					
+						<span class="registration regisrationLink">Регистрация</span>
+						<div class="enterDropdown">
+							<div id="myCanvasTop" class="myCanvasTop"></div>								
+							<p class="popUpTitle">Войти в профиль</p>
+							<form action method="post" class="">
+								<p class="contentLabel">
+									<label>Email</label>														
+									<input type="none;" class="inputFormEnter">
+								</p>
+								<p class="contentLabel">
+									<label>Пароль</label>						
+									<input type="text" class="inputFormEnter">
+								</p>
+								<span class="btnEnter">Войти</span>
+								<p class="secondaryLink forgotPass">Забыли пароль?</p>								
+							</form>
+							<div class="enterCocial">
+								<span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+								<ul class="enterCocialIcon">
+									<li class="enterCocialIconItem">
+										<a href="#" class="google-blue">Goole+</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="facebook-blue">Facebook</a>
+									</li>
+									<li class="enterCocialIconItem">
+										<a href="#" class="vk-blue">Вконтакте</a>
+									</li>
+								</ul>
+							</div>
+							<span class="primaryLink regisrationLink">Регистрация</span>	
+						</div>	
+						<script type="text/javascript">		
+							$(document).ready(function() {
+								$('.enterDropdown').hide();
+								$('.enter').click(function() {
+									$('.enterDropdown').show();
+								});	
+								$('.btnEnter').click(function() {
+									$('.enterDropdown').hide();
+									$('#accountUnIdentified').hide();
+									$('#accountIdentified').show();
+								});	
+							});		
+						</script>
+					</div>
+				</div>
+				<div class="bottomHeader">
+					<div class="bottomHeaderCont">	
+						<div class="back">
+						</div>
+						<div id="nameCompanyHeaderWrap">
+							<div class="nameCompanyHeader">								
+								<h1 class="titleNameCompany">О проекте</h1>
+							</div>								
+						</div>	
+						<div class="tounCont">
+							<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+							<p class="townSelect">Санкт-Петербург</p>
+							<div class="selectTownDropdown">							
+								<div class="selectTownDropdownTop">
+									<p class="popUpTitle">Укажите ваш город</p>
+								</div>						
+								<div class="selectTownDropdownCont tabs2">
+									<!-- Это сами вкладки -->
+									<ul class="countrySelectTab tabNavigation2">
+										<li class="countrySelectTabItem">										
+											<a href="#first2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+										<li class="countrySelectTabItem">
+											<a href="#second2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+										<li class="countrySelectTabItem">
+											<a href="#third2"><img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" /></a>
+										</li>
+									</ul>
+									<!-- Это контейнеры содержимого -->  
+									<div id="first2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns activTown">Санкт-Петербург</p>
+												<span class="mark"></span>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Санкт-Петербург</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Санкт-Петербург</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Нижний-Новгород</p>
+											</li>
+										</ul>
+									</div>
+									<div id="second2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Киев</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Одесса</p>
+											</li>
+										</ul>
+									</div>
+									<div id="third2" class="townSelectTabCont">
+										<ul class="townSelectTab">
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Минск</p>
+											</li>
+											<li class="townSelectTabItem">
+												<img src="bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
+												<p class="towns">Брест</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="myCanvasTop" class="myCanvasTop"></div>
+							</div>
+							<script>
+							$(document).ready(function () {
+								var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+								tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+								// далее обрабатывается клик по вкладке
+								$('.tabs2 ul.tabNavigation2 a').click(function () {
+									tabContainers.hide(); // прячем все табы
+									tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+									$('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+									$(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+									return false;
+								}).filter(':first').click();
+							});
+							</script>
+						</div>	
+					</div>
+				</div>
+			</header>
+			<section class="contentMain  row">			
+				<div class="content">
+					<p class="infoTextItalic">Вводный текст. Медиапланирование порождает конвергентный сегмент рынка, учитывая современные тенденции. Искусство медиапланирования, анализируя результаты рекламной кампании, концентрирует типичный пресс-клиппинг, не считаясь с затратами.</p>
+					<p class="infoText">Нестандартный подход, как принято считать, довольно хорошо сбалансирован. Формат события довольно неоднозначен. Внутрифирменная реклама, как следует из вышесказанного, деятельно нейтрализует формат события, осознав маркетинг как часть производства.</p>
+					<h1 class="titleH1">Заголовок первого уровня</h1>
+					<p class="infoText">Нестандартный подход, как принято считать, довольно хорошо сбалансирован. Формат события довольно неоднозначен. Внутрифирменная реклама, как следует из вышесказанного, деятельно нейтрализует формат события, осознав маркетинг как часть производства.</p>
+					<h2 class="titleH2">Заголовок второго уровня</h2>
+					<p class="infoText">Нестандартный подход, как принято считать, довольно хорошо сбалансирован. Формат события довольно неоднозначен. Внутрифирменная реклама, как следует из вышесказанного, деятельно нейтрализует формат события, осознав маркетинг как часть производства.</p>
+					<h2 class="titleH2">Пример оформления списков</h2>
+					<ul class="list">
+						<li class="listItem"><i class="subActiveI"></i>Элемент списка 1</li>
+						<li class="listItem"><i class="subActiveI"></i>Элемент списка 2</li>
+						<li class="listItem"><i class="subActiveI"></i>Элемент списка 3</li>
+					</ul>
+					<h2 class="titleH2">Пример оформления таблиц</h2>
+					<div class="tableWrap">
+						<table>
+							<thead>
+								<tr>
+									<td class="td1">ФИО</td>
+									<td class="td2">Стоимость</td>
+									<td class="td3"></td>
+									<td class="td4"></td>
+								</tr>							
+							</thead>
+							<tbody>
+								<tr>
+									<td class="td1">Иванов И.И.</td>
+									<td class="td2">12345 руб.</td>
+									<td class="td3"></td>
+									<td class="td4"></td>
+								</tr>
+								<tr>
+									<td class="td1"></td>
+									<td class="td2"></td>
+									<td class="td3"></td>
+									<td class="td4"></td>
+								</tr>	
+								<tr>
+									<td class="td1"></td>
+									<td class="td2"></td>
+									<td class="td3"></td>
+									<td class="td4"></td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+					<h2 class="titleH2">Картинка с подписью здесь</h2>
+					<a class="imgLink" href="#"><img src="bootstrap/img/photo3.jpg" alt="фото пользователя"></a>
+					<span class="signature">Подпись к фотографии</span>
+				</div>	
+			</section>
+			<section class="footer">
+				<div class="fotterCont">
+					<p class="footerLogo"></p>
+					<ul class="footerMenu">
+						<li class="footerMenuItem">
+							<a href="#">О проекте</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для рекламодателей</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Для автобизнеса</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Тур по сайту</a>
+						</li>
+						<li class="footerMenuItem">
+							<a href="#">Контакты</a>
+						</li>
+					</ul>
+					<ul class="footerCocial">
+						<li class="footerCocialItem">
+							<a href="#" class="google">Goole+</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="facebook">Facebook</a>
+						</li>
+						<li class="footerCocialItem">
+							<a href="#" class="vk">Вконтакте</a>
+						</li>
+					</ul>
+					<div id="linkUser"><a href="#">Условия использования сайта</a></div>
+				</div>
+			</section>
+		</div>	
+	</body>
+</html>
