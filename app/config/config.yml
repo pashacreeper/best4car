@@ -91,6 +91,10 @@ knp_paginator:
     template:
         pagination: StoAdminBundle:Pagination:sliding.html.twig
 
+knp_menu:
+    twig:
+        template: StoContentBundle::menu.html.twig
+
 
 vich_uploader:
     db_driver: orm # or mongodb

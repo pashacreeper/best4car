@@ -21,6 +21,9 @@
         <!--[if IE 9 ]><html class="ie9"> <![endif]-->
         <!--[if (gte IE 10)|!(IE)]><!--><html> <!--<![endif]-->
 
+        <link rel="icon" href="/favicon.ico">
+
+
         {% javascripts
             'scripts/jquery.js'
             'scripts/jquery.ui.js'
@@ -111,21 +114,11 @@
                     <h1 class="logo"><a class="logoLink" href="{{ path('_index') }}">best4car</a></h1>
                     <p class="slogan"><img src="img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
                 </div>
+                {% block navbar %}
                 <div class="navCont">
-                    <ul class="navTop">
-                        <li class="activTopNav" id="activTopNav">
-                            <a class="navLink" href="index.html"><span class="navLinkIcon companys"></span>Компании</a>
-                        </li>
-                        <li class="navTopItem">
-                            <a class="navLink" href="action.html"><span class="navLinkIcon actions"></span>Акции</a>
-                        </li>
-                        <li class="navTopItem">
-                            <a class="navLink" href="clubs.html"><span class="navLinkIcon clubs"></span>Клубы</a>
-                        </li>
-                        <li class="navTopItem">
-                            <a class="navLink" href="personal-info.html"><span class="navLinkIcon experts"></span>Эксперты</a>
-                        </li>
-                    </ul>
+                    {{ knp_menu_render('StoContentBundle:Builder:mainMenu', {'currentAsLink': true}) }}
+                </div>
+                {% endblock %}
                 </div>
                 <div id="accountIdentified" class="accountCont">
                     <a class="userImg btnUser" href="#"><img src="img/userimg.jpg" alt="фото пользователя" /></a>

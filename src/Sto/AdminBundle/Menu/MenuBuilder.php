@@ -86,7 +86,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 
     public function createRightSideDropdownMenu(Request $request, Translator $translator)
     {
-        $menu = $this->factory->createItem('root');
+        $menu = $this->factory->createItem('_index');
         $menu->setChildrenAttribute('class', 'nav pull-right');
 
         $user = $this->securityContext->getToken()->getUser();

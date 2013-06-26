@@ -168,8 +168,8 @@
 	border-left: 1px solid #767a7f;
 	text-align: center;
 }
-#activTopNav a{
-	opacity: 1;
+.navTop .current a{
+	opacity: 1 !important;
 }
 .navLink{
 	font: 1.8em 'PT Sans', sans;
@@ -206,7 +206,7 @@
 .experts{
 	background: url('/img/experticon.png') no-repeat;
 }
-.activTopNav{
+.navTop .current{
 	background: #51acd3;
 	border-left: 1px solid #51acd3;
 	border-right: 1px solid #51acd3;
@@ -216,13 +216,13 @@
 	height: 76px;
 	text-align: center;
 }
-.activTopNav a:hover{
+.navTop .current a:hover{
 	color: #fff;
 }
-.activTopNav a{
+.navTop .current a{
 	color: #fff;
 }
-.activTopNav a span{
+.navTop .current a span{
 	opacity: 1;
 }
 .bottomHeader{
