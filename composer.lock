@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2f52708d0b52b07a694670eb875333fd",
+    "hash": "ed829a1af5e9c52c952b6ff66ce4b1ba",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -900,12 +900,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3"
+                "reference": "bc750f6a80bf7558649c0a44a82147b8f1a2126c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3",
-                "reference": "a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/bc750f6a80bf7558649c0a44a82147b8f1a2126c",
+                "reference": "bc750f6a80bf7558649c0a44a82147b8f1a2126c",
                 "shasum": ""
             },
             "require": {
@@ -960,7 +960,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-06-24 13:30:51"
+            "time": "2013-06-26 08:08:01"
         },
         {
             "name": "genemu/form-bundle",

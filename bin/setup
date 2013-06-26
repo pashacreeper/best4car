@@ -51,6 +51,5 @@ echo "- composer dependencies installed"
 # databases stuff
 $cmd doctrine:database:drop --force --quiet
 $cmd doctrine:database:create
-$cmd doctrine:schema:create
-# $cmd doctrine:migrations:migrate --no-interaction
+$cmd doctrine:migrations:migrate --no-interaction
 $cmd doctrine:fixtures:load --no-interaction
