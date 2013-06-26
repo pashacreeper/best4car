@@ -53,3 +53,5 @@ $cmd doctrine:database:drop --force --quiet
 $cmd doctrine:database:create
 $cmd doctrine:migrations:migrate --no-interaction
 $cmd doctrine:fixtures:load --no-interaction
+$cmd assets:install
+$cmd assetic:dump

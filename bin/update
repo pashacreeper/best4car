@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cmd='php app/console'
+
 git pull
 
 
@@ -12,4 +14,6 @@ $COMPOSER_BIN install --dev
 
 
 # databases stuff
-php app/console doctrine:migrations:migrate --no-interaction
+$cmd doctrine:migrations:migrate --no-interaction
+$cmd assets:install
+$cmd assetic:dump
