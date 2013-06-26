@@ -1,0 +1,5 @@
+#!/bin/sh
+
+NO_UPDATE_FLAG="--no-update"
+if [ "$1" != "$NO_UPDATE_FLAG" ]; then bin/update; fi
+app/console server:run -v

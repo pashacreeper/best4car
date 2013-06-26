@@ -10,6 +10,7 @@ web/bundles/*
 web/js/*
 web/css/*
 web/storage/*
+bin/doctrine*
 
 # Configuration files
 app/config/parameters.ini
@@ -20,3 +21,6 @@ composer.phar
 
 # IDE
 .idea/*
+
+#Other
+php-cs-fixer.phar

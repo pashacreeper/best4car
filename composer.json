@@ -2,7 +2,7 @@
     "name": "symfony/framework-standard-edition",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "Sto": "src/" }
     },
     "require": {
         "php": ">=5.4.0",
@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/data-fixtures": "1.0.*",
         "doctrine/doctrine-fixtures-bundle": "2.1.*",
+        "doctrine/doctrine-migrations-bundle": "dev-master",
         "twig/extensions": "1.0.*",
         "symfony/assetic-bundle": "2.3.*@dev",
         "symfony/swiftmailer-bundle": "2.2.*",
@@ -105,12 +106,10 @@
         "process-timeout": 900
     },
     "minimum-stability": "alpha",
+    "prefer-stable": true,
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "branch-alias": {
-            "dev-master": "2.2-dev"
-        }
+        "symfony-assets-install": "symlink"
     }
 }
