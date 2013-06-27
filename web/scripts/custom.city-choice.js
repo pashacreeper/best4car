@@ -1,5 +1,10 @@
 var cityChoiser = function(defaultImage, Routing){
     $(document).ready(function(){
+        $('.selectTownDropdown').hide();
+        $('.townSelect').click(function() {
+            $('.selectTownDropdown').toggle();
+        }); 
+
         $.getJSON(Routing.generate('api_city_selected'))
         .done(function (json) {
             $('#choice-city').text(json.city);
@@ -18,6 +23,7 @@ var cityChoiser = function(defaultImage, Routing){
                 $.each(countries, function (index, country) {
                     if (index == 0){
                         frst_id = country.id;
+
                     }
                     root.append('<li class="countrySelectTabItem"><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '"><img src="/img/spbimg.png" alt="'+country.name+'" /></a></li>' );
                 });
