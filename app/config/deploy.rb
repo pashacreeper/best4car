@@ -6,7 +6,7 @@ logger.level = Logger::MAX_LEVEL
 set :application, "sto-expert"
 set :domain,      "http://78.46.216.120/"
 set :deploy_to,   "/var/www/php/#{application}"
-set :user,        "deployer"
+set :user,        "dev-user"
 
 role :web,        domain
 role :app,        domain, :primary => true
