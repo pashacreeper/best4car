@@ -5,10 +5,11 @@ namespace Sto\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\UserBundle\Controller\SecurityController as SecurityController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 
 /**
  * Description of UserController
- *
  */
 class UserController extends SecurityController
 {
@@ -24,5 +25,17 @@ class UserController extends SecurityController
             'error'         => null,
             'csrf_token'    => $csrfToken
         ));
+    }
+
+    /**
+     * @Template()
+     */
+    public function userLoginAction()
+    {
+        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
+
+        return [
+            'csrf_token' => $csrfToken,
+        ];
     }
 }

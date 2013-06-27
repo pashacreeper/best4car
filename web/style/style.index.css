@@ -68,6 +68,8 @@
 	height: 40px;	
 	float: left;
 	margin-right: 10px;
+	position: relative;
+	z-index: 2;
 }
 .userImg img{
 	width: 100%;
@@ -79,11 +81,14 @@
 	font: 1.6em 'PT Sans', sans;
 	color: #fff;
 	cursor: pointer;
+	position: relative;
+	z-index: 1;
 }
 .userInfo{
 	font: 1.4em 'PT Sans', sans;
 	color: #b9b8b8;
 	position: relative;
+	z-index: 1;
 }
 .userInfoLevel{
 	color: #0eb19c;

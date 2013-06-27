@@ -51,7 +51,7 @@
         <div id="map">
             <div class="popupCardCompany">
                 <div class="popupCardCompanyTop">
-                    <img src="img/logocompany.png" alt="" />
+                    <img src="/img/logocompany.png" alt="" />
                     <div class="dataCompany">
                         <p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
                         <p class="adressCompany">Новочеркасский пр-д. 17</p>
@@ -111,114 +111,90 @@
             <div class="topHeader">
                 <div class="logoCont">
                     <h1 class="logo"><a class="logoLink" href="{{ path('_index') }}">best4car</a></h1>
-                    <p class="slogan"><img src="img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+                    <p class="slogan"><img src="/img/slogan.png" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
                 </div>
                 {% block navbar %}
                 <div class="navCont">
                     {{ knp_menu_render('StoContentBundle:Builder:mainMenu', {'currentAsLink': true}) }}
                 </div>
                 {% endblock %}
-                <div id="accountIdentified" class="accountCont">
-                    <a class="userImg btnUser" href="#"><img src="img/userimg.jpg" alt="фото пользователя" /></a>
-                    <p class="userName btnUser">Овчаренко Александр</p>
-                    <p class="userInfo">Автолюбитель<span class="userInfoLevel"><span class="indexbg"></span>75</span></p>
-                    <div class="userDropdown">
-                        <div id="myCanvasTop" class="myCanvasTop"></div>                            
-                        <p class="popUpTitle">Ваш личный профиль</p>                            
-                        <ul class="userProfilCont">
-                            <li class="userProfilItem">
-                                <i class="iconProfilGray"></i>
-                                <a href="#" class="google-blue">Профиль</a>
-                            </li>
-                            <li class="userProfilItem">
-                                <i class="iconRemovReviewGray"></i>
-                                <a href="#" class="facebook-blue">Ответы на отзыв</a>
-                                <span class="amountProfil">231</span>
-                            </li>                               
-                        </ul>
-                        <p class="popUpTitle">Компания Транспорт-Сервис</p>                         
-                        <ul class="userProfilCont">
-                            <li class="userProfilItem">
-                                <i class="iconProfilGray"></i>
-                                <a href="#" class="google-blue">Профиль</a>
-                            </li>
-                            <li class="userProfilItem">
-                                <i class="iconReviewGray"></i>
-                                <a href="#" class="facebook-blue">Отзывы</a>
-                            </li>
-                            <li class="userProfilItem">
-                                <i class="iconActionGray"></i>
-                                <a href="#" class="facebook-blue">Акции</a>
-                            </li>
-                        </ul>
-                        <p class="userDropBot"><span class="btnExit primaryLink regisrationLink">Выйти</span></p>
-                    </div>  
-                    <script type="text/javascript">     
-                        $(document).ready(function() {
-                            $('.userDropdown').hide();
-                            $('.btnUser').click(function() {
-                                $('.userDropdown').toggle();
-                            }); 
-                            $('.btnExit').click(function() {
-                                $('.userDropdown').hide();
-                                $('#accountIdentified').hide();
-                                $('#accountUnIdentified').show();
-                            }); 
-                        });     
-                    </script>
-                </div>
-                <div id="accountUnIdentified" class="accountCont">
-                    <span class="enter">Войти в профиль<i class="iconarrow"></i></span>                 
-                    <span class="registration regisrationLink">Регистрация</span>
-                    <div class="enterDropdown">                                                 
-                        <p class="popUpTitle">Войти в профиль</p>
-                        <form action method="post" class="">
-                            <p class="contentLabel">
-                                <label>Email</label>                                                        
-                                <input type="text" class="inputFormEnter">
-                            </p>
-                            <p class="contentLabel">
-                                <label>Пароль</label>                       
-                                <input type="text" class="inputFormEnter">
-                            </p>
-                            <span class="btnEnter">Войти</span>
-                            <p class="secondaryLink forgotPass">Забыли пароль?</p>                              
-                        </form>
-                        <div class="enterCocial">
-                            <span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
-                            <ul class="enterCocialIcon">
-                                <li class="enterCocialIconItem">
-                                    <a href="#" class="google-blue">Goole+</a>
+                {% block signup %}
+                    {% if app.user %}
+                        {% set user = app.user %}
+                        <div class="accountCont">
+                        <a class="userImg btnUser" href="#">
+                        {%- if user.avatarUrl %}
+                            <img src="{{ user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+                        {% else %}
+                            <img src="/img/default-user-icon.jpg" alt="фото пользователя" />
+                        {% endif -%}
+                        </a>
+                        <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating }}</span></p>
+                        <div class="userDropdown">
+                            <div id="myCanvasTop" class="myCanvasTop"></div>                            
+                            <p class="popUpTitle">Ваш личный профиль</p>                            
+                            <ul class="userProfilCont">
+                                <li class="userProfilItem">
+                                    <i class="iconProfilGray"></i>
+                                    <a href="{{ path('fos_user_profile_show') }}" class="google-blue">Профиль</a>
                                 </li>
-                                <li class="enterCocialIconItem">
-                                    <a href="#" class="facebook-blue">Facebook</a>
-                                </li>
-                                <li class="enterCocialIconItem">
-                                    <a href="#" class="vk-blue">Вконтакте</a>
-                                </li>
+                                <li class="userProfilItem">
+                                    <i class="iconRemovReviewGray"></i>
+                                    <a href="#" class="facebook-blue">Ответы на отзыв</a>
+                                    <span class="amountProfil">231</span>
+                                </li>                               
                             </ul>
+                            {% if user.companyManager is not empty %}
+                                <p class="popUpTitle">Компания Транспорт-Сервис</p>
+                                <ul class="userProfilCont">
+                                    <li class="userProfilItem">
+                                        <i class="iconProfilGray"></i>
+                                        <a href="#" class="google-blue">Профиль</a>
+                                    </li>
+                                    <li class="userProfilItem">
+                                        <i class="iconReviewGray"></i>
+                                        <a href="#" class="facebook-blue">Отзывы</a>
+                                    </li>
+                                    <li class="userProfilItem">
+                                        <i class="iconActionGray"></i>
+                                        <a href="#" class="facebook-blue">Акции</a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                            <p class="userDropBot"><a href="{{ path('fos_user_security_logout') }}" class="btnExit primaryLink regisrationLink">Выйти</span></p>
                         </div>
-                        <span class="primaryLink regisrationLink">Регистрация</span>
-                        <div id="myCanvasTop" class="myCanvasTop"></div>
-                    </div>  
-                    <script type="text/javascript">     
-                        $(document).ready(function() {
-                            $('.enterDropdown').hide();
-                            $('.enter').click(function() {
-                                $('.enterDropdown').show();
-                            }); 
-                            $('.btnEnter').click(function() {
-                                $('.enterDropdown').hide();
-                            $('#accountUnIdentified').hide();
-                                $('#accountIdentified').show();
-                            }); 
-                        });     
-                    </script>
-                </div>
+                    </div>
+                    {% else %}
+                        <div id="accountUnIdentified" class="accountCont">
+                        <span class="enter">Войти в профиль<i class="iconarrow"></i></span>
+                        <span class="registration regisrationLink">Регистрация</span>
+                        <div class="enterDropdown">
+                            {% render controller('StoUserBundle:User:userLogin') %}
+                            <div class="enterCocial">
+                                <span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+                                <ul class="enterCocialIcon">
+                                    <li class="enterCocialIconItem">
+                                        <a href="#" class="google-blue">Goole+</a>
+                                    </li>
+                                    <li class="enterCocialIconItem">
+                                        <a href="#" class="facebook-blue">Facebook</a>
+                                    </li>
+                                    <li class="enterCocialIconItem">
+                                        <a href="#" class="vk-blue">Вконтакте</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="primaryLink regisrationLink">Регистрация</span>
+                            <div id="myCanvasTop" class="myCanvasTop"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endblock %}
             </div>
             <div class="bottomHeader row-fluid">
                 <div class="tounCont">
-                    <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                    <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                     <p class="townSelect">Санкт-Петербург</p>
                     <div class="selectTownDropdown">                            
                         <div class="selectTownDropdownTop">
@@ -228,41 +204,41 @@
                             <!-- Это сами вкладки -->
                             <ul class="countrySelectTab tabNavigation2">
                                 <li class="countrySelectTabItem">                                       
-                                    <a href="#first2"><img src="img/spbimg.png" alt="Санкт-Петербург" /></a>
+                                    <a href="#first2"><img src="/img/spbimg.png" alt="Санкт-Петербург" /></a>
                                 </li>
                                 <li class="countrySelectTabItem">
-                                    <a href="#second2"><img src="img/spbimg.png" alt="Санкт-Петербург" /></a>
+                                    <a href="#second2"><img src="/img/spbimg.png" alt="Санкт-Петербург" /></a>
                                 </li>
                                 <li class="countrySelectTabItem">
-                                    <a href="#third2"><img src="img/spbimg.png" alt="Санкт-Петербург" /></a>
+                                    <a href="#third2"><img src="/img/spbimg.png" alt="Санкт-Петербург" /></a>
                                 </li>
                             </ul>
                             <!-- Это контейнеры содержимого -->  
                             <div id="first2" class="townSelectTabCont">
                                 <ul class="townSelectTab">
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns activTown">Санкт-Петербург</p>
                                         <span class="mark"></span>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Нижний-Новгород</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Санкт-Петербург</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Нижний-Новгород</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Санкт-Петербург</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Нижний-Новгород</p>
                                     </li>
                                 </ul>
@@ -270,11 +246,11 @@
                             <div id="second2" class="townSelectTabCont">
                                 <ul class="townSelectTab">
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Киев</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Одесса</p>
                                     </li>
                                 </ul>
@@ -282,11 +258,11 @@
                             <div id="third2" class="townSelectTabCont">
                                 <ul class="townSelectTab">
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Минск</p>
                                     </li>
                                     <li class="townSelectTabItem">
-                                        <img src="img/spbimg.png" alt="Санкт-Петербург" />
+                                        <img src="/img/spbimg.png" alt="Санкт-Петербург" />
                                         <p class="towns">Брест</p>
                                     </li>
                                 </ul>
@@ -937,21 +913,24 @@
                 <div id="linkUser"><a href="#">Условия использования сайта</a></div>
             </div>
         </section>
+        {% if not app.user %}
             <div class="popupFirstVisit">
-            <i class="icon-remove-sign popupClose"></i>
-            <h3 class="titleFirstVisit">Впервый раз здесь?</h3>
-            <p class="contentFirstVisit">
-                Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
-            </p>
-            <a href="#" class="linkFirstVisitPeople">
-                <i class="iconPeople"></i>
-                <span>Возможности </br>для автовладельцев</span>
-            </a>
-            <a href="#" class="linkFirstVisitCompany">
-                <i class="iconCompany"></i>
-                <span>Возможности </br>для автокомпаний</span>
-            </a>
-        </div>
+                <i class="icon-remove-sign popupClose"></i>
+                <h3 class="titleFirstVisit">Впервый раз здесь?</h3>
+                <p class="contentFirstVisit">
+                    Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
+                </p>
+                <a href="#" class="linkFirstVisitPeople">
+                    <i class="iconPeople"></i>
+                    <span>Возможности </br>для автовладельцев</span>
+                </a>
+                <a href="#" class="linkFirstVisitCompany">
+                    <i class="iconCompany"></i>
+                    <span>Возможности </br>для автокомпаний</span>
+                </a>
+            </div>
+        {% endif %}
+        
         <script type="text/javascript">     
                     $(document).ready(function() {
                         $('.bigInfoCompany').hide();
@@ -996,13 +975,6 @@
                 }); 
                 $('.townSelectTabItem').click(function() {
                     $('.selectTownDropdown').hide();
-                }); 
-            });     
-        </script>
-        <script type="text/javascript">     
-            $(document).ready(function() {
-                $('.popupClose').click(function() {
-                    $('.popupFirstVisit').hide();
                 }); 
             });     
         </script>
