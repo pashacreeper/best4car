@@ -4,7 +4,7 @@
 logger.level = Logger::MAX_LEVEL
 
 set :application, "sto-expert"
-set :domain,      "http://78.46.216.120/"
+set :domain,      "78.46.216.120"
 set :deploy_to,   "/var/www/php/#{application}"
 set :user,        "dev-user"
 
@@ -18,6 +18,7 @@ set :branch,      "master"
 set :deploy_via,  :remote_cache
 
 ssh_options[:forward_agent] = true
+default_run_options[:pty] = true
 
 set :use_composer,   true
 set :update_vendors, false
