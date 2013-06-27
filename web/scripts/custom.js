@@ -22,8 +22,12 @@ var mainLayout = function(){
 };
 
 var catalogPage = function(){
+    if (CookieHandler.get('popup_for_new_closed')) {
+        $('.popupFirstVisit').hide();
+    };
     $('.popupClose').click(function() {
         $('.popupFirstVisit').hide();
+        CookieHandler.set('popup_for_new_closed', true, (3*24*60*60), '/');
     }); 
 }
 
