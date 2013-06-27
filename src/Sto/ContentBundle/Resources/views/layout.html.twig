@@ -56,65 +56,7 @@
         <![endif]-->
     </head>
     <body>  
-        <div id="map">
-            <div class="popupCardCompany">
-                <div class="popupCardCompanyTop">
-                    <img src="/img/logocompany.png" alt="" />
-                    <div class="dataCompany">
-                        <p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
-                        <p class="adressCompany">Новочеркасский пр-д. 17</p>
-                        <span class="spesialTerms">Спецпредложение!</span>
-                    </div>
-                    <p class="indexCardCompany">
-                        <span class="indexbg"></span>
-                        <span class="indexLevel">9.2</span></br>
-                    </p>
-                </div>
-                <div class="popupCardCompanyCont">
-                    <div class="servicesPart">
-                        <ul class="services">
-                            <li class="servisesItem">
-                                <span class="iconProfilCompany wash"></span>Мойка
-                            </li>
-                            <li class="servisesItem">
-                                <span class="iconProfilCompany showroom"></span>Автосалон
-                            </li>
-                            <li class="servisesItem">
-                                <span class="iconProfilCompany cto"></span>СТО
-                            </li>
-                        </ul>
-                        <ul class="servicesAdd">
-                            <li class="servisesAddItem">
-                                <span class="iconAddProfil wash">
-                            </li>
-                            <li class="servisesAddItem">
-                                <span class="iconAddProfil wash">
-                            </li>
-                            <li class="servisesAddItem">
-                                <span class="iconAddProfil wash">
-                            </li>
-                            <li class="servisesAddItem">
-                                <span class="iconAddProfil wash">
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="infoCompany">
-                        <p class="infoCompanyLable">
-                            Контактный телефон:</br><span>(812) 323-78-98</span>
-                        </p>
-                        <p class="infoCompanyLable">
-                            Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
-                        </p>
-                        <p class="infoCompanyLable">
-                            Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
-                        </p>                                
-                    </div>
-                </div>
-                <svg id="myCanvas" width="20px" height="16px">
-                    <polyline style="stroke-linejoin: miter; stroke: #9e9a94; stroke-width: 2; fill: #fff;" points="0 0, 10 7, 20 0"/>
-                </svg>
-            </div>
-        </div>
+        {% block map %}{% endblock %}
         <header id="header">
             <div class="topHeader">
                 <div class="logoCont">
