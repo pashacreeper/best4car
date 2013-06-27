@@ -159,6 +159,7 @@
 .registration:hover{
 	color: #fff;
 	border-bottom: none;
+	text-decoration: none;
 }
 .navTop{
 	overflow: hidden;

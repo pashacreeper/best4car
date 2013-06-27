@@ -10,12 +10,16 @@
             'style/bootstrap.responsive.css'
             'style/style.css'
             'style/style.index.css'
+            'style/style.company.css'
+            'style/style.registration-company.css'
+            'style/style.pop-up.css'
             output='compiled/compiled.css'
         %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
         {% endstylesheets %}
 
         <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|PT+Sans+Caption&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <!--[if IE 7 ]><html class="ie7"> <![endif]-->
         <!--[if IE 8 ]><html class="ie8"> <![endif]-->
         <!--[if IE 9 ]><html class="ie9"> <![endif]-->
@@ -27,9 +31,12 @@
             'scripts/jquery.js'
             'scripts/jquery.ui.js'
             'scripts/bootstrap.js'
-            'scripts/bootstrap.selectbox.js'
             'scripts/jquery.mousewheel.js'
             'scripts/jquery.jscrollpane.js'
+            'scripts/jquery.bxslider.min.js'
+            'scripts/jquery.reveal.js'
+            'scripts/bootstrap.selectbox.js'
+            'scripts/bootstrap-datetimepicker.min.js'
             'scripts/cookie.js'
             'scripts/custom.js'
             output='compiled/compiled.js'
@@ -169,7 +176,7 @@
                     {% else %}
                         <div id="accountUnIdentified" class="accountCont">
                         <span class="enter">Войти в профиль<i class="iconarrow"></i></span>
-                        <span class="registration regisrationLink">Регистрация</span>
+                        <a href="#" class="registration regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
                         <div class="enterDropdown">
                             {% render controller('StoUserBundle:User:userLogin') %}
                             <div class="enterCocial">
@@ -186,7 +193,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <span class="primaryLink regisrationLink">Регистрация</span>
+                            <a href="#" class="primaryLink regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
                             <div id="myCanvasTop" class="myCanvasTop"></div>
                         </div>
                     </div>
@@ -929,6 +936,20 @@
                     <i class="iconCompany"></i>
                     <span>Возможности </br>для автокомпаний</span>
                 </a>
+            </div>
+
+            <div id="registration-popup" class="reveal-modal"><!-- popUp firstReg-->
+                <a href="#" class="close-reveal-modal"></a>
+                <p class="popUpTitle">Регистрация на best4car.ru</p>
+                <p class="popUpTitle2">Кем вы хотите зарегистрироваться?</p>
+                <a href="#" class="btnHowReg btnRegPeople">
+                    <i class="iconPeople"></i>
+                    <span>Автовладельцем</span>
+                </a>
+                <a href="#" class="btnHowReg btnRegComp">
+                    <i class="iconCompany"></i>
+                    <span>Представителем компании</span>
+                </a>                                                                 
             </div>
         {% endif %}
         

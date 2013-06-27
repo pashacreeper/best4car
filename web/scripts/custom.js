@@ -9,7 +9,7 @@ var mainLayout = function(){
     // Login form
     $('.enterDropdown').hide();
     $('.enter').click(function() {
-        $('.enterDropdown').show();
+        $('.enterDropdown').toggle();
     }); 
     $('.btnEnter').click(function() {
         $('.enterDropdown').hide();
