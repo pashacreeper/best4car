@@ -1,0 +1,14 @@
+<p class="popUpTitle">Войти в профиль</p>
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <p class="contentLabel">
+        <label for="username">Email</label>
+        <input type="text" id="username" name="_username" required="required" class="inputFormEnter" />
+    </p>
+    <p class="contentLabel">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="_password" required="required" class="inputFormEnter" />
+    </p>
+    <input class="btnEnter" type="submit" id="_submit" name="_submit" value="Войти" />
+    <p class="secondaryLink forgotPass">Забыли пароль?</p> 
+</form>

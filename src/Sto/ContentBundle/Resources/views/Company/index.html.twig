@@ -1,277 +1,291 @@
-{% extends 'StoContentBundle::layout.companies.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+{% extends 'StoContentBundle::layout.html.twig' %}
 
-{% block title 'Компании' %}
-
-{% block aside %}
-    <div class="well" style=" z-index:90; width: 100%; position: absolute; margin: 40px 0 0 0; padding: 20px 0 0 0; border: 0px; overflow: hidden">
-        <form method="post" action="{{ path('content_companies') }}" class="form-search form-inline" style="margin-bottom:5px; padding: 0 0 0 20px;">
-            Я ищу компанию:
-            <div class="input-append">
-                <input type="text" class="search-query span9" placeholder="Все компании" name="search">
-                <button type="submit" class="btn btn-primary">Найти</button>
+{% block map %}
+<div id="map">
+    <div class="popupCardCompany">
+        <div class="popupCardCompanyTop">
+            <img src="/img/logocompany.png" alt="" />
+            <div class="dataCompany">
+                <p class="nameCompany"><a href="company.html">Транспорт Сервис</a></p>
+                <p class="adressCompany">Новочеркасский пр-д. 17</p>
+                <span class="spesialTerms">Спецпредложение!</span>
             </div>
-        </form>
-        <div class="row-fluid">
-            <div class="span10 offset1">
-                Напрмер: <a href="#">ремонт двигателя, Mazda 3, 1.6, 2010, север спб</a>
+            <p class="indexCardCompany">
+                <span class="indexbg"></span>
+                <span class="indexLevel">9.2</span></br>
+            </p>
+        </div>
+        <div class="popupCardCompanyCont">
+            <div class="servicesPart">
+                <ul class="services">
+                    <li class="servisesItem">
+                        <span class="iconProfilCompany wash"></span>Мойка
+                    </li>
+                    <li class="servisesItem">
+                        <span class="iconProfilCompany showroom"></span>Автосалон
+                    </li>
+                    <li class="servisesItem">
+                        <span class="iconProfilCompany cto"></span>СТО
+                    </li>
+                </ul>
+                <ul class="servicesAdd">
+                    <li class="servisesAddItem">
+                        <span class="iconAddProfil wash">
+                    </li>
+                    <li class="servisesAddItem">
+                        <span class="iconAddProfil wash">
+                    </li>
+                    <li class="servisesAddItem">
+                        <span class="iconAddProfil wash">
+                    </li>
+                    <li class="servisesAddItem">
+                        <span class="iconAddProfil wash">
+                    </li>
+                </ul>
+            </div>
+            <div class="infoCompany">
+                <p class="infoCompanyLable">
+                    Контактный телефон:</br><span>(812) 323-78-98</span>
+                </p>
+                <p class="infoCompanyLable">
+                    Часы работы:</br><span>9:00 - 21:00 (пн-пт)</span></br><span>9:00 - 20:00 (сб-вс)</span>
+                </p>
+                <p class="infoCompanyLable">
+                    Сайт:</br><span><a href="#">www.rolf-carline.ru</a></span>
+                </p>                                
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <a href="#" class="show-list">Показать списком</a>
-            </div>
-            <div class="span8">
-                <p>Все 150 компаний в Санкт-Петербурге</p>
-            </div>
-            <div class="pull-right span2">
-                <a href="#" class="show-search">Расширенный поиск</a>
-            </div>
-        </div>
+        <svg id="myCanvas" width="20px" height="16px">
+            <polyline style="stroke-linejoin: miter; stroke: #9e9a94; stroke-width: 2; fill: #fff;" points="0 0, 10 7, 20 0"/>
+        </svg>
     </div>
+</div>
 {% endblock %}
 
-{% block content_tag 'class="container" style="width:100%; height: 100%; min-height: 100%; margin-bottom: -60px;"' %}
+{% block contentTop %}
+<div class="contentTop">
+    <div class="contentTopLeft">
+        <div class="btnShoeLeftCont">
+            <div class="hideLeftColumn">
+                <a href="#" class="hideBtn" id="toggleCompaniesList">Показать списком</a>
+            </div>
+        </div> 
+        <div class="selectLeftColumn">
+            <div class="assortSelect">
+                <span>Сортировать по:</span>
+                <div class="parametrAssort">
+                    <div class="lineForm">
+                        <select class="styled1">
+                            <option value="">рейтингу</option>
+                            <option value="">уровню цен</option>
+                            <option value="">удаленности</option>
+                        </select>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>              
+    <div id="1"class="contentTopRight">
+        <span class="showRightSearch">
+            Скрыть расширенный поиск
+        </span>
+        <span class="hideRightSearch">
+            Показать расширенный поиск
+        </span>
+    </div>
+    <p class="contentTopCenter">
+        Все <span>150 </span>компаний вашего города
+    </p>
+</div>
 
-{% block content %}
-<div id="map" style="width: 100%; height: 100%; margin: 0; padding: 0; min-height: 100%; margin-bottom: -60px;"></div>
-
-{# Companies list #}
-{% include 'StoContentBundle::Company/_companiesList.html.twig' %}
-{# EOF Companies list #}
-
-{# search #}
-{% include 'StoContentBundle::Company/_advancedSearch.html.twig' %}
-{# EOF search #}
-{% endblock %}
-
-{% block head_style %}
-    {{ parent() }}
-    <link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet"  />
-    <link href="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.css') }}" type="text/css" rel="stylesheet"  />
-{% endblock %}
-
-{% block foot_script %}
-    {{ parent() }}
-    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-    <script src="{{ asset('bundles/stocore/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/stocore/js/geolocation-button.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/stocontent/ui-slider/jquery-ui-1.10.2.custom.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/stocontent/js/script.js') }}" type="text/javascript"></script>
-    <script type="text/javascript">
-        var city = '{{ city.gps }}';
-        var myMap;
-
-        $.getJSON(Routing.generate('api_get_companies'))
-        .done(function (companies) {
-            renderMap(city, companies)
-        })
-
-        function renderMap (city, companies) {
-            $('#map').empty();
-            ymaps.ready(init(city, companies));
-
-            function init (city, companies) {
-                myMap = new ymaps.Map("map", {
-                    center: [city.split(",")[0], city.split(",")[1]],
-                    zoom: 11,
-                    behaviors: ["default", "scrollZoom"]
-                });
-
-                var myCollection = new ymaps.GeoObjectCollection();
-                myMap.myCollection = myCollection;
-                var buttonMyPlace = new GeolocationButton({
-                    data : {
-                        image : "{{ asset('bundles/stocontent/images/wifi.png') }}",
-                        plsImage : "{{ asset('bundles/stocontent/images/man.png') }}",
-                        lImage : "{{ asset('bundles/stocontent/images/loader.gif') }}",
-                        title : 'Определить мое местоположение'
-                    },
-                    geolocationOptions: {
-                        enableHighAccuracy : true
-                    }
-                },{
-                    selectOnClick: false
-                });
-
-                myMap.controls.add(buttonMyPlace, { top : 180, left : 20 });
-
-                filterDataByZoom(myMap.getZoom(), companies);
-
-                myMap.events.add('actionend', function (evt) {
-                    filterDataByZoom(myMap.getZoom(), companies);
-                });
-
-                $('[data-serarch-form]').change(function () {
-                    $.ajax({
-                       type: "GET",
-                       url: Routing.generate('api_auto_get_companies_with_filter'),
-                       data: $('#advanced-search-form').serialize(),
-                       dataType: 'json'
-                    }).done(function (json) {
-                        myMap.geoObjects.each(function (geoCollection) {
-                            geoCollection.each(function (item) {
-                                geoCollection.remove(item);
-                            });
-                        });
-                        addPlacemarks(json);
-
-                        myMap.geoObjects.each(function (geoCollection) {
-                            geoCollection.each(function (item) {
-                                var rat =  parseFloat( item.properties.get('rating') );
-                                if (!showByRate( myMap.getZoom(), rat)) {
-                                    geoCollection.remove(item);
-                                }
-                            });
-                        });
-
-                    });
-                    if(!$('#home_compalies').hasClass("hide")){
-                        doAjax();
-                    }
-                });
-
-                function addPlacemarks (companies) {
-                    var sel;
-                    $('div.listItemCompanyPlain').each(function(){ if($(this).css('display')=='block'){ sel = $(this).attr('id').replace('x-list-company',''); }});
-
-                    for (var key in companies) {
-                        var val = companies[key];
-
-                        var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
-                        var iconSize = (sel == val.id)? [60,42]: [40,28];
-                        var vid = val.id;
-                        var img;
-                        if(showByRate (myMap.getZoom(),val.rating)){
-                            img = {
-                                iconImageHref: iconMap,
-                                iconImageSize: iconSize,
-                            };
-                        } else {
-                            img = { preset: 'twirl#blackClusterIcons' };
-                        }
-                        myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
-                            id: val.id,
-                            name: val.name,
-                            address: val.address,
-                            phone: val.phones,
-                            web: val.web,
-                            logo: val.logoName,
-                            rating: val.rating,
-                            specialization_html: val.specialization_template,
-                            workingTime_html: val.workingTime_template
-                        }, img);
-                        myCollection.add(myPlacemark2);
-                    }
-
-                    myCollection.each(function (ob) {
-                        ob.events.add('click', function () {
-                            (function (obPlacemark) {
-                                var listObj = $("#list-company" + obPlacemark.properties.get('id'));
-
-                                if (listObj.length && listObj.is(':visible')){
-                                    obPlacemark.balloon.open();// WHY Open ????? But it works
-                                    // $('.listItemCompany').removeClass('listActive');
-                                    // listObj.addClass('listActive');
-                                    $('.listItemCompanyPlain').each(function(){
-                                        $(this).hide();
-                                        $('#'+$(this).attr('data-correspond') ).show();
-                                    });
-                                    $('#'+$(listObj).attr('data-correspond')).show();
-                                    $(listObj).hide();
-                                    $('#home_compalies').scrollTo('#'+$(listObj).attr('data-correspond'));
-                                }
-                            })(ob);
-                        });
-                    });
-
-                    var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
-                        '<div class="row-fluid">' +
-                            '<div class="span2">' +
-                                '<img src="/../{{ storage_path }}/company_logo/$[properties.logo]" class="img-polaroid">' +
-                            '</div>' +
-                            '<div class="span10">' +
-                                '<div class="row-fluid">' +
-                                    '<div class="span8">' +
-                                        '<h4><a href="../company/$[properties.id]">$[properties.name]</a></h4>' +
-                                        '<address style="0">$[properties.address]</address>' +
-                                    '</div>' +
-                                    '<div class="span4">' +
-                                        '<h4><i class="icon-b4c-star"></i>$[properties.rating]</h4>' +
-                                        '<p>Очень хорошо</p>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<hr style="margin: 5px 0;"/>' +
-                                '<div class="row-fluid">' +
-                                    '<div class="span6">' +
-                                        '$[properties.specialization_html]' +
-                                    '</div>' +
-                                    '<div class="span6">' +
-                                        '<h5>Телефон</h5>' +
-                                        '<p>$[properties.phone.0.phone]</p>' +
-                                        '<h5>Время работы</h5>' +
-                                        '$[properties.workingTime_html]' +
-                                        '<h5>Сайт</h5>' +
-                                        '<a href="$[properties.web]">$[properties.web]</a>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>'
-                    );
-                    ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
-                    myCollection.options.set({
-                        balloonContentBodyLayout:'my#superlayout',
-                        balloonMinWidth: 600
-                    });
-
-                    myMap.geoObjects.add(myCollection);
-                }
-
-                function filterDataByZoom (indexZoom, companies) {
-                    myMap.geoObjects.each(function (geoCollection) {
-                        geoCollection.each(function (item) {
-                            geoCollection.remove(item);
-                        });
-                    });
-
-                    addPlacemarks(companies);
-
-                    myMap.geoObjects.each(function (geoCollection) {
-                        geoCollection.each(function (item) {
-                            var rat =  parseFloat( item.properties.get('rating') );
-                            if (!showByRate( indexZoom, rat)) {
-                                // geoCollection.remove(item);
-                            }
-                        });
-                    });
-
-                    $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
-                        var id = element.id.replace('list-company', '');
-                        var el = $(element);
-                        var rating = parseFloat(el.find('div.span3 span.rating').text());
-                        if (showByRate(indexZoom, rating)) {
-                            if($('#'+el.attr('data-correspond')).css('display')=='none' ) { el.show(); }
-                        } else {
-                            el.hide();
-                            $('#'+el.attr('data-correspond')).hide();
-                        }
-                    });
-                }
-
-                function showByRate (pZoom, pRating) {
-                    if (pZoom < 11 && pRating > 9)
-                        return true;
-                    if (pZoom == 11 && pRating > 9)
-                        return true;
-                    if (pZoom == 12 && pRating > 7)
-                        return true;
-                    if (pZoom == 13 && pRating > 5)
-                        return true;
-                    if (pZoom == 14 && pRating > 3)
-                        return true;
-                    return false;
-                }
-            }
+<div id="companiesList" class="contentLeft">
+    <div class="scroll-pane jspScrollable" id="companiesListContainer">
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    var doAjax = function() {
+        var aURL = null;
+        var aData = null;
+        var initialized = false;
+        if (!$('#home_search').hasClass('hide')){
+            aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
+            $('[data-serarch-form="responce-type"]').val("html");
+            aData = $('#advanced-search-form').serialize();
+            $('[data-serarch-form="responce-type"]').val("json");
+        } else {
+            // aURL = Routing.generate('company_ajax_get_all');
+            aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
         }
-   </script>
+        $.ajax({
+            type: 'GET',
+            url: aURL,
+            data: aData,
+            success: function(html) {
+                var root = $('#companiesListContainer');
+                root.empty();
+                root.append(html);
+                root.jScrollPane();
+            },
+            error: function(jqxhr, textStatus, errorThrown) {
+                console.log(textStatus + ": " + errorThrown);
+            }
+        });
+    };
+
+    // Показ компаний списком
+    $("#companiesList").hide();
+    $('#toggleCompaniesList').on("click", function(){
+        var $this = $(this),
+            defaultText = 'Показать списком',
+            closeText = 'Скрыть',
+            companiesList = $('#companiesList');
+
+        $this.parent().toggleClass('showLeftColumn');
+        doAjax();
+        companiesList.toggle();
+        if (companiesList.is(':hidden')) {
+            $this.html(defaultText);
+            $('#map').css('left', '0');
+        } else {
+            $this.html(closeText);
+            $('#map').css('left', '380px');
+        }
+    });
+});
+</script>
+
+<div id="block_1" class="contentRightWrap">
+    <div class="contentRight">
+        <form action method="post" class="inputTypeForm">
+            <p class="contentRightItem">
+                <label for="typeCompany">Тип компании</label>
+            </p>                        
+            <div class="basket__cont__body__bottom__paper">
+                <div class="lineForm">
+                    <select class="styled" id="typeCompany">
+                        <option value="">Автосервис</option>
+                        <option value="">Автомойка</option>
+                        <option value="">Шиномонтаж</option>
+                    </select>                                       
+                </div>                      
+            </div>
+            <p class="contentRightItem">
+                <label for="addtypeCompany">Подтип компании</label>
+            </p>                        
+            <div class="basket__cont__body__bottom__paper">
+                <div class="lineForm">
+                    <select class="styled" id="addtypeCompany">
+                        <option value="">Лицензионные</option>
+                        <option value="">Не лицензионные</option>
+                        <option value="">Шиномонтаж</option>
+                    </select>                                       
+                </div>                      
+            </div>  
+            <p class="contentRightItem">
+                <label for="inputBrandField">Специализация на марке</label>
+            </p>
+            <input type="text" id="inputBrandField" />                  
+            <div class="reitingSlyder">
+                <p class="contentAmount">
+                    <span id="lableAmount" for="amount">Минимальный рейтинг:</span>
+                    <input type="text" id="amount" />
+                </p>
+                <div id="slider-range-max"></div>
+                <span class="indexSlyderLeft">1</span>
+                <span class="indexSlyderRight">10</span>
+            </div>
+            <p class="contentRightItem">
+                <label>Время работы</label>
+            </p>                        
+            <ul class="btnFiltr-group">                              
+                <li><input id="CheckBox1" class="checkBox" type="checkbox"/><label class="btnFiltr btnFiltrFirst" for="CheckBox1">24 часа</label></li>
+                <li><input id="CheckBox2" class="checkBox" type="checkbox"/><label class="btnFiltr" for="CheckBox2">До поздна</label></li>
+                <li><input id="CheckBox3" class="checkBox" type="checkbox"/><label class="btnFiltr btnFiltrLast" for="CheckBox3">Выходные</label></li>
+            </ul>
+            <p class="contentRightItem">
+                <label>Дополнительные услуги</label>
+            </p>                        
+            <ul class="btnFiltr-group dop">                              
+                <li>
+                    <input id="CheckBox4" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr btnFiltrFirst" for="CheckBox4">
+                        <i class="iconDopWork iconevacuation"></i>
+                    </label>
+                </li>
+                <li>
+                    <input id="CheckBox5" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr" for="CheckBox5">
+                        <i class="iconDopWork iconwifi"></i>
+                    </label>
+                </li>
+                <li>
+                    <input id="CheckBox6" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr" for="CheckBox6">
+                        <i class="iconDopWork iconotdyh"></i>
+                    </label>
+                </li>
+                <li>
+                    <input id="CheckBox7" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr" for="CheckBox7">
+                        <i class="iconDopWork iconkofe"></i>
+                    </label>
+                </li>
+                <li>
+                    <input id="CheckBox8" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr" for="CheckBox8">
+                        <i class="iconDopWork iconcard"></i>
+                    </label>
+                </li>
+                <li>
+                    <input id="CheckBox9" class="checkBox" type="checkbox"/>
+                    <label class="btnFiltr btnFiltrLast" for="CheckBox9">
+                        <i class="iconDopWork iconcafe"></i>
+                    </label>
+                </li>
+            </ul>
+            <p class="contentRightItem labelCheckBox">
+                <span class="checkBox__autograf__wrap">
+                    <input id="checkBox__autograf1" type="checkbox" value="off">
+                    Только с акциями
+                </span>
+                <script type="text/javascript">
+                    jQuery(document).ready(function(){
+                        jQuery(".checkBox__autograf__wrap").mousedown(
+                                                function() {
+                                                     changeCheck(jQuery(this));                                              
+                                                });
+                                                jQuery(".checkBox__autograf__wrap").each(
+                                                function() {                                                 
+                                                     changeCheckStart(jQuery(this));                                                 
+                                                });
+                                                                                        });
+                                                function changeCheck(el)
+                                                {
+                                                     var el = el,
+                                                          input = el.find("input").eq(0);
+                                                     if(!input.attr("checked")) {
+                                                        el.css("background-position","0 -24px");    
+                                                        input.attr("checked", true)
+                                                    } else {
+                                                        el.css("background-position","0 0");    
+                                                        input.attr("checked", false)
+                                                    }
+                                                     return true;
+                                                }
+                                                function changeCheckStart(el)
+                                                {
+                                                var el = el,
+                                                        input = el.find("input").eq(0);
+                                                      if(input.attr("checked")) {
+                                                        el.css("background-position","0 -24px");    
+                                                        }
+                                                     return true;
+                                                }
+                </script>   
+            </p>
+            <p class="cleanSearch secondaryLink" id="cleanSearch">Очистить поиск</p>
+        </form>                         
+    </div>
+</div>
 {% endblock %}

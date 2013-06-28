@@ -42,6 +42,7 @@ class CompanyController extends MainController
     }
 
     /**
+     * @Route("/", name="_index")
      * @Route("/catalog", name="content_companies")
      * @Method({"GET", "POST"})
      * @Template()

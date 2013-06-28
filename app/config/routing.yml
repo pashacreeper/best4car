@@ -1,10 +1,3 @@
-root:
-    pattern: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /catalog
-        permanent: true
-
 sto_admin:
     resource: "@StoAdminBundle/Controller/"
     type:     annotation
