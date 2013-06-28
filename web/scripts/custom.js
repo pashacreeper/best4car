@@ -22,6 +22,7 @@ var mainLayout = function(){
 };
 
 var catalogPage = function(){
+    // Отображаем и скрываем меню «В первый раз на сайте»
     if (CookieHandler.get('popup_for_new_closed')) {
         $('.popupFirstVisit').hide();
     };
@@ -29,12 +30,56 @@ var catalogPage = function(){
         $('.popupFirstVisit').hide();
         CookieHandler.set('popup_for_new_closed', true, (3*24*60*60), '/');
     });
-    $('.hideRightSearch').click(function() {
-        $('#map').css('right', '340px');
+
+    $('#advancedSearch').hide();
+    $('#toggleAdvancedSearch').on("click", function(){
+        var $this = $(this),
+            defaultText = 'Показать расширенный поиск',
+            closeText = 'Скрыть расширенный поиск',
+            advancedSearch = $('#advancedSearch');
+
+        $this.parent().toggleClass('showRightSearch');
+        advancedSearch.toggle();
+        if (advancedSearch.is(':hidden')) {
+            $this.html(defaultText);
+            $('#map').css('right', '0');
+        } else {
+            $this.html(closeText);
+            $('#map').css('right', '340px');
+        }
     });
-    $('.showRightSearch').click(function() {
-        $('#map').css('right', '0');
+
+    // Отрабатываем нажатие по «Только с акциями» в меню расширенного поиска
+    // start
+    jQuery(document).ready(function(){
+        jQuery(".checkBox__autograf__wrap").mousedown(function() {
+            changeCheck(jQuery(this));
+        });
+        jQuery(".checkBox__autograf__wrap").each(function() {
+            changeCheckStart(jQuery(this));
+        });
     });
+    var changeCheck = function(el) {
+        var el = el,
+            input = el.find("input").eq(0);
+        if(!input.attr("checked")) {
+            el.css("background-position","0 -24px");    
+            input.attr("checked", true)
+        } else {
+            el.css("background-position","0 0");    
+            input.attr("checked", false)
+        }
+        return true;
+    }
+    var changeCheckStart = function (el) {
+        var el = el,
+        input = el.find("input").eq(0);
+        if(input.attr("checked")) {
+            el.css("background-position","0 -24px");    
+        }
+        return true;
+    }
+    // end
 }
 
 var initPage = function(){

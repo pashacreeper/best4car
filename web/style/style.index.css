@@ -391,6 +391,11 @@
 }
 .hideBtn{
 	float: left;
+	color: #51585f;
+}
+.hideBtn:hover{
+	color: #51585f;
+	text-decoration: none;
 }
 .selectLeftColumn{
 	color: #51585f;

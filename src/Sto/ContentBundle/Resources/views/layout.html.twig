@@ -40,6 +40,7 @@
             'scripts/cookie.js'
             'scripts/custom.js'
             'scripts/custom.city-choice.js'
+            'scripts/custom.companies-list.js'
             output='compiled/compiled.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -281,21 +282,6 @@
                                 type: 'yandex#publicMap'
                             }));
                     }
-        </script>
-        <script type="text/javascript">         
-                        $(document).ready(function(){
-                            $(".showRightSearch").hide();
-                            $("#block_1").hide();
-                            $(".contentTopRight").click(function(){
-                                $('#block_' + this.id).toggle();
-                            });
-                            $(".contentTopRight").click(function(){
-                                $(".showRightSearch").toggle();
-                            });
-                            $(".contentTopRight").click(function(){
-                                $(".hideRightSearch").toggle();
-                            });                                             
-                        });                     
         </script>
         <script type="text/javascript">         
                         $(document).ready(function(){
