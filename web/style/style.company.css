@@ -493,7 +493,7 @@ a.addEmail{
 }
 .assortSelect{
 	float: left;
-	font: 1.4em 'PT Sans', sans;
+	/*font: 1.4em 'PT Sans', sans;*/
 	color: #51585f;
 }
 .showSelect{

@@ -1,89 +1,61 @@
 {% for item in companies %}
-<!-- short info -->
-    <div class="row-fluid listItemCompany" id="list-company{{ item.id }}" data-correspond="x-list-company{{ item.id }}">
-        <div class="span3">
-            <i class="icon-b4c-star"></i><span class="rating">{{item.rating}}</span><br />
-            <span style="font-size:10px;">Отзывов: {{item.feedbacks|length}}</span>
-        </div>
-        <div class="span7">
-            <a class="company-name" href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
-            <p>{{item.address}}<br />{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
-            <p>
-{% for key, specialization in item.specialization %}
-{% if key %}
-                <img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 17px;height: 17px;">
-{% else %}
-                <img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 25px;height: 25px;">
-{% endif %}
-{% endfor %}
-            </p>
-        </div>
-        <div class="span2">
-{% if item.deals|length %}
-            <img src="{{ asset('bundles/stocontent/images/company_with_deals.png') }}">
-{% endif %}
-        </div>
+<div class="cardCompanyItem" data-item-id="{{ item.id }}" id="list-company{{ item.id }}" data-correspond="x-list-company{{ item.id }}">
+    <p class="index">
+        <span class="indexbg"></span>
+        <span class="indexLevel">{{item.rating}}</span></br>
+        <span class="Otzyv">Отзывы: <span>{{item.feedbacks|length}}</span></span>
+    </p>
+    <div class="nameCompanyWrap">
+        <p class="nameCompany"><a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a></p>
+        <p class="adressCompany">{{item.address}}</p>
+        <p class="phoneCompany">{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>                             
+    </div>  
+    <div class="infoCompanyCont smallInfoCompany" id="blocSmall_{{ item.id }}">
+        <ul class="iconSpecialisation">
+        {% for key, specialization in item.specialization %}
+            <li class="iconSpecialisationitem">
+                <span class="iconProfilCompany {{ specialization.iconNameSmall }}">
+            </li>
+        {% endfor %}
     </div>
-<!-- EOT short info -->
-<!-- rich info -->
-    <div class="row-fluid listActive listItemCompanyPlain hide" id="x-list-company{{ item.id }}" data-correspond="list-company{{ item.id }}" data-coord="{{ item.gps }}">
-        <div class="span3">
-            <i class="icon-b4c-star"></i><span class="rating">{{item.rating}}</span><br />
-            <span style="font-size:10px;">Отзывов: {{item.feedbacks|length}}</span>
+    <div class="infoCompanyCont bigInfoCompany" id="x-list-company{{ item.id }}" data-correspond="list-company{{ item.id }}" data-coord="{{ item.gps }}">                                 
+        <div class="popupCardCompanyCont">
+            <div class="servicesPart">
+                <ul class="services">
+                {% for key, specialization in item.specialization %}
+                    <li class="servisesItem">
+                        <span class="iconProfilCompany {{ specialization.iconNameSmall }}" />{{ specialization.name }}
+                    </li>
+                {% endfor %}
+            </div>
+            <div class="infoCompany">
+                <p class="infoCompanyLable">
+                    Контактный телефон:</br><span>(812) 323-78-98</span>
+                </p>
+                <p class="infoCompanyLable">
+                    Часы работы:</br>
+                    {%- for workPhase in item.workingTime %}
+                        <span>{{ workPhase.from|date('H:i') }}-{{ workPhase.till|date('H:i') }} ({{ workPhase.days.string }})</span>
+                        {%- if not loop.last %}<br />{% endif -%}
+                    {% endfor -%}
+                </p>
+                {% if item.web is not empty %}
+                    <p class="infoCompanyLable">
+                        Сайт:</br><span><a href="{{ item.web }}">{{ item.web }}</a></span>
+                    </p>                                
+                {% endif %}
+            </div>
         </div>
-        <div class="span9">
-            <a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a>
-            <p>{{item.address}}<br />{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
-            {% if item.deals|length %}
-                <div class="badge badge-important">Есть спецпредложения!</div>
-            {% endif %}
-            <p>
-                <div class="row-fluid">
-                    <div class="span4">
-{% for key, specialization in item.specialization %}
-{% if key<3 %}
-                <div><img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 17px;height: 17px;"> {{ specialization.name }}</div>
-{% else %}
-                <img src="{% if specialization.iconNameSmall %}/../{{ storage_path }}/company_icon/{{specialization.iconNameSmall}}{% else %}{{ asset('bundles/stocore/images/notimage.png') }}{% endif %}" style="width: 17px;height: 17px;">
-{% endif %}
-{% endfor %}
-                    </div>
-                    <div class="span5">
-                        <h6 style="margin:0px;">Время работы</h6>
-                        {% for workPhase in item.workingTime %}
-                        <div><small>{{ workPhase.from|date('H:i') }}-{{ workPhase.till|date('H:i') }} ({{ workPhase.days.string }})</small></div>
-                        {% endfor %}
-                        {% if not item.web is null %}
-                        <h6 style="margin:0px;">Сайт</h6>
-                        <div><a href="{{ item.web }}">{{ item.web }}</a></div>
-                        {% endif %}
-                    </div>
-                </div>
-            </p>
-        </div>
-    </div>
-<!-- EOT rich info -->
+    </div>                              
+</div>
 {% endfor %}
 
 <script>
-    function getZoom(rating){
-        if(rating>7) return 12;
-        if(rating>5) return 13;
-        return 14;
-    }
-    $('.listItemCompany').live('click',function(){
-        $('.listItemCompanyPlain').each(function(){
-            $(this).hide();
-            $('#'+$(this).attr('data-correspond') ).show();
-        });
-        $('#'+$(this).attr('data-correspond')).show();
-        var cName = $(this).find('.company-name').text();
-        var rating = $(this).find('span.rating').text();
-        var zoom = getZoom(rating);
-        $(this).hide();
-        var coord = $('#'+$(this).attr('data-correspond')).attr('data-coord').split(',');
-        myMap.setCenter(coord,zoom,{checkZoomRange: true, duration: 1000, callback: function(){
-            myMap.hint.show(coord, cName);
-        }});
-    });
+    $('.bigInfoCompany').hide();
+    $('.cardCompanyItem').on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).data('item-id');
+        $('#x-list-company' + id).slideToggle(0);
+        $('#blocSmall_' + id).slideToggle(0);
+    }); 
 </script>

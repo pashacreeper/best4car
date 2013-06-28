@@ -980,7 +980,7 @@ select{
 	border-top: 1px solid #313236;
 	height: 68px;
 	position: absolute;
-	z-index: 888;
+	z-index: 1000;
 	bottom: 0;
 }
 .fotterCont{

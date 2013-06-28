@@ -425,37 +425,27 @@
 .contentTopCenter span{
 	color: #f35d2e;
 }
-.showLeftColumn{
+.showLeftColumn, 
+.hideLeftColumn,
+.showRightSearch,
+.hideRightSearch {
 	float: left;
-	line-height: 42px;
+	line-height: 45px;
 	padding-left: 15px;
 	cursor: pointer;
-	background: url('/img/hideicon.png') no-repeat 0 16px;
 	margin-left: 10px;
+}
+.showLeftColumn{
+	background: url('/img/hideicon.png') no-repeat 0 16px !important;
 }
 .hideLeftColumn{
-	float: left;
-	line-height: 42px;
-	padding-left: 15px;
-	cursor: pointer;
 	background: url('/img/showicon.png') no-repeat 0 16px;
-	margin-left: 10px;
 }
 .showRightSearch{
-	float: left;
-	line-height: 42px;
-	padding-left: 15px;
-	cursor: pointer;
-	background: url('/img/hideicon.png') no-repeat 0 16px;
-	margin-left: 10px;
+	background: url('/img/hideicon.png') no-repeat 0 16px !important;
 }
 .hideRightSearch{
-	float: left;
-	line-height: 42px;
-	padding-left: 15px;
-	cursor: pointer;
 	background: url('/img/showicon.png') no-repeat 0 16px;
-	margin-left: 10px;
 }
 .contentCenter{
 	position: relative;

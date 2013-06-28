@@ -28,7 +28,13 @@ var catalogPage = function(){
     $('.popupClose').click(function() {
         $('.popupFirstVisit').hide();
         CookieHandler.set('popup_for_new_closed', true, (3*24*60*60), '/');
-    }); 
+    });
+    $('.hideRightSearch').click(function() {
+        $('#map').css('right', '340px');
+    });
+    $('.showRightSearch').click(function() {
+        $('#map').css('right', '0');
+    });
 }
 
 var initPage = function(){
