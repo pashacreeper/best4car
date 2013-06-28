@@ -91,6 +91,10 @@ knp_paginator:
     template:
         pagination: StoAdminBundle:Pagination:sliding.html.twig
 
+knp_menu:
+    twig:
+        template: StoContentBundle::menu.html.twig
+
 
 vich_uploader:
     db_driver: orm # or mongodb
@@ -181,6 +185,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 120 }
+        user_login_avatar:
+            quality: 100
+            filters:
+                thumbnail: { size: [45, 45], mode: outbound }
         company_gallery_filter:
             quality: 100
             filters:

@@ -1,0 +1,280 @@
+body{
+	overflow: visible;
+}
+
+.main{
+	background: url('../img/bg.jpg') repeat;
+}
+.topHeader {
+	border-bottom: 1px solid #292c2e;
+}
+.bottomHeader {
+margin-left: 0;
+}
+.nameCompanyHeader{
+	height: 70px;	
+}
+.titleNameCompany{
+	color: #f35d2e;
+	font: Italic 2.4em 'PT Sans', sans;
+	padding-left: 20px;
+	line-height: 70px;
+	padding-top: 0;
+}
+.contentMain{
+	width: 960px;
+	margin: 0 auto;
+	background: none;
+}
+.content{
+	background: #f6f6f6;
+	padding: 20px 10px 50px 10px;
+	overflow: hidden;
+}
+.indexCompany{
+	position: absolute;
+	top: 14px;
+	right: 15px;
+}
+.indexCompany p{
+	color: #535556;
+	font: 1.4em 'PT Sans', sans;
+	text-align: right;
+}
+.inputForm {
+	padding: 5px 0 14px 0;
+}
+.inputField {
+	height: 34px;
+	padding: 0 12px 0 12px;
+	margin-bottom: 0;
+}
+.inputFieldTextarea{
+	height: 100px;
+	margin-bottom: 0;
+	resize: none;
+}
+.inputData,.inputTime{
+	width: 100px;
+}
+.basket__cont__body__bottom__paper,.lineForm { 
+	float: none;
+}
+.startData { 
+	margin-left: 0;
+}
+/*---datapicker---*/
+.datepicker,.timepicker-hour,.timepicker-minute,.timepicker-second{
+	color: #535556;
+	font: 1.4em 'PT Sans', sans;
+	padding: 10px;
+}
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover {
+	background: #eee;
+}
+.bootstrap-datetimepicker-widget th {
+	text-align: center;
+	width: 20px;
+	height: 20px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget th.next, .bootstrap-datetimepicker-widget th.prev {
+	font-size: 21px;
+}
+.bootstrap-datetimepicker-widget td.active:hover, .bootstrap-datetimepicker-widget td.active:hover:hover, .bootstrap-datetimepicker-widget td.active:active, .bootstrap-datetimepicker-widget td.active:hover:active, .bootstrap-datetimepicker-widget td.active.active, .bootstrap-datetimepicker-widget td.active:hover.active, .bootstrap-datetimepicker-widget td.active.disabled, .bootstrap-datetimepicker-widget td.active:hover.disabled, .bootstrap-datetimepicker-widget td.active[disabled], .bootstrap-datetimepicker-widget td.active:hover[disabled] {
+	color: #fff;
+	background-color: #51acd3;
+}
+.bootstrap-datetimepicker-widget thead tr:first-child th,.day {
+	cursor: pointer;
+}
+.bootstrap-datetimepicker-widget td, .bootstrap-datetimepicker-widget th {
+	text-align: center;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.tagCont{
+	clear: both;
+	overflow: hidden;
+	padding: 10px 0;
+}
+.tagCont span{
+	display: inline-block;
+	float: left;
+	padding: 4px 10px 8px;
+	background: #ee6135;
+	color: #fff;
+	font: 1.6em 'PT Sans', sans;
+	border-radius: 4px;
+	margin: 2px 5px 2px;
+}
+.tagCont span i{
+	display: inline-block;
+	margin: 5px 0 0 5px;
+	cursor: pointer;
+}
+.adminBlockImg{
+	margin-left: 0;
+	float: left;
+	width: 300px;
+}
+.adminBlockImg span{
+	margin-bottom: 10px;
+	border-radius: 4px;
+	font: 1.6em 'PT Sans', sans;
+	color: #f6f6f6;
+	display: block;
+	width: 220px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-decoration: none;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+	padding-left: 20px;
+	position: relative;
+	display: block;
+}
+.additionalInfo{
+	color: #0cbca5;
+	font: 1.4em 'PT Sans', sans;
+}
+.blockImg{
+	float: left;
+	padding-bottom: 20px;
+	width: 620px;
+}
+.imgActionMiniCont{
+	float: left;
+	width: 135px;
+	margin: 0 10px 10px 10px;
+}
+.imgActionMini{
+	width: 135px;
+	height: 75px;
+	overflow: hidden;
+	background: #bebebe;
+}
+.imgActionMini img{
+	width: 100%;
+	height: auto;
+}
+.deleteImg{
+	margin: 2px 0;
+	display: inline-block;
+	color: #555;
+	font: 1.4em 'PT Sans', sans;
+	cursor: pointer;
+}
+.deleteImg i{
+	display: inline-block;
+	margin: 2px 0 0 5px;
+}
+.bottomContent{
+	width: 100%;
+	padding-top: 30px;
+	border-top: 1px solid #f35d2e;	
+	clear: both;
+	margin-top: 30px;
+	text-align: center;
+	position: relative;
+}
+.saveDraft{
+	margin-left: 24px;
+}
+.btnBottomContent{
+	border-radius: 4px;
+	font: 1.6em 'PT Sans', sans;
+	color: #f6f6f6;
+	display: inline-block;
+	width: 220px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-decoration: none;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+	position: relative;	
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*NEW*/
+.accountCont {
+float: right;
+width: 220px;
+padding: 15px 20px 0 10px;
+position: absolute;
+right: 0;
+top: 0;
+}
+.navCont {
+width: 490px;
+margin: 0 auto;
+z-index: 888;
+position: static;
+}
+@media all and (max-width: 1100px){
+.slogan{
+	font: Italic 1.4em 'Domkrat', sans;
+	line-height: 18px;
+	padding-top: 13px;
+	padding: 10px 0 0 8px;
+}
+.logoCont {
+	width: 290px;
+	float: left;
+	position: absolute;
+	padding: 6px 0 0 10px;
+}
+}
+.clear {
+	clear: both;
+	overflow: visible;
+}
+.well{
+	float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

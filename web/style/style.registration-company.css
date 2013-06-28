@@ -1,0 +1,580 @@
+body{
+	overflow: visible;
+}
+.titleNameCompany {
+	color: #f35d2e;
+	font: Italic 2.4em 'PT Sans', sans;
+	padding-left: 20px;
+	line-height: 70px;
+	padding-top: 0;
+}
+.contentMain{
+	width: 960px;
+	margin: 0 auto;
+	background: none;
+}
+.stepRegistration{
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.stepRegistrationItem {
+	float: left;
+	display: inline-block;
+	width: 201px;
+	height: 44px;
+	background: url('../img/bg-step-big.png') no-repeat;
+	text-align: center;
+}
+.firstStep{
+	background-position: 0 0;	
+}
+.firstStepActive{
+	background-position: 0 -46px;	
+}
+.firstStepActive a{
+	color: #333;
+}
+.centerStep{
+	background-position: -201px 0;
+	margin-left: -17px;
+}
+.centerStepActive{
+	background-position: -201px -46px;
+	margin-left: -17px;
+}
+.centerStepActive a{
+	color: #333;
+}
+.endStep{
+	background-position: -402px 0;
+	margin-left: -17px;
+}
+.endStepActive{
+	background-position: -402px -46px;
+	margin-left: -17px;
+}
+.endStepActive a{
+	color: #333;
+}
+.stepLink{
+	color: #666;
+	font: 1.4em 'PT Sans', sans;
+	text-decoration: none;
+	line-height: 44px;	
+	padding: 15px 10px;
+}
+.stepLink:hover{
+	color: #333;	
+	text-decoration: none;
+}
+.titleRegistrationCompany{
+	color: #f35d2e;
+	font: 1.6em 'PT Sans', sans;
+}
+.leftRegistrationCompany{
+	float: left;
+	width: 580px;
+	padding-bottom: 20px;
+}
+.rightRegistrationCompany{
+	float: left;
+	width: 340px;
+	margin-left: 20px;
+	padding-bottom: 20px;
+}
+.blockEnter{
+	padding: 10px 20px 40px 20px;
+	background: #e3ecf3;
+	border: 1px solid #acc8c9;
+	margin-bottom: 20px;
+}
+.blockEnter input{
+	width: 284px
+}
+.leftRegistrationCompany input{
+	float: left;
+}
+.captchaImg{
+	float: left;
+	width: 220px;
+}
+.captchaImg img{
+	width: 100%;
+	height: auto;
+}
+.update{
+	float: left;
+	margin-left: 20px;
+	color: #666;
+	font: 1.4em 'PT Sans', sans;
+	line-height: 24px;
+}
+.update span{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background: #51aed7;
+	border: 1px solid #0c6991;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	border-radius: 4px;
+	text-align: center;
+	margin-right: 10px;
+}
+.update span:hover{
+	background: #48a4cc;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+.update span:active{
+	-webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+}
+.update span i{
+	margin-top: 2px;
+}
+.btnNext{
+	border-radius: 4px;
+	font: 1.6em 'PT Sans', sans;
+	color: #f6f6f6;
+	display: inline-block;
+	width: 160px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-decoration: none;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+	position: relative;
+	text-align: center;
+	float: right;
+}
+.maskInput{
+	float: left;
+	margin-bottom: 10px;
+}
+.maskInput span{
+	float: left;
+	font: 1.8em 'PT Sans', sans;
+	color: #f35d2e;
+	margin: 3px 18px 0 0;
+}
+.inputData, .inputTime {
+	width: 100px;
+}
+.addLogoImgWrap{
+	float: left;
+}
+.addLogoImg{
+	width: 140px;
+	height: 140px;
+	border: 1px solid #bebebe;
+	background: #fff;
+	text-align: center;
+}
+.addLogoImg img{
+	width: 85%;
+	height: auto;
+	display: inline-block;
+	margin: auto;
+}
+.adminBlockImg span {
+	margin-bottom: 10px;
+	border-radius: 4px;
+	font: 1.6em 'PT Sans', sans;
+	color: #f6f6f6;
+	display: block;
+	width: 220px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	text-decoration: none;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+	padding-left: 20px;
+	position: relative;
+	display: block;
+}
+.additionalInfo {
+	color: #0cbca5;
+	font: 1.4em 'PT Sans', sans;
+	line-height: 14px;
+}
+.deleteImg {
+	margin: 2px 0;
+	display: inline-block;
+	color: #555;
+	font: 1.4em 'PT Sans', sans;
+	cursor: pointer;
+}
+.deleteImg i{
+	margin-left: 3px;
+	color: #555;
+	vertical-align: middle;
+}
+.tagContBig{
+	clear: both;
+	overflow: hidden;
+}
+.tagContBig li{
+	padding: 5px;
+	background: #52abd3;
+	float: left;
+	color: #fff;
+	font: 1.4em 'PT Sans', sans;
+	border-radius: 4px;
+	margin: 5px 10px 5px 0;
+	line-height: 40px;
+	position: relative;
+}
+.tagTicketServices span{
+	float: left;
+	background: url('../img/icon.png') no-repeat;
+	width: 34px;
+	height: 40px;
+	margin-right: 5px;
+	display: inline-block;
+}
+.tagTickeBrand span{
+	float: left;
+	background: url('../img/icon-brand-white.png') no-repeat;
+	width: 28px;
+	height: 24px;
+	margin-right: 5px;
+	position: relative;
+	top: 8px;
+	left: 0;
+	display: inline-block;
+}
+.tagContBig i{
+	float: right;
+	display: inline-block;
+	margin: 14px 0 0 14px;
+	cursor: pointer;
+}
+.addImg{
+	margin: 2px 0;
+	display: inline-block;
+	color: #555;
+	font: 1.4em 'PT Sans', sans;
+	cursor: pointer;
+	float: left;
+}
+.addImg i {
+	margin-left: 3px;
+	color: #555;
+	vertical-align: middle;
+}
+.additionalServItem{
+	float: left;
+	color: #444;
+	font: 1.4em 'PT Sans', sans;
+	line-height: 28px;
+	position: relative;
+	margin: 5px 10px 10px 0
+}
+.additionalServItem input{
+	float: left;
+	position: relative;
+	top: 4px;
+}
+.additionalServItem span{
+	background: url('../img/iconmini.png') no-repeat;
+	width: 24px;
+	height: 28px;
+	display: block;
+	float: left;
+	margin: 0 5px 0 5px;
+}
+.costHour{
+	float: left;
+	width: 240px;
+}
+#costHour{
+	overflow: visible;
+}
+.addDescriptionInfo{
+	float: left;
+	width: 680px;
+	margin-bottom: 20px;
+}
+#inputFieldTextarea{
+	width: 665px;
+}
+.addDescriptionInfo div textarea{
+	width: 100%;
+	height: 100px;
+	margin-bottom: 0;
+	resize: none;
+}
+.inputCost{
+	float: left;
+	width: 80px;
+}
+.costSelect{
+	margin: 2px 0 0 10px;
+	font: 1.4em 'PT Sans', sans;
+}
+.bottomBlock{
+	clear: both;
+	margin-top: 20px;
+}
+.additionalServ{
+	overflow: hidden;
+}
+.leftContaktDate{
+	width: 560px;
+	margin-left: 0;
+	float: left;
+}
+.rightContaktDate{
+	margin-left: 20px;
+	width: 360px;
+	float: left;
+}
+.contactDate{
+	position: relative; 
+}
+.contactDate input{
+	float: left;
+	margin-right: 10px;
+}
+.contactDate i.icon-remove-circle{
+	float: left;
+	position: relative;
+	top: 7px;
+	cursor: pointer;
+}
+.timeWork i.icon-remove-circle{
+	float: left;
+	position: relative;
+	top: 20px;
+	cursor: pointer;
+	left: 14px;
+}
+.btnFiltr-group {
+	margin-top: 10px;
+	float: left;
+}
+.dateLeft{
+	float: left;
+	margin: 13px 0 0 6px;
+}
+.inputTime{
+	width: 55px;
+}
+.inputleftContDate{
+	width: 515px;
+}
+.timeWork{
+	position: relative;
+}
+.contactDateLabel{
+	float: left;
+	font: 1.4em 'PT Sans', sans;
+	color: #666;
+	margin: 10px 0 0 5px;
+}
+.rightContaktItem i.icon-remove-circle {
+	position: relative;
+	top: -4px;
+	right: -5px;
+	cursor: pointer;
+}
+.rightMask{
+	width: 340px;
+}
+.rightMask input{
+	width: 155px;
+}
+.rightMask input{
+	float: right;
+}
+.alertSelect {
+	float: left;
+	padding: 20px 90px 20px 30px;
+	background: #eb6969;
+	font: 1.8em 'PT Sans', sans;
+	color: #fff;
+	border-radius: 4px;
+	margin-top: -10px;
+	position: relative;
+}
+#alertCongrat{
+	background: #0eb19c;
+}
+.alertSelect  i{
+	right: -80px;
+	position: relative;
+	top: 5px;
+	cursor: pointer;
+}
+.photoDateItem{
+	overflow: hidden;
+	margin: 20px 0;
+}
+.photoDateImg{
+	float: left;
+	width: 200px;
+	height: 130px;
+	position: relative;
+	background: #bebebe;
+}
+.photoDateImg img{	
+	width: 100%;
+	height: auto;
+}
+.photoDateImg i{	
+	position: absolute;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background: url('../img/edit-icon.png') no-repeat;
+	bottom: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+.photoDateItem p{
+	float: left;
+	margin: 0 0 0 20px;
+	padding-right: 10px;
+}
+.photoDateItem p i{
+	position: relative;
+	top: -4px;
+	right: -5px;
+	cursor: pointer;
+}
+.photoDateItem p input{
+	width: 680px;
+}
+.registrationCompany{
+	overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--DATATIMEPIKER--*/
+.datepicker, .timepicker-hour, .timepicker-minute, .timepicker-second {
+	color: #535556;
+	font: 1.4em 'PT Sans', sans;
+	padding: 10px;
+}
+.datepicker, .timepicker-hour, .timepicker-minute, .timepicker-second {
+	color: #535556;
+	font: 1.4em 'PT Sans', sans;
+}
+.bootstrap-datetimepicker-widget thead tr:first-child th, .day {
+cursor: pointer;
+}
+.bootstrap-datetimepicker-widget th.next, .bootstrap-datetimepicker-widget th.prev {
+font-size: 21px;
+}
+.bootstrap-datetimepicker-widget td, .bootstrap-datetimepicker-widget th {
+text-align: center;
+width: 20px;
+height: 20px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget th {
+text-align: center;
+width: 20px;
+height: 20px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget td.active:hover, .bootstrap-datetimepicker-widget td.active:hover:hover, .bootstrap-datetimepicker-widget td.active:active, .bootstrap-datetimepicker-widget td.active:hover:active, .bootstrap-datetimepicker-widget td.active.active, .bootstrap-datetimepicker-widget td.active:hover.active, .bootstrap-datetimepicker-widget td.active.disabled, .bootstrap-datetimepicker-widget td.active:hover.disabled, .bootstrap-datetimepicker-widget td.active[disabled], .bootstrap-datetimepicker-widget td.active:hover[disabled] {
+color: #fff;
+background-color: #51acd3;
+}
+
+#iputEmailC{
+	width: 200px;
+}
+#iputTwittC{
+	width: 160px;
+}
+#iputFaceC{
+	width: 150px;
+}
+.rightContaktItem input{
+	width: 325px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

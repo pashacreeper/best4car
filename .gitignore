@@ -7,8 +7,9 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
-web/js/*
+web/compiled/*
 web/css/*
+web/js/*
 web/storage/*
 bin/doctrine*
 

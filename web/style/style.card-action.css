@@ -1,0 +1,17 @@
+body{
+	overflow: visible;
+}
+.managerCompany p{
+	padding-left: 0px;
+}
+.nameCompanyHeader {
+	padding-left: 20px;
+}
+.sloganCompany  a{
+	color: #535556;
+	text-decoration: underline;
+}
+.sloganCompany  a:hover{
+	color: #535556;
+	text-decoration: none;
+}
