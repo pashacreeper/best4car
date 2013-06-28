@@ -21,6 +21,7 @@ ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 
 set :use_composer,   true
+set :composer_options,  "--verbose --prefer-dist --optimize-autoloader"
 set :update_vendors, false
 set :dump_assetic_assets, true
 
