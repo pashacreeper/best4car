@@ -7,7 +7,7 @@
 */
 
 
-(function($) {
+var rvl = function($) {
 
 /*---------------------------
  Defaults for Reveal
@@ -17,7 +17,7 @@
  Listener for data-reveal-id attributes
 ----------------------------*/
 
-	$('a[data-reveal-id]').live('click', function(e) {
+	$('a[data-reveal-id]').on('click', function(e) {
 		e.preventDefault();
 		var modalLocation = $(this).attr('data-reveal-id');
 		$('#'+modalLocation).reveal($(this).data());
@@ -156,5 +156,9 @@
 			
         });//each call
     }//orbit plugin call
-})(jQuery);
+};
+
+jQuery(document).ready(function(){
+	rvl(jQuery);
+});
         
