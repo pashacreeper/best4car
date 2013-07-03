@@ -26,12 +26,12 @@
                         <span class="menuTagEmpty">Все акции</span>
                         <span class="acctBtn">{{ deals | length }}</span>
                     </li>
-                    {% for dealsType in dictionaries %}
-                    <li class="menuLeftBarItem">
-                        <span class="menuTagEmpty" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</span>
-                        <span class="acctBtn">{{ dealsType.deals|length }}</span>
-                    </li>
-                    {% endfor %}
+                    {%- for dealsType in dictionaries %}
+                        <li class="menuLeftBarItem">
+                            <span class="menuTagEmpty" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</span>
+                            <span class="acctBtn">{{ dealsType.deals|length }}</span>
+                        </li>
+                    {% endfor -%}
                 </ul>
                 <div class="deviderLeftMenu"></div>
                 <ul class="menuLeftBar leftBar2">
@@ -64,88 +64,31 @@
                         <span name="prev" class="navy prev-slide"></span>
                         <span name="next" class="navy next-slide"></span>
                     </div>
-                </div>                          
-                <div class="actionItemCont">
+                </div>
+                {% for index in 1..6 %}
+                    {% if index % 2 != 0 %}
+                    <div class="actionItemCont">
+                    {% endif %}
                     <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
+                        <a href="{{ path('content_deal_show', {'id': deals[index].id }) }}" class="actionItemLink">
+                            {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deals[index].imageName %}
+                            <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
                             <div class="actionItemBottomWrap">
                                 <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                    <h4>{{ deals[index].name }}</h4>
+                                    <p>{{ deals[index].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[index].company.rating }}</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[index].startDate | date('d.m') }} - {{ deals[index].endDate | date('d.m') }}</span></p>
                                 </div>  
                             </div>
                         </a>
                     </div>
-                    <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
-                            <div class="actionItemBottomWrap">
-                                <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
-                                </div>  
-                            </div>
-                        </a>
-                    </div>  
-                </div>
-                <div class="actionItemCont">
-                    <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
-                            <div class="actionItemBottomWrap">
-                                <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
-                                </div>  
-                            </div>
-                        </a>
+                    {% if index % 2 == 0 %}
                     </div>
-                    <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
-                            <div class="actionItemBottomWrap">
-                                <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
-                                </div>  
-                            </div>
-                        </a>
-                    </div>  
-                </div>
-                <div class="actionItemCont">
-                    <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
-                            <div class="actionItemBottomWrap">
-                                <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
-                                </div>  
-                            </div>
-                        </a>
-                    </div>
-                    <div class="actionItemMini">
-                        <a href="#" class="actionItemLink">
-                            <img src="/bootstrap/img/photo3.jpg" alt="фото пользователя" />                                  
-                            <div class="actionItemBottomWrap">
-                                <div class="actionItemBottom">
-                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
-                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
-                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
-                                </div>  
-                            </div>
-                        </a>
-                    </div>  
-                </div>
+                    {% endif %}
+                {% endfor %}
                 <script type="text/javascript">     
                     $(document).ready(function() {
-                        $('.actionItemLink').mouseenter(function() {                                        
+                        $('.actionItemLink').mouseenter(function() {                                  
                             $(this).children('.actionItemBottomWrap').css("top", "90px");
                         }); 
                         $('.actionItemLink').mouseleave(function() {
