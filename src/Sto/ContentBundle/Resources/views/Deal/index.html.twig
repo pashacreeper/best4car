@@ -7,36 +7,31 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-action.css') }}">    
 {% endblock %}
 
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>  
+{% endblock %}
+
 {% block wrap_container_open %}<div class="main">{% endblock %}
 {% block wrap_container_close %}</div>{% endblock %}
 
 {% block content %}
-<section class="contentMain  row tabs">
+<section class="contentMain row tabs">
     <div class="contentWrap text-cont-l">
         <div class="content text-cont-r">
             <div id="leftBar" class="text-l">
                 <ul class="menuLeftBar">
-                    <li class="menuLeftBarItem activeBar">
-                        <span class="menuTagEmpty">Все акции</span>
-                        <span class="acctBtn">231</span>
-                        <i class="subActive"></i>
-                    </li>
-                    <li class="menuLeftBarItem">
-                        <span class="menuTagEmpty">Скидки</span>
-                        <span class="acctBtn">231</span>
-                    </li>
-                    <li class="menuLeftBarItem">
-                        <span class="menuTagEmpty">Клубные</span>
-                        <span class="acctBtn">231</span>
-                    </li>
-                    <li class="menuLeftBarItem">
-                        <span class="menuTagEmpty">Распродажи</span>
-                        <span class="acctBtn">231</span>
-                    </li>
                     <li class="menuLeftBarItem">
                         <span class="menuTagEmpty">Все акции</span>
-                        <span class="acctBtn">231</span>
+                        <span class="acctBtn">{{ deals | length }}</span>
                     </li>
+                    {% for dealsType in dictionaries %}
+                    <li class="menuLeftBarItem">
+                        <span class="menuTagEmpty" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</span>
+                        <span class="acctBtn">{{ dealsType.deals|length }}</span>
+                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="deviderLeftMenu"></div>
                 <ul class="menuLeftBar leftBar2">
@@ -48,7 +43,7 @@
                     <li class="menuLeftBarItem">
                         <i class="iconLeftMReview"></i>
                         <span class="menuTagEmpty">С отзывами</span>
-                        <span class="acctBtn">21</span>
+                        <span class="acctBtn">{{ countFeededDeals }}</span>
                     </li>                           
                 </ul>
             </div>
@@ -56,54 +51,15 @@
                 <div class="slider">
                     <div class="img__prev__wrap">   
                         <ul id="thumbnail" class="slide-wrap">
+                        {% for deal in [random(deals), random(deals), random(deals)] %}
                             <li class="slide-item">
                                 <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo3.jpg"  alt="" />
+                                    <p class="nameActionP">{{ deal.name }}</p>
+                                    {% set image = "/" ~  storage_path ~ "/deal_image/" ~ deal.imageName %}
+                                    <img src="{{ image | imagine_filter('deals_carusel_photos') }}" alt="{{ deal.name }}">
                                 </a>
                             </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo2.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo3.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo2.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo1.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo3.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo3.jpg" />
-                                </a>
-                            </li>
-                            <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
-                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                    <img src="/bootstrap/img/photo1.jpg" />
-                                </a>
-                            </li>                                                   
+                        {% endfor %}                                                  
                         </ul>
                         <span name="prev" class="navy prev-slide"></span>
                         <span name="next" class="navy next-slide"></span>

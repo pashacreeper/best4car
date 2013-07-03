@@ -26,25 +26,27 @@
 
         <link rel="icon" href="/favicon.ico">
 
-        {% javascripts
-            'bootstrap/js/jquery.js'
-            'bootstrap/js/jquery-ui-1.10.3.custom.js'
-            'bootstrap/js/bootstrap.js'
-            'bootstrap/js/jquery.mousewheel.js'
-            'bootstrap/js/jquery.jscrollpane.js'
-            'bootstrap/js/jquery.bxslider.min.js'
-            'bootstrap/js/jquery.reveal.js'
-            'bootstrap/js/selectbox.js'
-            'bootstrap/js/selectbox1.js'
-            'bootstrap/js/bootstrap-datetimepicker.min.js'
-            'bootstrap/js/cookie.js'
-            'bootstrap/js/custom.js'
-            'bootstrap/js/custom.city-choice.js'
-            'bootstrap/js/custom.companies-list.js'
-            output='compiled/compiled.js'
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
+        {% block js %}
+            {% javascripts
+                'bootstrap/js/jquery.js'
+                'bootstrap/js/jquery-ui-1.10.3.custom.js'
+                'bootstrap/js/bootstrap.js'
+                'bootstrap/js/jquery.mousewheel.js'
+                'bootstrap/js/jquery.jscrollpane.js'
+                'bootstrap/js/jquery.bxslider.min.js'
+                'bootstrap/js/jquery.reveal.js'
+                'bootstrap/js/selectbox.js'
+                'bootstrap/js/selectbox1.js'
+                'bootstrap/js/bootstrap-datetimepicker.min.js'
+                'bootstrap/js/cookie.js'
+                'bootstrap/js/custom.js'
+                'bootstrap/js/custom.city-choice.js'
+                'bootstrap/js/custom.companies-list.js'
+                output='compiled/compiled.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 

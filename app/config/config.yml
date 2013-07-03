@@ -189,6 +189,10 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [45, 45], mode: outbound }
+        deals_carusel_photos:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 279], mode: outbound }
         company_gallery_filter:
             quality: 100
             filters:
