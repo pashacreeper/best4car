@@ -89,6 +89,23 @@ var dealsPage = function(){
     $('.actionItemLink').mouseleave(function() {
         $(this).children('.actionItemBottomWrap').css("top", "120px");
     });
+    // Deals menu
+    $('.menuLeftBar').on('click', 'li', function(){
+        var $this = $(this),
+            $menu = $('.menuLeftBar'),
+            point = $('<i class="subActive"></i>'),
+            dealsType = $this.data('deal-type');
+
+        if (! $this.hasClass('activeBar')) {
+            $activeItem = $menu.find('.activeBar');
+            $activeItem.find('i').remove();
+            $activeItem.removeClass('activeBar');
+
+            $this.addClass('activeBar');
+            $this.append(point);
+            loadDealsFromMenu($, Routing, dealsType);
+        }
+    });
 };
 
 var initPage = function(){

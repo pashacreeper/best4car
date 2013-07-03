@@ -22,3 +22,18 @@ var loadDeals = function($, Routing){
         return false;
     });
 };
+
+var loadDealsFromMenu = function($, Routing, dealsType){
+    $.ajax({
+        type: 'POST',
+        url: Routing.generate('deals_show'),
+        data: {deal_type: dealsType},
+        success: function(res){
+            $('#dealsContainer').empty();
+            $('#dealsContainer').append(res);
+        },
+        error: function(e){
+            console.log(e.message);
+        }
+    });  
+};

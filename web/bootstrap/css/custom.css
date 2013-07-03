@@ -30,3 +30,7 @@
 .navTop .current a span{
     opacity: 1;
 }
+
+.menuLeftBar .activeBar .acctBtn:after{
+    content: <i class="subActive"></i>;
+}

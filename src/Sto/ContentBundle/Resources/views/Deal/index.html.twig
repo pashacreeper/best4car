@@ -22,26 +22,27 @@
     <div class="contentWrap text-cont-l">
         <div class="content text-cont-r">
             <div id="leftBar" class="text-l">
-                <ul class="menuLeftBar">
-                    <li class="menuLeftBarItem">
+                <ul class="menuLeftBar" id="dealsMenu">
+                    <li class="menuLeftBarItem activeBar" data-deal-type="0">
                         <span class="menuTagEmpty">Все акции</span>
                         <span class="acctBtn">{{ deals | length }}</span>
+                        <i class="subActive"></i>
                     </li>
                     {%- for dealsType in dictionaries %}
-                        <li class="menuLeftBarItem">
-                            <span class="menuTagEmpty" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</span>
+                        <li class="menuLeftBarItem" data-deal-type="{{ dealsType.id }}">
+                            <span class="menuTagEmpty">{{ dealsType.name }}</span>
                             <span class="acctBtn">{{ dealsType.deals|length }}</span>
                         </li>
                     {% endfor -%}
                 </ul>
                 <div class="deviderLeftMenu"></div>
                 <ul class="menuLeftBar leftBar2">
-                    <li class="menuLeftBarItem">
+                    <li class="menuLeftBarItem" data-deal-type="-1">
                         <i class="iconLeftMPopular"></i>
                         <span class="menuTagEmpty">Популярные</span>
                         <span class="acctBtn">35</span>                                 
                     </li>
-                    <li class="menuLeftBarItem">
+                    <li class="menuLeftBarItem" data-deal-type="-2">
                         <i class="iconLeftMReview"></i>
                         <span class="menuTagEmpty">С отзывами</span>
                         <span class="acctBtn">{{ countFeededDeals }}</span>

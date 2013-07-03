@@ -1,4 +1,9 @@
-{% for index in 1..6 %}
+{% set dealsLength = deals|length %}
+{% if dealsLength > 6 %}
+    {% set dealsLength = 6 %}
+{% endif %}
+
+{% for index in 1..dealsLength %}
     {% set i = index - 1 %}
     {% if index % 2 != 0 or loop.first %}
     <div class="actionItemCont">
