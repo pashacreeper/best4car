@@ -80,11 +80,21 @@ var catalogPage = function(){
         return true;
     }
     // end
-}
+};
+
+var dealsPage = function(){
+    $('.actionItemLink').mouseenter(function() {                                  
+        $(this).children('.actionItemBottomWrap').css("top", "90px");
+    }); 
+    $('.actionItemLink').mouseleave(function() {
+        $(this).children('.actionItemBottomWrap').css("top", "120px");
+    });
+};
 
 var initPage = function(){
     mainLayout();
     catalogPage();
+    dealsPage();
 };
 
 $(document).ready(function(){initPage()});

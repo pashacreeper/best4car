@@ -1,174 +1,27 @@
-{% set i = 0 %}
-    <div class="row-fluid">
-        <div class="span6">
-            <div class="row-fluid">
-                <div class="span12">
-                    {% if deals[i] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i].id }) }}" class="deal-link">
-                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i].imageName }}" class="img-polaroid" />
-                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i].name}}<br />
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i].company.name }} - {{ deals[i].company.rating }}<span class="pull-right">{{ deals[i].startDate | date('d.m') }} - {{ deals[i].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
+{% for index in 1..6 %}
+    {% set i = index - 1 %}
+    {% if index % 2 != 0 or loop.first %}
+    <div class="actionItemCont">
+    {% endif %}
+    <div class="actionItemMini">
+        <a href="{{ path('content_deal_show', {'id': deals[i].id }) }}" class="actionItemLink">
+            {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deals[i].imageName %}
+            <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
+            <div class="actionItemBottomWrap">
+                <div class="actionItemBottom">
+                    <h4>{{ deals[i].name }}</h4>
+                    <p>{{ deals[i].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[i].company.rating }}</span></p>
+                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | date('d.m') }} - {{ deals[i].endDate | date('d.m') }}</span></p>
+                </div>  
             </div>
-            <div class="row-fluid">
-                <div class="span6">
-                    {% if deals[i+1] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i+1].id }) }}" class="deal-link">
-                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+1].imageName }}" class="img-polaroid">
-                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+1].name}}
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+1].company.name }} - {{ deals[i+1].company.rating }}<br/><span class="pull-right">{{ deals[i+1].startDate | date('d.m') }} - {{ deals[i+1].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
-                <div class="span6">
-                    {% if deals[i+2] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i+2].id }) }}" class="deal-link">
-                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+2].imageName }}" class="img-polaroid">
-                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+2].name}}
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+2].company.name }} - {{ deals[i+2].company.rating }}<br/><span class="pull-right">{{ deals[i+2].startDate | date('d.m') }} - {{ deals[i+2].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="span6">
-            <div class="row-fluid">
-                <div class="span6">
-                    {% if deals[i+3] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i+3].id }) }}" class="deal-link">
-                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+3].imageName }}" class="img-polaroid">
-                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+3].name}}
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+3].company.name }} - {{ deals[i+3].company.rating }}<br/><span class="pull-right">{{ deals[i+3].startDate | date('d.m') }} - {{ deals[i+3].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
-                <div class="span6">
-                    {% if deals[i+4] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i+4].id }) }}" class="deal-link">
-                        <img src="/../{{ storage_path }}/deal_image/{{ deals[i+4].imageName }}" class="img-polaroid">
-                        <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+4].name}}
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+4].company.name }} - {{ deals[i+4].company.rating }}<br/><span class="pull-right">{{ deals[i+4].startDate | date('d.m') }} - {{ deals[i+4].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    {% if deals[i+5] is defined %}
-                    <a href="{{ path('content_deal_show', {'id': deals[i+5].id }) }}" class="deal-link">
-                    <img src="/../{{ storage_path }}/deal_image/{{ deals[i+5].imageName }}" class="img-polaroid">
-                    <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                            {{deals[i+5].name}}
-                            <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+5].company.name }} - {{ deals[i+5].company.rating }}<span class="pull-right">{{ deals[i+5].startDate | date('d.m') }} - {{ deals[i+5].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
-    <div class="row-fluid">
-        <div class="span3">
-            {% if deals[i+6] is defined %}
-            <a href="{{ path('content_deal_show', {'id': deals[i+6].id }) }}" class="deal-link">
-                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+6].imageName }}" class="img-polaroid">
-                <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                    {{deals[i+6].name}}
-                    <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+6].company.name }} - {{ deals[i+6].company.rating }}<br/><span class="pull-right">{{ deals[i+6].startDate | date('d.m') }} - {{ deals[i+6].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                </div>
-            </a>
-            {% endif %}
-        </div>
-        <div class="span3">
-            {% if deals[i+7] is defined %}
-            <a href="{{ path('content_deal_show', {'id': deals[i+7].id }) }}" class="deal-link">
-                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+7].imageName }}" class="img-polaroid">
-                <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                    {{deals[i+7].name}}
-                    <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+7].company.name }} - {{ deals[i+7].company.rating }}<br/><span class="pull-right">{{ deals[i+7].startDate | date('d.m') }} - {{ deals[i+7].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                </div>
-            </a>
-            {% endif %}
-        </div>
-        <div class="span3">
-            {% if deals[i+8] is defined %}
-            <a href="{{ path('content_deal_show', {'id': deals[i+8].id }) }}" class="deal-link">
-                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+8].imageName }}" class="img-polaroid">
-                <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                    {{deals[i+8].name}}
-                    <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+8].company.name }} - {{ deals[i+8].company.rating }}<br/><span class="pull-right">{{ deals[i+8].startDate | date('d.m') }} - {{ deals[i+8].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                </div>
-            </a>
-            {% endif %}
-        </div>
-        <div class="span3">
-            {% if deals[i+9] is defined %}
-            <a href="{{ path('content_deal_show', {'id': deals[i+9].id }) }}" class="deal-link">
-                <img src="/../{{ storage_path }}/deal_image/{{ deals[i+9].imageName }}" class="img-polaroid">
-                <div style="position:relative; width:auto; bottom:45px; left:10px;">
-                    {{deals[i+9].name}}
-                    <div class="row-fluid hide">
-                                <div class="span11">
-                                    {{ deals[i+9].company.name }} - {{ deals[i+9].company.rating }}<br/><span class="pull-right">{{ deals[i+9].startDate | date('d.m') }} - {{ deals[i+9].endDate | date('d.m') }}</span>
-                                </div>
-                            </div>
-                </div>
-            </a>
-            {% endif %}
-        </div>
+    {% if index % 2 == 0 or loop.last %}
     </div>
+    {% endif %}
+{% endfor %}
 {% if not (deals.paginationData.current == deals.paginationData.last) %}
-    <div class="row-fluid">
-        <div class="span12">
-            <a class="btn" href="#" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2">More...</a>
-        </div>
+    <div class="bottomContent">
+        <a class="secondaryLink saveDraft" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2" id="showMoreDeals">Показать еще</a>
     </div>
 {% endif %}

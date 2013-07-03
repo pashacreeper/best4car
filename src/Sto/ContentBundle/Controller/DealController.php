@@ -310,7 +310,7 @@ class DealController extends MainController
     }
 
     /**
-     * @Route("/deals/show", name="deals_show")
+     * @Route("/deals/show", name="deals_show", options={"expose"=true})
      * @Method({"POST"})
      * @Template()
      */
@@ -347,7 +347,7 @@ class DealController extends MainController
         $deals = $this->get('knp_paginator')->paginate(
             $query,
             $this->get('request')->query->get('page',1),
-            10
+            6
         );
 
         return [
