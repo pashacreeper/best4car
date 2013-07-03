@@ -1,5 +1,10 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-index.css') }}">
+{% endblock %}
+
 {% block map %}
 <div id="map">
     <div class="popupCardCompany">

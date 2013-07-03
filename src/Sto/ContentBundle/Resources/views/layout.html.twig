@@ -4,19 +4,18 @@
         <meta charset="utf-8">
         <title>{% block title 'Best4Car' %}</title>
 
-        {% stylesheets
-            'style/bootstrap.css'
-            'style/bootstrap.select.css'
-            'style/bootstrap.responsive.css'
-            'style/style.css'
-            'style/style.index.css'
-            'style/style.company.css'
-            'style/style.registration-company.css'
-            'style/style.pop-up.css'
-            output='compiled/compiled.css'
-        %}
-            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-        {% endstylesheets %}
+        {% block css %}
+            {% stylesheets
+                'bootstrap/css/bootstrap.css'
+                'bootstrap/css/bootstrap-select.css'
+                'bootstrap/css/bootstrap-responsive.css'
+                'bootstrap/css/style.css'
+                output='compiled/compiled.css'
+            %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/custom.css') }}">
 
         <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|PT+Sans+Caption&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -28,19 +27,20 @@
         <link rel="icon" href="/favicon.ico">
 
         {% javascripts
-            'scripts/jquery.js'
-            'scripts/jquery.ui.js'
-            'scripts/bootstrap.js'
-            'scripts/jquery.mousewheel.js'
-            'scripts/jquery.jscrollpane.js'
-            'scripts/jquery.bxslider.min.js'
-            'scripts/jquery.reveal.js'
-            'scripts/bootstrap.selectbox.js'
-            'scripts/bootstrap.datetimepicker.js'
-            'scripts/cookie.js'
-            'scripts/custom.js'
-            'scripts/custom.city-choice.js'
-            'scripts/custom.companies-list.js'
+            'bootstrap/js/jquery.js'
+            'bootstrap/js/jquery-ui-1.10.3.custom.js'
+            'bootstrap/js/bootstrap.js'
+            'bootstrap/js/jquery.mousewheel.js'
+            'bootstrap/js/jquery.jscrollpane.js'
+            'bootstrap/js/jquery.bxslider.min.js'
+            'bootstrap/js/jquery.reveal.js'
+            'bootstrap/js/selectbox.js'
+            'bootstrap/js/selectbox1.js'
+            'bootstrap/js/bootstrap-datetimepicker.min.js'
+            'bootstrap/js/cookie.js'
+            'bootstrap/js/custom.js'
+            'bootstrap/js/custom.city-choice.js'
+            'bootstrap/js/custom.companies-list.js'
             output='compiled/compiled.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -54,13 +54,14 @@
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     </head>
-    <body>  
+    <body>
+        {% block wrap_container_open %}{% endblock %}
         {% block map %}{% endblock %}
         <header id="header">
             <div class="topHeader">
                 <div class="logoCont">
                     <h1 class="logo"><a class="logoLink" href="{{ path('_index') }}">best4car</a></h1>
-                    <p class="slogan"><img src="{{ asset('/img/slogan.png') }}" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
+                    <p class="slogan"><img src="{{ asset('/bootstrap/img/slogan.png') }}" alt="Автоэксперты рекомендуютлучшее для вашего авто!" /></p>
                 </div>
                 {% block navbar %}
                 <div class="navCont">
@@ -75,7 +76,7 @@
                         {%- if user.avatarUrl %}
                             <img src="{{ user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
                         {% else %}
-                            <img src="/img/default-user-icon.jpg" alt="фото пользователя" />
+                            <img src="/bootstrap/img/default-user-icon.jpg" alt="фото пользователя" />
                         {% endif -%}
                         </a>
                         <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
@@ -143,7 +144,7 @@
             </div>
             <div class="bottomHeader row-fluid">
                 <div class="tounCont">
-                    <img src="/img/spbimg.png" alt="Санкт-Петербург" />
+                    <img src="/bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
                     <p class="townSelect" id="choice-city">Санкт-Петербург</p>
                     <div class="selectTownDropdown">                            
                         <div class="selectTownDropdownTop">
@@ -246,6 +247,7 @@
                 </a>                                                                 
             </div>
         {% endif %}
+        {% block wrap_container_close %}{% endblock %}
         
         <script type="text/javascript">     
                     $(document).ready(function() {

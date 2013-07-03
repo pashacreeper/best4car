@@ -1,50 +1,216 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
 {% block title 'Акции' %}
 
-{% block aside %}
-<div class="container">
-    <div class="well">
-        <form method="post" action="{{ path('content_deals') }}" class="form-search form-inline" style="margin-bottom:5px;">
-            Я ищу акцию:
-            <div class="input-append">
-                <input type="text" class="search-query span9" placeholder="Все акции" name="search">
-                <button type="submit" class="btn btn-primary">Найти</button>
-            </div>
-        </form>
-        <p style="font-size:10px; margin-left:120px;">
-            Напрмер: <a href="#">ремонт двигателя, Mazda 3, 1.6, 2010, север спб</a>
-        </p>
-    </div>
-
-    <aside class="visible-desktop">
-        <ul class="sideMenu">
-                <li class="active">
-                    <a href="#" data-deal-type="0">Все акции</a>
-                    <span>{{ deals|length }}</span>
-                </li>
-{% for dealsType in dictionaries %}
-            <li>
-                <a href="#" data-deal-type="{{ dealsType.id }}">{{ dealsType.name }}</a>
-                <span>{{ dealsType.deals|length }}</span>
-            </li>
-{% endfor %}
-            <li></li>
-            <li>
-                <a href="#" data-deal-type="-1">Популярные</a>
-                <span>21</span>
-            </li>
-            <li>
-                <a href="#" data-deal-type="-2">С отзывами</a>
-                <span>{{ countFeededDeals }}</span>
-            </li>
-        </ul>
-    </aside>
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/style/style.action.css') }}">    
 {% endblock %}
-{% block content_tag 'id="content" class="deals-index"' %}
+
+{% block wrap_container_open %}<div class="main">{% endblock %}
+{% block wrap_container_close %}</div>{% endblock %}
 
 {% block content %}
+<section class="contentMain  row tabs">
+    <div class="contentWrap text-cont-l">
+        <div class="content text-cont-r">
+            <div id="leftBar" class="text-l">
+                <ul class="menuLeftBar">
+                    <li class="menuLeftBarItem activeBar">
+                        <span class="menuTagEmpty">Все акции</span>
+                        <span class="acctBtn">231</span>
+                        <i class="subActive"></i>
+                    </li>
+                    <li class="menuLeftBarItem">
+                        <span class="menuTagEmpty">Скидки</span>
+                        <span class="acctBtn">231</span>
+                    </li>
+                    <li class="menuLeftBarItem">
+                        <span class="menuTagEmpty">Клубные</span>
+                        <span class="acctBtn">231</span>
+                    </li>
+                    <li class="menuLeftBarItem">
+                        <span class="menuTagEmpty">Распродажи</span>
+                        <span class="acctBtn">231</span>
+                    </li>
+                    <li class="menuLeftBarItem">
+                        <span class="menuTagEmpty">Все акции</span>
+                        <span class="acctBtn">231</span>
+                    </li>
+                </ul>
+                <div class="deviderLeftMenu"></div>
+                <ul class="menuLeftBar leftBar2">
+                    <li class="menuLeftBarItem">
+                        <i class="iconLeftMPopular"></i>
+                        <span class="menuTagEmpty">Популярные</span>
+                        <span class="acctBtn">35</span>                                 
+                    </li>
+                    <li class="menuLeftBarItem">
+                        <i class="iconLeftMReview"></i>
+                        <span class="menuTagEmpty">С отзывами</span>
+                        <span class="acctBtn">21</span>
+                    </li>                           
+                </ul>
+            </div>
+            <div id="rightBar" class="text-r">  
+                <div class="slider">
+                    <div class="img__prev__wrap">   
+                        <ul id="thumbnail" class="slide-wrap">
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo3.jpg"  alt="" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo2.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo3.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo2.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo1.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo3.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo3.jpg" />
+                                </a>
+                            </li>
+                            <li class="slide-item">
+                                <a class="linh__img__prev" href="#">
+                                    <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                    <img src="/img/photo1.jpg" />
+                                </a>
+                            </li>                                                   
+                        </ul>
+                        <span name="prev" class="navy prev-slide"></span>
+                        <span name="next" class="navy next-slide"></span>
+                    </div>
+                </div>                          
+                <div class="actionItemCont">
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>  
+                </div>
+                <div class="actionItemCont">
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>  
+                </div>
+                <div class="actionItemCont">
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>
+                    <div class="actionItemMini">
+                        <a href="#" class="actionItemLink">
+                            <img src="/img/photo3.jpg" alt="фото пользователя" />                                  
+                            <div class="actionItemBottomWrap">
+                                <div class="actionItemBottom">
+                                    <h4>Диагностика старых BMW всего за 1000 рублей!</h4>
+                                    <p>СТО-Мастер <span class="indexLevelMini"><span class="indexBgMini"></span>9.8</span></p>
+                                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">21 фев. - 21 мар.</span></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>  
+                </div>
+                <script type="text/javascript">     
+                    $(document).ready(function() {
+                        $('.actionItemLink').mouseenter(function() {                                        
+                            $(this).children('.actionItemBottomWrap').css("top", "90px");
+                        }); 
+                        $('.actionItemLink').mouseleave(function() {
+                            $(this).children('.actionItemBottomWrap').css("top", "120px");
+                        }); 
+                    });     
+                </script>
+                <div class="bottomContent">
+                    <span class="secondaryLink saveDraft">Показать еще</span>
+                </div>
+            </div>
+            <div class="clear"></div>                       
+        </div>                  
+    </div>
+</section>
+
+
+
+
+
+
     <div class="row-fluid">
 {% if deals|length > 0 %}
         <h3 class="span9 offset1" data-block="deals-type">
@@ -81,9 +247,7 @@
             </div>
         </div>
 {% else %}
-        <div class="row-fluid">
-            {{ flash(true, 'Акции отсутствуют.', false, true) }}
-        </div>
+        
 {% endif %}
     </div>
 </div>

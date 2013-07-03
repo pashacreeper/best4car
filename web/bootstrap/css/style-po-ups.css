@@ -1,0 +1,247 @@
+.reveal-modal {
+	visibility: hidden;
+	top: 100px;
+	left: 50%;
+	margin-left: -140px;
+	width: 280px;
+	padding: 10px 10px 30px 10px;
+	position: absolute;
+	z-index: 101;
+	background: #f6f6f6;
+	border-radius: 6px;
+	border: 2px solid #9e9a94;
+}
+.contentLabel {
+	overflow: hidden;
+}
+#myModal2{
+	margin-left: -280px;
+	width: 480px;
+	padding: 20px 10px 30px 10px;
+}
+#myModal2 span.btnEnter{
+	width: 260px;
+}
+#myModal3 {
+	margin-left: -340px;
+	width: 680px;
+}
+#myModal3 span.btnEnter{
+	width: 260px;
+	float: left;
+	clear: both;
+}
+#myModal3 input.inputFormEnter{
+	float: left;
+}
+#myModal6 {
+	margin-left: -340px;
+	width: 680px;
+	padding: 15px 20px 5px 20px;
+}
+#myModal7 {
+	margin-left: -340px;
+	width: 680px;
+	padding: 15px 20px 5px 20px;
+}
+.slidCont{
+	margin: 10px 0;
+	overflow: hidden;
+}
+.bx-wrapper{
+	position: relative;
+}
+.bxsliderItem{
+	position: relative;
+}
+.insideBlock{
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	width: 460px;
+	margin-left: -250px;
+	padding: 20px;
+	background: url("../img/bg-inside-block.png") repeat;
+	text-align: center;
+}
+.whoop{
+	font: Italic Bold 2.8em 'PT Sans', sans;
+	color: #ff3c02;
+}
+.whoop2{
+	font: Italic 2.2em 'PT Sans', sans;
+	color: #333;
+}
+.outBtn{
+	padding: 5px;
+	background: url("../img/bg-out-btn.png") repeat;
+	border-radius: 6px;
+	width: 200px;
+	margin: 20px auto 10px auto;
+}
+.outBtn span{
+	margin: 0;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+	background: transparent;
+	text-indent: -9999px;
+	display: block;
+	width: 12px;
+	height: 12px;
+	margin: 0 5px;
+	outline: 0;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid #fff;
+}
+.bx-viewport{
+	position: relative;
+	z-index: 2;
+}
+.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active {
+	background: #fa6432;
+}
+.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 50%;
+	margin-top: -28px;
+	outline: 0;
+	width: 46px;
+	height: 46px;
+	text-indent: -9999px;
+	z-index: 9999;
+}
+.bx-prev:hover{
+	opacity: 1;
+}
+.bx-next:hover{
+	opacity: 1;
+}
+.bx-prev{
+	background: url('../img/carouselcontrolleft.png') no-repeat;
+	left: 10px;
+	opacity: 0.5;
+}
+.bx-next{
+	background: url('../img/carouselcontrolright.png') no-repeat;
+	right: 10px;
+	opacity: 0.5;
+}
+.bx-pager{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	z-index: 5;
+}
+.bx-pager-item{
+	float: left;
+}
+.attentionReg{
+	float: left;
+	font: 1.3em Arial, sans-serif;
+	color: #666;
+	margin: 13px 0 0 10px;
+}
+.attentionReg a{
+	color: #016fb5;
+	text-decoration: underline;
+}
+.attentionReg a:hover{
+	color: #016fb5;
+	text-decoration: none;
+}
+.btnHowReg{
+	border-radius: 4px;
+	font: 1.6em 'PT Sans', sans;
+	color: #f5f5f5;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 100%;
+	height: 60px;
+	margin-bottom: 20px;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+}
+.btnHowReg:hover{
+	color: #f5f5f5;
+	text-decoration: none;
+}
+.btnRegComp {
+	background: #51aed7;
+	border: 1px solid #0c6991;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+}
+.btnRegPeople {
+	background: #f86f44;
+	border: 1px solid #a03412;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+}
+.btnHowReg i {
+	float: left;
+	width: 26px;
+	height: 26px;
+	position: relative;
+	top: 18px;
+	left: 20px;
+}
+.btnHowReg span {
+	float: left;
+	position: relative;
+	top: 18px;
+	left: 35px;
+}
+.popUpTitle2{
+	padding: 5px 0 20px 0;
+}
+#myModal5 {
+	margin-left: -290px;
+	width: 580px;
+}
+#myModal5 span.btnEnter{
+	width: 260px;
+	float: left;
+	clear: both;
+}
+#myModal5 input.inputFormEnter{
+	float: left;
+}
+
+
+
+
+
+
+
+
+
+.reveal-modal-bg {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: #000;
+	background: rgba(0,0,0,.8);
+	z-index: 100;
+	display: none;
+	top: 0;
+	left: 0;
+}
+.reveal-modal .close-reveal-modal {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-top: 1px;
+	line-height: 14px;
+	vertical-align: text-top;
+	background: url("../img/glyphicons-halflings.png") -48px -96px no-repeat;
+}
