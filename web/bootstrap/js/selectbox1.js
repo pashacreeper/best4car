@@ -1,7 +1,8 @@
 /*
 ** (c) Dimox | http://dimox.name/styling-select-boxes-using-jquery-css/
 */
-(function($) {
+
+var slbx1 = function($) {
 $(function() {
 
   $(document).bind('click', function(e) {
@@ -92,5 +93,5 @@ $(function() {
 
 	});
 
-})
-})(jQuery)
+})};
+slbx1(jQuery);
