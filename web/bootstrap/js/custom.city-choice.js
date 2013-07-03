@@ -25,7 +25,7 @@ var cityChoiser = function(defaultImage, Routing){
                         frst_id = country.id;
 
                     }
-                    root.append('<li class="countrySelectTabItem"><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '"><img src="/img/spbimg.png" alt="'+country.name+'" /></a></li>' );
+                    root.append('<li class="countrySelectTabItem"><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '"><img src="/bootstrap/img/spbimg.png" alt="'+country.name+'" /></a></li>' );
                 });
 
                 loadCityList(defaultImage, Routing);

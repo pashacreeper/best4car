@@ -37,7 +37,7 @@
 	width: 93px;
 	height: 118px;
 	display: block;
-	background: url('../img/logob4c.png') no-repeat;
+	background: url('/bootstrap/img/logob4c.png') no-repeat;
 	float: left;
 }
 .slogan{
@@ -137,7 +137,7 @@
 	display: inline-block;
 	margin-top: 2px;
 	margin-left: 5px;
-	background: url("../img/iconarrow.png") no-repeat;
+	background: url("/bootstrap/img/iconarrow.png") no-repeat;
 	width: 6px;
 	height: 15px;
 	line-height: 15px;
@@ -195,16 +195,16 @@
 	margin-left: -12px;
 }
 .companys{
-	background: url('../img/companyicon.png') no-repeat;
+	background: url('/bootstrap/img/companyicon.png') no-repeat;
 }
 .actions{
-	background: url('../img/iconAction.png') no-repeat;
+	background: url('/bootstrap/img/iconAction.png') no-repeat;
 }
 .clubs{
-	background: url('../img/clubicon.png') no-repeat;
+	background: url('/bootstrap/img/clubicon.png') no-repeat;
 }
 .experts{
-	background: url('../img/experticon.png') no-repeat;
+	background: url('/bootstrap/img/experticon.png') no-repeat;
 }
 .activTopNav{
 	background: #51acd3;
@@ -424,7 +424,7 @@
 	line-height: 42px;
 	padding-left: 15px;
 	cursor: pointer;
-	background: url('../img/hideicon.png') no-repeat 0 16px;
+	background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px;
 	margin-left: 10px;
 }
 .hideLeftColumn{
@@ -432,7 +432,7 @@
 	line-height: 42px;
 	padding-left: 15px;
 	cursor: pointer;
-	background: url('../img/showicon.png') no-repeat 0 16px;
+	background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
 	margin-left: 10px;
 }
 .showRightSearch{
@@ -440,7 +440,7 @@
 	line-height: 42px;
 	padding-left: 15px;
 	cursor: pointer;
-	background: url('../img/hideicon.png') no-repeat 0 16px;
+	background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px;
 	margin-left: 10px;
 }
 .hideRightSearch{
@@ -448,7 +448,7 @@
 	line-height: 42px;
 	padding-left: 15px;
 	cursor: pointer;
-	background: url('../img/showicon.png') no-repeat 0 16px;
+	background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
 	margin-left: 10px;
 }
 .contentCenter{
