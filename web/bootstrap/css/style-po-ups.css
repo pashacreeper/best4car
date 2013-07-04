@@ -6,7 +6,7 @@
 	width: 280px;
 	padding: 10px 10px 30px 10px;
 	position: absolute;
-	z-index: 101;
+	z-index: 1011;
 	background: #f6f6f6;
 	border-radius: 6px;
 	border: 2px solid #9e9a94;
@@ -61,7 +61,7 @@
 	width: 460px;
 	margin-left: -250px;
 	padding: 20px;
-	background: url("../img/bg-inside-block.png") repeat;
+	background: url("/bootstrap/img/bg-inside-block.png") repeat;
 	text-align: center;
 }
 .whoop{
@@ -74,7 +74,7 @@
 }
 .outBtn{
 	padding: 5px;
-	background: url("../img/bg-out-btn.png") repeat;
+	background: url("/bootstrap/img/bg-out-btn.png") repeat;
 	border-radius: 6px;
 	width: 200px;
 	margin: 20px auto 10px auto;
@@ -119,12 +119,12 @@
 	opacity: 1;
 }
 .bx-prev{
-	background: url('../img/carouselcontrolleft.png') no-repeat;
+	background: url('/bootstrap/img/carouselcontrolleft.png') no-repeat;
 	left: 10px;
 	opacity: 0.5;
 }
 .bx-next{
-	background: url('../img/carouselcontrolright.png') no-repeat;
+	background: url('/bootstrap/img/carouselcontrolright.png') no-repeat;
 	right: 10px;
 	opacity: 0.5;
 }
@@ -213,21 +213,13 @@
 	float: left;
 }
 
-
-
-
-
-
-
-
-
 .reveal-modal-bg {
 	position: fixed;
 	height: 100%;
 	width: 100%;
 	background: #000;
 	background: rgba(0,0,0,.8);
-	z-index: 100;
+	z-index: 1010;
 	display: none;
 	top: 0;
 	left: 0;
@@ -243,5 +235,5 @@
 	margin-top: 1px;
 	line-height: 14px;
 	vertical-align: text-top;
-	background: url("../img/glyphicons-halflings.png") -48px -96px no-repeat;
+	background: url("/bootstrap/img/glyphicons-halflings.png") -48px -96px no-repeat;
 }

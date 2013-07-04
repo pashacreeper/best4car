@@ -10,6 +10,7 @@
                 'bootstrap/css/bootstrap-select.css'
                 'bootstrap/css/bootstrap-responsive.css'
                 'bootstrap/css/style.css'
+                'bootstrap/css/style-po-ups.css'
                 output='compiled/compiled.css'
             %}
                 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -219,22 +220,6 @@
             </div>
         </section>
         {% if not app.user %}
-            <div class="popupFirstVisit">
-                <i class="icon-remove-sign popupClose"></i>
-                <h3 class="titleFirstVisit">Впервый раз здесь?</h3>
-                <p class="contentFirstVisit">
-                    Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
-                </p>
-                <a href="#" class="linkFirstVisitPeople">
-                    <i class="iconPeople"></i>
-                    <span>Возможности </br>для автовладельцев</span>
-                </a>
-                <a href="#" class="linkFirstVisitCompany">
-                    <i class="iconCompany"></i>
-                    <span>Возможности </br>для автокомпаний</span>
-                </a>
-            </div>
-
             <div id="registration-popup" class="reveal-modal"><!-- popUp firstReg-->
                 <a href="#" class="close-reveal-modal"></a>
                 <p class="popUpTitle">Регистрация на best4car.ru</p>

@@ -30,7 +30,7 @@ set :webserver_user,    "www-data"
 set :permission_method, :acl
 set :use_set_permissions, false
 set :shared_files,    [app_path + "/config/parameters.yml"]
-set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children, [app_path + "/logs", web_path + "/storage", "vendor"]
 
 set :model_manager, "doctrine"
 set :symfony_env_prod, "prod"
