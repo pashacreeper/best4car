@@ -1,53 +1,47 @@
-{% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+{% form_theme form with 'StoContentBundle::captchaTheming.html.twig' %}
 
-{% block title %}Регистрация пользователя{% endblock %}
-
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
-
-{% block content %}
-<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-<div class="row-fluid">
-    <div class="span6 offset3">
-        {{ form_row(form.firstName) }}
-        {{ form_row(form.lastName) }}
-        {{ form_row(form.username) }}
-        {{ form_row(form.email) }}
-        <table>
-            <tr><td>
-        {{ form_row(form.plainPassword) }}
-            </td><td valign="top">
-                <a id="toggle-pass" href="#" class="" onclick="togglePass();" >Показать пароль</a>
-            </td></tr>
-        </table>
-        {{ form_row(form.city) }}
-        {{ form_row(form.captcha) }}
-        {{ form_widget(form) }}
-        <div class="form-actions row-fluid">
-            <div class="span4">
-                <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
-            </div>
-            <div class="span4">
-                <p style="font-size: 10px;">Регистрируясь, вы соглашаетесь с <a href="#" target="_blank">условиями использования сайта</a></p>
-            </div>
-        </div>
+<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }}>
+    <p class="contentLabel">
+        {{ form_label(form.firstName) }}
+        {{ form_errors(form.firstName) }}
+        {{ form_widget(form.firstName) }}
+    </p>
+    <p class="contentLabel">
+        {{ form_label(form.lastName) }}
+        {{ form_errors(form.lastName) }}
+        {{ form_widget(form.lastName) }}
+    </p>
+    <p class="contentLabel">
+        {{ form_label(form.username) }}
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username) }}
+    </p>
+    <p class="contentLabel">
+        {{ form_label(form.email) }}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email) }}
+    </p> 
+    <p class="contentLabel">{{ form_row(form.plainPassword) }}</p>
+    <p class="contentLabel">
+        {{ form_label(form.city) }}
+        {{ form_errors(form.city) }}
+        {{ form_widget(form.city) }}
+    </p>
+    <p class="contentLabel">
+        {{ form_label(form.captcha) }}
+        {{ form_errors(form.captcha) }}
+        {{ form_widget(form.captcha) }}
+    </p>
+    <p class="contentLabel">{{ form_widget(form) }}</p>
+    <p class="contentLabel">{{ form_row(form.lastName) }}</p>
+    <p class="contentLabel">{{ form_row(form.username) }}</p>
+    <p class="contentLabel">{{ form_row(form.email) }}</p>
+    <p class="contentLabel">{{ form_row(form.plainPassword) }}</p>
+    <p class="contentLabel">{{ form_row(form.city) }}</p>
+    <p class="contentLabel">{{ form_row(form.captcha) }}</p>
+    <p class="contentLabel">{{ form_widget(form) }}</p>
+    <div>
+        <button class="btnEnter" type="submit">Войти</button>
+        <p class="attentionReg">Регистрируясь, вы соглашаетесь </br>с <a href="#">условиями использования сайта</a></p>
     </div>
-</div>
 </form>
-<script>
-    $('input[type="password"]').removeClass('input-xlarge').addClass('input-medium');
-    function togglePass() {
-        if($('#fos_user_registration_form_plainPassword_first').attr('type')=='password'){
-            $('#fos_user_registration_form_plainPassword_first').get(0).type = 'textbox';
-            $('#fos_user_registration_form_plainPassword_second').parent().parent().hide();
-            $('#toggle-pass').html("Скрыть пароль");
-            // document.getElementById("fos_user_registration_form_plainPassword_first").type = 'textbox';
-        } else {
-            $('#fos_user_registration_form_plainPassword_first').get(0).type = 'password';
-            $('#fos_user_registration_form_plainPassword_second').parent().parent().show();
-            $('#toggle-pass').html("Показать пароль");
-            // $('#fos_user_registration_form_plainPassword_first').attr('type','password');
-        }
-    }
-</script>
-{% endblock %}

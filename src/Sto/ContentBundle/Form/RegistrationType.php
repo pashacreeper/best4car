@@ -17,7 +17,7 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'input-xlarge'
+                    'class' => 'span6'
                 ]
             ])
             ->add('lastName', null, [
@@ -25,21 +25,21 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'input-xlarge'
+                    'class' => 'span6'
                 ]
             ])
             ->add('username', 'text', [
                 'label' => 'Ник',
                 'required' => true,
                 'attr' => [
-                    'class' => 'input-xlarge'
+                    'class' => 'span6'
                 ]
             ])
             ->add('email', 'email', [
                 'label' => 'Ваш email',
                 'required' => true,
                 'attr' => [
-                    'class' => 'input-xlarge'
+                    'class' => 'span6'
                 ]
             ])
             ->add('plainPassword', 'repeated', [
@@ -47,7 +47,7 @@ class RegistrationType extends BaseType
                 'options' => [
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => [
-                        'class' => 'input-xlarge'
+                        'class' => 'span4'
                     ]
                 ],
                 'first_options' => ['label' => 'form.password'],
@@ -63,14 +63,14 @@ class RegistrationType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'span4'
                 ]
             ])
-            ->add('captcha', 'captcha',[
+            ->add('captcha', 'captcha', [
                 'reload' => true,
                 'bypass_code' => '1234567',
                 'attr' => [
-                    'class' => 'input-xlarge'
+                    'class' => 'inputFormEnter span2 clear'
                 ]
             ])
         ;

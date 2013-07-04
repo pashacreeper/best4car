@@ -1,0 +1,17 @@
+{% block captcha_widget %}
+{% spaceless %}
+    <div class="captchaImg">
+        <img id="{{ image_id }}" src="{{ captcha_code }}" alt="" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+    </div>
+    {% if reload %}
+    <script type="text/javascript">
+        function reload_{{ image_id }}() {
+            var img = document.getElementById('{{ image_id }}');
+            img.src = '{{ captcha_code }}?n=' + (new Date()).getTime();
+        }
+    </script>
+    <p class="update-captcha"><a href="javascript:reload_{{ image_id }}();"><i class="icon-refresh icon-white"></i></a>Обновить картинку</p>
+    {% endif %}
+    {{ form_widget(form) }}
+{% endspaceless %}
+{% endblock %}

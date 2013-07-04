@@ -224,7 +224,7 @@
                 <a href="#" class="close-reveal-modal"></a>
                 <p class="popUpTitle">Регистрация на best4car.ru</p>
                 <p class="popUpTitle2">Кем вы хотите зарегистрироваться?</p>
-                <a href="#" class="btnHowReg btnRegPeople">
+                <a href="#" class="btnHowReg btnRegPeople" id="carOwnerRegister">
                     <i class="iconPeople"></i>
                     <span>Автовладельцем</span>
                 </a>
@@ -232,6 +232,25 @@
                     <i class="iconCompany"></i>
                     <span>Представителем компании</span>
                 </a>                                                                 
+            </div>
+            <div id="registration-form-popup" class="reveal-modal"><!-- popUp needAutorisation-->
+                <a href="#" class="close-reveal-modal"></a>
+                <p class="popUpTitle">Регистрация на best4car.ru</p>
+                <div id="registration-container"></div>
+                <div class="enterCocial">
+                    <span class="popUpTitle2">Зарегистрироваться используя аккаунт соц. сетей</span>
+                    <ul class="enterCocialIcon">
+                        <li class="enterCocialIconItem">
+                            <a href="#" class="google-blue">Goole+</a>
+                        </li>
+                        <li class="enterCocialIconItem">
+                            <a href="#" class="facebook-blue">Facebook</a>
+                        </li>
+                        <li class="enterCocialIconItem">
+                            <a href="#" class="vk-blue">Вконтакте</a>
+                        </li>
+                    </ul>
+                </div>                                       
             </div>
         {% endif %}
         {% block wrap_container_close %}{% endblock %}

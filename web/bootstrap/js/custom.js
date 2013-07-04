@@ -19,6 +19,20 @@ var mainLayout = function(){
     $('.btnUser').click(function() {
         $('.userDropdown').toggle();
     });
+    // Registration popup
+    $('#carOwnerRegister').on('click', function(){
+        var $this = $(this),
+            $registrationFormPopup = $('#registration-form-popup'),
+            $registrationContainer = $('#registration-container');
+
+        $this.parent().trigger('reveal:close');
+        $registrationFormPopup.reveal($(this).data());
+        $registrationContainer.empty();
+
+        $.get(Routing.generate('fos_user_registration_register'), function(data){
+            $registrationContainer.append(data);
+        });
+    });
 };
 
 var catalogPage = function(){

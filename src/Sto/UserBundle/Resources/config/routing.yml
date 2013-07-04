@@ -8,6 +8,8 @@ fos_user_profile:
 fos_user_register:
     resource: "@StoUserBundle/Resources/config/routing/registration.xml"
     prefix: /register
+    options:
+        expose: true
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"

@@ -38,3 +38,47 @@
 .registration:hover{
     text-decoration: none;
 }
+
+.captchaImg{
+    float: left;
+    width: 220px;
+}
+.captchaImg img{
+    width: 100%;
+    height: auto;
+}
+.update-captcha{
+    float: left;
+    margin-left: 20px;
+    color: #666;
+    font: 1.4em 'PT Sans', sans;
+    line-height: 24px;
+}
+.update-captcha a{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: #51aed7;
+    border: 1px solid #0c6991;
+    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 10px;
+}
+.update-captcha a:hover{
+    background: #48a4cc;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.update-captcha a:active{
+    -webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+}
+.update-captcha a i{
+    margin-top: 2px;
+}

@@ -22,16 +22,19 @@
 #myModal2 span.btnEnter{
 	width: 260px;
 }
-#myModal3 {
+#myModal3,
+#registration-form-popup {
 	margin-left: -340px;
 	width: 680px;
 }
-#myModal3 span.btnEnter{
+#myModal3 span.btnEnter,
+#registration-form-popup .btnEnter{
 	width: 260px;
 	float: left;
 	clear: both;
 }
-#myModal3 input.inputFormEnter{
+#myModal3 input.inputFormEnter,
+#registration-form-popup .inputFormEnter{
 	float: left;
 }
 #myModal6 {
