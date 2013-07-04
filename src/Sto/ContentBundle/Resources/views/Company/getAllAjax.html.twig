@@ -8,8 +8,8 @@
     <div class="nameCompanyWrap">
         <p class="nameCompany"><a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a></p>
         <p class="adressCompany">{{item.address}}</p>
-        <p class="phoneCompany">{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>                             
-    </div>  
+        <p class="phoneCompany">{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
+    </div>
     <div class="infoCompanyCont smallInfoCompany" id="blocSmall_{{ item.id }}">
         <ul class="iconSpecialisation">
         {% for key, specialization in item.specialization %}
@@ -18,7 +18,7 @@
             </li>
         {% endfor %}
     </div>
-    <div class="infoCompanyCont bigInfoCompany" id="x-list-company{{ item.id }}" data-correspond="list-company{{ item.id }}" data-coord="{{ item.gps }}">                                 
+    <div class="infoCompanyCont bigInfoCompany" id="x-list-company{{ item.id }}" data-correspond="list-company{{ item.id }}" data-coord="{{ item.gps }}">
         <div class="popupCardCompanyCont">
             <div class="servicesPart">
                 <ul class="services">
@@ -42,11 +42,11 @@
                 {% if item.web is not empty %}
                     <p class="infoCompanyLable">
                         Сайт:</br><span><a href="{{ item.web }}">{{ item.web }}</a></span>
-                    </p>                                
+                    </p>
                 {% endif %}
             </div>
         </div>
-    </div>                              
+    </div>
 </div>
 {% endfor %}
 
@@ -57,5 +57,5 @@
         var id = $(this).data('item-id');
         $('#x-list-company' + id).slideToggle(0);
         $('#blocSmall_' + id).slideToggle(0);
-    }); 
+    });
 </script>

@@ -4,13 +4,13 @@
 
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-action.css') }}">    
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-action.css') }}">
 {% endblock %}
 
 {% block js %}
     {{ parent() }}
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>  
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.deals.js') }}"></script>
 {% endblock %}
 
@@ -40,18 +40,18 @@
                     <li class="menuLeftBarItem" data-deal-type="-1">
                         <i class="iconLeftMPopular"></i>
                         <span class="menuTagEmpty">Популярные</span>
-                        <span class="acctBtn">35</span>                                 
+                        <span class="acctBtn">35</span>
                     </li>
                     <li class="menuLeftBarItem" data-deal-type="-2">
                         <i class="iconLeftMReview"></i>
                         <span class="menuTagEmpty">С отзывами</span>
                         <span class="acctBtn">{{ countFeededDeals }}</span>
-                    </li>                           
+                    </li>
                 </ul>
             </div>
-            <div id="rightBar" class="text-r">  
+            <div id="rightBar" class="text-r">
                 <div class="slider">
-                    <div class="img__prev__wrap">   
+                    <div class="img__prev__wrap">
                         <ul id="thumbnail" class="slide-wrap">
                         {% for deal in [random(deals), random(deals), random(deals)] %}
                             <li class="slide-item">
@@ -61,7 +61,7 @@
                                     <img src="{{ image | imagine_filter('deals_carusel_photos') }}" alt="{{ deal.name }}">
                                 </a>
                             </li>
-                        {% endfor %}                                                  
+                        {% endfor %}
                         </ul>
                         <span name="prev" class="navy prev-slide"></span>
                         <span name="next" class="navy next-slide"></span>
@@ -74,8 +74,8 @@
                     loadDeals(jQuery, Routing);
                 </script>
             </div>
-            <div class="clear"></div>                       
-        </div>                  
+            <div class="clear"></div>
+        </div>
     </div>
 </section>
 {% endblock %}

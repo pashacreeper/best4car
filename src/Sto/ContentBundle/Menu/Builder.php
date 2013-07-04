@@ -12,7 +12,6 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'navTop']);
 
-
         $companies = $menu->addChild('Компании', ['route' => '_index']);
         $companies->setAttribute('class', 'navTopItem');
         $companies->setLinkAttributes(['data-span-class' => 'companys', 'class' => 'navLink']);

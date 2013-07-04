@@ -52,7 +52,7 @@
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
         <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-        
+
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -85,8 +85,8 @@
                         <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
                         <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating }}</span></p>
                         <div class="userDropdown">
-                            <div id="myCanvasTop" class="myCanvasTop"></div>                            
-                            <p class="popUpTitle">Ваш личный профиль</p>                            
+                            <div id="myCanvasTop" class="myCanvasTop"></div>
+                            <p class="popUpTitle">Ваш личный профиль</p>
                             <ul class="userProfilCont">
                                 <li class="userProfilItem">
                                     <i class="iconProfilGray"></i>
@@ -96,7 +96,7 @@
                                     <i class="iconRemovReviewGray"></i>
                                     <a href="#" class="facebook-blue">Ответы на отзыв</a>
                                     <span class="amountProfil">231</span>
-                                </li>                               
+                                </li>
                             </ul>
                             {% if user.companyManager is not empty %}
                                 <p class="popUpTitle">Компания Транспорт-Сервис</p>
@@ -149,15 +149,15 @@
                 <div class="tounCont">
                     <img src="/bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
                     <p class="townSelect" id="choice-city">Санкт-Петербург</p>
-                    <div class="selectTownDropdown">                            
+                    <div class="selectTownDropdown">
                         <div class="selectTownDropdownTop">
                             <p class="popUpTitle">Укажите ваш город</p>
-                        </div>                      
+                        </div>
                         <div class="selectTownDropdownCont tabs2">
                             <!-- Это сами вкладки -->
                             <ul class="countrySelectTab tabNavigation2" id="country-select">
                             </ul>
-                            <!-- Это контейнеры содержимого -->  
+                            <!-- Это контейнеры содержимого -->
                             <div id="city-select" class="townSelectTabCont">
                                 <ul class="townSelectTab">
                                 </ul>
@@ -168,22 +168,22 @@
                         </script>
                         <div id="myCanvasTop" class="myCanvasTop"></div>
                     </div>
-                </div>      
+                </div>
                 <div class="searchWrap">
                     <div class="searchCont">
                         <form class="form-search">
-                            <label class="control-label" for="inputSearch">Я ищу:</label>                           
-                                <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">                                                          
+                            <label class="control-label" for="inputSearch">Я ищу:</label>
+                                <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">
                             <p class="searchExample">Например:  <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
-                            <a href="#" class="btnSearch">                                  
+                            <a href="#" class="btnSearch">
                                 <i class="iconSearch icon-search icon-white"></i>Найти
                             </a>
                         </form>
                     </div>
-                </div>                          
+                </div>
             </div>
             {% block contentTop %}{% endblock %}
-        </header>           
+        </header>
         {% block content %}{% endblock %}
         <section class="footer">
             <div class="fotterCont">
@@ -231,7 +231,7 @@
                 <a href="#" class="btnHowReg btnRegComp">
                     <i class="iconCompany"></i>
                     <span>Представителем компании</span>
-                </a>                                                                 
+                </a>
             </div>
             <div id="registration-form-popup" class="reveal-modal"><!-- popUp needAutorisation-->
                 <a href="#" class="close-reveal-modal"></a>
@@ -250,19 +250,19 @@
                             <a href="#" class="vk-blue">Вконтакте</a>
                         </li>
                     </ul>
-                </div>                                       
+                </div>
             </div>
         {% endif %}
         {% block wrap_container_close %}{% endblock %}
-        
-        <script type="text/javascript">     
+
+        <script type="text/javascript">
                     $(document).ready(function() {
                         $('.bigInfoCompany').hide();
                         $('.cardCompanyItem').click(function() {
                             $('#blocBig_' + this.id).slideToggle(0);
                             $('#blocSmall_' + this.id).slideToggle(0);
-                        });                                         
-                    });     
+                        });
+                    });
         </script>
         <script type="text/javascript">
                     var myMap;
@@ -277,7 +277,7 @@
                         var myMap = new ymaps.Map('map', {
                                 center: [56.136, 40.390],
                                 zoom: 10
-                            });                     
+                            });
                         myMap.controls
                             .add('zoomControl', { left: 5, top: 5 })
                             .add('typeSelector')
@@ -291,16 +291,16 @@
                             }));
                     }
         </script>
-        <script type="text/javascript">         
+        <script type="text/javascript">
                         $(document).ready(function(){
                             $('.btnFiltr').click(function(){
                                 $(this).toggleClass('btnFiltrActive');
                             });
                             $('#cleanSearch').click(function(){
                                 $('.btnFiltr').removeClass('btnFiltrActive');
-                                
-                            }); 
-                        });                     
+
+                            });
+                        });
         </script>
         <script>
           $(document).ready(function() {

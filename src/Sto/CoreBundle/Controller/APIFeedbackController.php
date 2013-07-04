@@ -405,9 +405,7 @@ class APIFeedbackController extends FOSRestController
         if ($request->get('field') == 'Hidden') {
             $value = (($feedback->isHidden()) xor true);
 
-        }
-        else
-        {
+        } else {
             $value = $request->get('value');
         }
 
@@ -432,9 +430,7 @@ class APIFeedbackController extends FOSRestController
         if ($request->get('field') == 'Hidden') {
             $value = (($answer->isHidden()) xor true);
 
-        }
-        else
-        {
+        } else {
             $value = $request->get('value');
         }
         $method = 'set'.$request->get('field');
@@ -517,8 +513,7 @@ class APIFeedbackController extends FOSRestController
             if (!$feedback) {
                 return new Response(404, 'Not Found Feedback');
             }
-        }
-        else{
+        } else {
             $answer_id = $request->get('id');
 
             $em = $this->getDoctrine()->getManager();
