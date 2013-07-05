@@ -620,7 +620,7 @@ a.addEmail{
 .reply:hover, a.complain:hover{
 	color: #f35d2e;
 	border-bottom: 1px dotted #transparent;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 a.complain, span.complain{
 	float: right !important;
@@ -685,7 +685,7 @@ div.vote-active {
 	float: right;
 	margin: 0 10px;
 }
-.positivReview,.negativReview{
+.positivReview, .negativReview{
 	float: right;
 	font: 1.4em 'PT Sans', sans;
 	display: inline-block;
@@ -712,7 +712,6 @@ span.disabledIconPositiv i{
 	cursor: default;
 	float: left;
 	opacity: 1;
-	
 }
 .positivReviewI{
 	width: 19px;

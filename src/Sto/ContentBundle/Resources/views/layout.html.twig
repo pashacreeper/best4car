@@ -144,6 +144,7 @@
                 {% endblock %}
             </div>
             <div class="bottomHeader row-fluid">
+                {% block pageTitle %}{% endblock %}
                 <div class="tounCont">
                     <img src="/bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
                     <p class="townSelect" id="choice-city">Санкт-Петербург</p>
@@ -163,18 +164,20 @@
                         <div id="myCanvasTop" class="myCanvasTop"></div>
                     </div>
                 </div>
-                <div class="searchWrap">
-                    <div class="searchCont">
-                        <form class="form-search">
-                            <label class="control-label" for="inputSearch">Я ищу:</label>
-                                <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">
-                            <p class="searchExample">Например:  <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
-                            <a href="#" class="btnSearch">
-                                <i class="iconSearch icon-search icon-white"></i>Найти
-                            </a>
-                        </form>
+                {% block search %}
+                    <div class="searchWrap">
+                        <div class="searchCont">
+                            <form class="form-search">
+                                <label class="control-label" for="inputSearch">Я ищу:</label>
+                                    <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">
+                                <p class="searchExample">Например:  <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
+                                <a href="#" class="btnSearch">
+                                    <i class="iconSearch icon-search icon-white"></i>Найти
+                                </a>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                {% endblock %}
             </div>
             {% block contentTop %}{% endblock %}
         </header>

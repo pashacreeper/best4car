@@ -96,3 +96,13 @@ span.complain{
     cursor: default !important;
     border: none;
 }
+
+.positivReview:hover, .negativReview:hover{
+    text-decoration: none;
+}
+.positivReview:hover{
+    color: #0eb19c;
+}
+.negativReview:hover {
+    color: #db001b;
+}

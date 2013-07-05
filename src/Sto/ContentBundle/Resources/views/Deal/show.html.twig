@@ -18,6 +18,25 @@
 {% block wrap_container_open %}<div class="main">{% endblock %}
 {% block wrap_container_close %}</div>{% endblock %}
 
+{% block search %}{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+        <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">{{ deal.name }}</h1>
+            <p class="sloganCompany"><a href="{{ path('content_company_show', { "id": deal.company.id }) }}">{{ deal.company.name }}</a></p>
+        </div>
+        <div class="indexCompany">
+            <p>Рейтинг:</p>
+            <span class="indexbg"></span>
+            <span class="indexLevel">{{ deal.company.rating }}</span></br>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
 <section class="contentMain  row tabs">
     <ul class="tabNavigation">

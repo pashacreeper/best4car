@@ -42,6 +42,7 @@
                     <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
                     <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
                 {% endif %}
+                <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
 
                 <p class="reviewContText">{{ feedback.content|raw }}</p>
                 {% if app.user %}
@@ -51,9 +52,13 @@
                     <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
                     {% endif %}
                 {% endif %}
-                
+
                 {% if feedback.complain %}
                     <i class="complainAlert"></i>
+                {% endif %}
+
+                {% if isManager or app.security.isGranted('ROLE_USER') or app.security.isGranted('ROLE_ADMIN') %}
+                <span class="primaryLink reply">Ответить</span>
                 {% endif %}
 
                 <div class="popUpPrimary">
