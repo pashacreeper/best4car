@@ -13,47 +13,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class PageController extends MainController
 {
-    /**
-     * @Route("/useRules", name="info_rules_2_use")
-     * @Template()
-     */
-    public function useRulesAction()
-    {
-        return [];
-    }
 
     /**
-     * @Route("/about", name="info_about")
+     * @Route("/{name}", name="info_show")
      * @Template()
      */
-    public function aboutAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/advertisers", name="info_advertisers")
-     * @Template()
-     */
-    public function advertisersAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/business", name="info_auto_business")
-     * @Template()
-     */
-    public function autoBusinessAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/tour", name="info_tour")
-     * @Template()
-     */
-    public function tourAction()
+    public function showAction($name)
     {
         return [];
     }
@@ -66,4 +31,5 @@ class PageController extends MainController
     {
         return [];
     }
+
 }
