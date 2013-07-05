@@ -113,7 +113,7 @@
                                     </li>
                                 </ul>
                             {% endif %}
-                            <p class="userDropBot"><a href="{{ path('fos_user_security_logout') }}" class="btnExit primaryLink regisrationLink">Выйти</span></p>
+                            <p class="userDropBot"><a href="{{ path('fos_user_security_logout') }}" class="btnExit primaryLink regisrationLink">Выйти</a></p>
                         </div>
                     </div>
                     {% else %}
@@ -152,13 +152,9 @@
                             <p class="popUpTitle">Укажите ваш город</p>
                         </div>
                         <div class="selectTownDropdownCont tabs2">
-                            <!-- Это сами вкладки -->
-                            <ul class="countrySelectTab tabNavigation2" id="country-select">
-                            </ul>
-                            <!-- Это контейнеры содержимого -->
+                            <ul class="countrySelectTab tabNavigation2" id="country-select"></ul>
                             <div id="city-select" class="townSelectTabCont">
-                                <ul class="townSelectTab">
-                                </ul>
+                                <ul class="townSelectTab"></ul>
                             </div>
                         </div>
                         <script type="text/javascript">

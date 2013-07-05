@@ -611,21 +611,17 @@ a.addEmail{
 	font: 1.3em 'PT Sans', sans;
 	margin-bottom: 10px;
 }
-.reply,.complain{
+.reply, a.complain{
 	float: left;	
 	color: #f35d2e;
 	border-bottom: 1px dotted #f35d2e;
 }
-.reply:hover{
+.reply:hover, a.complain:hover{
 	color: #f35d2e;
 	border-bottom: 1px dotted #transparent;
 }
-.complain:hover{
-	color: #f35d2e;
-	border-bottom: 1px dotted #transparent;
-}
-.complain{
-	float: right;
+a.complain, span.complain{
+	float: right !important;
 }
 .popUpPrimary{
 	position: absolute;
@@ -642,9 +638,8 @@ a.addEmail{
 	float: right;
 	width: 16px;
 	height: 13px;
-	background: url("../img/complainalert.png") no-repeat;
+	background: url("/bootstrap/img/complainalert.png") no-repeat;
 	margin: 3px;
-	cursor: pointer;
 }
 .popUpPrimary ul li{
 	margin-bottom: 10px;

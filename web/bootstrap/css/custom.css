@@ -91,3 +91,8 @@
 .ymaps-b-balloon__content-holster{
     padding: 0 !important;
 }
+
+span.complain{
+    cursor: default !important;
+    border: none;
+}

@@ -54,17 +54,26 @@
                 </div>
 
                 {% if app.security.isGranted('ROLE_USER') %}
-                    <a href="#" data-like="deal" data-like-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
-                    <a data-dislike="deal" data-dislike-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
+                    <a href="#" data-like="deal" data-like-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</a>
+                    <a data-dislike="deal" data-dislike-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</a>
                 {% else %}
                     <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
                     <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
                 {% endif %}
 
                 <p class="reviewContText">{{ feedback.content|raw }}</p>
-                <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                {% if app.user %}
+                    {% if feedback.complain %}
+                    <span class="primaryLink complain">Пожаловаться</span>
+                    {% else %}
+                    <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                    {% endif %}
+                {% endif %}
+                
+                {% if feedback.complain %}
+                    <i class="complainAlert"></i>
+                {% endif %}
 
-                <i class="complainAlert"></i>
                 <div class="popUpPrimary">
                     <div id="myCanvasTop" class="myCanvasTop"></div>
                     <ul>
@@ -74,6 +83,7 @@
                         <li><span class="primaryLink">Снять жалобу</span></li>
                     </ul>
                 </div>
+
             </div>
             {% if feedback.feedbackAnswer %}
             <div class="responseReviewCont">
