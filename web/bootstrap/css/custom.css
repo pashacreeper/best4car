@@ -82,3 +82,12 @@
 .update-captcha a i{
     margin-top: 2px;
 }
+
+.ymaps-b-balloon{
+    width: 450px !important;
+    border: 2px solid #9e9a94;
+    border-radius: 9px;
+}
+.ymaps-b-balloon__content-holster{
+    padding: 0 !important;
+}

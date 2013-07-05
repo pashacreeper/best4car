@@ -1,23 +1,25 @@
+{% set itemClass = 'servisesItem' %}
 {% if specializations %}
-    {% for item in specializations %}
-        {% if loop.index <= 4 %}
-            <p>
-                {% if item.iconNameSmall %}
-                    <img src="{{ vich_uploader_asset(item,'iconSmall') }}" value="no-image">
-                {% else %}
-                    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:30px;">
-                {% endif %}
-                {{ item.name }}
-            </p>
-            {% if loop.index == 4 %}
-                <hr />
-            {% endif %}
-        {% else %}
-            {% if item.iconNameSmall %}
-                <img src="{{ vich_uploader_asset(item,'iconSmall') }}" value="no-image">
-            {% else %}
-                <img src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:30px;">
-            {% endif %}
-        {% endif %}
-    {% endfor %}
+{% for item in specializations %}
+    {% if loop.first %}
+        <ul class="services">
+    {% endif %}
+
+    {% if loop.index == 4 %}
+        </ul>
+        <ul class="servicesAdd">
+        {% set itemClass = 'servisesAddItem' %}
+    {% endif %}
+
+    <li class="{{ itemClass }}">
+        <span class="iconProfilCompany {{ item.iconNameSmall }}"></span>
+        {%- if loop.index < 4 %}
+            {{ item.name }}
+        {% endif -%}
+    </li>
+
+    {% if loop.last %}
+        </ul>
+    {% endif %}
+{% endfor %}
 {% endif %}
