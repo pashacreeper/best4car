@@ -174,7 +174,8 @@ ul.tabNavigation li a:focus {
 	width: 240px;
 	float: right;
 }
-.rightContent span{
+.rightContent span,
+.rightContent a.bttn{
 	margin-bottom: 10px;
 	border-radius: 4px;	
 	display: block;

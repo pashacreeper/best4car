@@ -19,120 +19,28 @@
 
 {% block content %}
 <section class="contentMain  row tabs">
-    <!-- Это сами вкладки -->
     <ul class="tabNavigation">
         <li>
-            <a class="" href="#first">Информация</a>
+            <a href="#info">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы 10 <span class="newPost"> / 15</span></a>
+            <a href="#feedbacks">Отзывы {{ deal.feedbacks|length }}</a>
         </li>
     </ul>
-    <!-- Это контейнеры содержимого -->
-    <div id="first" class="content">
-        <div class="leftContent">
-            <div class="slider">
-                <div class="img__prev__wrap">
-                    <ul id="thumbnail" class="slide-wrap">
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo3.jpg"  alt="" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo2.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo3.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo2.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo1.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo3.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo3.jpg" />
-                            </a>
-                        </li>
-                        <li class="slide-item">
-                            <a class="linh__img__prev" href="#">
-                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
-                                <img src="bootstrap/img/photo1.jpg" />
-                            </a>
-                        </li>
-                    </ul>
-                    <span name="prev" class="navy prev-slide"></span>
-                    <span name="next" class="navy next-slide"></span>
-                </div>
-            </div>
-            <div class="servicesSpecialisationWrap">
-                <p class="servicesSpecialisationTitle titleH2">Об акции</p>
-                <p class="aboutCompanyCont contentText">
-                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
-                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
-                </p>
-                <p class="servicesSpecialisationTitle titleH2">Условия</p>
-                <p class="aboutCompanyCont contentText">
-                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
-                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
-                </p>
-                <p class="servicesSpecialisationTitle titleH2">Требования</p>
-                <p class="aboutCompanyCont contentText">
-                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
-                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
-                </p>
-                <p class="servicesSpecialisationTitle titleH2">Контакты:</p>
-                <div class="managerCompany">
-                    <p class="nameManager">Мария Кожевникова</p>
-                    <p class="phoneManager">(812) 323-78-98</p>
-                </div>
-            </div>
-            <div class="infoCompanyWrap">
-                <div class="infoCompanyItem">
-                    <p class="infoCompanyTitle titleH3">Сроки проведения:</p>
-                    <p class="infoCompanyDescription">21 февраля - 24 февраля</p>
-                </div>
-                <div class="infoCompanyItem">
-                    <p class="infoCompanyTitle titleH3">Время проведения:</p>
-                    <p class="infoCompanyDescription">8:00 - 15:00</p>
-                </div>
-                <div class="infoCompanyItem">
-                    <p class="infoCompanyTitle titleH3">Адрес:</p>
-                    <p class="infoCompanyDescription"><a href="#">СПб. пр. Космонавтов, 12</a></p>
-                </div>
-            </div>
-        </div>
+    <div id="info" class="content">
+        {% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
         <div class="rightContent">
-            <span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>
+            <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
+            {% if isManager %}
+                <a href="{{ path("company_deal_edit", {'id':deal.company.id, 'dealId':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Редактировать</a>
+            {% endif %}
             <span class="addPhotoBtn">Добавить фото<i class="addPhoto"></i></span>
             <div class="bannerImg">
-                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
         </div>
     </div>
-    <div id="second" class="content">
+    <div id="feedbacks" class="content">
         <div class="leftContent">
             <div class="contentSelect">
                 <div class="assortSelect">
