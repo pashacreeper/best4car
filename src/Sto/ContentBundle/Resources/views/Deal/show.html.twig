@@ -1,184 +1,383 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
 {% block title 'Акции' %}
 
-{% block head_style %}
+{% block css %}
     {{ parent() }}
-    <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
-    <style type="text/css">.hide { display: none; }</style>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
 {% endblock %}
 
-{% block head_script %}
+{% block js %}
     {{ parent() }}
-    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
 {% endblock %}
+
+{% block wrap_container_open %}<div class="main">{% endblock %}
+{% block wrap_container_close %}</div>{% endblock %}
 
 {% block content %}
-<div class="row-fluid">
-    <div class="span10">
-        <div class="row-fluid">
-            <h2 style="margin-bottom: 0px;">{{ deal.name }}</h2>
-        </div>
-        <div class="row-fluid">
-            {{ deal.company.name }}
-        </div>
-    </div>
-    <div class="span2">
-        <div class="row-fluid">
-            Рейтинг компании:
-        </div>
-        <div class="row-fluid">
-            <h2><i class="icon-b4c-star"></i> {{ deal.company.rating }}</h2>
-        </div>
-    </div>
-</div>
-
-<div class="row-fluid">
-    <ul class="nav nav-tabs" id="FeedbackTabs">
-        <li class="active">
-            <a href="#info"><i class="icon-b4c-info"></i> Информация</a>
+<section class="contentMain  row tabs">
+    <!-- Это сами вкладки -->
+    <ul class="tabNavigation">
+        <li>
+            <a class="" href="#first">Информация</a>
         </li>
         <li>
-            <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ deal.feedbacks|length }}</span></a>
+            <a class="" href="#second">Отзывы 10 <span class="newPost"> / 15</span></a>
         </li>
     </ul>
-</div>
-
-<div class="tab-content">
-    <div class="tab-pane active" id="info">
-        {% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
+    <!-- Это контейнеры содержимого -->
+    <div id="first" class="content">
+        <div class="leftContent">
+            <div class="slider">
+                <div class="img__prev__wrap">
+                    <ul id="thumbnail" class="slide-wrap">
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo3.jpg"  alt="" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo2.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo3.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo2.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo1.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo3.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo3.jpg" />
+                            </a>
+                        </li>
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <p class="nameActionP">Диагностика старых BMW всего за 1000 рублей!</p>
+                                <img src="bootstrap/img/photo1.jpg" />
+                            </a>
+                        </li>
+                    </ul>
+                    <span name="prev" class="navy prev-slide"></span>
+                    <span name="next" class="navy next-slide"></span>
+                </div>
+            </div>
+            <div class="servicesSpecialisationWrap">
+                <p class="servicesSpecialisationTitle titleH2">Об акции</p>
+                <p class="aboutCompanyCont contentText">
+                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
+                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
+                </p>
+                <p class="servicesSpecialisationTitle titleH2">Условия</p>
+                <p class="aboutCompanyCont contentText">
+                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
+                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
+                </p>
+                <p class="servicesSpecialisationTitle titleH2">Требования</p>
+                <p class="aboutCompanyCont contentText">
+                    С другой стороны консультация с широким активом позволяет оценить значение форм развития. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров играет важную роль в формировании модели развития.
+                    Таким образом дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития.
+                </p>
+                <p class="servicesSpecialisationTitle titleH2">Контакты:</p>
+                <div class="managerCompany">
+                    <p class="nameManager">Мария Кожевникова</p>
+                    <p class="phoneManager">(812) 323-78-98</p>
+                </div>
+            </div>
+            <div class="infoCompanyWrap">
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Сроки проведения:</p>
+                    <p class="infoCompanyDescription">21 февраля - 24 февраля</p>
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Время проведения:</p>
+                    <p class="infoCompanyDescription">8:00 - 15:00</p>
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Адрес:</p>
+                    <p class="infoCompanyDescription"><a href="#">СПб. пр. Космонавтов, 12</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="rightContent">
+            <span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>
+            <span class="addPhotoBtn">Добавить фото<i class="addPhoto"></i></span>
+            <div class="bannerImg">
+                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+            </div>
+        </div>
     </div>
-    <div class="tab-pane" id="feedbacks">
-        {% include 'StoContentBundle::Deal/tabs/feetbacks.html.twig' %}
+    <div id="second" class="content">
+        <div class="leftContent">
+            <div class="contentSelect">
+                <div class="assortSelect">
+                    <span>Сортировать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">рейтингу</option>
+                                <option value="">дате</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="showSelect">
+                    <span>Показать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">все</option>
+                                <option value="">положительные</option>
+                                <option value="">отрицательные</option>
+                                <option value="">полезные</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="showTotal">
+                Показано:
+                <span class="parametShow">153</span>
+                отзыва
+            </p>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.collapsCont').hide();
+                                    $('.collapsText').click(function() {
+                                        $('.collapsCont').show();
+                                        $('.collapsText').hide();
+                                    });
+                                });
+            </script>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.popUpPrimary').hide();
+                                    $('.complainAlert').hide();
+                                    $('.complain').click(function() {
+                                        $('.complainAlert').show();
+                                    });
+                                    $('.complainAlert').click(function() {
+                                        $('.popUpPrimary').show();
+                                    });
+                                    $('.popUpPrimary li').click(function() {
+                                        $('.popUpPrimary').hide();
+                                        $('.complainAlert').hide();
+                                    });
+                                });
+            </script>
+            <div class="reviewContentItem">
+                <div class="reviewAccount">
+                    <div  class="reviewAccountImg">
+                        <a href="#">
+                            <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                        </a>
+                    </div>
+                    <span>153</span>
+                </div>
+                <div class="reviewWrap">
+                    <div class="reviewTop">
+                        <p class="reviewNick"><a href="#">StreetRacer</a></p>
+                        <p class="reviewName"><a href="#">Иванов Семен</a></p>
+                        <p class="reviewRang">Автолюбитель</p>
+                        <span class="reviewData">18.02.2013</span>
+                    </div>
+                    <div class="reviewCont">
+                        <div class="reviewContTop">
+                            <!--http://habrahabr.ru/post/132807/-->
+                            <div class="vote-wrap">
+                                <div class="vote-hover">
+                                    <div class="vote-block">
+                                        <div class="vote-stars">
+                                        </div>
+                                        <div class="vote-active">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+                            <span class="negativReview"><i class="negativReviewI"></i>53</span>
+                            <span class="positivReview"><i class="positivReviewI"></i>53</span>
+                            <p class="reviewContText">
+                                Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                            </p>
+                            <span class="collapsText">( <span>показать полностью</span> )</span>
+                            <p class="collapsCont">
+                                Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                            </p>
+
+                            <span class="primaryLink reply">Ответить</span>
+                            <span class="primaryLink complain">Пожаловаться</span>
+                            <i class="complainAlert"></i>
+                            <div class="popUpPrimary">
+                                <div id="myCanvasTop" class="myCanvasTop"></div>
+                                <ul>
+                                    <li><span class="primaryLink">Скрыть</span></li>
+                                    <li><span class="primaryLink">Редактировать</span></li>
+                                    <li><span class="primaryLink">Удалить</span></li>
+                                    <li><span class="primaryLink">Снять жалобу</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="responseReviewCont">
+                            <div class="reviewContBottomText">
+                                <p class="reviewContText">
+                                    Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                                </p>
+                            </div>
+                            <div class="reviewContBottomAccount">
+                                <div  class="responseReviewAccountImg">
+                                    <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                                </div>
+                                <span class="responseReviewData">18.02.2013</span>
+                                <p class="responseReviewName">Иванов Семен</p>
+                                <p class="responseReviewRang">Менеджер</p>
+                                <p class="bottomReview">
+                                    <span class="negativReview"><i class="negativReviewI"></i>53</span>
+                                    <span class="positivReview"><i class="positivReviewI"></i>53</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reviewContentItem">
+                <div class="reviewAccount">
+                    <div  class="reviewAccountImg">
+                        <a href="#">
+                            <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                        </a>
+                    </div>
+                    <span>153</span>
+                </div>
+                <div class="reviewWrap">
+                    <div class="reviewTop">
+                        <p class="reviewNick"><a href="#">StreetRacer</a></p>
+                        <p class="reviewName"><a href="#">Иванов Семен</a></p>
+                        <p class="reviewRang">Автолюбитель</p>
+                        <span class="reviewData">18.02.2013</span>
+                    </div>
+                    <div class="reviewCont">
+                        <div class="reviewContTop">
+                            <!--http://habrahabr.ru/post/132807/-->
+                            <div class="vote-wrap">
+                                <div class="vote-hover">
+                                    <div class="vote-block">
+                                        <div class="vote-stars">
+                                        </div>
+                                        <div class="vote-active">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+                            <span class="negativReview"><i class="negativReviewI"></i>53</span>
+                            <span class="positivReview"><i class="positivReviewI"></i>53</span>
+                            <p class="reviewContText">
+                                Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                            </p>
+                            <span class="collapsText">( <span>показать полностью</span> )</span>
+                            <p class="collapsCont">
+                                Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                            </p>
+
+                            <span class="primaryLink reply">Ответить</span>
+                            <span class="primaryLink complain">Пожаловаться</span>
+                            <i class="complainAlert"></i>
+                            <div class="popUpPrimary">
+                                <div id="myCanvasTop" class="myCanvasTop"></div>
+                                <ul>
+                                    <li><span class="primaryLink">Скрыть</span></li>
+                                    <li><span class="primaryLink">Редактировать</span></li>
+                                    <li><span class="primaryLink">Удалить</span></li>
+                                    <li><span class="primaryLink">Снять жалобу</span></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="responseReviewCont">
+                            <div class="reviewContBottomText">
+                                <p class="reviewContText">
+                                    Во всяком случае, его пассажиры не имели возможности определить пройденное ими расстояние. Им не на что было ориентироваться. Это покажется удивительным, но они даже не чувствовали уносившего их страшного ветра. Перемещаясь и кружась в воздухе, они не ощущали вращения и движения вперед. Их взгляды не могли пронизать густого тумана, обволакивавшего корзину.
+                                </p>
+                            </div>
+                            <div class="reviewContBottomAccount">
+                                <div  class="responseReviewAccountImg">
+                                    <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                                </div>
+                                <span class="responseReviewData">18.02.2013</span>
+                                <p class="responseReviewName">Иванов Семен</p>
+                                <p class="responseReviewRang">Менеджер</p>
+                                <p class="bottomReview">
+                                    <span class="negativReview"><i class="negativReviewI"></i>53</span>
+                                    <span class="positivReview"><i class="positivReviewI"></i>53</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightContent">
+            <span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>
+            <span class="addPhotoBtn">Я пойду<i class="acctBtn">241</i></span>
+            <div class="bannerImg">
+                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
-
-{% block foot_script %}
-{{ parent() }}
-<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/like.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/feedbacks.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/answers.js') }}" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $('#FeedbackTabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-    ymaps.ready(init);
-    function init () {
-        var gps = '{{ deal.company.gps|raw }}';
-        var myMap = new ymaps.Map("map", {
-            center: gps.split(','),
-            zoom: 14
-        }),
-        myGeoObject = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: [gps.split(',')]
-            }
-        });
-        myMap.geoObjects.add(myGeoObject);
-    }
-
-    $('[data-page]').live('click', function () {
-        var page = parseInt($(this).attr('rel'))+1;
-        var path = $(this).attr('href');
-        $(this).parent('div.span12').parent('div.row-fluid').remove();
-        $('[data-page]').attr('rel', page+1);
-        $.ajax({
-            type: 'POST',
-            url: path+"?page="+page,
-        }).done(function (html) {
-            $('[data-content]').append(html);
-        }).fail(function (e) {
-            console.log(e.message);
-        });
-
-        return false;
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs ul.tabNavigation a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
+            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
     });
-
-    $('a[data-feedback-put]').click(function () {
-        var feed_id = $(this).data('feedback-put');
-        $('div[data-answerform='+feed_id+']').toggle();
-        $(this).css('display', 'none');
-
-        return false;
+    </script>
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs2 ul.tabNavigation2 a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
     });
+    </script>
+</section>
 
-    $('a[data-abort-answer]').click(function () {
-        var feed_id = $(this).data('abort-answer');
-        $('div[data-answerform='+feed_id+']').toggle();
-        $('a[data-feedback-put='+feed_id+']').css('display', 'block');
-
-        return false;
-    });
-
-    $('input[data-submit-form]').click(function () {
-        var feed_id = $(this).data('submit-form');
-        var answer = $('form[name="form'+feed_id+'"] textarea[name=answer]').val();
-        $.getJSON("{{ path('api_add_answer') }}",{'feedback_id': feed_id, 'answer':answer})
-        .done(function (data) {
-            $('div[data-answer-block="'+feed_id+'"]').append(data.content);
-            $('div[data-answerform='+feed_id+']').toggle();
-        })
-        .fail(function (e) {
-            console.log(e.message);
-        })
-
-        return false;
-    });
-
-    $('a[data-feedback-edit]').live('click', function () {
-        var feed_id = $(this).data('feedback-edit');
-        var answer_id = $(this).data('answer-id');
-        $(this).css('display', 'none');
-        var answer = $(this).parent().find('p').html();
-        $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'none');
-        $('blockquote[data-answer-block-edit="'+feed_id+'"]').parent().append(generateAnswerFrom(feed_id, answer_id, answer));
-        var answer = $('textarea[data-answer-textarea="'+feed_id+'"]').val();
-
-        return false;
-    });
-
-    $('input[data-submit-edit-form]').live('click', function () {
-        var feed_id = $(this).data('submit-edit-form');
-        var answer_id = $(this).data('answer-id');
-        var answer = $('#zorro').val();
-        $.getJSON("{{ path('api_edit_answer') }}",{'feedback_id': feed_id, 'answer':answer, 'answer_id': answer_id})
-        .done(function (data) {
-            $('.block'+feed_id).remove();
-            var answer_p = $('a[data-answer-id="'+answer_id+'"]').parent().find('p');
-            $(answer_p).html(answer);
-            $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'block');
-            $('a[data-feedback-edit="'+feed_id+'"]').css('display', 'block');
-        })
-        .fail(function (e) {
-            console.log(e.message);
-        })
-
-        return false;
-    });
-
-    function generateAnswerFrom (feed_id, answer_id, answer) {
-        var content = '\
-            <blockquote class="well block'+feed_id+'">\
-                <form method="POST">\
-                    <div class="row-fluid">\
-                        <div class="span9">\
-                            <textarea id="zorro" name="answer" data-answer-textarea="'+feed_id+'">'+answer+'</textarea>\
-                        </div>\
-                        <div class="span3">\
-                            <input class="btn" data-submit-edit-form="'+feed_id+'" data-answer-id="'+answer_id+'" type="button" value="Отправить" />\
-                            <a href="#" data-abort-answer="'+feed_id+'">Отмена</a>\
-                        </div>\
-                    </div>\
-                </form>\
-            </blockquote>';
-
-        return content;
-    };
-</script>
 {% endblock %}
