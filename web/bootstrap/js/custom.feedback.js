@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('a[data-action="complain"]').click(function(e){
+    $('data-x-container-feedbacks').on('click', $('a[data-action="complain"]'), function(){
         e.preventDefault();
         var $this = $(this),
             feedbackId = $(this).data('feedback-id');
@@ -14,6 +14,21 @@ $(document).ready(function(){
         })
         .fail(function(e) {
             console.log('error', e.message);
+        });
+    });
+
+    $('.data-select').on('change', function() {
+        var filter = $('#data-filter').find(":selected").val(),
+            sort = $('#data-sort').val(),
+            entType = $('#sortDataType').attr('data-type');
+
+        $.get(Routing.generate('api_sort_filter'), {'sort-tab': sort, 'filter-tab': filter, 'entity-id': getEntityId(), 'entity-type': entType})
+        .done(function (data) {
+            $('#data-x-container-feedbacks').empty().append(data);
         })
+        .fail(function(e){
+            console.log(e.message);
+        })
+        return false;
     });
 });

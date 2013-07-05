@@ -530,6 +530,7 @@ a.addEmail{
 	float: left;
 	width: 590px;
 	padding-left: 10px;
+	padding-bottom: 30px;
 }
 .reviewAccountImg{
 	width: 46px;
@@ -619,6 +620,7 @@ a.addEmail{
 .reply:hover, a.complain:hover{
 	color: #f35d2e;
 	border-bottom: 1px dotted #transparent;
+	text-decoration: none;
 }
 a.complain, span.complain{
 	float: right !important;
@@ -633,6 +635,7 @@ a.complain, span.complain{
 	border: 2px solid #9e9a94;
 	z-index: 999;
 	padding: 10px 10px 0 10px;
+	display: none;
 }
 .complainAlert{	
 	float: right;
@@ -745,7 +748,7 @@ span.disabledIconNegativ i{
 	border: 1px solid #acc7d2;
 	padding: 0px 10px 15px 10px;
 	position: relative;
-	margin: 2px 0 30px 0;
+	margin-top: 2px;
 	overflow: hidden;
 	position: relative;
 }
