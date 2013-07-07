@@ -17,7 +17,7 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'span6'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('lastName', null, [
@@ -25,21 +25,21 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'span6'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('username', 'text', [
                 'label' => 'Ник',
                 'required' => true,
                 'attr' => [
-                    'class' => 'span6'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('email', 'email', [
                 'label' => 'Ваш email',
                 'required' => true,
                 'attr' => [
-                    'class' => 'span6'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('plainPassword', 'repeated', [
@@ -47,7 +47,7 @@ class RegistrationType extends BaseType
                 'options' => [
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => [
-                        'class' => 'span4'
+                        'class' => 'inputFormEnter span4'
                     ]
                 ],
                 'first_options' => ['label' => 'form.password'],
@@ -63,7 +63,7 @@ class RegistrationType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'span4'
+                    'class' => 'inputFormEnter span4'
                 ]
             ])
             ->add('captcha', 'captcha', [
