@@ -8,10 +8,17 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-about-project.css') }}">
 {% endblock %}
 
+{% block pageTitle %}
+    <div class="back">
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">О проекте</h1>
+        </div>
+    </div>
+{% endblock %}
 
-{% block wrap_container_open %}<div class="main">{% endblock %}
-{% block wrap_container_close %}</div>{% endblock %}
-
+{% block search %}{% endblock %}
 
 {% block content %}
 <section class="contentMain  row">
