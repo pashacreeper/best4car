@@ -56,7 +56,7 @@
         <![endif]-->
     </head>
     <body>
-        {% block wrap_container_open %}{% endblock %}
+        {% block wrap_container_open %}<div class="main">{% endblock %}
         {% block map %}{% endblock %}
         <header id="header">
             <div class="topHeader">
@@ -250,7 +250,7 @@
                 </div>
             </div>
         {% endif %}
-        {% block wrap_container_close %}{% endblock %}
+        {% block wrap_container_close %}</div>{% endblock %}
 
         <script type="text/javascript">
                     $(document).ready(function() {
