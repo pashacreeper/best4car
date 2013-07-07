@@ -79,5 +79,7 @@ jQuery(document).ready(function(){
 	}
 
 	/* иницилизируем функцию слайдера */
-	htmSlider();
+	if($('.slider').length) {
+		htmSlider();
+	}
 });

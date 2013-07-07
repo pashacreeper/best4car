@@ -3,65 +3,417 @@
 
 {% block title company.name %}
 
-{% block head_style %}
+{% block css %}
     {{ parent() }}
-    <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
-    <style type="text/css">
-        .hide { display: none;}
-    </style>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
 {% endblock %}
 
-{% block head_script %}
+{% block js %}
     {{ parent() }}
-    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+{% endblock %}
+
+{% block wrap_container_open %}<div class="main">{% endblock %}
+{% block wrap_container_close %}</div>{% endblock %}
+
+{% block search %}
+<div class="back">
+    <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <span class="logoCompany"><img src="bootstrap/img/logocompany.png" alt=""></span>
+        <h1 class="titleNameCompany"><a href="#">{{ company.name }}</a></h1>
+        <p class="sloganCompany">{{ company.slogan }}</p>
+    </div>
+    <div class="indexCompany">
+        <p>Рейтинг:</p>
+        <span class="indexbg"></span>
+        <span class="indexLevel">{{ company.rating }}</span></br>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="row-fluid">
-        <div class="span2">
-            {% if company.logo %}
-                <img src="{{ vich_uploader_asset(company, 'logo') }}" style="height: 75px;" />
+<section class="contentMain  row tabs">
+    <!-- Это сами вкладки -->
+    <ul class="tabNavigation">
+        <li>
+            <a class="" href="#first">Информация</a>
+        </li>
+        <li>
+            <a class="" href="#second">Отзывы  6<span class="newPost">/ 15</span></a>
+        </li>
+        <li>
+            <a class="" href="#third">Акции  4<span class="newPost">/ 11</span></a>
+        </li>
+    </ul>
+    <!-- Это контейнеры содержимого -->
+    <div id="first" class="content">
+        <div class="leftContent">
+            {% if company.gallery|length %}
+            <div class="slider">
+                <div class="img__prev__wrap">
+                    <ul id="thumbnail" class="slide-wrap">
+                        {% for photo in company.gallery %}
+                        <li class="slide-item">
+                            <a class="linh__img__prev" href="#">
+                                <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo,'image') | imagine_filter('company_gallery_filter') }}"  alt="" />
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <span name="prev" class="navy prev-slide"></span>
+                    <span name="next" class="navy next-slide"></span>
+                </div>
+            </div>
             {% endif %}
-        </div>
-        <div class="span7">
-            <h3>{{ company.name }}</h3>
-            {% if isManager  or app.security.isGranted('ROLE_ADMIN') %}
-                <a class="btn" href="{{ path('content_company_edit', {'id': company.id}) }}"><i class="icon-b4c-edit"></i>Редактирвоать</a>
-            {% endif %}
-        </div>
-        <div class="span3">
-            <div class="row-fluid">
-                <h5>Рейтинг компании</h5>
-            </div>
-            <div class="row-fluid">
-                <p>{{ company.rating }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <section class="container">
-            <ul class="nav nav-pills">
-                <li {% if tab == 'information' %} class="active" {% endif %}><a data-toggle="tab" href="#information">Информация</a></li>
-                <li {% if tab == 'feetbacks' %} class="active" {% endif %} ><a data-toggle="tab" href="#feetbacks">Отзывы</a></li>
-                <li {% if tab == 'deals' %} class="active" {% endif %} ><a data-toggle="tab" href="#deals">Акции</a></li>
-            </ul>
-        </section>
-        <section class="tab-content container">
-            <div class="tab-pane{% if tab == 'information' %} active{% endif %}" id="information">
-                {% include 'StoContentBundle::Company/tabs/information.html.twig' %}
-            </div>
-            <div class="tab-pane{% if tab == 'feetbacks' %} active{% endif %}" id="feetbacks">
-                {{ include ('StoContentBundle::Company/tabs/feetbacks.html.twig', {'company': company}) }}
-            </div>
-            <div class="tab-pane{% if tab == 'deals' %} active{% endif %}" id="deals">
-                {% if app.security.isGranted('ROLE_ADMIN') or  isManager  %}
-                   {% include 'StoContentBundle::Company/tabs/dealsManager.html.twig' %}
-                {% else %}
-                   {% include 'StoContentBundle::Company/tabs/deals.html.twig' %}
+            <div class="servicesSpecialisationWrap">
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $('.accordion-body:not(:first)').hide();
+                        $('.accordion-toggle').click(function(){
+                            $('#collapse_' + this.id).toggle();
+                            $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
+                        });
+                        $('.showAll').click(function(){
+                            $('.accordion-body').show();
+                            $('.iconAccord').removeClass('iconChevronDown');
+                        });
+                    });
+                </script>
+                <div class="accordion" id="accordion2">
+                    <h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
+                    {% for specialization in company.specialization %}
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <div class="accordion-toggle" id="11">
+                                <i class="iconProfilCompany cto"></i>
+                                <p class="accordionTitle">{{ specialization.name }}</p>
+                                <p class="accordionDescription">Независимый мультибрендовый</p>
+                                <span class="iconAccord iconChevron" id="iconCollapse_11"></span>
+                            </div>
+                        </div>
+                        <div id="collapse_11" class="accordion-body">
+                            <div class="accordion-inner">
+                                <ul class="listServices">
+                                    {% for service in specialization %}
+                                    <li class="listServicesItem contentText">
+                                        {{ service.name }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <span class="showAll">Показать все</span>
+                </div>
+                {% if company.additionalServices|length %}
+                <div class="additionalServices">
+                    <h3 class="servicesSpecialisationTitle titleH2">Дополнительные услуги</h3>
+                    {% for additionalService in company.additionalServices %}
+                    <p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> {{ additionalService.name }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <p class="servicesSpecialisationTitle titleH2">О компании</p>
+                <p class="aboutCompanyCont contentText">
+                    {{ company.description }}
+                </p>
+                {% if company.companyManager|length %}
+                <p class="servicesSpecialisationTitle titleH2">Менеджеры компании:</p>
+                    {% for manager in company.companyManager %}
+                    <div class="managerCompany">
+                        <span><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
+                        <p class="nameManager">{{ manager.user.firstName ~' '~ manager.user.lastName }}</p>
+                        <p class="phoneManager">{% if manager.phone and manager.phone != '' %}{{ manager.phone }}{% else %}{{ manager.user.phoneNumber }}{% endif %}</p>
+                    </div>
+                    {% endfor %}
                 {% endif %}
             </div>
-        </section>
+            <div class="infoCompanyWrap">
+                {% if company.autos|length %}
+                <div class="infoCompanyItem">
+                    <p class="servedBrendTitle titleH3">Обслуживаемые бренды:</p>
+                    {% for car in company.autos %}
+                        <p class="servedBrend"><i class="iconBrand {{ car }}"></i>{{ car }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle contentText">Опыт работы:
+                    <span>
+                    {% if company.createtDate|date('Y-m-d') < "now"|date('Y-m-d') %}
+                        {{ time_diff(company.createtDate) }}
+                    {% else %}
+                        Данные отсутствуют
+                    {% endif %}
+                    </span>
+                    </p>
+                    <p class="infoCompanyTitle contentText">Нормо-час: <span>{{ company.hourPrice }}  {% if company.currency %}{{company.currency.shortName}}{% endif %}</span></p>
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Адрес:</p>
+                    <p class="infoCompanyDescription"><a href="#">{{ company.address }}</a></p>
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
+                    {% for phone in company.phones %}
+                    <p class="infoCompanyAddTitle contentText">{{ phone.description }}:</p>
+                    <p class="infoCompanyDescription">{{ phone.phone }}</p>
+                    {% endfor %}
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyTitle titleH3">Часы работы:</p>
+                    <p class="infoCompanyDescription">9:00 - 21:00 (пн-пт)</p>
+                    <p class="infoCompanyDescription">9:00 - 20:00 (сб-вс)</p>
+                </div>
+                <div class="infoCompanyItem">
+                    <p class="infoCompanyAddTitle contentText">Сайт:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="http://{{ company.web }}">{{ company.web }}</a></p>
+                    <p class="infoCompanyAddTitle contentText">Skype:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="skype:{{ company.skype }}?chat">{{ company.skype }}</a></p>
+                    <p class="infoCompanyAddTitle contentText">E-mail:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href"mailto:{{ company.email }}">{{ company.email }}</a></p>
+                    <p class="infoCompanyAddTitle contentText">Отдел запчастей:<a class="linkContact addEmail " href="#">spareparts@rolf.ru</a></p>
+                    <p class="infoCompanyAddTitle contentText">Сервис:<a class="linkContact addEmail" href="#">servis@rolf.ru</a></p>
+                </div>
+                <ul class="infoCompanySocialNet">
+                    <li class="infoCompanySocialNetItem">
+                        <a href="{{ company.linkTW }}"><i class="twit-blue"></i>Twitter</a>
+                    </li>
+                    <li class="infoCompanySocialNetItem">
+                        <a href="{{ company.linkFB }}"><i class="facebook-blue"></i>Facebook</a>
+                    </li>
+                    <li class="infoCompanySocialNetItem">
+                        <a href="{{ company.linkVK }}"><i class="vk-blue"></i>Вконтакте</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="rightContent">
+            <span class="writeReviewBtn"><a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв<i class="writeReview"></i></a></span>
+            <span class="addPhotoBtn"><a href="{% if app.user %} # {% else %} {{ path('fos_user_security_login') }}{% endif %}">Добавить фото<i class="addPhoto"></i></a></span>
+            {% if company.logo %}
+            <div class="bannerImg">
+                <img src="{{vich_uploader_asset(company, 'logo')}}" />
+            </div>
+            {% endif %}
+        </div>
     </div>
+    <div id="second" class="content">
+        <div class="leftContent">
+            <div class="contentSelect">
+                <div class="assortSelect">
+                    <span>Сортировать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">рейтингу</option>
+                                <option value="">дате</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="showSelect">
+                    <span>Показать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">все</option>
+                                <option value="">положительные</option>
+                                <option value="">отрицательные</option>
+                                <option value="">полезные</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="showTotal">
+                Показано:
+                <span class="parametShow">{{ feedbacks | length }}</span>
+                отзыва
+            </p>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.collapsCont').hide();
+                                    $('.collapsText').click(function() {
+                                        $('.collapsCont').show();
+                                        $('.collapsText').hide();
+                                    });
+                                });
+            </script>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.popUpPrimary').hide();
+                                    $('.complainAlert').hide();
+                                    $('.complain').click(function() {
+                                        $('.complainAlert').show();
+                                    });
+                                    $('.complainAlert').click(function() {
+                                        $('.popUpPrimary').show();
+                                    });
+                                    $('.popUpPrimary li').click(function() {
+                                        $('.popUpPrimary').hide();
+                                        $('.complainAlert').hide();
+                                    });
+                                });
+            </script>
+            {% for feedback in company.feedbacks %}
+            <div class="reviewContentItem">
+                <div class="reviewAccount">
+                    <div  class="reviewAccountImg">
+                        <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
+                            {% if feedback.user.avatar %}
+                            <img data-image="avatar" id="avatar" src="{{ vich_uploader_asset(feedback.user, 'avatar') }}">
+                            {% elseif feedback.user.avatarVk %}
+                            <img data-image="avatar" id="avatar" src="{{ feedback.user.avatarVk }}" />
+                            {% else %}
+                            <img data-image="avatar" src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" />
+                            {% endif %}
+                        </a>
+                    </div>
+                    <span>{{ feedback.user.rating }}</span>
+                </div>
+                <div class="reviewWrap">
+                    <div class="reviewTop">
+                        <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
+                        <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
+                        <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
+                        <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
+                    </div>
+                    <div class="reviewCont">
+                        <div class="reviewContTop">
+                            <!--http://habrahabr.ru/post/132807/-->
+                            <div class="vote-wrap">
+                                <div class="vote-hover">
+                                    <div class="vote-block">
+                                        <div class="vote-stars">
+                                        </div>
+                                        <div class="vote-active">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+                            <span class="negativReview disabledIconNegativ"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
+                            <span class="positivReview disabledIconPositiv"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
+                            <p class="reviewContText">
+                                {{ feedback.content|raw }}
+                            </p>
+                            <span class="primaryLink reply">Ответить</span>
+                            <span class="primaryLink complain">Пожаловаться</span>
+                            <i class="complainAlert"></i>
+                            <div class="popUpPrimary">
+                                <div id="myCanvasTop" class="myCanvasTop"></div>
+                                <ul>
+                                    <li><span class="primaryLink">Скрыть</span></li>
+                                    <li><span class="primaryLink">Редактировать</span></li>
+                                    <li><span class="primaryLink">Удалить</span></li>
+                                    <li><span class="primaryLink">Снять жалобу</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% if feedback.feedbackAnswer %}
+                        <div class="responseReviewCont">
+                            <div class="reviewContBottomText">
+                                <p class="reviewContText">
+                                    {{ feedback.feedbackAnswer.answer|raw }}
+                                </p>
+                            </div>
+                            <div class="reviewContBottomAccount">
+                                <div  class="responseReviewAccountImg">
+                                    <img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                                </div>
+                                <span class="responseReviewData">18.02.2013</span>
+                                <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
+                                <p class="responseReviewRang">Менеджер</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="rightContent">
+            <span class="writeReviewBtn"><a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв<i class="writeReview"></i></a></span>
+            <span class="addPhotoBtn"><a href="{% if app.user %} # {% else %} {{ path('fos_user_security_login') }}{% endif %}">Добавить фото<i class="addPhoto"></i></a></span>
+            {% if company.logo %}
+            <div class="bannerImg">
+                <img src="{{vich_uploader_asset(company, 'logo')}}" />
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="third" class="content">
+        <div class="leftContent">
+            <h1 class="title2">Действующие акции компании</h1>
+            {% for key,deal in company.deals %}
+            {% if deal.endDate >= date() and deal.draft == false %}
+            <div class="actionItem">
+                <a href="#">
+                    <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
+                </a>
+                <div class="actionItemRight">
+                    <h4 class=""><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
+                    <div class="actionItemBottom">
+                        <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
+                        <p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
+                        <p class="">Период проведения </br><span class="blue">{{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}</span></p>
+                        <p class="">Автомобили<br>
+                        {% for auto in deal.auto %}
+                            <span class="blue">{{ auto }}</span>
+                        {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="rightContent">
+            <div class="bannerImg">
+                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+            </div>
+        </div>
+        <div class="bottomContent">
+            <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id':company.id}) }}">Показать архивные акции</a></span>
+        </div>
+    </div>
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs ul.tabNavigation a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
+            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
+    });
+    </script>
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs2 ul.tabNavigation2 a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
+    });
+    </script>
+</section>
 {% endblock %}
 
 {% block foot_script %}

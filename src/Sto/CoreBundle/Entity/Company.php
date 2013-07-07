@@ -278,16 +278,16 @@ class Company
         $this->createtDate = new \DateTime('now');
         $this->visible = false;
         $this->subscribable = false;
-        $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->specialization = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->service = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->additionalServices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->autos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->deals = new ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
+        $this->gallery = new ArrayCollection();
+        $this->specialization = new ArrayCollection();
+        $this->service = new ArrayCollection();
+        $this->additionalServices = new ArrayCollection();
+        $this->autoServices = new ArrayCollection();
+        $this->autos = new ArrayCollection();
+        $this->companyManager = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     /**
