@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="contentMain  row">          
+<section class="contentMain  row">
     <div class="content">
         <ul class="stepRegistration">
             <li class="stepRegistrationItem firstStepActive"><a href="#" class="stepLink">Личные данные</a></li>
@@ -24,7 +24,7 @@
         </ul>
         <div class="leftRegistrationCompany">
             <h2 class="titleRegistrationCompany">Зарегистрировать профиль на best4car.ru</h2>
-            <form name="register-form" action="{{ path('registration_company_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            <form name="register-form" action="{{ path('registration_company_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal" id="registerForm">
                 {{ form_row(form.firstName) }}
                 {{ form_row(form.lastName) }}
                 {{ form_row(form.username) }}
@@ -40,15 +40,15 @@
             <div class="blockEnter">
                 <form action="{{ path("content_register_company_with_owner") }}" method="post">
                     <p class="contentLabel">
-                        <label>Email</label>                                                        
+                        <label>Email</label>
                         <input type="text" class="inputFormEnter" value="{% if last_username is defined %}{{last_username}}{% endif %}">
                     </p>
                     <p class="contentLabel">
-                        <label>Пароль</label>                       
+                        <label>Пароль</label>
                         <input type="text" class="inputFormEnter">
                     </p>
                     <span class="btnEnter">Войти</span>
-                    <p class="secondaryLink forgotPass">Забыли пароль?</p>                              
+                    <p class="secondaryLink forgotPass">Забыли пароль?</p>
                 </form>
             </div>
             <p class="popUpTitle">Войти используя аккаунт соц. сетей</p>
@@ -63,9 +63,9 @@
                     <a href="#"><i class="vk-blue"></i>Вконтакте</a>
                 </li>
             </ul>
-        </div>  
+        </div>
         <div class="bottomContent">
-            <span class="btnNext addPhotoBtn">Продолжить</span>
+            <span class="btnNext addPhotoBtn" id="submitRegisterForm">Продолжить</span>
         </div>
     </div>
 </section>

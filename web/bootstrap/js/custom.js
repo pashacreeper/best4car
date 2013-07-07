@@ -122,10 +122,17 @@ var dealsPage = function(){
     });
 };
 
+var registrationPage = function(){
+    $('#submitRegisterForm').on('click', function(){
+        $('#registerForm').submit();
+    });
+};
+
 var initPage = function(){
     mainLayout();
     catalogPage();
     dealsPage();
+    registrationPage();
 };
 
 $(document).ready(function(){initPage()});
