@@ -952,14 +952,6 @@ span.disabledIconNegativ i{
 }
 
 
-
-
-
-
-
-
-
-
 .iconAccord{
 	float: right;
 	position: absolute;
@@ -980,15 +972,10 @@ span.disabledIconNegativ i{
 	background: url("../img/icon-chevron.png") -14px 0 no-repeat;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+.iconProfilCompany{
+	background: url('/bootstrap/img/icon.png') no-repeat;
+	width: 34px;
+	height: 40px;
+	display: block;
+	
+}
