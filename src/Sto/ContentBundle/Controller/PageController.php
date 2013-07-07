@@ -2,7 +2,6 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -14,22 +13,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PageController extends MainController
 {
 
+    protected $pages = [
+        'about' => 'О проекте',
+        'advertisers' => 'Для рекламодателей',
+        'business' => 'Для автобизнеса',
+        'tour' => 'Тур по сайту',
+        'contact' => 'Контакты',
+        'useRules' => 'Условия использования сайта',
+    ];
+
     /**
      * @Route("/{name}", name="info_show")
-     * @Template()
      */
     public function showAction($name)
     {
-        return [];
+        if (! in_array($name, $this->pages)) {
+            $this->createNotFoundException();
+        }
+        return $this->render('StoContentBundle:Page:' . $name . '.html.twig', ['title' => $this->pages[$name]]);
     }
 
-    /**
-     * @Route("/contact", name="info_contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        return [];
-    }
 
 }

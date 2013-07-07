@@ -50,9 +50,6 @@ class Builder extends ContainerAware
             $page->setAttribute('class', 'footerMenuItem');
         }
 
-        $contacts = $menu->addChild('Контакты', ['route' => 'info_contact']);
-        $contacts->setAttribute('class', 'footerMenuItem');
-
         return $menu;
     }
 
