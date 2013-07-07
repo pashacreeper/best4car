@@ -1,6 +1,10 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+{% endblock %}
 
 {% block title %}Новая акция{% endblock %}
 
@@ -12,98 +16,158 @@
 {% endblock %}
 
 {% block content %}
-<form action="{{ path('company_deal_create' ,{'id': company.id}) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-    <div class="container">
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.type) }}
-        <div class=" control-group">
-            <label class="control-label required">
-                Сроки акции
-            </label>
-            <div class="controls">
-                {{ form_errors(form.startDate) }}
-                {{ form_widget(form.startDate) }}
-                {{ form_errors(form.endDate) }}
-                {{ form_widget(form.endDate) }}
-            </div>
-        </div>
-        <div class=" control-group">
-            <label class="control-label required">
-                Время акции
-            </label>
-            <div class="controls">
-                {{ form_errors(form.startTime) }}
-                {{ form_widget(form.startTime) }}
-                {{ form_errors(form.endTime) }}
-                {{ form_widget(form.endTime) }}
-            </div>
-        </div>
-        {{ form_row(form.auto) }}
-        {{ form_row(form.autoServices) }}
-        {{ form_row(form.place) }}
-        {{ form_row(form.terms) }}
-    </div>
-    <hr style="margin: 0 0 20px 0;">
-    <div class="container">
-        <div class="span2">
-            <p>
-                Изображения акции</br><small><em>Изображения должны быть пропорции 16:9, не меньше 640 х 360 пикселей</br></br>Формат изображения: JPG, PNG, GIF не более 1Мь</em></small>
-                <p>
-                </div>
-                <div class="span3">
-                    <div class="control-group">
-                        <div class="control">
-                            <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                            {{ form_errors(form.image) }}
-                            {{ form_widget(form.image) }}
+<section class="contentMain  row">
+    <div class="content">
+
+        <form action="{{ path('company_deal_create' ,{'id': company.id}) }}" method="post" {{ form_enctype(form) }} class="inputForm">
+            <div class="container">
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.type) }}
+                <div class="contentLabel clear">
+                    <label class="required">
+                        Сроки проведения
+                    </label>
+                    <div class="well startData span2">
+                        <div id="datetimepicker3" class="input-append">
+                            {{ form_errors(form.startDate) }}
+                            {{ form_widget(form.startDate) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="well endData span2">
+                        <div id="datetimepicker4" class="input-append">
+                            {{ form_errors(form.endDate) }}
+                            {{ form_widget(form.endDate) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="span3">
-                    <div class="control-group">
-                        <div class="control">
-                            <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                            {{ form_errors(form.image2) }}
-                            {{ form_widget(form.image2) }}
+                <div class="contentLabel clear">
+                    <label>Время проведения</label>
+                    <div class="well startData span2">
+                        <div id="datetimepicker3" class="input-append">
+                            {{ form_errors(form.startTime) }}
+                            {{ form_widget(form.startTime) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="well endData span2">
+                        <div id="datetimepicker4" class="input-append">
+                            {{ form_errors(form.endTime) }}
+                            {{ form_widget(form.endTime) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="span3">
-                    <div class="control-group">
-                        <div class="control">
-                            <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                            {{ form_errors(form.image3) }}
-                            {{ form_widget(form.image3) }}
-                        </div>
-                    </div>
+                <div class="contentLabel clear">
+                    <label>Автомобили</label>
+                    {{ form_widget(form.auto) }}
+                    {{ form_errors(form.auto) }}
                 </div>
+                <div class="contentLabel clear">
+                    <label>Узлы и работы</label>
+                    {{ form_widget(form.autoServices) }}
+                    {{ form_errors(form.autoServices) }}
+                </div>
+                <div class="contentLabel">
+                    <label>Место проведения акции</label>
+                    {{ form_widget(form.place) }}
+                    {{ form_errors(form.place) }}
+                    <a href="#" class="linkUnder">по месту размещения компании</a>
+                </div>
+                <div class="contentLabel">
+                    <label>Условия участия в акции</label>
+                    {{ form_widget(form.terms) }}
+                    {{ form_errors(form.terms) }}
+                </div>
+                <div class="contentLabel">
+                    <label>Контактное лицо</label>
+                    {{ form_widget(form.contactInformation) }}
+                    {{ form_errors(form.contactInformation) }}
+                </div>
+                {#{{ form_row(form.place) }}#}
+                {#{{ form_row(form.terms) }}#}
             </div>
             <hr style="margin: 0 0 20px 0;">
-            {{ form_widget(form) }}
-            {{ form_rest(form) }}
-            <div class="form-actions">
-                {% if (activ_deals|length())  < 2 %}
+            <div class="container">
+                <div class="span2">
+                    <p>
+                        Изображения акции</br><small><em>Изображения должны быть пропорции 16:9, не меньше 640 х 360 пикселей</br></br>Формат изображения: JPG, PNG, GIF не более 1Мь</em></small>
+                        <p>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <div class="control">
+                                    <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                                    {{ form_errors(form.image) }}
+                                    {{ form_widget(form.image) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <div class="control">
+                                    <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                                    {{ form_errors(form.image2) }}
+                                    {{ form_widget(form.image2) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <div class="control">
+                                    <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                                    {{ form_errors(form.image3) }}
+                                    {{ form_widget(form.image3) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin: 0 0 20px 0;">
+                    {{ form_widget(form) }}
+                    {{ form_rest(form) }}
+                    <div class="form-actions">
+                        {% if (activ_deals|length())  < 2 %}
 
-                <input type="submit"  class="btn btn-primary" value="Опубликовать" />
-                {% else %}
-                {{ flash(true, 'У вас две активных акции. Сохраните как черновик', false, true) }}
-                {% endif %}
+                        <input type="submit"  class="btn btn-primary" value="Опубликовать" />
+                        {% else %}
+                        {{ flash(true, 'У вас две активных акции. Сохраните как черновик', false, true) }}
+                        {% endif %}
 
-                <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
+                        <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
+                    </div>
+                    <div class="bottomContent">
+                        {% if (activ_deals|length())  < 2 %}
+                        <span class="btnBottomContent addPhotoBtn">Опубликовать</span>
+                        {% else %}
+                        <span class="secondaryLink saveDraft">Сохранить как черновик</span>
+                        {% endif  %}
+                    </div>
+                </form>
+                <div id="myModal" class="modal hide fade" style = "width:720px;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body ">
+                      <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
+                  </div>
+                  <div class="modal-footer" >
+                    <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
+                </div>
             </div>
-        </form>
-        <div id="myModal" class="modal hide fade" style = "width:720px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body ">
-              <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
-          </div>
-          <div class="modal-footer" >
-            <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
         </div>
-    </div>
+    </section>
 {% endblock %}
 
 {% block foot_script %}
@@ -169,5 +233,22 @@
         document.getElementById("sto_content_deal_place").value ='{{company.address}}';
         document.getElementById("sto_content_deal_gps").value ='{{company.gps}}';
     })
+    $(function() {
+        $('#sto_content_deal_startDate').datetimepicker({
+            pickTime: false
+        });
+        $('#sto_content_deal_endDate').datetimepicker({
+            pickTime: false
+        });
+
+        $('#sto_content_deal_startTime').datetimepicker({
+            pickDate: false
+        });
+        $('#sto_content_deal_endTime').datetimepicker({
+            pickDate: false
+        });
+    });
+
+
 </script>
 {% endblock %}

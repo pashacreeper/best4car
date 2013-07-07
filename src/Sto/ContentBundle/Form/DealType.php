@@ -6,17 +6,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
 
 class DealType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $transformer = new TimestampToDateTransformer();
         $builder
             ->add('name', 'text', [
                 'label' => 'Название акции',
                 'required' => true,
                 'attr' => [
-                    'style' => 'width:100%',
+                    "class" => "inputField span12",
                 ]
             ])
             ->add('description', 'textarea', [
@@ -24,8 +26,7 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                'rows' => 4,
-                    'style '=> 'width:100%'
+                    "class" => "inputField span12",
                 ]
             ])
             ->add('autoServices', null, [
@@ -42,7 +43,7 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'styled'
                 ]
             ])
             ->add('auto', null, [
@@ -57,7 +58,7 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'styled'
                 ]
             ])
             ->add('image', 'file', [
@@ -98,42 +99,44 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                'rows' => 4,
-                    'style '=> 'width:100%'
+                    "rows" => 4,
+                    "class" => "inputField span12",
                 ]
             ])
-            ->add('startDate', 'date', [
-                'widget' => 'single_text',
-                'datepicker' => true,
-                'label' => 'Начало',
-                'required' => true,
-                'attr' => [
-                'class' => 'input-small',
-                    'style' => 'display: inline;'
-                ]
-            ])
-            ->add('endDate', 'date', [
-                'widget' => 'single_text',
-                'datepicker' => true,
-                'label' => 'Конец',
-                'required' => true,
-                'attr' => [
-                'class' => 'input-small',
-                    'style' => 'display: inline;'
-                ]
-            ])
-            ->add('startTime', 'time', [
+            ->add(
+                $builder->create('startDate', 'text', [
+                    'label' => 'Начало',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'inputTime',
+                        'data-format' => 'hh:mm:ss'
+                    ]
+                ])->addModelTransformer($transformer)
+            )
+            ->add(
+                $builder->create('endDate', 'text', [
+                    'label' => 'Начало',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'inputTime',
+                        'data-format' => 'hh:mm:ss'
+                    ]
+                ])->addModelTransformer($transformer)
+            )
+            ->add('startTime', 'text', [
                 'label' => 'Start time',
                 'required' => true,
                 'attr' => [
-                    'style' => 'display: inline;'
+                    'class' => 'inputTime',
+                    'data-format' => "hh:mm:ss"
                 ]
             ])
-            ->add('endTime', 'time', [
+            ->add('endTime', 'text', [
                 'label' => 'End time',
                 'required' => true,
                 'attr' => [
-                    'style' => 'display: inline;'
+                    'class' => 'inputTime',
+                    'data-format' => "hh:mm:ss"
                 ]
             ])
             ->add('place', null, [
@@ -141,25 +144,25 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                'class'=> 'input-xxlarge',
+                    'class' => "input-xxlarge inputField span12",
+                    'style' => "display: block",
                     'onclick'=>"$('#myModal').modal();"
                 ]
             ])
-            ->add('contactInformation', 'textarea', [
+            ->add('contactInformation', 'text', [
                 'label' => 'Контактное лицо',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'rows' => 2,
-                    'style '=> 'width:100%'
+                    "class" => "inputField span12",
                 ]
             ])
             ->add('type', null, [
                 'label' => 'Тип акции',
-                'required' => false,
+                'required' => true,
                 'render_optional_text' => false,
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'styled'
                 ]
             ])
             ->add('gps', 'hidden', [])
