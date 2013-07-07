@@ -1,22 +1,22 @@
 jQuery(document).ready(function(){
 	function htmSlider(){
-		/* Зададим следующие переменные */
+		/* Р—Р°РґР°РґРёРј СЃР»РµРґСѓСЋС‰РёРµ РїРµСЂРµРјРµРЅРЅС‹Рµ */
 
-		/* обертка слайдера */
+		/* РѕР±РµСЂС‚РєР° СЃР»Р°Р№РґРµСЂР° */
 		var slideWrap = jQuery('.slide-wrap');
-		/* ссылки на предудыщий иследующий слайд */
+		/* СЃСЃС‹Р»РєРё РЅР° РїСЂРµРґСѓРґС‹С‰РёР№ РёСЃР»РµРґСѓСЋС‰РёР№ СЃР»Р°Р№Рґ */
 		var nextLink = jQuery('.next-slide');
 		var prevLink = jQuery('.prev-slide');
 
 		var playLink = jQuery('.auto');
 		
-		/* ширина слайда с отступами */
+		/* С€РёСЂРёРЅР° СЃР»Р°Р№РґР° СЃ РѕС‚СЃС‚СѓРїР°РјРё */
 		var slideWidth = jQuery('.slide-item').outerWidth();
 		
-		/* смещение слайдера */
+		/* СЃРјРµС‰РµРЅРёРµ СЃР»Р°Р№РґРµСЂР° */
 		var newLeftPos = slideWrap.position().left - slideWidth;
 		
-		/* Клик по ссылке на следующий слайд */
+		/* РљР»РёРє РїРѕ СЃСЃС‹Р»РєРµ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СЃР»Р°Р№Рґ */
 		nextLink.click(function(){
 			if( nextLink.attr('name') == 'next' ) {
 			
@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 			}
 		});
 
-		/* Клик по ссылке на предыдующий слайд */
+		/* РљР»РёРє РїРѕ СЃСЃС‹Р»РєРµ РЅР° РїСЂРµРґС‹РґСѓСЋС‰РёР№ СЃР»Р°Р№Рґ */
 		prevLink.click(function(){
 			if( prevLink.attr('name') == 'prev' ) {
 			
@@ -52,7 +52,7 @@ jQuery(document).ready(function(){
 		});
 		
 		
-		/* Функция автоматической прокрутки слайдера */
+		/* Р¤СѓРЅРєС†РёСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ РїСЂРѕРєСЂСѓС‚РєРё СЃР»Р°Р№РґРµСЂР° */
 		function autoplay(){
 			slideWrap.animate({left: newLeftPos}, 500, function(){
 				slideWrap
@@ -63,7 +63,7 @@ jQuery(document).ready(function(){
 			});
 		}
 		
-		/* Клики по ссылкам старт/пауза */
+		/* РљР»РёРєРё РїРѕ СЃСЃС‹Р»РєР°Рј СЃС‚Р°СЂС‚/РїР°СѓР·Р° */
 		playLink.click(function(){
 			if(playLink.hasClass('play')){
 				playLink.removeClass('play').addClass('pause');
@@ -78,7 +78,7 @@ jQuery(document).ready(function(){
 
 	}
 
-	/* иницилизируем функцию слайдера */
+	/* РёРЅРёС†РёР»РёР·РёСЂСѓРµРј С„СѓРЅРєС†РёСЋ СЃР»Р°Р№РґРµСЂР° */
 	if($('.slider').length) {
 		htmSlider();
 	}
