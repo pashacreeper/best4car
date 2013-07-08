@@ -185,35 +185,9 @@
         <section class="footer">
             <div class="fotterCont">
                 <p class="footerLogo"></p>
-                <ul class="footerMenu">
-                    <li class="footerMenuItem">
-                        <a href="#">О проекте</a>
-                    </li>
-                    <li class="footerMenuItem">
-                        <a href="#">Для рекламодателей</a>
-                    </li>
-                    <li class="footerMenuItem">
-                        <a href="#">Для автобизнеса</a>
-                    </li>
-                    <li class="footerMenuItem">
-                        <a href="#">Тур по сайту</a>
-                    </li>
-                    <li class="footerMenuItem">
-                        <a href="#">Контакты</a>
-                    </li>
-                </ul>
-                <ul class="footerCocial">
-                    <li class="footerCocialItem">
-                        <a href="#" class="google">Goole+</a>
-                    </li>
-                    <li class="footerCocialItem">
-                        <a href="#" class="facebook">Facebook</a>
-                    </li>
-                    <li class="footerCocialItem">
-                        <a href="#" class="vk">Вконтакте</a>
-                    </li>
-                </ul>
-                <div id="linkUser"><a href="#">Условия использования сайта</a></div>
+                {{ knp_menu_render('StoContentBundle:Builder:footerMenu', {'currentAsLink': true}) }}
+                {{ knp_menu_render('StoContentBundle:Builder:footerSocial', {'currentAsLink': true}) }}
+                <div id="linkUser"><a href="{{ path('info_show', {'name': 'useRules'}) }}">Условия использования сайта</a></div>
             </div>
         </section>
         {% if not app.user %}

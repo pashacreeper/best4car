@@ -2,7 +2,6 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,57 +12,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class PageController extends MainController
 {
-    /**
-     * @Route("/useRules", name="info_rules_2_use")
-     * @Template()
-     */
-    public function useRulesAction()
-    {
-        return [];
-    }
+
+    protected $pages = [
+        'about' => 'О проекте',
+        'advertisers' => 'Для рекламодателей',
+        'business' => 'Для автобизнеса',
+        'tour' => 'Тур по сайту',
+        'contact' => 'Контакты',
+        'useRules' => 'Условия использования сайта',
+    ];
 
     /**
-     * @Route("/about", name="info_about")
-     * @Template()
+     * @Route("/{name}", name="info_show")
      */
-    public function aboutAction()
+    public function showAction($name)
     {
-        return [];
+        if (! in_array($name, $this->pages)) {
+            $this->createNotFoundException();
+        }
+        return $this->render('StoContentBundle:Page:' . $name . '.html.twig', ['title' => $this->pages[$name]]);
     }
 
-    /**
-     * @Route("/advertisers", name="info_advertisers")
-     * @Template()
-     */
-    public function advertisersAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/business", name="info_auto_business")
-     * @Template()
-     */
-    public function autoBusinessAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/tour", name="info_tour")
-     * @Template()
-     */
-    public function tourAction()
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/contact", name="info_contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        return [];
-    }
 }
