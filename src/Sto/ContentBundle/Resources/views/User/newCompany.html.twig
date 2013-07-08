@@ -140,8 +140,43 @@
                     <a href="#" class="linkUnder" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
                 </div>
                 <div class="contentLabel marginBottom">
-                    {{ form_row(cForm.phones) }}
-                    <span class="addImg clear">Добавить<i class="icon-ok-sign"></i></span>
+                    <label>Контактные телефоны</label>
+                    <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}"></div>
+                    <script>
+                        var collectionHolder = $('#phoneAddWrapper');
+                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+
+                        jQuery(document).ready(function() {
+                            collectionHolder.append($newLink);
+                            collectionHolder.data('index', collectionHolder.find(':input').length);
+
+                            $addTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(collectionHolder, $newLink);
+                            });
+                        });
+
+                        function addTagForm(collectionHolder, $newLink) {
+                            var prototype = collectionHolder.data('prototype');
+                            var index = collectionHolder.data('index');
+                            var newForm = prototype.replace(/__name__/g, index);
+                            var newestForm = $(newForm).find('.contentLabel').children().unwrap();
+
+                            console.log(newestForm);
+
+                            var $newForm = $('<div class="contactDate"></div>');
+
+                            newestForm.each(function(){
+                                console.log(this);
+                                $newForm.append($(this));
+                            });
+
+                            collectionHolder.data('index', index + 1);
+                            // var $newForm = $('<div class="contactDate"></div>').append(newestForm);
+                            $newLink.before($newForm);
+                        }
+                    </script>
                 </div>
                 {{ form_row(cForm.email) }}
                 <div class="contentLabel marginBottom">
