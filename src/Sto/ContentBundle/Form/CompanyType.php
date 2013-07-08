@@ -101,6 +101,7 @@ class CompanyType extends AbstractType
             ->add('services', 'entity', [
                 'label' => 'Услуги',
                 'multiple' => true,
+                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -115,6 +116,7 @@ class CompanyType extends AbstractType
             ->add('specialization', 'entity', [
                 'label' => 'Основная специализация',
                 'multiple' => true,
+                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')

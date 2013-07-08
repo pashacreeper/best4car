@@ -115,3 +115,28 @@ span.complain{
     z-index: 100;
     cursor: pointer;
 }
+
+.sepcializationModal, .serviceModal{
+    width: 400px;
+}
+.sepcializationModal input[type="checkbox"],
+.serviceModal input[type="checkbox"]{
+    display: none;
+}
+.sepcializationModal input[type="checkbox"] + label,
+.serviceModal input[type="checkbox"] + label{
+    display: inline-block;
+    background-color: #52abd3;
+    color: #fff;
+    padding: 5px;
+    font: 1.4em 'PT Sans', sans;
+    position: relative;
+    z-index: 1;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+}
+.sepcializationModal input[type="checkbox"]:checked + label,
+.serviceModal input[type="checkbox"]:checked + label{
+    background-color: #28799e;
+}

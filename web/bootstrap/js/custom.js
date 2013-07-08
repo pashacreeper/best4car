@@ -129,6 +129,24 @@ var registrationPage = function(){
     $('#datetimepicker1').datetimepicker({
         pickTime: false
     });
+
+    $('#specializationSave').on('click', function(e){
+        e.preventDefault();
+
+        var checkboxes = $(this).parent().find('.wrapper').find('input[type="checkbox"]:checked'),
+            container = $('#' + $(this).data('container'));
+
+        checkboxes.each(function(index, element){
+            var element = $(element),
+                labelText = element.next('label').html()
+                checkedViewElement = '<li class="tagTicketServices"><span class="sto"></span>' + labelText + '</li>'
+
+            container.append(checkedViewElement);
+        });
+
+        $(this).parent().trigger('reveal:close');   
+    });
+    $('#specializationSave')
 };
 
 var initPage = function(){
