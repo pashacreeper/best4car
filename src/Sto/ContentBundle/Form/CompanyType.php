@@ -92,11 +92,15 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'class' => 'input-small'
+                    'class' => 'inputCost'
                 ],
             ])
             ->add('currency', null, [
                 'label' => 'Валюта',
+                'empty_value' => 'Валюта',
+                'attr' => [
+                    'class' => 'styled1'
+                ]
             ])
             ->add('services', 'entity', [
                 'label' => 'Услуги',
@@ -170,6 +174,9 @@ class CompanyType extends AbstractType
                         ->orderBy('ct.name')
                     ;
                 },
+                'attr' => [
+                    'class' => 'someClass'
+                ]
             ])
             ->add('skype', null, [
                 'label' => 'Skype',

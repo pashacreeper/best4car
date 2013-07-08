@@ -117,7 +117,8 @@ span.complain{
 }
 
 .sepcializationModal, .serviceModal{
-    width: 400px;
+    width: 700px;
+    margin-left: -350px;
 }
 .sepcializationModal input[type="checkbox"],
 .serviceModal input[type="checkbox"]{
@@ -139,4 +140,10 @@ span.complain{
 .sepcializationModal input[type="checkbox"]:checked + label,
 .serviceModal input[type="checkbox"]:checked + label{
     background-color: #28799e;
+}
+
+.additionalServItem label{
+    clear: none;
+    font: inherit;
+    cursor: pointer;
 }

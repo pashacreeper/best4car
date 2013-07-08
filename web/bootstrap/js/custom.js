@@ -130,11 +130,9 @@ var registrationPage = function(){
         pickTime: false
     });
 
-    $('#specializationSave').on('click', function(e){
-        e.preventDefault();
-
-        var checkboxes = $(this).parent().find('.wrapper').find('input[type="checkbox"]:checked'),
-            container = $('#' + $(this).data('container'));
+    var appendIcons = function(link){
+        var checkboxes = $(link).parent().find('.wrapper').find('input[type="checkbox"]:checked'),
+            container = $('#' + $(link).data('container'));
 
         checkboxes.each(function(index, element){
             var element = $(element),
@@ -144,9 +142,17 @@ var registrationPage = function(){
             container.append(checkedViewElement);
         });
 
-        $(this).parent().trigger('reveal:close');   
+        $(link).parent().trigger('reveal:close');   
+    }
+
+    $('#specializationSave').on('click', function(e){
+        e.preventDefault();
+        appendIcons(this);
     });
-    $('#specializationSave')
+    $('#serviceSave').on('click', function(e){
+        e.preventDefault();
+        appendIcons(this);
+    });
 };
 
 var initPage = function(){
