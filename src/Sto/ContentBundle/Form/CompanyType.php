@@ -61,6 +61,9 @@ class CompanyType extends AbstractType
             ])
             ->add('address', null, [
                 'label' => 'Адрес',
+                'attr' => [
+                    'class' => 'inputFormEnter inputleftContDate'
+                ]
             ])
             ->add('workingTime','collection', array(
                 'label' => ' ',
@@ -207,12 +210,9 @@ class CompanyType extends AbstractType
                     'style' => 'width: 100%'
                 ]
             ])
-            ->add('gps', 'text', [
+            ->add('gps', 'hidden', [
                 'label' => 'Координаты Yandex-карты',
                 'required' => true,
-                'attr' => [
-                    'onclick'=>"$('#myModal').modal();"
-                ]
             ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',

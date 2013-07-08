@@ -147,3 +147,15 @@ span.complain{
     font: inherit;
     cursor: pointer;
 }
+
+.linkUnder{
+    margin-top: 10px;
+    margin-left: -7px;
+}
+
+.yandexMapModal{
+    height:449px;
+    width:670px;
+    margin-left: -335px;
+    margin-top: -102px;
+}
