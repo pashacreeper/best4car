@@ -301,7 +301,7 @@ input[type="radio"].checkBox {
 	border-right: 1px solid #0c6991;
 }
 .rating-cancel{
-	display: none;
+	display: none !important;
 }
 .star-rating-control div{
 	display: inline-block;

@@ -3,12 +3,14 @@
 
 {% block title deal.name %}
 
-{% block head_style %}
+{% block css %}
     {{ parent() }}
     <link href="{{ asset('bundles/stocontent/css/jquery.rating.css') }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset('bootstrap/css/styleCompany.css') }}" type="text/css" rel="stylesheet" media="screen" />
+    <link href="{{ asset('bootstrap/css/style-review-about-company.css') }}" type="text/css" rel="stylesheet" media="screen" />
 {% endblock %}
 
-{% block head_script %}
+{% block js %}
     {{ parent() }}
     <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
     <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
@@ -16,39 +18,76 @@
 {% endblock %}
 
 {% block content %}
-{% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
-<div class="row-fluid">
-    <h3>Ваш отзыв об акции</h3>
-    <p>{{ deal.name }}</p>
-</div>
-<div class="row-fluid">
-    <div class="span8">
-        <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-            <div class="row-fluid">
-                <div class="well">
-                    <div class="span12">
-                        {{ form_row(form.feedbackRating) }}
+<section class="contentMain row">
+    <div class="content">
+        <div class="leftContent">
+
+            {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
+            <!-- <div class="contentLabel marginBottom">
+                <h3>Ваш отзыв об акции</h3>
+                <p>{{ deal.name }}</p>
+            </div> -->
+            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+                <div class="contentLabel marginBottom">
+                    <label class="spanFloatLeft">Ваша оценка компании: </label>
+                    {{ form_widget(form.feedbackRating) }}
+                </div>
+                <div class="contentLabel overflow marginBottom ">
+                    <div class="inputReviewWrap">
+                        {{ form_widget(form.content) }}
+                        <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
                     </div>
                 </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    {{ form_row(form.content) }}
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#blockAddInfo').hide();
+                        $('#btnAddInfo').click(function(){
+                            $('#blockAddInfo').toggle();
+                        });                                     
+                    });
+                </script>
+                <div id="blockAddInfo">
+                    <div class="contentItemLeft">
+                    </div>
                 </div>
+                <div class="contentLabel">
+                    <label>Дата посещения</label>
+                    <div class="well startData ">
+                        <div id="datetimepicker1" class="input-append">
+                            <input class="visitDate" data-format="yyyy-MM-dd" type="text"></input>
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#datetimepicker1').datetimepicker({
+                                pickTime: false
+                            });
+                            $('#datetimepicker2').datetimepicker({
+                                pickTime: false
+                            });
+                         });
+                    </script>
+                </div>
+                {{ form_widget(form.car) }}
+
+                {{ form_rest(form) }}
+                <div class="form-actions">
+                    <input type="submit" class="btn btn-primary" value="Отправить отзыв"/>
+                </div>
+            </form>
+            {% else %}
+                    {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
+            {% endif %}
+        </div>
+        <div class="rightContent">                                              
+            <div class="bannerImg">
+                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
-            {{ form_rest(form) }}
-            <div class="form-actions">
-                <input type="submit" class="btn btn-primary" value="Отправить отзыв"/>
-            </div>
-        </form>
-    </div>
-    <div class="span4">
-        <div class="thumbnail">
-            <img src="http://placehold.it/240x400">
         </div>
     </div>
-</div>
-{% else %}
-{{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
-{% endif %}
+</section>
 {% endblock %}

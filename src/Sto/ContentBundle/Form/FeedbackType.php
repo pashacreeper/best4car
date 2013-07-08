@@ -30,6 +30,34 @@ class FeedbackType extends AbstractType
                     'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
                 ],
             ])
+            ->add('visitDate', 'date', [
+                'label' => 'Дата посещения',
+                'widget' => 'single_text',
+                'datepicker' => true,
+            ])
+            ->add('mastername', null, [
+                'label' => 'Имя мастера',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('car', null, [
+                'label' => 'Автомобиль',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('statenumber', null, [
+                'label' => 'Гос. номер автомобиля',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('orderNumber', null, [
+                'label' => 'Номер заказа-наряда',
+                'required' => false,
+                'render_optional_text' => false
+            ])
+            ->add('feedbackRating', 'genemu_jqueryrating', [
+                'label' => 'Оценка отзыва'
+            ])
         ;
     }
 
