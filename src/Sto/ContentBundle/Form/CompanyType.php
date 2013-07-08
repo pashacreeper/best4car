@@ -56,7 +56,7 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2 input-large'
                 ]
             ])
             ->add('address', null, [
@@ -132,6 +132,7 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'logo',
+                    'class' => 'hideLogoInput'
                 ]
             ])
             ->add('slogan', 'text', [
@@ -178,12 +179,15 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('createtDate', 'date', [
+            ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
-                'datepicker' => true,
+                'format' => 'yyyy-MM-dd',
                 'label' => 'Начало работы на рынке',
                 'required' => false,
-                'render_optional_text' => false
+                'attr' => [
+                    'class' => "inputData",
+                    'data-format' => "yyyy-MM-dd"
+                ]
             ])
             ->add('notes', 'textarea', [
                 'label' => 'Дополнительное описание деятельности компании',

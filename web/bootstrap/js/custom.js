@@ -126,6 +126,9 @@ var registrationPage = function(){
     $('#submitRegisterForm').on('click', function(){
         $('#registerForm').submit();
     });
+    $('#datetimepicker1').datetimepicker({
+        pickTime: false
+    });
 };
 
 var initPage = function(){

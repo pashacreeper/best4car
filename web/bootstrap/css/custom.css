@@ -106,3 +106,12 @@ span.complain{
 .negativReview:hover {
     color: #db001b;
 }
+
+.hideLogoInput{
+    opacity: 0;
+    width: 220px !important;
+    height: 48px !important;
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+}
