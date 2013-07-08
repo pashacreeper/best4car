@@ -153,6 +153,13 @@ var registrationPage = function(){
         e.preventDefault();
         appendIcons(this);
     });
+
+    $('body').on('click', '.inputTime', function(){
+        $(this).datetimepicker({
+            pickDate: false
+        });
+    });
+
 };
 
 var initPage = function(){

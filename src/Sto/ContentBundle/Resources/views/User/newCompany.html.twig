@@ -143,47 +143,38 @@
                     <label>Контактные телефоны</label>
                     <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}"></div>
                     <script>
-                        var collectionHolder = $('#phoneAddWrapper');
+                        var phoneCollectionHolder = $('#phoneAddWrapper');
+                        var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $phoneNewLink = $('<div class="contactDate"></div>').append($phoneAddTagLink);
+                        jQuery(document).ready(function() {
+                            phoneCollectionHolder.append($phoneNewLink);
+                            phoneCollectionHolder.data('index', phoneCollectionHolder.find(':input').length);
+
+                            $phoneAddTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(phoneCollectionHolder, $phoneNewLink, true);
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="contentLabel marginBottom">
+                    {{ form_label(cForm.workingTime) }}
+                    <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
+                    <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}"></div>
+                    <script>
+                        var collectionHolder = $('#workTimeAddWrapper');
                         var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
-
                         jQuery(document).ready(function() {
                             collectionHolder.append($newLink);
                             collectionHolder.data('index', collectionHolder.find(':input').length);
 
                             $addTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(collectionHolder, $newLink);
+                                addTagForm(collectionHolder, $newLink, false);
                             });
                         });
-
-                        function addTagForm(collectionHolder, $newLink) {
-                            var prototype = collectionHolder.data('prototype');
-                            var index = collectionHolder.data('index');
-                            var newForm = prototype.replace(/__name__/g, index);
-                            var newestForm = $(newForm).find('.contentLabel').children().unwrap();
-
-                            console.log(newestForm);
-
-                            var $newForm = $('<div class="contactDate"></div>');
-
-                            newestForm.each(function(){
-                                console.log(this);
-                                $newForm.append($(this));
-                            });
-
-                            collectionHolder.data('index', index + 1);
-                            // var $newForm = $('<div class="contactDate"></div>').append(newestForm);
-                            $newLink.before($newForm);
-                        }
                     </script>
-                </div>
-                {{ form_row(cForm.email) }}
-                <div class="contentLabel marginBottom">
-                    {{ form_label(cForm.workingTime) }}
-                    <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
-                    {{ form_widget(cForm.workingTime) }}
-                    <span class="addImg clear">Добавить<i class="icon-ok-sign"></i></span>
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
@@ -214,6 +205,7 @@
                     <label>Skype</label>
                     <input type="text" class="inputFormEnter">
                 </p>
+                {{ form_row(cForm.email) }}
                 <div class="contentLabel rightContaktItem">
                     <label>VKontakte</label>
                     <p class="maskInput rightMask"><span>www.vk.com\</span>
@@ -319,6 +311,27 @@
                 $(this).parent().trigger('reveal:close');
             });
         });
+
+        function addTagForm(collectionHolder, $newLink, isUnwrap) {
+            var prototype = collectionHolder.data('prototype');
+            var index = collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            var $newForm = $('<div class="contactDate"></div>');
+            if (isUnwrap) {
+                var newestForm = $(newForm).find('.contentLabel').children().unwrap();
+                newestForm.each(function(){
+                    $newForm.append($(this));
+                });
+            } else {
+                var newestForm = $(newForm);
+                newestForm.find('p.contentLabel').children().unwrap();
+                newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>');
+                $newForm.append(newestForm);
+            }
+
+            collectionHolder.data('index', index + 1);
+            $newLink.before($newForm);
+        }
     </script>
     </form>
 </div>
