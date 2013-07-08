@@ -17,7 +17,10 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'label' => 'Сокращенное наименование'
+                'label' => 'Краткое наименование',
+                'attr' => [
+                    'class' => 'input-xxlarge'
+                ]
             ])
             ->add('phones','collection', array(
                 'label' => '',
@@ -131,13 +134,12 @@ class CompanyType extends AbstractType
                     'data-image' => 'logo',
                 ]
             ])
-            ->add('slogan', 'textarea', [
+            ->add('slogan', 'text', [
                 'label' => 'Девиз (слоган)',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'rows' => '4',
-                    'style' => 'width: 100%'
+                    'class' => 'input-xxlarge'
                 ]
             ])
             ->add('fullName', 'text', [
@@ -145,7 +147,6 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'style' => 'width: 100%',
                     'class' => 'input-xxlarge'
                 ]
             ])

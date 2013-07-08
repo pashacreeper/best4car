@@ -38,22 +38,22 @@ body{
 	background-position: -201px 0;
 	margin-left: -17px;
 }
-.centerStepActive{
+.centerStep.active{
 	background-position: -201px -46px;
 	margin-left: -17px;
 }
-.centerStepActive a{
+.centerStep.active a{
 	color: #333;
 }
 .endStep{
 	background-position: -402px 0;
 	margin-left: -17px;
 }
-.endStepActive{
+.endStep.active{
 	background-position: -402px -46px;
 	margin-left: -17px;
 }
-.endStepActive a{
+.endStep.active a{
 	color: #333;
 }
 .stepLink{

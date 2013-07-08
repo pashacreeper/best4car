@@ -1,55 +1,42 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+{% form_theme cForm with 'StoContentBundle::formTheming.html.twig' %}
 
-{% block title %}регистрация компании{% endblock %}
+{% block title %}
+    {{ parent() }}
+     - регистрация компании
+{% endblock %}
 
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+{% endblock %}
+
+{% block pageTitle %}
+<div class="back">
+    <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <h1 class="titleNameCompany">Регистрация компании</h1>
+    </div>
+</div>
+{% endblock %}
+{% block search %}{% endblock %}
 
 {% block content %}
-<style type="text/css">
-    a.disabled {
-        color: gray;
-    }
-</style>
-<form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
-<ul class="nav nav-tabs" id="registerTab">
-    <li style="padding: 8px 10px;">
-        <span>Личные данные</span>
-    </li>
-    <li class="active">
-        <a href="#general-data" data-content="#general-data" data-toggle="tab">
-{% if form_errors(cForm.fullName) or form_errors(cForm.name) or form_errors(cForm.slogan) or form_errors(cForm.createtDate) or form_errors(cForm.logo) or form_errors(cForm.city) or form_errors(cForm.gps) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Общие сведения
-        </a>
-    </li>
-    <li>
-        <a href="#business-profile" data-content="#business-profile" data-toggle="tab">
-{% if form_errors(cForm.specialization) or form_errors(cForm.services) or form_errors(cForm.additionalServices) or form_errors(cForm.hourPrice) or form_errors(cForm.currency) or form_errors(cForm.notes) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Профиль деятельности
-        </a>
-    </li>
-    <li>
-        <a href="#contact-info" data-content="#contact-info" data-toggle="tab">
-{% if form_errors(cForm.address) or form_errors(cForm.phones) or form_errors(cForm.workingTime) or form_errors(cForm.web) or form_errors(cForm.email) or form_errors(cForm.skype) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Контактные данные
-        </a>
-    </li>
-    <li><a href="#photos" data-content="#photos" data-toggle="tab">Фотографии</a></li>
-</ul>
+<section class="contentMain  row">          
+    <div class="content">
+        <form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
+        <ul class="stepRegistration">
+            <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
+            <li class="stepRegistrationItem centerStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
+            <li class="stepRegistrationItem centerStep"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
+            <li class="stepRegistrationItem centerStep"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
+            <li class="stepRegistrationItem endStep"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
+        </ul>
+
 <div class="tab-content">
-    <div class="row-fluid">
-{% if form_errors(cForm) %}
-        <div class="span10 alert alert-error">
-            {{ form_errors(cForm) }}
-        </div>
-{% endif %}
-    </div>
     <div class="tab-pane active" id="general-data">
             <div class="row-fluid">
                 <div class="span10">
@@ -178,6 +165,7 @@
     </div>
     </form>
 </div>
+</section>
 <div id="myModal" class="modal hide fade" style = "width:720px;">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -244,22 +232,6 @@
         return false;
     });
 
-    /*$('#sto_content_company_registration_specialization').change(function () {
-        var specialization = $(this).val();
-        $.getJSON("{{ path('company_specialization') }}", {'specialization': specialization},
-            function (data) {
-                $("#sto_content_company_registration_services").empty();
-                $('.select2').select2("destroy")
-                $(".select2").select2({});
-                $.each(data, function (key, val) {
-                    name = val['name']
-                    id = val['id']
-                    $("#sto_content_company_registration_services").append('<option value="'+id+'">'+name+'</option>');
-                });
-            }
-        )
-    });*/
-
     $('a[data-toggle="tab"]').click(function () {
         $('div.control-group').attr('class', 'control-group');
         var next_tab_name = $(this).attr('href').substring(1, $(this).attr('href').length);
@@ -292,13 +264,4 @@
         return false;
     });
 </script>
-{% endblock %}
-
-{% block head_style %}
-{{parent()}}
-{% stylesheets filter='cssrewrite'
-    'bundles/stocore/css/select2.css'
-%}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-{% endstylesheets %}
 {% endblock %}
