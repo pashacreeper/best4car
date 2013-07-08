@@ -31,4 +31,46 @@ class Builder extends ContainerAware
 
         return $menu;
     }
+
+    public function footerMenu(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttributes(['class' => 'footerMenu']);
+
+        $pages = [
+            'about' => 'О проекте',
+            'advertisers' => 'Для рекламодателей',
+            'business' => 'Для автобизнеса',
+            'tour' => 'Тур по сайту',
+            'contact' => 'Контакты',
+        ];
+
+        foreach($pages as $key => $pageName) {
+            $page = $menu->addChild($pageName, ['route' => 'info_show', 'routeParameters' => ['name' => $key]]);
+            $page->setAttribute('class', 'footerMenuItem');
+        }
+
+        return $menu;
+    }
+
+    public function footerSocial(FactoryInterface $factory, array $options)
+    {
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttributes(['class' => 'footerCocial']);
+
+        $items = [
+            'google' => 'Google+',
+            'facebook' => 'Facebook',
+            'vk' => 'Вконтакте',
+        ];
+
+        foreach($items as $key => $value) {
+            $link = $menu->addChild($value, ['uri' => '#']);
+            $link->setAttribute('class', 'footerCocialItem');
+            $link->setLinkAttributes(['class' => $key]);
+        }
+
+        return $menu;
+    }
+
 }

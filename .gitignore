@@ -14,14 +14,10 @@ web/storage/*
 bin/doctrine*
 
 # Configuration files
-app/config/parameters.ini
 app/config/parameters.yml
 
 # Composer
 composer.phar
-
-# IDE
-.idea/*
 
 #Other
 php-cs-fixer.phar

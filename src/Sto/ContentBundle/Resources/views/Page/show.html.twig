@@ -1,0 +1,29 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title title %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-about-project.css') }}">
+{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">{{ title }}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block content %}
+<section class="contentMain  row">
+    <div class="content">
+        {% block page_content %}{% endblock %}
+    </div>
+</section>
+{% endblock %}
