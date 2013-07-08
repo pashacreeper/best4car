@@ -33,5 +33,4 @@ class PageController extends MainController
         return $this->render('StoContentBundle:Page:' . $name . '.html.twig', ['title' => $this->pages[$name]]);
     }
 
-
 }
