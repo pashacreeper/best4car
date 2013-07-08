@@ -4,7 +4,6 @@ namespace Sto\ContentBundle\Controller;
 
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("/info")
@@ -30,6 +29,7 @@ class PageController extends MainController
         if (! in_array($name, $this->pages)) {
             $this->createNotFoundException();
         }
+
         return $this->render('StoContentBundle:Page:' . $name . '.html.twig', ['title' => $this->pages[$name]]);
     }
 

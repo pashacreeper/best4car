@@ -4,159 +4,297 @@
 {% block title %}Профиль пользователя &middot; {{ user.username }} {% endblock %}
 {% block header %}Профиль пользователя - {{ user.username }}</h4>{% endblock %}
 
-{% block content_tag 'id="content" class="container"' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-no-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+{% endblock %}
+
+{% block wrap_container_open %}<div class="main">{% endblock %}
+{% block wrap_container_close %}</div>{% endblock %}
+
+{% block search %}
+<div class="back">
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <span class="you">Вы:</span>
+        <div class="nameProfilExpert">
+            <p class="titleProfilExpert">{{ user.firstName }} {{ user.lastName }}, {{ user.username }}<i class="editIcon"></i></p>
+            <p class="sloganCompany">{% if user.ratingGroup %}<span>{{ user.ratingGroup.name }}</span> - {% endif %}{{ user.city.name }}, {{ user.years }} год(а)</p>
+        </div>
+    </div>
+    <div class="indexCompany">
+        <p>Рейтинг:</p>
+        <span class="indexbg"></span>
+        <span class="indexLevel">{{ user.rating }}</span></br>
+    </div>
+</div>
+{% endblock %}
 
 {% block content %}
-<div class="row-fluid">
-    <div class="span9 offset1">
-        <div class="row-fluid">
-            <h2 style="margin-bottom: 0px;">
-                {{ user.firstName }} {{ user.lastName }}, {{ user.username }}
-            </h2>
-        </div>
-        <div class="row-fluid">
-            {% if user.ratingGroup %}{{ user.ratingGroup.name }}{% endif %} - {{ user.city.name }}, {{ user.years }} год(а)
-        </div>
-    </div>
-    <div class="span2">
-        <div class="row-fluid">
-            Ваш рейтинг:
-        </div>
-        <div class="row-fluid">
-            <h2><i class="icon-b4c-star"></i> {{ user.rating }}</h2>
-        </div>
-    </div>
-</div>
-<hr style="margin: 5px 0;" />
-<div class="row-fluid">
-    <div class="span12">
-        <ul class="nav nav-tabs" id="myTab">
-            <li class="active" style="margin-left:80px;">
-                <a href="#personal"><i class="icon-b4c-user"></i> Профиль</a>
-            </li>
-            <li>
-                <a href="#feedbacks"><i class="icon-b4c-comment"></i> Отзывы <span class="badge badge-warning">{{ user.feedbacks|length }}</span></a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="tab-content">
-    <div class="tab-pane active" id="personal">
-        <div class="row-fluid">
-            <div class="span4">
-                <center>
-{% if user.avatar %}
-                    <img id="avatar" src="{{ vich_uploader_asset(user, 'avatar') }}" style="width:200px" class="img-polaroid"/>
-{% else %}
-                    <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="width:200px" class="img-polaroid"/>
-{% endif %}
-                </center>
+<section class="contentMain  row tabs">
+    <!-- Это сами вкладки -->
+    <ul class="tabNavigation">
+        <li>
+            <a class="" href="#first">Информация</a>
+        </li>
+        <li>
+            <a class="" href="#second">Отзывы <span class="newPost">/ {{ user.feedbacks|length }}</span></a>
+        </li>
+    </ul>
+    <!-- Это контейнеры содержимого -->
+    <div id="first" class="content">
+        <div class="profilExpertLeftCont">
+            <div class="profilExpertImg">
+                {% if user.avatar %}
+                    <img src="{{ vich_uploader_asset(user, 'avatar') }}" />
+                {% else %}
+                    <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" />
+                {% endif %}
             </div>
-            <div class="span8">
-                {{ render(controller('StoContentBundle:User:showGallery', { 'id': user.id })) }}
-                <h5>Общая информация</h5>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="profile-contacts" style="">
-{% if user.contacts|length %}
-                            <h4>Контактные данные</h4>
-                            <div class="contact-data">
-                                <dl class="dl-horizontal" id="contacts-list">
-{% for contact in user.contacts %}
-                                        <dt style="text-align: left; width:80px;" data-pk="{{ contact.type.id }}" data-contact="{{ contact.id }}" data-prefix="{{ contact.type.prefix }}">{{ contact.type.name }}</dt>
-                                        <dd style="margin-left: 0;" data-type-pk="{{ contact.type.id }}">
-                                            <a class="x-editable-contacts" href="{% if contact.type.prefix != '' %}{{contact.type.prefix}}{% endif %}{{ contact.value }}" data-pk="2" data-type="text" data-name="email" target="_blank">{{ contact.value }}</a>
-                                        </dd>
-{% endfor %}
-                                </dl>
-                            </div>
-{% endif %}
+            <p class="titleImg"><span></span><i class="editIcon"></i></p>
+        </div>
+        <div class="profilExpertRightCont">
+            {% if user.gallery and user.gallery | length > 0 %}
+            <div class="slider">
+                <div class="img__prev__wrap">
+                    <ul id="thumbnail" class="slide-wrap">
+                        {% for item in user.gallery %}
+                        <li class="slide-item">
+                            <p class="nameActionP">{{ item.name }}</p>
+                            <i class="editIconAdd"></i><i class="editIconDel"></i>
+                            <img src="{{ vich_uploader_asset(item, 'image') }}"  alt="" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <span name="prev" class="navy prev-slide"></span>
+                    <span name="next" class="navy next-slide"></span>
+                </div>
+            </div>
+            {% endif %}
+            {% if user.contacts|length %}
+            <div class="infoProfilExpertWrap">
+                <h4 class="contactData"><span>Контактные данные</span><i class="editIcon"></i></h4>
+                <div class="infoProfilItem">
+                    {% for contact in user.contacts %}
+                        <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="#">{{ contact.value }}</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if user.description %}
+            <div class="aboutUsProfilExpertWrap">
+                <h4 class="contactData"><span>О себе</span><i class="editIcon"></i></h4>
+                <p class="aboutCompanyCont contentText">
+                    {{ user.description }}
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="second" class="content">
+        <div class="leftContent">
+            <div class="contentSelect">
+                <div class="assortSelect">
+                    <span>Сортировать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">рейтингу</option>
+                                <option value="">дате</option>
+                            </select>
                         </div>
-                        <hr />
-{% if user.description %}
-                        <h4>О себе</h4>
-                        <p id="description" data-type="textarea" data-pk="1" data-original-title="О себе" data-name="description">{{ user.description }}</p>
-{% endif %}
+                    </div>
+                </div>
+                <div class="showSelect">
+                    <span>Показать по:</span>
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            <select class="styled1">
+                                <option value="">все</option>
+                                <option value="">положительные</option>
+                                <option value="">отрицательные</option>
+                                <option value="">полезные</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="tab-pane" id="feedbacks">
-        <div class="row-fluid">
-            <div class="span10 offset1">
-{% if user.feedbacks %}
-{% for feedback in user.feedbacks %}
-                    <div class="row-fluid">
-                        <div class="span2">
-                        </div>
-                        <div class="span10">
-                            <p class="row-fluid">
-                                <span class="span10">
-{% if feedback.deal is defined %}
-                                        Отзыв об акции "<a href="{{ path('content_deal_show', {'id':feedback.deal.id}) }}">{{ feedback.deal.name }}</a>" компании "<a href="{{ path('content_company_show', {'id':feedback.deal.company.id}) }}">{{ feedback.deal.company.name }}</a>"
-{% else %}
-                                        Отзыв о компании "<a href="{{ path('content_company_show', {'id':feedback.company.id}) }}">{{ feedback.company.fullName }}</a>"
-{% endif %}
-                                </span>
-                                <span class="span2">
-                                    Дата: {{ feedback.date|date("d.m.Y") }}
-                                </span>
-                            </p>
-                            <blockquote>
-                                <div class="row-fluid">
-                                    <div class="span4">
-                                        <input class="star" type="radio" value="1" disabled="disabled" {% if feedback.feedbackRating == 1 %} checked="checked" {% endif %}/>
-                                        <input class="star" type="radio" value="2" disabled="disabled" {% if feedback.feedbackRating == 2 %} checked="checked" {% endif %}/>
-                                        <input class="star" type="radio" value="3" disabled="disabled" {% if feedback.feedbackRating == 3 %} checked="checked" {% endif %}/>
-                                        <input class="star" type="radio" value="4" disabled="disabled" {% if feedback.feedbackRating == 4 %} checked="checked" {% endif %}/>
-                                        <input class="star" type="radio" value="5" disabled="disabled" {% if feedback.feedbackRating == 5 %} checked="checked" {% endif %}/>
-                                    </div>
-                                    <div class="span4">
-                                    </div>
-                                    <div class="span4">
-                                        <p class="pull-right">
-                                            <i class="icon-b4c-thumbs-up"></i> <span data-like="count">{{ feedback.pluses }}</span>
-                                            <i class="icon-b4c-thumbs-down"></i> <span data-dislike="count">{{ feedback.minuses }}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <p>{{ feedback.content|raw }}</p>
-                                </div>
-                            </blockquote>
-{% if feedback.feedbackAnswer %}
-                            <div class="row-fluid">
-                                <blockquote class="well">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <p>{{ feedback.feedbackAnswer.answer|raw }}</p>
-                                        </div>
-                                        <div class="span5">
-                                            <div class="row-fluid">
-                                                <div class="span2">
-                                                    <center><img src="http://placehold.it/39x39"></center>
-                                                </div>
-                                                <div class="span8">
-                                                    <h5>{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</h5>
-                                                    <p><small>Старший менеджер</small></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </blockquote>
-                            </div>
-{% endif %}
-                        </div>
+            <p class="showTotal">
+                Показано:
+                <span class="parametShow">{{ user.feedbacks|length }}</span>
+                отзыва
+            </p>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.collapsCont').hide();
+                                    $('.collapsText').click(function() {
+                                        $('.collapsCont').show();
+                                        $('.collapsText').hide();
+                                    });
+                                });
+            </script>
+            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.popUpPrimary').hide();
+                                    $('.complainAlert').hide();
+                                    $('.complain').click(function() {
+                                        $('.complainAlert').show();
+                                    });
+                                    $('.complainAlert').click(function() {
+                                        $('.popUpPrimary').show();
+                                    });
+                                    $('.popUpPrimary li').click(function() {
+                                        $('.popUpPrimary').hide();
+                                        $('.complainAlert').hide();
+                                    });
+                                });
+            </script>
+            {% for feedback in user.feedbacks %}
+            <div class="reviewContentItem">
+                <div class="reviewAccount">
+                    <div  class="reviewAccountImg">
+                        <a href="#">
+                            <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                        </a>
                     </div>
-{% endfor %}
-{% else %}
-                {{ advanced_flash(true, 'СКОРО!', 'Пользователь не оставлял отзывы.', false, true) }}
-{% endif %}
+                    <span>153</span>
+                </div>
+                <div class="reviewWrap">
+                    <div class="reviewTop">
+                        <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
+                        <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
+                        <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
+                        <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
+                    </div>
+                    <div class="reviewCont">
+                        <div class="reviewContTop">
+                            <!--http://habrahabr.ru/post/132807/-->
+                            <div class="vote-wrap">
+                                <div class="vote-hover">
+                                    <div class="vote-block">
+                                        <div class="vote-stars">
+                                        </div>
+                                        <div class="vote-active">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
+                            <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
+                            <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
+                            <p class="reviewContText">
+                                {{ feedback.content|raw }}
+                            </p>
+                            <span class="primaryLink reply" id="reply1">Ответить</span>
+                            <span class="primaryLink complain">Пожаловаться</span>
+                            <i class="complainAlert"></i>
+                            <div class="popUpPrimary">
+                                <div id="myCanvasTop" class="myCanvasTop"></div>
+                                <ul>
+                                    <li><span class="primaryLink">Скрыть</span></li>
+                                    <li><span class="primaryLink">Редактировать</span></li>
+                                    <li><span class="primaryLink">Удалить</span></li>
+                                    <li><span class="primaryLink">Снять жалобу</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="writeReviewWrap" id="writeReview_reply1">
+                            <div class="writeReviewCont">
+                                <textarea class="textareaWriteReview" name="text"></textarea>
+                            </div>
+                            <div class="writeReviewSubmit">
+                                <span class="btnReview addPhotoBtn">Ответить</span>
+                                <span class="primaryLink cancelBtn">Отмена</span>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('.writeReviewWrap').hide();
+                                    $('.reply').click(function() {
+                                        $('#writeReview_' + this.id).show();
+                                        $(this).hide();
+                                    });
+                                    $('.cancelBtn').click(function() {
+                                        $('.writeReviewWrap').hide();
+                                        $('.reply').show();
+                                    });
+                                });
+                        </script>
+                        {% if feedback.feedbackAnswer %}
+                        <div class="responseReviewCont">
+                            <div class="reviewContBottomText">
+                                <p class="reviewContText">
+                                    {{ feedback.feedbackAnswer.answer|raw }}
+                                </p>
+                            </div>
+                            <div class="reviewContBottomAccount">
+                                <div  class="responseReviewAccountImg">
+                                    <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                                </div>
+                                <span class="responseReviewData">18.02.2013</span>
+                                <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
+                                <p class="responseReviewRang">Менеджер</p>
+                                <p class="bottomReview">
+                                <span class="negativReview"><i class="negativReviewI"></i>53</span>
+                                <span class="positivReview"><i class="positivReviewI"></i>15</span>
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="rightContent">
+            <span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>
+            <span class="addPhotoBtn">Я пойду<i class="acctBtn">241</i></span>
+            <div class="bannerImg">
+                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
         </div>
     </div>
-</div>
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs ul.tabNavigation a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
+            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
+    });
+    </script>
+    <script>
+    $(function () {
+        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
+        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+        // далее обрабатывается клик по вкладке
+        $('.tabs2 ul.tabNavigation2 a').click(function () {
+            tabContainers.hide(); // прячем все табы
+            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
+            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
+            return false;
+        }).filter(':first').click();
+    });
+    </script>
+</section>
 {% endblock %}
 
 {% block foot_script %}

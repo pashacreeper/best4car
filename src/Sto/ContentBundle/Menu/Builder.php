@@ -45,7 +45,7 @@ class Builder extends ContainerAware
             'contact' => 'Контакты',
         ];
 
-        foreach($pages as $key => $pageName) {
+        foreach ($pages as $key => $pageName) {
             $page = $menu->addChild($pageName, ['route' => 'info_show', 'routeParameters' => ['name' => $key]]);
             $page->setAttribute('class', 'footerMenuItem');
         }
@@ -64,7 +64,7 @@ class Builder extends ContainerAware
             'vk' => 'Вконтакте',
         ];
 
-        foreach($items as $key => $value) {
+        foreach ($items as $key => $value) {
             $link = $menu->addChild($value, ['uri' => '#']);
             $link->setAttribute('class', 'footerCocialItem');
             $link->setLinkAttributes(['class' => $key]);
