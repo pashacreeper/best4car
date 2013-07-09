@@ -25,11 +25,11 @@
     </a>
 </div>
 <div id="nameCompanyHeaderWrap">
-    <div class="nameCompanyHeader">                             
+    <div class="nameCompanyHeader">
         <h1 class="titleNameCompany">Ваш отзыв об акции:</h1>
         <p class="sloganCompany">{{ deal.name }}</p>
-    </div>                              
-</div>  
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -56,7 +56,7 @@
                         $('#blockAddInfo').hide();
                         $('#btnAddInfo').click(function(){
                             $('#blockAddInfo').toggle();
-                        });                                     
+                        });
                     });
                 </script>
                 <div id="blockAddInfo">
@@ -94,7 +94,7 @@
                             {{ form_widget(form.orderNumber) }}
                             {{ form_errors(form.orderNumber) }}
                         </div>
-                        
+
                         {{ form_row(form.orderNumber) }}
                     </div>
                     <div class="contentItemRight" id="contentItemRight">
@@ -112,14 +112,14 @@
                 </div>
 
                 {{ form_rest(form) }}
-                
+
                 <input type="submit" class="btnNext addPhotoBtn" value="Оставить отзыв"/>
             </form>
             {% else %}
                     {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
             {% endif %}
         </div>
-        <div class="rightContent">                                              
+        <div class="rightContent">
             <div class="bannerImg">
                 <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>

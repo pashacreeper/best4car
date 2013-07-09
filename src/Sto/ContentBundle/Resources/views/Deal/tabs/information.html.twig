@@ -2,18 +2,13 @@
     <div class="slider">
         <div class="img__prev__wrap">
             <ul id="thumbnail" class="slide-wrap">
-                {% for imageNumber in 1..3 %}
-                {% if imageNumber == 1 %}
-                    {% set imageNumber = '' %}
-                {% endif %}
-                {% set imageName = 'imageName' ~ imageNumber %}
-                {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
-                <li class="slide-item">
-                    <a class="linh__img__prev" href="#">
-                        <p class="nameActionP">{{ deal.name }}</p>
-                        <img src="{{ image | imagine_filter('deals_carusel_photos') }}">
-                    </a>
-                </li>
+                {% for auto in deal.auto %}
+                    <li class="slide-item">
+                        <a href="#" class="linh__img__prev">
+                            <p class="nameActionP">{{ auto.name }}</p>
+                            <img src="http://placehold.it/500x279" alt="{{ auto.name }}">
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
             <span name="prev" class="navy prev-slide"></span>
