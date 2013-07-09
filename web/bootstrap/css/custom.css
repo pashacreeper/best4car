@@ -258,3 +258,17 @@ span.complain{
 #photos .additionalInfo{
     margin-bottom: 5px;
 }
+
+.acctBtn{
+    display: block;
+    position: absolute;
+    right: 26px;
+    top: 40%;
+}
+.menuTagEmpty{
+    width: 93%;
+}
+.subActive{
+    display: block;
+    top: 47%;
+}
