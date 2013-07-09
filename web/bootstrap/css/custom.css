@@ -243,3 +243,18 @@ span.complain{
 .iputFaceC{
     width: 150px !important;
 }
+
+.photoFileInput{
+    width: 200px !important;
+}
+.nameInput{
+    width: 680px;
+}
+
+.photoDateItem{
+    clear: both !important;
+}
+
+#photos .additionalInfo{
+    margin-bottom: 5px;
+}

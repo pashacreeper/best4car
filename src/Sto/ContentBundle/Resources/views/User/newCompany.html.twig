@@ -232,18 +232,24 @@
         </div>
         {# EOF Contact info #}
         <div class="tab-pane" id="photos">
-            <div class="row-fluid">
-                <div class="span10">
-                    <span>Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании</span>
-                    {{ form_row(cForm.gallery) }}
-                    {{ form_errors(cForm.gallery) }}
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span10">
-                    <input type="submit" class="btn pull-right" value="Зарегистрироваться" />
-                    <a href="#contact-info" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
-                </div>
+            <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
+            <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
+            <script>
+                var photoCollectionHolder = $('#photoAddWrapper');
+                var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                var $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+                jQuery(document).ready(function() {
+                    photoCollectionHolder.append($photoNewLink);
+                    photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
+
+                    $photoAddTagLink.on('click', function(e) {
+                        e.preventDefault();
+                        addTagForm(photoCollectionHolder, $photoNewLink, true);
+                    });
+                });
+            </script>
+            <div class="bottomContent">
+                <span class="btnNext addPhotoBtn">Продолжить</span>
             </div>
         </div>
     </div>

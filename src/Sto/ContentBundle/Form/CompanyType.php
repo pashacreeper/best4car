@@ -260,23 +260,6 @@ class CompanyType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'show_legend' => false,
-                'widget_add_btn' =>[
-                    'icon' => 'b4c-plus',
-                    'label' => 'add photo',
-                    'attr' => [
-                         'class' => 'btn btn-primary btn-small'
-                    ]
-                ],
-                'options' => array( // options for collection fields
-                    'label_render' => false,
-                    'widget_remove_btn' => [
-                        'label' => '-',
-                        'attr' => [
-                            'class' => 'btn btn-danger btn-small '
-                        ]
-                    ],
-                    'widget_control_group' => false,
-                )
             ))
         ;
     }
