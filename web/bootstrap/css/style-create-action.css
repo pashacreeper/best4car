@@ -44,6 +44,9 @@ margin-left: 0;
 .inputForm {
 	padding: 5px 0 14px 0;
 }
+textarea.span12, input.span12 {
+	width: 926px;
+}
 .inputField {
 	height: 34px;
 	padding: 0 12px 0 12px;
@@ -192,10 +195,11 @@ margin-left: 0;
 	border-radius: 4px;
 	font: 1.6em 'PT Sans', sans;
 	color: #f6f6f6;
+	background: #ed6033;
 	display: inline-block;
-	width: 220px;
+	width: 220px !important;
 	height: 48px;
-	line-height: 48px;
+	line-height: 45px;
 	vertical-align: middle;
 	text-decoration: none;
 	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
@@ -206,28 +210,13 @@ margin-left: 0;
 	position: relative;	
 	text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.secondaryLink {
+	background: transparent;
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
+	border-bottom: 1px dotted #555 transparent;
+}
 
 /*NEW*/
 .accountCont {
@@ -266,15 +255,6 @@ position: static;
 	float: left;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+.span3 {
+	width: 220px !important;
+}

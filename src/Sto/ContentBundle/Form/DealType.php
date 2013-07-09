@@ -26,7 +26,8 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    "class" => "inputField span12",
+                    "rows" => 4,
+                    "class" => "span12",
                 ]
             ])
             ->add('autoServices', null, [
@@ -43,7 +44,7 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'styled'
+                    'class' => 'chosen-multiple'
                 ]
             ])
             ->add('auto', null, [
@@ -58,7 +59,7 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'styled'
+                    'class' => 'chosen-multiple'
                 ]
             ])
             ->add('image', 'file', [
@@ -100,7 +101,7 @@ class DealType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     "rows" => 4,
-                    "class" => "inputField span12",
+                    "class" => "span12",
                 ]
             ])
             ->add(

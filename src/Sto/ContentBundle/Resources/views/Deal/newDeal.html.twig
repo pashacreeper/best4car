@@ -3,7 +3,14 @@
 
 {% block css %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/chosen.jquery.js') }}"></script>
 {% endblock %}
 
 {% block title %}Новая акция{% endblock %}
@@ -13,6 +20,20 @@
 {% block head_style %}
 {{ parent() }}
 <link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block search %}
+<div class="back">
+    <a href="{{ url('content_companies') }}" class="btnBack">
+        <i class="btnBackIcon"></i></br>
+        <span class="btnBackCont">Компании</span>
+    </a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">                             
+        <h1 class="titleNameCompany">Создание акции</h1>
+    </div>                              
+</div>
 {% endblock %}
 
 {% block content %}
@@ -137,7 +158,7 @@
                     <hr style="margin: 0 0 20px 0;">
                     {{ form_widget(form) }}
                     {{ form_rest(form) }}
-                    <div class="form-actions">
+                    <!-- <div class="form-actions">
                         {% if (activ_deals|length())  < 2 %}
 
                         <input type="submit"  class="btn btn-primary" value="Опубликовать" />
@@ -146,13 +167,14 @@
                         {% endif %}
 
                         <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
-                    </div>
+                    </div> -->
                     <div class="bottomContent">
-                        {% if (activ_deals|length())  < 2 %}
-                        <span class="btnBottomContent addPhotoBtn">Опубликовать</span>
-                        {% else %}
-                        <span class="secondaryLink saveDraft">Сохранить как черновик</span>
-                        {% endif  %}
+                        <!-- {% if (activ_deals|length())  < 2 %} -->
+                        <!-- {% else %} -->
+                        <!-- {% endif  %} -->
+                        <input type="submit"  class="btnBottomContent addPhotoBtn" value="Опубликовать" />
+                        <input type="submit" class="secondaryLink saveDraft" value="Сохранить черновик" name = 'draft' />
+                        
                     </div>
                 </form>
                 <div id="myModal" class="modal hide fade" style = "width:720px;">
@@ -168,6 +190,24 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(function() {
+            $('#sto_content_deal_startDate').datetimepicker({
+                pickTime: false
+            });
+            $('#sto_content_deal_endDate').datetimepicker({
+                pickTime: false
+            });
+
+            $('#sto_content_deal_startTime').datetimepicker({
+                pickDate: false
+            });
+            $('#sto_content_deal_endTime').datetimepicker({
+                pickDate: false
+            });
+            $('.chosen-multiple').chosen();
+        });
+    </script>
 {% endblock %}
 
 {% block foot_script %}
@@ -233,21 +273,7 @@
         document.getElementById("sto_content_deal_place").value ='{{company.address}}';
         document.getElementById("sto_content_deal_gps").value ='{{company.gps}}';
     })
-    $(function() {
-        $('#sto_content_deal_startDate').datetimepicker({
-            pickTime: false
-        });
-        $('#sto_content_deal_endDate').datetimepicker({
-            pickTime: false
-        });
-
-        $('#sto_content_deal_startTime').datetimepicker({
-            pickDate: false
-        });
-        $('#sto_content_deal_endTime').datetimepicker({
-            pickDate: false
-        });
-    });
+    
 
 
 </script>
