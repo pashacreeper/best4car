@@ -106,3 +106,155 @@ span.complain{
 .negativReview:hover {
     color: #db001b;
 }
+
+.hideLogoInput{
+    opacity: 0;
+    width: 220px !important;
+    height: 48px !important;
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.sepcializationModal, .serviceModal{
+    width: 700px;
+    margin-left: -350px;
+}
+.sepcializationModal input[type="checkbox"],
+.serviceModal input[type="checkbox"]{
+    display: none;
+}
+.sepcializationModal input[type="checkbox"] + label,
+.serviceModal input[type="checkbox"] + label{
+    display: inline-block;
+    background-color: #52abd3;
+    color: #fff;
+    padding: 5px;
+    font: 1.4em 'PT Sans', sans;
+    position: relative;
+    z-index: 1;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+}
+.sepcializationModal input[type="checkbox"]:checked + label,
+.serviceModal input[type="checkbox"]:checked + label{
+    background-color: #28799e;
+}
+
+.additionalServItem label{
+    clear: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.linkUnder{
+    margin-top: 10px;
+    margin-left: -7px;
+}
+
+.yandexMapModal{
+    height:449px;
+    width:670px;
+    margin-left: -335px;
+    margin-top: -102px;
+}
+
+.contactDate{
+    clear: both;
+}
+
+.contactDate input{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px !important;
+}
+
+.workingTimeDays{
+    float: left;
+    margin-top: 10px;
+    font-size: 0;
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+.workingTimeDays input{
+    display: none;
+    float: none;
+}
+.workingTimeDays label{
+    display: inline-block;
+    padding: 0 14px;
+    height: 34px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 34px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    vertical-align: middle;
+    cursor: pointer;
+    background: #52abd3;
+    border-top: 1px solid #177eab;
+    border-bottom: 1px solid #177eab;
+    border-right: 1px solid #177eab;
+    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+}
+.workingTimeDays input[type='checkbox']:checked + label{
+    background: #1b96ca;    
+    -webkit-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
+    -moz-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
+    box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
+    border-top: 1px solid #0c6991;
+    border-bottom: 1px solid #0c6991;
+    border-right: 1px solid #0c6991;
+}
+.workingTimeDays label:first-of-type{
+    margin-left: 0;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    border-top-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -moz-border-radius-topleft: 4px;
+    border-left: 1px solid #0c6991;
+}
+.workingTimeDays label:last-child{
+    margin-left: 0;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-topright: 4px;
+}
+
+.inputTime{
+    margin-right: 0 !important;
+}
+
+.iputVkC{
+    width: 200px !important;
+}
+.iputTwittC{
+    width: 160px !important;
+}
+.iputFaceC{
+    width: 150px !important;
+}
+
+.photoFileInput{
+    width: 200px !important;
+}
+.nameInput{
+    width: 680px;
+}
+
+.photoDateItem{
+    clear: both !important;
+}
+
+#photos .additionalInfo{
+    margin-bottom: 5px;
+}

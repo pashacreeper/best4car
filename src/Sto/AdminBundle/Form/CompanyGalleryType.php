@@ -12,20 +12,25 @@ class CompanyGalleryType extends AbstractType
     {
         $builder
             ->add('image', 'file', [
-                'label' => 'Image',
+                'label' => false,
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'image',
+                    'class' => 'photoFileInput'
                 ]
             ])
             ->add('name', null, [
-                'label' => 'Name'
+                'label' => false,
+                'attr' => [
+                    'class' => 'nameInput',
+                    'placeholder' => 'Описание'
+                ]
             ])
             ->add('visible', null, [
-                'label' => 'Visbible',
+                'label' => false,
                 'required' => false,
                 'render_optional_text' => false
             ])

@@ -1,304 +1,342 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}регистрация компании{% endblock %}
+{% form_theme cForm with 'StoContentBundle::formTheming.html.twig' %}
 
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+{% block title %}
+    {{ parent() }}
+     - регистрация компании
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+{% endblock %}
+
+{% block pageTitle %}
+<div class="back">
+    <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <h1 class="titleNameCompany">Регистрация компании</h1>
+    </div>
+</div>
+{% endblock %}
+{% block search %}{% endblock %}
 
 {% block content %}
-<style type="text/css">
-    a.disabled {
-        color: gray;
-    }
-</style>
-<form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
-<ul class="nav nav-tabs" id="registerTab">
-    <li style="padding: 8px 10px;">
-        <span>Личные данные</span>
-    </li>
-    <li class="active">
-        <a href="#general-data" data-content="#general-data" data-toggle="tab">
-{% if form_errors(cForm.fullName) or form_errors(cForm.name) or form_errors(cForm.slogan) or form_errors(cForm.createtDate) or form_errors(cForm.logo) or form_errors(cForm.city) or form_errors(cForm.gps) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Общие сведения
-        </a>
-    </li>
-    <li>
-        <a href="#business-profile" data-content="#business-profile" data-toggle="tab">
-{% if form_errors(cForm.specialization) or form_errors(cForm.services) or form_errors(cForm.additionalServices) or form_errors(cForm.hourPrice) or form_errors(cForm.currency) or form_errors(cForm.notes) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Профиль деятельности
-        </a>
-    </li>
-    <li>
-        <a href="#contact-info" data-content="#contact-info" data-toggle="tab">
-{% if form_errors(cForm.address) or form_errors(cForm.phones) or form_errors(cForm.workingTime) or form_errors(cForm.web) or form_errors(cForm.email) or form_errors(cForm.skype) %}
-                <i class="icon-b4c-cancel" style="color:red;"></i>
-{% endif %}
-            Контактные данные
-        </a>
-    </li>
-    <li><a href="#photos" data-content="#photos" data-toggle="tab">Фотографии</a></li>
-</ul>
+<section class="contentMain  row">
+    <div class="content">
+        <form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
+        <ul class="stepRegistration">
+            <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
+            <li class="stepRegistrationItem centerStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
+            <li class="stepRegistrationItem centerStep"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
+            <li class="stepRegistrationItem centerStep"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
+            <li class="stepRegistrationItem endStep"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
+        </ul>
+
 <div class="tab-content">
-    <div class="row-fluid">
-{% if form_errors(cForm) %}
-        <div class="span10 alert alert-error">
-            {{ form_errors(cForm) }}
-        </div>
-{% endif %}
-    </div>
     <div class="tab-pane active" id="general-data">
-            <div class="row-fluid">
-                <div class="span10">
-                    {{ form_row(cForm.fullName) }}
-                    {{ form_errors(cForm.fullName) }}
-                    {{ form_row(cForm.name) }}
-                    {{ form_errors(cForm.name) }}
-                    {{ form_row(cForm.slogan) }}
-                    {{ form_errors(cForm.slogan) }}
-                    {{ form_row(cForm.web) }}
-                    {{ form_errors(cForm.web) }}
-                    {{ form_row(cForm.createtDate) }}
-                    {{ form_errors(cForm.createtDate) }}
-                    {{ form_row(cForm.city) }}
-                    {{ form_errors(cForm.city) }}
-                    {{ form_row(cForm.logo) }}
-                    {{ form_errors(cForm.logo) }}
-                    {{ form_row(cForm.gps) }}
-                    {{ form_errors(cForm.gps) }}
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span10">
-                    <a href="#business-profile" class="btn pull-right" data-toggle="tab">Следующий шаг</a>
+        <div class="row-fluid">
+            <div class="span10">
+                {{ form_row(cForm.fullName) }}
+                {{ form_errors(cForm.fullName) }}
+                {{ form_row(cForm.name) }}
+                {{ form_errors(cForm.name) }}
+                {{ form_row(cForm.slogan) }}
+                {{ form_errors(cForm.slogan) }}
+                <p class="contentLabel clear">
+                    {{ form_label(cForm.createtDate) }}
+                    <div id="datetimepicker1" class="input-append">
+                        {{ form_widget(cForm.createtDate) }}
+                        <span class="add-on">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                            </i>
+                        </span>
+                    </div>
+                </p>
+                {{ form_row(cForm.createtDate) }}
+                {{ form_errors(cForm.createtDate) }}
+                {{ form_row(cForm.city) }}
+                {{ form_errors(cForm.city) }}
+                <div class="addLogo clear">
+                    {{ form_label(cForm.logo) }}
+                    <div class="addLogoImgWrap">
+                        <div class="addLogoImg">
+                            <img src="bootstrap/img/logocompany.png" alt="logo">
+                        </div>
+                        <span class="deleteImg clear">Удалить<i class="icon-remove-circle"></i></span>
+                    </div>
+                    <div class="adminBlockImg span6">
+                        {{ form_widget(cForm.logo) }}
+                        <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
+                        <p class="additionalInfo">Логотип должен быть вписан в квадрат с белым фоном</br>Формат: JPEG, PNG, GIF не более 1Мб</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="bottomContent">
+            <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn">Продолжить</a>
+        </div>
+    </div>
         {# EOF General data #}
         {# Buisinesss profile #}
         <div class="tab-pane" id="business-profile">
-            <div class="row-fluid">
-                <div class="span10">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            {{ form_row(cForm.specialization) }}
-                            {{ form_errors(cForm.specialization) }}
-                            {{ form_row(cForm.services) }}
-                            {{ form_errors(cForm.services) }}
-                        </div>
+            <div class="contentLabel marginBottom">
+                {{ form_label(cForm.specialization) }}
+                <ul class="tagContBig" id="specializationContainer"></ul>
+                <a class="addImg clear" id="addSpecialization" data-reveal-id="sepcializationModal">Добавить<i class="icon-ok-sign"></i></a>
+            </div>
+            <div class="contentLabel marginBottom">
+                {{ form_label(cForm.services) }}
+                <ul class="tagContBig" id="serviceContainer"></ul>
+                <a class="addImg clear" id="addSpecialization" data-reveal-id="serviceModal">Добавить<i class="icon-ok-sign"></i></a>
+            </div>
+            <div class="contentLabel marginBottom">
+                {{ form_label(cForm.additionalServices) }}
+                <ul class="additionalServ">
+                {% for service in cForm.additionalServices %}
+                    <li class="additionalServItem span3">
+                        {{ form_widget(service) }}
+                        <span></span>{{ form_label(service) }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="bottomBlock">
+                <div class="contentLabel costHour" id="costHour">
+                    {{ form_label(cForm.hourPrice) }}
+                    {{ form_widget(cForm.hourPrice) }}
+                    <div class="lineForm costSelect">
+                        {{ form_widget(cForm.currency) }}
                     </div>
-                    <div class="row-fluid">
-                        <div class="span6">
-                            {{ form_row(cForm.additionalServices) }}
-                            {{ form_errors(cForm.additionalServices) }}
-                        </div>
-                        <div class="span6">
-                            {{ form_row(cForm.hourPrice) }}
-                            {{ form_errors(cForm.hourPrice) }}
-                            {{ form_row(cForm.currency) }}
-                            {{ form_errors(cForm.currency) }}
-                            {{ form_row(cForm.notes) }}
-                            {{ form_errors(cForm.notes) }}
-                        </div>
-                    </div>
+                </div>
+                <div class="addDescriptionInfo">
+                    {{ form_row(cForm.notes) }}
+                    {{ form_errors(cForm.notes) }}
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span10">
-                    <a href="#contact-info" class="btn pull-right" data-toggle="tab">Следующий шаг</a>
-                    <a href="#general-data" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
-                </div>
+            <div class="bottomContent">
+                <a href="#contact-info" data-toggle="tab" class="btnNext addPhotoBtn">Продолжить</a>
             </div>
         </div>
         {# EOF Buisinesss profile #}
         {# Contact info #}
         <div class="tab-pane" id="contact-info">
-            <div class="row-fluid">
-                <div class="span6">
-                    <h4>Адрес:</h4>
+            <div class="leftContaktDate">
+                <div class="contentLabel marginBottom">
+                    {{ form_label(cForm.address) }}
                     {{ form_widget(cForm.address) }}
-                    {{ form_errors(cForm.address) }}
-                    <h4>Контактные телефоны:</h4>
-                    {{ form_row(cForm.phones) }}
-                    {{ form_errors(cForm.phones) }}
-                    <h4>Время работы:</h4>
-                    <span>Укажите дни и время работы в них. Если у вас разные режимы в разные дни — добавьте несколько условий</span>
-                    {{ form_row(cForm.workingTime) }}
-                    {{ form_errors(cForm.workingTime) }}
+                    {{ form_widget(cForm.gps) }}
+                    <a href="#" class="linkUnder" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
                 </div>
-                <div class="span6 form-horizontal">
-                    <h4>Интернет-контакты:</h4>
-                    {{ form_row(cForm.linkVK) }}
-                    {{ form_errors(cForm.linkVK) }}
-                    {{ form_row(cForm.linkFB) }}
-                    {{ form_errors(cForm.linkFB) }}
-                    {{ form_row(cForm.linkTW) }}
-                    {{ form_errors(cForm.linkTW) }}
-                    {{ form_row(cForm.skype) }}
-                    {{ form_errors(cForm.skype) }}
-                    {{ form_row(cForm.web) }}
-                    {{ form_errors(cForm.web) }}
-                    {{ form_row(cForm.email) }}
-                    {{ form_errors(cForm.email) }}
-                    {{ form_row(cForm.contacts) }}
-                    {{ form_errors(cForm.contacts) }}
-                    <h4>Менеджеры компании:</h4>
-                    <span>Вы можете указать других (кроме себя) менеджеров компании. Они должны уже быть зарегистрированы на сайте.</span>
-                    {{ form_row(cForm.companyManager) }}
-                    {{ form_errors(cForm.companyManager) }}
+                <div class="contentLabel marginBottom">
+                    <label>Контактные телефоны</label>
+                    <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}"></div>
+                    <script>
+                        var phoneCollectionHolder = $('#phoneAddWrapper');
+                        var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $phoneNewLink = $('<div class="contactDate"></div>').append($phoneAddTagLink);
+                        jQuery(document).ready(function() {
+                            phoneCollectionHolder.append($phoneNewLink);
+                            phoneCollectionHolder.data('index', phoneCollectionHolder.find(':input').length);
+
+                            $phoneAddTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(phoneCollectionHolder, $phoneNewLink, true);
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="contentLabel marginBottom">
+                    {{ form_label(cForm.workingTime) }}
+                    <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
+                    <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}"></div>
+                    <script>
+                        var collectionHolder = $('#workTimeAddWrapper');
+                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+                        jQuery(document).ready(function() {
+                            collectionHolder.append($newLink);
+                            collectionHolder.data('index', collectionHolder.find(':input').length);
+
+                            $addTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(collectionHolder, $newLink, false);
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="contentLabel marginBottom">
+                    <label>Менеджеры компании</label>
+                    <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
+                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}"></div>
+                    <script>
+                        var managerCollectionHolder = $('#managerAddWrapper');
+                        var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
+                        jQuery(document).ready(function() {
+                            managerCollectionHolder.append($managerNewLink);
+                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
+
+                            $managerAddTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(managerCollectionHolder, $managerNewLink, true);
+                            });
+                        });
+                    </script>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span10">
-                    <a href="#photos" class="btn pull-right" data-toggle="tab">Следующий шаг</a>
-                    <a href="#business-profile" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
+            <div class="rightContaktDate">
+                <p class="contentLabel rightContaktItem">
+                    <label>Сайт</label>
+                    {{ form_widget(cForm.web) }}
+                </p>
+                <p class="contentLabel rightContaktItem">
+                    <label>Skype</label>
+                    {{ form_widget(cForm.skype) }}
+                </p>
+                <p class="contentLabel rightContaktItem">
+                    <label>Email</label>
+                    {{ form_widget(cForm.email) }}
+                </p>
+                <div class="contentLabel rightContaktItem">
+                    <label>VKontakte</label>
+                    <p class="maskInput rightMask"><span>www.vk.com\</span>
+                        {{ form_widget(cForm.linkVK) }}
+                    </p>
                 </div>
+                <div class="contentLabel rightContaktItem">
+                    <label>Twitter</label>
+                    <p class="maskInput rightMask"><span>www.twitter.com\</span>
+                        {{ form_widget(cForm.linkTW) }}
+                    </p>
+                </div>
+                <div class="contentLabel rightContaktItem">
+                    <label>Facebook</label>
+                    <p class="maskInput rightMask"><span>www.facebook.com\</span>
+                        {{ form_widget(cForm.linkFB) }}
+                    </p>
+                </div>
+            </div>
+            <div class="bottomContent">
+                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab">Продолжить</a>
             </div>
         </div>
         {# EOF Contact info #}
         <div class="tab-pane" id="photos">
-            <div class="row-fluid">
-                <div class="span10">
-                    <span>Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании</span>
-                    {{ form_row(cForm.gallery) }}
-                    {{ form_errors(cForm.gallery) }}
-                    {{ form_widget(cForm) }}
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span10">
-                    <input type="submit" class="btn pull-right" value="Зарегистрироваться" />
-                    <a href="#contact-info" class="btn pull-right" data-toggle="tab">Назад к предыдущему шагу</a>
-                </div>
+            <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
+            <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
+            <script>
+                var photoCollectionHolder = $('#photoAddWrapper');
+                var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                var $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+                jQuery(document).ready(function() {
+                    photoCollectionHolder.append($photoNewLink);
+                    photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
+
+                    $photoAddTagLink.on('click', function(e) {
+                        e.preventDefault();
+                        addTagForm(photoCollectionHolder, $photoNewLink, true);
+                    });
+                });
+            </script>
+            <div class="bottomContent">
+                <span class="btnNext addPhotoBtn">Продолжить</span>
             </div>
         </div>
     </div>
+    <div id="sepcializationModal" class="reveal-modal sepcializationModal">
+        <a href="#" class="close-reveal-modal"></a>
+        <p class="popUpTitle">Основная специализация</p>
+        <div class="wrapper" data-type="specialization">
+            {{ form_widget(cForm.specialization) }}
+        </div>
+        <a href="#" class="btnNext addPhotoBtn" id="specializationSave" data-container="specializationContainer">Сохранить</a>
+    </div>
+    <div id="serviceModal" class="reveal-modal serviceModal">
+        <a href="#" class="close-reveal-modal"></a>
+        <p class="popUpTitle">Услуги</p>
+        <div class="wrapper" data-type="service">
+            {{ form_widget(cForm.services) }}
+        </div>
+        <a href="#" class="btnNext addPhotoBtn" id="serviceSave" data-container="serviceContainer">Сохранить</a>
+    </div>
+    <div id="yandexMapModal" class="reveal-modal yandexMapModal"><!-- popUp firstReg-->
+        <a href="#" class="close-reveal-modal"></a>
+        <div class="slidCont">
+            <div id="myMap" style="height:400px;width:670px;left:5px" ></div>
+        </div>
+        <span class="btnNext addPhotoBtn" id="saveMapCoordinates">Выбрать</span>
+    </div>
+    <script>
+        $(document).ready(function(){
+            ymaps.ready(init);
+            var gCollection;
+            var gps;
+            function init() {
+                mapCompany = new ymaps.Map ("myMap", {
+                    center: [59.933373, 30.357903],
+                    zoom: 10,
+                    behaviors: ["default", "scrollZoom"]
+                });
+                attachReverseGeocode(mapCompany);
+                function attachReverseGeocode(myMap) {
+                    myMap.events.add('click', function (e) {
+                        var coords = e.get('coordPosition');
+                        if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
+                        ymaps.geocode(coords).then(function (res) {
+                            var names = [];
+                            res.geoObjects.each(function (obj) {
+                                names.push(obj.properties.get('name'));
+                            });
+                            gCollection = new ymaps.Placemark(coords, {
+                                    iconContent: names[0],
+                                    balloonContent: names.reverse().join(', ')
+                                },
+                                {preset:'twirl#redStretchyIcon', balloonMaxWidth:'250'}
+                            );
+                            myMap.geoObjects.add(gCollection);
+                            gps = coords;
+                        });
+                    });
+                }
+            }
+
+            $('#saveMapCoordinates').on('click', function(){
+                $(this).parent().trigger('reveal:close');
+            });
+        });
+
+        function addTagForm(collectionHolder, $newLink, isUnwrap) {
+            var prototype = collectionHolder.data('prototype');
+            var index = collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            var $newForm = $('<div class="contactDate"></div>');
+            if (isUnwrap) {
+                var newestForm = $(newForm).find('.contentLabel').children().unwrap();
+                newestForm.each(function(){
+                    $newForm.append($(this));
+                });
+            } else {
+                var newestForm = $(newForm);
+                newestForm.find('p.contentLabel').children().unwrap();
+                newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>');
+                $newForm.append(newestForm);
+            }
+
+            collectionHolder.data('index', index + 1);
+            $newLink.before($newForm);
+        }
+    </script>
     </form>
 </div>
-<div id="myModal" class="modal hide fade" style = "width:720px;">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    </div>
-    <div class="modal-body ">
-      <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
-    </div>
-    <div class="modal-footer" >
-        <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
-    </div>
-</div>
-{% endblock %}
-
-{% block foot_script %}
-{{ parent() }}
-{% javascripts
-    'bundles/stocore/js/select2.js'
-    'bundles/stocore/js/bootstrap-inputmask.js'
-%}
-<script type="text/javascript" src="{{ asset_url }}"></script>
-{% endjavascripts %}
-<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-<script type="text/javascript">
-    ymaps.ready(init);
-    var gCollection;
-    var gps;
-    function init() {
-        mapCompany = new ymaps.Map ("myMap", {
-            center: [59.933373, 30.357903],
-            zoom: 10,
-            behaviors: ["default", "scrollZoom"]
-        });
-        attachReverseGeocode(mapCompany);
-        function attachReverseGeocode(myMap) {
-            myMap.events.add('click', function (e) {
-                var coords = e.get('coordPosition');
-                if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
-                ymaps.geocode(coords).then(function (res) {
-                    var names = [];
-                    res.geoObjects.each(function (obj) {
-                        names.push(obj.properties.get('name'));
-                    });
-                    gCollection = new ymaps.Placemark(coords, {
-                            iconContent: names[0],
-                            balloonContent: names.reverse().join(', ')
-                        },
-                        {preset:'twirl#redStretchyIcon', balloonMaxWidth:'250'}
-                    );
-                    myMap.geoObjects.add(gCollection);
-                    gps = coords;
-                });
-            });
-        }
-    }
-
-    $("#save_madal").click(function () {
-        document.getElementById("sto_content_company_registration_gps").value =gps
-        $('#myModal').modal('hide');
-    });
-
-    $(".select2").select2();
-    $('#registerTab a:first').tab('show');
-    $('a.disabled').click(function () {
-        return false;
-    });
-
-    /*$('#sto_content_company_registration_specialization').change(function () {
-        var specialization = $(this).val();
-        $.getJSON("{{ path('company_specialization') }}", {'specialization': specialization},
-            function (data) {
-                $("#sto_content_company_registration_services").empty();
-                $('.select2').select2("destroy")
-                $(".select2").select2({});
-                $.each(data, function (key, val) {
-                    name = val['name']
-                    id = val['id']
-                    $("#sto_content_company_registration_services").append('<option value="'+id+'">'+name+'</option>');
-                });
-            }
-        )
-    });*/
-
-    $('a[data-toggle="tab"]').click(function () {
-        $('div.control-group').attr('class', 'control-group');
-        var next_tab_name = $(this).attr('href').substring(1, $(this).attr('href').length);
-        var tab = $('ul#registerTab li.active a').data('content');
-        var current_tab = tab.substring(1, tab.length);
-        var errorFlag = false;
-
-        $('div#'+current_tab+' input').each(function (n, element) {
-            console.log($(element).attr('name')+': ', $(element).val());
-            var flag = false;
-            if ($(element).attr('required')=='required' && $(element).val().length<1) {
-                if (!flag) $(element).focus();
-                flag = true;
-                var elem_id = $(element).attr('id');
-                $('div#'+elem_id+'_control_group').attr('class', 'control-group error');
-                errorFlag = true;
-            }
-        });
-        $('div#'+current_tab+' select').each(function (n, element) {
-            if ($(element).attr('required')=='required' && $(element).val()==null) {
-                var elem_id = $(element).attr('id');
-                $('div#'+elem_id+'_control_group').attr('class', 'control-group error');
-                errorFlag = true;
-            }
-        });
-        if (!errorFlag) {
-             $('ul#registerTab a[data-content="#'+next_tab_name+'"]').tab('show');
-        }
-
-        return false;
-    });
-</script>
-{% endblock %}
-
-{% block head_style %}
-{{parent()}}
-{% stylesheets filter='cssrewrite'
-    'bundles/stocore/css/select2.css'
-%}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-{% endstylesheets %}
+</section>
 {% endblock %}

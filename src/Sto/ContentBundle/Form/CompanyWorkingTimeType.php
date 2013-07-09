@@ -24,24 +24,32 @@ class CompanyWorkingTimeType extends AbstractType
         $builder
             ->add(
                 $builder->create('days', 'entity', [
-                    'label_render' => false,
+                    'label' => false,
+                    'property' => 'shortName',
                     'class' => 'Sto\CoreBundle\Entity\Dictionary\WeekDay',
                     'multiple' => true,
                     'expanded' => true,
                     'attr' => [
-                        'class' => 'input-medium'
+                        'class' => 'workingTimeDays'
                     ],
                 ])
                 ->addModelTransformer($transformer)
             )
-            ->add('from', 'time',[
-                'label_render' => false,
+            ->add('from', 'time', [
+                'label' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'inputTime'
+                ]
             ])
-            ->add('till', 'time',[
-                    'label_render' => false,
-                ])
-
-            ;
+            ->add('till', 'time', [
+                'label' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'inputTime'
+                ]
+            ])
+        ;
     }
 
     public function getName()

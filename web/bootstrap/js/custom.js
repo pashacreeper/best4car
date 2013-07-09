@@ -126,6 +126,40 @@ var registrationPage = function(){
     $('#submitRegisterForm').on('click', function(){
         $('#registerForm').submit();
     });
+    $('#datetimepicker1').datetimepicker({
+        pickTime: false
+    });
+
+    var appendIcons = function(link){
+        var checkboxes = $(link).parent().find('.wrapper').find('input[type="checkbox"]:checked'),
+            container = $('#' + $(link).data('container'));
+
+        checkboxes.each(function(index, element){
+            var element = $(element),
+                labelText = element.next('label').html()
+                checkedViewElement = '<li class="tagTicketServices"><span class="sto"></span>' + labelText + '</li>'
+
+            container.append(checkedViewElement);
+        });
+
+        $(link).parent().trigger('reveal:close');   
+    }
+
+    $('#specializationSave').on('click', function(e){
+        e.preventDefault();
+        appendIcons(this);
+    });
+    $('#serviceSave').on('click', function(e){
+        e.preventDefault();
+        appendIcons(this);
+    });
+
+    $('body').on('click', '.inputTime', function(){
+        $(this).datetimepicker({
+            pickDate: false
+        });
+    });
+
 };
 
 var initPage = function(){
