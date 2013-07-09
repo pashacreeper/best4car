@@ -10,22 +10,20 @@ class CompanyPhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('phone', 'text',[
-                'label_render' => false,
+            ->add('phone', 'text', [
+                'label' => false,
                 'attr' => [
-                    //'data-mask' => '(9*)9*',
                     'placeholder' => 'Телефон',
-                    'class' => 'input-medium'
+                    'class' => 'inputFormEnter span3'
                 ],
             ])
-            ->add('description', 'text',
-                [
+            ->add('description', 'text', [
                     'max_length' => 35,
                     'required' => false,
-                    'label_render' => false,
+                    'label' => false,
                     'attr' => [
                         'placeholder' => 'Описание',
-                        'class' => 'input-xlarge'
+                        'class' => 'inputFormEnter span4'
                     ]
                 ]
             );

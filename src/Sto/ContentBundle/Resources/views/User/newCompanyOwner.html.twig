@@ -12,6 +12,18 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
 {% endblock %}
 
+{% block pageTitle %}
+<div class="back">
+    <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <h1 class="titleNameCompany">Регистрация компании</h1>
+    </div>
+</div>
+{% endblock %}
+{% block search %}{% endblock %}
+
 {% block content %}
 <section class="contentMain  row">
     <div class="content">
@@ -47,7 +59,7 @@
                         <label>Пароль</label>
                         <input type="text" class="inputFormEnter">
                     </p>
-                    <span class="btnEnter">Войти</span>
+                    <button class="btnEnter">Войти</button>
                     <p class="secondaryLink forgotPass">Забыли пароль?</p>
                 </form>
             </div>

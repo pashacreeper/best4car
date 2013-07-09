@@ -17,7 +17,10 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'label' => 'Сокращенное наименование'
+                'label' => 'Краткое наименование',
+                'attr' => [
+                    'class' => 'input-xxlarge'
+                ]
             ])
             ->add('phones','collection', array(
                 'label' => '',
@@ -53,11 +56,14 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2 input-large'
                 ]
             ])
             ->add('address', null, [
                 'label' => 'Адрес',
+                'attr' => [
+                    'class' => 'inputFormEnter inputleftContDate'
+                ]
             ])
             ->add('workingTime','collection', array(
                 'label' => ' ',
@@ -65,39 +71,26 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'show_legend' => false,
-                'widget_add_btn' =>[
-                    'icon' => 'b4c-plus',
-                    'label' => ' ',
-                    'attr' => [
-                         'class' => 'btn btn-primary btn-small'
-                    ]
-                ],
-                'options' => array( // options for collection fields
-                    'label_render' => false,
-                    'widget_remove_btn' => [
-                        'label' => '-',
-                        'attr' => [
-                            'class' => 'btn btn-danger btn-small '
-                        ]
-                    ],
-                    'widget_control_group' => false,
-                )
             ))
             ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'class' => 'input-small'
+                    'class' => 'inputCost'
                 ],
             ])
             ->add('currency', null, [
                 'label' => 'Валюта',
+                'empty_value' => 'Валюта',
+                'attr' => [
+                    'class' => 'styled1'
+                ]
             ])
             ->add('services', 'entity', [
                 'label' => 'Услуги',
                 'multiple' => true,
+                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -112,6 +105,7 @@ class CompanyType extends AbstractType
             ->add('specialization', 'entity', [
                 'label' => 'Основная специализация',
                 'multiple' => true,
+                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\Company',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -129,15 +123,15 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'logo',
+                    'class' => 'hideLogoInput'
                 ]
             ])
-            ->add('slogan', 'textarea', [
+            ->add('slogan', 'text', [
                 'label' => 'Девиз (слоган)',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'rows' => '4',
-                    'style' => 'width: 100%'
+                    'class' => 'input-xxlarge'
                 ]
             ])
             ->add('fullName', 'text', [
@@ -145,7 +139,6 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'style' => 'width: 100%',
                     'class' => 'input-xxlarge'
                 ]
             ])
@@ -166,6 +159,9 @@ class CompanyType extends AbstractType
                         ->orderBy('ct.name')
                     ;
                 },
+                'attr' => [
+                    'class' => 'someClass'
+                ]
             ])
             ->add('skype', null, [
                 'label' => 'Skype',
@@ -177,12 +173,15 @@ class CompanyType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false
             ])
-            ->add('createtDate', 'date', [
+            ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
-                'datepicker' => true,
+                'format' => 'yyyy-MM-dd',
                 'label' => 'Начало работы на рынке',
                 'required' => false,
-                'render_optional_text' => false
+                'attr' => [
+                    'class' => "inputData",
+                    'data-format' => "yyyy-MM-dd"
+                ]
             ])
             ->add('notes', 'textarea', [
                 'label' => 'Дополнительное описание деятельности компании',
@@ -193,27 +192,33 @@ class CompanyType extends AbstractType
                     'style' => 'width: 100%'
                 ]
             ])
-            ->add('gps', 'text', [
+            ->add('gps', 'hidden', [
                 'label' => 'Координаты Yandex-карты',
                 'required' => true,
-                'attr' => [
-                    'onclick'=>"$('#myModal').modal();"
-                ]
             ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputVkC'
+                ]
             ])
             ->add('linkFB', 'text', [
                 'label' => 'Страница Facebook',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputFaceC'
+                ]
             ])
             ->add('linkTW', 'text', [
                 'label' => 'Twitter',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputTwittC'
+                ]
             ])
             ->add('companyManager','collection', array(
                 'label' => ' ',
@@ -221,24 +226,7 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'show_legend' => false,
-                'widget_add_btn' =>[
-                    'icon' => 'b4c-user-add',
-                    'label' => 'add manager',
-                    'attr' => [
-                         'class' => 'btn btn-primary btn-small'
-                    ]
-                ],
-                'options' => array( // options for collection fields
-                    'label_render' => false,
-                    'widget_remove_btn' => [
-                        'label' => '-',
-                        'attr' => [
-                            'class' => 'btn btn-danger btn-small '
-                        ]
-                    ],
-                    'widget_control_group' => false,
-                )
+                'show_legend' => false
             ))
             ->add('contacts','collection', array(
                 'label' => ' ',
@@ -272,23 +260,6 @@ class CompanyType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'show_legend' => false,
-                'widget_add_btn' =>[
-                    'icon' => 'b4c-plus',
-                    'label' => 'add photo',
-                    'attr' => [
-                         'class' => 'btn btn-primary btn-small'
-                    ]
-                ],
-                'options' => array( // options for collection fields
-                    'label_render' => false,
-                    'widget_remove_btn' => [
-                        'label' => '-',
-                        'attr' => [
-                            'class' => 'btn btn-danger btn-small '
-                        ]
-                    ],
-                    'widget_control_group' => false,
-                )
             ))
         ;
     }

@@ -68,7 +68,7 @@ var rvl = function($) {
 				if(!locked) {
 					lockModal();
 					if(options.animation == "fadeAndPop") {
-						modal.css({'top': $(document).scrollTop()-topOffset, 'opacity' : 0, 'visibility' : 'visible'});
+						modal.css({'top': $(document).scrollTop()-topOffset, 'opacity' : 0, 'visibility' : 'visible', 'display' : 'block'});
 						modalBG.fadeIn(options.animationspeed/2);
 						modal.delay(options.animationspeed/2).animate({
 							"top": $(document).scrollTop()+topMeasure + 'px',
@@ -76,14 +76,14 @@ var rvl = function($) {
 						}, options.animationspeed,unlockModal());					
 					}
 					if(options.animation == "fade") {
-						modal.css({'opacity' : 0, 'visibility' : 'visible', 'top': $(document).scrollTop()+topMeasure});
+						modal.css({'opacity' : 0, 'visibility' : 'visible', 'display' : 'block', 'top': $(document).scrollTop()+topMeasure});
 						modalBG.fadeIn(options.animationspeed/2);
 						modal.delay(options.animationspeed/2).animate({
 							"opacity" : 1
 						}, options.animationspeed,unlockModal());					
 					} 
 					if(options.animation == "none") {
-						modal.css({'visibility' : 'visible', 'top':$(document).scrollTop()+topMeasure});
+						modal.css({'visibility' : 'visible', 'display' : 'block', 'top':$(document).scrollTop()+topMeasure});
 						modalBG.css({"display":"block"});	
 						unlockModal()				
 					}
@@ -101,7 +101,7 @@ var rvl = function($) {
 							"top":  $(document).scrollTop()-topOffset + 'px',
 							"opacity" : 0
 						}, options.animationspeed/2, function() {
-							modal.css({'top':topMeasure, 'opacity' : 1, 'visibility' : 'hidden'});
+							modal.css({'top':topMeasure, 'opacity' : 1, 'visibility' : 'hidden', 'display' : 'none'});
 							unlockModal();
 						});					
 					}  	
@@ -110,12 +110,12 @@ var rvl = function($) {
 						modal.animate({
 							"opacity" : 0
 						}, options.animationspeed, function() {
-							modal.css({'opacity' : 1, 'visibility' : 'hidden', 'top' : topMeasure});
+							modal.css({'opacity' : 1, 'visibility' : 'hidden', 'top' : topMeasure, 'display' : 'none'});
 							unlockModal();
 						});					
 					}  	
 					if(options.animation == "none") {
-						modal.css({'visibility' : 'hidden', 'top' : topMeasure});
+						modal.css({'visibility' : 'hidden', 'top' : topMeasure, 'display' : 'none'});
 						modalBG.css({'display' : 'none'});	
 					}		
 				}
