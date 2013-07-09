@@ -10,10 +10,18 @@
 {% include "StoUserBundle:Profile:show_content.html.twig" %}
 {% endblock %}
 
-{% block head_style %}
+{% block css %}
     {{ parent() }}
-    <link href="{{ asset('bundles/stocontent/css/datepicker.css') }}" type="text/css" rel="stylesheet" media="screen" />
-    <style type="text/css">div.datepicker{z-index: 1200;}</style>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
 {% endblock %}
 
 {% block foot_script %}
