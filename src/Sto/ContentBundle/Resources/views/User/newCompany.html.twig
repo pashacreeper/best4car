@@ -179,21 +179,21 @@
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
                     <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
-                    <div class="contactDate">
-                        <p class="contactDateLabel span4">Имя менеджера</p>
-                        <p class="contactDateLabel span3">Рабочий телефон</p>
-                    </div>
-                    <div class="contactDate">
-                        <input type="text" class="inputFormEnter span4">
-                        <input type="tel" pattern='[0-9]{2,3}-[0-9]{2}-[0-9]{2}' class="inputFormEnter span3">
-                        <i class="icon-remove-circle"></i>
-                    </div>
-                    <div class="contactDate">
-                        <input type="text" class="inputFormEnter span4">
-                        <input type="tel" pattern='[0-9]{2,3}-[0-9]{2}-[0-9]{2}' class="inputFormEnter span3">
-                        <i class="icon-remove-circle"></i>
-                    </div>
-                    <span class="addImg clear">Добавить<i class="icon-ok-sign"></i></span>
+                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}"></div>
+                    <script>
+                        var managerCollectionHolder = $('#managerAddWrapper');
+                        var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
+                        jQuery(document).ready(function() {
+                            managerCollectionHolder.append($managerNewLink);
+                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
+
+                            $managerAddTagLink.on('click', function(e) {
+                                e.preventDefault();
+                                addTagForm(managerCollectionHolder, $managerNewLink, true);
+                            });
+                        });
+                    </script>
                 </div>
             </div>
             <div class="rightContaktDate">
@@ -226,11 +226,7 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <span class="alertSelect ">Необходимо сделать выбор для продолжения работы<i class="icon-remove icon-white"></i></span>
                 <span class="btnNext addPhotoBtn">Продолжить</span>
-            </div>
-            <div class="leftContaktDate">
-
             </div>
         </div>
         {# EOF Contact info #}
