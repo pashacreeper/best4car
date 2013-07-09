@@ -52,8 +52,6 @@
                 {{ form_errors(cForm.name) }}
                 {{ form_row(cForm.slogan) }}
                 {{ form_errors(cForm.slogan) }}
-                {{ form_row(cForm.web) }}
-                {{ form_errors(cForm.web) }}
                 <p class="contentLabel clear">
                     {{ form_label(cForm.createtDate) }}
                     <div id="datetimepicker1" class="input-append">
@@ -199,34 +197,37 @@
             <div class="rightContaktDate">
                 <p class="contentLabel rightContaktItem">
                     <label>Сайт</label>
-                    <input type="url" class="inputFormEnter">
+                    {{ form_widget(cForm.web) }}
                 </p>
                 <p class="contentLabel rightContaktItem">
                     <label>Skype</label>
-                    <input type="text" class="inputFormEnter">
+                    {{ form_widget(cForm.skype) }}
                 </p>
-                {{ form_row(cForm.email) }}
+                <p class="contentLabel rightContaktItem">
+                    <label>Email</label>
+                    {{ form_widget(cForm.email) }}
+                </p>
                 <div class="contentLabel rightContaktItem">
                     <label>VKontakte</label>
                     <p class="maskInput rightMask"><span>www.vk.com\</span>
-                        <input type="text" class="inputFormEnter" id="iputEmailC">
+                        {{ form_widget(cForm.linkVK) }}
                     </p>
                 </div>
                 <div class="contentLabel rightContaktItem">
                     <label>Twitter</label>
                     <p class="maskInput rightMask"><span>www.twitter.com\</span>
-                        <input type="text" class="inputFormEnter" id="iputTwittC">
+                        {{ form_widget(cForm.linkTW) }}
                     </p>
                 </div>
                 <div class="contentLabel rightContaktItem">
                     <label>Facebook</label>
                     <p class="maskInput rightMask"><span>www.facebook.com\</span>
-                        <input type="text" class="inputFormEnter" id="iputFaceC">
+                        {{ form_widget(cForm.linkFB) }}
                     </p>
                 </div>
             </div>
             <div class="bottomContent">
-                <span class="btnNext addPhotoBtn">Продолжить</span>
+                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab">Продолжить</a>
             </div>
         </div>
         {# EOF Contact info #}

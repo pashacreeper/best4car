@@ -199,17 +199,26 @@ class CompanyType extends AbstractType
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputVkC'
+                ]
             ])
             ->add('linkFB', 'text', [
                 'label' => 'Страница Facebook',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputFaceC'
+                ]
             ])
             ->add('linkTW', 'text', [
                 'label' => 'Twitter',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'inputFormEnter iputTwittC'
+                ]
             ])
             ->add('companyManager','collection', array(
                 'label' => ' ',
