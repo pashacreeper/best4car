@@ -38,7 +38,7 @@
         <div class="leftContent">
 
             {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
-            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }}>
                 <div class="contentLabel marginBottom">
                     <label class="spanFloatLeft">Ваша оценка компании: </label>
                     {{ form_widget(form.feedbackRating) }}
@@ -113,7 +113,7 @@
 
                 {{ form_rest(form) }}
                 
-                <input type="submit" class="btnNext addPhotoBtn" value="Отправить отзыв"/>
+                <input type="submit" class="btnNext addPhotoBtn" value="Оставить отзыв"/>
             </form>
             {% else %}
                     {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
