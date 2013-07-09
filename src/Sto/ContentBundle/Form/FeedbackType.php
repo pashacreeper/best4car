@@ -55,7 +55,7 @@ class FeedbackType extends AbstractType
                 ]
             ])
             ->add('statenumber', null, [
-                'label' => 'Гос. номер автомобиля',
+                'label' => 'Гос. номер',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -63,7 +63,7 @@ class FeedbackType extends AbstractType
                 ]
             ])
             ->add('orderNumber', null, [
-                'label' => 'Номер заказа-наряда',
+                'label' => 'Номер заказа',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [

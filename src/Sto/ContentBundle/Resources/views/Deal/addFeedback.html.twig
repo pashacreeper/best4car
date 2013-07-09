@@ -19,7 +19,7 @@
 
 {% block search %}
 <div class="back">
-    <a href="#" class="btnBack">
+    <a href="{{ url('content_deal_show', {'id': deal.id}) }}" class="btnBack">
         <i class="btnBackIcon"></i></br>
         <span class="btnBackCont">Результаты поиска</span>
     </a>
@@ -44,7 +44,9 @@
                     {{ form_widget(form.feedbackRating) }}
                 </div>
                 <div class="contentLabel overflow marginBottom ">
+
                     <div class="inputReviewWrap">
+                        <label>Текс отзыва <span class="additionalInfo">(не обязательно)</span></label>
                         {{ form_widget(form.content) }}
                     </div>
                     <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
