@@ -17,16 +17,27 @@
     {{ form_javascript(form) }}
 {% endblock %}
 
+{% block search %}
+<div class="back">
+    <a href="#" class="btnBack">
+        <i class="btnBackIcon"></i></br>
+        <span class="btnBackCont">Результаты поиска</span>
+    </a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">                             
+        <h1 class="titleNameCompany">Ваш отзыв об акции:</h1>
+        <p class="sloganCompany">{{ deal.name }}</p>
+    </div>                              
+</div>  
+{% endblock %}
+
 {% block content %}
 <section class="contentMain row">
     <div class="content">
         <div class="leftContent">
 
             {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
-            <!-- <div class="contentLabel marginBottom">
-                <h3>Ваш отзыв об акции</h3>
-                <p>{{ deal.name }}</p>
-            </div> -->
             <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
                 <div class="contentLabel marginBottom">
                     <label class="spanFloatLeft">Ваша оценка компании: </label>
@@ -35,8 +46,8 @@
                 <div class="contentLabel overflow marginBottom ">
                     <div class="inputReviewWrap">
                         {{ form_widget(form.content) }}
-                        <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
                     </div>
+                    <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
                 </div>
                 <script type="text/javascript">
                     $(document).ready(function() {
@@ -48,36 +59,59 @@
                 </script>
                 <div id="blockAddInfo">
                     <div class="contentItemLeft">
+                        <div class="contentLabel">
+                            <label>Дата посещения</label>
+                            <div class="well startData ">
+                                <div id="datetimepicker1" class="input-append">
+                                    {{ form_widget(form.visitDate) }}
+                                    <span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                        </i>
+                                    </span>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#datetimepicker1').datetimepicker({
+                                        pickTime: false
+                                    });
+                                    $('#datetimepicker2').datetimepicker({
+                                        pickTime: false
+                                    });
+                                 });
+                            </script>
+                        </div>
+                        <div class="contentLabel">
+                            {{ form_label(form.mastername) }}
+                            {{ form_widget(form.mastername) }}
+                            {{ form_errors(form.mastername) }}
+                        </div>
+
+                        <div class="contentLabel">
+                            {{ form_label(form.orderNumber) }}
+                            {{ form_widget(form.orderNumber) }}
+                            {{ form_errors(form.orderNumber) }}
+                        </div>
+                        
+                        {{ form_row(form.orderNumber) }}
                     </div>
-                </div>
-                <div class="contentLabel">
-                    <label>Дата посещения</label>
-                    <div class="well startData ">
-                        <div id="datetimepicker1" class="input-append">
-                            <input class="visitDate" data-format="yyyy-MM-dd" type="text"></input>
-                            <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                </i>
-                            </span>
+                    <div class="contentItemRight" id="contentItemRight">
+                        <div class="contentLabel">
+                            {{ form_label(form.car) }}
+                            {{ form_widget(form.car) }}
+                            {{ form_errors(form.car) }}
+                        </div>
+                        <div class="contentLabel">
+                            {{ form_label(form.statenumber) }}
+                            {{ form_widget(form.statenumber) }}
+                            {{ form_errors(form.statenumber) }}
                         </div>
                     </div>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#datetimepicker1').datetimepicker({
-                                pickTime: false
-                            });
-                            $('#datetimepicker2').datetimepicker({
-                                pickTime: false
-                            });
-                         });
-                    </script>
                 </div>
-                {{ form_widget(form.car) }}
 
                 {{ form_rest(form) }}
-                <div class="form-actions">
-                    <input type="submit" class="btn btn-primary" value="Отправить отзыв"/>
-                </div>
+                
+                <input type="submit" class="btnNext addPhotoBtn" value="Отправить отзыв"/>
             </form>
             {% else %}
                     {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}

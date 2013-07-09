@@ -161,14 +161,14 @@ margin-left: 0;
 	float: right;
 }
 #contentItemRight{
-	margin-top: 91px;
+	margin-top: 82px;
 }
 .btnNext {
 	border-radius: 4px;
 	font: 1.6em 'PT Sans', sans;
 	color: #f6f6f6;
 	display: inline-block;
-	width: 160px;
+	width: 160px !important;
 	height: 48px;
 	line-height: 48px;
 	vertical-align: middle;
@@ -333,8 +333,13 @@ div.star-rating-hover a {
 	background: url("../img/ratingstar.png") no-repeat 0 -16px;
 }
 
-
-
-
-
-
+.inputReviewWrap {
+	margin-bottom: 10px;
+}
+.contentItemLeft .contentLabel, .contentItemRight .contentLabel {
+	overflow: visible;
+}
+.contentItemLeft input.span4, .contentItemRight input.span4 {
+	width: 286px;
+	margin-bottom: 10px;
+}

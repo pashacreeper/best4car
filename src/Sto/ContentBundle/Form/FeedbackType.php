@@ -16,8 +16,8 @@ class FeedbackType extends AbstractType
             ])
             ->add('content', 'genemu_tinymce', [
                 'label' => 'Текст отзыва',
-                'required' => false,
                 'render_optional_text' => false,
+                'required' => false,
                 'configs' => [
                     'entity_encoding' => "raw",
                     'language' => 'ru',
@@ -30,30 +30,45 @@ class FeedbackType extends AbstractType
                     'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
                 ],
             ])
-            ->add('visitDate', 'date', [
+            ->add('visitDate', 'text', [
                 'label' => 'Дата посещения',
-                'widget' => 'single_text',
-                'datepicker' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'visitDate',
+                    'data-format' => "yyyy-MM-dd",
+                ],
             ])
             ->add('mastername', null, [
-                'label' => 'Имя мастера',
+                'label' => 'Фамилия мастера',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => "inputField span4"
+                ]
             ])
             ->add('car', null, [
                 'label' => 'Автомобиль',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => "inputField span4"
+                ]
             ])
             ->add('statenumber', null, [
                 'label' => 'Гос. номер автомобиля',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => "inputField span4"
+                ]
             ])
             ->add('orderNumber', null, [
                 'label' => 'Номер заказа-наряда',
                 'required' => false,
-                'render_optional_text' => false
+                'render_optional_text' => false,
+                'attr' => [
+                    'class' => "inputField span4"
+                ]
             ])
             ->add('feedbackRating', 'genemu_jqueryrating', [
                 'label' => 'Оценка отзыва'

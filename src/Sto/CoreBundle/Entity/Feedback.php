@@ -24,12 +24,12 @@ class Feedback
     private $id;
 
     /**
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
-     * @ORM\Column(name="visit_dates", type="date")
+     * @ORM\Column(name="visit_dates", type="date", nullable=true)
      */
     private $visitDate;
 
