@@ -42,9 +42,26 @@
 
         <form action="{{ path('company_deal_create' ,{'id': company.id}) }}" method="post" {{ form_enctype(form) }} class="inputForm">
             <div class="container">
-                {{ form_row(form.name) }}
-                {{ form_row(form.description) }}
-                {{ form_row(form.type) }}
+                <div class="contentLabel clear">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                    {{ form_errors(form.name) }}
+                </div>
+                
+                <div class="contentLabel clear">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="contentLabel clear">
+                    {{ form_label(form.type) }}
+                    <div class="basket__cont__body__bottom__paper">
+                        {{ form_widget(form.type) }}
+                        {{ form_errors(form.type) }}
+                    </div>
+                </div>
+                
                 <div class="contentLabel clear">
                     <label class="required">
                         Сроки проведения

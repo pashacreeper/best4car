@@ -47,6 +47,10 @@ margin-left: 0;
 textarea.span12, input.span12 {
 	width: 926px;
 }
+textarea.span12 {
+	margin-bottom: 0 !important;
+	height: 100px;
+}
 .inputField {
 	height: 34px;
 	padding: 0 12px 0 12px;

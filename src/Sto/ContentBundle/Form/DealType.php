@@ -24,7 +24,7 @@ class DealType extends AbstractType
                 ]
             ])
             ->add('description', 'textarea', [
-                'label' => 'Описание',
+                'label' => 'Описание акции',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
@@ -46,7 +46,8 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'chosen-multiple'
+                    'class' => 'chosen-multiple',
+                    'data-placeholder' => "Выберите варианты"
                 ]
             ])
             ->add('auto', null, [
@@ -61,7 +62,8 @@ class DealType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'chosen-multiple'
+                    'class' => 'chosen-multiple',
+                    'data-placeholder' => "Выберите варианты"
                 ]
             ])
             ->add('image', 'file', [

@@ -150,6 +150,9 @@
 /* @end */
 
 /* @group Multi Chosen */
+.chzn-container-multi {
+  margin-bottom: 10px;
+}
 .chzn-container-multi .chzn-choices {
   background-color: #fff;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
@@ -157,13 +160,14 @@
   background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
   background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
   background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);
-  border: 1px solid #aaa;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
   margin: 0;
   padding: 0;
   cursor: text;
   overflow: hidden;
   height: auto !important;
-  height: 1%;
+  height: 21px;
   position: relative;
   width: 940px;
   -moz-box-sizing   : border-box;
