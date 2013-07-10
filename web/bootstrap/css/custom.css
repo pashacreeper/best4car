@@ -272,3 +272,16 @@ span.complain{
     display: block;
     top: 47%;
 }
+.btnEnter{
+    width: 100% !important;
+}
+
+.resetting-modal{
+    width: 580px;
+    margin-left: -290px;
+}
+.resetting-modal .btnEnter{
+    clear: both;
+    float: left;
+    width: 260px !important;
+}

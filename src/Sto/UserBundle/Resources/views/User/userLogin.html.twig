@@ -10,5 +10,5 @@
         <input type="password" id="password" name="_password" required="required" class="inputFormEnter" />
     </p>
     <input class="btnEnter" type="submit" id="_submit" name="_submit" value="Войти" />
-    <p class="secondaryLink forgotPass">Забыли пароль?</p>
+    <a data-reveal-id="resetting-popup" href="#" data-href="{{ path('fos_user_resetting_request') }}" class="secondaryLink forgotPass" id="resettingPassword">Забыли пароль?</a>
 </form>

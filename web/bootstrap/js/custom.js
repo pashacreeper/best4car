@@ -33,6 +33,17 @@ var mainLayout = function(){
             $registrationContainer.append(data);
         });
     });
+
+    $('#resettingPassword').on('click', function(){
+        var $this = $(this),
+            $resettingContainer = $('#resetting-container');
+
+        $resettingContainer.empty();
+
+        $.get(Routing.generate('fos_user_resetting_request'), function(data){
+            $resettingContainer.append(data);
+        });
+    });
 };
 
 var catalogPage = function(){
