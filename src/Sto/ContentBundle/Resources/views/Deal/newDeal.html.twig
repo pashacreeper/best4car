@@ -50,7 +50,7 @@
                         Сроки проведения
                     </label>
                     <div class="well startData span2">
-                        <div id="datetimepicker3" class="input-append">
+                        <div id="datetimepicker1" class="input-append">
                             {{ form_errors(form.startDate) }}
                             {{ form_widget(form.startDate) }}
                             <span class="add-on">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="well endData span2">
-                        <div id="datetimepicker4" class="input-append">
+                        <div id="datetimepicker2" class="input-append">
                             {{ form_errors(form.endDate) }}
                             {{ form_widget(form.endDate) }}
                             <span class="add-on">
@@ -105,7 +105,7 @@
                     <label>Место проведения акции</label>
                     {{ form_widget(form.place) }}
                     {{ form_errors(form.place) }}
-                    <a href="#" class="linkUnder">по месту размещения компании</a>
+                    <a href="#" class="linkUnder" id="in-company-place" data-address="{{ company.address }}">по месту размещения компании</a>
                 </div>
                 <div class="contentLabel">
                     <label>Условия участия в акции</label>
@@ -173,7 +173,7 @@
                         <!-- {% else %} -->
                         <!-- {% endif  %} -->
                         <input type="submit"  class="btnBottomContent addPhotoBtn" value="Опубликовать" />
-                        <input type="submit" class="secondaryLink saveDraft" value="Сохранить черновик" name = 'draft' />
+                        <!-- <input type="submit" class="secondaryLink saveDraft" value="Сохранить черновик" name = 'draft' /> -->
                         
                     </div>
                 </form>
@@ -192,20 +192,24 @@
     </section>
     <script type="text/javascript">
         $(function() {
-            $('#sto_content_deal_startDate').datetimepicker({
+            $('#datetimepicker1').datetimepicker({
                 pickTime: false
             });
-            $('#sto_content_deal_endDate').datetimepicker({
+            $('#datetimepicker2').datetimepicker({
                 pickTime: false
             });
 
-            $('#sto_content_deal_startTime').datetimepicker({
+            $('#datetimepicker3').datetimepicker({
                 pickDate: false
             });
-            $('#sto_content_deal_endTime').datetimepicker({
+            $('#datetimepicker4').datetimepicker({
                 pickDate: false
             });
             $('.chosen-multiple').chosen();
+            $('#in-company-place').click(function(e){
+                e.preventDefault();
+                $('#sto_content_deal_place').val($(this).data('address'));
+            });
         });
     </script>
 {% endblock %}

@@ -7,12 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
+use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 
 class DealType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new TimestampToDateTransformer();
+        $timeTransformer = new TimeToDateTransformer();
         $builder
             ->add('name', 'text', [
                 'label' => 'Название акции',
@@ -110,7 +112,7 @@ class DealType extends AbstractType
                     'required' => true,
                     'attr' => [
                         'class' => 'inputTime',
-                        'data-format' => 'hh:mm:ss'
+                        'data-format' => 'yyyy-MM-dd'
                     ]
                 ])->addModelTransformer($transformer)
             )
@@ -120,34 +122,36 @@ class DealType extends AbstractType
                     'required' => true,
                     'attr' => [
                         'class' => 'inputTime',
-                        'data-format' => 'hh:mm:ss'
+                        'data-format' => 'yyyy-MM-dd'
                     ]
                 ])->addModelTransformer($transformer)
             )
-            ->add('startTime', 'text', [
-                'label' => 'Start time',
-                'required' => true,
-                'attr' => [
-                    'class' => 'inputTime',
-                    'data-format' => "hh:mm:ss"
-                ]
-            ])
-            ->add('endTime', 'text', [
-                'label' => 'End time',
-                'required' => true,
-                'attr' => [
-                    'class' => 'inputTime',
-                    'data-format' => "hh:mm:ss"
-                ]
-            ])
+            ->add(
+                $builder->create('startTime', 'text', [
+                    'label' => 'Start time',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'inputTime',
+                        'data-format' => "hh:mm:ss"
+                    ]
+                ])->addModelTransformer($timeTransformer)
+            )
+            ->add(
+                $builder->create('endTime', 'text', [
+                    'label' => 'End time',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'inputTime',
+                        'data-format' => "hh:mm:ss"
+                    ]
+                ])->addModelTransformer($timeTransformer)
+            )
             ->add('place', null, [
                 'label' => 'Место проведе',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'class' => "input-xxlarge inputField span12",
-                    'style' => "display: block",
-                    'onclick'=>"$('#myModal').modal();"
+                    'class' => "span12"
                 ]
             ])
             ->add('contactInformation', 'text', [

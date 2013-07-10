@@ -4,7 +4,7 @@ namespace Sto\ContentBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 
-class TimestampToDateTransformer implements DataTransformerInterface
+class TimeToDateTransformer implements DataTransformerInterface
 {
     public function transform($datetime)
     {
@@ -12,14 +12,14 @@ class TimestampToDateTransformer implements DataTransformerInterface
             return null;
         }
 
-        return $datetime->format('Y-m-d');
+        return $datetime->format('h:i:s');
     }
 
-    public function reverseTransform($date)
+    public function reverseTransform($time)
     {
-        list($year, $month, $day) = explode("-", $date, 3);
+        list($hours, $minutes, $seconds) = explode(":", $time, 3);
         $date = new \DateTime();
-        $date->setDate($year, $month, $day);
+        $date->setTime($hours, $minutes, $seconds);
 
         return $date;
     }

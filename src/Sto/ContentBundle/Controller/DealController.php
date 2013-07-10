@@ -126,7 +126,7 @@ class DealController extends MainController
 
             $user = $this->get('security.context')->getToken()->getUser();
             $resolution = false;
-            foreach ($company->getManagers() as $key => $value) {
+            foreach ($company->getCompanyManager() as $key => $value) {
                 if ( $value->getUserName() == $user->getUserName()) {
                     $resolution = true;
                     break;
