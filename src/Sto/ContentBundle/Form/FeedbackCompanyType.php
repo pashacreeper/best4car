@@ -4,7 +4,8 @@ namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    Symfony\Component\OptionsResolver\OptionsResolverInterface,
+    Doctrine\ORM\EntityRepository;
 
 class FeedbackCompanyType extends FeedbackType
 {
@@ -12,10 +13,13 @@ class FeedbackCompanyType extends FeedbackType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('visitDate', 'date', [
+            ->add('visitDate', 'text', [
                 'label' => 'Дата посещения',
-                'widget' => 'single_text',
-                'datepicker' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'visitDate',
+                    'data-format' => "yyyy-MM-dd",
+                ],
             ])
             ->add('car', null, [
                 'label' => 'Автомобиль',
@@ -39,8 +43,14 @@ class FeedbackCompanyType extends FeedbackType
             ])
             ->add('priceLevel', null, [
                 'label' => 'Уровень цен',
-                'required' => false,
-                'render_optional_text' => false
+                'class' => '\Sto\CoreBundle\Entity\Dictionary\PriceLevel',
+                'expanded' => true,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u');
+                },
+                'required' => true,
+                'empty_value' => false,
+                'render_optional_text' => false,
             ])
         ;
     }
