@@ -1,16 +1,10 @@
 {% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
 
 <form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }}>
-    <p class="contentLabel">
-        {{ form_label(form.firstName) }}
-        {{ form_errors(form.firstName) }}
-        {{ form_widget(form.firstName) }}
-    </p>
-    <p class="contentLabel">
-        {{ form_label(form.lastName) }}
-        {{ form_errors(form.lastName) }}
-        {{ form_widget(form.lastName) }}
-    </p>
+    <div class="contentLabel rowColumns">
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+    </div>
     <p class="contentLabel">
         {{ form_label(form.username) }}
         {{ form_errors(form.username) }}
@@ -21,7 +15,7 @@
         {{ form_errors(form.email) }}
         {{ form_widget(form.email) }}
     </p>
-    <p class="contentLabel">{{ form_row(form.plainPassword) }}</p>
+    <div class="contentLabel rowColumns">{{ form_row(form.plainPassword) }}</div>
     <p class="contentLabel">
         {{ form_label(form.city) }}
         {{ form_errors(form.city) }}
@@ -32,16 +26,22 @@
         {{ form_errors(form.captcha) }}
         {{ form_widget(form.captcha) }}
     </p>
-    <p class="contentLabel">{{ form_widget(form) }}</p>
-    <p class="contentLabel">{{ form_row(form.lastName) }}</p>
-    <p class="contentLabel">{{ form_row(form.username) }}</p>
-    <p class="contentLabel">{{ form_row(form.email) }}</p>
-    <p class="contentLabel">{{ form_row(form.plainPassword) }}</p>
-    <p class="contentLabel">{{ form_row(form.city) }}</p>
-    <p class="contentLabel">{{ form_row(form.captcha) }}</p>
-    <p class="contentLabel">{{ form_widget(form) }}</p>
     <div>
         <button class="btnEnter" type="submit">Войти</button>
         <p class="attentionReg">Регистрируясь, вы соглашаетесь </br>с <a href="#">условиями использования сайта</a></p>
     </div>
 </form>
+<div class="enterCocial">
+    <span class="popUpTitle2">Зарегистрироваться используя аккаунт соц. сетей</span>
+    <ul class="enterCocialIcon">
+        <li class="enterCocialIconItem">
+            <a href="#" class="google-blue">Goole+</a>
+        </li>
+        <li class="enterCocialIconItem">
+            <a href="#" class="facebook-blue">Facebook</a>
+        </li>
+        <li class="enterCocialIconItem">
+            <a href="#" class="vk-blue">Вконтакте</a>
+        </li>
+    </ul>
+</div>

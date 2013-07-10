@@ -285,3 +285,14 @@ span.complain{
     float: left;
     width: 260px !important;
 }
+
+.registration-popup{
+    top: 40px !important;
+}
+.registration-popup .contentLabel{
+    margin: 2px;
+}
+.rowColumns p{
+    width: 45%;
+    float: left;
+}
