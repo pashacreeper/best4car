@@ -170,18 +170,22 @@ span.complain{
     margin-bottom: 10px !important;
 }
 
-.workingTimeDays{
+.workingTimeDays, .priceLevelMarker{
     float: left;
     margin-top: 10px;
     font-size: 0;
     margin-bottom: 14px;
     overflow: hidden;
 }
-.workingTimeDays input{
+.priceLevelMarker{
+    width: 100%;
+    float: none;
+}
+.workingTimeDays input, .priceLevelMarker input{
     display: none;
     float: none;
 }
-.workingTimeDays label{
+.workingTimeDays label, .priceLevelMarker label{
     display: inline-block;
     padding: 0 14px;
     height: 34px;
@@ -201,7 +205,8 @@ span.complain{
     -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
 }
-.workingTimeDays input[type='checkbox']:checked + label{
+.workingTimeDays input[type='checkbox']:checked + label, 
+.priceLevelMarker input:checked + label{
     background: #1b96ca;    
     -webkit-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
     -moz-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
@@ -210,7 +215,8 @@ span.complain{
     border-bottom: 1px solid #0c6991;
     border-right: 1px solid #0c6991;
 }
-.workingTimeDays label:first-of-type{
+.workingTimeDays label:first-of-type,
+.priceLevelMarker label:first-of-type{
     margin-left: 0;
     -webkit-border-bottom-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -220,7 +226,8 @@ span.complain{
     -moz-border-radius-topleft: 4px;
     border-left: 1px solid #0c6991;
 }
-.workingTimeDays label:last-child{
+.workingTimeDays label:last-child,
+.priceLevelMarker label:last-child{
     margin-left: 0;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;

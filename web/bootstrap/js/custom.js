@@ -170,14 +170,23 @@ var registrationPage = function(){
             pickDate: false
         });
     });
-
 };
+
+var feedbackPage = function(){
+    $('#datetimepicker1').datetimepicker({
+        pickTime: false
+    });
+    $('#datetimepicker2').datetimepicker({
+        pickTime: false
+    });
+}
 
 var initPage = function(){
     mainLayout();
     catalogPage();
     dealsPage();
     registrationPage();
+    feedbackPage();
 };
 
 $(document).ready(function(){initPage()});

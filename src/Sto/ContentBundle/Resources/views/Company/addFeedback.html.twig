@@ -1,5 +1,4 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
 {% block title company.name %}
 
@@ -86,16 +85,6 @@
                                 </span>
                             </div>
                         </div>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#datetimepicker1').datetimepicker({
-                                    pickTime: false
-                                });
-                                $('#datetimepicker2').datetimepicker({
-                                    pickTime: false
-                                });
-                             });
-                        </script>
                     </div>
                     <div class="contentLabel">
                         {{ form_label(form.mastername) }}
@@ -130,8 +119,6 @@
             <input type="submit" class="btnNext addPhotoBtn" value="Оставить отзыв"/>
 
             </form>
-            {% else %}
-                {{ flash(true, 'Вы не можете оставлять отзывы.', true, true) }}
             {% endif %}
         </div>
         <div class="rightContent">
