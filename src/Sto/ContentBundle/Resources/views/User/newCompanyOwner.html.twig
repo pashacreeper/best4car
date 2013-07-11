@@ -65,14 +65,8 @@
             </div>
             <p class="popUpTitle">Войти используя аккаунт соц. сетей</p>
             <ul class="infoCompanySocialNet">
-                    <li class="infoCompanySocialNetItem">
-                    <a href="#"><i class="google-blue"></i>Goole+</a>
-                </li>
                 <li class="infoCompanySocialNetItem">
-                    <a href="#"><i class="facebook-blue"></i>Facebook</a>
-                </li>
-                <li class="infoCompanySocialNetItem">
-                    <a href="#"><i class="vk-blue"></i>Вконтакте</a>
+                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="vk-blue"></i>Вконтакте</a>
                 </li>
             </ul>
         </div>
