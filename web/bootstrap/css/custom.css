@@ -318,3 +318,8 @@ span.complain{
     text-decoration: none;
     color: #fff;
 }
+.iGoNumber{
+    display: inline-block;
+    float: right;
+    padding-right: 20px;
+}

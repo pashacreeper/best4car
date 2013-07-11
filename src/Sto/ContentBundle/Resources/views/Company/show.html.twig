@@ -45,10 +45,10 @@
             <a class="" href="#first">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы  6<span class="newPost">/ 15</span></a>
+            <a class="" href="#second">Отзывы  {{ company.feedbacks|length }}</a>
         </li>
         <li>
-            <a class="" href="#third">Акции  4<span class="newPost">/ 11</span></a>
+            <a class="" href="#third">Акции  {{ company.deals|length }}</a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
@@ -174,11 +174,11 @@
                 </div>
                 <div class="infoCompanyItem">
                     <p class="infoCompanyAddTitle contentText">Сайт:</p>
-                    <p class="infoCompanyDescription"><a class="linkContact" href="http://{{ company.web }}">{{ company.web }}</a></p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="{{ company.web }}">{{ company.web }}</a></p>
                     <p class="infoCompanyAddTitle contentText">Skype:</p>
                     <p class="infoCompanyDescription"><a class="linkContact" href="skype:{{ company.skype }}?chat">{{ company.skype }}</a></p>
                     <p class="infoCompanyAddTitle contentText">E-mail:</p>
-                    <p class="infoCompanyDescription"><a class="linkContact" href"mailto:{{ company.email }}">{{ company.email }}</a></p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ company.email }}">{{ company.email }}</a></p>
                     <p class="infoCompanyAddTitle contentText">Отдел запчастей:<a class="linkContact addEmail " href="#">spareparts@rolf.ru</a></p>
                     <p class="infoCompanyAddTitle contentText">Сервис:<a class="linkContact addEmail" href="#">servis@rolf.ru</a></p>
                 </div>
@@ -196,8 +196,7 @@
             </div>
         </div>
         <div class="rightContent">
-            <span class="writeReviewBtn"><a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв<i class="writeReview"></i></a></span>
-            <span class="addPhotoBtn"><a href="{% if app.user %} # {% else %} {{ path('fos_user_security_login') }}{% endif %}">Добавить фото<i class="addPhoto"></i></a></span>
+            <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
             {% if company.logo %}
             <div class="bannerImg">
                 <img src="{{vich_uploader_asset(company, 'logo')}}" />
