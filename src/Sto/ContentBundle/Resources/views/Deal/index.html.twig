@@ -47,6 +47,7 @@
                 </ul>
             </div>
             <div id="rightBar" class="text-r">
+                {% if deals %}
                 <div class="slider">
                     <div class="img__prev__wrap">
                         <ul id="thumbnail" class="slide-wrap">
@@ -64,6 +65,7 @@
                         <span name="next" class="navy next-slide"></span>
                     </div>
                 </div>
+                {% endif %}
                 <div id="dealsContainer">
                 {{ render(controller('StoContentBundle:Deal:deals')) }}
                 </div>

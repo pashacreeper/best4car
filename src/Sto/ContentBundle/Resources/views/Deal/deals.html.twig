@@ -1,32 +1,36 @@
-{% set dealsLength = deals|length %}
-{% if dealsLength > 6 %}
-    {% set dealsLength = 6 %}
-{% endif %}
+{% if deals|length > 0 %}
+    {% set dealsLength = deals|length %}
+    {% if dealsLength > 6 %}
+        {% set dealsLength = 6 %}
+    {% endif %}
 
-{% for index in 1..dealsLength %}
-    {% set i = index - 1 %}
-    {% if index % 2 != 0 or loop.first %}
-    <div class="actionItemCont">
-    {% endif %}
-    <div class="actionItemMini">
-        <a href="{{ path('content_deal_show', {'id': deals[i].id }) }}" class="actionItemLink">
-            {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deals[i].imageName %}
-            <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
-            <div class="actionItemBottomWrap">
-                <div class="actionItemBottom">
-                    <h4>{{ deals[i].name }}</h4>
-                    <p>{{ deals[i].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[i].company.rating }}</span></p>
-                    <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | date('d.m') }} - {{ deals[i].endDate | date('d.m') }}</span></p>
+    {% for index in 1..dealsLength %}
+        {% set i = index - 1 %}
+        {% if index % 2 != 0 or loop.first %}
+        <div class="actionItemCont">
+        {% endif %}
+        <div class="actionItemMini">
+            <a href="{{ path('content_deal_show', {'id': deals[i].id }) }}" class="actionItemLink">
+                {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deals[i].imageName %}
+                <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
+                <div class="actionItemBottomWrap">
+                    <div class="actionItemBottom">
+                        <h4>{{ deals[i].name }}</h4>
+                        <p>{{ deals[i].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[i].company.rating }}</span></p>
+                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | date('d.m') }} - {{ deals[i].endDate | date('d.m') }}</span></p>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
-    {% if index % 2 == 0 or loop.last %}
-    </div>
+            </a>
+        </div>
+        {% if index % 2 == 0 or loop.last %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% if not (deals.paginationData.current == deals.paginationData.last) %}
+        <div class="bottomContent">
+            <a class="secondaryLink saveDraft" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2" id="showMoreDeals">Показать еще</a>
+        </div>
     {% endif %}
-{% endfor %}
-{% if not (deals.paginationData.current == deals.paginationData.last) %}
-    <div class="bottomContent">
-        <a class="secondaryLink saveDraft" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2" id="showMoreDeals">Показать еще</a>
-    </div>
+{% else %}
+    <p>Ни одного предложения пока что не представленно</p>
 {% endif %}
