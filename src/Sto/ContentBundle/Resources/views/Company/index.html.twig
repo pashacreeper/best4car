@@ -48,10 +48,6 @@
 
                 filterDataByZoom(myMap.getZoom(), companies);
 
-                myMap.events.add('actionend', function (evt) {
-                    filterDataByZoom(myMap.getZoom(), companies);
-                });
-
                 $('[data-serarch-form]').change(function () {
                     $.ajax({
                        type: "GET",
