@@ -1,94 +1,31 @@
-<div class="row-fluid">
-    <div class="span10 offset1">
-        <div class="row-fluid">
-            <div class="pull-right">
-                <ul class="nav nav-pills" id="myTab">
-                    <li class="active"><a href="#personal">Общая информация</a></li>
-                    <li><a href="#extra">Дополнительно</a></li>
-                </ul>
+<section class="contentMain  row">
+    <div class="content">
+        <ul class="stepRegistration">
+            <li class="stepRegistrationItem firstStepActive"><a href="{{ path('fos_user_profile_edit') }}" class="stepLink">Общая информация</a></li>
+            <li class="stepRegistrationItem endStep"><a href="{{ path('profile_edit_step2') }}" class="stepLink">Дополнительно</a></li>
+        </ul>
+        <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phoneNumber) }}
+            {{ form_row(form.birthDate) }}
+            {{ form_row(form.gender) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.avatar) }}
+            <div style="display: none">
+                {{ form_row(form.city) }}
+                {{ form_row(form.linkVK) }}
+                {{ form_row(form.vkontakteId) }}
+                {{ form_row(form.autoProfilesLinks) }}
+                {{ form_row(form.linkFB) }}
+                {{ form_row(form.linkGP) }}
+                {{ form_row(form.rating) }}
+                {{ form_row(form.ratingGroup) }}
             </div>
-        </div>
-    </div>
-</div>
-<hr style="margin: 5px 0;">
-<div class="row-fluid">
-    <div class="span10 offset1">
-<form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="thumbnail" style="height:200px;width:200px;">
-{% if form.vars.value.avatarUrl %}
-                        <img id="avatar" src="/../{{ storage_path }}/user_photo/{{ form.vars.value.avatarUrl }}" style="max-height: 200px; max-width: 200px;"/>
-{% else %}
-                        <img id="avatar" src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" style="max-height: 200px; max-width: 200px;"/>
-{% endif %}
-                </div>
-                        <a href="#" class="btn btn-success btn-block" style="width:210px">Загрузить изображение</a>
-            </div>
-            <div class="span9">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="personal">
-                        {{ form_row(form.firstName) }}
-                        {{ form_row(form.email) }}
-                        {{ form_row(form.phoneNumber) }}
-                        <div class="row-fluid">
-                            <div class="span6">
-                                {{ form_row(form.birthDate) }}
-                            </div>
-                            <div class="span6">
-                                {{ form_row(form.gender) }}
-                            </div>
-                        </div>
-                        {{ form_row(form.description) }}
-                        {{ form_row(form.avatar) }}
-                    </div>
-                    <div class="tab-pane" id="extra">
-                        {{ form_row(form.city) }}
-                        <h5>Внешние профили</h5>
-                        <div class="row-fluid">
-                            {{ form_row(form.linkVK) }}
-                            {{ form_row(form.vkontakteId) }}
-                            {{ form_row(form.autoProfilesLinks) }}
-                            {{ form_row(form.linkFB) }}
-                            {{ form_row(form.linkGP) }}
-                        </div>
-                        <hr style="margin: 5px 0;">
-                        <div class="row-fluid">
-                            <div class="span4">
-                                {{ form_row(form.rating) }}
-                            </div>
-                            <div class="span8">
-                                {{ form_row(form.ratingGroup) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{ form_widget(form) }}
-        <div class="form-actions">
-            <input type="submit" class="btn btn-primary" value="Сохранить изменения" />
-            <a href="{{ path('fos_user_profile_show') }}" class="btn">Отмена</a>
-        </div>
+            {{ form_widget(form) }}
         </form>
+        <div class="bottomContent">
+            <span class="btnNext addPhotoBtn" id="submitRegisterForm">Сохранить</span>
+        </div>
     </div>
-</div>
-
-<script>
-    $('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-
-    $(".btn.btn-success.btn-block").on('click', function () {
-        $('#fos_user_profile_form_avatar').click().change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#avatar').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    })
-</script>
+</section>

@@ -17,6 +17,11 @@ sto_user:
     resource: "@StoUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+sto_user2:
+    resource: "@StoUserBundle/Controller"
+    type:     annotation
+    prefix:   /
+
 _imagine:
     resource: .
     type:     imagine
