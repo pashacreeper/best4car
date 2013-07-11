@@ -79,9 +79,17 @@ var catalogPage = function(){
             $('#map').css('right', '340px');
         }
     });
-    $('.bxslider').bxSlider({
-        mode: 'fade',
-        captions: true
+    $('.linkFirstVisitPeople').on('click', function(){
+        $('.bxslider1').bxSlider({
+            mode: 'fade',
+            captions: true
+        });
+    });
+    $('.linkFirstVisitCompany').on('click', function(){
+        $('.bxslider2').bxSlider({
+            mode: 'fade',
+            captions: true
+        });
     });
 
     // Отрабатываем нажатие по «Только с акциями» в меню расширенного поиска
