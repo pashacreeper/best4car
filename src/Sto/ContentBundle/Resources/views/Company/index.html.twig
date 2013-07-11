@@ -3,6 +3,7 @@
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-index.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-po-ups.css') }}">
 {% endblock %}
 
 {% block js %}
@@ -222,6 +223,7 @@
         }
     });
     </script>
+    <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
 {% endblock %}
 
 {% block wrap_container_open %}{% endblock %}
@@ -381,14 +383,74 @@
             <p class="contentFirstVisit">
                 Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
             </p>
-            <a href="#" class="linkFirstVisitPeople">
+            <a href="#" class="linkFirstVisitPeople" data-reveal-id="for-car-owners">
                 <i class="iconPeople"></i>
                 <span>Возможности </br>для автовладельцев</span>
             </a>
-            <a href="#" class="linkFirstVisitCompany">
+            <a href="#" class="linkFirstVisitCompany" data-reveal-id="for-auto-companies">
                 <i class="iconCompany"></i>
                 <span>Возможности </br>для автокомпаний</span>
             </a>
+        </div>
+
+        <div id="for-car-owners" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
+            <a href="#" class="close-reveal-modal"></a>
+            <div class="slidCont">
+                <ul class="bxslider">
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo3.jpg"  alt="Image One" />
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="http://placehold.it/680x380" alt="">
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="http://placehold.it/680x380" alt="">
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo4.jpg"  alt="Image One" />
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo2.jpg"  alt="Image One" />
+                        <div class="insideBlock">
+                            <p class="whoop">Понравилось?</p>
+                            <p class="whoop2">Примите участие в жизни нашего портала</p>
+                            <div class="outBtn">
+                                <a href="#" class="btnEnter" data-reveal-id="registration-form-popup" id="carOwnerRegisterFromTour">Зарегистрироваться</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="for-auto-companies" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
+            <a href="#" class="close-reveal-modal"></a>
+            <div class="slidCont">
+                <ul class="bxslider">
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo3.jpg"  alt="Image One" />
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="http://placehold.it/680x380" alt="">
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="http://placehold.it/680x380" alt="">
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo4.jpg"  alt="Image One" />
+                    </li>
+                    <li class="bxsliderItem">
+                        <img src="/bootstrap/img/photo2.jpg"  alt="Image One" />
+                        <div class="insideBlock">
+                            <p class="whoop">Понравилось?</p>
+                            <p class="whoop2">Примите участие в жизни нашего портала</p>
+                            <div class="outBtn">
+                                <a href="{{ path('registration_company_owner') }}" class="btnEnter">Зарегистрироваться</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     {% endif %}
 {% endblock %}

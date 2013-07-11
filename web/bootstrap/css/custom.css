@@ -303,3 +303,17 @@ span.complain{
     width: 45%;
     float: left;
 }
+
+.siteTourPopup{
+    margin-left: -340px;
+    padding: 15px 20px 5px;
+    width: 680px;
+}
+
+.outBtn .btnEnter{
+    width: 178px !important;
+}
+.outBtn .btnEnter:hover{
+    text-decoration: none;
+    color: #fff;
+}

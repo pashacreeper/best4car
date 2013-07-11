@@ -20,8 +20,8 @@ var mainLayout = function(){
         $('.userDropdown').toggle();
     });
     // Registration popup
-    $('#carOwnerRegister').on('click', function(){
-        var $this = $(this),
+    var showRegistrationPopup = function(linkElement){
+        var $this = $(linkElement),
             $registrationFormPopup = $('#registration-form-popup'),
             $registrationContainer = $('#registration-container');
 
@@ -32,6 +32,12 @@ var mainLayout = function(){
         $.get(Routing.generate('fos_user_registration_register'), function(data){
             $registrationContainer.append(data);
         });
+    };
+    $('#carOwnerRegister').on('click', function(){
+        showRegistrationPopup(this);
+    });
+    $('#carOwnerRegisterFromTour').on('click', function(){
+        showRegistrationPopup(this);
     });
 
     $('#resettingPassword').on('click', function(){
@@ -72,6 +78,10 @@ var catalogPage = function(){
             $this.html(closeText);
             $('#map').css('right', '340px');
         }
+    });
+    $('.bxslider').bxSlider({
+        mode: 'fade',
+        captions: true
     });
 
     // Отрабатываем нажатие по «Только с акциями» в меню расширенного поиска
