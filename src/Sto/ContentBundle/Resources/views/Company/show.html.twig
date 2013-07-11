@@ -340,8 +340,7 @@
             {% endfor %}
         </div>
         <div class="rightContent">
-            <span class="writeReviewBtn"><a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}">Оставить отзыв<i class="writeReview"></i></a></span>
-            <span class="addPhotoBtn"><a href="{% if app.user %} # {% else %} {{ path('fos_user_security_login') }}{% endif %}">Добавить фото<i class="addPhoto"></i></a></span>
+            <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
             {% if company.logo %}
             <div class="bannerImg">
                 <img src="{{vich_uploader_asset(company, 'logo')}}" />
