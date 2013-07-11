@@ -1,0 +1,56 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title %}Профиль пользователя &middot; {{ app.user.username }} {% endblock %}
+{% block header %}Профиль пользователя - {{ app.user.username }}</h4>{% endblock %}
+
+{% block content_tag 'id="content" class="container"' %}
+
+{% block content %}
+<section class="contentMain  row">
+    <div class="content">
+        <ul class="stepRegistration">
+            <li class="stepRegistrationItem firstStep"><a href="{{ path('fos_user_profile_edit') }}" class="stepLink">Общая информация</a></li>
+            <li class="stepRegistrationItem endStepActive"><a href="{{ path('profile_edit_step2') }}" class="stepLink">Дополнительно</a></li>
+        </ul>
+        <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+	        <div style="display: none">
+	            {{ form_row(form.firstName) }}
+	            {{ form_row(form.email) }}
+	            {{ form_row(form.phoneNumber) }}
+	            {{ form_row(form.birthDate) }}
+	            {{ form_row(form.gender) }}
+	            {{ form_row(form.description) }}
+	            {{ form_row(form.avatar) }}
+            </div>
+            {{ form_row(form.city) }}
+            {{ form_row(form.linkVK) }}
+            {{ form_row(form.vkontakteId) }}
+            {{ form_row(form.autoProfilesLinks) }}
+            {{ form_row(form.linkFB) }}
+            {{ form_row(form.linkGP) }}
+            {{ form_row(form.rating) }}
+            {{ form_row(form.ratingGroup) }}
+            {{ form_widget(form) }}
+        </form>
+        <div class="bottomContent">
+            <span class="btnNext addPhotoBtn" id="submitRegisterForm">Сохранить</span>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-registration-company.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+{% endblock %}
