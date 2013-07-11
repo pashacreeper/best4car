@@ -246,22 +246,6 @@
                                     });
                                 });
             </script>
-            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.popUpPrimary').hide();
-                                    $('.complainAlert').hide();
-                                    $('.complain').click(function() {
-                                        $('.complainAlert').show();
-                                    });
-                                    $('.complainAlert').click(function() {
-                                        $('.popUpPrimary').show();
-                                    });
-                                    $('.popUpPrimary li').click(function() {
-                                        $('.popUpPrimary').hide();
-                                        $('.complainAlert').hide();
-                                    });
-                                });
-            </script>
             {% for feedback in company.feedbacks %}
             <div class="reviewContentItem">
                 <div class="reviewAccount">
@@ -305,8 +289,16 @@
                                 {{ feedback.content|raw }}
                             </p>
                             <span class="primaryLink reply">Ответить</span>
-                            <span class="primaryLink complain">Пожаловаться</span>
-                            <i class="complainAlert"></i>
+                            {% if app.user %}
+                                {% if feedback.complain %}
+                                <span class="primaryLink complain">Пожаловаться</span>
+                                {% else %}
+                                <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                                {% endif %}
+                            {% endif %}
+                            {% if feedback.complain %}
+                                <i class="complainAlert"></i>
+                            {% endif %}
                             <div class="popUpPrimary">
                                 <div id="myCanvasTop" class="myCanvasTop"></div>
                                 <ul>
@@ -338,6 +330,25 @@
                 </div>
             </div>
             {% endfor %}
+            <script>
+                $('a[data-action="complain"]').on('click', function(e){
+                    e.preventDefault();
+                    var $this = $(this),
+                        feedbackId = $(this).data('feedback-id');
+
+                    $.getJSON(Routing.generate('api_feedback_add_complain'), {'feedback_id': feedbackId})
+                    .done(function (data) {
+                        if (data.complain == true){
+                            $this.after($('<i class="complainAlert"></i>'));
+                            $this.befor($('<span class="primaryLink complain">Пожаловаться</span>'));
+                            $this.remove();
+                        }
+                    })
+                    .fail(function(e) {
+                        console.log('error', e.message);
+                    });
+                });
+            </script>
         </div>
         <div class="rightContent">
             <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
