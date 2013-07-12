@@ -17,8 +17,8 @@ use Symfony\Component\Form\FormError;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\AdditionalUserType;
 use Sto\ContentBundle\Form\PhotoUserType;
-use Sto\UserBundle\Entity\UserGallery,
-    Sto\ContentBundle\Form\UserGalleryType;
+use Sto\UserBundle\Entity\UserGallery;
+use Sto\ContentBundle\Form\UserGalleryType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -556,5 +556,20 @@ class UserController extends MainController
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 
         $this->container->get('security.context')->setToken($token);
+    }
+
+    /**
+     * @Template()
+     */
+    public function logedInUserProfileDropDownAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $feedbackAnswers = $em->getRepository('StoCoreBundle:Feedback')->findFeedbackAnsersCountForUser($user);
+
+        return [
+            'user' => $user,
+            'answers' => (int) $feedbackAnswers['answers'],
+        ];
     }
 }
