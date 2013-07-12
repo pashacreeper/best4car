@@ -1,0 +1,64 @@
+{% if is_granted("ROLE_USER") %}
+    <div class="accountCont">
+    <a class="userImg btnUser" href="#">
+    {%- if user.avatarUrl %}
+        <img src="{{ user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+    {% else %}
+        <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+    {% endif -%}
+    </a>
+    <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
+    <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating }}</span></p>
+    <div class="userDropdown">
+        <div id="myCanvasTop" class="myCanvasTop"></div>
+        <p class="popUpTitle">Ваш личный профиль</p>
+        <ul class="userProfilCont">
+            <li class="userProfilItem">
+                <i class="iconProfilGray"></i>
+                <a href="{{ path('fos_user_profile_show') }}" class="google-blue">Профиль</a>
+            </li>
+            <li class="userProfilItem">
+                <i class="iconRemovReviewGray"></i>
+                <a href="{{ path('fos_user_profile_show') }}#feedbacks" class="facebook-blue">Ответы на отзыв</a>
+                <span class="amountProfil">{{ answers }}</span>
+            </li>
+        </ul>
+        {% if user.companyManager is not empty %}
+            <p class="popUpTitle">Компания Транспорт-Сервис</p>
+            <ul class="userProfilCont">
+                <li class="userProfilItem">
+                    <i class="iconProfilGray"></i>
+                    <a href="#" class="google-blue">Профиль</a>
+                </li>
+                <li class="userProfilItem">
+                    <i class="iconReviewGray"></i>
+                    <a href="#" class="facebook-blue">Отзывы</a>
+                </li>
+                <li class="userProfilItem">
+                    <i class="iconActionGray"></i>
+                    <a href="#" class="facebook-blue">Акции</a>
+                </li>
+            </ul>
+        {% endif %}
+        <p class="userDropBot"><a href="{{ path('fos_user_security_logout') }}" class="btnExit primaryLink regisrationLink">Выйти</a></p>
+    </div>
+</div>
+{% else %}
+    <div id="accountUnIdentified" class="accountCont">
+    <span class="enter">Войти в профиль<i class="iconarrow"></i></span>
+    <a href="#" class="registration regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
+    <div class="enterDropdown">
+        {% render controller('StoUserBundle:User:userLogin') %}
+        <div class="enterCocial">
+            <span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+            <ul class="enterCocialIcon">
+                <li class="enterCocialIconItem">
+                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
+                </li>
+            </ul>
+        </div>
+        <a href="#" class="primaryLink regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
+        <div id="myCanvasTop" class="myCanvasTop"></div>
+    </div>
+</div>
+{% endif %}
