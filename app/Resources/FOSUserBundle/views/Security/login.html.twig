@@ -1,62 +1,18 @@
-{% extends 'StoAdminBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% from 'StoContentBundle::flash.html.twig' import flash %}
 
-{% block title %}Sign in{% endblock %}
-{% block head_style %}
-{{ parent() }}
-{% stylesheets filter='cssrewrite'
-    'bundles/stocore/css/font-awesome.css'
-    'bundles/stocontent/css/fontello.css'
-%}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-{% endstylesheets %}
-<style type="text/css">
-    body {
-        background-color: #f5f5f5;
-    }
-    .form-signin {
-        max-width: 100%;
-        padding: 19px 29px 29px;
-        margin: auto;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    }
-    .form-signin .form-signin-heading {
-        margin-bottom: 10px;
-    }
-    .form-signin input[type="text"], .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-    }
-</style>
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-action.css') }}">
 {% endblock %}
 
-{% block navbar_container %}
-{% block navbar %}{% endblock %}
-{% endblock %}
-
-{% block body_tag %}
-<body data-spy="scroll" class="login-screen">
-{% endblock %}
-
-{% block head_hr '' %}
-
-{% block flashes %}{% endblock %}
 {% block content %}
-<div class="container">
-{% block fos_user_content %}
-    <div class="row-fluid" style="margin-top: 100px;">
+<section class="contentMain">
+    <div class="centerContainerWrapper">
+    {% block fos_user_content %}
         <div class="span6 offset3 well">
+            <h2>Вход</h2>
             <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
-                <legend>Вход</legend>
                 {% if error %}
                 {{ flash('error', 'login.alerts.wrong_pass' | trans, true, true) }}
                 {% endif %}
@@ -70,18 +26,28 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />                
-                <input type="text" class="input-block-level" placeholder="Логин" id="username" name="_username" value="{{ last_username }}" />
-                <input type="password" class="input-block-level" placeholder="Пароль" id="password" name="_password" />
-                <input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="Войти" />
-                <br />
-                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="icon-b4c-vkontakte icon-3x"></i></a>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                
+                <p class="contentLabel">
+                    <label>Имя пользователя</label>
+                    <input type="text" class="inputFormEnter span6" id="username" name="_username" value="{{ last_username }}" />                   
+                </p>
+                <p class="contentLabel">
+                    <label>Пароль</label>
+                    <input type="password" class="inputFormEnter span6" id="password" name="_password" />
+                </p>
+                <button type="submit" class="btnEnter">Войти</button>
+                <ul class="enterCocialIcon">
+                    <li class="enterCocialIconItem">
+                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte', 'email':'papvann@gmail.com' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
+                    </li>
+                </ul>
             </form>
-            <br />
-            <a href="{{ path('fos_user_resetting_request') }}">забыли пароль</a>
+            <div class="clear">
+                <p style="font-size: 1.2em;"><a href="{{ path('fos_user_resetting_request') }}">забыли пароль</a></p>
+            </div>
         </div>
+    {% endblock fos_user_content %}
     </div>
-{% endblock fos_user_content %}
-</div>
+</section>
 {% endblock %}
-{% block footer %}{% endblock %}
