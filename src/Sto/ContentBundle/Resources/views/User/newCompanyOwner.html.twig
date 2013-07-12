@@ -1,5 +1,6 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+{% from 'StoContentBundle::flash.html.twig' import flash %}
 
 {% block title %}
     {{ parent() }}
@@ -51,15 +52,18 @@
             <p class="popUpTitle">Войти на best4car.ru</p>
             <div class="blockEnter">
                 <form action="{{ path("content_register_company_with_owner") }}" method="post">
+                    {% if errorFlag is defined and errorFlag %}
+                        {{ flash('error', errors|trans, false, true) }}
+                    {% endif %}
                     <p class="contentLabel">
                         <label>Email</label>
-                        <input type="text" class="inputFormEnter" value="{% if last_username is defined %}{{last_username}}{% endif %}">
+                        <input type="text" class="inputFormEnter" id="username" name="_username" value="{% if last_username is defined %}{{last_username}}{% endif %}" />
                     </p>
                     <p class="contentLabel">
                         <label>Пароль</label>
-                        <input type="text" class="inputFormEnter">
+                        <input type="password" class="inputFormEnter" id="password" name="_password" />
                     </p>
-                    <button class="btnEnter">Войти</button>
+                    <button class="btnEnter" type="submit">Войти</button>
                     <p class="secondaryLink forgotPass">Забыли пароль?</p>
                 </form>
             </div>

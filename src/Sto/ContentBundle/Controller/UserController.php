@@ -74,7 +74,7 @@ class UserController extends MainController
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')->findOneBy(['username' => $request->get('_username')]);
             if (!$user) {
-                $errors = 'Username is incorrect!';
+                $errors = "login.alerts.wrong_pass";
                 $errorFlag = true;
             } else {
                 $encoder = $this->container
@@ -82,12 +82,12 @@ class UserController extends MainController
                     ->getEncoder($user)
                 ;
                 if (!($user->getPassword()==$encoder->encodePassword($request->get('_password'), $user->getSalt()))) {
-                    $errors = 'Password is incorrect!';
+                    $errors = "login.alerts.wrong_pass";
                     $errorFlag = true;
                 }
             }
         } else {
-            $errors = 'No data in form!';
+            $errors = "login.alerts.wrong_pass";
             $errorFlag = true;
         }
 
