@@ -58,7 +58,7 @@
             <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
                 <legend>Вход</legend>
                 {% if error %}
-                {{ flash('error', 'Incorrect Username or Password!', true, true) }}
+                {{ flash('error', 'login.alerts.wrong_pass' | trans, true, true) }}
                 {% endif %}
                 {% if app.session.started %}
                     {% if is_expr_granted("hasRole('ROLE_FROZEN')") %}
