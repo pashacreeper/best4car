@@ -38,8 +38,8 @@
         <div class="leftRegistrationCompany">
             <h2 class="titleRegistrationCompany">Зарегистрировать профиль на best4car.ru</h2>
             <form name="register-form" action="{{ path('registration_company_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal" id="registerForm">
-                {{ form_row(form.firstName) }}
-                {{ form_row(form.lastName) }}
+                {{ form_row(form.firstName, { attr: {class: "inputFormEnter span6" } }) }}
+                {{ form_row(form.lastName, { attr: {class: "inputFormEnter span6" } }) }}
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.plainPassword) }}
