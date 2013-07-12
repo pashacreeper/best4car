@@ -199,12 +199,44 @@ var feedbackPage = function(){
     });
 }
 
+var profilePage = function(){
+    (function(){
+        var tabContainers = $('.tabs'),
+            tabLinksContainer = $('.tabs ul.tabNavigation'),
+            url = document.URL;
+
+        tabContainers.find('> div').hide();
+        if (url.indexOf('profile/') + 1) {
+            var hash = false;
+
+            if (url.indexOf('#') + 1) {
+                hash = url.substring(url.indexOf('#'));
+            }
+
+            if (hash) {
+                tabContainers.find('[data-tab-id="'+hash+'"]').show();
+                tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
+            } else {
+                tabContainers.find('> div').hide().filter(':first').show();
+                tabLinksContainer.find('a:first').addClass('selected');
+            }
+        }
+        tabLinksContainer.find('a').click(function () {
+            tabContainers.find('> div').hide(); // прячем все табы
+            tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
+            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
+            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+        });
+    })();
+}
+
 var initPage = function(){
     mainLayout();
     catalogPage();
     dealsPage();
     registrationPage();
     feedbackPage();
+    profilePage();
 };
 
 $(document).ready(function(){initPage()});
