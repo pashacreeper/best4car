@@ -323,3 +323,21 @@ span.complain{
     float: right;
     padding-right: 20px;
 }
+
+.centerContainerWrapper{
+    width: 100%;
+    background-color: #f6f6f6;
+    padding: 50px 0 250px;
+}
+.centerContainerWrapper .alert{
+    font-size: 1.2em;
+}
+.centerContainerWrapper .alert .close{
+    top: -5px;
+}
+.centerContainerWrapper h2{
+    font-size: 1.5em;
+}
+.centerContainerWrapper [class*='span']{
+    float: none;
+}
