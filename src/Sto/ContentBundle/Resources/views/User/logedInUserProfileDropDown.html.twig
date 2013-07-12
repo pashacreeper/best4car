@@ -4,7 +4,7 @@
     {%- if user.avatarUrl %}
         <img src="{{ user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
     {% else %}
-        <img src="/bootstrap/img/default-user-icon.jpg" alt="фото пользователя" />
+        <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
     {% endif -%}
     </a>
     <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
@@ -19,7 +19,7 @@
             </li>
             <li class="userProfilItem">
                 <i class="iconRemovReviewGray"></i>
-                <a href="#" class="facebook-blue">Ответы на отзыв</a>
+                <a href="{{ path('fos_user_profile_show') }}#feedbacks" class="facebook-blue">Ответы на отзыв</a>
                 <span class="amountProfil">{{ answers }}</span>
             </li>
         </ul>

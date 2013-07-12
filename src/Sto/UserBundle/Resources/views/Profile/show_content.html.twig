@@ -4,14 +4,14 @@
     <!-- Это сами вкладки -->
     <ul class="tabNavigation">
         <li>
-            <a class="" href="#first">Информация</a>
+            <a class="" href="#information">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы <span class="newPost">{{ user.feedbacks|length }}</span></a>
+            <a class="" href="#feedbacks">Отзывы <span class="newPost">{{ user.feedbacks|length }}</span></a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
-    <div id="first" class="content">
+    <div class="content" data-tab-id="#information">
         <div class="profilExpertLeftCont">
             <div class="profilExpertImg">
                 {% if user.avatar %}
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div id="second" class="content">
+    <div class="content" data-tab-id="#feedbacks">
         <div class="leftContent">
             <div class="contentSelect">
                 <div class="assortSelect">
@@ -98,15 +98,6 @@
             </p>
             <script type="text/javascript">
                                 $(document).ready(function() {
-                                    $('.collapsCont').hide();
-                                    $('.collapsText').click(function() {
-                                        $('.collapsCont').show();
-                                        $('.collapsText').hide();
-                                    });
-                                });
-            </script>
-            <script type="text/javascript">
-                                $(document).ready(function() {
                                     $('.popUpPrimary').hide();
                                     $('.complainAlert').hide();
                                     $('.complain').click(function() {
@@ -126,10 +117,10 @@
                 <div class="reviewAccount">
                     <div  class="reviewAccountImg">
                         <a href="#">
-                            <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                            <img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" />
                         </a>
                     </div>
-                    <span>153</span>
+                    <span>{{ feedback.user.rating }}</span>
                 </div>
                 <div class="reviewWrap">
                     <div class="reviewTop">
@@ -201,7 +192,7 @@
                             </div>
                             <div class="reviewContBottomAccount">
                                 <div  class="responseReviewAccountImg">
-                                    <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                                    <img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" />
                                 </div>
                                 <span class="responseReviewData">18.02.2013</span>
                                 <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
@@ -219,39 +210,9 @@
             {% endfor %}
         </div>
         <div class="rightContent">
-            <span class="writeReviewBtn">Оставить отзыв<i class="writeReview"></i></span>
-            <span class="addPhotoBtn">Я пойду<i class="acctBtn">241</i></span>
             <div class="bannerImg">
-                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
         </div>
     </div>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs ul.tabNavigation a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
-            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs2 ul.tabNavigation2 a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
-            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
 </section>
