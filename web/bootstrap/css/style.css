@@ -1357,7 +1357,7 @@ label {
 	height: 26px;
 	display: inline-block;
 	text-indent: -3000px;
-	margin: 0 5px;
+	margin-right: 10px;
 	background-image: url("/bootstrap/img/icon-social-net.png");
 }
 .secondaryLink{

@@ -69,6 +69,7 @@ class RegistrationType extends BaseType
             ->add('captcha', 'captcha', [
                 'reload' => true,
                 'bypass_code' => '1234567',
+                'label' => "Введите текст изображенный на картинке",
                 'attr' => [
                     'class' => 'inputFormEnter span2 clear'
                 ]
