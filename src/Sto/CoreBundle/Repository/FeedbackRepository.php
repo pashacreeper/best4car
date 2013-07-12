@@ -10,7 +10,7 @@ use Sto\UserBundle\Entity\User;
  */
 class FeedbackRepository extends EntityRepository
 {
-    public function findFeedbackAnsersCountForUser(User $user)
+    public function findFeedbackAnswersCountForUser(User $user)
     {
         $qb = $this->createQueryBuilder('q');
         $qb
