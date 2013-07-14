@@ -13,52 +13,58 @@ class UserProfileType extends BaseType
         $builder
             ->add('firstName', null, [
                 'label' => 'Имя',
+                'attr' => [
+                    'class' => 'span6 inputFormEnter'
+                ]
+            ])
+            ->add('lastName', null, [
+                'label' => 'Фамилия',
+                'attr' => [
+                    'class' => 'span6 inputFormEnter'
+                ]
             ])
             ->add('email', null, [
                 'label' => 'E-mail',
-            ])
-            ->add('rating', null, [
-                'label' => 'Рейтинг',
-                'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
-                    'class' => 'input-small'
+                    'class' => 'span6 inputFormEnter'
                 ]
             ])
             ->add('phoneNumber', null, [
                 'label' => 'Телефон',
                 'required' => false,
                 'render_optional_text' => false,
-            ])
-            ->add('ratingGroup', null, [
-                'required' => false,
-                'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'span6 inputFormEnter'
+                ]
             ])
             ->add('avatar', null, [
                 'label' => 'Аватара',
                 'label_render' => false,
                 'required' => false,
                 'render_optional_text' => false,
-                'attr' => [
-                    'style' => 'display:none;'
-                ]
             ])
-            ->add('birthDate', 'date', [
+            ->add('birthDate', 'datetime', [
                 'label' => 'Дата рождения',
-                'required' => false,
-                'render_optional_text' => false,
                 'widget' => 'single_text',
-                'datepicker' => true
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
+                'attr' => [
+                    'class' => "inputData",
+                    'data-format' => "yyyy-MM-dd"
+                ]
             ])
             ->add('gender','choice', [
                 'label' => 'Пол',
                 'required' => false,
                 'render_optional_text' => false,
                 'choices' => [
-                    'male'=>'Male',
-                    'female'=>'Female'
+                    'male'=>'М',
+                    'female'=>'Ж'
                 ],
                 'expanded' => true,
+                'attr' => [
+                    'class' => 'genderSelect'
+                ]
             ])
             ->add('city', 'entity', [
                 'label' => 'Город',
@@ -69,33 +75,40 @@ class UserProfileType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'span4'
                 ]
             ])
             ->add('linkVK', null, [
                 'label' => 'ВКонтакте',
                 'required' => false,
                 'render_optional_text' => false,
-            ])
-            ->add('vkontakteId', null, [
-                'label' => 'Id пользователя Вконтакте',
-                'render_optional_text' => false,
-                'required' => false,
+                'attr' => [
+                    'style' => 'width:324px'
+                ]
             ])
             ->add('linkFB', null, [
                 'label' => 'Facebook',
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'width:270px'
+                ]
             ])
             ->add('linkGP', null, [
                 'label' => 'Google+',
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'style' => 'width:294px'
+                ]
             ])
             ->add('autoProfilesLinks', null, [
                 'label' => 'Авто профиль',
                 'required' => false,
                 'render_optional_text' => false,
+                'attr' => [
+                    'class' => 'span6 inputFormEnter'
+                ]
             ])
             ->add('description', 'textarea', [
                 'label' => 'О себе',
@@ -103,7 +116,7 @@ class UserProfileType extends BaseType
                 'render_optional_text' => false,
                 'attr' => [
                     'rows' => 4,
-                    'class '=> 'span9'
+                    'class '=> 'span6 inputFormEnter'
                 ]
             ])
         ;

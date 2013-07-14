@@ -1,31 +1,61 @@
-<section class="contentMain  row">
-    <div class="content">
-        <ul class="stepRegistration">
-            <li class="stepRegistrationItem firstStepActive"><a href="{{ path('fos_user_profile_edit') }}" class="stepLink">Общая информация</a></li>
-            <li class="stepRegistrationItem endStep"><a href="{{ path('profile_edit_step2') }}" class="stepLink">Дополнительно</a></li>
-        </ul>
-        <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-            {{ form_row(form.firstName) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.phoneNumber) }}
-            {{ form_row(form.birthDate) }}
-            {{ form_row(form.gender) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.avatar) }}
-            <div style="display: none">
-                {{ form_row(form.city) }}
-                {{ form_row(form.linkVK) }}
-                {{ form_row(form.vkontakteId) }}
-                {{ form_row(form.autoProfilesLinks) }}
-                {{ form_row(form.linkFB) }}
-                {{ form_row(form.linkGP) }}
-                {{ form_row(form.rating) }}
-                {{ form_row(form.ratingGroup) }}
+
+
+<section class="contentMain row tabs">
+    <ul class="tabNavigation">
+        <li>
+            <a href="#information">Общая информация</a>
+        </li>
+        <li>
+            <a href="#aditional">Дополнительно</a>
+        </li>
+    </ul>
+    <div class="content" data-tab-id="#information">
+    <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.phoneNumber) }}
+        <p class="contentLabel clear">
+            {{ form_label(form.birthDate) }}
+            <div id="datetimepicker1" class="input-append">
+                {{ form_widget(form.birthDate) }}
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                    </i>
+                </span>
             </div>
-            {{ form_widget(form) }}
-        </form>
+        </p>
+        {{ form_row(form.gender) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.avatar) }}
         <div class="bottomContent">
-            <span class="btnNext addPhotoBtn" id="submitRegisterForm">Сохранить</span>
+            <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
         </div>
+    </div>
+    <div class="content" data-tab-id="#aditional">
+        {{ form_row(form.city) }}
+        {{ form_row(form.autoProfilesLinks) }}
+        <div class="contentLabel rightContaktItem">
+            <label>VKontakte</label>
+            <p class="maskInput"><span>www.vk.com\</span>
+                {{ form_widget(form.linkVK) }}
+            </p>
+        </div>
+        <div class="contentLabel rightContaktItem">
+            <label>Google+</label>
+            <p class="maskInput"><span>plus.google.com\</span>
+                {{ form_widget(form.linkGP) }}
+            </p>
+        </div>
+        <div class="contentLabel rightContaktItem">
+            <label>Facebook</label>
+            <p class="maskInput"><span>www.facebook.com\</span>
+                {{ form_widget(form.linkFB) }}
+            </p>
+        </div>
+        <div class="bottomContent">
+            <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+        </div>
+    </form>
     </div>
 </section>
