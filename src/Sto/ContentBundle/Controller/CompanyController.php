@@ -135,22 +135,32 @@ class CompanyController extends MainController
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
             ->setParameter('company', $id)
-            ;
+        ;
 
         if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
             $qb->andWhere('fc.hidden = :hidden')
                 ->setParameter('hidden', 0);
         }
 
-        $query = $qb->getQuery()
-                    ->getResult();
+        $feedbacks = $qb->getQuery()->getResult();
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
+
+        $archivedDeals = $em->getRepository('StoCoreBundle:Deal')
+            ->createQueryBuilder('deal')
+            ->select("COUNT(deal)")
+            ->where('deal.endDate < :endDate')
+            ->andwhere('deal.companyId = :company')
+            ->setParameters(['endDate'=> new \DateTime('now'), 'company'=> $id])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
 
         return [
             'company' => $company,
             'tab'     => $tab,
             'isManager' => $isManager,
-            'feedbacks'  => $query
+            'feedbacks'  => $feedbacks,
+            'archivedDeals' => (int) $archivedDeals
         ];
     }
 
