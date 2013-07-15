@@ -26,8 +26,12 @@
 </div>
 <div id="nameCompanyHeaderWrap">
     <div class="nameCompanyHeader">
+        {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
         <h1 class="titleNameCompany">Ваш отзыв о компании:</h1>
         <p class="sloganCompany">{{ company.name }}</p>
+        {% else %}
+            <h1 class="titleNameCompany">Вы не авторизованы</h1>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
@@ -116,8 +120,9 @@
             {{ form_rest(form) }}
 
             <input type="submit" class="btnNext addPhotoBtn" value="Оставить отзыв"/>
-
             </form>
+            {% else %}
+                <p class="infoText">Для того что бы оставлять отзывы необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> или <a href="{{ path('fos_user_registration_register') }}">зарегестрироваться</a></p>
             {% endif %}
         </div>
         <div class="rightContent">

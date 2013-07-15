@@ -354,3 +354,9 @@ a.btnNext:hover{
     text-decoration: none;
     color: #fff;
 }
+.infoText{
+    color: #444;
+    font: 1.4em 'PT Sans', sans;
+    padding: 5px 0;
+    line-height: 18px;
+}
