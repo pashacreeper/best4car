@@ -69,35 +69,22 @@
             </div>
             {% endif %}
             <div class="servicesSpecialisationWrap">
-                <script type="text/javascript">
-                    $(document).ready(function(){
-                        $('.accordion-body:not(:first)').hide();
-                        $('.accordion-toggle').click(function(){
-                            $('#collapse_' + this.id).toggle();
-                            $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
-                        });
-                        $('.showAll').click(function(){
-                            $('.accordion-body').show();
-                            $('.iconAccord').removeClass('iconChevronDown');
-                        });
-                    });
-                </script>
                 <div class="accordion" id="accordion2">
                     <h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
                     {% for specialization in company.specialization %}
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <div class="accordion-toggle" id="11">
+                            <div class="accordion-toggle" id="{{ loop.index }}">
                                 <i class="iconProfilCompany cto"></i>
                                 <p class="accordionTitle">{{ specialization.name }}</p>
                                 <p class="accordionDescription">Независимый мультибрендовый</p>
-                                <span class="iconAccord iconChevron" id="iconCollapse_11"></span>
+                                <span class="iconAccord iconChevron" id="iconCollapse_{{ loop.index }}"></span>
                             </div>
                         </div>
-                        <div id="collapse_11" class="accordion-body">
+                        <div id="collapse_{{ loop.index }}" class="accordion-body">
                             <div class="accordion-inner">
                                 <ul class="listServices">
-                                    {% for service in specialization %}
+                                    {% for service in specialization.autoServices %}
                                     <li class="listServicesItem contentText">
                                         {{ service.name }}
                                     </li>

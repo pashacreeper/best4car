@@ -131,7 +131,7 @@ class CompanyController extends MainController
                 ->getResult()
             ;
         }
-       $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
+        $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
             ->setParameter('company', $id)

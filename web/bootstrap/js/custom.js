@@ -232,7 +232,19 @@ var profilePage = function(){
             $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
         });
     })();
-}
+};
+
+var companyPage = function(){
+    $('.accordion-body').hide();
+    $('.accordion-toggle').click(function(){
+        $('#collapse_' + this.id).toggle();
+        $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
+    });
+    $('.showAll').click(function(){
+        $('.accordion-body').show();
+        $('.iconAccord').removeClass('iconChevronDown');
+    });  
+};
 
 var initPage = function(){
     mainLayout();
@@ -241,6 +253,7 @@ var initPage = function(){
     registrationPage();
     feedbackPage();
     profilePage();
+    companyPage();
 };
 
 $(document).ready(function(){initPage()});
