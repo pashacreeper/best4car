@@ -188,6 +188,16 @@ var registrationPage = function(){
             pickDate: false
         });
     });
+
+    (function(){
+        var tabLinksContainer = $('#stepRegistration');
+
+        $('.btnNext').on('click', function(){
+            var tabId = $(this).data('tab-switch-id');
+            tabLinksContainer.find('.active').removeClass('active');
+            tabLinksContainer.find('#'+tabId).addClass('active');
+        });
+    })();
 };
 
 var feedbackPage = function(){

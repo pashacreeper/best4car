@@ -349,3 +349,7 @@ span.complain{
 .centerContainerWrapper [class*='span']{
     float: none;
 }
+a.btnNext:hover{
+    text-decoration: none;
+    color: #fff;
+}

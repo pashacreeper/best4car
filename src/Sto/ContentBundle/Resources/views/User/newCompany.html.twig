@@ -34,12 +34,12 @@
 <section class="contentMain  row">
     <div class="content">
         <form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
-        <ul class="stepRegistration">
+        <ul class="stepRegistration" id="stepRegistration">
             <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
             <li class="stepRegistrationItem centerStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
-            <li class="stepRegistrationItem centerStep"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
-            <li class="stepRegistrationItem centerStep"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
-            <li class="stepRegistrationItem endStep"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
+            <li class="stepRegistrationItem centerStep" id="business-profile-tab"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
+            <li class="stepRegistrationItem centerStep" id="contact-info-tab"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
+            <li class="stepRegistrationItem endStep" id="photo-tab"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
         </ul>
 
 <div class="tab-content">
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="bottomContent">
-            <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn">Продолжить</a>
+            <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
         </div>
     </div>
         {# EOF General data #}
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#contact-info" data-toggle="tab" class="btnNext addPhotoBtn">Продолжить</a>
+                <a href="#contact-info" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="contact-info-tab">Продолжить</a>
             </div>
         </div>
         {# EOF Buisinesss profile #}
@@ -226,7 +226,7 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab">Продолжить</a>
+                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab" data-tab-switch-id="photo-tab">Продолжить</a>
             </div>
         </div>
         {# EOF Contact info #}
