@@ -346,8 +346,14 @@
             } else {
                 var newestForm = $(newForm);
                 newestForm.find('p.contentLabel').children().unwrap();
-                newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>');
+                newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>');
                 $newForm.append(newestForm);
+                timeInput = $newForm.find('.dateLeft');
+                timeInput.each(function(index, element){
+                    $(element).datetimepicker({
+                        pickDate: false
+                    });
+                });
             }
 
             collectionHolder.data('index', index + 1);

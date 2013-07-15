@@ -183,12 +183,6 @@ var registrationPage = function(){
         appendIcons(this);
     });
 
-    $('body').on('click', '.inputTime', function(){
-        $(this).datetimepicker({
-            pickDate: false
-        });
-    });
-
     (function(){
         var tabLinksContainer = $('#stepRegistration');
 
