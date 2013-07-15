@@ -18,4 +18,13 @@ bin/check_cs fix # will ensure compliance with coding standards
 
 ## Деплой
 
-In progress
+Деплой на сервер
+
+```
+cap deploy
+```
+
+Деплой с миграцями
+```
+cap deploy:migrations
+```
