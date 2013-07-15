@@ -117,8 +117,9 @@ span.complain{
 }
 
 .sepcializationModal, .serviceModal{
-    width: 700px;
-    margin-left: -350px;
+    width: 850px;
+    margin-left: -425px;
+    top: 20px !important;
 }
 .sepcializationModal input[type="checkbox"],
 .serviceModal input[type="checkbox"]{

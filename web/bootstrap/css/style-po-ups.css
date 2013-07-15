@@ -6,7 +6,7 @@
 	width: 280px;
 	padding: 10px 10px 30px 10px;
 	position: absolute;
-	z-index: 1011;
+	z-index: 10110;
 	background: #f6f6f6;
 	border-radius: 6px;
 	border: 2px solid #9e9a94;
@@ -222,7 +222,7 @@
 	width: 100%;
 	background: #000;
 	background: rgba(0,0,0,.8);
-	z-index: 1010;
+	z-index: 10100;
 	display: none;
 	top: 0;
 	left: 0;
