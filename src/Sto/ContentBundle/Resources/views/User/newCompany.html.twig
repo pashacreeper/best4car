@@ -248,7 +248,7 @@
                 });
             </script>
             <div class="bottomContent">
-                <span class="btnNext addPhotoBtn">Продолжить</span>
+                <button type="submit" class="btnNext addPhotoBtn">Продолжить</button>
             </div>
         </div>
     </div>
@@ -280,6 +280,7 @@
             ymaps.ready(init);
             var gCollection;
             var gps;
+            var addressName = '';
             function init() {
                 mapCompany = new ymaps.Map ("myMap", {
                     center: [59.933373, 30.357903],
@@ -304,6 +305,18 @@
                             );
                             myMap.geoObjects.add(gCollection);
                             gps = coords;
+
+                            addressName = '';
+                            for (key in names){
+                                if (2 != key) {
+                                    addressName = addressName + names[key] + ", "
+                                }
+                            }
+                            addressName = $.trim(addressName);
+                            lastIndex = addressName.lastIndexOf(',');
+                            if (lastIndex == addressName.length - 1) {
+                                addressName = addressName.substring(0, lastIndex);
+                            }
                         });
                     });
                 }
@@ -311,6 +324,8 @@
 
             $('#saveMapCoordinates').on('click', function(){
                 $(this).parent().trigger('reveal:close');
+                $('#sto_content_company_registration_address').val(addressName);
+                $('#sto_content_company_registration_gps').val(gps)
             });
         });
 

@@ -1309,7 +1309,8 @@ label {
 	width: 265px;
 }
 .contentLabel{
-	margin: 8px 0;
+	margin-top: 8px;
+	padding-bottom: 8px;
 	position: relative;
 	overflow: hidden;
 }

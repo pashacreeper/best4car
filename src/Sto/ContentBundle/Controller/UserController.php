@@ -247,6 +247,7 @@ class UserController extends MainController
         $company  = new Company();
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
         $form->bind($request);
+        $user = $this->container->get('security.context')->getToken()->getUser();
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -257,9 +258,6 @@ class UserController extends MainController
                 $value->setCompany($company);
             }
             $company->setCompanyManager($managers);
-
-            //$user = $em->getRepository('StoUserBundle:User')->find($id);
-            $user = $this->getUser();
 
             $gallery = $company->getGallery();
             foreach ($gallery as $value) {
