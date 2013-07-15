@@ -73,6 +73,7 @@
                 {% endblock %}
             </div>
             <div class="bottomHeader row-fluid">
+                {% block bottomHeaderWraperBlockStart %}<div class="bottomHeaderCont">{% endblock %}
                 {% block pageTitle %}{% endblock %}
                 <div class="tounCont">
                     <img src="/bootstrap/img/spbimg.png" alt="Санкт-Петербург" />
@@ -109,6 +110,7 @@
                 {% endblock %}
             </div>
             {% block contentTop %}{% endblock %}
+            {% block bottomHeaderWraperBlockEnd %}</div>{% endblock %}
         </header>
         {% block content %}{% endblock %}
         <section class="footer">
