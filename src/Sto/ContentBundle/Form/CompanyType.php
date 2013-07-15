@@ -23,7 +23,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('phones','collection', array(
-                'label' => '',
+                'label' => ' ',
                 'type' => new CompanyPhoneType(),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -210,31 +210,6 @@ class CompanyType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'show_legend' => false
-            ))
-            ->add('contacts','collection', array(
-                'label' => ' ',
-                'type' => new CompanyContactsType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'show_legend' => false,
-                'widget_add_btn' =>[
-                    'icon' => 'b4c-plus',
-                    'label' => 'add contact',
-                    'attr' => [
-                         'class' => 'btn btn-primary btn-small'
-                    ]
-                ],
-                'options' => array( // options for collection fields
-                    'label_render' => false,
-                    'widget_remove_btn' => [
-                        'label' => '-',
-                        'attr' => [
-                            'class' => 'btn btn-danger btn-small '
-                        ]
-                    ],
-                    'widget_control_group' => false,
-                )
             ))
             ->add('gallery','collection', array(
                 'label' => ' ',

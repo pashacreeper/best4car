@@ -139,6 +139,7 @@
                 <div class="contentLabel marginBottom">
                     <label>Контактные телефоны</label>
                     <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}"></div>
+                    {{ form_row(cForm.phones) }}
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
                         var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -155,9 +156,10 @@
                     </script>
                 </div>
                 <div class="contentLabel marginBottom">
-                    {{ form_label(cForm.workingTime) }}
+                    <label>Время работы</label>
                     <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
                     <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}"></div>
+                    {{ form_row(cForm.workingTime) }}
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
                         var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -177,6 +179,7 @@
                     <label>Менеджеры компании</label>
                     <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
                     <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}"></div>
+                    {{ form_row(cForm.companyManager) }}
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
                         var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -233,6 +236,7 @@
         <div class="tab-pane" id="photos">
             <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
             <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
+            {{ form_row(cForm.gallery) }}
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper');
                 var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -350,6 +354,7 @@
             $newLink.before($newForm);
         }
     </script>
+    {{ form_rest(cForm) }}
     </form>
 </div>
 </section>
