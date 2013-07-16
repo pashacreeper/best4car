@@ -106,7 +106,7 @@ class CompanyType extends AbstractType
                 'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'logo',
-                    'class' => 'hideLogoInput'
+                    'class' => 'hideLogoInput',
                 ]
             ])
             ->add('slogan', 'text', [

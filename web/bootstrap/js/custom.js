@@ -214,6 +214,22 @@ var registrationPage = function(){
             tabLinksContainer.find('#'+tabId).addClass('active');
         });
     })();
+
+    $('#sto_content_company_registration_logo').on('change', function(){
+        var reader = new FileReader(),
+            thisElem = $(this);
+
+        reader.onload = function (e) {
+            $('#picture-preview-wrapper').append('<img style="max-width: 200px; margin-top: 10px;" src="'+e.target.result+'">');
+            $('#picture-preview-wrapper').after('<a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>');
+        };
+
+        $('#general-data').on('click', '#deleteImg', function(){
+            $('#picture-preview-wrapper').find('img').remove();
+            $(this).remove();
+        });
+        reader.readAsDataURL($(this)[0].files[0]);
+    });
 };
 
 var feedbackPage = function(){

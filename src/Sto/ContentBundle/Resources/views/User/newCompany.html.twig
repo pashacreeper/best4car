@@ -68,10 +68,7 @@
                 <div class="addLogo clear">
                     {{ form_label(cForm.logo) }}
                     <div class="addLogoImgWrap">
-                        <div class="addLogoImg">
-                            <img src="bootstrap/img/logocompany.png" alt="logo">
-                        </div>
-                        <span class="deleteImg clear">Удалить<i class="icon-remove-circle"></i></span>
+                        <div class="addLogoImg" id='picture-preview-wrapper'></div>
                     </div>
                     <div class="adminBlockImg span6">
                         {{ form_widget(cForm.logo) }}

@@ -178,6 +178,7 @@ body{
 	border: 1px solid #bebebe;
 	background: #fff;
 	text-align: center;
+	overflow: hidden;
 }
 .addLogoImg img{
 	width: 85%;
