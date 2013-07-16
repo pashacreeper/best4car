@@ -53,7 +53,7 @@
                         <ul id="thumbnail" class="slide-wrap">
                         {% for deal in [random(deals), random(deals), random(deals)] %}
                             <li class="slide-item">
-                                <a class="linh__img__prev" href="#">
+                                <a class="linh__img__prev" href="{{ path('content_deal_show', { "id": deal.id }) }}">
                                     <p class="nameActionP">{{ deal.name }}</p>
                                     {% set image = "/" ~  storage_path ~ "/deal_image/" ~ deal.imageName %}
                                     <img src="{{ image | imagine_filter('deals_carusel_photos') }}" alt="{{ deal.name }}">
