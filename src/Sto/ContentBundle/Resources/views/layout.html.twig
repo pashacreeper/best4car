@@ -96,14 +96,18 @@
                 </div>
                 {% block search %}
                     <div class="searchWrap">
-                        <div class="searchCont">
-                            <form class="form-search">
-                                <label class="control-label" for="inputSearch">Я ищу:</label>
-                                    <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании Санкт-Петербурга" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]) (?=.*[а-я]) (?=.*[А-Я]) (?=.*[0-9]).{8,}">
-                                <p class="searchExample">Например:  <i class="btnLeft icon-white"></i><i class="btnRight icon-white"></i><span class="exampleName">ремонт двигателя Mazda3 спб</span></p>
-                                <a href="#" class="btnSearch">
+                        <div class="searchCont" id="searchWrapper">
+                            <form class="form-search" action="{{ path('_index') }}" method="GET">
+                                <label class="control-label" for="search">Я ищу:</label>
+                                    <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все компании" name="search">
+                                <p class="searchExample">Например:
+                                <i class="btnLeft icon-white"></i>
+                                <i class="btnRight icon-white"></i>
+                                <span class="exampleName" id="variantContainer">ремонт двигателя Mazda3 спб</span></p>
+                                {% render controller('StoContentBundle:Company:searchVariants') %}
+                                <button type="submit" href="#" class="btnSearch">
                                     <i class="iconSearch icon-search icon-white"></i>Найти
-                                </a>
+                                </button>
                             </form>
                         </div>
                     </div>

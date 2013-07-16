@@ -72,6 +72,56 @@ var mainLayout = function(){
             $resettingContainer.append(data);
         });
     });
+
+    // Подстановка значений в строку поиска
+    var $wrapper = $('#searchWrapper'),
+        $inputSearch = $('#inputSearch');
+    $wrapper.on('click', '.exampleName', function(){
+        $this = $(this);
+        $inputSearch.val($this.html());
+    });
+    $wrapper.on('click', 'button', function(e){
+        e.preventDefault();
+        if (!$inputSearch.val()) {
+            $inputSearch.val($inputSearch.attr("placeholder"));
+        }
+        $wrapper.find('form').submit();
+    });
+
+    // Работа со списком возможных вариантов подстановки
+    (function(){
+        var $variantList = $('#variantList'),
+            $variantContainer = $('#variantContainer'),
+            variants = [],
+            currentIndex = 0,
+            variantsLength = 0;
+
+        $variantList.find('li').each(function(index, element){
+            variants[index] = $(element).html();
+        });
+
+        variantsLength = variants.length;
+
+        $variantContainer.html(variants[currentIndex]);
+
+        $wrapper.on('click', '.btnLeft' , function(){
+            if (currentIndex <= 0) {
+                currentIndex = variantsLength - 1;
+            } else {
+                currentIndex--;
+            }
+            $variantContainer.html(variants[currentIndex]);
+        });
+
+        $wrapper.on('click', '.btnRight' , function(){
+            if (currentIndex == variantsLength - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            $variantContainer.html(variants[currentIndex]);
+        });
+    })();
 };
 
 var catalogPage = function(){

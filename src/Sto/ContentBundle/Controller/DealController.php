@@ -560,4 +560,21 @@ class DealController extends MainController
 
         return $this->redirect($this->generateUrl('content_deal_show', ['id' => $id]));
     }
+
+    /**
+     * Load list of search variants
+     * @Template()
+     */
+    public function searchVariantsAction()
+    {
+        $list = [
+            'ремонт двигателя Mazda3 спб',
+            'еще один вариант',
+            'простой поиск'
+        ];
+
+        return [
+            'list' => $list
+        ];
+    }
 }

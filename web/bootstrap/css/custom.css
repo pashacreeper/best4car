@@ -368,3 +368,6 @@ a.btnNext:hover{
     display: block;
     margin-top: 10px;
 }
+.variantList{
+    display: none;
+}
