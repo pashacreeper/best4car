@@ -22,7 +22,7 @@
 </div>
 <div id="nameCompanyHeaderWrap">
     <div class="nameCompanyHeader">
-        <span class="logoCompany"><img src="bootstrap/img/logocompany.png" alt=""></span>
+        <span class="logoCompany"><img src="/bootstrap/img/logocompany.png" alt=""></span>
         <h1 class="titleNameCompany"><a href="#">{{ company.name }}</a></h1>
         <p class="sloganCompany">{{ company.slogan }}</p>
     </div>
@@ -112,7 +112,7 @@
                 <p class="servicesSpecialisationTitle titleH2">Менеджеры компании:</p>
                     {% for manager in company.companyManager %}
                     <div class="managerCompany">
-                        <span><img src="bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
+                        <span><img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
                         <p class="nameManager">{{ manager.user.firstName ~' '~ manager.user.lastName }}</p>
                         <p class="phoneManager">{% if manager.phone and manager.phone != '' %}{{ manager.phone }}{% else %}{{ manager.user.phoneNumber }}{% endif %}</p>
                     </div>
@@ -369,7 +369,7 @@
         </div>
         <div class="rightContent">
             <div class="bannerImg">
-                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
         </div>
         <div class="bottomContent">

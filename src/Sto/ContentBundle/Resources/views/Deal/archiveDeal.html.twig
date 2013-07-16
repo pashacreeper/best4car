@@ -1,61 +1,72 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
-{% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+{% block title company.name %}
 
-{% block head_style %}
-{{ parent() }}
-<link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+{% endblock %}
+
+{% block search %}
+<div class="back">
+    <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+</div>
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <span class="logoCompany"><img src="bootstrap/img/logocompany.png" alt=""></span>
+        <h1 class="titleNameCompany"><a href="#">{{ company.name }}</a></h1>
+        <p class="sloganCompany">{{ company.slogan }}</p>
+    </div>
+    <div class="indexCompany">
+        <p>Рейтинг:</p>
+        <span class="indexbg"></span>
+        <span class="indexLevel">{{ company.rating }}</span></br>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="row-fluid">
-    <div class="span8">
-        <div class="row-fluid">
-            <span class="span12"><h3>Архив компании</h3></span>
-        </div>
-        {% for deal in archive_deal %}
-        <div class="row-fluid thumbnail" style="margin-bottom:10px;">
-            <div class="span8 "><img src="http://placehold.it/494x280"></div>
-            <div class="span4">
-                {% if deal.draft == true %}
-                <span class="label label-warning">Черновик</span>
-                {% endif %}
-                <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
-                <p>
-                    <strong>
-                        {{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}
-                    </strong><br />
-                    {% for auto in deal.auto %}
-                    {{auto}}
-                    {% endfor %}
-                </p>
-                <p style="vertical-align:bottom;">
-                    {{ deal.feedbacks | length }} отзыв(ов)
-                    <br />
-                    35 заинтересовавшихся
-                </p>
-            {% set manager = false %}
-            {% if app.security.isGranted('ROLE_USER') %}
-            {% for item in company.managers if  item.id == app.user.id  %}
-                 {% set manager = true %}
+<section class="contentMain">
+    <div class="content">
+        <div class="leftContent">
+            <h1 class="title2">Архивные акции компании</h1>
+            {% for key,deal in archive_deal %}
+                <div class="actionItem">
+                    <a href="#">
+                        <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
+                    </a>
+                    <div class="actionItemRight">
+                        <h4 class=""><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
+                        <div class="actionItemBottom">
+                            <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
+                            <p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
+                            <p class="">Период проведения </br><span class="blue">{{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}</span></p>
+                            <p class="">Автомобили<br>
+                            {% for auto in deal.auto %}
+                                <span class="blue">{{ auto }}</span>
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-            {% endif %}
-                {% if app.security.isGranted('ROLE_ADMIN') or  manager  %}
-                <a class="btn btn-large btn-block" href="{{ path('company_deal_delete' ,{'dealId': deal.id , 'id': companyId}) }}">Удалить</a>
-                {% endif %}
+        </div>
+        <div class="rightContent">
+            <div class="bannerImg">
+                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
             </div>
         </div>
-        {% else %}
-            {{ flash(true, 'Данные отсутствуют.', false, true) }}
-        {% endfor %}
-
-    </div>
-    <div class="span4">
-
-        <div class="thumbnail">
-            <img src="http://placehold.it/240x400">
+        <div class="bottomContent">
+            <span class="secondaryLink saveDraft"><a href="{{ path('content_company_show', {'id':company.id}) }}#deals">Показать активные акции</a></span>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
