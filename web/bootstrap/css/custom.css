@@ -40,7 +40,7 @@
 }
 
 .captchaImg{
-    float: left;
+    display: inline-block;
     width: 220px;
 }
 .captchaImg img{
@@ -48,8 +48,9 @@
     height: auto;
 }
 .update-captcha{
-    float: left;
+    display: inline-block;
     margin-left: 20px;
+    vertical-align: top;
     color: #666;
     font: 1.4em 'PT Sans', sans;
     line-height: 24px;
@@ -359,4 +360,11 @@ a.btnNext:hover{
     font: 1.4em 'PT Sans', sans;
     padding: 5px 0;
     line-height: 18px;
+}
+#register-form .inputFormEnter{
+    float: none !important;
+}
+#register-form .addFloat{
+    display: block;
+    margin-top: 10px;
 }

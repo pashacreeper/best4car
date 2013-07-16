@@ -19,20 +19,43 @@ var mainLayout = function(){
     $('.btnUser').click(function() {
         $('.userDropdown').toggle();
     });
+
+    var loadRegistrationForm = function($registrationContainer, registrationUrl, data){
+        $registrationContainer.empty();
+        $registrationContainer.append(data);
+        $form = $registrationContainer.find('form');
+        $form.submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: registrationUrl,
+                data: $form.serialize()
+            }).done(function(data){
+                console.log(data);
+                if ('redirect' == data) {
+                    window.location.replace(Routing.generate('_index'));
+                } else {
+                    loadRegistrationForm($registrationContainer, registrationUrl, data);
+                }
+            });
+        });
+    };
+    
     // Registration popup
     var showRegistrationPopup = function(linkElement){
         var $this = $(linkElement),
             $registrationFormPopup = $('#registration-form-popup'),
-            $registrationContainer = $('#registration-container');
+            $registrationContainer = $('#registration-container'),
+            registrationUrl = Routing.generate('fos_user_registration_register');
 
         $this.parent().trigger('reveal:close');
         $registrationFormPopup.reveal($(this).data());
-        $registrationContainer.empty();
-
-        $.get(Routing.generate('fos_user_registration_register'), function(data){
-            $registrationContainer.append(data);
+        $.get(registrationUrl, function(data){
+            loadRegistrationForm($registrationContainer, registrationUrl, data);
         });
+
     };
+
     $('#carOwnerRegister').on('click', function(){
         showRegistrationPopup(this);
     });

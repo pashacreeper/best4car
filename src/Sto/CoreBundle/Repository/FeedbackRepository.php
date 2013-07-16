@@ -19,18 +19,26 @@ class FeedbackRepository extends EntityRepository
         ;
 
         $feedbacks = $qb->getQuery()->execute();
-        $feedbackIds = array_map(function($item){
-            return $item->getId();
-        }, $feedbacks);
+        $feedbackIds = null;
+        if (! empty($feedbacks)) {
+            $feedbackIds = array_map(function($item){
+                return $item->getId();
+            }, $feedbacks);
+        }
 
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb
-            ->select('COUNT(a) as answers')
-            ->from('StoCoreBundle:FeedbackAnswer', 'a')
-            ->where('a.feedbackId IN (:feedbackIds)')
-            ->setParameter('feedbackIds', $feedbackIds)
-        ;
+        $result = ['answers' => 0];
+        if ($feedbackIds) {
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb
+                ->select('COUNT(a) as answers')
+                ->from('StoCoreBundle:FeedbackAnswer', 'a')
+                ->where('a.feedbackId IN (:feedbackIds)')
+                ->setParameter('feedbackIds', $feedbackIds)
+            ;
 
-        return $qb->getQuery()->getOneOrNullResult();
+            $result = $qb->getQuery()->getOneOrNullResult();
+        }
+
+        return $result;
     }
 }

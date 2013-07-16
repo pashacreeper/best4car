@@ -1,9 +1,10 @@
 {% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
 
-<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} id="register-form">
+    {{ form_errors(form) }}
     <div class="contentLabel rowColumns">
-            {{ form_row(form.firstName) }}
-            {{ form_row(form.lastName) }}
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
     </div>
     <p class="contentLabel">
         {{ form_label(form.username) }}
@@ -24,11 +25,12 @@
     <p class="contentLabel">
         {{ form_label(form.captcha) }}
         {{ form_errors(form.captcha) }}
-        {{ form_widget(form.captcha) }}
+        {{ form_widget(form.captcha, {attr: {class: 'addFloat'}}) }}
     </p>
+    {{ form_rest(form) }}
     <div>
         <button class="btnEnter" type="submit">Войти</button>
-        <p class="attentionReg">Регистрируясь, вы соглашаетесь </br>с <a href="#">условиями использования сайта</a></p>
+        <p class="attentionReg">Регистрируясь, вы соглашаетесь </br>с <a href="{{ path('info_show', { "name": 'useRules' }) }}">условиями использования сайта</a></p>
     </div>
 </form>
 <div class="enterCocial">

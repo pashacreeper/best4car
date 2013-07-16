@@ -8,6 +8,7 @@ use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegistrationController extends BaseController
 {
@@ -46,9 +47,9 @@ class RegistrationController extends BaseController
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    if ($registration_type!='company') {
+                    if ($registration_type != 'company') {
                         $url = $this->container->get('router')->generate('content_companies');
-                        $response = new RedirectResponse($url);
+                        $response = new Response('redirect');
                     } else {
                         $url = $this->container->get('router')->generate('registration_company_owner');
                         $response = new RedirectResponse($url);

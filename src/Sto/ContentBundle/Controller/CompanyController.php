@@ -19,7 +19,7 @@ use Sto\ContentBundle\Form\CompanyType;
 
 class CompanyController extends MainController
 {
-       /**
+    /**
      * @Route("/specialization", name="company_specialization")
      * @Method({"POST","GET"})
      */
@@ -42,7 +42,7 @@ class CompanyController extends MainController
     }
 
     /**
-     * @Route("/", name="_index")
+     * @Route("/", name="_index", options={"expose"=true})
      * @Route("/catalog", name="content_companies")
      * @Method({"GET", "POST"})
      * @Template()
@@ -160,7 +160,7 @@ class CompanyController extends MainController
             'tab'     => $tab,
             'isManager' => $isManager,
             'feedbacks'  => $feedbacks,
-            'archivedDeals' => (int) $archivedDeals
+            'archivedDeals' => $archivedDeals[1]
         ];
     }
 
