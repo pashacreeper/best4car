@@ -31,7 +31,6 @@ var mainLayout = function(){
                 url: registrationUrl,
                 data: $form.serialize()
             }).done(function(data){
-                console.log(data);
                 if ('redirect' == data) {
                     window.location.replace(Routing.generate('_index'));
                 } else {

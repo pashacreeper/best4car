@@ -1,4 +1,4 @@
-xjQuery(document).ready(function(){
+jQuery(document).ready(function(){
 	function htmSlider(){
 		/* Зададим следующие переменные */
 
