@@ -108,19 +108,15 @@
                     myCollection.each(function (ob) {
                         ob.events.add('click', function () {
                             (function (obPlacemark) {
-                                var listObj = $("#list-company" + obPlacemark.properties.get('id'));
+                                var itemId = "#list-company" + obPlacemark.properties.get('id'),
+                                    listObj = $(itemId);
 
                                 if (listObj.length && listObj.is(':visible')){
-                                    obPlacemark.balloon.open();// WHY Open ????? But it works
-                                    // $('.listItemCompany').removeClass('listActive');
-                                    // listObj.addClass('listActive');
-                                    $('.listItemCompanyPlain').each(function(){
-                                        $(this).hide();
-                                        $('#'+$(this).attr('data-correspond') ).show();
-                                    });
-                                    $('#'+$(listObj).attr('data-correspond')).show();
+                                    obPlacemark.balloon.open();
                                     var api = $('#companiesListContainer').data('jsp');
-                                    api.scrollToElement('#'+$(listObj).attr('data-correspond'));
+                                    api.scrollToElement(itemId, true);
+                                    listObj.find('.smallInfoCompany').hide();
+                                    listObj.find('.bigInfoCompany').show();
                                 }
                             })(ob);
                         });
