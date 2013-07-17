@@ -20,7 +20,7 @@ class LoadACCommand extends ContainerAwareCommand
     {
         parent::initialize($input, $output);
 
-        $this->manager = $this->getContainer()->get('doctrine')->getEntityManager();
+        $this->manager = $this->getContainer()->get('doctrine')->getManager();
     }
 
     protected function configure()
