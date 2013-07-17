@@ -8,7 +8,6 @@ var companiesList = function($, Routing){
                 $('[data-serarch-form="responce-type"]').val("html");
                 aData = $('#advanced-search-form').serialize();
                 $('[data-serarch-form="responce-type"]').val("json");
-                console.log(aData);
             } else {
                 // aURL = Routing.generate('company_ajax_get_all');
                 aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
@@ -21,7 +20,9 @@ var companiesList = function($, Routing){
                     var root = $('#companiesListContainer');
                     root.empty();
                     root.append(html);
-                    root.jScrollPane();
+                    root.jScrollPane({
+                        autoReinitialise: true,
+                    });
                 },
                 error: function(jqxhr, textStatus, errorThrown) {
                     console.log(textStatus + ": " + errorThrown);

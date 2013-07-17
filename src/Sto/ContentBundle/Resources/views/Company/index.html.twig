@@ -124,8 +124,8 @@
                                         $('#'+$(this).attr('data-correspond') ).show();
                                     });
                                     $('#'+$(listObj).attr('data-correspond')).show();
-                                    $(listObj).hide();
-                                    $('#home_compalies').scrollTo('#'+$(listObj).attr('data-correspond'));
+                                    var api = $('#companiesListContainer').data('jsp');
+                                    api.scrollToElement('#'+$(listObj).attr('data-correspond'));
                                 }
                             })(ob);
                         });
