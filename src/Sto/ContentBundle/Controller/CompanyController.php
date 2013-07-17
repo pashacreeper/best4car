@@ -163,7 +163,6 @@ class CompanyController extends MainController
             }
         }
 
-
         return [
             'company' => $company,
             'tab'     => $tab,

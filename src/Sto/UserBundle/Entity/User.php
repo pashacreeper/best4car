@@ -193,6 +193,11 @@ class User extends BaseUser
     private $feedbacks;
 
     /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedbackAnswer", mappedBy="owner", cascade={"all"})
+     */
+    private $feedbackAnswers;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="requests", type="string", length=255, nullable=true)
@@ -810,6 +815,11 @@ class User extends BaseUser
     public function getFeedbacks()
     {
         return $this->feedbacks;
+    }
+
+    public function getFeedbackAnswers()
+    {
+        return $this->feedbackAnswers;
     }
 
     /**

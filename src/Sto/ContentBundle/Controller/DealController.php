@@ -385,8 +385,6 @@ class DealController extends MainController
             }
         }
 
-
-
         $isManager = (isset($manager) && count($manager)>0) ? true : false;
 
         return [

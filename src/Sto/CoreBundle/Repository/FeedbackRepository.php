@@ -28,7 +28,7 @@ class FeedbackRepository extends EntityRepository
 
         $result = ['answers' => 0];
         if ($feedbackIds) {
-            $qb = $this->getManager()->createQueryBuilder();
+            $qb = $this->getEntityManager()->createQueryBuilder();
             $qb
                 ->select('COUNT(a) as answers')
                 ->from('StoCoreBundle:FeedbackAnswer', 'a')
