@@ -73,7 +73,7 @@ class CompanyRepository extends EntityRepository
         $result = $query->getArrayResult();
 
         if ($timing['weekends']) {
-            $qbd = $this->getManager()
+            $qbd = $this->getEntityManager()
                 ->createQuery('SELECT u.id FROM StoCoreBundle:Dictionary\WeekDay u WHERE u.position in (5,6)')
                 ->getArrayResult()
             ;
