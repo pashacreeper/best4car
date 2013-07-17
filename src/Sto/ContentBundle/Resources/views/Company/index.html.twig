@@ -108,9 +108,10 @@
                     myCollection.each(function (ob) {
                         ob.events.add('click', function () {
                             (function (obPlacemark) {
+                                // При клке на элементе расположенном на карте, при откртом списке
+                                // компаний, показываем компанию в списке.
                                 var itemId = "#list-company" + obPlacemark.properties.get('id'),
                                     listObj = $(itemId);
-
                                 if (listObj.length && listObj.is(':visible')){
                                     obPlacemark.balloon.open();
                                     var api = $('#companiesListContainer').data('jsp');

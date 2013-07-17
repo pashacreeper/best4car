@@ -3,7 +3,9 @@ var companiesList = function($, Routing){
 
         var mapHeight = $('#map').height(),
             footerHeight = $('section.footer').height();
-        $('#companiesListContainer').height(mapHeight - footerHeight);
+
+        $('#companiesListContainer').height(mapHeight - footerHeight - 1);
+        $('#advancedSearch').height(mapHeight - footerHeight - 75);
 
         var doAjax = function() {
             var aURL = null;
