@@ -1,5 +1,10 @@
 var companiesList = function($, Routing){
     $(document).ready(function(){
+
+        var mapHeight = $('#map').height(),
+            footerHeight = $('section.footer').height();
+        $('#companiesListContainer').height(mapHeight - footerHeight);
+
         var doAjax = function() {
             var aURL = null;
             var aData = null;
@@ -9,7 +14,6 @@ var companiesList = function($, Routing){
                 aData = $('#advanced-search-form').serialize();
                 $('[data-serarch-form="responce-type"]').val("json");
             } else {
-                // aURL = Routing.generate('company_ajax_get_all');
                 aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
             }
             $.ajax({
