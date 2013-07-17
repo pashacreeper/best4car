@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-	function htmSlider(){
+	function htmSlider(autoplayInterval){
 		/* Зададим следующие переменные */
 
 		/* обертка слайдера */
@@ -15,6 +15,11 @@ jQuery(document).ready(function(){
 		
 		/* смещение слайдера */
 		var newLeftPos = slideWrap.position().left - slideWidth;
+
+		var timer = null;
+		if(autoplayInterval) {
+			timer = setInterval(autoplay, autoplayInterval);
+		}
 		
 		/* Клик по ссылке на следующий слайд */
 		nextLink.click(function(){
@@ -31,6 +36,8 @@ jQuery(document).ready(function(){
 				});
 				
 				setTimeout(function(){ nextLink.attr('name','next') }, 600);
+				clearInterval(timer);
+				timer = setInterval(autoplay, autoplayInterval);
 			}
 		});
 
@@ -48,6 +55,8 @@ jQuery(document).ready(function(){
 					.animate({left: 0}, 500);
 
 				setTimeout(function(){ prevLink.attr('name','prev') }, 600);
+				clearInterval(timer);
+				timer = setInterval(autoplay, autoplayInterval);
 			}
 		});
 		
@@ -80,6 +89,6 @@ jQuery(document).ready(function(){
 
 	/* иницилизируем функцию слайдера */
 	if($('.slider').length) {
-		htmSlider();
+		htmSlider(3000);
 	}
 });
