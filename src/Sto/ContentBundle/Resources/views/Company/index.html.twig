@@ -60,6 +60,7 @@
                 myMap.controls.add(buttonMyPlace, { top : 20, left : 20 });
 
                 filterDataByZoom(myMap.getZoom(), companies);
+                $('.contentTopCenter span').text(companies.length);
 
                 $('[data-serarch-form]').change(function () {
                     $.ajax({
@@ -68,6 +69,7 @@
                        data: $('#advanced-search-form').serialize(),
                        dataType: 'json'
                     }).done(function (json) {
+                        $('.contentTopCenter span').text(json.length);
                         myMap.geoObjects.each(function (geoCollection) {
                             geoCollection.each(function (item) {
                                 geoCollection.remove(item);
@@ -266,7 +268,7 @@
         </span>
     </div>
     <p class="contentTopCenter">
-        Все <span>150 </span>компаний вашего города
+        Все <span>0 </span> компаний вашего города
     </p>
 </div>
 
