@@ -153,40 +153,13 @@
         {% block wrap_container_close %}</div>{% endblock %}
 
         <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('.bigInfoCompany').hide();
-                        $('.cardCompanyItem').click(function() {
-                            $('#blocBig_' + this.id).slideToggle(0);
-                            $('#blocSmall_' + this.id).slideToggle(0);
-                        });
-                    });
-        </script>
-        <script type="text/javascript">
-                        $(document).ready(function(){
-                            $('.btnFiltr').click(function(){
-                                $(this).toggleClass('btnFiltrActive');
-                            });
-                            $('#cleanSearch').click(function(){
-                                $('.btnFiltr').removeClass('btnFiltrActive');
-
-                            });
-                        });
-        </script>
-        <script>
-          $(document).ready(function() {
-            $("#slider-range-max").slider({
-              range: "max",
-              min: 1,
-              max: 10,
-              value: 4,
-              slide: function( event, ui ) {
-                $("#amount").val( ui.value );
-              }
+            $(document).ready(function() {
+                $('.bigInfoCompany').hide();
+                $('.cardCompanyItem').click(function() {
+                    $('#blocBig_' + this.id).slideToggle(0);
+                    $('#blocSmall_' + this.id).slideToggle(0);
+                });
             });
-            $("#amount").val( $("#slider-range-max").slider("value") );
-          });
-        </script>
-        <script>
             $(document).ready(function(){
                 $('.typeahead').typeahead()
             });

@@ -198,7 +198,49 @@ var catalogPage = function(){
         }
         return true;
     }
-    // end
+
+    // Advanced search filter
+    $(document).ready(function(){
+        // slider
+        var slider = $("#slider-range-max").slider({
+            range: "max",
+            min: 1,
+            max: 10,
+            value: 4,
+            slide: function( event, ui ) {
+                $("#amount").val( ui.value );
+            }
+        });
+        $("#amount").val( $("#slider-range-max").slider("value") );
+
+        $('.btnFiltr').click(function(){
+            $(this).toggleClass('btnFiltrActive');
+        });
+
+        // Clear filter
+        $('#cleanSearch').click(function(){
+            $('.btnFiltr').each(function(index, element){
+                $element = $(element);
+                $prevElement = $element.prev();
+
+                if ($element.hasClass('btnFiltrActive')) {
+                    $element.removeClass('btnFiltrActive');
+                }
+                if ($prevElement.is(':checked')) {
+                    $prevElement.attr('checked', false);
+                }
+            });
+            $('#amount').val(4);
+            slider.slider("value", 4);
+
+            $('#advancedSearch select').each(function(index, element){
+                $element = $(element);
+                $element.find(':selected').removeAttr("selected");
+                $element.find("option:first").attr("selected", "selected");
+                $element.prev().find("span.text").html($element.find("option:first").html());
+            });
+        });
+    });
 };
 
 var dealsPage = function(){

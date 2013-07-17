@@ -60,7 +60,7 @@ $(function() {
 				$(this).next('ul').hide();
 
 			}
-			$(this).parent().css({zIndex: 2});
+			$(this).parent().css({zIndex: 3});
 			return false;
 		});
 

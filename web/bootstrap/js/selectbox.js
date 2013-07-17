@@ -61,7 +61,7 @@ $(function() {
 				$(this).next('ul').hide();
 				$('.trigger').removeClass('actSel1');
 			}
-			$(this).parent().css({zIndex: 2});
+			$(this).parent().css({zIndex: 3});
 			return false;
 		});
 

@@ -16,6 +16,7 @@ use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
+use Sto\ContentBundle\Form\AdvancedSearchType;
 
 class CompanyController extends MainController
 {
@@ -437,6 +438,18 @@ class CompanyController extends MainController
 
         return [
             'list' => $list
+        ];
+    }
+
+    /**
+     * @Template()
+     */
+    public function advancedSearchFormAction()
+    {
+        $form = $this->createForm(new AdvancedSearchType());
+
+        return [
+            'form' => $form->createView(),
         ];
     }
 
