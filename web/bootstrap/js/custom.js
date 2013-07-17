@@ -151,17 +151,21 @@ var catalogPage = function(){
             $('#map').css('right', '340px');
         }
     });
+
+    var slider1 = $('.bxslider1').bxSlider({
+        mode: 'fade',
+        captions: true
+    });
+
+    var slider2 = $('.bxslider2').bxSlider({
+        mode: 'fade',
+        captions: true
+    });
     $('.linkFirstVisitPeople').on('click', function(){
-        $('.bxslider1').bxSlider({
-            mode: 'fade',
-            captions: true
-        });
+        slider1.reloadSlider();
     });
     $('.linkFirstVisitCompany').on('click', function(){
-        $('.bxslider2').bxSlider({
-            mode: 'fade',
-            captions: true
-        });
+        slider2.reloadSlider();
     });
 
     // Отрабатываем нажатие по «Только с акциями» в меню расширенного поиска
