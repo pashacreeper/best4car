@@ -561,7 +561,7 @@ class UserController extends MainController
      */
     public function logedInUserProfileDropDownAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
 
         $answers = null;

@@ -116,7 +116,7 @@ class CompanyController extends MainController
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id, $tab = 'information')
+    public function showAction(Request $request, $id, $tab = 'information')
     {
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
@@ -155,12 +155,22 @@ class CompanyController extends MainController
             ->getOneOrNullResult()
         ;
 
+        $refererRoute = null;
+        if ($referer = $request->headers->get('referer')) {
+            $urlParts = parse_url($referer);
+            if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                $refererRoute = $routeParams['_route'];
+            }
+        }
+
+
         return [
             'company' => $company,
             'tab'     => $tab,
             'isManager' => $isManager,
             'feedbacks'  => $feedbacks,
-            'archivedDeals' => $archivedDeals[1]
+            'archivedDeals' => $archivedDeals[1],
+            'refererRoute' => $refererRoute,
         ];
     }
 

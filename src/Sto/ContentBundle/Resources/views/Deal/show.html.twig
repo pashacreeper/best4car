@@ -19,7 +19,13 @@
 
 {% block pageTitle %}
     <div class="back">
-        <a href="#" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+        {% if refererRoute == 'content_company_show' %}
+            <a href="{{ path('content_company_show', { "id": deal.company.id }) }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Карточка компании</span></a>
+        {% elseif refererRoute == 'content_deals' %}
+            <a href="{{ app.request.headers.get('referer') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+        {% else %}
+            <a href="{{ path('content_deals') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+        {% endif %}
     </div>
     <div id="nameCompanyHeaderWrap">
         <div class="nameCompanyHeader">
@@ -52,7 +58,7 @@
                 <a href="{{ path("company_deal_edit", {'id':deal.company.id, 'dealId':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Редактировать</a>
             {% endif %}
             <div class="bannerImg">
-                <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" />
+                <!-- <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" /> -->
             </div>
         </div>
     </div>
@@ -62,7 +68,7 @@
             <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
             <span class="addPhotoBtn">Я пойду<i class="iGoNumber">241</i></span>
             <div class="bannerImg">
-                <img src="bootstrap/img/banner.jpg" alt="фото пользователя" />
+                <!-- <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" /> -->
             </div>
         </div>
     </div>

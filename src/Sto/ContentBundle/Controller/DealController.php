@@ -261,7 +261,8 @@ class DealController extends MainController
             $query->andWhere($query->expr()->orx(
                     $query->expr()->like('deal.name',':search'),
                     $query->expr()->like('deal.description',':search'),
-                    $query->expr()->like('deal.services',':search'),
+                    // TODO: fix deals search by services
+                    // $query->expr()->like('deal.services',':search'),
                     $query->expr()->like('deal.terms',':search')
                 ))
                 ->setParameter('search', '%' . $request->get('search') . '%')
@@ -362,7 +363,7 @@ class DealController extends MainController
      * @Template()
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
      */
-    public function showAction(Deal $deal)
+    public function showAction(Request $request, Deal $deal)
     {
         if ($this->getUser()) {
             $em = $this->getDoctrine()->getManager();
@@ -376,11 +377,22 @@ class DealController extends MainController
             ;
         }
 
+        $refererRoute = null;
+        if ($referer = $request->headers->get('referer')) {
+            $urlParts = parse_url($referer);
+            if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                $refererRoute = $routeParams['_route'];
+            }
+        }
+
+
+
         $isManager = (isset($manager) && count($manager)>0) ? true : false;
 
         return [
             'deal' => $deal,
-            'isManager' => $isManager
+            'isManager' => $isManager,
+            'refererRoute' => $refererRoute,
         ];
     }
 
