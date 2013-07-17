@@ -13,10 +13,23 @@
     <script>
     var city = '{{ city.gps }}';
     $(document).ready(function(){
+        var myCollection;
+        var myMap;
+        $('#companiesListContainer').on('click', '.cardCompanyItem', function(){
+            var id = $(this).data('item-id');
+            $('#x-list-company' + id).slideToggle(0);
+            $('#blocSmall_' + id).slideToggle(0);
+
+            myCollection.each(function(o) {
+                if(o.properties.get('id') == id) {
+                    o.balloon.open(myMap.getCenter());
+                    return;
+                }
+            })
+        })
         $.getJSON(Routing.generate('api_get_companies')).done(function (companies) {
             renderMap(city, companies)
         });
-        var myMap;
         function renderMap (city, companies) {
             $('#map').empty();
             ymaps.ready(init(city, companies));
@@ -28,7 +41,7 @@
                     behaviors: ["default", "scrollZoom"]
                 });
 
-                var myCollection = new ymaps.GeoObjectCollection();
+                myCollection = new ymaps.GeoObjectCollection();
                 myMap.myCollection = myCollection;
                 var buttonMyPlace = new GeolocationButton({
                     data : {

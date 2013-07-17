@@ -55,9 +55,4 @@
     $('.cardCompanyItem').on('click', 'a', function(e){
         e.stopPropagation();
     });
-    $('#companiesListContainer').on('click', '.cardCompanyItem', function(){
-        var id = $(this).data('item-id');
-        $('#x-list-company' + id).slideToggle(0);
-        $('#blocSmall_' + id).slideToggle(0);
-    })
 </script>
