@@ -471,8 +471,7 @@
 	border-left: 1px solid #9ea395;
 	bottom: 0;
 	padding-bottom: 74px;
-	z-index: 666;
-	
+	z-index: 100;
 }
 .contentRight{
 	padding: 10px 20px;
@@ -538,50 +537,3 @@
 	overflow: hidden;
 	z-index: 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
