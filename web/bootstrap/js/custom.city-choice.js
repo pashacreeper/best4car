@@ -56,7 +56,7 @@ var loadCityList = function(defaultImage, Routing){
                 var img_src = (!city.icon_name) ? defaultImage : "/storage/images/countries/" + city.icon_name;
                 coun_area.append(
                     '<li class="townSelectTabItem">'+
-                    '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +
+                    '<img src="' + img_src + '" style="width: 25px;height: 30px;">' +
                     '<a href="#" class="city-link towns" data-city-id="' + city.id + '" data-city-name="' + city.name + '">' + city.name  + '</a></li>'
                 );
             });
