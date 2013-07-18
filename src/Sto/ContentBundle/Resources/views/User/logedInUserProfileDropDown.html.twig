@@ -2,7 +2,8 @@
     <div class="accountCont">
     <a class="userImg btnUser" href="#">
     {%- if user.avatarUrl %}
-        <img src="{{ user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+        {% set userPhoto = 'storage/images/user_photo/' ~ user.avatarUrl %}
+        <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
     {% else %}
         <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
     {% endif -%}
