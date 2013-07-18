@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\CoreBundle\Entity\Dictionary;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class ChoiceCityController extends Controller
 {
@@ -27,5 +28,13 @@ class ChoiceCityController extends Controller
         return [
             'currentCity' => $city
         ];
+    }
+
+    /**
+     * @Template()
+     */
+    public function renderChosenCityAction()
+    {
+        return ['city' => $this->get('sto_content.manager.city')->selectedCity()];
     }
 }

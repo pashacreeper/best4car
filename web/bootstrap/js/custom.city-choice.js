@@ -17,15 +17,19 @@ var cityChoiser = function(defaultImage, Routing){
             e.preventDefault();
             $.getJSON(Routing.generate('api_country_all'))
             .done(function (countries) {
-                var root = $('#country-select');
+                var root = $('#country-select'),
+                    frst_id = null;
+
                 root.empty();
-                var frst_id = null;
                 $.each(countries, function (index, country) {
                     if (index == 0){
                         frst_id = country.id;
-
                     }
-                    root.append('<li class="countrySelectTabItem"><a href="#country-' + country.id  + '" id="a-country-' + country.id  + '"><img src="/bootstrap/img/spbimg.png" alt="'+country.name+'" /></a></li>' );
+                    root.append('<li class="countrySelectTabItem">' +
+                        '<a href="#country-' + country.id  + '" id="a-country-' + country.id  + '">' +
+                        '<img src="/storage/images/countries/' + country.icon_name + '" alt="' + country.name + '" style="width:40px;"/>' +
+                        '</a></li>' 
+                    );
                 });
 
                 loadCityList(defaultImage, Routing);
@@ -49,7 +53,7 @@ var loadCityList = function(defaultImage, Routing){
             var coun_area = $('#city-select ul');
             coun_area.empty();
             $.each(json, function (index, city) {
-                var img_src = (!city.image) ? defaultImage : "/{{ storage_path }}/company_icon/" + city.image;
+                var img_src = (!city.icon_name) ? defaultImage : "/storage/images/countries/" + city.icon_name;
                 coun_area.append(
                     '<li class="townSelectTabItem">'+
                     '<img src="' + img_src + '" style="width: 17px;height: 17px;">' +

@@ -1,0 +1,17 @@
+<img src="/storage/images/countries/{{ city.iconName }}" alt="{{ city.name }}" />
+<p class="townSelect" id="choice-city">{{ city.name }}</p>
+<div class="selectTownDropdown">
+    <div class="selectTownDropdownTop">
+        <p class="popUpTitle">Укажите ваш город</p>
+    </div>
+    <div class="selectTownDropdownCont tabs2">
+        <ul class="countrySelectTab tabNavigation2" id="country-select"></ul>
+        <div id="city-select" class="townSelectTabCont">
+            <ul class="townSelectTab"></ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cityChoiser("{{ asset('bundles/stocore/images/notimage.png') }}", Routing);
+    </script>
+    <div id="myCanvasTop" class="myCanvasTop"></div>
+</div>
