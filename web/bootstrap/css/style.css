@@ -574,6 +574,7 @@ html, body {
 }
 .nameCompanyWrap{
 	float: left;
+	width: 210px;
 }
 .infoCompanyCont{
 	clear: both;

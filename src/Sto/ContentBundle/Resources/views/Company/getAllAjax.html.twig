@@ -8,13 +8,17 @@
     <div class="nameCompanyWrap">
         <p class="nameCompany"><a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a></p>
         <p class="adressCompany">{{item.address}}</p>
-        <p class="phoneCompany">{% if item.phones | length > 0 %}{{item.phones[0].phone}}{% endif %}</p>
+        {% if item.phones | length > 0 %}<p class="phoneCompany">{{item.phones[0].phone}}</p>{% endif %}
     </div>
     <div class="infoCompanyCont smallInfoCompany" id="blocSmall_{{ item.id }}">
         <ul class="iconSpecialisation">
         {% for key, specialization in item.specialization %}
             <li class="iconSpecialisationitem">
-                <span class="iconProfilCompany {{ specialization.iconNameSmall }}">
+                {% if specialization.iconNameSmall %}
+                    <img src="/storage/images/company_icon/{{ specialization.iconNameSmall }}" width="34" height="40">
+                {% else %}
+                    <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
+                {% endif %}
             </li>
         {% endfor %}
     </div>
@@ -24,14 +28,17 @@
                 <ul class="services">
                 {% for key, specialization in item.specialization %}
                     <li class="servisesItem">
-                        <span class="iconProfilCompany {{ specialization.iconNameSmall }}" />{{ specialization.name }}
+                        {% if specialization.iconNameSmall %}
+                            <img src="/storage/images/company_icon/{{ specialization.iconNameSmall }}" width="34" height="40">
+                        {% else %}
+                            <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
+                        {% endif %}
+                        <span class="serviceName">{{ specialization.name }}</span>
                     </li>
                 {% endfor %}
             </div>
             <div class="infoCompany">
-                <p class="infoCompanyLable">
-                    Контактный телефон:</br><span>(812) 323-78-98</span>
-                </p>
+                {% if item.phones | length > 0 %}<p class="infoCompanyLable">Контактный телефон:</br>{{item.phones[0].phone}}</p>{% endif %}
                 <p class="infoCompanyLable">
                     Часы работы:</br>
                     {%- for workPhase in item.workingTime %}

@@ -371,3 +371,14 @@ a.btnNext:hover{
 .variantList{
     display: none;
 }
+.servisesItem img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.servisesItem .serviceName{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    width: 150px;
+    line-height: 20px;
+}
