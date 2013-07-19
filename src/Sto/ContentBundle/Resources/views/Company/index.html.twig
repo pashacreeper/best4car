@@ -12,6 +12,7 @@
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script>
     var city = '{{ city.gps }}';
+    var oldZoom = 11;
     $(document).ready(function(){
         var myCollection;
         var myMap;
@@ -37,7 +38,7 @@
             function init (city, companies) {
                 myMap = new ymaps.Map("map", {
                     center: [city.split(",")[0], city.split(",")[1]],
-                    zoom: 11,
+                    zoom: oldZoom,
                     behaviors: ["default", "scrollZoom"]
                 });
 
@@ -92,6 +93,13 @@
                     }
                 });
 
+                myMap.events.add('actionend', function (evt) {
+                    if(oldZoom != myMap.getZoom()) {
+                        filterDataByZoom(myMap.getZoom(), companies);
+                        oldZoom = myMap.getZoom();
+                    }
+                });
+
                 function addPlacemarks (companies) {
                     var sel;
                     $('div.listItemCompanyPlain').each(function(){ if($(this).css('display')=='block'){ sel = $(this).attr('id').replace('x-list-company',''); }});
@@ -102,10 +110,15 @@
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
                         var iconSize = (sel == val.id)? [60,42]: [40,28];
                         var vid = val.id;
-                        var img = {
+                        var img;
+                        if(showByRate (myMap.getZoom(),val.rating)){
+                            img = {
                                 iconImageHref: iconMap,
                                 iconImageSize: iconSize,
                             };
+                        } else {
+                            img = { preset: 'twirl#blackClusterIcons' };
+                        }
                         myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                             id: val.id,
                             name: val.name,
@@ -210,15 +223,13 @@
                 }
 
                 function showByRate (pZoom, pRating) {
-                    if (pZoom < 11 && pRating > 9)
+                    if (pZoom == 11 && pRating > 8)
                         return true;
-                    if (pZoom == 11 && pRating > 9)
+                    if (pZoom == 12 && pRating > 6)
                         return true;
-                    if (pZoom == 12 && pRating > 7)
+                    if (pZoom == 13 && pRating > 4)
                         return true;
-                    if (pZoom == 13 && pRating > 5)
-                        return true;
-                    if (pZoom == 14 && pRating > 3)
+                    if (pZoom >= 14)
                         return true;
                     return false;
                 }
