@@ -341,23 +341,20 @@ var profilePage = function(){
     (function(){
         var tabContainers = $('.tabs'),
             tabLinksContainer = $('.tabs ul.tabNavigation'),
-            url = document.URL;
+            url = document.URL,
+            hash = false;
 
         tabContainers.find('> div').hide();
-        if (url.indexOf('profile/') + 1) {
-            var hash = false;
+        if (url.indexOf('#') + 1) {
+            hash = url.substring(url.indexOf('#'));
+        }
 
-            if (url.indexOf('#') + 1) {
-                hash = url.substring(url.indexOf('#'));
-            }
-
-            if (hash) {
-                tabContainers.find('[data-tab-id="'+hash+'"]').show();
-                tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
-            } else {
-                tabContainers.find('> div').hide().filter(':first').show();
-                tabLinksContainer.find('a:first').addClass('selected');
-            }
+        if (hash) {
+            tabContainers.find('[data-tab-id="'+hash+'"]').show();
+            tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
+        } else {
+            tabContainers.find('> div').hide().filter(':first').show();
+            tabLinksContainer.find('a:first').addClass('selected');
         }
         tabLinksContainer.find('a').click(function () {
             tabContainers.find('> div').hide(); // прячем все табы

@@ -44,13 +44,13 @@
 <section class="contentMain  row tabs">
     <ul class="tabNavigation">
         <li>
-            <a href="#info">Информация</a>
+            <a href="#information">Информация</a>
         </li>
         <li>
             <a href="#feedbacks">Отзывы {{ deal.feedbacks|length }}</a>
         </li>
     </ul>
-    <div id="info" class="content">
+    <div data-tab-id="#information" class="content">
         {% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
         <div class="rightContent">
             <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div id="feedbacks" class="content">
+    <div data-tab-id="#feedbacks" class="content">
         {% include 'StoContentBundle::Deal/tabs/feedbacks.html.twig' %}
         <div class="rightContent">
             <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
@@ -72,34 +72,6 @@
             </div>
         </div>
     </div>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs ul.tabNavigation a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
-            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs2 ul.tabNavigation2 a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
-            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
 </section>
 
 {% endblock %}

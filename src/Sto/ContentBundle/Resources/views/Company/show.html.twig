@@ -14,6 +14,29 @@
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script>
+    $(document).ready(function(){
+        var city = '{{ company.gps }}', mapComany;
+
+        var init = function(){
+            mapComany = new ymaps.Map ("YMapsID", {
+                center: [city.split(",")[0], city.split(",")[1]],
+                zoom: 15,
+                behaviors: ["default", "scrollZoom"]
+            });
+            myGeoObject = new ymaps.GeoObject({
+                geometry: {
+                    type: "Point",
+                    coordinates: mapComany.getCenter()
+                }
+            });
+            mapComany.geoObjects.add(myGeoObject);
+        };
+
+        ymaps.ready(init());
+    });
+    </script>
 {% endblock %}
 
 {% block search %}
@@ -41,21 +64,21 @@
 {% endblock %}
 
 {% block content %}
-<section class="contentMain  row tabs">
+<section class="contentMain row tabs">
     <!-- Это сами вкладки -->
     <ul class="tabNavigation">
         <li>
-            <a class="" href="#first">Информация</a>
+            <a href="#information">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы  {{ company.feedbacks|length }}</a>
+            <a href="#feedbacks">Отзывы  {{ company.feedbacks|length }}</a>
         </li>
         <li>
-            <a class="" href="#third">Акции  {{ company.deals|length - archivedDeals }}<span class="newPost">/ {{ archivedDeals }}</span></a>
+            <a href="#deals">Акции  {{ company.deals|length - archivedDeals }}<span class="newPost">/ {{ archivedDeals }}</span></a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
-    <div id="first" class="content">
+    <div data-tab-id="#information" class="content" >
         <div class="leftContent">
             {% if company.gallery|length %}
             <div class="slider">
@@ -148,7 +171,7 @@
                 </div>
                 <div class="infoCompanyItem">
                     <p class="infoCompanyTitle titleH3">Адрес:</p>
-                    <p class="infoCompanyDescription"><a href="#">{{ company.address }}</a></p>
+                    <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal">{{ company.address }}</a></p>
                 </div>
                 <div class="infoCompanyItem">
                     <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
@@ -192,7 +215,7 @@
             {% endif %}
         </div>
     </div>
-    <div id="second" class="content">
+    <div data-tab-id="#feedbacks" class="content">
         <div class="leftContent">
             <div class="contentSelect">
                 <div class="assortSelect">
@@ -237,7 +260,7 @@
             {% for feedback in company.feedbacks %}
             <div class="reviewContentItem">
                 <div class="reviewAccount">
-                    <div  class="reviewAccountImg">
+                    <div class="reviewAccountImg">
                         <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
                             {% if feedback.user.avatar %}
                             <img data-image="avatar" id="avatar" src="{{ vich_uploader_asset(feedback.user, 'avatar') }}">
@@ -347,7 +370,7 @@
             {% endif %}
         </div>
     </div>
-    <div id="third" class="content">
+    <div data-tab-id="#deals" class="content">
         <div class="leftContent">
             <h1 class="title2">Действующие акции компании</h1>
             {% for key,deal in company.deals %}
@@ -382,160 +405,11 @@
             <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id':company.id}) }}">Показать архивные акции</a></span>
         </div>
     </div>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs ul.tabNavigation a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
-            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs2 ul.tabNavigation2 a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
-            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
+    <div id="map-modal" class="reveal-modal yandexMapModalCompanyPage">
+        <a href="#" class="close-reveal-modal"></a>
+        <div class="slidCont">
+            <div id="YMapsID" style="height:400px"></div>
+        </div>
+    </div>
 </section>
-{% endblock %}
-
-{% block foot_script %}
-{{ parent() }}
-<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/like.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/feedbacks.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/stocontent/js/answers.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-    var city = '{{ company.gps }}',mapComany;
-    ymaps.ready(init);
-
-    function init(){
-        mapComany = new ymaps.Map ("myMap", {
-            center: [city.split(",")[0], city.split(",")[1]],
-            zoom: 15,
-            behaviors: ["default", "scrollZoom"]
-        });
-        myGeoObject = new ymaps.GeoObject({
-            geometry: {
-                type: "Point",
-                coordinates: mapComany.getCenter()
-            }
-        });
-        mapComany.geoObjects.add(myGeoObject);
-    }
-    $('[data-page]').live('click', function(){
-        var page = parseInt($(this).attr('rel'))+1;
-        var path = $(this).attr('href');
-        $(this).parent('div.span12').parent('div.row-fluid').remove();
-        $('[data-page]').attr('rel', page+1);
-        $.ajax({
-            type: 'POST',
-            url: path+"?page="+page,
-        }).done(function (html) {
-            $('[data-content]').append(html);
-        }).fail(function (e) {
-            console.log(e.message);
-        });
-
-        return false;
-    });
-    // Нажатие на кнопку добавления ответа на отзыв
-    $('a[data-feedback]').click(function(){
-        var feed_id = $(this).data('feedback');
-        $('div[data-answerform='+feed_id+']').toggle();
-        $(this).css('display', 'none');
-        return false;
-    });
-
-    // отмена добавления ответа
-    $('a[data-abort-answer]').click(function(){
-        var feed_id = $(this).data('abort-answer');
-        $('div[data-answerform='+feed_id+']').toggle();
-        $('a[data-feedback='+feed_id+']').css('display', 'block');
-        return false;
-    });
-
-    // сохранение нового ответа на отзыв
-    $('input[data-submit-form]').click(function(){
-        var feed_id = $(this).data('submit-form');
-        var answer = $('form[name="form'+feed_id+'"] textarea[name=answer]').val();
-        $.getJSON("{{ path('api_add_answer') }}",{'feedback_id': feed_id, 'answer':answer})
-        .done(function(data){
-            $('div[data-answer-block="'+feed_id+'"]').append(data.content);
-            $('div[data-answerform='+feed_id+']').toggle();
-        })
-        .fail(function(e){
-            console.log(e.message);
-        })
-
-        return false;
-    });
-
-    // Вывод формы редактирования
-    $('a[data-feedback-edit]').live('click', function(){
-        var feed_id = $(this).data('feedback-edit');
-        var answer_id = $(this).data('answer-id');
-        $(this).css('display', 'none');
-        var answer = $(this).parent().find('p').html();
-        $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'none');
-        $('blockquote[data-answer-block-edit="'+feed_id+'"]').parent().append(generateAnswerFrom(feed_id, answer_id, answer));
-        var answer = $('textarea[data-answer-textarea="'+feed_id+'"]').val();
-
-        return false;
-    });
-
-    // Сохранение отредактированного отзыва
-    $('input[data-submit-edit-form]').live('click', function(){
-        var feed_id = $(this).data('submit-edit-form');
-        var answer_id = $(this).data('answer-id');
-        var answer = $('#zorro').val();
-        $.getJSON("{{ path('api_edit_answer') }}",{'feedback_id': feed_id, 'answer':answer, 'answer_id': answer_id})
-        .done(function(data){
-            $('.block'+feed_id).remove();
-            var answer_p = $('a[data-answer-id="'+answer_id+'"]').parent().find('p');
-            $(answer_p).html(answer);
-            $('blockquote[data-answer-block-edit="'+feed_id+'"]').css('display', 'block');
-            $('a[data-feedback-edit="'+feed_id+'"]').css('display', 'block');
-
-        })
-        .fail(function(e){
-            console.log(e.message);
-        })
-
-        return false;
-
-    });
-    function generateAnswerFrom(feed_id, answer_id, answer){
-        var content = '\
-            <blockquote class="well block'+feed_id+'">\
-                <form method="POST">\
-                    <div class="row-fluid">\
-                        <div class="span9">\
-                            <textarea id="zorro" name="answer" data-answer-textarea="'+feed_id+'">'+answer+'</textarea>\
-                        </div>\
-                        <div class="span3">\
-                            <input class="btn" data-submit-edit-form="'+feed_id+'" data-answer-id="'+answer_id+'" type="button" value="Отправить" />\
-                            <a href="#" data-abort-answer="'+feed_id+'">Отмена</a>\
-                        </div>\
-                    </div>\
-                </form>\
-            </blockquote>';
-
-        return content;
-    };
-</script>
 {% endblock %}
