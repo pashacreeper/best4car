@@ -324,6 +324,9 @@ span.complain{
 .btnEnter{
     width: 100% !important;
 }
+.blockEnter .btnEnter{
+    width: 280px !important;
+}
 
 .resetting-modal{
     width: 580px;
