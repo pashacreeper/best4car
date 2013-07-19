@@ -617,16 +617,15 @@ html, body {
 	cursor: pointer;
 }
 .nameCompany a{
+	border-bottom: 1px dotted #f35d2e !important;
 	font: Bold Italic 1.8em 'PT Sans', sans;
 	color: #f35d2e;
 	text-decoration: none;
-	border-bottom: 1px dotted #f35d2e;
 }
 .nameCompany a:hover{
 	font: Bold Italic 1.8em 'PT Sans', sans;
 	color: #f35d2e;
 	text-decoration: none;
-	border-bottom: 1px dotted transparent;
 }
 .adressCompany{
 	font: 1.4em 'PT Sans', sans;

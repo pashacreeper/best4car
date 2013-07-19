@@ -84,14 +84,39 @@
     margin-top: 2px;
 }
 
+/* Yandex map ballon restyle */
 .ymaps-b-balloon{
     width: 450px !important;
     border: 2px solid #9e9a94;
-    border-radius: 9px;
+    border-radius: 6px;
+    background-color: #fff;
 }
 .ymaps-b-balloon__content-holster{
     padding: 0 !important;
 }
+.ymaps-b-balloon__sprite{
+    background: none !important;
+}
+.ymaps-b-balloon__content{
+    border: none !important;
+}
+.ymaps-b-balloon__tail{
+    background: none !important;
+}
+.ymaps-b-balloon__sprite_type_tail{
+    background: url(/bootstrap/img/arrow-down.png) no-repeat !important;
+}
+.ymaps-shadows-pane{
+    display: none;
+}
+.ymaps-b-balloon__close{
+    background: url("/bootstrap/img/glyphicons-halflings.png") -48px -96px no-repeat !important;
+    width: 14px !important;
+    height: 14px !important;
+    top: 5px !important;
+    right: 5px !important;
+}
+/* end yandex map ballon restyle */
 
 span.complain{
     cursor: default !important;
