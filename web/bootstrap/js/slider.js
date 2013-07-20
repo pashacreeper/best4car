@@ -87,6 +87,6 @@ jQuery(document).ready(function(){
 
     /* иницилизируем функцию слайдера */
     if($('.slider').length) {
-        htmSlider(3000);
+        htmSlider(4000);
     }
 });
