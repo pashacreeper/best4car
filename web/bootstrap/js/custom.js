@@ -237,7 +237,7 @@ var catalogPage = function(){
                 $element = $(element);
                 $element.find(':selected').removeAttr("selected");
                 $element.find("option:first").attr("selected", "selected");
-                $element.prev().find("span.text").html($element.find("option:first").html());
+                $element.trigger("liszt:updated");
             });
         });
     });

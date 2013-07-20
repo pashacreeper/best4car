@@ -20,7 +20,7 @@ class AdvancedSearchType extends AbstractType
                 'required' => false,
                 'empty_value' => 'Все',
                 'attr' => [
-                    'class' => 'styled'
+                    'class' => 'chzn-select',
                 ]
             ])
             ->add('subCompanyType', 'entity', [
@@ -33,7 +33,7 @@ class AdvancedSearchType extends AbstractType
                 'required' => false,
                 'empty_value' => 'Все',
                 'attr' => [
-                    'class' => 'styled'
+                    'class' => 'chzn-select',
                 ]
             ])
             ->add('auto', 'entity', [
