@@ -3,24 +3,11 @@
 
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
 {% endblock %}
 
-{% block js %}
-    {{ parent() }}
-    <script src="{{ asset('bootstrap/js/chosen.jquery.js') }}"></script>
-{% endblock %}
-
 {% block title %}Новая акция{% endblock %}
-
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
-
-{% block head_style %}
-{{ parent() }}
-<link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
-{% endblock %}
 
 {% block search %}
 <div class="back">

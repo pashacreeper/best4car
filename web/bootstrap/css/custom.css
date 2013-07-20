@@ -417,3 +417,14 @@ a.btnNext:hover{
     width: 150px;
     line-height: 20px;
 }
+.basket__cont__body__bottom__paper .chzn-container{
+    width: 278px !important;
+    font: 1.5em 'PT Sans', sans;
+}
+.basket__cont__body__bottom__paper .chzn-container a.chzn-single{
+    height: 28px;
+    padding-top: 6px;
+}
+.basket__cont__body__bottom__paper .chzn-container .chzn-search input{
+    height: 30px;
+}

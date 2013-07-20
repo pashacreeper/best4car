@@ -46,7 +46,7 @@ class AdvancedSearchType extends AbstractType
                 'required' => false,
                 'empty_value' => 'Все',
                 'attr' => [
-                    'class' => 'styled',
+                    'class' => 'chzn-select',
                 ]
             ])
         ;

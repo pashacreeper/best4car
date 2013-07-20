@@ -19,7 +19,7 @@
         <p class="contentRightItem">
             <label for="inputBrandField">Специализация на марке</label>
         </p>
-        <div class="basket__cont__body__bottom__paper">
+        <div class="basket__cont__body__bottom__paper" style="float: none; margin-bottom: 30px;">
             <div class="lineForm">
                 {{ form_widget(form.auto) }}
             </div>
@@ -92,3 +92,6 @@
         <p class="cleanSearch secondaryLink" id="cleanSearch">Очистить поиск</p>
     </form>
 </div>
+<script>
+    (function(){$('.chzn-select').chosen();})();
+</script>
