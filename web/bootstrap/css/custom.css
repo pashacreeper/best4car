@@ -417,6 +417,8 @@ a.btnNext:hover{
     width: 150px;
     line-height: 20px;
 }
+
+/* custumize select for advanced search */
 .basket__cont__body__bottom__paper .chzn-container{
     width: 278px !important;
     font: 1.5em 'PT Sans', sans;
@@ -428,3 +430,10 @@ a.btnNext:hover{
 .basket__cont__body__bottom__paper .chzn-container .chzn-search input{
     height: 30px;
 }
+/* end */
+
+.pushDownBlock{
+    height: 400px;
+    display: block;
+}
+
