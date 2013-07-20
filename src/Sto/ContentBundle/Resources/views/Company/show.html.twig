@@ -14,6 +14,7 @@
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script>
     $(document).ready(function(){
@@ -248,15 +249,6 @@
                 <span class="parametShow">{{ feedbacks | length }}</span>
                 отзыва
             </p>
-            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.collapsCont').hide();
-                                    $('.collapsText').click(function() {
-                                        $('.collapsCont').show();
-                                        $('.collapsText').hide();
-                                    });
-                                });
-            </script>
             {% for feedback in company.feedbacks %}
             <div class="reviewContentItem">
                 <div class="reviewAccount">
@@ -294,8 +286,8 @@
                                 </div>
                             </div>
                             <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
-                            <span class="negativReview disabledIconNegativ"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
-                            <span class="positivReview disabledIconPositiv"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
+                            <span data-dislike-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></span>
+                            <span data-like="company" data-like-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></span>
                             <p class="reviewContText">
                                 {{ feedback.content|raw }}
                             </p>
