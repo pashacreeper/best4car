@@ -8,14 +8,14 @@ jQuery(document).ready(function(){
             newLeftPos = slideWrap.position().left - slideWidth,
             timer = null;
 
-        if (slideWrap.length == 1) {
+        if (jQuery('.slide-item').length == 1) {
             nextLink.remove();
             prevLink.remove();
             sliderWidth = jQuery('.slider').width();
             $('.slide-item').css("margin-left", slideWidth);
         }
 
-        if (autoplayInterval && slideWrap.length > 1) {
+        if (autoplayInterval && jQuery('.slide-item').length > 1) {
             timer = setInterval(autoplay, autoplayInterval);
         }
         
