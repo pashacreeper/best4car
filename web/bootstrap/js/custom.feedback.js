@@ -31,4 +31,7 @@ $(document).ready(function(){
         })
         return false;
     });
+
+    var feedbacksCount = $('#data-x-container-feedbacks').find('.reviewContentItem').length;
+    $('#showedDealFeedbacks').html(feedbacksCount);
 });
