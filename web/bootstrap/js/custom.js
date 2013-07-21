@@ -259,7 +259,7 @@ var dealsPage = function(){
 
         if (! $this.hasClass('activeBar')) {
             $activeItem = $menu.find('.activeBar');
-            $activeItem.find('i').remove();
+            $activeItem.find('i.subActive').remove();
             $activeItem.removeClass('activeBar');
 
             $this.addClass('activeBar');
