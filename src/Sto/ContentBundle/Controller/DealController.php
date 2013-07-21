@@ -1,5 +1,4 @@
 <?php
-
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -578,9 +577,9 @@ class DealController extends MainController
     public function searchVariantsAction()
     {
         $list = [
-            'ремонт двигателя Mazda3 спб',
-            'еще один вариант',
-            'простой поиск'
+            'сезонный шиномонтаж',
+            'бесплатный осмотр подвески',
+            'скидка на ТО volvo',
         ];
 
         return [
