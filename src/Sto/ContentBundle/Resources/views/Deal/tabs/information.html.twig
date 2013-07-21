@@ -1,4 +1,5 @@
 <div class="leftContent">
+    {% if deal.auto | length > 0 %}
     <div class="slider">
         <div class="img__prev__wrap">
             <ul id="thumbnail" class="slide-wrap">
@@ -15,6 +16,7 @@
             <span name="next" class="navy next-slide"></span>
         </div>
     </div>
+    {% endif %}
     <div class="servicesSpecialisationWrap">
     {% if deal.description %}
         <p class="servicesSpecialisationTitle titleH2">Об акции</p>
