@@ -37,13 +37,13 @@
         {% if deal.startDate and deal.endDate %}
             <div class="infoCompanyItem">
                 <p class="infoCompanyTitle titleH3">Сроки проведения:</p>
-                <p class="infoCompanyDescription">{{ deal.startDate|date("d.m.Y") }} – {{ deal.endDate|date("d.m.Y") }}</p>
+                <p class="infoCompanyDescription">{{ deal.startDate|date("d.m.Y") }} &ndash; {{ deal.endDate|date("d.m.Y") }}</p>
             </div>
         {% endif %}
         {% if deal.startTime and deal.endTime %}
             <div class="infoCompanyItem">
                 <p class="infoCompanyTitle titleH3">Время проведения:</p>
-                <p class="infoCompanyDescription">{{ deal.startTime|date("H:i") }} – {{ deal.endTime|date("H:i") }}</p>
+                <p class="infoCompanyDescription">{{ deal.startTime|date("H:i") }} &ndash; {{ deal.endTime|date("H:i") }}</p>
             </div>
         {% endif %}
         {% if deal.place %}
