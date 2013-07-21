@@ -309,17 +309,11 @@ span.complain{
 }
 
 .acctBtn{
-    display: block;
-    position: absolute;
-    right: 26px;
-    top: 40%;
+    width: 30px;
+    text-align: right;
 }
 .menuTagEmpty{
-    width: 85%;
-}
-.subActive{
-    display: block;
-    top: 47%;
+    width: 190px;
 }
 .btnEnter{
     width: 100% !important;

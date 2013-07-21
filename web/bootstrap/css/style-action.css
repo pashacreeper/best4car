@@ -65,7 +65,7 @@ header{
 	height: 100px;
 }
 .menuLeftBarItem{
-	padding: 20px 30px;
+	padding: 20px 10px 20px 30px;
 	font: 1.6em 'PT Sans', sans;
 	color: #4e585f;
 	border-top: 1px solid #d3dadf;
@@ -74,11 +74,9 @@ header{
 	cursor: pointer;
 	position: relative;
 }
-.menuTagEmpty{
-	float: left;
-}
-.acctBtn{
-	float: right;
+.menuTagEmpty, .acctBtn{
+	display: inline-block;
+	vertical-align: middle;
 }
 .activeBar{
 	background: #a8bcc8;
@@ -92,10 +90,8 @@ header{
 	border-radius: 50%;
 	border: 2px solid #fff;
 	background: #f35d2e;
-	display: block;
-	position: absolute;
-	top: 25px;
-	right: 10px;
+	display: inline-block;
+	vertical-align: middle;
 }
 .slidesCont{
 	overflow: hidden;
