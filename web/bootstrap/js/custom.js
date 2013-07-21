@@ -244,10 +244,10 @@ var catalogPage = function(){
 };
 
 var dealsPage = function(){
-    $('.actionItemLink').mouseenter(function() {                                  
+    $('#dealsContainer').on('mouseenter', '.actionItemLink', function(){
         $(this).children('.actionItemBottomWrap').css("top", "90px");
-    }); 
-    $('.actionItemLink').mouseleave(function() {
+    });
+    $('#dealsContainer').on('mouseleave', '.actionItemLink', function(){
         $(this).children('.actionItemBottomWrap').css("top", "120px");
     });
     // Deals menu
