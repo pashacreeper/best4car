@@ -53,7 +53,7 @@
     <div data-tab-id="#information" class="content">
         {% include 'StoContentBundle::Deal/tabs/information.html.twig' %}
         <div class="rightContent">
-            <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
+            <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="addPhotoBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
             {% if isManager %}
                 <a href="{{ path("company_deal_edit", {'id':deal.company.id, 'dealId':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Редактировать</a>
             {% endif %}
@@ -63,7 +63,7 @@
     <div data-tab-id="#feedbacks" class="content">
         {% include 'StoContentBundle::Deal/tabs/feedbacks.html.twig' %}
         <div class="rightContent">
-            <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="writeReviewBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
+            <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="addPhotoBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
             <div class="bannerImg"></div>
         </div>
     </div>
