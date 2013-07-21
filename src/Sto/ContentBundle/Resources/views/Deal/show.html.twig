@@ -29,7 +29,7 @@
     </div>
     <div id="nameCompanyHeaderWrap">
         <div class="nameCompanyHeader">
-            <h1 class="titleNameCompany">{{ deal.name }}</h1>
+            <h1 class="titleNameCompany"><a href="{{ path('content_deal_show', { "id": deal.id }) }}">{{ deal.name }}</a></h1>
             <p class="sloganCompany"><a href="{{ path('content_company_show', { "id": deal.company.id }) }}">{{ deal.company.name }}</a></p>
         </div>
         <div class="indexCompany">
