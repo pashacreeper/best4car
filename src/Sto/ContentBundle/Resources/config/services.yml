@@ -48,3 +48,8 @@ services:
         class: Sto\ContentBundle\EventListener\ChoiceCityListener
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    twig.localizeddate:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
