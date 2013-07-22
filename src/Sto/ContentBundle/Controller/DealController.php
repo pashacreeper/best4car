@@ -415,7 +415,7 @@ class DealController extends MainController
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
             $this->get('request')->query->get('page',1),
-            3
+            10
         );
 
         $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
@@ -428,7 +428,7 @@ class DealController extends MainController
                 ->setParameter('company', $deal->getCompanyId())
                 ->getQuery()
                 ->getResult()
-                ;
+            ;
         }
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 

@@ -264,7 +264,7 @@ class APIFeedbackController extends FOSRestController
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
             $this->get('request')->query->get('page',1),
-            3
+            10
         );
 
         if ($entityType=='company') {
