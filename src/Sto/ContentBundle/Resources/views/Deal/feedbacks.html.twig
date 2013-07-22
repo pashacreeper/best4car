@@ -33,8 +33,8 @@
                 </div>
 
                 {% if app.security.isGranted('ROLE_USER') %}
-                    <a href="#" data-like="deal" data-like-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</a>
-                    <a data-dislike="deal" data-dislike-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</a>
+                    <a href="#" data-dislike="deal" data-dislike-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></a>
+                    <a href="#" data-like="deal" data-like-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></a>
                 {% else %}
                     <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
                     <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>

@@ -56,7 +56,7 @@ class APIFeedbackController extends FOSRestController
         $user = $this->getUser();
         $evaluation = $em->getRepository('StoCoreBundle:FeedbackEvaluation')->findOneBy(['feedback'=>$feedback_id, 'user'=>$user->getId()]);
 
-        if (count($evaluation)==0) {
+        if (count($evaluation) == 0) {
             $evaluation = new FeedbackEvaluation(true, $user, $feedback);
             $feedback->addPlus();
             $em->persist($evaluation);

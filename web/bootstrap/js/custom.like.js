@@ -7,6 +7,7 @@
                 Routing.generate('api_add_like'), 
                 {'feedback_id': feedbackId, 'feedback_type': feedbackType}
             ).done(function (data) {
+                console.log(data);
                 $('[data-like-feedback="'+data.id+'"]').find('span[data-like="count"]').empty().append(data.pluses);
                 $('[data-dislike-feedback="'+data.id+'"]').find('span[data-dislike="count"]').empty().append(data.minuses);
                 $('[data-dislike-feedback="'+data.id+'"]').addClass('disabledIconNegativ');
@@ -25,6 +26,7 @@
                 Routing.generate('api_add_dislike'), 
                 {'feedback_id': feedbackId, 'feedback_type': feedbackType}
             ).done(function (data) {
+                console.log(data);
                 $('[data-like-feedback="'+data.id+'"]').find('span[data-like="count"]').empty().append(data.pluses);
                 $('[data-dislike-feedback="'+data.id+'"]').find('span[data-dislike="count"]').empty().append(data.minuses);
                 $('[data-like-feedback="'+data.id+'"]').addClass('disabledIconPositiv');
