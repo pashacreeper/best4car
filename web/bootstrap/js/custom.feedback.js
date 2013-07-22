@@ -4,6 +4,14 @@ $(document).ready(function(){
         $('#showedDealFeedbacks').html(feedbacksCount);
     }
 
+    var feedbackRating = function(){
+        $('.vote-wrap').each(function(index, element){
+            $this = $(element); 
+            ratingStars = $this.data('rating');
+            $this.find('input').rating().rating('select', ratingStars).rating('disable');
+        });
+    }
+
     $('data-x-container-feedbacks').on('click', $('a[data-action="complain"]'), function(){
         e.preventDefault();
         var $this = $(this),
@@ -37,13 +45,14 @@ $(document).ready(function(){
         ).done(function (data) {
             $('#data-x-container-feedbacks').empty().append(data);
             countFeedbacks();
+            feedbackRating();
         }).fail(function(e){
             console.log(e.message);
         });
-
 
         return false;
     });
 
     countFeedbacks();
+    feedbackRating();
 });

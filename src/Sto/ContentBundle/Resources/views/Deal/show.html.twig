@@ -6,12 +6,14 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
 {% endblock %}
 
 {% block js %}
     {{ parent() }}
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
 {% endblock %}
 

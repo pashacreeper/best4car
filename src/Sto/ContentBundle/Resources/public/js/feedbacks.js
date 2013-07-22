@@ -21,7 +21,6 @@ $('a[data-action="complain"]').click(function(){
     return false;
 });
 
-
 $('a[data-action="admin_complain"]').click(function(){
     var feedback_id = $(this).data('feedback-id');
     $('div#feedback').data('type','feedback');

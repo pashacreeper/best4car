@@ -24,15 +24,12 @@
         </div>
         <div class="reviewCont">
             <div class="reviewContTop">
-                <div class="vote-wrap">
-                    <div class="vote-hover">
-                        <div class="vote-block">
-                            <div class="vote-stars">
-                            </div>
-                            <div class="vote-active">
-                            </div>
-                        </div>
-                    </div>
+                <div class="vote-wrap" data-rating="{{ feedback.feedbackRating }}">
+                    <input type="radio" name="star{{ feedback.id }}" class="star">
+                    <input type="radio" name="star{{ feedback.id }}" class="star">
+                    <input type="radio" name="star{{ feedback.id }}" class="star">
+                    <input type="radio" name="star{{ feedback.id }}" class="star">
+                    <input type="radio" name="star{{ feedback.id }}" class="star">
                 </div>
 
                 {% if app.security.isGranted('ROLE_USER') %}
