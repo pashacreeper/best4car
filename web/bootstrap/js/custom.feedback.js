@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    var countFeedbacks = function(){
+        var feedbacksCount = $('#data-x-container-feedbacks').find('.reviewContentItem').length;
+        $('#showedDealFeedbacks').html(feedbacksCount);
+    }
+
     $('data-x-container-feedbacks').on('click', $('a[data-action="complain"]'), function(){
         e.preventDefault();
         var $this = $(this),
@@ -18,20 +23,27 @@ $(document).ready(function(){
     });
 
     $('.data-select').on('change', function() {
-        var filter = $('#data-filter').find(":selected").val(),
+        var filter = $($('#data-filter').find(':selected')[1]).val(),
             sort = $('#data-sort').val(),
             entType = $('#sortDataType').attr('data-type');
 
-        $.get(Routing.generate('api_sort_filter'), {'sort-tab': sort, 'filter-tab': filter, 'entity-id': getEntityId(), 'entity-type': entType})
-        .done(function (data) {
+        if (filter === undefined) {
+            filter = 'all';
+        }
+
+        $.get(
+            Routing.generate('api_sort_filter'), 
+            {'sort-tab': sort, 'filter-tab': filter, 'entity-id': getEntityId(), 'entity-type': entType}
+        ).done(function (data) {
             $('#data-x-container-feedbacks').empty().append(data);
-        })
-        .fail(function(e){
+            countFeedbacks();
+        }).fail(function(e){
             console.log(e.message);
-        })
+        });
+
+
         return false;
     });
 
-    var feedbacksCount = $('#data-x-container-feedbacks').find('.reviewContentItem').length;
-    $('#showedDealFeedbacks').html(feedbacksCount);
+    countFeedbacks();
 });
