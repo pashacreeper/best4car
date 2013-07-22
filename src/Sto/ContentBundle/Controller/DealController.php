@@ -15,6 +15,8 @@ use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
 use Sto\ContentBundle\Form\DealType;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class DealController extends MainController
 {
@@ -379,9 +381,12 @@ class DealController extends MainController
         $refererRoute = null;
         if ($referer = $request->headers->get('referer')) {
             $urlParts = parse_url($referer);
-            if ($routeParams = $this->get('router')->match($urlParts['path'])) {
-                $refererRoute = $routeParams['_route'];
-            }
+            try {
+                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                    $refererRoute = $routeParams['_route'];
+                }
+            } catch(MethodNotAllowedException $e) {}
+            catch(ResourceNotFoundException $e) {}
         }
 
         $isManager = (isset($manager) && count($manager)>0) ? true : false;

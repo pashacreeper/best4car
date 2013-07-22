@@ -16,6 +16,8 @@ use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\AdvancedSearchType;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class CompanyController extends MainController
 {
@@ -158,9 +160,12 @@ class CompanyController extends MainController
         $refererRoute = null;
         if ($referer = $request->headers->get('referer')) {
             $urlParts = parse_url($referer);
-            if ($routeParams = $this->get('router')->match($urlParts['path'])) {
-                $refererRoute = $routeParams['_route'];
-            }
+            try {
+                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                    $refererRoute = $routeParams['_route'];
+                }
+            } catch(MethodNotAllowedException $e) {}
+            catch(ResourceNotFoundException $e) {}
         }
 
         return [

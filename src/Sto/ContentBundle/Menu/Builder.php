@@ -9,6 +9,7 @@ class Builder extends ContainerAware
 {
     public function mainMenu(FactoryInterface $factory, array $options)
     {
+        $route = $this->container->get('request')->get('_route');
         $menu = $factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'navTop']);
 
@@ -16,10 +17,16 @@ class Builder extends ContainerAware
         $companies->setAttribute('class', 'navTopItem');
         $companies->setLinkAttributes(['data-span-class' => 'companys', 'class' => 'navLink']);
         $companies->setLinkAttribute('class', 'navLink');
+        if($route == 'content_company_show') {
+            $companies->setCurrent(true);
+        }
 
         $deals = $menu->addChild('Акции', ['route' => 'content_deals']);
         $deals->setAttribute('class', 'navTopItem');
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
+        if($route == 'content_deal_show') {
+            $deals->setCurrent(true);
+        }
 
         $clubs = $menu->addChild('Клубы', ['uri' => '#']);
         $clubs->setAttribute('class', 'navTopItem');
