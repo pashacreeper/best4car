@@ -595,14 +595,13 @@ a.addEmail{
 	width: 100%;
 	background: #e3ecf2;
 	border: 1px solid #acc7d2;
-	padding: 10px 10px 30px 10px;
+	padding: 10px 10px 40px 10px;
 	position: relative;
 }
 .reviewContText{
 	font: 1.3em 'PT Sans', sans;
 	color: #444;
 	padding-top: 10px;
-	padding-bottom: 10px;
 	clear: both;
 }
 .collapsCont{
@@ -619,6 +618,9 @@ a.addEmail{
 	float: left;	
 	color: #f35d2e;
 	border-bottom: 1px dotted #f35d2e;
+}
+.reply, .complain{
+	padding-top: 10px;
 }
 .reply:hover, a.complain:hover{
 	color: #f35d2e;
