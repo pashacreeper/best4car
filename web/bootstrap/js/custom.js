@@ -122,6 +122,18 @@ var mainLayout = function(){
             $variantContainer.html(variants[currentIndex]);
         });
     })();
+
+    // content area height
+    (function(){
+        var mainHeight = $(window).height(),
+            headerHeight = $('#header').height(),
+            footerHeight = $('section.footer').height()
+        ;
+
+        $('.content').css('min-height', function(){
+            return mainHeight - headerHeight - footerHeight - 100;
+        });
+    })();
 };
 
 var catalogPage = function(){
