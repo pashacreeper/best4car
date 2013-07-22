@@ -135,6 +135,13 @@
                 <p class="popUpTitle">Регистрация на best4car.ru</p>
                 <div id="registration-container"></div>
             </div>
+            <div id="not-loged-in" class="reveal-modal resetting-modal">
+                <a href="#" class="close-reveal-modal"></a>
+                <p class="popUpTitle">Вы не авторизованны.</p>
+                <div id="resetting-container">
+                    <p class="infoText">Для того что бы оставлять отзывы необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> или <a href="{{ path('fos_user_registration_register') }}">зарегестрироваться</a></p>
+                </div>
+            </div>
         {% endif %}
         {% block wrap_container_close %}</div>{% endblock %}
 

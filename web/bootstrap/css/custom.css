@@ -1,15 +1,16 @@
+a.bttn:hover{
+    color: #fff;
+}
+
 .hideLeftColumn, .hideRightSearch {
     padding-top: 2px;
 }
-
 .hideLeftColumn a, .hideRightSearch a {
     color: #51585F;
 }
-
 .hideLeftColumn a:hover, .hideRightSearch a:hover {
     text-decoration: none;
 }
-
 .navTop .current{
     background: #51acd3;
     border-left: 1px solid #51acd3;
@@ -430,4 +431,5 @@ a.btnNext:hover{
     height: 400px;
     display: block;
 }
+
 
