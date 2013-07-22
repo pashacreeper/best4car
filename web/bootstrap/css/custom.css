@@ -432,4 +432,8 @@ a.btnNext:hover{
     display: block;
 }
 
+.selectTownDropdown{
+    display: none;
+}
+
 

@@ -1,6 +1,5 @@
 var cityChoiser = function(defaultImage, Routing){
     $(document).ready(function(){
-        $('.selectTownDropdown').hide();
         $('.townSelect').click(function() {
             $('.selectTownDropdown').toggle();
         }); 
