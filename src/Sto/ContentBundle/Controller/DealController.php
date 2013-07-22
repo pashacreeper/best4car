@@ -485,7 +485,7 @@ class DealController extends MainController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
+            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]).'#feedbacks');
         }
 
         return [
