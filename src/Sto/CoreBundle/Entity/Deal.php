@@ -44,7 +44,8 @@ class Deal
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Assert\Length(max="1000")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 

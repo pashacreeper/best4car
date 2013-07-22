@@ -385,8 +385,7 @@ class DealController extends MainController
                 if ($routeParams = $this->get('router')->match($urlParts['path'])) {
                     $refererRoute = $routeParams['_route'];
                 }
-            } catch(MethodNotAllowedException $e) {}
-            catch(ResourceNotFoundException $e) {}
+            } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}
         }
 
         $isManager = (isset($manager) && count($manager)>0) ? true : false;

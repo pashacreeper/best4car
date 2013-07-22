@@ -17,14 +17,14 @@ class Builder extends ContainerAware
         $companies->setAttribute('class', 'navTopItem');
         $companies->setLinkAttributes(['data-span-class' => 'companys', 'class' => 'navLink']);
         $companies->setLinkAttribute('class', 'navLink');
-        if($route == 'content_company_show') {
+        if ($route == 'content_company_show') {
             $companies->setCurrent(true);
         }
 
         $deals = $menu->addChild('Акции', ['route' => 'content_deals']);
         $deals->setAttribute('class', 'navTopItem');
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
-        if($route == 'content_deal_show') {
+        if ($route == 'content_deal_show') {
             $deals->setCurrent(true);
         }
 

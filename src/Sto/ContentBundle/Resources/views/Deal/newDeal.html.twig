@@ -162,20 +162,7 @@
                     <hr style="margin: 0 0 20px 0;">
                     {{ form_widget(form) }}
                     {{ form_rest(form) }}
-                    <!-- <div class="form-actions">
-                        {% if (activ_deals|length())  < 2 %}
-
-                        <input type="submit"  class="btn btn-primary" value="Опубликовать" />
-                        {% else %}
-                        {{ flash(true, 'У вас две активных акции. Сохраните как черновик', false, true) }}
-                        {% endif %}
-
-                        <input type="submit" class="btn btn-primary" value="Сохранить черновик" name = 'draft' />
-                    </div> -->
                     <div class="bottomContent">
-                        <!-- {% if (activ_deals|length())  < 2 %} -->
-                        <!-- {% else %} -->
-                        <!-- {% endif  %} -->
                         <input type="submit"  class="btnBottomContent addPhotoBtn" value="Опубликовать" />
                         <input type="submit" class="secondaryLink saveDraft" value="Сохранить черновик" name = 'draft' />
                     </div>
