@@ -348,7 +348,7 @@ class CompanyController extends MainController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()]));
+            return $this->redirect($this->generateUrl('content_company_show', ['id' => $company->getId()])."#feedbacks");
         }
 
         return [

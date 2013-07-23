@@ -13,14 +13,6 @@ class FeedbackCompanyType extends FeedbackType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('visitDate', 'text', [
-                'label' => 'Дата посещения',
-                'required' => false,
-                'attr' => [
-                    'class' => 'visitDate',
-                    'data-format' => "yyyy-MM-dd",
-                ],
-            ])
             ->add('car', null, [
                 'label' => 'Автомобиль',
                 'required' => false,

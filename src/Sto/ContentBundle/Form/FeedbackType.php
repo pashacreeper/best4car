@@ -30,12 +30,14 @@ class FeedbackType extends AbstractType
                     'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
                 ],
             ])
-            ->add('visitDate', 'text', [
+            ->add('visitDate', 'date', [
                 'label' => 'Дата посещения',
                 'required' => false,
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
                 'attr' => [
                     'class' => 'visitDate',
-                    'data-format' => "yyyy-MM-dd",
+                    'data-format' => 'dd-MM-yyyy',
                 ],
             ])
             ->add('mastername', null, [

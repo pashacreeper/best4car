@@ -242,8 +242,8 @@ class Company
     /**
      * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
      * @ORM\JoinTable(name="company_autos",
-     *     joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")}
      * )
      */
     protected $autos;

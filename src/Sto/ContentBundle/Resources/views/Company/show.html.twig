@@ -153,9 +153,9 @@
                 {% if company.autos|length %}
                 <div class="infoCompanyItem">
                     <p class="servedBrendTitle titleH3">Обслуживаемые бренды:</p>
-                    {% for car in company.autos %}
-                        <p class="servedBrend"><i class="iconBrand {{ car }}"></i>{{ car }}</p>
-                    {% endfor %}
+                    {%- for car in company.autos %}
+                        <p class="servedBrend"><img src="{{ vich_uploader_asset(car, 'icon') }}" alt="{{ car }}"><span class="car-name">{{ car }}</span></p>
+                    {% endfor -%}
                 </div>
                 {% endif %}
                 <div class="infoCompanyItem">

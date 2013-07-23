@@ -436,4 +436,7 @@ a.btnNext:hover{
     display: none;
 }
 
-
+.servedBrend img, .car-name{
+    display: inline-block;
+    vertical-align: middle;
+}
