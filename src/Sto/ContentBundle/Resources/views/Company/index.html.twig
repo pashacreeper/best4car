@@ -80,7 +80,7 @@
 
                         myMap.geoObjects.each(function (geoCollection) {
                             geoCollection.each(function (item) {
-                                var rat =  parseFloat( item.properties.get('rating') );
+                                var rat = parseFloat( item.properties.get('rating') );
                                 if (!showByRate( myMap.getZoom(), rat)) {
                                     geoCollection.remove(item);
                                 }

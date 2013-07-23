@@ -8,7 +8,9 @@ $(document).ready(function(){
         $('.vote-wrap').each(function(index, element){
             $this = $(element); 
             ratingStars = $this.data('rating');
-            $this.find('input').rating().rating('select', ratingStars).rating('disable');
+            if ('rating' in $this.find('input')) {
+                $this.find('input').rating().rating('select', ratingStars).rating('disable');
+            }
         });
     }
 
