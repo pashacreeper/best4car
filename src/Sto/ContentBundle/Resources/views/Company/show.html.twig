@@ -177,14 +177,21 @@
                 <div class="infoCompanyItem">
                     <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
                     {% for phone in company.phones %}
-                    <p class="infoCompanyAddTitle contentText">{{ phone.description }}:</p>
-                    <p class="infoCompanyDescription">{{ phone.phone }}</p>
+                        {% if loop.first %}
+                            <p class="infoCompanyAddTitle contentText">{{ phone.description }}:</p>
+                            <p class="infoCompanyDescription">{{ phone.phone }}</p>
+                        {% else %}
+                            <p class="infoCompanyAddTitle contentText">{{ phone.description }}:<span class="phoneRight">{{ phone.phone }}</span></p>
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="infoCompanyItem">
                     <p class="infoCompanyTitle titleH3">Часы работы:</p>
-                    <p class="infoCompanyDescription">9:00 - 21:00 (пн-пт)</p>
-                    <p class="infoCompanyDescription">9:00 - 20:00 (сб-вс)</p>
+                    {%- for time in company.workingTime %}
+                        <p class="infoCompanyDescription">
+                            {{ time.from|date('H:i') }} - {{ time.till|date('H:i') }} ({{ time.days.string }})
+                        </p>
+                    {% endfor -%}
                 </div>
                 <div class="infoCompanyItem">
                     <p class="infoCompanyAddTitle contentText">Сайт:</p>
