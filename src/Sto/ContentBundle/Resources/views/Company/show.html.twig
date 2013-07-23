@@ -209,11 +209,6 @@
         </div>
         <div class="rightContent">
             <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="addPhotoBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
-            {% if company.logo %}
-            <div class="bannerImg">
-                <img src="{{vich_uploader_asset(company, 'logo')}}" />
-            </div>
-            {% endif %}
         </div>
     </div>
     <div data-tab-id="#feedbacks" class="content">
@@ -336,11 +331,6 @@
         </div>
         <div class="rightContent">
             <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="addPhotoBtn bttn">Оставить отзыв<i class="writeReview"></i></a>
-            {% if company.logo %}
-            <div class="bannerImg">
-                <img src="{{vich_uploader_asset(company, 'logo')}}" />
-            </div>
-            {% endif %}
         </div>
     </div>
     <div data-tab-id="#deals" class="content">
@@ -370,9 +360,6 @@
             {% endfor %}
         </div>
         <div class="rightContent">
-            <div class="bannerImg">
-                <!-- <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" /> -->
-            </div>
         </div>
         <div class="bottomContent">
             <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id':company.id}) }}">Показать архивные акции</a></span>
