@@ -1,7 +1,9 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title company.name %}
+{% block title %}
+    {% if company %}{{ company.name }}{% endif %}
+{% endblock %}
 
 {% block css %}
     {{ parent() }}
@@ -107,7 +109,11 @@
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <div class="accordion-toggle" id="{{ loop.index }}">
-                                <i class="iconProfilCompany cto"></i>
+                                {% if specialization.iconLarge %}
+                                <img src="{{ vich_uploader_asset(specialization, 'iconLarge') }}" alt="{{ specialization.name }}">
+                                {% else %}
+                                <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.name }}">
+                                {% endif %}
                                 <p class="accordionTitle">{{ specialization.name }}</p>
                                 <p class="accordionDescription">Независимый мультибрендовый</p>
                                 <span class="iconAccord iconChevron" id="iconCollapse_{{ loop.index }}"></span>
@@ -359,10 +365,12 @@
                         <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
                         <p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
                         <p class="">Период проведения </br><span class="blue">{{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}</span></p>
-                        <p class="">Автомобили<br>
-                        {% for auto in deal.auto %}
-                            <span class="blue">{{ auto }}</span>
-                        {% endfor %}
+                        {% if deal.auto %}
+                            <p class="">Автомобили<br>
+                            {% for auto in deal.auto %}
+                                <span class="blue">{{ auto }}</span>
+                            {% endfor %}
+                        {% endif %}
                         </p>
                     </div>
                 </div>
