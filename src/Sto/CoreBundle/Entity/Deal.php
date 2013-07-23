@@ -177,8 +177,8 @@ class Deal
     /**
      * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
      * @ORM\JoinTable(name="deals_auto",
-     *     joinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")}
      * )
      */
     private $auto;
