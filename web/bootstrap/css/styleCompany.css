@@ -1,3 +1,4 @@
+
 body{
 	overflow: auto;
 }
@@ -647,7 +648,7 @@ a.complain, span.complain{
 	width: 16px;
 	height: 13px;
 	background: url("/bootstrap/img/complainalert.png") no-repeat;
-	margin: 3px;
+	margin: 12px 5px 0px 3px;
 }
 .popUpPrimary ul li{
 	margin-bottom: 10px;

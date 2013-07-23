@@ -361,7 +361,7 @@ var profilePage = function(){
             hash = url.substring(url.indexOf('#'));
         }
 
-        if (hash) {
+        if (hash && hash.length > 1) {
             tabContainers.find('[data-tab-id="'+hash+'"]').show();
             tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
         } else {
