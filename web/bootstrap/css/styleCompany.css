@@ -691,6 +691,12 @@ div.vote-active {
 	float: right;
 	margin: 0 10px;
 }
+.levelPriceImg.norma{
+	background-position: -25px 0;
+}
+.levelPriceImg.cheap{
+	background-position: -50px 0;
+}
 .positivReview, .negativReview{
 	float: right;
 	font: 1.4em 'PT Sans', sans;

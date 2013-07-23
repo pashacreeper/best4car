@@ -125,7 +125,6 @@ class DictionaryController extends Controller
             ->getResult()
         ;
 
-        // var_dump($dictionaries);
         return [
             'dictionary' => $request->get('dictionary') ? $request->get('dictionary') : 'company',
             'dictionaries' => $dictionaries,
@@ -160,7 +159,7 @@ class DictionaryController extends Controller
                 $form = $this->createForm(new DictionaryForm\CountryType, new DictionaryEntity\Country);
                 break;
             case 'price_level':
-                $form = $this->createForm(new DictionaryForm\PriceLevel, new DictionaryEntity\PriceLevel);
+                $form = $this->createForm(new DictionaryForm\PriceLevelType, new DictionaryEntity\PriceLevel);
                 break;
             case 'auto_services':
                 $form = $this->createForm(new DictionaryForm\AutoServiceType, new DictionaryEntity\AutoServices);
