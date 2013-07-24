@@ -37,19 +37,20 @@
             <h1 class="title2">Архивные акции компании</h1>
             {% for key,deal in archive_deal %}
                 <div class="actionItem">
-                    <a href="#">
+                    <a href="{{ path('content_deal_show', { "id": deal.id }) }}">
                         <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
                     </a>
                     <div class="actionItemRight">
                         <h4 class=""><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
                         <div class="actionItemBottom">
                             <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
-                            <p class="">Заинтересовавшихся <span class="green spanFloatRight">12</span></p>
-                            <p class="">Период проведения </br><span class="blue">{{ deal.startDate | date( 'Y-m-d' ) }} - {{ deal.endDate | date( 'Y-m-d' )}}</span></p>
-                            <p class="">Автомобили<br>
-                            {% for auto in deal.auto %}
-                                <span class="blue">{{ auto }}</span>
-                            {% endfor %}
+                            <p class="">Период проведения </br><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</span></p>
+                            {% if deal.auto %}
+                                <p class="">Автомобили<br>
+                                {% for auto in deal.auto %}
+                                    <span class="blue">{{ auto }}</span>
+                                {% endfor %}
+                            {% endif %}
                             </p>
                         </div>
                     </div>
