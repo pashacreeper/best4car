@@ -1507,7 +1507,7 @@ label {
 }
 .servicesPart{
 	float: left;
-	width: 60%;
+	width: 190px;
 }
 .services{
 	border-bottom: 1px solid #f35d2e;
@@ -1538,7 +1538,7 @@ label {
 }
 .infoCompany{
 	float: right;
-	width: 38%;
+	width: 130px;
 }
 .infoCompanyLable{
 	font: 1.4em 'PT Sans', sans;
