@@ -104,10 +104,15 @@
                 </div>
                 <div class="reviewContBottomAccount">
                     <div  class="responseReviewAccountImg">
-                        <img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" />
+                        {%- if feedback.feedbackAnswer.owner.avatarUrl %}
+                            {% set userPhoto = 'storage/images/user_photo/' ~ feedback.feedbackAnswer.owner.avatarUrl %}
+                            <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+                        {% else %}
+                            <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+                        {% endif -%}
                     </div>
-                    <span class="responseReviewData">18.02.2013</span>
-                    <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
+                    <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span>
+                    <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</a>
                     <p class="responseReviewRang">Менеджер</p>
                 </div>
             </div>

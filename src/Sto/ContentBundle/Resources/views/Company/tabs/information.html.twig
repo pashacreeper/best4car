@@ -64,7 +64,12 @@
     <p class="servicesSpecialisationTitle titleH2">Менеджеры компании:</p>
         {% for manager in company.companyManager %}
         <div class="managerCompany">
-            <span><img src="/bootstrap/img/userimg.jpg" alt="фото пользователя" /></span>
+            <span>{%- if manager.user.avatarUrl %}
+                {% set userPhoto = 'storage/images/user_photo/' ~ manager.user.avatarUrl %}
+                <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+            {% else %}
+                <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+            {% endif -%}</span>
             <p class="nameManager">{{ manager.user.firstName ~' '~ manager.user.lastName }}</p>
             <p class="phoneManager">{% if manager.phone and manager.phone != '' %}{{ manager.phone }}{% else %}{{ manager.user.phoneNumber }}{% endif %}</p>
         </div>
