@@ -142,6 +142,8 @@
                                     listObj = $(itemId);
                                 if (listObj.length && listObj.is(':visible')){
                                     obPlacemark.balloon.open();
+                                    $('#companiesList').find('.bigInfoCompany').hide();
+                                    $('#companiesList').find('.smallInfoCompany').show();
                                     var api = $('#companiesListContainer').data('jsp');
                                     api.scrollToElement(itemId, true);
                                     listObj.find('.smallInfoCompany').hide();
