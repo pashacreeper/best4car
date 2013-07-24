@@ -36,23 +36,27 @@ var companiesList = function($, Routing){
             });
         };
 
+        var mapWidth = $('#map').width()
         // Показ компаний списком
         $("#companiesList").hide();
         $('#toggleCompaniesList').on("click", function(){
             var $this = $(this),
                 defaultText = 'Показать списком',
                 closeText = 'Скрыть',
-                companiesList = $('#companiesList');
+                companiesList = $('#companiesList'),
+                $map = $('#map');
 
             $this.parent().toggleClass('showLeftColumn');
             companiesList.toggle();
             if (companiesList.is(':hidden')) {
                 $this.html(defaultText);
-                $('#map').css('left', '0');
+                $map.css('left', '0');
+                $map.css('width', mapWidth);
                 $.removeData($('#companiesListContainer'), 'jsp');
             } else {
                 $this.html(closeText);
-                $('#map').css('left', '380px');
+                $map.css('left', '380px');
+                $map.css('width', mapWidth - 380);
                 doAjax();
             }
         });
