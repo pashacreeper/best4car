@@ -107,6 +107,8 @@
                     for (var key in companies) {
                         var val = companies[key];
 
+                        console.log(val);
+
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
                         var iconSize = (sel == val.id)? [60,42]: [40,28];
                         var vid = val.id;
@@ -128,7 +130,8 @@
                             logo: val.logoName,
                             rating: val.rating,
                             specialization_html: val.specialization_template,
-                            workingTime_html: val.workingTime_template
+                            workingTime_html: val.workingTime_template,
+                            specialDeal: val.specialDeal
                         }, img);
                         myCollection.add(myPlacemark2);
                     }
@@ -164,6 +167,7 @@
                                 '<div class="dataCompany">' +
                                     '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                                     '<p class="adressCompany">$[properties.address]</p>' +
+                                    '$[properties.specialDeal]' +
                                 '</div>' +
                             '</div>' +
                             '<div class="popupCardCompanyCont">' +

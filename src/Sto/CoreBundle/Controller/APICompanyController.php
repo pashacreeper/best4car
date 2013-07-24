@@ -41,8 +41,9 @@ class APICompanyController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company');
         $query = $repository->createQueryBuilder('company')
-            ->select('company, s')
+            ->select('company, s, d')
             ->join('company.specialization', 's')
+            ->leftJoin('company.deals', 'd')
             ->where('company.visible = true')
             ->andWhere('company.cityId = :city')
             ->setParameter('city', $city->getId())
@@ -54,12 +55,22 @@ class APICompanyController extends FOSRestController
         ;
 
         foreach ($companies as $key => $value) {
-            $companies[$key]['specialization_template'] = $this
-                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
+            $companies[$key]['specialization_template'] = $this->render(
+                    'StoContentBundle:Company:specialization_list.html.twig',
+                    ['specializations' => $value['specialization']]
+                )->getContent()
             ;
 
-            $companies[$key]['workingTime_template'] = $this
-                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
+            $companies[$key]['workingTime_template'] = $this->render(
+                    'StoContentBundle:Company:workingTime_list.html.twig',
+                    ['workingTime' => $value['workingTime']]
+                )->getContent()
+            ;
+
+            $companies[$key]['specialDeal'] = $this->render(
+                    'StoContentBundle:Company:specialDealInBallon.html.twig',
+                    ['deals' => $value['deals']]
+                )->getContent()
             ;
         }
 
