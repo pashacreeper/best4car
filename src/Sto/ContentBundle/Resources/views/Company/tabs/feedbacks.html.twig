@@ -76,10 +76,19 @@
                 </p>
                 <span class="primaryLink reply">Ответить</span>
                 {% if app.user %}
-                    {% if feedback.complain %}
-                    <span class="primaryLink complain">Пожаловаться</span>
-                    {% else %}
-                    <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                    {% set edit = false %}
+                    {% if app.security.isGranted('ROLE_USER') %}
+                        {% if (feedback.minutes) <= 15 and (app.user.Id == feedback.userId) %}
+                            {% set edit = true %}
+                        {% endif %}
+                    {% endif %}
+
+                    {% if edit %}
+                        <a class="primaryLink complain" href="{{ path('content_company_feedbacks_edit', {'id': feedback.id}) }}" >Редактировать</a>
+                    {% elseif app.user.Id != feedback.userId %}
+                        {% if not feedback.complain %}
+                            <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
                 {% if feedback.complain %}
