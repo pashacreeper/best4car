@@ -55,6 +55,34 @@ $(document).ready(function(){
         return false;
     });
 
+    $('a[data-feedback]').on('click', function(){
+        var feed_id = $(this).data('feedback');
+        $('div[data-answerform='+feed_id+']').toggle();
+        $(this).css('display', 'none');
+        return false;
+    });
+
+    $('a[data-abort-answer]').click(function(){
+        var feed_id = $(this).data('abort-answer');
+        $('div[data-answerform='+feed_id+']').toggle();
+        $('a[data-feedback='+feed_id+']').css('display', 'block');
+        return false;
+    });
+
+    $('input[data-submit-form]').click(function(){
+        var feed_id = $(this).data('submit-form');
+        var answer = $('form[name="form'+feed_id+'"] textarea[name=answer]').val();
+        $.getJSON(Routing.generate('api_add_answer'),{'feedback_id': feed_id, 'answer':answer})
+        .done(function(data){
+            location.reload();
+        })
+        .fail(function(e){
+            console.log(e.message);
+        })
+
+        return false;
+    });
+
     $('a[data-action="complain"]').on('click', function(e){
         e.preventDefault();
         var $this = $(this),

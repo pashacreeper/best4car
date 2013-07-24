@@ -74,7 +74,9 @@
                 <p class="reviewContText">
                     {{ feedback.content|raw }}
                 </p>
-                <span class="primaryLink reply">Ответить</span>
+                {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
+                    <a href="#" data-feedback="{{ feedback.id }}" class="primaryLink reply">Ответить</a>
+                {% endif %}
                 {% if app.user %}
                     {% set edit = false %}
                     {% if app.security.isGranted('ROLE_USER') %}
@@ -104,6 +106,26 @@
                     </ul>
                 </div>
             </div>
+            {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
+                <div class="responseReviewCont" style="display:none;" data-answerform="{{ feedback.id }}">
+                    <blockquote class="well">
+                        <form method="POST" name="form{{ feedback.id }}" action="">
+                            <input type="hidden" name="feedback_id" value="{{ feedback.id }}" />
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <textarea name="answer" rows="4" style="width:460px"></textarea>
+                                </div>
+                                <div class="span2">
+                                    <input class="btn" data-submit-form="{{ feedback.id }}" type="submit" value="Отправить" style="margin-right: -3px;" />
+                                    <br><br>
+                                    <a href="#" class="btn" data-abort-answer="{{ feedback.id }}" style="padding-left: 21px; padding-right: 21px;">Отмена</a>
+                                </div>
+                            </div>
+                        </form>
+                    </blockquote>
+                </div>
+            {% endif %}
+
             {% if feedback.feedbackAnswer %}
             <div class="responseReviewCont">
                 <div class="reviewContBottomText">
@@ -120,7 +142,7 @@
                             <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
                         {% endif -%}
                     </div>
-                    <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span>
+                    <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
                     <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</a>
                     <p class="responseReviewRang">Менеджер</p>
                 </div>
