@@ -451,7 +451,7 @@ class DealController extends MainController
     /**
      * @Route("/deal/{id}/feedback/{feedbackId}/edit", name="content_deal_feedbacks_edit", options={"expose"=true})
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
-     * @Template()
+     * @Template("StoContentBundle:Deal:addFeedback.html.twig")
      */
     public function editFeedbackAction(Deal $deal,$feedbackId)
     {
@@ -466,7 +466,7 @@ class DealController extends MainController
         $editForm = $this->createForm(new FeedbackDealType, $feedback->setDeal($deal));
 
         return [
-            'editForm' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'deal' => $deal,
             'feedback' => $feedback
         ];
@@ -476,7 +476,7 @@ class DealController extends MainController
      * @Route("/deal/{id}/feedback/{feedbackId}/update", name="content_deal_feedbacks_update")
      * @Method("POST")
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
-     * @Template("StoContentBundle:Deal:editFeedback.html.twig")
+     * @Template("StoContentBundle:Deal:addFeedback.html.twig")
      */
     public function updateFeedbackAction(Request $request, Deal $deal,$feedbackId)
     {
@@ -499,7 +499,7 @@ class DealController extends MainController
 
         return [
             'feedback' => $feedback,
-            'editForm' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'deal' => $deal
         ];
     }

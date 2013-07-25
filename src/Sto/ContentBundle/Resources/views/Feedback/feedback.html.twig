@@ -1,5 +1,6 @@
 {% for feedback in feedbacks %}
-<div class="reviewContentItem">
+{% if feedback.isHidden and not (app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) %}{% else %}
+<div class="reviewContentItem" data-feedback-block="{{ feedback.id }}">
     <div class="reviewAccount">
         <div class="reviewAccountImg">
             <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
@@ -59,18 +60,31 @@
                         {% endif %}
                     {% endif %}
                 {% endif %}
-                {% if feedback.complain %}
-                    <i class="complainAlert"></i>
+                {% if feedback.complain and (app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) %}
+                    {% set feedbackType = 'company' %}
+                    {% set dealDataId = '' %}
+                    {% if feedback.company is not defined %}
+                        {% set feedbackType = 'deal' %}
+                        {% set dealDataId = 'data-deal-id=' ~ feedback.deal.id %}
+                    {% else %}
+
+                    {% endif %}
+                    <div class="moderatorsWrapper">
+                        <i class="complainAlert active" data-admin-complain-menu="true" data-feedback-id="{{ feedback.id }}"></i>
+                        {% if feedback.isHidden %}
+                            <span class="badge badge-warning" data-feedback-id="{{ feedback.id }}">скрыт</span>
+                        {% endif %}
+                        <div class="popUpPrimary" data-feedback-id="{{ feedback.id }}">
+                            <div id="myCanvasTop" class="myCanvasTop"></div>
+                            <ul>
+                                <li><span class="primaryLink" data-modal-action="hide" data-field="Hidden" data-value="1" data-feedback-id="{{ feedback.id }}">Скрыть / Показать</span></li>
+                                <li><span class="primaryLink" data-modal-action="edit" data-type="{{ feedbackType }}" data-feedback-id="{{ feedback.id }}" {{ dealDataId }}>Редактировать</span></li>
+                                <li><span class="primaryLink" data-modal-action="delete" data-feedback-id="{{ feedback.id }}">Удалить</span></li>
+                                <li><span class="primaryLink" data-modal-action="no_complain" data-field="Complain" data-value="false" data-feedback-id="{{ feedback.id }}">Снять жалобу</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 {% endif %}
-                <div class="popUpPrimary">
-                    <div id="myCanvasTop" class="myCanvasTop"></div>
-                    <ul>
-                        <li><span class="primaryLink">Скрыть</span></li>
-                        <li><span class="primaryLink">Редактировать</span></li>
-                        <li><span class="primaryLink">Удалить</span></li>
-                        <li><span class="primaryLink">Снять жалобу</span></li>
-                    </ul>
-                </div>
             </div>
             {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
                 <div class="responseReviewCont" style="display:none;" data-answerform="{{ feedback.id }}">
@@ -117,4 +131,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endfor %}

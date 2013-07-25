@@ -43,25 +43,24 @@ $('a[data-modal-action]').click(function(){
 
     switch (action) {
         case ('hide'):
-        setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
-
-        break;
+            setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
+            break;
         case ('edit'):
-        if ($(this).data('type')=="company"){
-            var path = Routing.generate('content_company_feedbacks_edit', { id: $(this).data('feedback-id') });
-        }
-        else if ($(this).data('type')=="deal"){
-            var path = Routing.generate('content_deal_feedbacks_edit', { id: $(this).data('deal-id'),feedbackId: $(this).data('feedback-id') });
-        }
-        window.location.replace(path);
-        break;
+            if ($(this).data('type')=="company"){
+                var path = Routing.generate('content_company_feedbacks_edit', { id: $(this).data('feedback-id') });
+            }
+            else if ($(this).data('type')=="deal"){
+                var path = Routing.generate('content_deal_feedbacks_edit', { id: $(this).data('deal-id'),feedbackId: $(this).data('feedback-id') });
+            }
+            window.location.replace(path);
+            break;
         case ('delete'):
-        deleteFeedback(data_id,$(this).data(data_id));
-        break;
+            deleteFeedback(data_id,$(this).data(data_id));
+            break;
         case ('no_complain'):
-        setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
-        // $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
-        break;
+            setFeedbackParameter(data_id,$(this).data(data_id), $(this).data('field'), $(this).data('value'));
+            // $('[data-complain-feedback="'+$(this).data(data_id)+'"]').remove();
+            break;
     }
     stateFeedback(data_id,$(this).data(data_id));
     $('#complainFeedbackAction').modal('hide');

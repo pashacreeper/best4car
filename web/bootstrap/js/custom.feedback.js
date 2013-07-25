@@ -83,6 +83,106 @@ $(document).ready(function(){
         return false;
     });
 
+    $('[data-admin-complain-menu="true"]').on('click', function(e){
+        e.stopPropagation();
+
+        var $this = $(this),
+            popup = $('.popUpPrimary[data-feedback-id="'+$this.data('feedback-id')+'"]');
+
+        popup.show();
+
+        $(document).on('click', function(){
+            if (popup.is(':visible')) {
+                popup.hide();
+            }
+        });
+    });
+
+    var setFeedbackParameter = function(type, id, field, value){
+        console.log('type: ' + type);
+        console.log('id: ' + id);
+        console.log('field: ' + field);
+        console.log('value: ' + value);
+        $.getJSON(
+            Routing.generate('api_feedback_set_parameter'), 
+            {'type':type, 'id': id, 'field':field, 'value':value}
+        ).done(function (data) {
+            console.log(data);
+        }).fail(function(e) {
+            console.log('error', e.message);
+        });
+    };
+
+    var stateFeedback = function(type, id){
+        $.getJSON(Routing.generate('api_feedback_state'), {'type':type, 'id': id})
+        .done(function (data) {
+            if (!data.hidden) {
+                $('.badge.badge-warning[data-feedback-id="'+id+'"]').remove();
+            } else {
+                if (!$('.badge.badge-warning[data-feedback-id="'+id+'"]')) {
+                    $('i[data-feedback-id="'+id+'"]').after('<span class="badge badge-warning" data-feedback-id="'+id+'">скрыт</span>');
+                }
+            }
+
+            if (!data.complain) {
+                $('i[data-feedback-id="'+id+'"]').remove();
+            }
+        }).fail(function(e) {
+            console.log('error', e.message);
+        });
+    };
+
+    var deleteFeedback = function(type, id){
+        $.getJSON(
+            Routing.generate('api_feedback_delete'), {'type':type, 'id': id}
+        ).done(function (data){
+            if (data.id){
+                if (type == 'feedback-id') {
+                    $('div[data-feedback-block="'+data.id+'"]').remove();
+                }
+            }
+        }).fail(function(e) {
+            console.log('error', e.message);
+        })
+    }
+
+    $('[data-modal-action]').on('click', function(){
+        var $this = $(this);
+        var action = $this.data('modal-action');
+        var type = $this.parents().data('type');
+        var feedbackId = $this.data('feedback-id');
+        var after = true;
+
+        switch (action) {
+            case ('hide'):
+                setFeedbackParameter(
+                    'feedback-id', feedbackId, $this.data('field'), $(this).data('value')
+                );
+                break;
+            case ('edit'):
+                if ($this.data('type')=="company"){
+                    var path = Routing.generate('content_company_feedbacks_edit', { id: feedbackId });
+                }
+                else if ($this.data('type')=="deal"){
+                    var path = Routing.generate('content_deal_feedbacks_edit', { id: $this.data('deal-id'), feedbackId: feedbackId });
+                }
+                window.location.replace(path);
+                break;
+            case ('delete'):
+                deleteFeedback('feedback-id', feedbackId);
+                after = false;
+                break;
+            case ('no_complain'):
+                setFeedbackParameter('feedback-id', feedbackId, $this.data('field'), $this.data('value'));
+                break;
+        }
+        if (after) {
+            stateFeedback('feedback-id', feedbackId);
+        }
+
+        return false;
+    });
+
     $('a[data-action="complain"]').on('click', function(e){
         e.preventDefault();
         var $this = $(this),

@@ -633,8 +633,8 @@ a.complain, span.complain{
 }
 .popUpPrimary{
 	position: absolute;
-	bottom: -130px;
-	right: 0;
+	bottom: -129px;
+	right: -56px;
 	width: 140px;
 	background: #f6f6f6;
 	border-radius: 6px;
@@ -644,11 +644,14 @@ a.complain, span.complain{
 	display: none;
 }
 .complainAlert{	
-	float: right;
+	display: inline-block;
 	width: 16px;
 	height: 13px;
 	background: url("/bootstrap/img/complainalert.png") no-repeat;
-	margin: 12px 5px 0px 3px;
+	vertical-align: middle;
+}
+.complainAlert.active{
+	cursor: pointer;
 }
 .popUpPrimary ul li{
 	margin-bottom: 10px;

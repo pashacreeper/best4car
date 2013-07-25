@@ -448,3 +448,11 @@ a.btnNext:hover{
 #blockAddInfo{
     display: none;
 }
+
+.popUpPrimary{
+    display:none
+}
+
+.moderatorsWrapper{
+    float: right;
+}
