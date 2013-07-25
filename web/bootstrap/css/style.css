@@ -617,7 +617,7 @@ html, body {
 	cursor: pointer;
 }
 .nameCompany a{
-	border-bottom: 1px dotted #f35d2e !important;
+	border-bottom: 1px dotted #f35d2e;
 	font: Bold Italic 1.8em 'PT Sans', sans;
 	color: #f35d2e;
 	text-decoration: none;
