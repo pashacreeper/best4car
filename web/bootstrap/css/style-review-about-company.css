@@ -116,7 +116,7 @@ padding: 20px 10px 150px 10px;
 	vertical-align: text-top;
 }
 .overflow{
-	overflow: hidden;
+	overflow: visible;
 }
 .startData {
 margin-left: 0;

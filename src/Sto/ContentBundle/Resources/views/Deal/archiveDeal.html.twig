@@ -16,6 +16,9 @@
 {% endblock %}
 
 {% block search %}
+<div class="back">
+    <a href="{{ path('content_company_show', { "id": company.id }) }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Карточка компании</span></a>
+</div>
 <div id="nameCompanyHeaderWrap">
     <div class="nameCompanyHeader">
         <span class="logoCompany"><img src="bootstrap/img/logocompany.png" alt=""></span>

@@ -11,7 +11,7 @@
             <div class="actionItemBottom">
                 <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
                 <p class="">Период проведения </br><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</span></p>
-                {% if deal.auto %}
+                {% if deal.auto|length > 0 %}
                     <p class="">Автомобили<br>
                     {% for auto in deal.auto %}
                         <span class="blue">{{ auto }}</span>

@@ -75,12 +75,11 @@ body{
 }
 .nameCompanyHeader{
 	height: 70px;	
-	padding: 0 !important;
 }
 .logoCompany{
 	display: inline-block;
 	float: left;
-	padding: 8px 10px 0 10px;
+	padding-top: 8px;
 }
 .titleNameCompany{
 	color: #f35d2e;

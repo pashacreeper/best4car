@@ -44,7 +44,7 @@ class DealController extends MainController
 
         return [
             'archive_deal' => $arhive_deals,
-            'company'    => $company,
+            'company'      => $company,
         ];
     }
 
