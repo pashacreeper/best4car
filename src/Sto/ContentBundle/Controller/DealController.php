@@ -398,52 +398,6 @@ class DealController extends MainController
     }
 
     /**
-     * @Route("/deal-feedbacks/{id}", name="deal_feedbacks_show")
-     * @Method("POST")
-     * @Template()
-     */
-    public function feedbacksAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('StoCoreBundle:FeedbackDeal')
-            ->createQueryBuilder('fd')
-            ->where('fd.dealId = :deal')
-            ->setParameter('deal', $id)
-            ->getQuery()
-        ;
-
-        $feedbacks = $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page',1),
-            10
-        );
-
-        $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
-
-        if ($this->getUser()) {
-            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
-                ->createQueryBuilder('cm')
-                ->where('cm.userId = :user_id AND cm.companyId = :company')
-                ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $deal->getCompanyId())
-                ->getQuery()
-                ->getResult()
-            ;
-        }
-        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
-
-        $date = new \DateTime();
-        $date->modify('-15 hours');
-
-        return [
-            'feedbacks' => $feedbacks,
-            'dealId' => $id,
-            'isManager' => $isManager,
-            'date' => $date
-        ];
-    }
-
-    /**
      * @Route("/deal/{id}/feedback/add", name="content_deal_feedbacks_add")
      * @Method("GET")
      * @ParamConverter("deal", class="StoCoreBundle:Deal")

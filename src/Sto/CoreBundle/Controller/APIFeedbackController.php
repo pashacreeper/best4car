@@ -289,7 +289,7 @@ class APIFeedbackController extends FOSRestController
 
         if ($entityType=='company') {
             $content = $this->renderView(
-                'StoContentBundle:Company:feedbacks.html.twig',
+                'StoContentBundle:Feedback:feedback.html.twig',
                 [
                     'feedbacks' => $feedbacks,
                     'companyId' => $entityId,
@@ -299,7 +299,7 @@ class APIFeedbackController extends FOSRestController
             );
         } else {
             $content = $this->renderView(
-                'StoContentBundle:Deal:feedbacks.html.twig',
+                'StoContentBundle:Feedback:feedback.html.twig',
                 [
                     'feedbacks' => $feedbacks,
                     'dealId' => $entityId,

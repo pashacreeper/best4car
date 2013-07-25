@@ -256,58 +256,6 @@ class CompanyController extends MainController
     }
 
     /**
-     * @Route("/company-feedbacks/{id}", name="company_feedbacks_show")
-     * @Method("POST")
-     * @Template()
-     */
-    public function feedbacksAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
-            ->createQueryBuilder('fc')
-            ->where('fc.companyId = :company')
-            ->setParameter('company', $id)
-            ;
-
-        if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
-            $qb->andWhere('fc.hidden = :hidden')
-                ->setParameter('hidden', false);
-        }
-
-        $query = $qb->getQuery();
-
-        $feedbacks = $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page',1),
-            3
-        );
-
-        if ($this->getUser()) {
-            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
-                ->createQueryBuilder('cm')
-                ->where('cm.userId = :user_id AND cm.companyId = :company')
-                ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $id)
-                ->getQuery()
-                ->getResult()
-            ;
-        }
-
-        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
-
-        $date = new \DateTime();
-        $date->modify('-15 hours');
-
-        return [
-            'feedbacks' => $feedbacks,
-            'companyId' => $id,
-            'isManager' => $isManager,
-            'date' => $date
-        ];
-    }
-
-    /**
      * @Route("/company/{id}/feedback/add", name="content_company_feedbacks_add")
      * @Method("GET")
      * @ParamConverter("company", class="StoCoreBundle:Company")

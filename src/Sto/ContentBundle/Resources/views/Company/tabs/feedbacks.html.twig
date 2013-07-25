@@ -1,157 +1,38 @@
 <div class="leftContent">
-<div class="contentSelect">
-    <div class="assortSelect">
-        <span>Сортировать по:</span>
-        <div class="parametrAssort">
-            <div class="lineForm">
-                <select class="styled1">
-                    <option value="">рейтингу</option>
-                    <option value="">дате</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="showSelect">
-        <span>Показать по:</span>
-        <div class="parametrAssort">
-            <div class="lineForm">
-                <select class="styled1">
-                    <option value="">все</option>
-                    <option value="">положительные</option>
-                    <option value="">отрицательные</option>
-                    <option value="">полезные</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-<p class="showTotal">
-    Показано:
-    <span class="parametShow">{{ feedbacks | length }}</span>
-    отзыва
-</p>
-{% for feedback in company.feedbacks %}
-<div class="reviewContentItem">
-    <div class="reviewAccount">
-        <div class="reviewAccountImg">
-            <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
-                {% if feedback.user.avatar %}
-                <img data-image="avatar" id="avatar" src="{{ vich_uploader_asset(feedback.user, 'avatar') }}">
-                {% elseif feedback.user.avatarVk %}
-                <img data-image="avatar" id="avatar" src="{{ feedback.user.avatarVk }}" />
-                {% else %}
-                <img data-image="avatar" src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" />
-                {% endif %}
-            </a>
-        </div>
-        <span>{{ feedback.user.rating }}</span>
-    </div>
-    <div class="reviewWrap">
-        <div class="reviewTop">
-            <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
-            <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
-            <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
-            <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
-        </div>
-        <div class="reviewCont">
-            <div class="reviewContTop">
-                <!--http://habrahabr.ru/post/132807/-->
-                <div class="vote-wrap">
-                    <div class="vote-hover">
-                        <div class="vote-block">
-                            <div class="vote-stars">
-                            </div>
-                            <div class="vote-active">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% if feedback.priceLevel %}
-                    <span class="levelPrice">Цена:<i class="levelPriceImg {{ feedback.priceLevel.shortName }}"></i></span>
-                {% endif %}
-                <span data-dislike-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></span>
-                <span data-like="company" data-like-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></span>
-                <p class="reviewContText">
-                    {{ feedback.content|raw }}
-                </p>
-                {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
-                    <a href="#" data-feedback="{{ feedback.id }}" class="primaryLink reply">Ответить</a>
-                {% endif %}
-                {% if app.user %}
-                    {% set edit = false %}
-                    {% if app.security.isGranted('ROLE_USER') %}
-                        {% if (feedback.minutes) <= 15 and (app.user.Id == feedback.userId) %}
-                            {% set edit = true %}
-                        {% endif %}
-                    {% endif %}
-
-                    {% if edit %}
-                        <a class="primaryLink complain" href="{{ path('content_company_feedbacks_edit', {'id': feedback.id}) }}" >Редактировать</a>
-                    {% elseif app.user.Id != feedback.userId %}
-                        {% if not feedback.complain %}
-                            <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-                {% if feedback.complain %}
-                    <i class="complainAlert"></i>
-                {% endif %}
-                <div class="popUpPrimary">
-                    <div id="myCanvasTop" class="myCanvasTop"></div>
-                    <ul>
-                        <li><span class="primaryLink">Скрыть</span></li>
-                        <li><span class="primaryLink">Редактировать</span></li>
-                        <li><span class="primaryLink">Удалить</span></li>
-                        <li><span class="primaryLink">Снять жалобу</span></li>
-                    </ul>
+    <div class="contentSelect">
+        <div class="assortSelect">
+            <span>Сортировать по:</span>
+            <div class="parametrAssort">
+                <div class="lineForm">
+                    <select class="styled1 data-select" id="data-sort">
+                        <option value="rating">рейтингу</option>
+                        <option value="date">дате</option>
+                    </select>
                 </div>
             </div>
-            {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
-                <div class="responseReviewCont" style="display:none;" data-answerform="{{ feedback.id }}">
-                    <blockquote class="well">
-                        <form method="POST" name="form{{ feedback.id }}" action="">
-                            <input type="hidden" name="feedback_id" value="{{ feedback.id }}" />
-                            <div class="row-fluid">
-                                <div class="span10">
-                                    <textarea name="answer" rows="4" style="width:460px"></textarea>
-                                </div>
-                                <div class="span2">
-                                    <input class="btn" data-submit-form="{{ feedback.id }}" type="submit" value="Отправить" style="margin-right: -3px;" />
-                                    <br><br>
-                                    <a href="#" class="btn" data-abort-answer="{{ feedback.id }}" style="padding-left: 21px; padding-right: 21px;">Отмена</a>
-                                </div>
-                            </div>
-                        </form>
-                    </blockquote>
-                </div>
-            {% endif %}
-
-            {% if feedback.feedbackAnswer %}
-            <div class="responseReviewCont">
-                <div class="reviewContBottomText">
-                    <p class="reviewContText">
-                        {{ feedback.feedbackAnswer.answer|raw }}
-                    </p>
-                </div>
-                <div class="reviewContBottomAccount">
-                    <div  class="responseReviewAccountImg">
-                        {%- if feedback.feedbackAnswer.owner.avatarUrl %}
-                            {% set userPhoto = 'storage/images/user_photo/' ~ feedback.feedbackAnswer.owner.avatarUrl %}
-                            <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                        {% else %}
-                            <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                        {% endif -%}
-                    </div>
-                    <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
-                    <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</a>
-                    <p class="responseReviewRang">Менеджер</p>
+        </div>
+        <div class="showSelect">
+            <span>Показать:</span>
+            <div class="parametrAssort">
+                <div class="lineForm">
+                    <select class="styled1 data-select" id="data-filter">
+                        <option value="all">все</option>
+                        <option value="positive">положительные</option>
+                        <option value="negative">отрицательные</option>
+                        <option value="useful">полезные</option>
+                    </select>
                 </div>
             </div>
-            {% endif %}
         </div>
+        <input type="hidden" data-type="company" id="sortDataType">
     </div>
-</div>
-{% endfor %}
+    <p class="showTotal">
+        Показано: <span class="parametShow" id="showedFeedbacks">{{ feedbacks | length }}</span> отзыва
+    </p>
+    <div data-x-container="feedbacks" id="data-x-container-feedbacks">
+        {{ render(controller('StoContentBundle:Feedback:companyFeedbacks', {'id':company.id})) }}
+    </div>
+    <script>function getEntityId(){ return {{ company.id }}; }</script>
 </div>
 <div class="rightContent">
 <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="addPhotoBtn bttn">Оставить отзыв<i class="writeReview"></i></a>

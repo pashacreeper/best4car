@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var countFeedbacks = function(){
         var feedbacksCount = $('#data-x-container-feedbacks').find('.reviewContentItem').length;
-        $('#showedDealFeedbacks').html(feedbacksCount);
+        $('#showedFeedbacks').html(feedbacksCount);
     }
 
     var feedbackRating = function(){
@@ -14,7 +14,7 @@ $(document).ready(function(){
         });
     }
 
-    $('data-x-container-feedbacks').on('click', $('a[data-action="complain"]'), function(){
+    $('data-x-container-feedbacks').on('click', 'a[data-action="complain"]', function(){
         e.preventDefault();
         var $this = $(this),
             feedbackId = $(this).data('feedback-id');

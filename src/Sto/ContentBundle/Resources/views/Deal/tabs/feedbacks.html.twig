@@ -27,19 +27,10 @@
         <input type="hidden" data-type="deal" id="sortDataType">
     </div>
     <p class="showTotal">
-        Показано: <span class="parametShow" id="showedDealFeedbacks">0</span> отзыва
+        Показано: <span class="parametShow" id="showedFeedbacks">0</span> отзыва
     </p>
-<script type="text/javascript">
-                    $(document).ready(function() {
-                        $('.popUpPrimary').hide();
-                        $('.popUpPrimary li').click(function() {
-                            $('.popUpPrimary').hide();
-                            $('.complainAlert').hide();
-                        });
-                    });
-</script>
     <div data-x-container="feedbacks" id="data-x-container-feedbacks">
-        {{ render(controller('StoContentBundle:Deal:feedbacks', {'id':deal.id})) }}
+        {{ render(controller('StoContentBundle:Feedback:dealFeedbacks', {'id':deal.id})) }}
     </div>
     <script>function getEntityId(){ return {{ deal.id }}; }</script>
 </div>
