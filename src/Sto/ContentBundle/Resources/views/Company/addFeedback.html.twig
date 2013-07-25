@@ -66,15 +66,6 @@
                 <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
             </div>
 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#blockAddInfo').hide();
-                    $('#btnAddInfo').click(function(){
-                        $('#blockAddInfo').toggle();
-                    });
-                });
-            </script>
-
             <div id="blockAddInfo">
                 <div class="contentItemLeft">
                     <div class="contentLabel">
@@ -121,8 +112,6 @@
 
             <input type="submit" class="btnNext addPhotoBtn" value="Оставить отзыв"/>
             </form>
-            {% else %}
-                <p class="infoText">Для того что бы оставлять отзывы необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> или <a href="{{ path('fos_user_registration_register') }}">зарегестрироваться</a></p>
             {% endif %}
         </div>
         <div class="rightContent">

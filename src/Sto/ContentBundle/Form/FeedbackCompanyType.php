@@ -13,38 +13,6 @@ class FeedbackCompanyType extends FeedbackType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('car', null, [
-                'label' => 'Автомобиль',
-                'required' => false,
-                'render_optional_text' => false,
-                'attr' => [
-                    'class' => 'inputField span4'
-                ]
-            ])
-            ->add('mastername', null, [
-                'label' => 'Имя мастера',
-                'required' => false,
-                'render_optional_text' => false,
-                'attr' => [
-                    'class' => 'inputField span4'
-                ]
-            ])
-            ->add('statenumber', null, [
-                'label' => 'Гос. номер авто',
-                'required' => false,
-                'render_optional_text' => false,
-                'attr' => [
-                    'class' => 'inputField span4'
-                ]
-            ])
-            ->add('orderNumber', null, [
-                'label' => 'Номер заказа-наряда',
-                'required' => false,
-                'render_optional_text' => false,
-                'attr' => [
-                    'class' => 'inputField span4'
-                ]
-            ])
             ->add('priceLevel', null, [
                 'label' => 'Уровень цен',
                 'class' => '\Sto\CoreBundle\Entity\Dictionary\PriceLevel',

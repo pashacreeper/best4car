@@ -163,6 +163,9 @@ margin-left: 0;
 #contentItemRight{
 	margin-top: 91px;
 }
+#contentItemRight.deal{
+	margin-top: 101px;
+}
 .btnNext {
 	border-radius: 4px;
 	font: 1.6em 'PT Sans', sans;

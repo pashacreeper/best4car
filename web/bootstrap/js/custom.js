@@ -347,6 +347,9 @@ var feedbackPage = function(){
     $('#datetimepicker2').datetimepicker({
         pickTime: false
     });
+    $('#btnAddInfo').click(function(){
+        $('#blockAddInfo').toggle();
+    });
 }
 
 var profilePage = function(){

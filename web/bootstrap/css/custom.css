@@ -444,3 +444,7 @@ a.btnNext:hover{
 .additionDealsMenu .menuTagEmpty{
     width: 170px !important;
 }
+
+#blockAddInfo{
+    display: none;
+}
