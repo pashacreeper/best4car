@@ -440,3 +440,7 @@ a.btnNext:hover{
     display: inline-block;
     vertical-align: middle;
 }
+
+.additionDealsMenu .menuTagEmpty{
+    width: 170px !important;
+}
