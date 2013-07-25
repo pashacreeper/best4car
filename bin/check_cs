@@ -5,13 +5,4 @@ command -v $FIXER >/dev/null 2>&1 || {
     FIXER="php php-cs-fixer.phar"
 }
 
-if [ "$1" = 'fix' ]; then
-    $FIXER fix src/
-else
-    out=`$FIXER fix src/ --dry-run`
-    echo -e "$out"
-    if [ ! "$out" = "" ]; then
-        echo "Use \"./bin/check_cs fix\", Luke!"
-        false
-    fi
-fi
+$FIXER fix src/

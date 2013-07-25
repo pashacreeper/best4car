@@ -8,6 +8,7 @@
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
 {% endblock %}
 
@@ -17,6 +18,7 @@
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script>
     $(document).ready(function(){

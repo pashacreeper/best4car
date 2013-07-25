@@ -90,6 +90,11 @@ class FeedbackController extends Controller
         );
     }
 
+    /**
+     * Check if user is manager for company
+     * @param  integer $companyId
+     * @return boolean
+     */
     private function isManager($companyId)
     {
         $em = $this->getDoctrine()->getManager();
