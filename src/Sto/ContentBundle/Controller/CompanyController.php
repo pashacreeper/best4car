@@ -206,7 +206,7 @@ class CompanyController extends MainController
             ];
         } else
 
-            return new Response('Page Not found.', 404);
+        return new Response('Page Not found.', 404);
     }
 
     /**

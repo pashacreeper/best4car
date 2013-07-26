@@ -129,15 +129,21 @@
         <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ company.email }}">{{ company.email }}</a></p>
     </div>
     <ul class="infoCompanySocialNet">
+        {% if company.linkTW %}
         <li class="infoCompanySocialNetItem">
             <a href="{{ company.linkTW }}"><i class="twit-blue"></i>Twitter</a>
         </li>
+        {% endif %}
+        {% if company.linkFB %}
         <li class="infoCompanySocialNetItem">
             <a href="{{ company.linkFB }}"><i class="facebook-blue"></i>Facebook</a>
         </li>
+        {% endif %}
+        {% if company.linkVK %}
         <li class="infoCompanySocialNetItem">
             <a href="{{ company.linkVK }}"><i class="vk-blue"></i>Вконтакте</a>
         </li>
+        {% endif %}
     </ul>
 </div>
 </div>
