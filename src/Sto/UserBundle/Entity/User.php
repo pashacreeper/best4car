@@ -83,7 +83,7 @@ class User extends BaseUser
 
     /**
      * @Assert\Image(
-     *     maxSize="1M",
+     *     maxSize="4M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Assert\NotBlank(groups={"user"})
