@@ -131,17 +131,17 @@
     <ul class="infoCompanySocialNet">
         {% if company.linkTW %}
         <li class="infoCompanySocialNetItem">
-            <a href="{{ company.linkTW }}"><i class="twit-blue"></i>Twitter</a>
+            <a href="http://twitter.com/{{ company.linkTW }}" target="_blank"><i class="twit-blue"></i>Twitter</a>
         </li>
         {% endif %}
         {% if company.linkFB %}
         <li class="infoCompanySocialNetItem">
-            <a href="{{ company.linkFB }}"><i class="facebook-blue"></i>Facebook</a>
+            <a href="http://facebook.com/{{ company.linkFB }}" target="_blank"><i class="facebook-blue"></i>Facebook</a>
         </li>
         {% endif %}
         {% if company.linkVK %}
         <li class="infoCompanySocialNetItem">
-            <a href="{{ company.linkVK }}"><i class="vk-blue"></i>Вконтакте</a>
+            <a href="http://vk.com/{{ company.linkVK }}" target="_blank"><i class="vk-blue"></i>Вконтакте</a>
         </li>
         {% endif %}
     </ul>
