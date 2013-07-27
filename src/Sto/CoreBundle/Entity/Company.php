@@ -276,7 +276,7 @@ class Company
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
-        $this->visible = false;
+        $this->visible = true;
         $this->subscribable = false;
         $this->deals = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
