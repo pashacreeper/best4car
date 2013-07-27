@@ -12,7 +12,6 @@
     <div class="content" data-tab-id="#information">
     <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
         {{ form_row(form.firstName) }}
-        {{ form_row(form.lastName) }}
         {{ form_row(form.email) }}
         {{ form_row(form.phoneNumber) }}
         <p class="contentLabel clear">

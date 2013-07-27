@@ -17,12 +17,6 @@ class UserProfileType extends BaseType
                     'class' => 'span6 inputFormEnter'
                 ]
             ])
-            ->add('lastName', null, [
-                'label' => 'Фамилия',
-                'attr' => [
-                    'class' => 'span6 inputFormEnter'
-                ]
-            ])
             ->add('email', null, [
                 'label' => 'E-mail',
                 'attr' => [

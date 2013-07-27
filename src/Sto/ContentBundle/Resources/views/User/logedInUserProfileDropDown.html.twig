@@ -8,7 +8,7 @@
         <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
     {% endif -%}
     </a>
-    <p class="userName btnUser">{{ user.firstName }} {{ user.lastName }}</p>
+    <p class="userName btnUser">{{ user.firstName }}</p>
     <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating }}</span></p>
     <div class="userDropdown">
         <div id="myCanvasTop" class="myCanvasTop"></div>
