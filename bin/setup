@@ -3,7 +3,7 @@ cmd='php app/console'
 
 # create necessary dirs
 # and then set proper rights for created dirs
-directories=(app/cache app/logs web/uploads)
+directories=(app/cache app/logs web/uploads web/storage)
 USER=$(whoami)
 APACHE_USER=$(ps axho user,comm|grep -E "httpd|apache"|uniq|grep -v "root"|awk 'END {print $1}')
 createdir() {
