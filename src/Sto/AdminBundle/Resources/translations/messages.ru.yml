@@ -16,7 +16,7 @@ login:
     password: Пароль
     sign_in: Войти
     alerts:
-        wrong_pass: Неверно имя или пароль!
+        wrong_pass: Неверное имя или пароль!
 
 # Country
 country:
