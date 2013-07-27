@@ -51,6 +51,22 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+                <h4 class="contactData"><span>Привязанные аккаунты:</span></h4>
+                <div class="infoProfilItem">
+                    {% if user.vkontakteId == null %}
+                        <ul class="enterCocialIcon">
+                            <li class="enterCocialIconItem">
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="enterCocialIcon">
+                            <li class="enterCocialIconItem">
+                                <a href="http://vk.com/{{ user.vkontakteId }}" alt="Вконтакте" title="Vkontakte" class="vk-blue">Вконтакте</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="aboutUsProfilExpertWrap">
