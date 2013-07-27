@@ -20,14 +20,6 @@ class RegistrationType extends BaseType
                     'class' => 'inputFormEnter span4'
                 ]
             ])
-            ->add('lastName', null, [
-                'label' => 'Фамилия',
-                'render_optional_text' => false,
-                'required' => true,
-                'attr' => [
-                    'class' => 'inputFormEnter span4'
-                ]
-            ])
             ->add('username', 'text', [
                 'label' => 'Ник',
                 'required' => true,

@@ -16,11 +16,6 @@ class RegistrationCompanyType extends AbstractType
                 'render_optional_text' => false,
                 'required' => true,
             ])
-            ->add('lastName', null, [
-                'label' => 'Фамилия',
-                'render_optional_text' => false,
-                'required' => true,
-            ])
             ->add('username', 'text', [
                 'label' => 'Ник',
                 'required' => true,

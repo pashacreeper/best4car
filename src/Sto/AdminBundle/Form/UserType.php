@@ -44,10 +44,6 @@ class UserType extends AbstractType
                 'label' => 'Имя',
                 'render_optional_text' => false
             ])
-            ->add('lastName', null, [
-                'label' => 'Фамилия',
-                'render_optional_text' => false
-            ])
             ->add('rating', null, [
                 'label' => 'Рейтинг',
                 'render_optional_text' => false

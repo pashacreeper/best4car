@@ -14,9 +14,6 @@ class UserPersonalType extends AbstractType
             ->add('firstName', null, [
                 'label' => 'Имя'
             ])
-            ->add('lastName', null, [
-                'label' => 'Фамилия'
-            ])
             ->add('username', null, [
                 'label' => 'Псевдоним'
             ])
