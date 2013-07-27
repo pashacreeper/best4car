@@ -1,0 +1,6 @@
+{% extends 'HWIOAuthBundle::layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+    <h1 class="titleH1">{{ 'header.success' | trans({'%name%': userInformation.realName}, 'HWIOAuthBundle') }}</h1>
+    <p class="infoText"><a href="{{ path('fos_user_profile_show') }}">Перейти в профиль</a></p>
+{% endblock hwi_oauth_content %}
