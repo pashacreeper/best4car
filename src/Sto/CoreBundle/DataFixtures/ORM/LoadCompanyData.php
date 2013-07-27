@@ -87,7 +87,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setReviews('1,2,3,4,5');
         $company->setDescription('Группа компаний «Автопродикс» является официальным дилером и представляет весь модельный ряд легковых и грузопассажирских автомобилей Nissan, Renault и Infiniti. Компания «Автопродикс» уже более 17 лет на автомобильном рынке, является самым старейшим и крупнейшим в Санкт-Петерурге дилером. Автопродикс входит в тройку самых крупных автодилеров России и предлагает своим клиентам полный спектр услуг: продажа автомобилей в кредит и лизинг, автострахование, высокий уровень сервиса. В нашем автоцентре квалифицированный персонал поможет Вам выбрать автомобиль, идеально отвечающий Вашим требованиям и впоследствии получать качественное и высокопрофессиональное обслуживание. Таким образом, наша миссия - предоставить свободу выбора и максимально возможный комфорт и свободу выбора.
 Группа компаний «Автопродикс» является крупнейшим официальным дилером Nissan и единственным официальным дилером Infiniti в Северо-Западном регионе.');
-        $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+        $company->setSubscribable(true);
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
         $company->setCity($this->getReference('city[spb]'));
@@ -174,7 +174,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setRating(rand(30,99)/10);
         $company->setReviews('1,2,3,4,5');
         $company->setDescription('Благодаря узкой специализации на марках Volkswagen, Audi, SKODA и SEAT (концернVAG), наша СТО имеет хорошее техническое оснащение специализированным немецким оборудованием для диагностики и ремонта именно Вашего автомобиля, и можете быть уверенны в том, что Вы не потратите лишнего времени из-за отсутствия у специалиста инструмента, необходимого для ремонта.');
-        $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+        $company->setSubscribable(true);
         $company->setHourPrice(rand(500,4500));
         $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
         $company->setCity($this->getReference('city[spb]'));
@@ -271,7 +271,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setRating(rand(30,99)/10);
             $company->setReviews('1,2,3,4,5');
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setSubscribable(true);
             $company->setHourPrice(rand(500,4500));
             $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
             $company->setCity($this->getReference('city[spb]'));
@@ -369,7 +369,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setRating(rand(30,99)/10);
             $company->setReviews('1,2,3,4,5');
             $company->setDescription('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setSubscribable('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
+            $company->setSubscribable(true);
             $company->setHourPrice(rand(500,4500));
             $company->setCurrency($this->getReference('currencies['.rand(0,9).']'));
             $company->setCity($this->getReference('city[msk]'));

@@ -37,7 +37,7 @@ class Base
     private $id;
 
     /**
-     * @ORM\Column(name="short_name", type="string", length=5, nullable=true)
+     * @ORM\Column(name="short_name", type="string", length=15, nullable=true)
      */
     private $shortName;
 
