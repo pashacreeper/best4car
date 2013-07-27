@@ -106,8 +106,8 @@ class CompanyController extends Controller
             throw $this->createNotFoundException('Unable to find Company entity.');
         }
         $editForm = $this->createForm(new CompanyType('edit'), $company, array(
-                'em' => $this->getDoctrine()->getManager(),
-            ));
+            'em' => $this->getDoctrine()->getManager(),
+        ));
 
         return [
             'company'   => $company,

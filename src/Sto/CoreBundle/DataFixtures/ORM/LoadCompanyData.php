@@ -94,9 +94,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-        $company->setLinkVK('http://vk.com/');
-        $company->setLinkFB('http://facebook.com/');
-        $company->setLinkTW('http://twitter.com/');
+        $company->setLinkVK('altauto');
+        $company->setLinkFB('altauto');
+        $company->setLinkTW('altauto');
         $manager->persist($company);
         $this->addReference("company[1]", $company);
 
@@ -164,7 +164,7 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
                 'description' => $phone_type[rand(0,1)],
             ]
         ]);
-        $company->setSkype('altauto');
+        $company->setSkype('diligens');
         $company->setEmail('infiniti-info@autoprodix.ru');
         $company->setAddress('Санкт-Петербург, пр. Елизарова, д. 34');
         $company->setGps('59.89, 30.40');
@@ -181,9 +181,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $company->setAdministratorContactInfo('8 (921) 313-67-14, Константин');
         $company->setVisible(true);
         $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-        $company->setLinkVK('http://vk.com/');
-        $company->setLinkFB('http://facebook.com/');
-        $company->setLinkTW('http://twitter.com/');
+        $company->setLinkVK('diligens');
+        $company->setLinkFB('diligens');
+        $company->setLinkTW('diligens');
         $manager->persist($company);
         $this->addReference("company[2]", $company);
 
@@ -278,9 +278,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setLinkVK('http://vk.com/');
-            $company->setLinkFB('http://facebook.com/');
-            $company->setLinkTW('http://twitter.com/');
+            $company->setLinkVK('group' . $i);
+            $company->setLinkFB('page' . $i);
+            $company->setLinkTW('twi' . $i);
             $manager->persist($company);
             $this->addReference("company[{$i}]", $company);
         }
@@ -376,9 +376,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $company->setAdministratorContactInfo('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
             $company->setVisible(rand(0, 1));
             $company->setNotes('Lorem ipsum dolor sit amet, consectetur adipisicing elit.');
-            $company->setLinkVK('http://vk.com/');
-            $company->setLinkFB('http://facebook.com/');
-            $company->setLinkTW('http://twitter.com/');
+            $company->setLinkVK('group' . $i);
+            $company->setLinkFB('page' . $i);
+            $company->setLinkTW('twi' . $i);
             $manager->persist($company);
             $this->addReference("company[{$i}]", $company);
         }
