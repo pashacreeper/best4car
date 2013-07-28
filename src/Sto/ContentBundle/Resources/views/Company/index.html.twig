@@ -92,11 +92,10 @@
                     for (var key in companies) {
                         var val = companies[key];
 
-                        console.log(val);
-
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
                         var iconSize = (sel == val.id)? [60,42]: [40,28];
                         var vid = val.id;
+
                         var img;
                         if(showByRate (myMap.getZoom(),val.rating)){
                             img = {
@@ -104,8 +103,12 @@
                                 iconImageSize: iconSize,
                             };
                         } else {
-                            img = { preset: 'twirl#blackClusterIcons' };
+                            img = {
+                                iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
+                                iconImageSize: [8,8],
+                            };
                         }
+                        img.hideIconOnBalloonOpen = false;
                         myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                             id: val.id,
                             name: val.name,
@@ -118,6 +121,10 @@
                             workingTime_html: val.workingTime_template,
                             specialDeal: val.specialDeal
                         }, img);
+                        myPlacemark2.events.add('balloonopen', function(ev) {
+                            var obj = ev.get('balloon');
+                            obj.options.set({ offset: [-15, -30] });
+                        });
                         myCollection.add(myPlacemark2);
                     }
 
