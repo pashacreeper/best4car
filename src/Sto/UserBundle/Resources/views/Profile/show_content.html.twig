@@ -43,14 +43,38 @@
 
             <div class="infoProfilExpertWrap">
                 <h4 class="contactData"><span>Контактные данные</span><a href="{{ path('fos_user_profile_edit') }}"><i class="editIcon"></i></a></h4>
-                {% if user.contacts|length %}
                 <div class="infoProfilItem">
-                    {% for contact in user.contacts %}
-                        <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
-                        <p class="infoCompanyDescription"><a class="linkContact" href="#">{{ contact.value }}</a></p>
-                    {% endfor %}
+                    {% if user.email %}
+                        <p class="infoCompanyAddTitle contentText">E-mail:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+                    {% endif %}
+                    {% if user.phoneNumber %}
+                        <p class="infoCompanyAddTitle contentText">Телефон:</p>
+                        <p class="infoCompanyDescription">{{ user.phoneNumber }}</p>
+                    {% endif %}
+                    {% if user.linkVK %}
+                        <p class="infoCompanyAddTitle contentText">VKontakte:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="http://vk.com/{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
+                    {% endif %}
+                    {% if user.linkFB %}
+                        <p class="infoCompanyAddTitle contentText">Facebook:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="http://facebook.com/{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a></p>
+                    {% endif %}
+                    {% if user.linkGP %}
+                        <p class="infoCompanyAddTitle contentText">Google+:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="http://plus.google.com/{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a></p>
+                    {% endif %}
+                    {% if user.autoProfilesLinks %}
+                        <p class="infoCompanyAddTitle contentText">Авто профиль:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
+                    {% endif %}
+                    {% if user.contacts|length %}
+                        {% for contact in user.contacts %}
+                            <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
+                            <p class="infoCompanyDescription"><a class="linkContact" href="#">{{ contact.value }}</a></p>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                {% endif %}
                 <h4 class="contactData"><span>Привязанные аккаунты:</span></h4>
                 <div class="infoProfilItem">
                     {% if user.vkontakteId == null %}
