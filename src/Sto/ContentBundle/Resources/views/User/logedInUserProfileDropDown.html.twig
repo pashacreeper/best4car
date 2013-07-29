@@ -1,4 +1,4 @@
-{% if is_granted("ROLE_USER") %}
+{% if app.user is not null and is_granted("ROLE_USER") %}
     <div class="accountCont">
     <a class="userImg btnUser" href="#">
     {%- if user.avatarUrl %}

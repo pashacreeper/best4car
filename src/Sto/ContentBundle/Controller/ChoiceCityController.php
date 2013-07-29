@@ -15,8 +15,7 @@ class ChoiceCityController extends Controller
         if ($session->has('city')) {
             $city = $serializer->deserialize($session->get('city'),'Sto\CoreBundle\Entity\Dictionary\Country','json');
             $session->set('cityName', $city->getName());
-        } elseif ($this->getUser() && $this->getUser()->getCity()) {
-            $city = $this->getUser()->getCity();
+        } elseif ($this->getUser() && ($city = $this->getUser()->getCity())) {
             $session->set('city', $serializer->serialize($city, 'json'));
             $session->set('cityName', $city->getName());
         } else {
