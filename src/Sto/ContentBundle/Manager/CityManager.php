@@ -22,7 +22,12 @@ class CityManager
     {
         $session = $this->container->get('session');
         $serializer = $this->container->get('jms_serializer');
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = null;
+        $token = $this->container->get('security.context')->getToken();
+        if (null !== $token) {
+            $user = $token->getUser();
+        }
+
 
         if ($session->has('city')) {
             $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Dictionary\Country','json');
