@@ -27,7 +27,7 @@
     <div class="nameCompanyHeader">
         <span class="you">Вы:</span>
         <div class="nameProfilExpert">
-            <p class="titleProfilExpert">{{ user.firstName }} {{ user.lastName }}, {{ user.username }}<i class="editIcon"></i></p>
+            <p class="titleProfilExpert">{{ user.firstName }}, {{ user.username }}<i class="editIcon"></i></p>
             <p class="sloganCompany">{% if user.ratingGroup %}<span>{{ user.ratingGroup.name }}</span> - {% endif %}{{ user.city.name }}, {{ user.years }} год(а)</p>
         </div>
     </div>
@@ -80,25 +80,51 @@
                 </div>
             </div>
             {% endif %}
-            {% if user.contacts|length %}
             <div class="infoProfilExpertWrap">
                 <h4 class="contactData"><span>Контактные данные</span><i class="editIcon"></i></h4>
                 <div class="infoProfilItem">
+                {% if user.email %}
+                    <p class="infoCompanyAddTitle contentText">E-mail:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+                {% endif %}
+                {% if user.phoneNumber %}
+                    <p class="infoCompanyAddTitle contentText">Телефон:</p>
+                    <p class="infoCompanyDescription">{{ user.phoneNumber }}</p>
+                {% endif %}
+                {% if user.linkVK %}
+                    <p class="infoCompanyAddTitle contentText">VKontakte:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="http://vk.com/{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
+                {% endif %}
+                {% if user.linkFB %}
+                    <p class="infoCompanyAddTitle contentText">Facebook:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="http://facebook.com/{{ user.linkFB }}" target="_blank">{{ user.linkFB }}</a></p>
+                {% endif %}
+                {% if user.linkGP %}
+                    <p class="infoCompanyAddTitle contentText">Google+:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="http://plus.google.com/{{ user.linkGP }}" target="_blank">{{ user.linkGP }}</a></p>
+                {% endif %}
+                {% if user.autoProfilesLinks %}
+                    <p class="infoCompanyAddTitle contentText">Авто профиль:</p>
+                    <p class="infoCompanyDescription"><a class="linkContact" href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
+                {% endif %}
+                {% if user.contacts|length %}
                     {% for contact in user.contacts %}
                         <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
                         <p class="infoCompanyDescription"><a class="linkContact" href="#">{{ contact.value }}</a></p>
                     {% endfor %}
+                {% endif %}
                 </div>
             </div>
-            {% endif %}
-            {% if user.description %}
             <div class="aboutUsProfilExpertWrap">
                 <h4 class="contactData"><span>О себе</span><i class="editIcon"></i></h4>
                 <p class="aboutCompanyCont contentText">
-                    {{ user.description }}
+                    {% if user.description %}
+                        {{ user.description }}
+                    {% else %}
+                        Пользователь про себя
+                    {% endif %}
                 </p>
             </div>
-            {% endif %}
         </div>
     </div>
     <div id="second" class="content">
