@@ -39,46 +39,46 @@
             <li class="stepRegistrationItem endStep" id="photo-tab"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
         </ul>
 
-<div class="tab-content">
-    <div class="tab-pane active" id="general-data">
-        <div class="row-fluid">
-            <div class="span10">
-                {{ form_row(cForm.fullName) }}
-                {{ form_errors(cForm.fullName) }}
-                {{ form_row(cForm.name) }}
-                {{ form_errors(cForm.name) }}
-                {{ form_row(cForm.slogan) }}
-                {{ form_errors(cForm.slogan) }}
-                <p class="contentLabel clear">
-                    {{ form_label(cForm.createtDate) }}
-                    <div id="datetimepicker1" class="input-append">
-                        {{ form_widget(cForm.createtDate) }}
-                        <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                            </i>
-                        </span>
-                    </div>
-                </p>
-                {{ form_errors(cForm.createtDate) }}
-                {{ form_row(cForm.city) }}
-                {{ form_errors(cForm.city) }}
-                <div class="addLogo clear">
-                    {{ form_label(cForm.logo) }}
-                    <div class="addLogoImgWrap">
-                        <div class="addLogoImg" id='picture-preview-wrapper'></div>
-                    </div>
-                    <div class="adminBlockImg span6">
-                        {{ form_widget(cForm.logo) }}
-                        <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
-                        <p class="additionalInfo">Логотип должен быть вписан в квадрат с белым фоном</br>Формат: JPEG, PNG, GIF не более 1Мб</p>
+    <div class="tab-content">
+        <div class="tab-pane active" id="general-data">
+            <div class="row-fluid">
+                <div class="span10">
+                    {{ form_row(cForm.fullName) }}
+                    {{ form_errors(cForm.fullName) }}
+                    {{ form_row(cForm.name) }}
+                    {{ form_errors(cForm.name) }}
+                    {{ form_row(cForm.slogan) }}
+                    {{ form_errors(cForm.slogan) }}
+                    <p class="contentLabel clear">
+                        {{ form_label(cForm.createtDate) }}
+                        <div id="datetimepicker1" class="input-append">
+                            {{ form_widget(cForm.createtDate) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
+                        </div>
+                    </p>
+                    {{ form_errors(cForm.createtDate) }}
+                    {{ form_row(cForm.city) }}
+                    {{ form_errors(cForm.city) }}
+                    <div class="addLogo clear">
+                        {{ form_label(cForm.logo) }}
+                        <div class="addLogoImgWrap">
+                            <div class="addLogoImg" id='picture-preview-wrapper'></div>
+                        </div>
+                        <div class="adminBlockImg span6">
+                            {{ form_widget(cForm.logo) }}
+                            <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
+                            <p class="additionalInfo">Логотип должен быть вписан в квадрат с белым фоном</br>Формат: JPEG, PNG, GIF не более 1Мб</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="bottomContent">
+                <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
+            </div>
         </div>
-        <div class="bottomContent">
-            <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
-        </div>
-    </div>
         {# EOF General data #}
         {# Buisinesss profile #}
         <div class="tab-pane" id="business-profile">
