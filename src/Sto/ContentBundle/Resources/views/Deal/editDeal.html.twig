@@ -1,112 +1,210 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+{% endblock %}
+
 {% block title %}Редактирование акции{% endblock %}
 
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
-
-{% block head_style %}
-{{ parent() }}
-<link href="{{ asset('bundles/stocore/css/select2.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% block search %}
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">Редактирование акции</h1>
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}
-<form action="{{ path('company_deal_update' ,{'companyId': companyId, 'id': deal.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
-    <div class="container">
-        {{ form_row(edit_form.name) }}
-        {{ form_row(edit_form.description) }}
-        {{ form_row(edit_form.type) }}
-        <div class=" control-group">
-            <label class="control-label required">
-                Сроки акции
-            </label>
-            <div class="controls">
-                {{ form_errors(edit_form.startDate) }}
-                {{ form_widget(edit_form.startDate) }} -
-                {{ form_errors(edit_form.endDate) }}
-                {{ form_widget(edit_form.endDate) }}
-            </div>
-        </div>
-        <div class=" control-group">
-            <label class="control-label required">
-                Время акции
-            </label>
-            <div class="controls">
-                {{ form_errors(edit_form.startTime) }}
-                {{ form_widget(edit_form.startTime) }} -
-                {{ form_errors(edit_form.endTime) }}
-                {{ form_widget(edit_form.endTime) }}
-            </div>
-        </div>
-        {{ form_row(edit_form.auto) }}
-        {{ form_row(edit_form.autoServices) }}
-        {{ form_row(edit_form.place) }}
-        {{ form_row(edit_form.terms) }}
+<section class="contentMain  row">
+    <div class="content">
 
-    </div>
-    <hr style="margin: 0 0 20px 0;">
-    <div class="container">
-        <div class="span2">
-            <p>
-                Изображения акции</br><small><em>Изображения должны быть пропорции 16:9, не меньше 640 х 360 пикселей</br></br>Формат изображения: JPG, PNG, GIF не более 1Мь</em></small>
-            </p>
-        </div>
-        <div class="span3">
-            <div class="control-group">
-                <div class="control">
-                    <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                    {{ form_errors(edit_form.image) }}
-                    {{ form_widget(edit_form.image) }}
+        <form action="{{ path('company_deal_update', {'companyId': company.id, 'id': deal.id}) }}" method="post" {{ form_enctype(edit_form) }} class="inputForm">
+            <div class="container">
+                <div class="contentLabel clear">
+                    {{ form_label(edit_form.name) }}
+                    {{ form_widget(edit_form.name) }}
+                    {{ form_errors(edit_form.name) }}
                 </div>
+
+                <div class="contentLabel clear">
+                    {{ form_label(edit_form.description) }}
+                    {{ form_widget(edit_form.description) }}
+                    {{ form_errors(edit_form.description) }}
+                </div>
+
+                <div class="contentLabel clear">
+                    {{ form_label(edit_form.type) }}
+                    <div class="basket__cont__body__bottom__paper">
+                        {{ form_widget(edit_form.type) }}
+                        {{ form_errors(edit_form.type) }}
+                    </div>
+                </div>
+
+                <div class="contentLabel clear">
+                    <label class="required">
+                        Сроки проведения
+                    </label>
+                    <div class="well startData span2">
+                        <div id="datetimepicker1" class="input-append">
+                            {{ form_errors(edit_form.startDate) }}
+                            {{ form_widget(edit_form.startDate) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="well endData span2">
+                        <div id="datetimepicker2" class="input-append">
+                            {{ form_errors(edit_form.endDate) }}
+                            {{ form_widget(edit_form.endDate) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentLabel clear">
+                    <label>Время проведения</label>
+                    <div class="well startData span2">
+                        <div id="datetimepicker3" class="input-append">
+                            {{ form_errors(edit_form.startTime) }}
+                            {{ form_widget(edit_form.startTime) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="well endData span2">
+                        <div id="datetimepicker4" class="input-append">
+                            {{ form_errors(edit_form.endTime) }}
+                            {{ form_widget(edit_form.endTime) }}
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contentLabel clear">
+                    <label>Автомобили</label>
+                    {{ form_widget(edit_form.auto) }}
+                    {{ form_errors(edit_form.auto) }}
+                </div>
+                <div class="contentLabel clear">
+                    <label>Узлы и работы</label>
+                    {{ form_widget(edit_form.autoServices) }}
+                    {{ form_errors(edit_form.autoServices) }}
+                </div>
+                <div class="contentLabel">
+                    <label>Место проведения акции</label>
+                    {{ form_widget(edit_form.place) }}
+                    {{ form_errors(edit_form.place) }}
+                    <a href="#" class="linkUnder" id="in-company-place" data-address="{{ company.address }}">по месту размещения компании</a>
+                </div>
+                <div class="contentLabel">
+                    <label>Условия участия в акции</label>
+                    {{ form_widget(edit_form.terms) }}
+                    {{ form_errors(edit_form.terms) }}
+                </div>
+                <div class="contentLabel">
+                    <label>Контактное лицо</label>
+                    {{ form_widget(edit_form.contactInformation) }}
+                    {{ form_errors(edit_form.contactInformation) }}
+                </div>
+                {#{{ form_row(edit_form.place) }}#}
+                {#{{ form_row(edit_form.terms) }}#}
             </div>
-        </div>
-        <div class="span3">
-                <div class="control-group">
-                    <div class="control">
-                        <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                        {{ form_errors(edit_form.image2) }}
-                        {{ form_widget(edit_form.image2) }}
+            <hr style="margin: 0 0 20px 0;">
+            <div class="container">
+                <div class="span2">
+                    <p>
+                        Изображения акции</br><small><em>Изображения должны быть пропорции 16:9, не меньше 640 х 360 пикселей</br></br>Формат изображения: JPG, PNG, GIF не более 1Мь</em></small>
+                    <p>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            {% if deal.imageName %}
+                                <img data-image="image1" src="{{ vich_uploader_asset(deal,'image') | imagine_filter('deal_filter') }}" style="width:120px" class="img-polaroid"/>
+                            {% else %}
+                                <img data-image="image1" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {% endif %}
+                            {{ form_errors(edit_form.image) }}
+                            {{ form_widget(edit_form.image) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            {% if deal.imageName2 %}
+                                <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {% else %}
+                                <img data-image="image2" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {% endif %}
+                            {{ form_errors(edit_form.image2) }}
+                            {{ form_widget(edit_form.image2) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <div class="control">
+                            {% if deal.imageName3 %}
+                                <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {% else %}
+                                <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
+                            {% endif %}
+                            {{ form_errors(edit_form.image3) }}
+                            {{ form_widget(edit_form.image3) }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="span3">
-                <div class="control-group">
-                    <div class="control">
-                        <img data-image="image3" src="{{ asset('bundles/stocore/images/notimage.png') }}" style="width:120px" class="img-polaroid"/>
-                        {{ form_errors(edit_form.image3) }}
-                        {{ form_widget(edit_form.image3) }}
-                    </div>
-                </div>
+            <hr style="margin: 0 0 20px 0;">
+            {{ form_rest(edit_form) }}
+            <div class="bottomContent">
+                <input type="submit"  class="btnBottomContent addPhotoBtn" value="Сохранить изменения" />
+            </div>
+        </form>
+        <div id="myModal" class="modal hide fade" style = "width:720px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body ">
+                <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
+            </div>
+            <div class="modal-footer" >
+                <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
             </div>
         </div>
-        <hr style="margin: 0 0 20px 0;">
-        {{ form_widget(edit_form) }}
-        {{ form_rest(edit_form) }}
-        <div class="form-actions">
-{% if deal.draft == true %}
-    {% if (activ_deals|length()) < 2 %}
-            <input type="submit" class="btn btn-primary" value="Опубликовать" name = 'draft' />
-    {% else %}
-            {{ flash(true, 'У вас две активных акции. Опубликовать нельзя!', false, true) }}
-    {% endif %}
-{% else %}
-            <input type="submit" class="btn btn-primary" value="Скыть акцию" name = 'draft' />
-{% endif %}
-            <input type="submit" class="btn btn-primary" value="Сохранить изменения" />
-        </div>
-    </div>
-</form>
-<div id="myModal" class="modal hide fade" style = "width:720px;">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    </div>
-    <div class="modal-body ">
-      <div id="myMap" style="height:400px;width:670px ;left:5px" ></div>
-    </div>
-    <div class="modal-footer" >
-        <a href="#" id="save_madal"  class="btn btn-primary">Save</a>
-    </div>
-</div>
+    </section>
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                pickTime: false
+            });
+            $('#datetimepicker2').datetimepicker({
+                pickTime: false
+            });
+
+            $('#datetimepicker3').datetimepicker({
+                pickDate: false
+            });
+            $('#datetimepicker4').datetimepicker({
+                pickDate: false
+            });
+            $('.chosen-multiple').chosen();
+            $('#in-company-place').click(function(e){
+                e.preventDefault();
+                $('#sto_content_deal_place').val($(this).data('address'));
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block foot_script %}
