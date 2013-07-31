@@ -184,7 +184,7 @@ class DealController extends MainController
         return [
             'deal'        => $deal,
             'edit_form'   => $editForm->createView(),
-            'companyId'   => $company->getId(),
+            'company'   => $company,
             'activ_deals' => $activ_deals
         ];
     }
@@ -217,8 +217,8 @@ class DealController extends MainController
             $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
             $user = $this->get('security.context')->getToken()->getUser();
             $resolution = false;
-            foreach ($company->getManagers() as $key => $value) {
-                if ( $value->getUserName() == $user->getUserName()) {
+            foreach ($company->getCompanyManager() as $key => $value) {
+                if ( $value->getUser()->getUserName() == $user->getUserName()) {
                     $resolution = true;
                     break;
                 }
@@ -226,9 +226,9 @@ class DealController extends MainController
             if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
                 $em->persist($deal);
                 $em->flush();
+                return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
             }
 
-            return $this->redirect($this->generateUrl('content_company_show_tab',['id'=>$companyId, 'tab'=>'deals']));
         }
 
         return [
