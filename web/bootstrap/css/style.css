@@ -1372,6 +1372,13 @@ label {
 	color: #555;
 	border-bottom: 1px dotted transparent;
 }
+.secondaryLink a{
+	text-decoration: none;
+}
+.secondaryLink a:hover{
+	text-decoration: none;
+	color: #555;
+}
 .primaryLink {
 	color: #f35d2e;
 	font: 1.3em 'PT Sans', sans;

@@ -28,7 +28,6 @@ class CityManager
             $user = $token->getUser();
         }
 
-
         if ($session->has('city')) {
             $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Dictionary\Country','json');
         } else {

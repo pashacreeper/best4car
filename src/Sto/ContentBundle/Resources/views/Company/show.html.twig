@@ -58,8 +58,12 @@
 </div>
 <div id="nameCompanyHeaderWrap">
     <div class="nameCompanyHeader">
-        <span class="logoCompany"><img src="/bootstrap/img/logocompany.png" alt=""></span>
-        <h1 class="titleNameCompany"><a href="#">{{ company.name }}</a></h1>
+        {% if company.logo %}
+            <span class="logoCompany">
+                <img src="{{ vich_uploader_asset(company, 'logo') | imagine_filter('company_logo') }}" alt="">
+            </span>
+        {% endif %}
+        <h1 class="titleNameCompany"><a href="{{ path('content_company_show', { "id": company.id }) }}">{{ company.name }}</a></h1>
         <p class="sloganCompany">{{ company.slogan }}</p>
     </div>
     <div class="indexCompany">

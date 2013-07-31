@@ -200,6 +200,10 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [320, 179], mode: outbound }
+        company_logo:
+            quality: 100
+            filters:
+                thumbnail: { size: [52, 52], mode: outbound }
         company_gallery_filter:
             quality: 100
             filters:
