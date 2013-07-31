@@ -180,7 +180,7 @@ class CompanyController extends MainController
             ->createQueryBuilder('cm')
             ->where('cm.userId = :user_id AND cm.companyId = :company')
             ->setParameter('user_id', $this->getUser()->getId())
-            ->setParameter('company', $id)
+            ->setParameter('company', $company)
             ->getQuery()
             ->getResult()
         ;
@@ -193,7 +193,7 @@ class CompanyController extends MainController
                 'cForm' => $form->createView(),
                 'company' => $company,
             ];
-        } else
+        }
 
         return new Response('Page Not found.', 404);
     }
