@@ -95,20 +95,9 @@ class CompanyController extends MainController
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
-        $formFactory = $this->container->get('fos_user.registration.form.factory');
-        $userManager = $this->container->get('fos_user.user_manager');
-        $dispatcher = $this->container->get('event_dispatcher');
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
-        $user->setRatingGroupId(1);
-        $user->addRole('ROLE_USER');
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
         return [
             'companies' => json_encode($companies),
             'city' => $city,
-            'form' => $form->createView(),
         ];
     }
 
