@@ -77,7 +77,7 @@ class DealController extends MainController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']) . '#deals');
+        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(), 'tab'=>'deals']) . '#deals');
     }
 
     /**
@@ -236,6 +236,7 @@ class DealController extends MainController
             if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
                 $em->persist($deal);
                 $em->flush();
+
                 return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
             }
 

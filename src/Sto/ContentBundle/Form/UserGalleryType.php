@@ -12,7 +12,7 @@ class UserGalleryType extends AbstractType
     {
         $builder
             ->add('image', 'file', [
-                'label' => 'Image',
+                'label' => 'Выберите фотографию',
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
                 'required' => false,
@@ -22,7 +22,10 @@ class UserGalleryType extends AbstractType
                 ]
             ])
             ->add('name', null, [
-                'label' => 'Name'
+                'label' => 'Назовите фотографию',
+                'attr' => [
+                    'class' => 'span6'
+                ]
             ])
         ;
     }

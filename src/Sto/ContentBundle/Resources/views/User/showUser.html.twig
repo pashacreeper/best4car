@@ -57,7 +57,7 @@
             <a class="" href="#first">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы <span class="newPost">/ {{ user.feedbacks|length }}</span></a>
+            <a class="" href="#second">Отзывы {{ user.feedbacks|length }}</a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
@@ -96,10 +96,6 @@
                 {% if user.email %}
                     <p class="infoCompanyAddTitle contentText">E-mail:</p>
                     <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-                {% endif %}
-                {% if user.phoneNumber %}
-                    <p class="infoCompanyAddTitle contentText">Телефон:</p>
-                    <p class="infoCompanyDescription">{{ user.phoneNumber }}</p>
                 {% endif %}
                 {% if user.linkVK %}
                     <p class="infoCompanyAddTitle contentText">VKontakte:</p>
@@ -292,13 +288,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="rightContent">
-            <span class="addPhotoBtn">Оставить отзыв<i class="writeReview"></i></span>
-            <span class="addPhotoBtn">Я пойду<i class="acctBtn">241</i></span>
-            <div class="bannerImg">
-                <!-- <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" /> -->
-            </div>
-        </div>
+        <div class="rightContent"></div>
     </div>
     <script>
     $(function () {

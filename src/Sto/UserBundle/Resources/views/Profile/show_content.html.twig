@@ -7,7 +7,7 @@
             <a class="" href="#information">Информация</a>
         </li>
         <li>
-            <a class="" href="#feedbacks">Отзывы <span class="newPost">{{ user.feedbacks|length }}</span></a>
+            <a class="" href="#feedbacks">Отзывы {{ user.feedbacks|length }}</a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
@@ -30,8 +30,9 @@
                         {% for item in user.gallery %}
                         <li class="slide-item">
                             <p class="nameActionP">{{ item.name }}</p>
-                            <i class="editIconAdd"></i><i class="editIconDel"></i>
-                            <img src="{{ vich_uploader_asset(item, 'image') }}"  alt="" />
+                            <a href="#" data-reveal-id="add-photo-modal"><i class="editIconAdd"></i></a>
+                            <a href="{{ path('profile_user_gallery_remove', { "id": item.id }) }}"><i class="editIconDel"></i></a>
+                            <img src="{{ vich_uploader_asset(item, 'image') | imagine_filter('deals_carusel_photos') }}"  alt="" />
                         </li>
                         {% endfor %}
                     </ul>
@@ -39,6 +40,10 @@
                     <span name="next" class="navy next-slide"></span>
                 </div>
             </div>
+            {% else %}
+                <div class="photoAddEmptyGallery">
+                    <a href="#" data-reveal-id="add-photo-modal"><i class="iconPhotoAdd"></i><span>Добавить фотографию</span></a>
+                </div>
             {% endif %}
 
             <div class="infoProfilExpertWrap">
@@ -258,9 +263,16 @@
             {% endfor %}
         </div>
         <div class="rightContent">
-            <div class="bannerImg">
-                <!-- <img src="/bootstrap/img/banner.jpg" alt="фото пользователя" /> -->
-            </div>
+            <div class="bannerImg"></div>
         </div>
     </div>
 </section>
+
+<div id="add-photo-modal" class="reveal-modal resetting-modal">
+    <a href="#" class="close-reveal-modal"></a>
+    <p class="popUpTitle">Добавить фотографию</p>
+    <div id="resetting-container">
+        <p class="infoText">Вы можете использовать изображение в формате JPG, GIF или PNG размером не более 10Мб</p>
+        {{ render(controller('StoContentBundle:User:addGallery')) }}
+    </div>
+</div>

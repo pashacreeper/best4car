@@ -456,3 +456,19 @@ a.btnNext:hover{
 .moderatorsWrapper{
     float: right;
 }
+
+.iconPhotoAdd{
+    width: 35px;
+    height: 35px;
+    background: url("../img/icon-plus.png") 0 0 no-repeat;
+}
+.photoAddEmptyGallery span{
+    font-size: 1.2em;
+}
+.photoAddEmptyGallery i, .photoAddEmptyGallery span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.photoAddEmptyGallery{
+    text-align: center;
+}
