@@ -127,8 +127,8 @@ class DealController extends MainController
 
             $user = $this->get('security.context')->getToken()->getUser();
             $resolution = false;
-            foreach ($company->getCompanyManager() as $key => $value) {
-                if ( $value->getUserName() == $user->getUserName()) {
+            foreach ($company->getCompanyManager() as $manager) {
+                if ($manager->getUser()->getUserName() == $user->getUserName()) {
                     $resolution = true;
                     break;
                 }
@@ -137,9 +137,8 @@ class DealController extends MainController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($deal);
                 $em->flush();
+                return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
             }
-
-            return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
         }
 
         return [
