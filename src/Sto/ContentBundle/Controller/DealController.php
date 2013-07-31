@@ -64,10 +64,20 @@ class DealController extends MainController
             throw $this->createNotFoundException('Unable to find Deal entity.');
         }
 
-        $em->remove($entity);
-        $em->flush();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $resolution = false;
+        foreach ($company->getCompanyManager() as $manager) {
+            if ($manager->getUser()->getUserName() == $user->getUserName()) {
+                $resolution = true;
+                break;
+            }
+        }
+        if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
+            $em->remove($entity);
+            $em->flush();
+        }
 
-        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
+        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']) . '#deals');
     }
 
     /**

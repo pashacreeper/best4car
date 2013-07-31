@@ -163,7 +163,7 @@
                             <div class="control">
                                 {% if deal.imageName2 %}
                                     <img data-image="image2"
-                                         src="{{ asset('bundles/stocore/images/notimage.png') }}"
+                                         src="{{ vich_uploader_asset(deal,'image2') | imagine_filter('deal_filter') }}"
                                          style="width:120px"
                                          class="img-polaroid"/>
                                 {% else %}
@@ -182,7 +182,7 @@
                             <div class="control">
                                 {% if deal.imageName3 %}
                                     <img data-image="image3"
-                                         src="{{ asset('bundles/stocore/images/notimage.png') }}"
+                                         src="{{ vich_uploader_asset(deal,'image3') | imagine_filter('deal_filter') }}"
                                          style="width:120px"
                                          class="img-polaroid"/>
                                 {% else %}
