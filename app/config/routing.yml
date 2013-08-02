@@ -47,3 +47,12 @@ hwi_oauth_security:
 
 vkontakte_login:
     pattern: /login/check-vkontakte
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /sonata
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /sonata

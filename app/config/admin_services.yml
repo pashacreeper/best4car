@@ -1,0 +1,12 @@
+services:
+    app.admin.deal:
+          class: Sto\CoreBundle\Admin\DealAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Акции, label: Акции}
+          arguments: [null, Sto\CoreBundle\Entity\Deal, SonataAdminBundle:CRUD]
+
+    app.admin.company:
+          class: Sto\CoreBundle\Admin\CompanyAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Компании}
+          arguments: [null, Sto\CoreBundle\Entity\Company, SonataAdminBundle:CRUD]
