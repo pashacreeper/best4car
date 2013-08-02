@@ -315,10 +315,28 @@ class DealController extends MainController
             ->getResult()
         ;
 
+        $popularDealsRows = $repository->createQueryBuilder('deal')
+            ->select('COUNT(f.id)')
+            ->join('deal.feedbacks', 'f')
+            ->join('deal.company', 'dc')
+            ->where('deal.endDate > :endDate AND f.content is not null')
+            ->andWhere('dc.cityId = :city')
+            ->having('COUNT(f.id) > 5')
+            ->setParameters([
+                'endDate' => new \DateTime('now'),
+                'city' => $city->getId()
+            ])
+            ->groupBy('deal.id')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+        $countPopularDeals = count($popularDealsRows);
+
         return [
             'deals' => $deals,
             'dictionaries' => $dealsTypes,
-            'countFeededDeals' => count($countFeededDeals)
+            'countFeededDeals' => count($countFeededDeals),
+            'countPopularDeals' => $countPopularDeals,
         ];
     }
 
@@ -350,6 +368,11 @@ class DealController extends MainController
         } elseif ($deal_type == -2) {
             $query->join('deal.feedbacks', 'f')
                 ->andWhere('f.content is not null')
+            ;
+        } elseif ($deal_type == -1) {
+            $query->join('deal.feedbacks', 'f')
+                ->having('COUNT(f.id) > 5')
+                ->groupBy('deal.id')
             ;
         } else {
             $deal_type = 0;
