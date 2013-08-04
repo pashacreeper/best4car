@@ -31,6 +31,12 @@
     </div>
     <div class="content" data-tab-id="#aditional">
         {{ form_row(form.city) }}
+        <div class="contentLabel rightContaktItem">
+            <label>DRIVE2</label>
+            <p class="maskInput"><span>www.drive2.ru/users/</span>
+                {{ form_widget(form.autoProfilesLinks) }}
+            </p>
+        </div>
         {{ form_row(form.autoProfilesLinks) }}
         <div class="contentLabel rightContaktItem">
             <label>VKontakte</label>

@@ -101,7 +101,7 @@ class UserProfileType extends BaseType
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'class' => 'span6 inputFormEnter'
+                    'style' => 'width:263px'
                 ]
             ])
             ->add('description', 'textarea', [
