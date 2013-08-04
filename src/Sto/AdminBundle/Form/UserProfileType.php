@@ -62,6 +62,7 @@ class UserProfileType extends BaseType
             ])
             ->add('city', 'entity', [
                 'label' => 'Город',
+                'required' => false,
                 'class' => 'StoCoreBundle:Dictionary\Country',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('country')
@@ -69,7 +70,7 @@ class UserProfileType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'span4'
+                    'class' => 'chzn-select span6'
                 ]
             ])
             ->add('linkVK', null, [

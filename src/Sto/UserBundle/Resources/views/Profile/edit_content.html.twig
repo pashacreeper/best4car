@@ -30,7 +30,10 @@
         </div>
     </div>
     <div class="content" data-tab-id="#aditional">
-        {{ form_row(form.city) }}
+        <div class="cityChoicer">
+            {{ form_label(form.city) }}
+            {{ form_widget(form.city) }}
+        </div>
         <div class="contentLabel rightContaktItem">
             <label>DRIVE2</label>
             <p class="maskInput"><span>www.drive2.ru/users/</span>
@@ -62,4 +65,7 @@
         {{ form_rest(form) }}
     </form>
     </div>
+<script>
+    (function(){$('.chzn-select').chosen();})();
+</script>
 </section>
