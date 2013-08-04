@@ -150,6 +150,6 @@
 <div class="rightContent">
     <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="addPhotoBtn bttn" {% if not app.user %}data-reveal-id="not-loged-in"{% endif %}>Оставить отзыв<i class="writeReview"></i></a>
     {% if isManager %}
-        <a href="{{ path("content_company_edit", {'id': company.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Редактировать</a>
+        <a href="{{ path("content_company_edit", {'id': company.id}) }}" class="addPhotoBtn bttn" style="margin-top:10px;">Редактировать</a>
     {% endif %}
 </div>

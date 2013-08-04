@@ -103,7 +103,6 @@ class CompanyController extends MainController
 
     /**
      * @Route("/company/{id}", name="content_company_show", options={"expose"=true})
-     * @Route("/company/{id}/{tab}", name="content_company_show_tab", options={"expose"=true})
      * @Method("GET")
      * @Template()
      */

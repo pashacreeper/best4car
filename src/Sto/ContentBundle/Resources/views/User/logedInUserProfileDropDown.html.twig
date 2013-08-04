@@ -25,21 +25,23 @@
             </li>
         </ul>
         {% if user.companyManager is not empty %}
-            <p class="popUpTitle">Компания Транспорт-Сервис</p>
-            <ul class="userProfilCont">
-                <li class="userProfilItem">
-                    <i class="iconProfilGray"></i>
-                    <a href="#" class="google-blue">Профиль</a>
-                </li>
-                <li class="userProfilItem">
-                    <i class="iconReviewGray"></i>
-                    <a href="#" class="facebook-blue">Отзывы</a>
-                </li>
-                <li class="userProfilItem">
-                    <i class="iconActionGray"></i>
-                    <a href="#" class="facebook-blue">Акции</a>
-                </li>
-            </ul>
+            {% for company in user.companyManager %}
+                <p class="popUpTitle">{{ company.company.name }}</p>
+                <ul class="userProfilCont">
+                    <li class="userProfilItem">
+                        <i class="iconProfilGray"></i>
+                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#information' }}" class="google-blue">Профиль</a>
+                    </li>
+                    <li class="userProfilItem">
+                        <i class="iconReviewGray"></i>
+                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#feedbacks' }}" class="facebook-blue">Отзывы</a>
+                    </li>
+                    <li class="userProfilItem">
+                        <i class="iconActionGray"></i>
+                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#deals' }}" class="facebook-blue">Акции</a>
+                    </li>
+                </ul>
+            {% endfor %}
         {% endif %}
         <p class="userDropBot"><a href="{{ path('fos_user_security_logout') }}" class="btnExit primaryLink regisrationLink">Выйти</a></p>
     </div>

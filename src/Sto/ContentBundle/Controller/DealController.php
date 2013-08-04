@@ -77,7 +77,9 @@ class DealController extends MainController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(), 'tab'=>'deals']) . '#deals');
+        return $this->redirect(
+            $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
+        );
     }
 
     /**
@@ -148,7 +150,9 @@ class DealController extends MainController
                 $em->persist($deal);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('content_company_show_tab', ['id' => $company->getId(),'tab'=>'deals']));
+                return $this->redirect(
+                    $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
+                );
             }
         }
 
