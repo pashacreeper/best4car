@@ -1,15 +1,6 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'MopaBootstrapBundle::flash.html.twig' import flash %}
 
-{% block title %}Профиль пользователя &middot; {{ app.user.username }} {% endblock %}
-{% block header %}Профиль пользователя - {{ user.username }}</h4>{% endblock %}
-
-{% block content_tag 'id="content" class="container"' %}
-
-{% block content %}
-{% include "StoUserBundle:Profile:show_content.html.twig" %}
-{% endblock %}
-
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
@@ -22,4 +13,42 @@
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+{% endblock %}
+
+{% block title %}Профиль пользователя &middot; {{ app.user.username }} {% endblock %}
+{% block header %}Профиль пользователя - {{ user.username }}</h4>{% endblock %}
+
+{% block content_tag 'id="content" class="container"' %}
+
+{% block search %}
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <span class="you">Вы:</span>
+        <div class="nameProfilExpert">
+            <p class="titleProfilExpert">
+                <span>{{ user.firstName }}, {{ user.username }}</span><i class="editIcon"></i>
+            </p>
+            {% spaceless %}
+                <p class="sloganCompany">
+                {% if user.ratingGroup %}
+                    <span>{{ user.ratingGroup.name }}</span> &ndash;
+                {% endif %}
+                {{ user.city.name }}
+                {% if user.years %}
+                    , {{ user.years }} год(а)
+                {% endif %}
+                </p>
+            {% endspaceless %}
+        </div>
+    </div>
+    <div class="indexCompany">
+        <p>Рейтинг:</p>
+        <span class="indexbg"></span>
+        <span class="indexLevel">{{ user.rating }}</span></br>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% include "StoUserBundle:Profile:show_content.html.twig" %}
 {% endblock %}

@@ -35,7 +35,10 @@ class Builder extends ContainerAware
         $experts = $menu->addChild('Эксперты', ['uri' => '#']);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
-        if ($route == 'user_profile') {
+        if (   $route == 'user_profile'
+            || $route == 'fos_user_profile_show'
+            || $route == 'fos_user_profile_edit' )
+        {
             $experts->setCurrent(true);
         }
 

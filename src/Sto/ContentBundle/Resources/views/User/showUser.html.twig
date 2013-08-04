@@ -27,15 +27,18 @@
     <div class="nameCompanyHeader">
         <span class="you">Вы:</span>
         <div class="nameProfilExpert">
-            <p class="titleProfilExpert">{{ user.firstName }}, {{ user.username }}<i class="editIcon"></i></p>
+            <p class="titleProfilExpert">
+                <span>{{ user.firstName }}</span>,
+                {{ user.username }}<i class="editIcon"></i>
+            </p>
             {% spaceless %}
                 <p class="sloganCompany">
                 {% if user.ratingGroup %}
                     <span>{{ user.ratingGroup.name }}</span> &ndash;
                 {% endif %}
-                {{ user.city.name }},
+                {{ user.city.name }}
                 {% if user.years %}
-                    {{ user.years }} год(а)
+                    , {{ user.years }} год(а)
                 {% endif %}
                 </p>
             {% endspaceless %}
