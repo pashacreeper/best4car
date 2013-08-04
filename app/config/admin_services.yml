@@ -5,12 +5,6 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Акции, label: Акции}
           arguments: [null, Sto\CoreBundle\Entity\Deal, SonataAdminBundle:CRUD]
 
-    app.admin.company:
-          class: Sto\CoreBundle\Admin\CompanyAdmin
-          tags:
-            - { name: sonata.admin, manager_type: orm, group: Компании, label: Компании}
-          arguments: [null, Sto\CoreBundle\Entity\Company, SonataAdminBundle:CRUD]
-
     app.admin.mark:
           class: Sto\CoreBundle\Admin\Catalog\MarkAdmin
           tags:
@@ -28,3 +22,58 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модификации}
           arguments: [null, Sto\CoreBundle\Entity\Catalog\Modification, SonataAdminBundle:CRUD]
+
+    app.admin.company:
+          class: Sto\CoreBundle\Admin\CompanyAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Компании}
+          arguments: [null, Sto\CoreBundle\Entity\Company, SonataAdminBundle:CRUD]
+
+    app.admin.company_gallery:
+          class: Sto\CoreBundle\Admin\CompanyGalleryAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Галерея}
+          arguments: [null, Sto\CoreBundle\Entity\CompanyGallery, SonataAdminBundle:CRUD]
+
+    app.admin.company_manager:
+          class: Sto\CoreBundle\Admin\CompanyManagerAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Менеджеры}
+          arguments: [null, Sto\CoreBundle\Entity\CompanyManager, SonataAdminBundle:CRUD]
+
+    # app.admin.company_working_time:
+    #       class: Sto\CoreBundle\Admin\CompanyWorkingTimeAdmin
+    #       tags:
+    #         - { name: sonata.admin, manager_type: orm, group: Компании, label: Время работы}
+    #       arguments: [null, Sto\CoreBundle\Entity\CompanyWorkingTime, SonataAdminBundle:CRUD]
+
+    app.admin.feedback_company:
+          class: Sto\CoreBundle\Admin\FeedbackCompanyAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Отзывы о компаниях}
+          arguments: [null, Sto\CoreBundle\Entity\FeedbackCompany, SonataAdminBundle:CRUD]
+
+    app.admin.feedback_deal:
+          class: Sto\CoreBundle\Admin\FeedbackDealAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Отзывы об акциях}
+          arguments: [null, Sto\CoreBundle\Entity\FeedbackDeal, SonataAdminBundle:CRUD]
+
+    # app.admin.feedback_evaluation:
+    #       class: Sto\CoreBundle\Admin\FeedbackEvaluationAdmin
+    #       tags:
+    #         - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Оценки}
+    #       arguments: [null, Sto\CoreBundle\Entity\FeedbackEvaluation, SonataAdminBundle:CRUD]
+
+    app.admin.feedback_answer:
+          class: Sto\CoreBundle\Admin\FeedbackAnswerAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Ответы на отзывы}
+          arguments: [null, Sto\CoreBundle\Entity\FeedbackAnswer, SonataAdminBundle:CRUD]
+
+    app.admin.rating_points:
+          class: Sto\CoreBundle\Admin\RatingPointsAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Настройка показателей рейтинга}
+          arguments: [null, Sto\CoreBundle\Entity\RatingPoints, SonataAdminBundle:CRUD]
+
