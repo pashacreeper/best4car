@@ -77,3 +77,62 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Настройка показателей рейтинга}
           arguments: [null, Sto\CoreBundle\Entity\RatingPoints, SonataAdminBundle:CRUD]
 
+    app.admin.additional_service:
+          class: Sto\CoreBundle\Admin\Dictionary\AdditionalServiceAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Дополнительные услуги}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\AdditionalService, SonataAdminBundle:CRUD]
+
+    app.admin.auto_service:
+          class: Sto\CoreBundle\Admin\Dictionary\AutoServiceAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Узлы и работы}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\AutoServices, SonataAdminBundle:CRUD]
+
+    app.admin.company_type:
+          class: Sto\CoreBundle\Admin\Dictionary\CompanyAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы организаций}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Company, SonataAdminBundle:CRUD]
+
+    app.admin.contact_type:
+          class: Sto\CoreBundle\Admin\Dictionary\ContactTypeAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы контактов}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\ContactType, SonataAdminBundle:CRUD]
+
+    app.admin.country:
+          class: Sto\CoreBundle\Admin\Dictionary\CountryAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Страны / Города}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Country, SonataAdminBundle:CRUD]
+
+    app.admin.currency:
+          class: Sto\CoreBundle\Admin\Dictionary\CurrencyAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Валюты}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Currency, SonataAdminBundle:CRUD]
+
+    app.admin.deals_type:
+          class: Sto\CoreBundle\Admin\Dictionary\DealAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы акций}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Deal, SonataAdminBundle:CRUD]
+
+    app.admin.price_level:
+          class: Sto\CoreBundle\Admin\Dictionary\PriceLevelAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Уровни цен}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\PriceLevel, SonataAdminBundle:CRUD]
+
+    app.admin.week_day:
+          class: Sto\CoreBundle\Admin\Dictionary\WeekDayAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Дни недели}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\WeekDay, SonataAdminBundle:CRUD]
+
+    app.admin.work:
+          class: Sto\CoreBundle\Admin\Dictionary\WorkAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Действия / работы}
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Work, SonataAdminBundle:CRUD]
