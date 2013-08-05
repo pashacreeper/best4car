@@ -136,3 +136,33 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Действия / работы}
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\Work, SonataAdminBundle:CRUD]
+
+    app.admin.user.contacts:
+          class: Sto\UserBundle\Admin\ContactsAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Контакты}
+          arguments: [null, Sto\UserBundle\Entity\Contacts, SonataAdminBundle:CRUD]
+
+    app.admin.user.group:
+          class: Sto\UserBundle\Admin\GroupAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Группы}
+          arguments: [null, Sto\UserBundle\Entity\Group, SonataAdminBundle:CRUD]
+
+    app.admin.user.rating_group:
+          class: Sto\UserBundle\Admin\RatingGroupAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Группы рейтинга}
+          arguments: [null, Sto\UserBundle\Entity\RatingGroup, SonataAdminBundle:CRUD]
+
+    app.admin.user.user_gallery:
+          class: Sto\UserBundle\Admin\UserGalleryAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Галерея}
+          arguments: [null, Sto\UserBundle\Entity\UserGallery, SonataAdminBundle:CRUD]
+
+    app.admin.user.user:
+          class: Sto\UserBundle\Admin\UserAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Пользователи}
+          arguments: [null, Sto\UserBundle\Entity\User, SonataAdminBundle:CRUD]
