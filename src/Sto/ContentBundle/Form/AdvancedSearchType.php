@@ -11,7 +11,7 @@ class AdvancedSearchType extends AbstractType
     {
         $builder
             ->add('companyType', 'entity', [
-                'class' => 'StoCoreBundle:Dictionary\Company',
+                'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is null')
@@ -24,7 +24,7 @@ class AdvancedSearchType extends AbstractType
                 ]
             ])
             ->add('subCompanyType', 'entity', [
-                'class' => 'StoCoreBundle:Dictionary\Company',
+                'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is not null')

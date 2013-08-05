@@ -74,7 +74,7 @@ class CompanyType extends AbstractType
                 'label' => 'Услуги',
                 'multiple' => true,
                 'expanded' => true,
-                'class' => 'StoCoreBundle:Dictionary\Company',
+                'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is not null')
@@ -89,7 +89,7 @@ class CompanyType extends AbstractType
                 'label' => 'Основная специализация',
                 'multiple' => true,
                 'expanded' => true,
-                'class' => 'StoCoreBundle:Dictionary\Company',
+                'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is null')

@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CompanyAdmin extends Admin
+class DealTypeAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -18,14 +18,7 @@ class CompanyAdmin extends Admin
             ->add('id')
             ->add('shortName')
             ->add('name')
-            ->add('parent')
-            ->add('children')
             ->add('position')
-            ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
-            ->add('updatedAt')
-            ->add('autoServices')
         ;
     }
 
@@ -34,14 +27,7 @@ class CompanyAdmin extends Admin
         $formMapper
             ->add('shortName')
             ->add('name')
-            ->add('parent')
-            ->add('children')
             ->add('position')
-            ->add('iconMap', 'file')
-            ->add('iconSmall', 'file')
-            ->add('iconLarge', 'file')
-            ->add('updatedAt')
-            ->add('autoServices')
         ;
     }
 
@@ -49,9 +35,9 @@ class CompanyAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('shortName')
             ->addIdentifier('name')
-            ->addIdentifier('parent')
+            ->addIdentifier('shortName')
+            ->add('position')
         ;
     }
 
@@ -62,12 +48,6 @@ class CompanyAdmin extends Admin
             ->add('shortName')
             ->add('name')
             ->add('position')
-            ->add('parent')
-            ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
-            ->add('updatedAt')
-            ->add('autoServices')
         ;
     }
 }

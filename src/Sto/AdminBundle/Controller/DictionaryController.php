@@ -91,7 +91,7 @@ class DictionaryController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch ($request->get('dictionary')) {
             case 'company':
-                $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\CompanyType');
                 break;
             case 'deal':
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
@@ -115,7 +115,7 @@ class DictionaryController extends Controller
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\AutoServices');
                 break;
             default:
-                $repository = $em->getRepository('StoCoreBundle:Dictionary\Company');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\CompanyType');
                 break;
         }
 
@@ -141,7 +141,7 @@ class DictionaryController extends Controller
     {
         switch ($dictionary) {
             case 'company':
-                $form = $this->createForm(new DictionaryForm\CompanyType, new DictionaryEntity\Company);
+                $form = $this->createForm(new DictionaryForm\CompanyType, new DictionaryEntity\CompanyType);
                 break;
             case 'deal':
                 $form = $this->createForm(new DictionaryForm\DealType, new DictionaryEntity\Deal);
@@ -187,7 +187,7 @@ class DictionaryController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch ($dictionary) {
             case 'company':
-                $entity  = new DictionaryEntity\Company;
+                $entity  = new DictionaryEntity\CompanyType;
                 $form = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':
@@ -260,7 +260,7 @@ class DictionaryController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch ($dictionary) {
             case 'company':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\Company')->findOneById($id);
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\CompanyType')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':
@@ -320,7 +320,7 @@ class DictionaryController extends Controller
         $em = $this->getDoctrine()->getManager();
         switch ($dictionary) {
             case 'company':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\Company')->findOneById($id);
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\CompanyType')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':

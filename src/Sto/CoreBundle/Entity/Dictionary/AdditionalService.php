@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AdditionalService extends Base
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Company")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Company")
      */
     private $companies;
 }

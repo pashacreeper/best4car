@@ -17,7 +17,7 @@ class AutoServices extends Base
     private $code;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\CompanyType", cascade={"persist"})
      * @ORM\JoinTable(name="company_type_auto_service",
      *     joinColumns={@ORM\JoinColumn(name="auto_service_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="company_type_id", referencedColumnName="id")}

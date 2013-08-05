@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
- *     "company_type"       = "Company",
+ *     "company_type"       = "CompanyType",
  *     "deals_type"         = "Deal",
  *     "additional_service" = "AdditionalService",
  *     "work"               = "Work",

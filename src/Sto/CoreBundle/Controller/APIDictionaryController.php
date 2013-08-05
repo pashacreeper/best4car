@@ -110,7 +110,7 @@ class APIDictionaryController extends APIBaseController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary\Company')
+        $data = $em->getRepository('StoCoreBundle:Dictionary\CompanyType')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
             ->where('c.parent is null')
@@ -131,7 +131,7 @@ class APIDictionaryController extends APIBaseController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary\Company')
+        $data = $em->getRepository('StoCoreBundle:Dictionary\CompanyType')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
             ->where('c.parent = :companyType')

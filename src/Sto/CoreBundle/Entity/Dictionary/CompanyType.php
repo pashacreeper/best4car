@@ -13,7 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class Company extends Base
+class CompanyType extends Base
 {
     /**
      * @Assert\Image(

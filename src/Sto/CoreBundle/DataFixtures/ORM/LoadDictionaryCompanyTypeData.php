@@ -144,7 +144,7 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
         $k = 1;
         foreach ($organizationTypes as $key => $value) {
             foreach ($value as $name => $types) {
-                $dictionaryParent = (new Dictionary\Company)
+                $dictionaryParent = (new Dictionary\CompanyType)
                     ->setShortName($key)
                     ->setName($name)
                 ;
@@ -172,7 +172,7 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
 
                 if (!empty($types))
                     foreach ($types as $shortName => $typeName) {
-                        $dictionaryChildren = (new Dictionary\Company)
+                        $dictionaryChildren = (new Dictionary\CompanyType)
                             ->setShortName($shortName)
                             ->setName($typeName)
                             ->setParent($dictionaryParent)

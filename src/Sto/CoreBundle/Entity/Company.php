@@ -48,7 +48,7 @@ class Company
     private $web;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\CompanyType")
      * @ORM\JoinTable(name="company_dictionary_company_type_parrent",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -57,7 +57,7 @@ class Company
     private $specialization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Company")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\CompanyType")
      * @ORM\JoinTable(name="company_dictionary_company_type_children",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}

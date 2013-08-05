@@ -90,10 +90,10 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\AutoServices, SonataAdminBundle:CRUD]
 
     app.admin.company_type:
-          class: Sto\CoreBundle\Admin\Dictionary\CompanyAdmin
+          class: Sto\CoreBundle\Admin\Dictionary\CompanyTypeAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы организаций}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Company, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\CompanyType, SonataAdminBundle:CRUD]
 
     app.admin.contact_type:
           class: Sto\CoreBundle\Admin\Dictionary\ContactTypeAdmin
@@ -114,7 +114,7 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\Currency, SonataAdminBundle:CRUD]
 
     app.admin.deals_type:
-          class: Sto\CoreBundle\Admin\Dictionary\DealAdmin
+          class: Sto\CoreBundle\Admin\Dictionary\DealTypeAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы акций}
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\Deal, SonataAdminBundle:CRUD]

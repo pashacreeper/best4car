@@ -39,7 +39,7 @@ class CompanyType extends BaseType
                 'label' => 'dict.fields.parent',
                 'required' => false,
                 'render_optional_text' => false,
-                'class' => 'StoCoreBundle:Dictionary\Company',
+                'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'empty_value' => "Choise parent",
                 'empty_data' => null,
                 'query_builder' => function(EntityRepository $er) {
@@ -55,7 +55,7 @@ class CompanyType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\Company'
+            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\CompanyType'
         ]);
     }
 
