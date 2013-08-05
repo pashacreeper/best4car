@@ -2,9 +2,7 @@
 
 <form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} id="register-form">
     {{ form_errors(form) }}
-    <div class="contentLabel rowColumns">
-        {{ form_row(form.firstName) }}
-    </div>
+    {{ form_row(form.firstName) }}
     <p class="contentLabel">
         {{ form_label(form.username) }}
         {{ form_errors(form.username) }}

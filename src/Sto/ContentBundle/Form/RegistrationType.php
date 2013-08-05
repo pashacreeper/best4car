@@ -17,7 +17,7 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'inputFormEnter span4'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('username', 'text', [
