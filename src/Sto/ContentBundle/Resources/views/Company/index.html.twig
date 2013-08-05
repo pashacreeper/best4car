@@ -23,7 +23,8 @@
 
             myCollection.each(function(o) {
                 if(o.properties.get('id') == id) {
-                    o.balloon.open(myMap.getCenter());
+                    myMap.setCenter(o.geometry.getBounds()[0]);
+                    o.balloon.open(o.geometry.getBounds()[0]);
                     return;
                 }
             })
@@ -31,6 +32,7 @@
         $.getJSON(Routing.generate('api_get_companies')).done(function (companies) {
             renderMap(city, companies)
         });
+
         function renderMap (city, companies) {
             $('#map').empty();
             ymaps.ready(init(city, companies));
@@ -40,6 +42,63 @@
                     center: [city.split(",")[0], city.split(",")[1]],
                     zoom: oldZoom,
                     behaviors: ["default", "scrollZoom"]
+                });
+
+                var doAjax = function() {
+                    var aURL = null;
+                    var aData = null;
+                    if ($('#advancedSearch').is(':visible')){
+                        aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
+                        $('[data-serarch-form="responce-type"]').val("html");
+                        aData = $('#advanced-search-form').serialize();
+                        $('[data-serarch-form="responce-type"]').val("json");
+                    } else {
+                        aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: aURL,
+                        data: aData,
+                        success: function(html) {
+                            var root = $('#companiesListContainer');
+                            root.empty();
+                            root.append(html);
+                            root.jScrollPane({
+                                autoReinitialise: true,
+                            });
+                        },
+                        error: function(jqxhr, textStatus, errorThrown) {
+                            console.log(textStatus + ": " + errorThrown);
+                        }
+                    });
+                };
+
+
+                var mapWidth = $('#map').width()
+                // Показ компаний списком
+                $('#toggleCompaniesList').on("click", function(){
+                    var $this = $(this),
+                        defaultText = 'Показать списком',
+                        closeText = 'Скрыть',
+                        companiesList = $('#companiesList'),
+                        $map = $('#map');
+
+                    $this.parent().toggleClass('showLeftColumn');
+                    companiesList.toggle();
+                    if (companiesList.is(':hidden')) {
+                        $this.html(defaultText);
+                        $map.css('left', '0');
+                        $map.css('width', mapWidth);
+                        $.removeData($('#companiesListContainer'), 'jsp');
+                    } else {
+                        $this.html(closeText);
+                        $map.css('left', '380px');
+                        $map.css('width', mapWidth - 380);
+                        doAjax();
+                    }
+                    console.log(myMap.container.getSize());
+                    myMap.container.fitToViewport();
+                    console.log(myMap.container.getSize());
                 });
 
                 myCollection = new ymaps.GeoObjectCollection();

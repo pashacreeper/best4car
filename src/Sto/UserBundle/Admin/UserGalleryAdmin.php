@@ -23,8 +23,6 @@ class UserGalleryAdmin extends Admin
         ;
     }
 
-
-
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
