@@ -34,6 +34,11 @@ class RatingPoints
      */
     private $value;
 
+    public function __toString()
+    {
+        return (string) $this->getPointName();
+    }
+
     /**
      * Get id
      */

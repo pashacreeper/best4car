@@ -44,9 +44,10 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/sonata/, role: ROLE_ADMIN }
 
-    #role_hierarchy:
-    #    ROLE_REDACTOR:    ROLE_USER
-    #    ROLE_MODERATOR:   ROLE_USER
-    #    ROLE_ADMIN:       ROLE_MODERATOR
-    #    ROLE_SUPER_ADMIN: ROLE_ADMIN
+    role_hierarchy:
+        ROLE_REDACTOR:    ROLE_USER
+        ROLE_MODERATOR:   ROLE_USER
+        ROLE_ADMIN:       [ROLE_MODERATOR, ROLE_USER, ROLE_SONATA_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN

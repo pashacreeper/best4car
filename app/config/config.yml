@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: admin_services.yml }
 
 framework:
     #esi:             ~
@@ -264,3 +265,16 @@ hwi_oauth:
         max_redirects: 5
 
 knp_time: ~
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+
+sonata_admin:
+        title: Sto Admin

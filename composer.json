@@ -28,8 +28,7 @@
 
         "nelmio/api-doc-bundle": "2.2.0",
 
-        "knplabs/knp-menu": "2.0.*@dev",
-        "knplabs/knp-menu-bundle": "2.0.*@dev",
+        "knplabs/knp-menu-bundle": "1.1.*",
         "knplabs/knp-paginator-bundle": "2.3.*@dev",
         "knplabs/knp-time-bundle": "1.1.*@dev",
 
@@ -45,7 +44,13 @@
         "genemu/form-bundle": "2.1.*@dev",
         "gregwar/captcha-bundle": "dev-master",
 
-        "hwi/oauth-bundle": "*"
+        "hwi/oauth-bundle": "*",
+
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/intl-bundle": "dev-master",
+        "sonata-project/cache-bundle": "dev-master",
+        "sonata-project/block-bundle": "dev-master"
     },
     "require-dev": {
         "elao/web-profiler-extra-bundle": "2.3.*"
