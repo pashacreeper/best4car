@@ -55,7 +55,7 @@ class RegistrationType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'inputFormEnter span4'
+                    'class' => 'chzn-select span4'
                 ]
             ])
             ->add('captcha', 'captcha', [
