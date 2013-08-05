@@ -554,7 +554,7 @@ class DealController extends MainController
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
         if (!$feedback)
-            return new Responce(500, 'Feedback Not found.');
+            return new Response('Feedback Not found.', 500);
         $answer = new FeedbackAnswer();
         $answer->setAnswer($request->get('answer'));
         $answer->setOwner($this->getUser());

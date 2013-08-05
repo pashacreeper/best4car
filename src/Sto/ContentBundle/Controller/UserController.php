@@ -3,6 +3,7 @@
 namespace Sto\ContentBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -215,7 +216,7 @@ class UserController extends MainController
         $em = $this->getDoctrine()->getManager();
 
         if (!$this->getUser())
-            return new Responce(404, 'User Not found.');
+            return new Response('User Not found.', 404);
 
         $user = $this->getUser();
 
@@ -466,7 +467,7 @@ class UserController extends MainController
         if ($id == 0 && $this->getUser()) {
             $id = $this->getUser()->getId();
         } elseif ($id == 0 && $this->getUser()==null) {
-            return new Responce(404, 'User Not found.');
+            return new Response('User Not found.', 404);
         }
 
         $gallery = $em->getRepository('StoUserBundle:UserGallery')->findBy(['userId'=>$id]);
@@ -488,11 +489,11 @@ class UserController extends MainController
         $gallery = $em->getRepository('StoUserBundle:UserGallery')->findOneById($id);
 
         if (!$gallery) {
-            return new Responce(404, 'Image Not found.');
+            return new Response('Image Not found.', 404);
         }
 
         if ($gallery->getUser() != $this->getUser())
-            return new Responce(403, 'It\'s not your image!');
+            return new Response('It\'s not your image!', 403);
 
         $em->remove($gallery);
         $em->flush();
