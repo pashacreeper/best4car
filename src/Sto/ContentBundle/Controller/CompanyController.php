@@ -16,8 +16,6 @@ use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\AdvancedSearchType;
-use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class CompanyController extends MainController
 {
@@ -145,15 +143,7 @@ class CompanyController extends MainController
             ->getOneOrNullResult()
         ;
 
-        $refererRoute = null;
-        if ($referer = $request->headers->get('referer')) {
-            $urlParts = parse_url($referer);
-            try {
-                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
-                    $refererRoute = $routeParams['_route'];
-                }
-            } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}
-        }
+        $refererRoute = $this->getRefererRoute();
 
         return [
             'company' => $company,
@@ -352,7 +342,7 @@ class CompanyController extends MainController
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
         if (!$feedback)
-            return new Responce(500, 'Feedback Not found.');
+            return new Response('Feedback Not found.', 500);
         $answer = new FeedbackAnswer();
         $answer->setAnswer($request->get('answer'));
         $answer->setOwner($this->getUser());

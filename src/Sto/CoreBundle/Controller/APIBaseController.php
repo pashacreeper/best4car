@@ -47,6 +47,6 @@ class APIBaseController extends FOSRestController
         $em->remove($entity);
         $em->flush();
 
-        return new Response(200);
+        return new Response();
     }
 }

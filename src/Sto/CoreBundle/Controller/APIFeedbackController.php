@@ -337,7 +337,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
             if (!$feedback) {
-                return new Response(404, 'Not Found Feedback');
+                return new Response('Not Found Feedback', 404);
             }
 
             $feedback->setComplain(true);
@@ -354,7 +354,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
             if (!$answer) {
-                return new Response(404, 'Not Found answer');
+                return new Response('Not Found answer', 404);
             }
             $feedback_id = $answer->getFeedback()->getId();
             $answer->setComplain(true);
@@ -382,7 +382,7 @@ class APIFeedbackController extends FOSRestController
     {
         $serializer = $this->container->get('jms_serializer');
         if (!$request->get('type') )
-           return new Response(404, 'Not found parameter type');
+           return new Response('Not found parameter type', 404);
 
        if ($request->get('type') == 'feedback-id') {
 
@@ -391,11 +391,11 @@ class APIFeedbackController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
         if (!$feedback) {
-            return new Response(404, 'Not Found Feedback');
+            return new Response('Not Found Feedback', 404);
         }
 
         if (!$request->get('field') || !$request->get('value')) {
-            return new Response(404, 'Not Found Parameter');
+            return new Response('Not Found Parameter', 404);
         }
         if ($request->get('field') == 'Hidden') {
             $value = (($feedback->isHidden()) xor true);
@@ -416,11 +416,11 @@ class APIFeedbackController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
         if (!$answer) {
-            return new Response(404, 'Not Found answer');
+            return new Response('Not Found answer', 404);
         }
 
         if (!$request->get('field') || !$request->get('value')) {
-            return new Response(404, 'Not Found Parameter');
+            return new Response('Not Found Parameter', 404);
         }
         if ($request->get('field') == 'Hidden') {
             $value = (($answer->isHidden()) xor true);
@@ -453,7 +453,7 @@ class APIFeedbackController extends FOSRestController
     {
         $serializer = $this->container->get('jms_serializer');
         if (!$request->get('type') )
-            return new Response(404, 'Not found parameter type');
+            return new Response('Not found parameter type', 404);
 
         if ($request->get('type') == 'feedback-id') {
             $feedback_id = $request->get('id');
@@ -461,7 +461,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
             if (!$feedback) {
-                return new Response(404, 'Not Found Feedback');
+                return new Response('Not Found Feedback', 404);
             }
 
             $em->remove($feedback);
@@ -474,7 +474,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $answer = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
             if (!$answer) {
-                return new Response(404, 'Not Found answer');
+                return new Response('Not Found answer', 404);
             }
             $id = $answer->getFeedback()->getId();
             $em->remove($answer);
@@ -498,7 +498,7 @@ class APIFeedbackController extends FOSRestController
     {
         $serializer = $this->container->get('jms_serializer');
         if (!$request->get('type') )
-            return new Response(404, 'Not found parameter type');
+            return new Response('Not found parameter type', 404);
         if ($request->get('type') == 'feedback-id') {
 
             $feedback_id = $request->get('id');
@@ -506,7 +506,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
             if (!$feedback) {
-                return new Response(404, 'Not Found Feedback');
+                return new Response('Not Found Feedback', 404);
             }
         } else {
             $answer_id = $request->get('id');
@@ -514,7 +514,7 @@ class APIFeedbackController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $feedback = $em->getRepository('StoCoreBundle:FeedbackAnswer')->findOneById($answer_id);
             if (!$feedback) {
-                return new Response(404, 'Not Found FeedbackAnswer');
+                return new Response('Not Found FeedbackAnswer', 404);
             }
         }
 

@@ -15,8 +15,6 @@ use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
 use Sto\ContentBundle\Form\DealType;
-use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class DealController extends MainController
 {
@@ -416,15 +414,7 @@ class DealController extends MainController
             ;
         }
 
-        $refererRoute = null;
-        if ($referer = $request->headers->get('referer')) {
-            $urlParts = parse_url($referer);
-            try {
-                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
-                    $refererRoute = $routeParams['_route'];
-                }
-            } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}
-        }
+        $refererRoute = $this->getRefererRoute();
 
         $isManager = (isset($manager) && count($manager)>0) ? true : false;
 
@@ -554,7 +544,7 @@ class DealController extends MainController
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
         if (!$feedback)
-            return new Responce(500, 'Feedback Not found.');
+            return new Response('Feedback Not found.', 500);
         $answer = new FeedbackAnswer();
         $answer->setAnswer($request->get('answer'));
         $answer->setOwner($this->getUser());

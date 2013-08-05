@@ -6,11 +6,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\CoreBundle\Entity\Dictionary;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+
 class ChoiceCityController extends Controller
 {
+    public function getRefererRoute()
+    {
+        $request = $this->getRequest();
+        $refererRoute = null;
+        if ($referer = $request->headers->get('referer')) {
+            $urlParts = parse_url($referer);
+            try {
+                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                    $refererRoute = $routeParams['_route'];
+                }
+            } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}
+        }
+
+        return $refererRoute;
+    }
+
     public function preExecute()
     {
         $session = $this->getRequest()->getSession();
+        $route = $this->getRequest()->get('_route');
+        if ($route != 'user-vk-accounting'  && $route != 'user_vk_account_save') {
+            $session->set('last_route', $route);
+        }
         $serializer = $this->container->get('jms_serializer');
         if ($session->has('city')) {
             $city = $serializer->deserialize($session->get('city'),'Sto\CoreBundle\Entity\Dictionary\Country','json');

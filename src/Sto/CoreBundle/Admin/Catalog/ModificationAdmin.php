@@ -18,7 +18,7 @@ class ModificationAdmin extends Admin
             ->add('id')
             ->add('name')
             ->add('parent')
-            ->add('uri')    
+            ->add('uri')
             ->add('visible')
             ->add('numberOfDoors')
             ->add('engine')

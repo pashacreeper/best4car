@@ -49,14 +49,14 @@ class DictionaryController extends Controller
         $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('pk'));
 
         if (!$entity) {
-            return new Response(500, 'Dictionary Not found.');
+            return new Response('Dictionary Not found.', 500);
         }
 
         $entity->setName($request->get('value'));
         $em->persist($entity);
         $em->flush();
 
-        return new Response(200);
+        return new Response();
     }
 
     /**
@@ -71,13 +71,13 @@ class DictionaryController extends Controller
         $entity = $em->getRepository('StoCoreBundle:Dictionary\Base')->findOneById($request->get('id'));
 
         if (!$entity) {
-            return new Response(500, 'Dictionary Not found.');
+            return new Response('Dictionary Not found.', 500);
         }
 
         $em->remove($entity);
         $em->flush();
 
-        return new Response(200);
+        return new Response();
     }
 
     /**
@@ -418,7 +418,7 @@ class DictionaryController extends Controller
         $entity = $em->getRepository('StoCoreBundle:Dictionary\DealType')->findOneById($request->get('id'));
 
         if (!$entity) {
-            return new Response(500, 'Dictionary Not found.');
+            return new Response('Dictionary Not found.', 500);
         }
 
         $action = $request->get('action');
@@ -433,7 +433,7 @@ class DictionaryController extends Controller
             $query->where('dictionary.position > :current_position')
             ->orderBy('dictionary.position', 'ASC');
         } else {
-            return new Response(500, 'Action "'.$action.'" is not a position action.');
+            return new Response('Action "'.$action.'" is not a position action.', 500);
         }
 
         $item = $query ->setParameter('current_position', $entity->getPosition())
@@ -443,7 +443,7 @@ class DictionaryController extends Controller
         ;
 
         if (!$item[0])
-            return new Response(500, 'Dictionary Not found.');
+            return new Response('Dictionary Not found.', 500);
 
         $buf_position = $entity->getPosition();
         $entity->setPosition($item[0]->getPosition());
