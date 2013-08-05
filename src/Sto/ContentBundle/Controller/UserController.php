@@ -348,7 +348,12 @@ class UserController extends MainController
             ];
         }
 
-        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        $redirectUrl = 'fos_user_profile_show';
+        if ($this->getRequest()->getSession()->get('last_route') == 'registration_company_owner') {
+            $redirectUrl = 'add_company';
+        }
+
+        return $this->redirect($this->generateUrl($redirectUrl));
     }
 
     /**
@@ -378,7 +383,12 @@ class UserController extends MainController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('fos_user_profile_show'));
+            $redirectUrl = 'fos_user_profile_show';
+            if ($this->getRequest()->getSession()->get('last_route') == 'registration_company_owner') {
+                $redirectUrl = 'add_company';
+            }
+
+            return $this->redirect($this->generateUrl($redirectUrl));
         }
 
         return [

@@ -67,6 +67,7 @@ class CompanyManager
         if ($this->getUser()) {
             return (string) $this->getUser();
         }
+
         return '';
     }
 
