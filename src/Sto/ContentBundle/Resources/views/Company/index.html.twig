@@ -93,7 +93,7 @@
                         var val = companies[key];
 
                         var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
-                        var iconSize = (sel == val.id)? [60,42]: [40,28];
+                        var iconSize = (sel == val.id)? [60,42]: [34,45];
                         var vid = val.id;
 
                         var img;
