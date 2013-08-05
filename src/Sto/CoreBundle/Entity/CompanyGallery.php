@@ -75,6 +75,11 @@ class CompanyGallery
         $this->visible = false;
     }
 
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
+
     /**
      * Get id
      */

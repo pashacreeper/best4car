@@ -62,6 +62,14 @@ class CompanyManager
         }
     }
 
+    public function __toString()
+    {
+        if ($this->getUser()) {
+            return (string) $this->getUser();
+        }
+        return '';
+    }
+
     /**
      * Get id
      *
