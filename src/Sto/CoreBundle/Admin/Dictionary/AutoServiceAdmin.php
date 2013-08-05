@@ -32,7 +32,6 @@ class AutoServiceAdmin extends Admin
             ->add('shortName')
             ->add('name')
             ->add('parent')
-            ->add('children')
             ->add('position')
             ->add('code')
             ->add('companyType')
@@ -43,7 +42,6 @@ class AutoServiceAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('shortName')
             ->addIdentifier('name')
             ->addIdentifier('parent')
         ;

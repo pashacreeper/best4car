@@ -66,11 +66,21 @@ class CompanyAdmin extends Admin
             ->add('slogan')
             ->add('fullName')
             ->add('web')
-            ->add('specialization')
-            ->add('services')
-            ->add('additionalServices')
-            ->add('autoServices')
-            ->add('logo', 'file')
+            ->add('specialization', null, array(
+                'required' => false,
+            ))
+            ->add('services', null, array(
+                'required' => false,
+            ))
+            ->add('additionalServices', null, array(
+                'required' => false,
+            ))
+            ->add('autoServices', null, array(
+                'required' => false,
+            ))
+            ->add('logo', 'file', array(
+                'required' => false,
+            ))
             // ->add('workingTime')
             // ->add('phones')
             ->add('skype')
@@ -82,24 +92,28 @@ class CompanyAdmin extends Admin
             ->add('socialNetworks')
             ->add('rating')
             ->add('reviews')
-            ->add('deals')
             ->add('description')
-            ->add('subscribable')
+            ->add('subscribable', null, array(
+                'required' => false,
+            ))
             ->add('hourPrice')
             ->add('currency')
             ->add('administratorContactInfo')
-            ->add('visible')
+            ->add('visible', null, array(
+                'required' => false,
+            ))
             ->add('notes')
-            ->add('groups')
-            ->add('gallery')
+            ->add('groups', null, array(
+                'required' => false,
+            ))
             ->add('updatedAt')
             ->add('city')
-            ->add('autos')
+            ->add('autos', null, array(
+                'required' => false,
+            ))
             ->add('linkVK')
             ->add('linkTW')
             ->add('linkFB')
-            ->add('companyManager')
-            ->add('contacts')
         ;
     }
 
@@ -135,7 +149,6 @@ class CompanyAdmin extends Admin
             ->add('socialNetworks')
             ->add('rating')
             ->add('reviews')
-            ->add('deals')
             ->add('description')
             ->add('subscribable')
             ->add('hourPrice')

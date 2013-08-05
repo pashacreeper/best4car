@@ -36,7 +36,6 @@ class WorkAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->addIdentifier('name')
-            ->addIdentifier('shortName')
             ->add('description')
         ;
     }

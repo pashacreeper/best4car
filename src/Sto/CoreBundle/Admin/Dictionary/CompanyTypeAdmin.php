@@ -35,7 +35,6 @@ class CompanyTypeAdmin extends Admin
             ->add('shortName')
             ->add('name')
             ->add('parent')
-            ->add('children')
             ->add('position')
             ->add('iconMap', 'file')
             ->add('iconSmall', 'file')
