@@ -94,7 +94,7 @@ class DictionaryController extends Controller
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\CompanyType');
                 break;
             case 'deal':
-                $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\DealType');
                 break;
             case 'service':
                 $repository = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService');
@@ -144,7 +144,7 @@ class DictionaryController extends Controller
                 $form = $this->createForm(new DictionaryForm\CompanyType, new DictionaryEntity\CompanyType);
                 break;
             case 'deal':
-                $form = $this->createForm(new DictionaryForm\DealType, new DictionaryEntity\Deal);
+                $form = $this->createForm(new DictionaryForm\DealType, new DictionaryEntity\DealType);
                 break;
             case 'service':
                 $form = $this->createForm(new DictionaryForm\ServiceType, new DictionaryEntity\AdditionalService);
@@ -191,8 +191,8 @@ class DictionaryController extends Controller
                 $form = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':
-                $entity  = new DictionaryEntity\Deal;
-                $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
+                $entity  = new DictionaryEntity\DealType;
+                $repository = $em->getRepository('StoCoreBundle:Dictionary\DealType');
                 $item = $repository->createQueryBuilder('d')
                     ->orderBy('d.position', 'DESC')
                     ->setMaxResults(1)
@@ -264,7 +264,7 @@ class DictionaryController extends Controller
                 $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($id);
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\DealType')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\DealType, $entity);
                 break;
             case 'service':
@@ -324,7 +324,7 @@ class DictionaryController extends Controller
                 $editForm = $this->createForm(new DictionaryForm\CompanyType, $entity);
                 break;
             case 'deal':
-                $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($id);
+                $entity = $em->getRepository('StoCoreBundle:Dictionary\DealType')->findOneById($id);
                 $editForm = $this->createForm(new DictionaryForm\DealType, $entity);
                 break;
             case 'service':
@@ -415,7 +415,7 @@ class DictionaryController extends Controller
     public function changeDealPositionAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Dictionary\Deal')->findOneById($request->get('id'));
+        $entity = $em->getRepository('StoCoreBundle:Dictionary\DealType')->findOneById($request->get('id'));
 
         if (!$entity) {
             return new Response(500, 'Dictionary Not found.');
@@ -423,7 +423,7 @@ class DictionaryController extends Controller
 
         $action = $request->get('action');
 
-        $repository = $em->getRepository('StoCoreBundle:Dictionary\Deal');
+        $repository = $em->getRepository('StoCoreBundle:Dictionary\DealType');
         $query = $repository->createQueryBuilder('dictionary');
 
         if ($action == 'up') {
@@ -451,8 +451,8 @@ class DictionaryController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        $query = $repository->createQueryBuilder('StoCoreBundle:Dictionary\Deal');
-        $query->update('StoCoreBundle:Dictionary\Deal','d')
+        $query = $repository->createQueryBuilder('StoCoreBundle:Dictionary\DealType');
+        $query->update('StoCoreBundle:Dictionary\DealType','d')
             ->set('d.position', '?1')
             ->where('d.id = ?2')
             ->setParameter(1, $buf_position)

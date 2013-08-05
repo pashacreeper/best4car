@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
  *     "company_type"       = "CompanyType",
- *     "deals_type"         = "Deal",
+ *     "deals_type"         = "DealType",
  *     "additional_service" = "AdditionalService",
  *     "work"               = "Work",
  *     "currency"           = "Currency",

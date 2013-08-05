@@ -290,7 +290,7 @@ class DealController extends MainController
             ->getResult()
         ;
 
-        $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\Deal')
+        $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\DealType')
             ->createQueryBuilder('dictionary')
             ->select('dictionary, deals')
             ->join('dictionary.deals', 'deals')

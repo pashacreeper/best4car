@@ -117,7 +117,7 @@ services:
           class: Sto\CoreBundle\Admin\Dictionary\DealTypeAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы акций}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Deal, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Dictionary\DealType, SonataAdminBundle:CRUD]
 
     app.admin.price_level:
           class: Sto\CoreBundle\Admin\Dictionary\PriceLevelAdmin

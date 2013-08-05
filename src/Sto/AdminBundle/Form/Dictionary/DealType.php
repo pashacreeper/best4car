@@ -16,7 +16,7 @@ class DealType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\Deal'
+            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\DealType'
         ]);
     }
 

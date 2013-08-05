@@ -21,7 +21,7 @@ class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixt
         ];
 
         foreach ($works as $key => $name) {
-            $dictionary = (new Dictionary\Deal)
+            $dictionary = (new Dictionary\DealType)
                 ->setName($name)
                 ->setPosition($key)
             ;
