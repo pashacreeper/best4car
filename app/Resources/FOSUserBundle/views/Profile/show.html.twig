@@ -26,7 +26,8 @@
         <span class="you">Вы:</span>
         <div class="nameProfilExpert">
             <p class="titleProfilExpert">
-                <span>{{ user.firstName }}, {{ user.username }}</span><i class="editIcon"></i>
+                <span>{{ user.firstName }}, {{ user.username }}</span>
+                <a href="{{ path('fos_user_profile_edit') }}"><i class="editIcon"></i></a>
             </p>
             {% spaceless %}
                 <p class="sloganCompany">
