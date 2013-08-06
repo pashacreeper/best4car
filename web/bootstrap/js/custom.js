@@ -68,6 +68,20 @@ var mainLayout = function(){
         $.get(Routing.generate('fos_user_resetting_request'), function(data){
             $resettingContainer.append(data);
         });
+
+        $resettingContainer.on('submit', 'form', function(e){
+            e.preventDefault();
+            var $this = $(this);
+
+            $.ajax({
+                type: "POST",
+                url: $this.attr('action'),
+                data: $this.serialize(),
+                success: function(responce) {
+                    $resettingContainer.html(responce);
+                }
+            });
+        });
     });
 
     // Подстановка значений в строку поиска

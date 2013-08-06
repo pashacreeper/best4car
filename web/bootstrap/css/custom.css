@@ -481,3 +481,8 @@ a.btnNext:hover{
 .cityChoicer{
     margin-bottom: 30px;
 }
+
+.popupP{
+    font-size: 1.3em;
+    margin-top: 10px;
+}

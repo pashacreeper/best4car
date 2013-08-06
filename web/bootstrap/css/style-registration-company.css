@@ -137,24 +137,30 @@ body{
 .update span i{
 	margin-top: 2px;
 }
-.btnNext{
+.bttn, .btnNext{
 	border-radius: 4px;
 	font: 1.6em 'PT Sans', sans;
 	color: #f6f6f6;
+	cursor: pointer;
+	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+	position: relative;
+	text-align: center;
+}
+.btnNext{
 	display: inline-block;
 	width: 160px;
 	height: 48px;
 	line-height: 48px;
 	vertical-align: middle;
 	text-decoration: none;
-	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	cursor: pointer;
-	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
-	position: relative;
-	text-align: center;
 	float: right;
+}
+.bttn{
+	margin-top: 10px;
+	padding: 5px 10px;
 }
 .maskInput{
 	float: left;
