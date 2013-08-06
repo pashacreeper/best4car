@@ -10,7 +10,11 @@
     <div class="content" data-tab-id="#information">
     <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
         {{ form_row(form.firstName) }}
-        {{ form_row(form.email) }}
+        <div>
+            {{ form_label(form.email) }}
+            <p style="padding-bottom:5px;">Данный емайл используется для входа на сайт и не отображается в вашем профиле.</p>
+            {{ form_widget(form.email) }}
+        </div>
         {{ form_row(form.phoneNumber) }}
         <p class="contentLabel clear">
             {{ form_label(form.birthDate) }}

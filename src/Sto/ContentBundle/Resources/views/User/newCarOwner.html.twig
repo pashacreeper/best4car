@@ -2,9 +2,7 @@
 
 <form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} id="register-form">
     {{ form_errors(form) }}
-    <div class="contentLabel rowColumns">
-        {{ form_row(form.firstName) }}
-    </div>
+    {{ form_row(form.firstName) }}
     <p class="contentLabel">
         {{ form_label(form.username) }}
         {{ form_errors(form.username) }}
@@ -16,7 +14,7 @@
         {{ form_widget(form.email) }}
     </p>
     <div class="contentLabel rowColumns">{{ form_row(form.plainPassword) }}</div>
-    <p class="contentLabel">
+    <p class="contentLabel contentLabelNoOverflow">
         {{ form_label(form.city) }}
         {{ form_errors(form.city) }}
         {{ form_widget(form.city) }}
@@ -40,3 +38,6 @@
         </li>
     </ul>
 </div>
+<script>
+    (function(){$('.chzn-select').chosen();})();
+</script>

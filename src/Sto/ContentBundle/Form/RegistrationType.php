@@ -17,7 +17,7 @@ class RegistrationType extends BaseType
                 'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'inputFormEnter span4'
+                    'class' => 'inputFormEnter span6'
                 ]
             ])
             ->add('username', 'text', [
@@ -55,7 +55,7 @@ class RegistrationType extends BaseType
                     ;
                 },
                 'attr' => [
-                    'class' => 'inputFormEnter span4'
+                    'class' => 'chzn-select span4'
                 ]
             ])
             ->add('captcha', 'captcha', [

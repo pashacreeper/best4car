@@ -96,10 +96,6 @@
             <div class="infoProfilExpertWrap">
                 <h4 class="contactData"><span>Контактные данные</span><i class="editIcon"></i></h4>
                 <div class="infoProfilItem">
-                {% if user.email %}
-                    <p class="infoCompanyAddTitle contentText">E-mail:</p>
-                    <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-                {% endif %}
                 {% if user.linkVK %}
                     <p class="infoCompanyAddTitle contentText">VKontakte:</p>
                     <p class="infoCompanyDescription"><a class="linkContact" href="http://vk.com/{{ user.linkVK }}" target="_blank">{{ user.linkVK }}</a></p>
