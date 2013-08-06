@@ -49,7 +49,7 @@
                     {{ form_errors(cForm.name) }}
                     {{ form_row(cForm.slogan) }}
                     {{ form_errors(cForm.slogan) }}
-                    <p class="contentLabel clear">
+                    <div class="contentLabel clear">
                         {{ form_label(cForm.createtDate) }}
                         <div id="datetimepicker1" class="input-append">
                             {{ form_widget(cForm.createtDate) }}
@@ -58,12 +58,13 @@
                                 </i>
                             </span>
                         </div>
-                    </p>
+                    </div>
                     {{ form_errors(cForm.createtDate) }}
-                    <p class="contentLabelNoOverflow">
+                    <div class="contentLabelNoOverflow">
                         {{ form_label(cForm.city) }}
                         {{ form_widget(cForm.city) }}
-                    </p>
+                    </div>
+                    <br>
                     <div class="addLogo clear">
                         {{ form_label(cForm.logo) }}
                         <div class="addLogoImgWrap">
@@ -72,7 +73,7 @@
                         <div class="adminBlockImg span6">
                             {{ form_widget(cForm.logo) }}
                             <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
-                            <p class="additionalInfo">Логотип должен быть вписан в квадрат с белым фоном</br>Формат: JPEG, PNG, GIF не более 1Мб</p>
+                            <p class="additionalInfo">Формат: JPEG, PNG, GIF не более 1Мб</p>
                         </div>
                     </div>
                 </div>
