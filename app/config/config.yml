@@ -243,7 +243,8 @@ gregwar_captcha:
     width:  200
     height: 50
     length: 5
-    image_folder: /%storage_path%/captcha
+    as_url: true
+    image_folder: %storage_path%/captcha
 
 hwi_oauth:
     resource_owners:
