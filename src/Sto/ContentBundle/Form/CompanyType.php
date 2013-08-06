@@ -71,7 +71,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('services', 'entity', [
-                'label' => 'Услуги',
+                'label' => 'Подтип компании',
                 'multiple' => true,
                 'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\CompanyType',
