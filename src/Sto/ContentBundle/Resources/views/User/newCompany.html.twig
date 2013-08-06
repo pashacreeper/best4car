@@ -238,16 +238,24 @@
             <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
             {{ form_row(cForm.gallery) }}
             <script>
-                var photoCollectionHolder = $('#photoAddWrapper');
-                var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-                var $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+                var photoCollectionHolder = $('#photoAddWrapper'),
+                    $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>'),
+                    $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+
                 jQuery(document).ready(function() {
                     photoCollectionHolder.append($photoNewLink);
                     photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
 
                     $photoAddTagLink.on('click', function(e) {
                         e.preventDefault();
-                        addTagForm(photoCollectionHolder, $photoNewLink, true);
+                        $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                        addTagForm(photoCollectionHolder, $photoNewLink, true, $deleteLink);
+                    });
+                });
+
+                jQuery(document).ready(function() {
+                    $('#photoAddWrapper').on('click', '.deleteElement', function(){
+                        $(this).parent().remove();
                     });
                 });
             </script>
@@ -336,7 +344,10 @@
             });
         });
 
-        function addTagForm(collectionHolder, $newLink, isUnwrap) {
+        function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
+
+            deleteLink = typeof deleteLink !== 'undefined' ? deleteLink : false;
+
             var prototype = collectionHolder.data('prototype');
             var index = collectionHolder.data('index');
             var newForm = prototype.replace(/__name__/g, index);
@@ -357,6 +368,10 @@
                         pickDate: false
                     });
                 });
+            }
+
+            if (deleteLink) {
+                $newForm.append(deleteLink);
             }
 
             collectionHolder.data('index', index + 1);
