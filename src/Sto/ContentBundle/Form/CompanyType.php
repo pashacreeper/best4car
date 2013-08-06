@@ -39,7 +39,7 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2 input-large'
+                    'class' => 'chzn-select input-large'
                 ]
             ])
             ->add('address', null, [

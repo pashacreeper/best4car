@@ -60,8 +60,10 @@
                         </div>
                     </p>
                     {{ form_errors(cForm.createtDate) }}
-                    {{ form_row(cForm.city) }}
-                    {{ form_errors(cForm.city) }}
+                    <p class="contentLabelNoOverflow">
+                        {{ form_label(cForm.city) }}
+                        {{ form_widget(cForm.city) }}
+                    </p>
                     <div class="addLogo clear">
                         {{ form_label(cForm.logo) }}
                         <div class="addLogoImgWrap">
@@ -275,6 +277,9 @@
     </div>
     <script>
         $(document).ready(function(){
+
+            (function(){$('.chzn-select').chosen();})();
+
             ymaps.ready(init);
             var gCollection;
             var gps;
