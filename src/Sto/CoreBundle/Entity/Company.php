@@ -151,7 +151,7 @@ class Company
     /**
      * @ORM\Column(name="rating", type="float", nullable=true)
      */
-    private $rating;
+    private $rating = 0;
 
     /**
      * @ORM\Column(name="reviews", type="string", length=255, nullable=true)

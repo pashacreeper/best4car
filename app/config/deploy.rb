@@ -47,3 +47,8 @@ set :hipchat_room_name, "Github"
 set :hipchat_announce, false # notify users
 set :hipchat_color, 'purple' # finished deployment message color
 set :hipchat_failed_color, 'red' # cancelled deployment message color
+
+# cron job
+require "whenever/capistrano"
+set :whenever_variables, ""
+set :whenever_command, "whenever --load-file app/config/schedule.rb --set environment=#{symfony_env_prod}"
