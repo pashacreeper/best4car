@@ -45,10 +45,18 @@ class DealAdmin extends Admin
                 'required' => true
             ))
             ->add('company')
-            ->add('services')
-            ->add('image', 'file')
-            ->add('image2', 'file')
-            ->add('image3', 'file')
+            ->add('services', null, array(
+                'required' => false
+            ))
+            ->add('image', 'file', array(
+                'required' => false
+            ))
+            ->add('image2', 'file', array(
+                'required' => false
+            ))
+            ->add('image3', 'file', array(
+                'required' => false
+            ))
             ->add('terms')
             ->add('startDate', 'date')
             ->add('endDate', 'date')
@@ -58,9 +66,15 @@ class DealAdmin extends Admin
             ->add('gps')
             ->add('contactInformation')
             ->add('type')
-            ->add('draft')
-            ->add('auto')
-            ->add('autoServices')
+            ->add('draft', null, array(
+                'required' => false
+            ))
+            ->add('auto', null, array(
+                'required' => false
+            ))
+            ->add('autoServices', null, array(
+                'required' => false
+            ))
         ;
     }
 

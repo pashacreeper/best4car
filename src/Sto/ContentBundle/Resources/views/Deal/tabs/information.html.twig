@@ -1,22 +1,40 @@
 <div class="leftContent">
-    {% if deal.auto | length > 0 %}
     <div class="slider">
         <div class="img__prev__wrap">
             <ul id="thumbnail" class="slide-wrap">
+                {% set titles = [] %}
                 {% for auto in deal.auto %}
-                    <li class="slide-item">
-                        <a href="#" class="linh__img__prev">
-                            <p class="nameActionP">{{ auto.name }}</p>
-                            <img src="http://placehold.it/500x279" alt="{{ auto.name }}">
-                        </a>
-                    </li>
+                    {% set titles = titles|merge([auto.name]) %}
                 {% endfor %}
+                {% if deal.imageName %}
+                <li class="slide-item">
+                    <a href="#" class="linh__img__prev">
+                        <p class="nameActionP">{{ titles ? random(titles) : deal.name }}</p>
+                        <img src="{{ vich_uploader_asset(deal,'image') | imagine_filter('deals_carusel_photos') }}" alt="{{ titles ? random(titles) : deal.name }}">
+                    </a>
+                </li>
+                {% endif %}
+                {% if deal.imageName2 %}
+                <li class="slide-item">
+                    <a href="#" class="linh__img__prev">
+                        <p class="nameActionP">{{ titles ? random(titles) : deal.name }}</p>
+                        <img src="{{ vich_uploader_asset(deal,'image2') | imagine_filter('deals_carusel_photos') }}" alt="{{ titles ? random(titles) : deal.name }}">
+                    </a>
+                </li>
+                {% endif %}
+                {% if deal.imageName3 %}
+                <li class="slide-item">
+                    <a href="#" class="linh__img__prev">
+                        <p class="nameActionP">{{ titles ? random(titles) : deal.name }}</p>
+                        <img src="{{ vich_uploader_asset(deal,'image3') | imagine_filter('deals_carusel_photos') }}" alt="{{ titles ? random(titles) : deal.name }}">
+                    </a>
+                </li>
+                {% endif %}
             </ul>
             <span name="prev" class="navy prev-slide"></span>
             <span name="next" class="navy next-slide"></span>
         </div>
     </div>
-    {% endif %}
     <div class="servicesSpecialisationWrap">
     {% if deal.description %}
         <p class="servicesSpecialisationTitle titleH2">Об акции</p>
