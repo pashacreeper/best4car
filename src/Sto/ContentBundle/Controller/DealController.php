@@ -479,7 +479,7 @@ class DealController extends MainController
     /**
      * @Route("/deal/{id}/feedback/{feedbackId}/edit", name="content_deal_feedbacks_edit", options={"expose"=true})
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
-     * @Template("StoContentBundle:Deal:addFeedback.html.twig")
+     * @Template("StoContentBundle:Deal:editFeedback.html.twig")
      */
     public function editFeedbackAction(Deal $deal,$feedbackId)
     {
@@ -504,7 +504,7 @@ class DealController extends MainController
      * @Route("/deal/{id}/feedback/{feedbackId}/update", name="content_deal_feedbacks_update")
      * @Method("POST")
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
-     * @Template("StoContentBundle:Deal:addFeedback.html.twig")
+     * @Template("StoContentBundle:Deal:editFeedback.html.twig")
      */
     public function updateFeedbackAction(Request $request, Deal $deal,$feedbackId)
     {
@@ -522,7 +522,7 @@ class DealController extends MainController
             $em->persist($feedback);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]));
+            return $this->redirect($this->generateUrl('content_deal_show', ['id' => $deal->getId()]) . '#feedbacks');
         }
 
         return [

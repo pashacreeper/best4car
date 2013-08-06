@@ -39,7 +39,7 @@
         <div class="leftContent">
 
             {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
-            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }}>
+            <form action="{{ path('content_deal_feedbacks_update', { 'id': deal.id, 'feedbackId': feedback.id }) }}" method="post" {{ form_enctype(form) }}>
                 <div class="contentLabel marginBottom">
                     <label class="spanFloatLeft">Ваша оценка акции: </label>
                     {{ form_widget(form.feedbackRating) }}
