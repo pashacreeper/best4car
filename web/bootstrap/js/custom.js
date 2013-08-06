@@ -11,9 +11,6 @@ var mainLayout = function(){
     $('.enter').click(function() {
         $('.enterDropdown').toggle();
     }); 
-    $('.btnEnter').click(function() {
-        $('.enterDropdown').hide();
-    });
     // User menu
     $('.userDropdown').hide();
     $('.btnUser').click(function() {

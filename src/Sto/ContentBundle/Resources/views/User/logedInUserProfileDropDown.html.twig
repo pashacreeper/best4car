@@ -47,21 +47,31 @@
     </div>
 </div>
 {% else %}
-    <div id="accountUnIdentified" class="accountCont">
+<div id="accountUnIdentified" class="accountCont">
     <span class="enter">Войти в профиль<i class="iconarrow"></i></span>
     <a href="#" class="registration regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
-    <div class="enterDropdown">
-        {% render controller('StoUserBundle:User:userLogin') %}
-        <div class="enterCocial">
-            <span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
-            <ul class="enterCocialIcon">
-                <li class="enterCocialIconItem">
-                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
-                </li>
-            </ul>
-        </div>
-        <a href="#" class="primaryLink regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
-        <div id="myCanvasTop" class="myCanvasTop"></div>
-    </div>
+    <div id="loginFormWrapper">{% render controller('StoUserBundle:User:userLogin') %}</div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#accountUnIdentified').on('submit', 'form', function(e){
+            e.preventDefault();
+            var $this = $(this),
+                $loginFormWrapper = $('#loginFormWrapper');
+
+            $.ajax({
+                type: "POST",
+                url: $this.attr('action'),
+                data: $this.serialize(),
+                success: function(responce) {
+                    if (responce.indexOf('<!DOCTYPE HTML>') == 0) {
+                        window.location.reload();
+                    } else {
+                        $loginFormWrapper.html(responce);
+                    }
+                }
+            });
+        });
+    });
+</script>
 {% endif %}

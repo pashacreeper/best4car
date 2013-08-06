@@ -1,53 +1,42 @@
-{% extends 'StoContentBundle::layout.html.twig' %}
 {% from 'StoContentBundle::flash.html.twig' import flash %}
 
-{% block css %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-action.css') }}">
-{% endblock %}
+<div class="enterDropdown">
+    <p class="popUpTitle">Войти в профиль</p>
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% if error is defined %}
+        {{ flash('error', 'login.alerts.wrong_pass' | trans, true, true) }}
+        {% endif %}
+        {% if app.session.started %}
+            {% if is_expr_granted("hasRole('ROLE_FROZEN')") %}
+            {{ flash('error', 'Ваш аккаунт заблокирован !', true, true) }}
+            {% endif %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-{% block content %}
-<section class="contentMain">
-    <div class="centerContainerWrapper">
-    {% block fos_user_content %}
-        <div class="span6 offset3 well">
-            <h2>Вход</h2>
-            <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
-                {% if error %}
-                {{ flash('error', 'login.alerts.wrong_pass' | trans, true, true) }}
-                {% endif %}
-                {% if app.session.started %}
-                    {% if is_expr_granted("hasRole('ROLE_FROZEN')") %}
-                    {{ flash('error', 'Ваш аккаунт заблокирован !', true, true) }}
-                    {% endif %}
-                    {% for flashMessage in app.session.flashbag.get('notice') %}
-                        <div class="alert alert-success">
-                            {{ flashMessage }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                
-                <p class="contentLabel">
-                    <label>Имя пользователя</label>
-                    <input type="text" class="inputFormEnter span6" id="username" name="_username" value="{{ last_username }}" />                   
-                </p>
-                <p class="contentLabel">
-                    <label>Пароль</label>
-                    <input type="password" class="inputFormEnter span6" id="password" name="_password" />
-                </p>
-                <button type="submit" class="btnEnter">Войти</button>
-                <ul class="enterCocialIcon">
-                    <li class="enterCocialIconItem">
-                    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
-                    </li>
-                </ul>
-            </form>
-            <div class="clear">
-                <p style="font-size: 1.2em;"><a href="{{ path('fos_user_resetting_request') }}">забыли пароль</a></p>
-            </div>
-        </div>
-    {% endblock fos_user_content %}
+        <p class="contentLabel">
+            <label for="username">Email</label>
+            <input type="text" id="username" name="_username" required="required" class="inputFormEnter" />
+        </p>
+        <p class="contentLabel">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="_password" required="required" class="inputFormEnter" />
+        </p>
+        <input class="btnEnter" type="submit" id="_submit" name="_submit" value="Войти" />
+        <a data-reveal-id="resetting-popup" href="#" data-href="{{ path('fos_user_resetting_request') }}" class="secondaryLink forgotPass" id="resettingPassword">Забыли пароль?</a>
+    </form>
+    <div class="enterCocial">
+        <span class="popUpTitle2">Войти используя аккаунт соц. сетей</span>
+        <ul class="enterCocialIcon">
+            <li class="enterCocialIconItem">
+                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte" class="vk-blue">Вконтакте</a>
+            </li>
+        </ul>
     </div>
-</section>
-{% endblock %}
+    <a href="#" class="primaryLink regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
+    <div id="myCanvasTop" class="myCanvasTop"></div>
+</div>
