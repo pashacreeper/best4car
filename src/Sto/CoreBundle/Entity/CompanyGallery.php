@@ -46,9 +46,9 @@ class CompanyGallery
     protected $imageName;
 
     /**
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
      */
-    private $visible;
+    private $visible = 1;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)

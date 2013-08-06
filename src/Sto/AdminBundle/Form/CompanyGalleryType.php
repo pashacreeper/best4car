@@ -29,12 +29,6 @@ class CompanyGalleryType extends AbstractType
                     'placeholder' => 'Описание'
                 ]
             ])
-            ->add('visible', null, [
-                'label' => false,
-                'required' => false,
-                'render_optional_text' => false
-            ])
-
         ;
     }
 
