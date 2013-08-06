@@ -30,7 +30,9 @@ class CompanyGalleryAdmin extends Admin
             ->add('name', null, array(
                 'required' => true
             ))
-            ->add('image', 'file')
+            ->add('image', 'file', array(
+                'required' => false
+            ))
             ->add('visible')
             ->add('updatedAt')
             ->add('company')

@@ -208,7 +208,7 @@ liip_imagine:
         company_gallery_filter:
             quality: 100
             filters:
-                relative_resize: { widen: 150 }
+                thumbnail: { size: [500, 279], mode: outbound }
         deal_filter:
             quality: 100
             filters:
