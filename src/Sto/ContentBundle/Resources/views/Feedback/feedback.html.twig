@@ -26,7 +26,7 @@
             <div class="reviewContTop">
                 <div class="vote-wrap" data-rating="{{ feedback.feedbackRating }}">
                     {% for i in 0..4 %}
-                        <input type="radio" name="star{{ feedback.id }}" class="star" {% if loop.index == feedback.feedbackRating %}checked="checked"{% endif %}>
+                        <input type="radio" name="star{{ feedback.id }}" class="star">
                     {% endfor %}
                 </div>
 

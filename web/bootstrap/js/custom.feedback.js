@@ -9,7 +9,7 @@ $(document).ready(function(){
             $this = $(element); 
             ratingStars = $this.data('rating');
             if ('rating' in $this.find('input')) {
-                $this.find('input').rating().rating('select', ratingStars).rating('disable');
+                $this.find('input').rating().rating('select', ratingStars - 1).rating('disable');
             }
         });
     }
