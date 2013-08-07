@@ -398,8 +398,14 @@ var companyPage = function(){
         $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
     });
     $('.showAll').click(function(){
-        $('.accordion-body').show();
-        $('.iconAccord').removeClass('iconChevronDown');
+        $accordion = $('.accordion-body');
+        $accordion.toggle();
+        if ($accordion.is(":visible")) {
+            $('.showAll').text('Скрыть все');
+        } else {
+            $('.showAll').text('Показать все');
+        }
+        $('.iconAccord').toggleClass('iconChevronDown');
     });  
 };
 
