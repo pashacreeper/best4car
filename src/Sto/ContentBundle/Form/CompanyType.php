@@ -73,7 +73,6 @@ class CompanyType extends AbstractType
             ->add('services', 'entity', [
                 'label' => 'Подтип компании',
                 'multiple' => true,
-                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -81,14 +80,13 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2',
-                    'style' => 'width:100%;'
+                    'class' => 'chosen-multiple span6',
+                    'data-placeholder' => 'Выберете подтипы компании'
                 ]
             ])
             ->add('specialization', 'entity', [
                 'label' => 'Основная специализация',
                 'multiple' => true,
-                'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\CompanyType',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
@@ -96,8 +94,8 @@ class CompanyType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'select2',
-                    'style' => 'width:100%;'
+                    'class' => 'chosen-multiple span6',
+                    'data-placeholder' => 'Выберете основные специализации компании'
                 ]
             ])
             ->add('logo', null, [

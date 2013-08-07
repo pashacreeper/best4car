@@ -430,6 +430,9 @@ a.btnNext:hover{
 .cityChoicer .chzn-container .chzn-search input{
     height: 30px;
 }
+.basket__cont__body__bottom__paper .chzn-container-multi .chzn-choices .search-field .default{
+    width: 320px !important;
+}
 /* end */
 
 .pushDownBlock{

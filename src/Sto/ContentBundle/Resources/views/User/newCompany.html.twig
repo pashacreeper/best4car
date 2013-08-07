@@ -85,17 +85,19 @@
         {# EOF General data #}
         {# Buisinesss profile #}
         <div class="tab-pane" id="business-profile">
-            <div class="contentLabel marginBottom">
+            <div class="contentLabel clear contentLabelNoOverflow">
                 {{ form_label(cForm.specialization) }}
-                <ul class="tagContBig" id="specializationContainer"></ul>
-                <a class="addImg clear" id="addSpecialization" data-reveal-id="sepcializationModal">Добавить<i class="icon-ok-sign"></i></a>
+                <div class="basket__cont__body__bottom__paper">
+                    {{ form_widget(cForm.specialization) }}
+                </div>
             </div>
-            <div class="contentLabel marginBottom">
+            <div class="contentLabel clear contentLabelNoOverflow">
                 {{ form_label(cForm.services) }}
-                <ul class="tagContBig" id="serviceContainer"></ul>
-                <a class="addImg clear" id="addSpecialization" data-reveal-id="serviceModal">Добавить<i class="icon-ok-sign"></i></a>
+                <div class="basket__cont__body__bottom__paper">
+                    {{ form_widget(cForm.services) }}
+                </div>
             </div>
-            <div class="contentLabel marginBottom">
+            <div class="contentLabel marginBottom clear">
                 {{ form_label(cForm.additionalServices) }}
                 <ul class="additionalServ">
                 {% for service in cForm.additionalServices %}
@@ -308,8 +310,10 @@
     </div>
     <script>
         $(document).ready(function(){
-
-            (function(){$('.chzn-select').chosen();})();
+            (function(){
+                $('.chzn-select').chosen();
+                $('.chosen-multiple').chosen();
+            })();
 
             ymaps.ready(init);
             var gCollection;
