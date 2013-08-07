@@ -339,8 +339,17 @@ var registrationPage = function(){
             thisElem = $(this);
 
         reader.onload = function (e) {
-            $('#picture-preview-wrapper').append('<img style="max-width: 200px; margin-top: 10px;" src="'+e.target.result+'">');
-            $('#picture-preview-wrapper').after('<a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>');
+            var $wrapper = $('#picture-preview-wrapper');
+
+            if ($wrapper.find('img')) {
+                $wrapper.find('img').remove();
+            }
+            if ($wrapper.next('a')) {
+                $wrapper.next('a').remove();
+            }
+
+            $wrapper.append('<img style="max-width: 200px; margin-top: 10px;" src="'+e.target.result+'">');
+            $wrapper.after('<a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>');
         };
 
         $('#general-data').on('click', '#deleteImg', function(){
