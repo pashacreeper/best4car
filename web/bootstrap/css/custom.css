@@ -486,3 +486,16 @@ a.btnNext:hover{
     font-size: 1.3em;
     margin-top: 10px;
 }
+
+.hiddenFotoUpload{
+    width: 35px !important;
+    height: 35px;
+    position: absolute;
+    left: 160px;
+    top: 91px;
+    opacity: 0;
+}
+
+#photoAddWrapper .contactDate{
+    margin-bottom: 10px;
+}

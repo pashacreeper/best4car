@@ -436,6 +436,8 @@ body{
 	height: 130px;
 	position: relative;
 	background: #bebebe;
+	overflow: hidden;
+	margin-right: 10px;
 }
 .photoDateImg img{	
 	width: 100%;

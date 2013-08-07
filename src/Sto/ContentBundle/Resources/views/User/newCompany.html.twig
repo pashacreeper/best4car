@@ -258,6 +258,25 @@
                         $(this).parent().remove();
                     });
                 });
+
+                $(document).ready(function(){
+                    $('#photoAddWrapper').on('change', 'input[type="file"]', function(){
+                        var reader = new FileReader(),
+                            $this = $(this);
+
+                        reader.onload = function (e) {
+                            if ($this.prev('.photoDateImg')) {
+                                $this.prev('.photoDateImg').remove();
+                                $this.removeClass('hiddenFotoUpload');
+                            }
+                            wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"><i class="editImg"></i></div>');
+                            $this.before(wrapper);
+                            $this.addClass('hiddenFotoUpload');
+                        };
+
+                        reader.readAsDataURL($(this)[0].files[0]);
+                    });
+                });
             </script>
             <div class="bottomContent">
                 <button type="submit" class="btnNext addPhotoBtn">Продолжить</button>
@@ -372,6 +391,7 @@
 
             if (deleteLink) {
                 $newForm.append(deleteLink);
+                $newForm.append($('<div class="clear">'));
             }
 
             collectionHolder.data('index', index + 1);

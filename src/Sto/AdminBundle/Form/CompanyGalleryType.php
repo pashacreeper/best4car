@@ -26,7 +26,7 @@ class CompanyGalleryType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'nameInput',
-                    'placeholder' => 'Описание'
+                    'placeholder' => 'Описание фотографии'
                 ]
             ])
         ;
