@@ -79,7 +79,8 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
+                <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn">Продолжить</a>
             </div>
         </div>
         {# EOF General data #}
@@ -309,6 +310,32 @@
         <span class="btnNext addPhotoBtn" id="saveMapCoordinates">Выбрать</span>
     </div>
     <script>
+        $(document).ready(function(){
+            $('a[data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault();
+                var $activeTabPane = $('.tab-pane.active'),
+                    $requiredInputs = $activeTabPane.find('input[required]'),
+                    errorFlags = 0;
+
+                $requiredInputs.each(function(index, element){
+                    $element = $(element);
+                    if ($element.val().length < 1) {
+                        errorFlags = errorFlags + 1;
+                        $element.parent().addClass('error');
+                        $activeTabPane.find('.alertSelect').show();
+
+                        $element.on('change', function(){
+                            $(this).parent().removeClass('error');
+                            errorFlags = errorFlags - 1;
+                            if (errorFlags == 0) {
+                                $activeTabPane.find('.alertSelect').hide();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
         $(document).ready(function(){
             (function(){
                 $('.chzn-select').chosen();
