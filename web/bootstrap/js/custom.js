@@ -324,14 +324,6 @@ var registrationPage = function(){
         appendIcons(this);
     });
 
-    (function(){
-        var tabLinksContainer = $('#stepRegistration');
-
-        $('.btnNext').on('click', function(e){
-            e.preventDefault();
-        });
-    })();
-
     $('#sto_content_company_registration_logo').on('change', function(){
         var reader = new FileReader(),
             thisElem = $(this);
