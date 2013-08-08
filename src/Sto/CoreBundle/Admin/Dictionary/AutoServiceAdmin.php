@@ -34,7 +34,9 @@ class AutoServiceAdmin extends Admin
             ->add('parent')
             ->add('position')
             ->add('code')
-            ->add('companyType')
+            ->add('companyType', null, array(
+                'required' => false,
+            ))
         ;
     }
 

@@ -36,9 +36,13 @@ class ModificationAdmin extends Admin
             ->add('name', null, array(
                 'required' => true
             ))
-            ->add('parent')
+            ->add('parent', null, array(
+                'required' => true
+            ))
             ->add('uri')
-            ->add('visible')
+            ->add('visible', null, array(
+                'required' => false
+            ))
             ->add('numberOfDoors')
             ->add('engine')
             ->add('power')
