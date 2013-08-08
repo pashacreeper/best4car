@@ -16,6 +16,7 @@
 {% block js %}
     {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -40,6 +41,7 @@
         </ul>
 
     <div class="tab-content">
+        {# General data #}
         <div class="tab-pane active" id="general-data">
             <div class="row-fluid">
                 <div class="span10">
@@ -79,7 +81,8 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
+                <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-next="#business-profile">Продолжить</a>
             </div>
         </div>
         {# EOF General data #}
@@ -125,7 +128,8 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#contact-info" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="contact-info-tab">Продолжить</a>
+                <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-next="#contact-info">Продолжить</a>
             </div>
         </div>
         {# EOF Buisinesss profile #}
@@ -231,7 +235,8 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab" data-tab-switch-id="photo-tab">Продолжить</a>
+                <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-next="#photos">Продолжить</a>
             </div>
         </div>
         {# EOF Contact info #}
@@ -281,7 +286,7 @@
                 });
             </script>
             <div class="bottomContent">
-                <button type="submit" class="btnNext addPhotoBtn">Продолжить</button>
+                <button type="submit" class="btnNext addPhotoBtn">Завершить</button>
             </div>
         </div>
     </div>

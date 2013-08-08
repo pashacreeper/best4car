@@ -327,10 +327,8 @@ var registrationPage = function(){
     (function(){
         var tabLinksContainer = $('#stepRegistration');
 
-        $('.btnNext').on('click', function(){
-            var tabId = $(this).data('tab-switch-id');
-            tabLinksContainer.find('.active').removeClass('active');
-            tabLinksContainer.find('#'+tabId).addClass('active');
+        $('.btnNext').on('click', function(e){
+            e.preventDefault();
         });
     })();
 
