@@ -139,6 +139,9 @@
                 <div class="contentLabel marginBottom">
                     {{ form_label(cForm.address) }}
                     {{ form_widget(cForm.address) }}
+                </div>
+                <div class="contentLabel marginBottom">
+                    {{ form_label(cForm.gps) }}
                     {{ form_widget(cForm.gps) }}
                     <a href="#" class="linkUnder" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
                 </div>
@@ -367,8 +370,9 @@
 
             $('#saveMapCoordinates').on('click', function(){
                 $(this).parent().trigger('reveal:close');
-                $('#sto_content_company_registration_address').val(addressName);
-                $('#sto_content_company_registration_gps').val(gps)
+                $('#sto_content_company_registration_gps').val(gps);
+                $('#sto_content_company_registration_gps').trigger('change');
+                $('#activateMap').html('Изменить отметку на карте');
             });
         });
 

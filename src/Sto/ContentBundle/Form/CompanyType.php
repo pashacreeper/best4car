@@ -173,9 +173,12 @@ class CompanyType extends AbstractType
                     'style' => 'width: 100%'
                 ]
             ])
-            ->add('gps', 'hidden', [
-                'label' => 'Координаты Yandex-карты',
+            ->add('gps', null, [
+                'label' => 'Координаты на карте',
                 'required' => true,
+                'attr' => [
+                    'style' => 'display:none'
+                ]
             ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
