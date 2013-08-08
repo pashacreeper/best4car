@@ -3,26 +3,32 @@
 <form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} id="register-form">
     {{ form_errors(form) }}
     {{ form_row(form.firstName) }}
-    <p class="contentLabel">
+    <p class="contentLabel noOverflowHidden">
         {{ form_label(form.username) }}
-        {{ form_errors(form.username) }}
         {{ form_widget(form.username) }}
+        {{ form_errors(form.username) }}
     </p>
-    <p class="contentLabel">
+    <p class="contentLabel noOverflowHidden">
         {{ form_label(form.email) }}
-        {{ form_errors(form.email) }}
         {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
     </p>
-    <div class="contentLabel rowColumns">{{ form_row(form.plainPassword) }}</div>
-    <p class="contentLabel contentLabelNoOverflow">
-        {{ form_label(form.city) }}
-        {{ form_errors(form.city) }}
-        {{ form_widget(form.city) }}
-    </p>
-    <p class="contentLabel">
+    <div class="contentLabel rowColumns">
+        <p class="contentLabel">
+            {{ form_label(form.plainPassword.first) }}
+            {{ form_widget(form.plainPassword.first) }}
+            {{ form_errors(form.plainPassword.first) }}
+        </p>
+        <p class="contentLabel">
+            {{ form_label(form.plainPassword.second) }}
+            {{ form_widget(form.plainPassword.second) }}
+            {{ form_errors(form.plainPassword.second) }}
+        </p>
+    </div>
+    <p class="contentLabel noOverflowHidden">
         {{ form_label(form.captcha) }}
-        {{ form_errors(form.captcha) }}
         {{ form_widget(form.captcha, {attr: {class: 'addFloat'}}) }}
+        {{ form_errors(form.captcha) }}
     </p>
     {{ form_rest(form) }}
     <div>

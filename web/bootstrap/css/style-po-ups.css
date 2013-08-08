@@ -32,7 +32,7 @@
 }
 #myModal3 span.btnEnter,
 #registration-form-popup .btnEnter{
-	width: 260px;
+	width: 260px !important;
 	float: left;
 	clear: both;
 }

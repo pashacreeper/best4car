@@ -4,7 +4,6 @@ namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
-use Doctrine\ORM\EntityRepository;
 
 class RegistrationType extends BaseType
 {
@@ -39,24 +38,22 @@ class RegistrationType extends BaseType
                 'options' => [
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => [
-                        'class' => 'inputFormEnter span4'
+                        'class' => 'inputFormEnter'
                     ]
                 ],
-                'first_options' => ['label' => 'form.password'],
-                'second_options' => ['label' => 'form.password_confirmation'],
+                'first_options' => [
+                    'label' => 'form.password',
+                    'attr' => [
+                        'style' => 'width: 212px'
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'form.password_confirmation',
+                    'attr' => [
+                        'style' => 'width: 212px'
+                    ]
+                ],
                 'invalid_message' => 'fos_user.password.mismatch',
-            ])
-            ->add('city', 'entity', [
-                'label' => 'Город',
-                'class' => 'StoCoreBundle:Dictionary\Country',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('country')
-                        ->where('country.parent is not null')
-                    ;
-                },
-                'attr' => [
-                    'class' => 'chzn-select span4'
-                ]
             ])
             ->add('captcha', 'captcha', [
                 'reload' => true,
