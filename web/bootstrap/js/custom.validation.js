@@ -4,14 +4,17 @@ var Validation = function(activeTabPane) {
     this.checkForValidation = function(element){
         object = this;
         $element = $(element);
-        if ($element.val().length < 1) {
+        value = 0;
+        if ($element.val()) {
+            value = $element.val();
+        }
+        if (value < 1) {
             object.errorFlags = object.errorFlags + 1;
-            $element.parent().addClass('error');
-            console.log(object.activeTabPane);
+            $element.parents('.contentLabel').addClass('error');
             object.activeTabPane.find('.alertSelect').show();
 
             $element.on('change', function(){
-                $(this).parent().removeClass('error');
+                $(this).parents().removeClass('error');
                 object.errorFlags = object.errorFlags - 1;
                 if (object.errorFlags == 0) {
                     object.activeTabPane.find('.alertSelect').hide();
