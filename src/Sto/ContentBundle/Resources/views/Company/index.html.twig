@@ -60,11 +60,16 @@
                         data: aData,
                         success: function(html) {
                             var root = $('#companiesListContainer');
-                            root.empty();
-                            root.append(html);
-                            root.jScrollPane({
-                                autoReinitialise: true,
-                            });
+
+                            if (root.data('jsp')) {
+                                var api = root.data('jsp');
+                                api.getContentPane().empty().append(html);
+                                api.reinitialise();
+                            } else {
+                                root.empty();
+                                root.append(html);
+                                root.jScrollPane();
+                            }
                         },
                         error: function(jqxhr, textStatus, errorThrown) {
                             console.log(textStatus + ": " + errorThrown);
@@ -88,7 +93,6 @@
                         $this.html(defaultText);
                         $map.css('left', '0');
                         $map.css('width', mapWidth);
-                        $.removeData($('#companiesListContainer'), 'jsp');
                     } else {
                         $this.html(closeText);
                         $map.css('left', '380px');
