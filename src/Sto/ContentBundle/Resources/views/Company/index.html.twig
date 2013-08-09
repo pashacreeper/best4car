@@ -95,9 +95,7 @@
                         $map.css('width', mapWidth - 380);
                         doAjax();
                     }
-                    console.log(myMap.container.getSize());
                     myMap.container.fitToViewport();
-                    console.log(myMap.container.getSize());
                 });
 
                 myCollection = new ymaps.GeoObjectCollection();
