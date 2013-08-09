@@ -50,7 +50,12 @@
 <div id="accountUnIdentified" class="accountCont">
     <span class="enter">Войти в профиль<i class="iconarrow"></i></span>
     <a href="#" class="registration regisrationLink" data-reveal-id="registration-popup">Регистрация</a>
-    <div id="loginFormWrapper">{% render controller('StoUserBundle:User:userLogin') %}</div>
+    <div id="loginFormWrapper">
+        <div class="enterDropdown">
+        {% render controller('StoUserBundle:User:userLogin') %}
+        <div id="myCanvasTop" class="myCanvasTop"></div>
+        </div>
+    </div>
 </div>
 <script>
     $(document).ready(function(){

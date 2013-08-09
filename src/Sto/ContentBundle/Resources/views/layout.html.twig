@@ -138,12 +138,43 @@
                 <div id="registration-container"></div>
             </div>
 
-            <div id="not-loged-in" class="reveal-modal resetting-modal">
+            <div id="not-loged-in" class="reveal-modal">
                 <a href="#" class="close-reveal-modal"></a>
-                <p class="popUpTitle">Вы не авторизованны.</p>
-                <div id="resetting-container">
-                    <p class="infoText">Для того что бы оставлять отзывы необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> или <a href="{{ path('fos_user_registration_register') }}">зарегестрироваться</a></p>
-                </div>
+                <div class="formWrapper">{% render controller('StoUserBundle:User:userLogin') %}</div>
+                <script>
+                    $(document).ready(function(){
+                        var link = $('#not-loged-in .regisrationLink'),
+                            id = link.data('reveal-id');
+
+                        link.attr('data-reveal', id)
+                            .removeData('reveal-id')
+                            .removeAttr('data-reveal-id')
+                        ;
+
+                        $('#not-loged-in').on('submit', 'form', function(e){
+                            e.preventDefault();
+                            var $this = $(this),
+                                $loginFormWrapper = $('#not-loged-in .formWrapper');
+
+                            $.ajax({
+                                type: "POST",
+                                url: $this.attr('action'),
+                                data: $this.serialize(),
+                                success: function(responce) {
+                                    if (responce.indexOf('<!DOCTYPE HTML>') == 0) {
+                                        window.location.reload();
+                                    } else {
+                                        $loginFormWrapper.html(responce);
+                                    }
+                                }
+                            });
+                        });
+                        $('#not-loged-in').on('click', '.regisrationLink', function(){
+                            $(this).parents('.reveal-modal').trigger('reveal:close');
+                            $('#' + $(this).data('reveal')).reveal($(this).data());
+                        });
+                    });
+                </script>
             </div>
         {% endif %}
         {% block wrap_container_close %}</div>{% endblock %}

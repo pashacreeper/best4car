@@ -59,6 +59,11 @@ var mainLayout = function(){
         showRegistrationPopup(this);
     });
 
+    $('#notLogedInRegister').on('click', function(){
+        $(this).parents('.reveal-modal').trigger('reveal:close');
+        $($(this).data('reveal')).reveal($(this).data());
+    });
+
     $('#resettingPassword').on('click', function(){
         var $this = $(this),
             $resettingContainer = $('#resetting-container');
