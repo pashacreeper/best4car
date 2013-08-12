@@ -322,11 +322,7 @@
                 <span>Сортировать по:</span>
                 <div class="parametrAssort">
                     <div class="lineForm">
-                        <select class="styled1">
-                            <option value="">рейтингу</option>
-                            <option value="">уровню цен</option>
-                            <option value="">удаленности</option>
-                        </select>
+                        {{ form_widget(sortForm.sort) }}
                     </div>
                 </div>
             </div>
