@@ -54,7 +54,7 @@
                     } else {
                         aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
                     }
-                    console.log(aData);
+                    aData = aData + '&sort=' + $('#sto_content_company_sort_sort').val();
                     $.ajax({
                         type: 'GET',
                         url: aURL,

@@ -97,7 +97,7 @@ class APICompanyController extends FOSRestController
 
         $responceType = $this->getValueOrDefault($request->get('responce-type'), 'json');
         $companyType = $this->getValueOrDefault($request->get('company_type'));
-        $subComppanyType = $this->getValueOrDefault($request->get('sub_company_type'));
+        $subCompanyType = $this->getValueOrDefault($request->get('sub_company_type'));
 
         $auto = $this->getValueOrDefault($request->get('marks'));
         $rating = $this->getValueOrDefault($request->get('rating'));
@@ -116,11 +116,12 @@ class APICompanyController extends FOSRestController
         }
 
         $deals = $this->getValueOrDefault($request->get('deals'));
+        $sort = $this->getValueOrDefault($request->get('sort'));
 
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
-            ->getCompaniesWithFilter($city, $companyType, $subComppanyType, $auto, $rating, $filter, $deals, $timing)
+            ->getCompaniesWithFilter($city, $companyType, $subCompanyType, $auto, $rating, $filter, $deals, $timing, $sort)
         ;
 
         if ($responceType == 'html') {

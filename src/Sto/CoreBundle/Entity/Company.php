@@ -174,7 +174,7 @@ class Company
     private $subscribable;
 
     /**
-     * @ORM\Column(name="hour_price", type="string", length=255, nullable=true)
+     * @ORM\Column(name="hour_price", type="integer", nullable=true)
      */
     private $hourPrice;
 
