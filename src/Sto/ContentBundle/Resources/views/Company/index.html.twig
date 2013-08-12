@@ -54,6 +54,7 @@
                     } else {
                         aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
                     }
+                    console.log(aData);
                     $.ajax({
                         type: 'GET',
                         url: aURL,

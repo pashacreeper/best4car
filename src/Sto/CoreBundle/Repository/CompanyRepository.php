@@ -93,7 +93,7 @@ class CompanyRepository extends EntityRepository
             $result = $trueResult;
         }
 
-        if ($timing['24hours']) {
+        if ($timing['around_the_clock']) {
             $hours24 = '00:00-23:59';
             $trueResult = [];
             foreach ($result as $row) {

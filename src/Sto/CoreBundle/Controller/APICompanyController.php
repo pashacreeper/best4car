@@ -13,6 +13,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Catalog;
+use Sto\ContentBundle\Form\Extension\ChoiceList\WorkTime;
+use Sto\ContentBundle\Form\Extension\ChoiceList\AdditionalServices;
 
 /**
  * APi Auto Catalog controller.
@@ -91,33 +93,37 @@ class APICompanyController extends FOSRestController
     public function getCompaniesWithFilter(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
-
-        $responce_type = ($request->get('responce-type')) ? ($request->get('responce-type')) : 'json';
-        $companyType = ($request->get('company_type')) ? ($request->get('company_type')) : null;
-        $subComppanyType = ($request->get('sub_company_type')) ? ($request->get('sub_company_type')) : null;
-
         $city = $this->get('sto_content.manager.city')->selectedCity();
 
-        $auto = ($request->get('marks')) ? ($request->get('marks')) : null;
-        $rating = ($request->get('rating')) ? ($request->get('rating')) : null;
-        $filter = []; $timing = [];
-        $timing['24hours'] = ($request->get('24hours')) ? ($request->get('24hours')) : null;
-        $timing['late'] = ($request->get('late')) ? ($request->get('late')) : null;
-        $timing['weekends'] = ($request->get('weekends')) ? ($request->get('weekends')) : null;
+        $responceType = $this->getValueOrDefault($request->get('responce-type'), 'json');
+        $companyType = $this->getValueOrDefault($request->get('company_type'));
+        $subComppanyType = $this->getValueOrDefault($request->get('sub_company_type'));
 
-        $filter['evaqu'] = ($request->get('evaquate')) ? ($request->get('evaquate')) : null;
-        $filter['wifi'] = ($request->get('wifi')) ? ($request->get('wifi')) : null;
-        $filter['waiti'] = ($request->get('tv')) ? ($request->get('tv')) : null;
-        $filter['coffe'] = ($request->get('coffee')) ? ($request->get('coffee')) : null;
-        $filter['resta'] = ($request->get('restaurant')) ? ($request->get('restaurant')) : null;
-        $filter['credi'] = ($request->get('credit-card')) ? ($request->get('credit-card')) : null;
+        $auto = $this->getValueOrDefault($request->get('marks'));
+        $rating = $this->getValueOrDefault($request->get('rating'));
 
-        $deals = ($request->get('deals')) ? ($request->get('deals')) : null;
+        $filter = [];
+        $timing = [];
 
-        $companies = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company')->getCompaniesWithFilter($city, $companyType, $subComppanyType, $auto, $rating, $filter, $deals, $timing);
+        $workingTime = new WorkTime();
+        foreach ($workingTime->getChoices() as $element) {
+            $timing[$element] = $this->getValueOrDefault($request->get($element));
+        }
 
-        if ($responce_type=='html') {
+        $additionalServices = new AdditionalServices();
+        foreach ($additionalServices->getChoices() as $element) {
+            $filter[$element] = $this->getValueOrDefault($request->get($element));
+        }
 
+        $deals = $this->getValueOrDefault($request->get('deals'));
+
+        $companies = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('StoCoreBundle:Company')
+            ->getCompaniesWithFilter($city, $companyType, $subComppanyType, $auto, $rating, $filter, $deals, $timing)
+        ;
+
+        if ($responceType == 'html') {
             if (!$companies) {
                 return new Response('Companies Not found.', 500);
             }
@@ -127,8 +133,7 @@ class APICompanyController extends FOSRestController
                     'companies' => $companies
                 ])
             );
-        } elseif ($responce_type=='json') {
-
+        } elseif ($responceType == 'json') {
             foreach ($companies as $key => $value) {
                 $companies[$key]['specialization_template'] = $this
                     ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
@@ -141,5 +146,14 @@ class APICompanyController extends FOSRestController
 
             return new Response($serializer->serialize($companies, 'json'));
         }
+    }
+
+    protected function getValueOrDefault($value, $default = null)
+    {
+        if ($value) {
+            return $value;
+        }
+
+        return $default;
     }
 }
