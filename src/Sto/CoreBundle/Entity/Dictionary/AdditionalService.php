@@ -4,6 +4,7 @@ namespace Sto\CoreBundle\Entity\Dictionary;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -11,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * AdditionalService
  *
  * @ORM\Entity()
+ * @Vich\Uploadable
  */
 class AdditionalService extends Base
 {
@@ -66,6 +68,12 @@ class AdditionalService extends Base
      * @ORM\Column(type="string", length=255, name="icon_name_large", nullable=true)
      */
     protected $iconNameLarge;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
     /**
      * Constructor
      */
@@ -252,5 +260,17 @@ class AdditionalService extends Base
     public function getCompanies()
     {
         return $this->companies;
+    }
+
+    public function setUpdatedAt($date)
+    {
+        $this->updatedAt = $date;
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
