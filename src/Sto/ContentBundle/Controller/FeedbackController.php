@@ -5,6 +5,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Sto\UserBundle\Entity\User;
 
 class FeedbackController extends Controller
 {
@@ -54,10 +56,28 @@ class FeedbackController extends Controller
     }
 
     /**
+     * @Route("/profile-feedback/{id}", name="profile_feedbacks_show")
+     * @Method("POST")
+     * @Template("StoContentBundle:Feedback:feedback.html.twig")
+     */
+    public function profileFeedbacksAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('StoUserBundle:User')->findOneById($id);
+
+        $feedbacks = $this->getFeedbacks($id, 'profile');
+
+        return [
+            'feedbacks' => $feedbacks,
+            'isManager' => false,
+        ];
+    }
+
+    /**
      * Geting feedbacks for company, deal and may be other things
-     * @param  int    $id   id of comapny or deal entity
-     * @param  string $type type of entity
-     * @return [type] [description]
+     * @param  int               $id   id of comapny or deal entity
+     * @param  string            $type type of entity
+     * @return SlidingPagination
      */
     private function getFeedbacks($id, $type)
     {
@@ -78,6 +98,12 @@ class FeedbackController extends Controller
                 ->createQueryBuilder('fd')
                 ->where('fd.dealId = :deal')
                 ->setParameter('deal', $id)
+            ;
+        } elseif ('profile' === $type) {
+            $qb = $em->getRepository('StoCoreBundle:Feedback')
+                ->createQueryBuilder('fp')
+                ->where('fp.user = :user')
+                ->setParameter('user', $id)
             ;
         }
 
