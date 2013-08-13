@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "69824027626b3d86a56b49170682dc82",
+    "hash": "2008a79fa3b3fc548e52a821cbb2d305",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -2968,12 +2968,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "db213672ced36a9d31acaab0c2e7b37deeb51319"
+                "reference": "fe79d83d451eafde20cab15fa75ba44bc23b6e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/db213672ced36a9d31acaab0c2e7b37deeb51319",
-                "reference": "db213672ced36a9d31acaab0c2e7b37deeb51319",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/fe79d83d451eafde20cab15fa75ba44bc23b6e4d",
+                "reference": "fe79d83d451eafde20cab15fa75ba44bc23b6e4d",
                 "shasum": ""
             },
             "require": {
@@ -3016,7 +3016,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2013-08-09 16:40:31"
+            "time": "2013-08-12 22:09:32"
         },
         {
             "name": "sonata-project/exporter",

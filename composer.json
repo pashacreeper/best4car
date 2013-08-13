@@ -71,23 +71,6 @@
                     "type": "zip"
                 }
             }
-        },
-        {
-            "type": "package",
-            "package":
-            {
-                "name": "twitter/bootstrap",
-                "version": "v2.3.2",
-                "source": {
-                    "url": "https://github.com/twbs/bootstrap.git",
-                    "type": "git",
-                    "reference": "v2.3.2"
-                },
-                "dist": {
-                    "url": "https://github.com/twbs/bootstrap/zipball/v2.3.2",
-                    "type": "zip"
-                }
-            }
         }
     ],
     "scripts": {
