@@ -205,12 +205,10 @@ class APIFeedbackController extends FOSRestController
      */
     public function sort_filter(Request $request)
     {
-        $serializer = $this->container->get('jms_serializer');
-
         if (! $request->get('sort-tab')) {
             return new Response('Not found sort tabs', 404);
         }
-        if (! $request->get('sort-tab')) {
+        if (! $request->get('filter-tab')) {
             return new Response('Not found filter tabs', 404);
         }
         if (! $request->get('entity-id')) {

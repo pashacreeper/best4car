@@ -13,7 +13,8 @@ class FeedbackSortType extends AbstractType
             ->add('sort', 'choice', [
                 'choice_list' => new FeedbackSort(),
                 'attr' => [
-                    'class' => 'styled1'
+                    'class' => 'styled1 data-select',
+                    'data-sort-type' => 'true',
                 ]
             ])
         ;

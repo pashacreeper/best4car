@@ -13,7 +13,8 @@ class FeedbackFilterType extends AbstractType
             ->add('filter', 'choice', [
                 'choice_list' => new FeedbackFilter(),
                 'attr' => [
-                    'class' => 'styled1'
+                    'class' => 'styled1 data-select',
+                    'data-filter-type' => 'true'
                 ]
             ])
         ;
