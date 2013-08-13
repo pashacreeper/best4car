@@ -110,163 +110,38 @@
     </div>
     <div class="content" data-tab-id="#feedbacks">
         <div class="leftContent">
-            <div class="contentSelect">
-                <div class="assortSelect">
-                    <span>Сортировать по:</span>
-                    <div class="parametrAssort">
-                        <div class="lineForm">
-                            <select class="styled1">
-                                <option value="">рейтингу</option>
-                                <option value="">дате</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="showSelect">
-                    <span>Показать по:</span>
-                    <div class="parametrAssort">
-                        <div class="lineForm">
-                            <select class="styled1">
-                                <option value="">все</option>
-                                <option value="">положительные</option>
-                                <option value="">отрицательные</option>
-                                <option value="">полезные</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% render controller('StoContentBundle:Feedback:sortAndFilterForm') %}
             <p class="showTotal">
-                Показано:
-                <span class="parametShow">{{ user.feedbacks|length }}</span>
-                отзыва
+                Показано: <span class="parametShow" id="showedFeedbacks">{{ user.feedbacks|length }}</span> отзыва
             </p>
-            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.popUpPrimary').hide();
-                                    $('.complainAlert').hide();
-                                    $('.complain').click(function() {
-                                        $('.complainAlert').show();
-                                    });
-                                    $('.complainAlert').click(function() {
-                                        $('.popUpPrimary').show();
-                                    });
-                                    $('.popUpPrimary li').click(function() {
-                                        $('.popUpPrimary').hide();
-                                        $('.complainAlert').hide();
-                                    });
-                                });
-            </script>
-            {% for feedback in user.feedbacks %}
-            <div class="reviewContentItem">
-                <div class="reviewAccount">
-                    <div  class="reviewAccountImg">
-                        <a href="#">
-                            {%- if user.avatarUrl %}
-                                <img src="{{ feedback.user.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                            {% else %}
-                                <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                            {% endif -%}
-                        </a>
-                    </div>
-                    <span>{{ feedback.user.rating }}</span>
-                </div>
-                <div class="reviewWrap">
-                    <div class="reviewTop">
-                        <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
-                        <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
-                        <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
-                        <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
-                    </div>
-                    <div class="reviewCont">
-                        <div class="reviewContTop">
-                            <!--http://habrahabr.ru/post/132807/-->
-                            <div class="vote-wrap">
-                                <div class="vote-hover">
-                                    <div class="vote-block">
-                                        <div class="vote-stars">
-                                        </div>
-                                        <div class="vote-active">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
-                            <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
-                            <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
-                            <p class="reviewContText">
-                                {{ feedback.content|raw }}
-                            </p>
-                            <span class="primaryLink reply" id="reply1">Ответить</span>
-                            <span class="primaryLink complain">Пожаловаться</span>
-                            <i class="complainAlert"></i>
-                            <div class="popUpPrimary">
-                                <div id="myCanvasTop" class="myCanvasTop"></div>
-                                <ul>
-                                    <li><span class="primaryLink">Скрыть</span></li>
-                                    <li><span class="primaryLink">Редактировать</span></li>
-                                    <li><span class="primaryLink">Удалить</span></li>
-                                    <li><span class="primaryLink">Снять жалобу</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="writeReviewWrap" id="writeReview_reply1">
-                            <div class="writeReviewCont">
-                                <textarea class="textareaWriteReview" name="text"></textarea>
-                            </div>
-                            <div class="writeReviewSubmit">
-                                <span class="btnReview addPhotoBtn">Ответить</span>
-                                <span class="primaryLink cancelBtn">Отмена</span>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.writeReviewWrap').hide();
-                                    $('.reply').click(function() {
-                                        $('#writeReview_' + this.id).show();
-                                        $(this).hide();
-                                    });
-                                    $('.cancelBtn').click(function() {
-                                        $('.writeReviewWrap').hide();
-                                        $('.reply').show();
-                                    });
-                                });
-                        </script>
-                        {% if feedback.feedbackAnswer %}
-                        <div class="responseReviewCont">
-                            <div class="reviewContBottomText">
-                                <p class="reviewContText">
-                                    {{ feedback.feedbackAnswer.answer|raw }}
-                                </p>
-                            </div>
-                            <div class="reviewContBottomAccount">
-                                <div  class="responseReviewAccountImg">
-                                    {%- if feedback.feedbackAnswer.owner.avatarUrl %}
-                                        <img src="{{ feedback.feedbackAnswer.owner.avatarUrl | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                                    {% else %}
-                                        <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
-                                    {% endif -%}
-                                </div>
-                                <span class="responseReviewData">18.02.2013</span>
-                                <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
-                                <p class="responseReviewRang">Менеджер</p>
-                                <p class="bottomReview">
-                                <span class="negativReview"><i class="negativReviewI"></i>53</span>
-                                <span class="positivReview"><i class="positivReviewI"></i>15</span>
-                                </p>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
+            <input type="hidden" data-type="profile" id="sortDataType">
+            <div data-x-container="feedbacks" id="data-x-container-feedbacks">
+                {{ render(controller('StoContentBundle:Feedback:profileFeedbacks', {'id':user.id})) }}
             </div>
-            {% endfor %}
+            <script>function getEntityId(){ return {{ user.id }}; }</script>
         </div>
         <div class="rightContent">
             <div class="bannerImg"></div>
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.popUpPrimary').hide();
+        $('.complainAlert').hide();
+        $('.complain').click(function() {
+            $('.complainAlert').show();
+        });
+        $('.complainAlert').click(function() {
+            $('.popUpPrimary').show();
+        });
+        $('.popUpPrimary li').click(function() {
+            $('.popUpPrimary').hide();
+            $('.complainAlert').hide();
+        });
+    });
+</script>
 
 <div id="add-photo-modal" class="reveal-modal resetting-modal">
     <a href="#" class="close-reveal-modal"></a>
