@@ -1,34 +1,9 @@
 <div class="leftContent">
-    <div class="contentSelect">
-        <div class="assortSelect">
-            <span>Сортировать по:</span>
-            <div class="parametrAssort">
-                <div class="lineForm">
-                    <select class="styled1 data-select" id="data-sort">
-                        <option value="rating">рейтингу</option>
-                        <option value="date">дате</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="showSelect">
-            <span>Показать:</span>
-            <div class="parametrAssort">
-                <div class="lineForm">
-                    <select class="styled1 data-select" id="data-filter">
-                        <option value="all">все</option>
-                        <option value="positive">положительные</option>
-                        <option value="negative">отрицательные</option>
-                        <option value="useful">полезные</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" data-type="company" id="sortDataType">
-    </div>
+    {% render controller('StoCoreBundle:Feedback:sortAndFilterForm') %}
     <p class="showTotal">
         Показано: <span class="parametShow" id="showedFeedbacks">{{ feedbacks | length }}</span> отзыва
     </p>
+    <input type="hidden" data-type="company" id="sortDataType">
     <div data-x-container="feedbacks" id="data-x-container-feedbacks">
         {{ render(controller('StoContentBundle:Feedback:companyFeedbacks', {'id':company.id})) }}
     </div>

@@ -110,35 +110,11 @@
     </div>
     <div class="content" data-tab-id="#feedbacks">
         <div class="leftContent">
-            <div class="contentSelect">
-                <div class="assortSelect">
-                    <span>Сортировать по:</span>
-                    <div class="parametrAssort">
-                        <div class="lineForm">
-                            <select class="styled1">
-                                <option value="">рейтингу</option>
-                                <option value="">дате</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="showSelect">
-                    <span>Показать по:</span>
-                    <div class="parametrAssort">
-                        <div class="lineForm">
-                            <select class="styled1">
-                                <option value="">все</option>
-                                <option value="">положительные</option>
-                                <option value="">отрицательные</option>
-                                <option value="">полезные</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% render controller('StoContentBundle:Feedback:sortAndFilterForm') %}
             <p class="showTotal">
                 Показано: <span class="parametShow" id="showedFeedbacks">{{ user.feedbacks|length }}</span> отзыва
             </p>
+            <input type="hidden" data-type="profile" id="sortDataType">
             <div data-x-container="feedbacks" id="data-x-container-feedbacks">
                 {{ render(controller('StoContentBundle:Feedback:profileFeedbacks', {'id':user.id})) }}
             </div>

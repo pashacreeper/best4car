@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Sto\UserBundle\Entity\User;
+use Sto\ContentBundle\Form\Type\FeedbackSortType;
+use Sto\ContentBundle\Form\Type\FeedbackFilterType;
 
 class FeedbackController extends Controller
 {
@@ -70,6 +72,20 @@ class FeedbackController extends Controller
         return [
             'feedbacks' => $feedbacks,
             'isManager' => false,
+        ];
+    }
+
+    /**
+     * @Template()
+     */
+    public function sortAndFilterFormAction()
+    {
+        $sortForm = $this->createForm(new FeedbackSortType());
+        $filterForm = $this->createForm(new FeedbackFilterType());
+
+        return [
+            'sortForm' => $sortForm->createView(),
+            'filterForm' => $filterForm->createView()
         ];
     }
 
