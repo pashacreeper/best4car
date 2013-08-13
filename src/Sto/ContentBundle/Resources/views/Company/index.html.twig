@@ -44,8 +44,8 @@
                 });
 
                 var doAjax = function() {
-                    var aURL = null;
-                    var aData = null;
+                    var aURL = '';
+                    var aData = '';
                     if ($('#advancedSearch').is(':visible')){
                         aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
                         $('[data-serarch-form="responce-type"]').val("html");
@@ -101,6 +101,10 @@
                         doAjax();
                     }
                     myMap.container.fitToViewport();
+                });
+
+                $('#sto_content_company_sort_sort').on('change', function(){
+                    doAjax();
                 });
 
                 myCollection = new ymaps.GeoObjectCollection();
