@@ -75,7 +75,7 @@ $(function() {
 				.addClass('selected sel').parent().hide()
 				.prev('span.select').find('span.text').text($(this).text())
 			;
-			option.removeAttr('selected').eq($(this).index()).attr({selected: 'selected'});
+			option.prop('selected', false).eq($(this).index()).prop("selected", true);
 			$(this).parents('span.selectbox').next().change();
 			$('.trigger').removeClass('actSel1');
 		});
