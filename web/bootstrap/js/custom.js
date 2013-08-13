@@ -150,6 +150,11 @@ var mainLayout = function(){
             return mainHeight - headerHeight - footerHeight - 100;
         });
     })();
+
+    // Open all external links in new windows
+    (function(){
+        $("a[href^='http://']").attr("target","_blank");
+    })();
 };
 
 var catalogPage = function(){
