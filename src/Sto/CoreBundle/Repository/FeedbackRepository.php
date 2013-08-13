@@ -73,7 +73,7 @@ class FeedbackRepository extends EntityRepository
                 ->setParameter('user', $id)
             ;
         } else {
-            return new Response('Entity type is not valid (company or deal)',404);
+            return new Response('Entity type is not valid (company, deal or profile)',404);
         }
 
         switch ($filter) {
