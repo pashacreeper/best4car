@@ -24,7 +24,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle" id="{{ loop.index }}">
                     {% if specialization.iconLarge %}
-                    <img src="{{ vich_uploader_asset(specialization, 'iconLarge') }}" alt="{{ specialization.name }}">
+                    <img src="{{ vich_uploader_asset(specialization, 'iconLarge') | imagine_filter('service_icon') }}" alt="{{ specialization.name }}">
                     {% else %}
                     <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.name }}">
                     {% endif %}
@@ -54,7 +54,13 @@
     <div class="additionalServices">
         <h3 class="servicesSpecialisationTitle titleH2">Дополнительные услуги</h3>
         {% for additionalService in company.additionalServices %}
-        <p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> {{ additionalService.name }}</p>
+            {% if additionalService.iconLarge %}
+                <p class="additionalServicesItem contentText">
+                    <img src="{{ vich_uploader_asset(additionalService, 'iconLarge') | imagine_filter('additional_service_icon') }}" alt="{{ additionalService.name }}">{{ additionalService.name }}
+                </p>
+            {% else %}
+                <p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> {{ additionalService.name }}</p>
+            {% endif %}
         {% endfor %}
     </div>
     {% endif %}

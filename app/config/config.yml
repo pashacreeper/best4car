@@ -193,6 +193,14 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [45, 45], mode: outbound }
+        service_icon:
+            quality: 100
+            filters:
+                thumbnail: { size: [34, 40], mode: outbound }
+        additional_service_icon:
+            quality: 100
+            filters:
+                thumbnail: { size: [24, 28], mode: outbound }
         deals_carusel_photos:
             quality: 100
             filters:
