@@ -95,28 +95,28 @@ class APICompanyController extends FOSRestController
         $serializer = $this->container->get('jms_serializer');
         $city = $this->get('sto_content.manager.city')->selectedCity();
 
-        $responceType = $this->getValueOrDefault($request->get('responce-type'), 'json');
-        $companyType = $this->getValueOrDefault($request->get('company_type'));
-        $subCompanyType = $this->getValueOrDefault($request->get('sub_company_type'));
+        $responseType = $request->get('responce-type', 'json');
+        $companyType = $request->get('company_type');
+        $subCompanyType = $request->get('sub_company_type');
 
-        $auto = $this->getValueOrDefault($request->get('marks'));
-        $rating = $this->getValueOrDefault($request->get('rating'));
+        $auto = $request->get('marks');
+        $rating = $request->get('rating');
 
         $filter = [];
         $timing = [];
 
         $workingTime = new WorkTime();
         foreach ($workingTime->getChoices() as $element) {
-            $timing[$element] = $this->getValueOrDefault($request->get($element));
+            $timing[$element] = $request->get($element);
         }
 
         $additionalServices = new AdditionalServices();
         foreach ($additionalServices->getChoices() as $element) {
-            $filter[$element] = $this->getValueOrDefault($request->get($element));
+            $filter[$element] = $request->get($element);
         }
 
-        $deals = $this->getValueOrDefault($request->get('deals'));
-        $sort = $this->getValueOrDefault($request->get('sort'));
+        $deals = $request->get('deals');
+        $sort = $request->get('sort');
 
         $companies = $this->getDoctrine()
             ->getManager()
@@ -124,7 +124,7 @@ class APICompanyController extends FOSRestController
             ->getCompaniesWithFilter($city, $companyType, $subCompanyType, $auto, $rating, $filter, $deals, $timing, $sort)
         ;
 
-        if ($responceType == 'html') {
+        if ($responseType == 'html') {
             if (!$companies) {
                 return new Response('Companies Not found.', 500);
             }
@@ -134,7 +134,7 @@ class APICompanyController extends FOSRestController
                     'companies' => $companies
                 ])
             );
-        } elseif ($responceType == 'json') {
+        } elseif ($responseType == 'json') {
             foreach ($companies as $key => $value) {
                 $companies[$key]['specialization_template'] = $this
                     ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
@@ -147,14 +147,5 @@ class APICompanyController extends FOSRestController
 
             return new Response($serializer->serialize($companies, 'json'));
         }
-    }
-
-    protected function getValueOrDefault($value, $default = null)
-    {
-        if ($value) {
-            return $value;
-        }
-
-        return $default;
     }
 }
