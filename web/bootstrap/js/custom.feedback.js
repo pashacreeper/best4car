@@ -33,8 +33,8 @@ $(document).ready(function(){
     });
 
     $('.data-select').on('change', function() {
-        var filter = $($('#data-filter').find(':selected')[1]).val(),
-            sort = $('#data-sort').val(),
+        var filter = $('select[data-filter-type]').val(),
+            sort = $('select[data-sort-type]').val(),
             entType = $('#sortDataType').attr('data-type');
 
         if (filter === undefined) {

@@ -205,12 +205,10 @@ class APIFeedbackController extends FOSRestController
      */
     public function sort_filter(Request $request)
     {
-        $serializer = $this->container->get('jms_serializer');
-
         if (! $request->get('sort-tab')) {
             return new Response('Not found sort tabs', 404);
         }
-        if (! $request->get('sort-tab')) {
+        if (! $request->get('filter-tab')) {
             return new Response('Not found filter tabs', 404);
         }
         if (! $request->get('entity-id')) {
@@ -226,40 +224,7 @@ class APIFeedbackController extends FOSRestController
         $entityType = $request->get('entity-type');
 
         $em = $this->getDoctrine()->getManager();
-        if ($entityType == 'company') {
-            $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
-                ->createQueryBuilder('fc')
-                ->where('fc.companyId = :company')
-                ->setParameter('company', $entityId)
-            ;
-        } elseif ($entityType == 'deal') {
-            $qb = $em->getRepository('StoCoreBundle:FeedbackDeal')
-                ->createQueryBuilder('fc')
-                ->where('fc.dealId = :deal')
-                ->setParameter('deal', $entityId)
-            ;
-        } else {
-            return new Response('Entity type is not valid (company or deal)',404);
-        }
-
-        switch ($filterTab) {
-            case("positive"):
-                $qb->andWhere('fc.pluses > fc.minuses');
-                break;
-            case("negative"):
-                $qb->andWhere('fc.pluses < fc.minuses');
-                break;
-            case("useful"):
-                $qb->andWhere('fc.pluses > fc.minuses');
-                break;
-        }
-
-        if ($sortTab == "sort-rating") {
-            $qb->orderBy("fc.feedbackRating","DESC");
-        } else {
-            $qb->orderBy("fc.date","DESC");
-        }
-        $query = $qb->getQuery();
+        $query = $em->getRepository('StoCoreBundle:Feedback')->getFeedbacksByTypeQuery($entityType, $entityId, $filterTab, $sortTab);
 
         $feedbacks = $this->get('knp_paginator')->paginate(
             $query,
