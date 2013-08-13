@@ -28,6 +28,9 @@ class AdditionalServiceAdmin extends Admin
             ->add('shortName')
             ->add('name')
             ->add('position')
+            ->add('iconMap', 'file')
+            ->add('iconSmall', 'file')
+            ->add('iconLarge', 'file')
         ;
     }
 
