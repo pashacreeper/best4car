@@ -321,11 +321,12 @@ ul.tabNavigation li a:focus {
 .additionalServicesItem{
 	width: 180px;
 	float: left;
-	margin: 3px 0;	
+	margin: 3px 3px 3px 0;	
 }
-.additionalServicesItem i{
+.additionalServicesItem i,
+.additionalServicesItem img{
 	float: left;
-	margin: -5px 5px 0 0;
+	margin: -5px 3px 0 0;
 }
 .showAll{
 	float: right;
