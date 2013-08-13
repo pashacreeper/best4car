@@ -16,6 +16,7 @@ use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\AdvancedSearchType;
+use Sto\ContentBundle\Form\Type\CompaniesSortType;
 
 class CompanyController extends MainController
 {
@@ -80,6 +81,8 @@ class CompanyController extends MainController
             ->getArrayResult()
         ;
 
+        $companySortForm = $this->createForm(new CompaniesSortType());
+
         foreach ($companies as $key => $value) {
             $companies[$key]['specialization_template'] = $this
                 ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
@@ -96,6 +99,7 @@ class CompanyController extends MainController
         return [
             'companies' => json_encode($companies),
             'city' => $city,
+            'sortForm' => $companySortForm->createView(),
         ];
     }
 

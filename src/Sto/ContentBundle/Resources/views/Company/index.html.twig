@@ -44,8 +44,8 @@
                 });
 
                 var doAjax = function() {
-                    var aURL = null;
-                    var aData = null;
+                    var aURL = '';
+                    var aData = '';
                     if ($('#advancedSearch').is(':visible')){
                         aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
                         $('[data-serarch-form="responce-type"]').val("html");
@@ -54,6 +54,7 @@
                     } else {
                         aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
                     }
+                    aData = aData + '&sort=' + $('#sto_content_company_sort_sort').val();
                     $.ajax({
                         type: 'GET',
                         url: aURL,
@@ -100,6 +101,10 @@
                         doAjax();
                     }
                     myMap.container.fitToViewport();
+                });
+
+                $('#sto_content_company_sort_sort').on('change', function(){
+                    doAjax();
                 });
 
                 myCollection = new ymaps.GeoObjectCollection();
@@ -321,11 +326,7 @@
                 <span>Сортировать по:</span>
                 <div class="parametrAssort">
                     <div class="lineForm">
-                        <select class="styled1">
-                            <option value="">рейтингу</option>
-                            <option value="">уровню цен</option>
-                            <option value="">удаленности</option>
-                        </select>
+                        {{ form_widget(sortForm.sort) }}
                     </div>
                 </div>
             </div>

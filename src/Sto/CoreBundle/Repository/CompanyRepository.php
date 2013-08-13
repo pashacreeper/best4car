@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Sto\CoreBundle\Entity\Dictionary\Country;
 
 /**
  * CompanyRepository
@@ -19,12 +20,34 @@ class CompanyRepository extends EntityRepository
         ;
     }
 
-    public function getCompaniesWithFilter($city = null, $companyType = null, $subCompanyType = null, $auto = null, $rating = null, $filter = null, $deals = null, $timing = null)
-    {
+    /**
+     * @param  Country $city
+     * @param  string  $companyType
+     * @param  string  $subCompanyType
+     * @param  string  $auto
+     * @param  string  $rating
+     * @param  array   $filter
+     * @param  string  $deals
+     * @param  array   $timing
+     * @param  string  $sort
+     * @return array
+     */
+    public function getCompaniesWithFilter(
+        $city = null,
+        $companyType = null,
+        $subCompanyType = null,
+        $auto = null,
+        $rating = null,
+        $filter = null,
+        $deals = null,
+        $timing = null,
+        $sort = null
+    ) {
         $qb = $this->createQueryBuilder('company')
             ->select('company, csp, fb, d')
             ->join('company.specialization', 'csp')
             ->join('company.services', 'cs')
+            ->join('company.deals', 'd')
             ->leftJoin('company.feedbacks', 'fb')
             ->where('company.visible = true')
             ->andwhere('company.city = :city')
@@ -54,23 +77,14 @@ class CompanyRepository extends EntityRepository
                 $tabNum++;
             }
         }
-        if ($deals) {
-            $qb->join('company.deals', 'd')
-            // предполагаем что нужны компании с акциями вообще
-            // иначе разкомментировать следующее, тогда отбор пойдет по акциям по текущей дате
-/*                ->andWhere(
-                    $qb->expr()->andX(
-                        $qb->expr()->gte($qb->expr()->literal(date('Y-m-d')),'d.startDate'),
-                        $qb->expr()->lte($qb->expr()->literal(date('Y-m-d')),'d.endDate')
-                    )
-                )*/
-            ;
+
+        if ($sort == 'price') {
+            $qb->orderBy('company.hourPrice','ASC');
         } else {
-            $qb->leftJoin('company.deals', 'd');
+            $qb->orderBy('company.rating','DESC');
         }
-        $query = $qb->orderBy('company.rating','DESC')
-            ->getQuery();
-        $result = $query->getArrayResult();
+
+        $result = $qb->getQuery()->getArrayResult();
 
         if ($timing['weekends']) {
             $qbd = $this->getEntityManager()
@@ -93,7 +107,7 @@ class CompanyRepository extends EntityRepository
             $result = $trueResult;
         }
 
-        if ($timing['24hours']) {
+        if ($timing['around_the_clock']) {
             $hours24 = '00:00-23:59';
             $trueResult = [];
             foreach ($result as $row) {

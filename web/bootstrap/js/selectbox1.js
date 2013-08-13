@@ -74,9 +74,8 @@ $(function() {
 				.addClass('selected sel').parent().hide()
 				.prev('span.select1').find('span.text1').text($(this).text())
 			;
-			option.removeAttr('selected').eq($(this).index()).attr({selected: 'selected'});
+			option.prop('selected', false).eq($(this).index()).prop("selected", true);
 			$(this).parents('span.selectbox1').next().change();
-
 		});
 
 		/* фокус на селекте при нажатии на Tab */
