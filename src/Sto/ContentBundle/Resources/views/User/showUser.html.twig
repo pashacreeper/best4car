@@ -112,6 +112,12 @@
                     <p class="infoCompanyAddTitle contentText">DRIVE2:</p>
                     <p class="infoCompanyDescription"><a class="linkContact" href="{{ user.autoProfilesLinks }}" target="_blank">{{ user.autoProfilesLinks }}</a></p>
                 {% endif %}
+                {% if user.contactEmails|length %}
+                    <p class="infoCompanyAddTitle contentText">Email:</p>
+                    {% for email in user.contactEmails %}
+                        <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ email.email }}" target="_blank">{{ email.email }}</a></p>
+                    {% endfor %}
+                {% endif %}
                 {% if user.contacts|length %}
                     {% for contact in user.contacts %}
                         <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
