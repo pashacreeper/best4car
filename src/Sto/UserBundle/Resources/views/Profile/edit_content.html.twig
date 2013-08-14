@@ -7,68 +7,100 @@
             <a href="#aditional">Дополнительно</a>
         </li>
     </ul>
-    <div class="content" data-tab-id="#information">
+
     <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_row(form.firstName) }}
-        <div>
-            {{ form_label(form.email) }}
-            <p style="padding-bottom:5px;">Данный емайл используется для входа на сайт и не отображается в вашем профиле.</p>
-            {{ form_widget(form.email) }}
-        </div>
-        {{ form_row(form.phoneNumber) }}
-        <p class="contentLabel clear">
-            {{ form_label(form.birthDate) }}
-            <div id="datetimepicker1" class="input-append">
-                {{ form_widget(form.birthDate) }}
-                <span class="add-on">
-                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                    </i>
-                </span>
+    <div class="content" data-tab-id="#information">
+            {{ form_row(form.firstName) }}
+            <div>
+                {{ form_label(form.email) }}
+                <p style="padding-bottom:5px;">Данный емайл используется для входа на сайт и не отображается в вашем профиле.</p>
+                {{ form_widget(form.email) }}
             </div>
-        </p>
-        {{ form_row(form.gender) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.avatar) }}
-        <div class="bottomContent">
-            <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
-        </div>
+            {{ form_row(form.phoneNumber) }}
+            <p class="contentLabel clear">
+                {{ form_label(form.birthDate) }}
+                <div id="datetimepicker1" class="input-append">
+                    {{ form_widget(form.birthDate) }}
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </p>
+            {{ form_row(form.gender) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.avatar) }}
+            <div class="bottomContent">
+                <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+            </div>
     </div>
     <div class="content" data-tab-id="#aditional">
-        <div class="cityChoicer">
-            {{ form_label(form.city) }}
-            {{ form_widget(form.city) }}
-        </div>
-        <div class="contentLabel rightContaktItem">
-            <label>DRIVE2</label>
-            <p class="maskInput"><span>www.drive2.ru/users/</span>
-                {{ form_widget(form.autoProfilesLinks) }}
-            </p>
-        </div>
-        {{ form_row(form.autoProfilesLinks) }}
-        <div class="contentLabel rightContaktItem">
-            <label>VKontakte</label>
-            <p class="maskInput"><span>www.vk.com/</span>
-                {{ form_widget(form.linkVK) }}
-            </p>
-        </div>
-        <div class="contentLabel rightContaktItem">
-            <label>Google+</label>
-            <p class="maskInput"><span>plus.google.com/</span>
-                {{ form_widget(form.linkGP) }}
-            </p>
-        </div>
-        <div class="contentLabel rightContaktItem">
-            <label>Facebook</label>
-            <p class="maskInput"><span>www.facebook.com/</span>
-                {{ form_widget(form.linkFB) }}
-            </p>
-        </div>
-        <div class="bottomContent">
-            <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
-        </div>
-        {{ form_rest(form) }}
-    </form>
+            <div class="cityChoicer">
+                {{ form_label(form.city) }}
+                {{ form_widget(form.city) }}
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>DRIVE2</label>
+                <p class="maskInput"><span>www.drive2.ru/users/</span>
+                    {{ form_widget(form.autoProfilesLinks) }}
+                </p>
+            </div>
+            {{ form_row(form.autoProfilesLinks) }}
+            <div class="contentLabel rightContaktItem">
+                <label>VKontakte</label>
+                <p class="maskInput"><span>www.vk.com/</span>
+                    {{ form_widget(form.linkVK) }}
+                </p>
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>Google+</label>
+                <p class="maskInput"><span>plus.google.com/</span>
+                    {{ form_widget(form.linkGP) }}
+                </p>
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>Facebook</label>
+                <p class="maskInput"><span>www.facebook.com/</span>
+                    {{ form_widget(form.linkFB) }}
+                </p>
+            </div>
+            <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+                <label>Email для отображения в профиле</label>
+                <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
+                {{ form_row(form.contactEmails) }}
+            </div>
+
+            <div class="bottomContent">
+                <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+            </div>
+            {{ form_rest(form) }}
     </div>
+    </form>
+        <script>
+        $(document).ready(function(){
+            function addTagForm(collectionHolder, $newLinkLi) {
+                var prototype = collectionHolder.data('prototype');
+                var index = collectionHolder.data('index');
+                var newForm = prototype.replace(/__name__/g, index);
+                collectionHolder.data('index', index + 1);
+                var $newFormLi = $('<div></div>').append(newForm);
+                $newLinkLi.before($newFormLi);
+            }
+
+            var collectionHolder = $('#contact_emails');
+            var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+            var $newLinkLi = $('<div></div>').append($addTagLink);
+
+            jQuery(document).ready(function() {
+                collectionHolder.append($newLinkLi);
+                collectionHolder.data('index', collectionHolder.find(':input').length);
+                $addTagLink.on('click', function(e) {
+                    e.preventDefault();
+                    addTagForm(collectionHolder, $newLinkLi);
+                });
+            });
+        });
+        </script>
 <script>
     (function(){$('.chzn-select').chosen();})();
 </script>
