@@ -242,7 +242,10 @@ var catalogPage = function(){
             max: 10,
             value: 4,
             slide: function( event, ui ) {
-                $("#amount").val( ui.value ).trigger("change");
+                $("#amount").val( ui.value );
+            },
+            stop: function( event, ui ) {
+                $("#amount").trigger("change");
             }
         });
         $("#amount").val( $("#slider-range-max").slider("value") );

@@ -58,16 +58,16 @@ class CompanyRepository extends EntityRepository
                 ->setParameter('sp', $companyType)
             ;
         }
-
-        if ($deals) {
-            $qb->andWhere('d.id IS NOT NULL');
-        }
-
         if ($subCompanyType) {
             $qb->andwhere('cs.id = :s')
                 ->setParameter('s', $subCompanyType)
             ;
         }
+
+        if ($deals) {
+            $qb->andWhere('d.id IS NOT NULL');
+        }
+
         if ($rating) {
             $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')
                 ->setParameter('rating', $rating)
