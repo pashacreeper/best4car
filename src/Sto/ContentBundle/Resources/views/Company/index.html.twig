@@ -15,6 +15,8 @@
     $(document).ready(function(){
         var myCollection;
         var myMap;
+        var globalCompanies;
+
         $('#companiesListContainer').on('click', '.cardCompanyItem', function(){
             var id = $(this).data('item-id');
             $('#x-list-company' + id).slideToggle(0);
@@ -28,8 +30,9 @@
                 }
             })
         })
-        $.getJSON(Routing.generate('api_get_companies')).done(function (companies) {
-            renderMap(city, companies)
+        $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
+            globalCompanies = companies;
+            renderMap(city, globalCompanies)
         });
 
         function renderMap (city, companies) {
@@ -110,10 +113,10 @@
                 myCollection = new ymaps.GeoObjectCollection();
                 myMap.myCollection = myCollection;
 
-                filterDataByZoom(myMap.getZoom(), companies);
-                $('.contentTopCenter span').text(companies.length);
+                filterDataByZoom(myMap.getZoom(), globalCompanies);
+                $('.contentTopCenter span').text(globalCompanies.length);
 
-                $('[data-serarch-form]').change(function () {
+                var advancedFormDataLoader = function(){
                     $.ajax({
                        type: "GET",
                        url: Routing.generate('api_auto_get_companies_with_filter'),
@@ -126,7 +129,6 @@
                                 geoCollection.remove(item);
                             });
                         });
-                        addPlacemarks(json);
 
                         myMap.geoObjects.each(function (geoCollection) {
                             geoCollection.each(function (item) {
@@ -137,22 +139,36 @@
                             });
                         });
 
+                        globalCompanies = json;
+                        addPlacemarks(globalCompanies);
                     });
                     if(!$('#home_compalies').hasClass("hide")){
                         doAjax();
                     }
+                }
+
+                $('#advanced-search-form').on('change', 'select', function(){
+                    advancedFormDataLoader();
+                });
+
+                $('#advanced-search-form').on('change', 'input', function(){
+                    advancedFormDataLoader();
                 });
 
                 myMap.events.add('actionend', function (evt) {
                     if(oldZoom != myMap.getZoom()) {
-                        filterDataByZoom(myMap.getZoom(), companies);
+                        filterDataByZoom(myMap.getZoom(), globalCompanies);
                         oldZoom = myMap.getZoom();
                     }
                 });
 
                 function addPlacemarks (companies) {
                     var sel;
-                    $('div.listItemCompanyPlain').each(function(){ if($(this).css('display')=='block'){ sel = $(this).attr('id').replace('x-list-company',''); }});
+                    $('div.listItemCompanyPlain').each(function(){
+                        if ($(this).css('display')=='block') {
+                            sel = $(this).attr('id').replace('x-list-company','');
+                        }
+                    });
 
                     for (var key in companies) {
                         var val = companies[key];

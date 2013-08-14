@@ -50,21 +50,26 @@ class CompanyRepository extends EntityRepository
             ->join('company.deals', 'd')
             ->leftJoin('company.feedbacks', 'fb')
             ->where('company.visible = true')
-            ->andwhere('company.city = :city')
+            ->andWhere('company.city = :city')
             ->setParameter('city', $city->getId())
         ;
         if ($companyType) {
-            $qb->andwhere('csp.id = :sp')
+            $qb->andWhere('csp.id = :sp')
                 ->setParameter('sp', $companyType)
             ;
         }
         if ($subCompanyType) {
-            $qb->andwhere('cs.id = :s')
+            $qb->andWhere('cs.id = :s')
                 ->setParameter('s', $subCompanyType)
             ;
         }
+
+        if ($deals) {
+            $qb->andWhere('d.id IS NOT NULL');
+        }
+
         if ($rating) {
-            $qb->andwhere('company.rating BETWEEN :rating-0.01 AND 10.01')
+            $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')
                 ->setParameter('rating', $rating)
             ;
         }
