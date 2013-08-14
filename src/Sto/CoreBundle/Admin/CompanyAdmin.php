@@ -121,6 +121,7 @@ class CompanyAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('logo', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
         ;
     }

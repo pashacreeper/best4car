@@ -110,7 +110,6 @@ html, body {
 	margin: 0 auto;
 	position: relative;
 	z-index: 3;
-	padding-bottom: 58px;
 }
 #header{
 	position: relative;
@@ -945,7 +944,7 @@ select{
 	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
 	box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 0.5);
 	background: #dad9da;
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodï¿½EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 	background: -moz-linear-gradient(top, #eeedee 0%, #dad9da 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeedee), color-stop(100%,#dad9da));
 	background: -webkit-linear-gradient(top, #eeedee 0%,#dad9da 100%);
@@ -983,9 +982,7 @@ select{
 	background: #464b51;
 	border-top: 1px solid #313236;
 	height: 68px;
-	position: absolute;
 	z-index: 888;
-	bottom: 0;
 }
 .fotterCont{
 	position: relative;

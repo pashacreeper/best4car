@@ -186,4 +186,9 @@ class CompanyGallery
 
         return $this;
     }
+
+    public function getImagePath()
+    {
+        return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/company/company_gallery/{$this->imageName}";
+    }
 }

@@ -1203,4 +1203,9 @@ class Company
     {
         $this->contacts->remove($contact);
     }
+
+    public function getImagePath()
+    {
+        return $this->logoName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/company_icon/{$this->logoName}";
+    }
 }

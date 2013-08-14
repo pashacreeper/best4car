@@ -286,4 +286,6 @@ sonata_block:
         sonata.block.service.rss:
 
 sonata_admin:
-        title: Sto Admin
+    title: Sto Admin
+    templates:
+        layout:  StoCoreBundle:Admin:layout.html.twig
