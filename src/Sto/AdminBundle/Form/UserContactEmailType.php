@@ -10,7 +10,13 @@ class UserContactEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email')
+            ->add('email', 'email', [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "Email"
+                ]
+            ])
         ;
     }
 

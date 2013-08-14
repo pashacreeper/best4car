@@ -943,6 +943,18 @@ class User extends BaseUser
     public function setContactEmails($contactEmails)
     {
         $this->contactEmails = $contactEmails;
+
+        return $this;
+    }
+
+    public function addContactEmail($contactEmail)
+    {
+        $this->contactEmails->add($contactEmail);
+    }
+
+    public function removeContactEmail($contactEmail)
+    {
+        $this->contactEmails->removeElement($contactEmail);
     }
 
     /**

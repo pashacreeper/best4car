@@ -64,6 +64,8 @@
             </p>
         </div>
         <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+            <label>Email для отображения в профиле</label>
+            <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
             {{ form_row(form.contactEmails) }}
         </div>
         <script>
