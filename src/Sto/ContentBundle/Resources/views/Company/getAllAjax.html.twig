@@ -1,5 +1,8 @@
 {% for item in companies %}
 <div class="cardCompanyItem" data-item-id="{{ item.id }}" id="list-company{{ item.id }}" data-correspond="x-list-company{{ item.id }}">
+    {% if item.deals %}
+        <img src="/bootstrap/img/icon-special-deal.png" alt="Спецпредложение" class="specialDealIcon">
+    {% endif %}
     <p class="index">
         <span class="indexbg"></span>
         <span class="indexLevel">{{item.rating}}</span></br>
