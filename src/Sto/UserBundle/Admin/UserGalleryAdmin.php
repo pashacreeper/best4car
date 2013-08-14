@@ -36,8 +36,8 @@ class UserGalleryAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('image', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
-            ->add('imageName')
             ->add('user')
         ;
     }

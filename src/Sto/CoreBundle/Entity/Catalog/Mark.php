@@ -97,4 +97,9 @@ class Mark extends Base
     {
         return $this->name;
     }
+
+    public function getImagePath()
+    {
+        return $this->iconName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/catalog/icons/{$this->iconName}";
+    }
 }

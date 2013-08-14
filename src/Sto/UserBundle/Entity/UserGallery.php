@@ -167,4 +167,9 @@ class UserGallery
 
         return $this;
     }
+
+    public function getImagePath()
+    {
+        return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/user/gallery/{$this->imageName}";
+    }
 }

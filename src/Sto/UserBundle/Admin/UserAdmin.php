@@ -101,6 +101,7 @@ class UserAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('avatar', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('username')
             ->addIdentifier('email')
             ->add('enabled')
