@@ -935,7 +935,6 @@ class User extends BaseUser
         return $this->gallery;
     }
 
-
     public function getImagePath()
     {
         return $this->avatarUrl == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/user_photo/{$this->avatarUrl}";
