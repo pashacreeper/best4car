@@ -41,6 +41,7 @@ class MarkAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('icon', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
             ->add('uri')
             ->add('visible')

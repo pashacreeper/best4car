@@ -56,10 +56,10 @@ class Deal
      *     inverseJoinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")}
      * )
      */
-     private $services;
+    private $services;
 
     /**
-     *@Assert\File(
+     * @Assert\File(
      *  maxSize="2M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
@@ -73,7 +73,7 @@ class Deal
     private $imageName;
 
     /**
-     *@Assert\File(
+     * @Assert\File(
      *  maxSize="2M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
@@ -87,7 +87,7 @@ class Deal
     private $imageName2;
 
     /**
-     *@Assert\File(
+     * @Assert\File(
      *  maxSize="2M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
@@ -516,7 +516,7 @@ class Deal
 
     public function __toString()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function setUpdatedAt($date)
@@ -652,7 +652,7 @@ class Deal
         return $this->autoServices;
     }
 
-        /**
+    /**
      * Set gps
      *
      * @param  string $gps
@@ -673,5 +673,10 @@ class Deal
     public function getGps()
     {
         return $this->gps;
+    }
+
+    public function getImagePath()
+    {
+        return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/deal_image/{$this->imageName}";
     }
 }
