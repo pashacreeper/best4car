@@ -126,7 +126,6 @@
                                 geoCollection.remove(item);
                             });
                         });
-                        addPlacemarks(json);
 
                         myMap.geoObjects.each(function (geoCollection) {
                             geoCollection.each(function (item) {
@@ -136,6 +135,8 @@
                                 }
                             });
                         });
+
+                        addPlacemarks(json);
 
                     });
                     if(!$('#home_compalies').hasClass("hide")){
@@ -160,7 +161,11 @@
 
                 function addPlacemarks (companies) {
                     var sel;
-                    $('div.listItemCompanyPlain').each(function(){ if($(this).css('display')=='block'){ sel = $(this).attr('id').replace('x-list-company',''); }});
+                    $('div.listItemCompanyPlain').each(function(){
+                        if ($(this).css('display')=='block') {
+                            sel = $(this).attr('id').replace('x-list-company','');
+                        }
+                    });
 
                     for (var key in companies) {
                         var val = companies[key];
