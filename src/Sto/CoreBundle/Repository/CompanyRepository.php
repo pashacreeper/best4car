@@ -50,7 +50,7 @@ class CompanyRepository extends EntityRepository
             ->join('company.deals', 'd')
             ->leftJoin('company.feedbacks', 'fb')
             ->where('company.visible = true')
-            ->andwhere('company.city = :city')
+            ->andWhere('company.city = :city')
             ->setParameter('city', $city->getId())
         ;
         if ($companyType) {
@@ -59,7 +59,7 @@ class CompanyRepository extends EntityRepository
             ;
         }
         if ($subCompanyType) {
-            $qb->andwhere('cs.id = :s')
+            $qb->andWhere('cs.id = :s')
                 ->setParameter('s', $subCompanyType)
             ;
         }
