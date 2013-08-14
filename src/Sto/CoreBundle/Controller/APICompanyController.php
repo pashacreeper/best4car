@@ -15,6 +15,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Catalog;
 use Sto\ContentBundle\Form\Extension\ChoiceList\WorkTime;
 use Sto\ContentBundle\Form\Extension\ChoiceList\AdditionalServices;
+use Sto\ContentBundle\Form\AdvancedSearchType;
 
 /**
  * APi Auto Catalog controller.
@@ -96,10 +97,14 @@ class APICompanyController extends FOSRestController
         $city = $this->get('sto_content.manager.city')->selectedCity();
 
         $responseType = $request->get('responce-type', 'json');
-        $companyType = $request->get('company_type');
-        $subCompanyType = $request->get('sub_company_type');
 
-        $auto = $request->get('marks');
+        $form = $this->createForm(new AdvancedSearchType());
+        $form->bind($request);
+        $formData = $form->getData();
+        $companyType = $formData["companyType"];
+        $subCompanyType = $formData["subCompanyType"];
+        $auto = $formData["auto"];
+
         $rating = $request->get('rating');
 
         $filter = [];

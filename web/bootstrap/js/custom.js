@@ -214,19 +214,20 @@ var catalogPage = function(){
     var changeCheck = function(el) {
         var el = el,
             input = el.find("input").eq(0);
-        if(!input.attr("checked")) {
+        if(!input.prop("checked")) {
             el.css("background-position","0 -24px");    
-            input.attr("checked", true)
+            input.prop("checked", true)
         } else {
             el.css("background-position","0 0");    
-            input.attr("checked", false)
+            input.prop("checked", false)
         }
+        input.trigger("change");
         return true;
     }
     var changeCheckStart = function (el) {
         var el = el,
         input = el.find("input").eq(0);
-        if(input.attr("checked")) {
+        if(input.prop("checked")) {
             el.css("background-position","0 -24px");    
         }
         return true;
@@ -242,6 +243,9 @@ var catalogPage = function(){
             value: 4,
             slide: function( event, ui ) {
                 $("#amount").val( ui.value );
+            },
+            stop: function( event, ui ) {
+                $("#amount").trigger("change");
             }
         });
         $("#amount").val( $("#slider-range-max").slider("value") );
