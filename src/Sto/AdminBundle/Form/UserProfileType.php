@@ -116,7 +116,11 @@ class UserProfileType extends BaseType
                 ]
             ])
             ->add('contactEmails', 'collection', [
-                'type' => new UserContactEmailType()
+                'type' => new UserContactEmailType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'label' => false
             ])
         ;
     }

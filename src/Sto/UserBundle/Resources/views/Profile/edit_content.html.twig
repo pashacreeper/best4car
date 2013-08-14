@@ -63,7 +63,34 @@
                 {{ form_widget(form.linkFB) }}
             </p>
         </div>
-        {{ form_row(form.contactEmails) }}
+        <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+            {{ form_row(form.contactEmails) }}
+        </div>
+        <script>
+        $(document).ready(function(){
+            function addTagForm(collectionHolder, $newLinkLi) {
+                var prototype = collectionHolder.data('prototype');
+                var index = collectionHolder.data('index');
+                var newForm = prototype.replace(/__name__/g, index);
+                collectionHolder.data('index', index + 1);
+                var $newFormLi = $('<div></div>').append(newForm);
+                $newLinkLi.before($newFormLi);
+            }
+
+            var collectionHolder = $('#contact_emails');
+            var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+            var $newLinkLi = $('<div></div>').append($addTagLink);
+
+            jQuery(document).ready(function() {
+                collectionHolder.append($newLinkLi);
+                collectionHolder.data('index', collectionHolder.find(':input').length);
+                $addTagLink.on('click', function(e) {
+                    e.preventDefault();
+                    addTagForm(collectionHolder, $newLinkLi);
+                });
+            });
+        });
+        </script>
         <div class="bottomContent">
             <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
         </div>
