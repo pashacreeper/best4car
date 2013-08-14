@@ -949,6 +949,7 @@ class User extends BaseUser
 
     public function addContactEmail($contactEmail)
     {
+        $contactEmail->setUser($this);
         $this->contactEmails->add($contactEmail);
     }
 
