@@ -5,6 +5,7 @@ namespace Sto\AdminBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 use Doctrine\ORM\EntityRepository;
+use Sto\AdminBundle\Form\UserContactEmailType;
 
 class UserProfileType extends BaseType
 {
@@ -113,6 +114,14 @@ class UserProfileType extends BaseType
                     'rows' => 4,
                     'class '=> 'span6 inputFormEnter'
                 ]
+            ])
+            ->add('contactEmails', 'collection', [
+                'type' => new UserContactEmailType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'label' => false,
+                'by_reference' => false
             ])
         ;
     }

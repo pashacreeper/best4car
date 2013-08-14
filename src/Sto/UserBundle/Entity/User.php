@@ -14,6 +14,7 @@ use Sto\UserBundle\Entity\Contacts;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\UserBundle\Entity\UserGallery;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -252,19 +253,25 @@ class User extends BaseUser
      */
     private $gallery;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserContactEmail", mappedBy="user", cascade={"all"})
+     **/
+    private $contactEmails;
+
     public function __construct()
     {
         parent::__construct();
         $this->gender = 'male';
-        $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
         $this->ratingGroupId = 1;
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->groups = new ArrayCollection();
         $this->enabled = true;
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->companyManager = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts = new ArrayCollection();
+        $this->companyManager = new ArrayCollection();
         $this->rating = 10;
         $this->usingEmail = true;
-        $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gallery = new ArrayCollection();
+        $this->contactEmails = new ArrayCollection();
     }
 
     public function __toString()
@@ -928,8 +935,43 @@ class User extends BaseUser
         return $this->gallery;
     }
 
+
     public function getImagePath()
     {
         return $this->avatarUrl == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/user_photo/{$this->avatarUrl}";
     }
+
+    /**
+     * Set contactEmails
+     *
+     * @param Collection $contactEmails
+     */
+    public function setContactEmails($contactEmails)
+    {
+        $this->contactEmails = $contactEmails;
+
+        return $this;
+    }
+
+    public function addContactEmail($contactEmail)
+    {
+        $contactEmail->setUser($this);
+        $this->contactEmails->add($contactEmail);
+    }
+
+    public function removeContactEmail($contactEmail)
+    {
+        $this->contactEmails->removeElement($contactEmail);
+    }
+
+    /**
+     * Get contactEmails
+     *
+     * @return Collection
+     */
+    public function getContactEmails()
+    {
+        return $this->contactEmails;
+    }
+
 }

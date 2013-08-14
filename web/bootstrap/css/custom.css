@@ -513,3 +513,8 @@ a.btnNext:hover{
 .noOverflowHidden{
     overflow: visible;
 }
+
+.specialDealIcon{
+    position: absolute;
+    right: 10px;
+}
