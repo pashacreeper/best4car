@@ -28,7 +28,7 @@
                 }
             })
         })
-        $.getJSON(Routing.generate('api_get_companies')).done(function (companies) {
+        $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
             renderMap(city, companies)
         });
 
@@ -113,7 +113,7 @@
                 filterDataByZoom(myMap.getZoom(), companies);
                 $('.contentTopCenter span').text(companies.length);
 
-                $('[data-serarch-form]').change(function () {
+                var advancedFormDataLoader = function(){
                     $.ajax({
                        type: "GET",
                        url: Routing.generate('api_auto_get_companies_with_filter'),
@@ -141,6 +141,14 @@
                     if(!$('#home_compalies').hasClass("hide")){
                         doAjax();
                     }
+                }
+
+                $('#advanced-search-form').on('change', 'select', function(){
+                    advancedFormDataLoader();
+                });
+
+                $('#advanced-search-form').on('change', 'input', function(){
+                    advancedFormDataLoader();
                 });
 
                 myMap.events.add('actionend', function (evt) {
