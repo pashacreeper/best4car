@@ -383,7 +383,7 @@ var profilePage = function(){
             url = document.URL,
             hash = false;
 
-        tabContainers.find('> div').hide();
+        tabContainers.find('.content').hide();
         if (url.indexOf('#') + 1) {
             hash = url.substring(url.indexOf('#'));
         }
@@ -392,11 +392,11 @@ var profilePage = function(){
             tabContainers.find('[data-tab-id="'+hash+'"]').show();
             tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
         } else {
-            tabContainers.find('> div').hide().filter(':first').show();
+            tabContainers.find('.content').hide().filter(':first').show();
             tabLinksContainer.find('a:first').addClass('selected');
         }
         tabLinksContainer.find('a').click(function () {
-            tabContainers.find('> div').hide(); // прячем все табы
+            tabContainers.find('.content').hide(); // прячем все табы
             tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
             $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
             $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
