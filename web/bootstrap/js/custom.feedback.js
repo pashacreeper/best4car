@@ -1,4 +1,18 @@
 $(document).ready(function(){
+    $('.reviewAdditionalInfoButton').click(function() {
+        var content_block = $(this).parents('.reviewCont').find('.reviewAdditionalInfo');
+        if (content_block.is(':visible')) {
+            content_block.hide();
+            $(this).text('Показать дополнительную информацию');
+        }
+        else {
+            content_block.show();
+            $(this).text('Скрыть дополнительную информацию');
+        }
+        
+        return false;
+    });
+    
     var countFeedbacks = function(){
         var feedbacksCount = $('#data-x-container-feedbacks').find('.reviewContentItem').length;
         $('#showedFeedbacks').html(feedbacksCount);
