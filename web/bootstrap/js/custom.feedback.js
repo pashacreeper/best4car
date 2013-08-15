@@ -4,8 +4,7 @@ $(document).ready(function(){
         if (content_block.is(':visible')) {
             content_block.hide();
             $(this).text('Показать дополнительную информацию');
-        }
-        else {
+        } else {
             content_block.show();
             $(this).text('Скрыть дополнительную информацию');
         }
