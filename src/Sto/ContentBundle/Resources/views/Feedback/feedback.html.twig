@@ -39,6 +39,39 @@
                 <p class="reviewContText">
                     {{ feedback.content|raw }}
                 </p>
+
+                <div class="reviewAdditionalInfoButtonWrapper">
+                    <a href="#" class="reviewAdditionalInfoButton">Показать дополнительную информацию</a>
+                </div>
+                <div class="reviewAdditionalInfo">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Дата посещения:</span>
+                                {% if feedback.visitDate %}{{ feedback.visitDate|date("d.m.Y") }}{% else %}Не указано{% endif %}
+                            </td>
+                            <td>
+                                <span>Автомобиль:</span>
+                                {% if feedback.car %}{{ feedback.car }}{% else %}Не указано{% endif %}
+                            </td>
+                            <td>
+                                <span>Номер заказа (чека):</span>
+                                {% if feedback.orderNumber %}{{ feedback.orderNumber }}{% else %}Не указано{% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Мастер:</span>
+                                {% if feedback.mastername %}{{ feedback.mastername }}{% else %}Не указано{% endif %}
+                            </td>
+                            <td>
+                                <span>Гос. номер:</span>
+                                {% if feedback.stateNumber %}{{ feedback.stateNumber }}{% else %}Не указано{% endif %}
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
                 {% if (isManager or app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) and not feedback.feedbackAnswer %}
                     <a href="#" data-feedback="{{ feedback.id }}" class="primaryLink reply">Ответить</a>
                 {% endif %}
