@@ -579,7 +579,9 @@ a.addEmail{
 }
 .reviewCont{
 	margin-top: 10px;
+	font-weight: 300;
 }
+.reviewCont p {font-size: 14px;}
 .reviewAdditionalInfo {border-top: 1px solid #acc7d2; width: 590px; margin: 10px -10px -5px -10px; padding: 10px; padding-bottom: 0px; display: none;}
 .reviewAdditionalInfo table {width: 100%;}
 .reviewAdditionalInfo td {width: 33%;}
