@@ -3,7 +3,6 @@ namespace Sto\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
@@ -16,10 +15,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProfileController extends BaseController
 {
     /**
-     * @Route("/profile/edit/step2", name="profile_edit_step2")
-     * @Template()
+     * Edit the user
      */
-    public function editStep2Action(Request $request)
+    public function editAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -34,6 +32,11 @@ class ProfileController extends BaseController
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
+        }
+
+        $originalEmails = [];
+        foreach ($user->getContactEmails() as $email) {
+            $originalEmails[] = $email;
         }
 
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
@@ -52,6 +55,18 @@ class ProfileController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
+                foreach ($user->getContactEmails() as $email) {
+                    foreach ($originalEmails as $key => $toDel) {
+                        if ($toDel->getId() === $email->getId()) {
+                            unset($originalEmails[$key]);
+                        }
+                    }
+                }
+
+                foreach ($originalEmails as $email) {
+                    $this->container->get('doctrine.orm.entity_manager')->remove($email);
+                }
+
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
@@ -65,6 +80,9 @@ class ProfileController extends BaseController
             }
         }
 
-        return ['form' => $form->createView()];
+        return $this->container->get('templating')->renderResponse(
+            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
+            array('form' => $form->createView())
+        );
     }
 }

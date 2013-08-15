@@ -23,6 +23,17 @@ class UserContactEmail
     private $email;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\User", inversedBy="contact_emails")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    public function __toString()
+    {
+        return $this->getEmail();
+    }
+
+    /**
      * Set email
      *
      * @param  string           $email
@@ -44,12 +55,6 @@ class UserContactEmail
     {
         return $this->email;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\User", inversedBy="contact_emails")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
 
     /**
      * Get id
