@@ -580,6 +580,14 @@ a.addEmail{
 .reviewCont{
 	margin-top: 10px;
 }
+.reviewAdditionalInfo {border-top: 1px solid #acc7d2; width: 590px; margin: 10px -10px -5px -10px; padding: 10px; padding-bottom: 0px; display: none;}
+.reviewAdditionalInfo table {width: 100%;}
+.reviewAdditionalInfo td {width: 33%;}
+.reviewAdditionalInfo tr {height: 30px;}
+.reviewAdditionalInfo {color: #f35d2e; font-size: 13px;}
+.reviewAdditionalInfo span {font-weight: bolder; font-style: italic; color: #000; display: block; margin-bottom: 2px; font-size: 10px;}
+.reviewAdditionalInfoButtonWrapper {text-align: center;}
+.reviewAdditionalInfoButton {color: #666; text-decoration: underline;}
 .collapsText{
 	display: block;
 }
