@@ -15,7 +15,7 @@
     $(document).ready(function(){
         var myCollection;
         var myMap;
-        var globalCompanies;
+        var globalCompanies = '';
 
         $('#companiesListContainer').on('click', '.cardCompanyItem', function(){
             var id = $(this).data('item-id');
@@ -29,11 +29,19 @@
                     return;
                 }
             })
-        })
-        $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
-            globalCompanies = companies;
-            renderMap(city, globalCompanies);
         });
+
+        {% if words %}
+            $.getJSON(Routing.generate('api_get_companies_with_search'), {search: "{{ words }}"}).done(function(companies){
+                globalCompanies = companies;
+                renderMap(city, globalCompanies);
+            });
+        {% else %}
+            $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
+                globalCompanies = companies;
+                renderMap(city, globalCompanies);
+            });
+        {% endif %}
 
         function renderMap (city, companies) {
             ymaps.ready(init(city, companies));

@@ -50,56 +50,24 @@ class CompanyController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $city = $this->get('sto_content.manager.city')->selectedCity();
-
-        $repository = $em->getRepository('StoCoreBundle:Company');
-        $query = $repository->createQueryBuilder('company')
-            ->select('company, s')
-            ->join('company.specialization', 's')
-            ->where('company.visible = true')
-            ->andWhere('company.cityId = :city')
-            ->setParameter('city', $city->getId())
-        ;
-
-        if ($request->isMethod('POST') and $request->get('search')) {
-            $words = explode(" ", trim($request->get('search')));
-
-            foreach ($words as $word) {
-                $query->andWhere($query->expr()->orx(
-                    $query->expr()->like('company.name',':search'),
-                    $query->expr()->like('company.fullName',':search'),
-                    $query->expr()->like('company.description',':search'),
-                    $query->expr()->like('company.slogan',':search'),
-                    $query->expr()->like('s.name',':search')
-                ))
-                ->setParameter('search', '%' . $word . '%');
-            }
-        }
-        $companies = $query
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
-        $companySortForm = $this->createForm(new CompaniesSortType());
-
-        foreach ($companies as $key => $value) {
-            $companies[$key]['specialization_template'] = $this
-                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
-            ;
-
-            $companies[$key]['workingTime_template'] = $this
-                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
-            ;
-        }
         if ($this->get('security.context')->isGranted('ROLE_FROZEN')) {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $words = null;
+
+        if ($request->isMethod('GET') && $request->get('search')) {
+            $words = $request->get('search');
+        }
+
+        $companySortForm = $this->createForm(new CompaniesSortType());
+
         return [
-            'companies' => json_encode($companies),
             'city' => $city,
             'sortForm' => $companySortForm->createView(),
+            'words' => $words
         ];
     }
 
