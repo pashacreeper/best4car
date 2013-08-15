@@ -195,6 +195,7 @@
                             address: val.address,
                             phone: val.phones,
                             web: val.web,
+                            web_without_http: val.web.replace('http://', ''),
                             logo: val.logoName,
                             rating: val.rating,
                             specialization_html: val.specialization_template,
@@ -239,6 +240,7 @@
                                 '<div class="dataCompany">' +
                                     '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                                     '<p class="adressCompany">$[properties.address]</p>' +
+                                    '<a href="$[properties.web]" class="siteCompany">$[properties.web_without_http]</a>' +
                                     '$[properties.specialDeal]' +
                                 '</div>' +
                             '</div>' +
@@ -248,18 +250,16 @@
                                 '</div>' +
                                 '<div class="infoCompany">' +
                                     '<p class="infoCompanyLable">' +
-                                        'Контактный телефон:</br><span>$[properties.phone.0.phone]</span>' +
+                                        'Телефон:</br><span>$[properties.phone.0.phone]</span>' +
                                     '</p>' +
                                     '<p class="infoCompanyLable">' +
                                         'Часы работы:</br>$[properties.workingTime_html]' +
-                                    '</p>' +
-                                    '<p class="infoCompanyLable">' +
-                                        'Сайт:</br><span><a href="$[properties.web]">$[properties.web]</a></span>' +
                                     '</p>' +
                                 '</div>' +
                             '</div>' +
                         '</div>'
                     );
+
                     ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
                     myCollection.options.set({
                         balloonContentBodyLayout:'my#superlayout',
