@@ -68,6 +68,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Sto\UserBundle\Entity\User
+    from_email:
+        address: no-reply@best4car.ru
     group:
         group_class: Sto\UserBundle\Entity\Group
     profile:
@@ -76,6 +78,11 @@ fos_user:
     registration:
         form:
             type: sto_contentbundle_registration
+    resetting:
+        email:
+            template:   StoUserBundle:Resetting:email.html.twig
+    service:
+        mailer: fos_user.mailer.twig_swift
 
 mopa_bootstrap:
     form:
