@@ -1479,13 +1479,15 @@ label {
 }
 
 .popupCardCompany{
-	width: 400px;
-	padding: 20px;
+	width: 410px;
+	padding: 10px 20px;
 	z-index: 4;
+	padding-bottom: 0;
 }
 .popupCardCompanyCont{
 	padding: 8px 0;
 	overflow: hidden;
+	padding-bottom: 0;
 }
 .popupCardCompanyTop img{
 	float: left;
@@ -1496,6 +1498,21 @@ label {
 	overflow: hidden;
 	border-bottom: 1px solid #f35d2e;
 	padding-bottom: 10px;
+}
+.siteCompany {
+	color: #f35d2e;
+	font-size: 12px;
+	display: block;
+}
+.popupCardCompany .nameCompany a {
+	background: url('/bootstrap/img/border-dotted-bg.jpg');
+	background-position: bottom;
+	background-repeat: repeat-x;
+	border-bottom: none;
+	display: inline-block;
+}
+.popupCardCompany .nameCompany a:hover {
+	background: none;
 }
 .dataCompany{
 	padding: 0 20px;
@@ -1515,9 +1532,9 @@ label {
 }
 .servicesPart{
 	float: left;
-	width: 190px;
 }
-.services{
+.popupCardCompany .servicesPart {width: 270px;}
+.services {
 	border-bottom: 1px solid #f35d2e;
 }
 .servicesAdd{
