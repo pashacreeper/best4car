@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block js %}
-    {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    {{ parent() }}
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script>
     var city = '{{ city.gps }}';
@@ -32,11 +32,10 @@
         })
         $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
             globalCompanies = companies;
-            renderMap(city, globalCompanies)
+            renderMap(city, globalCompanies);
         });
 
         function renderMap (city, companies) {
-            $('#map').empty();
             ymaps.ready(init(city, companies));
 
             function init (city, companies) {
