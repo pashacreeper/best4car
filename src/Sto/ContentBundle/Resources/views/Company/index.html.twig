@@ -195,7 +195,7 @@
                             address: val.address,
                             phone: val.phones,
                             web: val.web,
-                            web_without_http: val.web.replace('http://', ''),
+                            web_without_http: val.web.replace(/(http|https):\/\//, ''),
                             logo: val.logoName,
                             rating: val.rating,
                             specialization_html: val.specialization_template,
