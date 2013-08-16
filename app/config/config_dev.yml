@@ -36,5 +36,7 @@ web_profiler_extra:
         enabled:        true
         display_in_wdt: true
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    port: 1025
+    transport: smtp
+    host:      127.0.0.1

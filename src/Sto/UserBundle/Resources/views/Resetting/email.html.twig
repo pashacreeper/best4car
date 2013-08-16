@@ -1,0 +1,29 @@
+{% block subject %}Сброс пароля{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        Здравствуйте, {{ user.username }}!
+
+        Для смены пароля на сервисе best4car.ru воспользуйтесь следующей ссылкой:
+        {{ confirmationUrl }}
+
+        Пожалуйста, не отвечайте на это письмо - оно сгенерировано автоматически.
+        Если по каким-либо причинам Вам не удалось восстановить доступ к своему аккаунту - напишите нам на адрес feedback@best4car.ru.
+
+        С уважением, команда best4car.ru
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        Здравствуйте, {{ user.username }}!<br/><br/>
+
+        Для смены пароля на сервисе <a href="http://best4car.ru">best4car.ru</a> воспользуйтесь следующей ссылкой:<br/>
+        <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a><br/><br/>
+
+        Пожалуйста, не отвечайте на это письмо - оно сгенерировано автоматически.
+        Если по каким-либо причинам Вам не удалось восстановить доступ к своему аккаунту - напишите нам на адрес <a href="mailto:feedback@best4car.ru">feedback@best4car.ru</a>.
+        <br/><br/>
+        С уважением, команда best4car.ru
+    {% endautoescape %}
+{% endblock %}
