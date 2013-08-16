@@ -16,19 +16,17 @@ class Builder extends ContainerAware
         $companies = $menu->addChild('Компании', ['route' => '_index']);
         $companies->setAttribute('class', 'navTopItem');
         $companies->setLinkAttributes(['data-span-class' => 'companys', 'class' => 'navLink']);
-        $companies->setLinkAttribute('class', 'navLink');
-        if (   'content_company_show' == $route
-            || '_index' == $route)
-        {
+
+        if (in_array($route, ['content_company_feedbacks_add', '_index', 'content_company_show'])) {
             $companies->setCurrent(true);
         }
 
         $deals = $menu->addChild('Акции', ['route' => 'content_deals']);
         $deals->setAttribute('class', 'navTopItem');
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
-        if (   'content_deal_show' == $route
-            || 'content_deals' == $route )
-        {
+        if ('content_deal_show' == $route
+            || 'content_deals' == $route
+        ) {
             $deals->setCurrent(true);
         }
 
@@ -39,10 +37,10 @@ class Builder extends ContainerAware
         $experts = $menu->addChild('Эксперты', ['uri' => '#']);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
-        if (   $route == 'user_profile'
+        if ($route == 'user_profile'
             || $route == 'fos_user_profile_show'
-            || $route == 'fos_user_profile_edit' )
-        {
+            || $route == 'fos_user_profile_edit'
+        ) {
             $experts->setCurrent(true);
         }
 
