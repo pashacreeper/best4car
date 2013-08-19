@@ -12,7 +12,7 @@
         <p class="nameCompany"><a href="{{ path('content_company_show', {'id':item.id}) }}">{{item.name}}</a></p>
         <p class="adressCompany">{{item.address}}</p>
         {% if item.web is not empty %}
-            <a href="{{ item.web }}" class="siteCompany">{{ item.web }}</a>
+            <a href="{{ item.web }}" class="siteCompany">{{ item.web | replace({'https://': '', 'http://': ''}) }}</a>
         {% endif %}
     </div>
     <div class="infoCompanyCont smallInfoCompany" id="blocSmall_{{ item.id }}">
@@ -43,7 +43,13 @@
                 {% endfor %}
             </div>
             <div class="infoCompany">
-                {% if item.phones | length > 0 %}<p class="infoCompanyLable">Телефон:</br>{{item.phones[0].phone}}</p>{% endif %}
+                {% if item.phones | length > 0 %}
+                    <p class="infoCompanyLable">
+                        Телефон:</br>
+                        <span>{{item.phones[0].phone}}</span>
+                    </p>
+                {% endif %}
+
                 <p class="infoCompanyLable">
                     Часы работы:</br>
                     {%- for workPhase in item.workingTime %}
