@@ -977,6 +977,8 @@ select{
 	position: relative;
 }
 .footer{
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	min-width: 1000px;
 	background: #464b51;
