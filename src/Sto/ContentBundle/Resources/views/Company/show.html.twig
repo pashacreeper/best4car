@@ -49,9 +49,9 @@
 {% block search %}
 <div class="back">
     {% if refererRoute == 'content_deal_show' %}
-        <a href="{{ app.request.headers.get('referer') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Карточка акции</span></a>
+        <a href="{{ app.request.headers.get('referer') | url_to_local }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Карточка акции</span></a>
     {% elseif refererRoute == '_index' %}
-        <a href="{{ app.request.headers.get('referer') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+        <a href="{{ app.request.headers.get('referer') | url_to_local }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
     {% else %}
         <a href="{{ path('_index') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
     {% endif %}

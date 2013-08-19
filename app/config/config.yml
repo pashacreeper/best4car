@@ -296,3 +296,9 @@ sonata_admin:
     title: Sto Admin
     templates:
         layout:  StoCoreBundle:Admin:layout.html.twig
+
+services:
+    sto.twig.sto_extension:
+        class: Sto\CoreBundle\Twig\StoExtension
+        tags:
+            - { name: twig.extension }
