@@ -91,7 +91,9 @@
                         {% endif %}
                     {% elseif app.user.Id != feedback.userId %}
                         {% if not feedback.complain %}
-                            <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                            <div class="complain-wrapper">
+                                <a href="#" data-action="complain" data-feedback-id="{{ feedback.id }}" class="primaryLink complain">Пожаловаться</a>
+                            </div>
                         {% endif %}
                     {% endif %}
                 {% endif %}

@@ -670,8 +670,10 @@ a.addEmail{
 	text-decoration: none !important;
 }
 a.complain, span.complain{
-	float: right !important;
+	float: right;
 }
+.complain-wrapper {float: right; display: inline-block;}
+.complain-wrapper span {float: none;}
 .popUpPrimary{
 	position: absolute;
 	bottom: -129px;
@@ -685,6 +687,7 @@ a.complain, span.complain{
 	display: none;
 }
 .complainAlert{	
+	float: left;
 	display: inline-block;
 	width: 16px;
 	height: 13px;

@@ -111,4 +111,9 @@ class FeedbackEvaluation
     {
         return $this->feedback;
     }
+
+    public function __toString()
+    {
+        return "ID: {$this->id}";
+    }
 }

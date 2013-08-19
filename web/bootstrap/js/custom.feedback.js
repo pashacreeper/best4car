@@ -36,7 +36,7 @@ $(document).ready(function(){
         .done(function (data) {
             if (data.complain == true){
                 $this.after($('<i class="complainAlert"></i>'));
-                $this.befor($('<span class="primaryLink complain">Пожаловаться</span>'));
+                $this.before($('<span class="primaryLink complain">Пожаловаться</span>'));
                 $this.remove();
             }
         })
