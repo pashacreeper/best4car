@@ -54,7 +54,6 @@ class Builder extends ContainerAware
 
         $pages = [
             'about' => 'О проекте',
-            'advertisers' => 'Для рекламодателей',
             'business' => 'Для автобизнеса',
             'tour' => 'Тур по сайту',
             'contact' => 'Контакты',

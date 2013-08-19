@@ -1006,14 +1006,14 @@ select{
 	top: -10px;
 }
 #linkUser a{
-	font: 1.3em 'PT Sans', sans;
+	font: 1.4em 'PT Sans', sans;
 	color: #a2a4a7;
 }
 #linkUser a:hover{
 	color: #fff;
 }
 .footerMenu{
-	width: 580px;
+	width: 400px;
 	margin: 0 auto;
 	overflow: hidden;
 }
