@@ -147,9 +147,14 @@ class Deal
     private $feedbacks;
 
     /**
-     * @ORM\Column(name="contact_information", type="string", length=255, nullable=true)
+     * @ORM\Column(name="contact_information_name", type="string", length=255, nullable=true)
      */
-    private $contactInformation;
+    private $contactInformationName;
+
+    /**
+     * @ORM\Column(name="contact_information_phone", type="string", length=255, nullable=true)
+     */
+    private $contactInformationPhone;
 
     /**
      * @Assert\NotBlank()
@@ -433,21 +438,39 @@ class Deal
     }
 
     /**
-     * Set contactInformation
+     * Set contactInformationName
      */
-    public function setContactInformation($contactInformation)
+    public function setContactInformationName($contactInformation)
     {
-        $this->contactInformation = $contactInformation;
+        $this->contactInformationName = $contactInformation;
 
         return $this;
     }
 
     /**
-     * Get contactInformation
+     * Get contactInformationName
      */
-    public function getContactInformation()
+    public function getContactInformationName()
     {
-        return $this->contactInformation;
+        return $this->contactInformationName;
+    }
+
+    /**
+     * Set contactInformationPhone
+     */
+    public function setContactInformationPhone($contactInformation)
+    {
+        $this->contactInformationPhone = $contactInformation;
+
+        return $this;
+    }
+
+    /**
+     * Get contactInformationPhone
+     */
+    public function getContactInformationPhone()
+    {
+        return $this->contactInformationPhone;
     }
 
     /**
