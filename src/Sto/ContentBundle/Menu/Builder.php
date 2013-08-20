@@ -17,7 +17,12 @@ class Builder extends ContainerAware
         $companies->setAttribute('class', 'navTopItem');
         $companies->setLinkAttributes(['data-span-class' => 'companys', 'class' => 'navLink']);
 
-        if (in_array($route, ['content_company_feedbacks_add', '_index', 'content_company_show'])) {
+        if (in_array($route, [
+            'content_company_feedbacks_add',
+            '_index',
+            'content_company_show',
+            'company_deal_arhive'
+        ])) {
             $companies->setCurrent(true);
         }
 
