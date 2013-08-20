@@ -183,6 +183,7 @@
 	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
 }
 .btnRegPeople {
+	margin-top: 25px;
 	background: #f86f44;
 	border: 1px solid #a03412;
 	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
@@ -202,6 +203,9 @@
 	position: relative;
 	top: 18px;
 	left: 35px;
+}
+#registration-popup {
+	padding-bottom: 10px;
 }
 #myModal5 {
 	margin-left: -290px;
