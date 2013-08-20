@@ -353,12 +353,10 @@ ul.tabNavigation li a:focus {
 	height: auto;
 }
 .nameManager{
-	padding-left: 75px !important;
 	color: #292d32;
 	font: 1.6em 'PT Sans', sans;
 }
 .phoneManager{
-	padding-left: 75px !important;
 	color: #f35d2e;
 	font: Bold 2.0em 'PT Sans', sans;
 }

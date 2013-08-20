@@ -44,10 +44,16 @@
         <p class="servicesSpecialisationTitle titleH2">Условия</p>
         <p class="aboutCompanyCont contentText">{{ deal.terms }}</p>
     {% endif %}
-    {% if deal.contactInformation %}
+    {% if deal.contactInformationName or deal.contactInformationPhone %}
         <p class="servicesSpecialisationTitle titleH2">Контакты:</p>
         <div class="managerCompany">
-            {{ deal.contactInformation }}
+            {% if deal.contactInformationName %}
+                <p class="nameManager">{{ deal.contactInformationName }}</p>
+            {% endif %}
+
+            {% if deal.contactInformationPhone %}
+                <p class="phoneManager">{{ deal.contactInformationPhone }}</p>
+            {% endif %}
         </div>
     {% endif %}
     </div>
