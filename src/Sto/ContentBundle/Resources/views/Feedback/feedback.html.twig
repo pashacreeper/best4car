@@ -166,7 +166,7 @@
                         {% endif -%}
                     </div>
                     <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
-                    <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</a>
+                    <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.firstName}}</a>
                     <p class="responseReviewRang">Менеджер</p>
                 </div>
             </div>
