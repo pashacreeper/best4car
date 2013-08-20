@@ -330,7 +330,7 @@ class DealController extends MainController
             ])
             ->groupBy('deal.id')
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getScalarResult()
         ;
         $countPopularDeals = count($popularDealsRows);
 
