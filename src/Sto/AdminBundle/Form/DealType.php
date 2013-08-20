@@ -146,13 +146,20 @@ class DealType extends AbstractType
                 'required' => false,
                 'render_optional_text' => false,
             ])
-            ->add('contactInformation', 'textarea', [
-                'label' => 'Контактная информация',
+            ->add('contactInformationName', 'text', [
+                'label' => 'Контактное лицо',
                 'required' => false,
                 'render_optional_text' => false,
                 'attr' => [
-                    'rows' => 4,
-                    'style '=> 'width:100%'
+                    "class" => "inputField span12",
+                ]
+            ])
+            ->add('contactInformationPhone', 'text', [
+                'label' => 'Контактный номер',
+                'required' => false,
+                'render_optional_text' => false,
+                'attr' => [
+                    "class" => "inputField span12",
                 ]
             ])
             ->add('type', null, [
