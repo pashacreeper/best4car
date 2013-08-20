@@ -63,6 +63,18 @@ class RegistrationType extends BaseType
                     'class' => 'inputFormEnter span2 clear'
                 ]
             ])
+            ->add('city', 'entity', [
+                'label' => 'Город',
+                'class' => 'StoCoreBundle:Dictionary\Country',
+                'query_builder' => function($er) {
+                    return $er->createQueryBuilder('country')
+                        ->where('country.parent is not null')
+                    ;
+                },
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
         ;
     }
 

@@ -1042,3 +1042,12 @@ span.disabledIconNegativ i{
 	display: block;
 	
 }
+
+#sto_content_company_registration_companyManager label.required {
+	display: none;
+}
+
+#sto_content_company_registration_companyManager p.contentLabel {
+	display: inline-block;
+	margin-right: 10px;
+}

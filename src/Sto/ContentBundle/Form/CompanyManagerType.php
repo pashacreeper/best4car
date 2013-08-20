@@ -27,7 +27,7 @@ class CompanyManagerType extends AbstractType
                 $builder->create('user', 'text', [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Имя пользователя на сайте',
+                        'placeholder' => 'Ник пользователя на сайте',
                         'class' => 'inputFormEnter span4'
                     ]
                 ])
