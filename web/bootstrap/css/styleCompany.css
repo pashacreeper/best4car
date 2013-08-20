@@ -599,7 +599,7 @@ a.addEmail{
 	width: 33%;
 }
 .reviewAdditionalInfo tr {
-	height: 30px;
+	height: 40px;
 }
 .reviewAdditionalInfo {
 	color: #f35d2e; 
@@ -608,17 +608,23 @@ a.addEmail{
 .reviewAdditionalInfo span {
 	font-weight: bolder; 
 	font-style: italic; 
-	color: #000; 
+	color: #666; 
 	display: block; 
 	margin-bottom: 2px; 
 	font-size: 10px;
 }
-.reviewAdditionalInfoButtonWrapper {
-	text-align: center;
-}
 .reviewAdditionalInfoButton {
-	color: #666; 
-	text-decoration: underline;
+	color: #f35d2e;
+	border-bottom: 1px dotted #f35d2e;
+	font: 1.3em 'PT Sans', sans;
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 150px;
+}
+.reviewAdditionalInfoButton:hover {
+	color: #f35d2e;
+	border-bottom: 1px dotted transparent;
+	text-decoration: none;
 }
 .collapsText{
 	display: block;
@@ -637,7 +643,7 @@ a.addEmail{
 	width: 100%;
 	background: #e3ecf2;
 	border: 1px solid #acc7d2;
-	padding: 10px 10px 40px 10px;
+	padding: 10px;
 	position: relative;
 }
 .reviewContText{
@@ -657,7 +663,7 @@ a.addEmail{
 	margin-bottom: 10px;
 }
 .reply, a.complain{
-	float: left;	
+		
 	color: #f35d2e;
 	border-bottom: 1px dotted #f35d2e;
 }
