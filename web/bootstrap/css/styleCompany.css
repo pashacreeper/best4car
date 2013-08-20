@@ -981,8 +981,7 @@ span.disabledIconNegativ i{
 	position: relative;
 }
 .slide-item a img{
-	width: 100%;
-	height: auto;
+	height: 100%;
 }
 .prev-slide {
 	display: block;
