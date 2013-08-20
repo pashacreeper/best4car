@@ -35,14 +35,14 @@ class CompanyWorkingTimeType extends AbstractType
                 ])
                 ->addModelTransformer($transformer)
             )
-            ->add('from', 'text', [
+            ->add('from', 'time', [
                 'label' => false,
                 'attr' => [
                     'class' => 'inputTime',
                     'data-format' => 'hh:mm:ss'
                 ]
             ])
-            ->add('till', 'text', [
+            ->add('till', 'time', [
                 'label' => false,
                 'attr' => [
                     'class' => 'inputTime',
