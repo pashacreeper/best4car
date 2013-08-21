@@ -17,7 +17,7 @@
                     <div class="actionItemBottom">
                         <h4>{{ deals[i].name }}</h4>
                         <p>{{ deals[i].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[i].company.rating }}</span></p>
-                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | date('d.m') }} - {{ deals[i].endDate | date('d.m') }}</span></p>
+                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} - {{ deals[i].endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
                     </div>
                 </div>
             </a>
