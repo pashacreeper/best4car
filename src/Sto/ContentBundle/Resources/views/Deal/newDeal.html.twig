@@ -128,8 +128,13 @@
                     </div>
                     <div class="contentLabel">
                         <label>Контактное лицо</label>
-                        {{ form_widget(form.contactInformation) }}
-                        {{ form_errors(form.contactInformation) }}
+                        {{ form_widget(form.contactInformationName) }}
+                        {{ form_errors(form.contactInformationName) }}
+                    </div>
+                    <div class="contentLabel">
+                        <label>Контактный номер</label>
+                        {{ form_widget(form.contactInformationPhone) }}
+                        {{ form_errors(form.contactInformationPhone) }}
                     </div>
                     {#{{ form_row(form.place) }}#}
                     {#{{ form_row(form.terms) }}#}

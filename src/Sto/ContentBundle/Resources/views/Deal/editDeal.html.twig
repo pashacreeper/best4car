@@ -122,8 +122,13 @@
                     </div>
                     <div class="contentLabel">
                         <label>Контактное лицо</label>
-                        {{ form_widget(edit_form.contactInformation) }}
-                        {{ form_errors(edit_form.contactInformation) }}
+                        {{ form_widget(edit_form.contactInformationName) }}
+                        {{ form_errors(edit_form.contactInformationName) }}
+                    </div>
+                    <div class="contentLabel">
+                        <label>Контактный номер</label>
+                        {{ form_widget(edit_form.contactInformationPhone) }}
+                        {{ form_errors(edit_form.contactInformationPhone) }}
                     </div>
                 </div>
                 <hr style="margin: 0 0 20px 0;">
