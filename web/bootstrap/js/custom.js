@@ -1,6 +1,6 @@
 var mainLayout = function(){
     // Top menu hover effect
-    $('.navTopItem').mouseenter(function() {                                  
+    $('.navTopItem').mouseenter(function() {
         $(this).children().css("opacity", "1");
     });
     $('.navTopItem').mouseleave(function() {
@@ -10,7 +10,7 @@ var mainLayout = function(){
     $('.enterDropdown').hide();
     $('.enter').click(function() {
         $('.enterDropdown').toggle();
-    }); 
+    });
     // User menu
     $('.userDropdown').hide();
     $('.btnUser').click(function() {
@@ -36,7 +36,7 @@ var mainLayout = function(){
             });
         });
     };
-    
+
     // Registration popup
     var showRegistrationPopup = function(linkElement){
         var $this = $(linkElement),
@@ -98,9 +98,6 @@ var mainLayout = function(){
     });
     $wrapper.on('click', 'button', function(e){
         e.preventDefault();
-        if (!$inputSearch.val()) {
-            $inputSearch.val($inputSearch.attr("placeholder"));
-        }
         $wrapper.find('form').submit();
     });
 
@@ -215,10 +212,10 @@ var catalogPage = function(){
         var el = el,
             input = el.find("input").eq(0);
         if(!input.prop("checked")) {
-            el.css("background-position","0 -24px");    
+            el.css("background-position","0 -24px");
             input.prop("checked", true)
         } else {
-            el.css("background-position","0 0");    
+            el.css("background-position","0 0");
             input.prop("checked", false)
         }
         input.trigger("change");
@@ -228,7 +225,7 @@ var catalogPage = function(){
         var el = el,
         input = el.find("input").eq(0);
         if(input.prop("checked")) {
-            el.css("background-position","0 -24px");    
+            el.css("background-position","0 -24px");
         }
         return true;
     }
@@ -326,7 +323,7 @@ var registrationPage = function(){
             container.append(checkedViewElement);
         });
 
-        $(link).parent().trigger('reveal:close');   
+        $(link).parent().trigger('reveal:close');
     }
 
     $('#specializationSave').on('click', function(e){
@@ -419,7 +416,7 @@ var companyPage = function(){
             $('.showAll').text('Показать все');
         }
         $('.iconAccord').toggleClass('iconChevronDown');
-    });  
+    });
 };
 
 var initPage = function(){

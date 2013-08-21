@@ -1781,13 +1781,6 @@ label {
 }
 }
 
-#inputSearch::-webkit-input-placeholder {
-	color: #333;
-}
-#inputSearch:-moz-placeholder {
-	color: #333;
-}
-
 .clear {
 	clear: both;
 	overflow: hidden;
@@ -1928,45 +1921,15 @@ input[type="checkbox"].checkBox{
 	width: 30px;
 }
 
-
-
-
-
-#linkUser{
-	
+#inputSearch::-webkit-input-placeholder { /* WebKit browsers */
+    color: #666;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#inputSearch:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #666;
+}
+#inputSearch::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #666;
+}
+#inputSearch:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #666;
+}
