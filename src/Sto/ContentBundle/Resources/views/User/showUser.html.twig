@@ -6,6 +6,7 @@
 
 {% block css %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-no-edit-personal-info.css') }}">
@@ -14,6 +15,7 @@
 
 {% block js %}
     {{ parent() }}
+    <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
     <script src="{{ asset('bootstrap/js/script.js') }}"></script>
     <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
@@ -196,102 +198,7 @@
                                     });
                                 });
             </script>
-            {% for feedback in user.feedbacks %}
-            <div class="reviewContentItem">
-                <div class="reviewAccount">
-                    <div  class="reviewAccountImg">
-                        <a href="#">
-                            <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
-                        </a>
-                    </div>
-                    <span>153</span>
-                </div>
-                <div class="reviewWrap">
-                    <div class="reviewTop">
-                        <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
-                        <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
-                        <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
-                        <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
-                    </div>
-                    <div class="reviewCont">
-                        <div class="reviewContTop">
-                            <!--http://habrahabr.ru/post/132807/-->
-                            <div class="vote-wrap">
-                                <div class="vote-hover">
-                                    <div class="vote-block">
-                                        <div class="vote-stars">
-                                        </div>
-                                        <div class="vote-active">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="levelPrice">Цена:<i class="levelPriceImg"></i></span>
-                            <span class="negativReview"><i class="negativReviewI"></i>{{ feedback.minuses }}</span>
-                            <span class="positivReview"><i class="positivReviewI"></i>{{ feedback.pluses }}</span>
-                            <p class="reviewContText">
-                                {{ feedback.content|raw }}
-                            </p>
-                            <span class="primaryLink reply" id="reply1">Ответить</span>
-                            <span class="primaryLink complain">Пожаловаться</span>
-                            <i class="complainAlert"></i>
-                            <div class="popUpPrimary">
-                                <div id="myCanvasTop" class="myCanvasTop"></div>
-                                <ul>
-                                    <li><span class="primaryLink">Скрыть</span></li>
-                                    <li><span class="primaryLink">Редактировать</span></li>
-                                    <li><span class="primaryLink">Удалить</span></li>
-                                    <li><span class="primaryLink">Снять жалобу</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="writeReviewWrap" id="writeReview_reply1">
-                            <div class="writeReviewCont">
-                                <textarea class="textareaWriteReview" name="text"></textarea>
-                            </div>
-                            <div class="writeReviewSubmit">
-                                <span class="btnReview addPhotoBtn">Ответить</span>
-                                <span class="primaryLink cancelBtn">Отмена</span>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.writeReviewWrap').hide();
-                                    $('.reply').click(function() {
-                                        $('#writeReview_' + this.id).show();
-                                        $(this).hide();
-                                    });
-                                    $('.cancelBtn').click(function() {
-                                        $('.writeReviewWrap').hide();
-                                        $('.reply').show();
-                                    });
-                                });
-                        </script>
-                        {% if feedback.feedbackAnswer %}
-                        <div class="responseReviewCont">
-                            <div class="reviewContBottomText">
-                                <p class="reviewContText">
-                                    {{ feedback.feedbackAnswer.answer|raw }}
-                                </p>
-                            </div>
-                            <div class="reviewContBottomAccount">
-                                <div  class="responseReviewAccountImg">
-                                    <img src="bootstrap/img/userimg.jpg" alt="фото пользователя" />
-                                </div>
-                                <span class="responseReviewData">18.02.2013</span>
-                                <p class="responseReviewName">{{feedback.feedbackAnswer.owner.lastName}} {{feedback.feedbackAnswer.owner.firstName}}</p>
-                                <p class="responseReviewRang">Менеджер</p>
-                                <p class="bottomReview">
-                                <span class="negativReview"><i class="negativReviewI"></i>53</span>
-                                <span class="positivReview"><i class="positivReviewI"></i>15</span>
-                                </p>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            {% include "StoContentBundle:Feedback:feedback.html.twig" with {'feedbacks': user.feedbacks, 'isManager': false} %}
         </div>
         <div class="rightContent"></div>
     </div>
