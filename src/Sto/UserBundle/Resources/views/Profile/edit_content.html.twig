@@ -9,6 +9,7 @@
     </ul>
 
     <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
     <div class="content" data-tab-id="#information">
             {{ form_row(form.firstName) }}
             <div>
@@ -72,6 +73,13 @@
                 {% endfor %}
             </div>
 
+            <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
+                <label>Контакты</label>
+                {% for field in form.contacts %}
+                    {{ form_widget(field) }}
+                {% endfor %}
+            </div>
+
             <div class="bottomContent">
                 <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
             </div>
@@ -88,6 +96,20 @@
                 var $newForm = $('<div></div>').append(newForm);
                 $newLink.before($newForm);
                 $newForm.find('> div > div').each(function(){
+                    addTagFormDeleteLink($(this));
+                });
+            }
+
+            function addTagForm2(collectionHolder, $newLink) {
+                var prototype = collectionHolder.data('prototype');
+                var index = collectionHolder.data('index');
+                var newForm = prototype.replace(/__name__/g, index);
+                collectionHolder.data('index', index + 1);
+
+                var $newForm = $('<div class="userContactsFormWrapper"></div>').append(newForm);
+                //$newForm.find('input[type="hidden"]').val({{ form.vars.value.id }});
+                $newLink.before($newForm);
+                $newForm.find('> div').each(function(){
                     addTagFormDeleteLink($(this));
                 });
             }
@@ -117,6 +139,13 @@
                     e.preventDefault();
                     addTagForm(collectionHolder, $newLink);
                 });
+
+                $('#contact_contacts').append('<div class="element"><span class="addImg">Добавить<i class="icon-ok-sign"></i></span></div>');
+                $('#contact_contacts').data('index', $('#contact_contacts').find(':input').length);
+                $('#contact_contacts .addImg').on('click', function(e) {
+                    e.preventDefault();
+                    addTagForm2($('#contact_contacts'), $(this));
+                });
             });
         });
         </script>
@@ -124,3 +153,12 @@
     (function(){$('.chzn-select').chosen();})();
 </script>
 </section>
+
+<style>
+    .userContactsFormWrapper > div {overflow: hidden; width: 960px;}
+    .userContactsFormWrapper > div > div {float: left;  margin-right: 15px;}
+    .userContactsFormWrapper select {width: 325px; height: 30px;}
+    .userContactsFormWrapper input {width: 325px;}
+    .userContactsFormWrapper a {display: block; float: left; margin-top: 32px;}
+    .userContactsFormWrapper a i {position: static !important;}
+</style>
