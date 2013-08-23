@@ -82,7 +82,7 @@
                     {% if user.contacts|length %}
                         {% for contact in user.contacts %}
                             <p class="infoCompanyAddTitle contentText">{{ contact.type.name }}:</p>
-                            <p class="infoCompanyDescription"><a class="linkContact" href="#">{{ contact.value }}</a></p>
+                            <p class="infoCompanyDescription"><a class="linkContact" href="{{ contact.type.prefix }}{{ contact.value }}">{{ contact.value }}</a></p>
                         {% endfor %}
                     {% endif %}
                 </div>

@@ -1934,3 +1934,26 @@ input[type="checkbox"].checkBox{
 #inputSearch:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #666;
 }
+.userContactsFormWrapper > div {
+    overflow: hidden;
+    width: 960px;
+}
+.userContactsFormWrapper > div > div {
+    float: left;
+    margin-right: 15px;
+}
+.userContactsFormWrapper select {
+    width: 325px;
+    height: 30px;
+}
+.userContactsFormWrapper input {
+    width: 325px;
+}
+.userContactsFormWrapper a {
+    display: block;
+    float: left;
+    margin-top: 32px;
+}
+.userContactsFormWrapper a i {
+    position: static !important;
+}

@@ -848,6 +848,7 @@ class User extends BaseUser
 
     public function addContact(Contacts $contact)
     {
+        $contact->setUser($this);
         $this->contacts[] = $contact;
 
         return $this;
