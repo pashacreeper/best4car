@@ -9,321 +9,262 @@
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     {{ parent() }}
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
+
     <script>
-    var city = '{{ city.gps }}';
-    var oldZoom = 11;
-    $(document).ready(function(){
+        var city = '{{ city.gps }}';
+        var oldZoom = 11;
         var myCollection;
         var myMap;
         var globalCompanies = '';
 
-        $('#companiesListContainer').on('click', '.cardCompanyItem', function(){
-            var id = $(this).data('item-id');
-            $('#x-list-company' + id).slideToggle(0);
-            $('#blocSmall_' + id).slideToggle(0);
+        function renderMap(companies) {
+            filterDataByZoom(myMap.getZoom(), companies);
 
-            myCollection.each(function(o) {
-                if(o.properties.get('id') == id) {
-                    myMap.setCenter(o.geometry.getBounds()[0]);
-                    o.balloon.open(o.geometry.getBounds()[0]);
-                    return;
+            myMap.events.add('actionend', function (evt) {
+                if (oldZoom != myMap.getZoom()) {
+                    filterDataByZoom(myMap.getZoom(), companies);
+                    oldZoom = myMap.getZoom();
                 }
-            })
-        });
-
-        {% if words %}
-            $.getJSON(Routing.generate('api_get_companies_with_search'), {search: "{{ words }}"}).done(function(companies){
-                globalCompanies = companies;
-                renderMap(city, globalCompanies);
             });
-        {% else %}
-            $.getJSON(Routing.generate('api_get_companies')).done(function(companies){
-                globalCompanies = companies;
-                renderMap(city, globalCompanies);
-            });
-        {% endif %}
+        }
 
-        function renderMap (city, companies) {
-            ymaps.ready(init(city, companies));
-
-            function init (city, companies) {
-                myMap = new ymaps.Map("map", {
-                    center: [city.split(",")[0], city.split(",")[1]],
-                    zoom: oldZoom,
-                    behaviors: ["default", "scrollZoom"]
-                });
-
-                var doAjax = function() {
-                    var aURL = '';
-                    var aData = '';
-                    if ($('#advancedSearch').is(':visible')){
-                        aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
-                        $('[data-serarch-form="responce-type"]').val("html");
-                        aData = $('#advanced-search-form').serialize();
-                        $('[data-serarch-form="responce-type"]').val("json");
-                    } else {
-                        aURL = Routing.generate('api_auto_get_companies_with_filter', { "responce-type" : "html"});
-                    }
-                    aData = aData + '&sort=' + $('#sto_content_company_sort_sort').val();
-                    $.ajax({
-                        type: 'GET',
-                        url: aURL,
-                        data: aData,
-                        success: function(html) {
-                            var root = $('#companiesListContainer');
-
-                            if (root.data('jsp')) {
-                                var api = root.data('jsp');
-                                api.getContentPane().empty().append(html);
-                                api.reinitialise();
-                            } else {
-                                root.empty();
-                                root.append(html);
-                                root.jScrollPane();
-                            }
-                        },
-                        error: function(jqxhr, textStatus, errorThrown) {
-                            console.log(textStatus + ": " + errorThrown);
-                        }
-                    });
-                };
-
-
-                var mapWidth = $('#map').width()
-                // Показ компаний списком
-                $('#toggleCompaniesList').on("click", function(){
-                    var $this = $(this),
-                        defaultText = 'Показать списком',
-                        closeText = 'Скрыть',
-                        companiesList = $('#companiesList'),
-                        $map = $('#map');
-
-                    $this.parent().toggleClass('showLeftColumn');
-                    companiesList.toggle();
-                    if (companiesList.is(':hidden')) {
-                        $this.html(defaultText);
-                        $map.css('left', '0');
-                        $map.css('width', mapWidth);
-                    } else {
-                        $this.html(closeText);
-                        $map.css('left', '380px');
-                        $map.css('width', mapWidth - 380);
-                        doAjax();
-                    }
-                    myMap.container.fitToViewport();
-                });
-
-                $('#sto_content_company_sort_sort').on('change', function(){
-                    doAjax();
-                });
-
-                myCollection = new ymaps.GeoObjectCollection();
-                myMap.myCollection = myCollection;
-
-                filterDataByZoom(myMap.getZoom(), globalCompanies);
-                $('.contentTopCenter span').text(globalCompanies.length);
-
-                var advancedFormDataLoader = function(){
-                    $.ajax({
-                       type: "GET",
-                       url: Routing.generate('api_auto_get_companies_with_filter'),
-                       data: $('#advanced-search-form').serialize(),
-                       dataType: 'json'
-                    }).done(function (json) {
-                        $('.contentTopCenter span').text(json.length);
-                        myMap.geoObjects.each(function (geoCollection) {
-                            geoCollection.each(function (item) {
-                                geoCollection.remove(item);
-                            });
-                        });
-
-                        myMap.geoObjects.each(function (geoCollection) {
-                            geoCollection.each(function (item) {
-                                var rat = parseFloat( item.properties.get('rating') );
-                                if (!showByRate( myMap.getZoom(), rat)) {
-                                    geoCollection.remove(item);
-                                }
-                            });
-                        });
-
-                        globalCompanies = json;
-                        addPlacemarks(globalCompanies);
-                    });
-                    if(!$('#home_compalies').hasClass("hide")){
-                        doAjax();
-                    }
+        function addPlacemarks(companies) {
+            var sel;
+            $('div.listItemCompanyPlain').each(function () {
+                if ($(this).css('display') == 'block') {
+                    sel = $(this).attr('id').replace('x-list-company', '');
                 }
+            });
 
-                $('#advanced-search-form').on('change', 'select', function(){
-                    advancedFormDataLoader();
+            for (var key in companies) {
+                var val = companies[key];
+
+                var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/" + val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
+                var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
+                var vid = val.id;
+
+                var img;
+                if (showByRate(myMap.getZoom(), val.rating)) {
+                    img = {
+                        iconImageHref: iconMap,
+                        iconImageSize: iconSize
+                    };
+                } else {
+                    img = {
+                        iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
+                        iconImageSize: [8, 8]
+                    };
+                }
+                img.hideIconOnBalloonOpen = false;
+                myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
+                    id: val.id,
+                    name: val.name,
+                    address: val.address,
+                    phone: val.phones,
+                    web: val.web,
+                    web_without_http: val.web.replace(/(http|https):\/\//, ''),
+                    logo: val.logoName,
+                    rating: val.rating,
+                    specialization_html: val.specialization_template,
+                    workingTime_html: val.workingTime_template,
+                    specialDeal: val.specialDeal
+                }, img);
+                myPlacemark2.events.add('balloonopen', function (ev) {
+                    var obj = ev.get('balloon');
+                    obj.options.set({ offset: [-15, -30] });
                 });
+                myCollection.add(myPlacemark2);
+            }
 
-                $('#advanced-search-form').on('change', 'input', function(){
-                    advancedFormDataLoader();
-                });
-
-                myMap.events.add('actionend', function (evt) {
-                    if(oldZoom != myMap.getZoom()) {
-                        filterDataByZoom(myMap.getZoom(), globalCompanies);
-                        oldZoom = myMap.getZoom();
-                    }
-                });
-
-                function addPlacemarks (companies) {
-                    var sel;
-                    $('div.listItemCompanyPlain').each(function(){
-                        if ($(this).css('display')=='block') {
-                            sel = $(this).attr('id').replace('x-list-company','');
+            myCollection.each(function (ob) {
+                ob.events.add('click', function () {
+                    (function (obPlacemark) {
+                        // При клке на элементе расположенном на карте, при откртом списке
+                        // компаний, показываем компанию в списке.
+                        var itemId = "#list-company" + obPlacemark.properties.get('id'),
+                                listObj = $(itemId);
+                        if (listObj.length && listObj.is(':visible')) {
+                            obPlacemark.balloon.open();
+                            $('#companiesList').find('.bigInfoCompany').hide();
+                            $('#companiesList').find('.smallInfoCompany').show();
+                            var api = $('#companiesListContainer').data('jsp');
+                            api.scrollToElement(itemId, true);
+                            listObj.find('.smallInfoCompany').hide();
+                            listObj.find('.bigInfoCompany').show();
                         }
-                    });
+                    })(ob);
+                });
+            });
 
-                    for (var key in companies) {
-                        var val = companies[key];
-
-                        var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/"+val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
-                        var iconSize = (sel == val.id)? [60,42]: [34,45];
-                        var vid = val.id;
-
-                        var img;
-                        if(showByRate (myMap.getZoom(),val.rating)){
-                            img = {
-                                iconImageHref: iconMap,
-                                iconImageSize: iconSize,
-                            };
-                        } else {
-                            img = {
-                                iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
-                                iconImageSize: [8,8],
-                            };
-                        }
-                        img.hideIconOnBalloonOpen = false;
-                        myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
-                            id: val.id,
-                            name: val.name,
-                            address: val.address,
-                            phone: val.phones,
-                            web: val.web,
-                            web_without_http: val.web.replace(/(http|https):\/\//, ''),
-                            logo: val.logoName,
-                            rating: val.rating,
-                            specialization_html: val.specialization_template,
-                            workingTime_html: val.workingTime_template,
-                            specialDeal: val.specialDeal
-                        }, img);
-                        myPlacemark2.events.add('balloonopen', function(ev) {
-                            var obj = ev.get('balloon');
-                            obj.options.set({ offset: [-15, -30] });
-                        });
-                        myCollection.add(myPlacemark2);
-                    }
-
-                    myCollection.each(function (ob) {
-                        ob.events.add('click', function () {
-                            (function (obPlacemark) {
-                                // При клке на элементе расположенном на карте, при откртом списке
-                                // компаний, показываем компанию в списке.
-                                var itemId = "#list-company" + obPlacemark.properties.get('id'),
-                                    listObj = $(itemId);
-                                if (listObj.length && listObj.is(':visible')){
-                                    obPlacemark.balloon.open();
-                                    $('#companiesList').find('.bigInfoCompany').hide();
-                                    $('#companiesList').find('.smallInfoCompany').show();
-                                    var api = $('#companiesListContainer').data('jsp');
-                                    api.scrollToElement(itemId, true);
-                                    listObj.find('.smallInfoCompany').hide();
-                                    listObj.find('.bigInfoCompany').show();
-                                }
-                            })(ob);
-                        });
-                    });
-
-                    var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
-                        '<div class="popupCardCompany">' +
+            var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div class="popupCardCompany">' +
                             '<div class="popupCardCompanyTop">' +
-                                '<img src="/{{ storage_path }}/company_logo/$[properties.logo]">' +
-                                '<p class="indexCardCompany">' +
-                                    '<span class="indexbg"></span>' +
-                                    '<span class="indexLevel">$[properties.rating]</span></br>' +
-                                '</p>' +
-                                '<div class="dataCompany">' +
-                                    '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
-                                    '<p class="adressCompany">$[properties.address]</p>' +
-                                    '<a href="$[properties.web]" class="siteCompany">$[properties.web_without_http]</a>' +
-                                    '$[properties.specialDeal]' +
-                                '</div>' +
+                            '<img src="/{{ storage_path }}/company_logo/$[properties.logo]">' +
+                            '<p class="indexCardCompany">' +
+                            '<span class="indexbg"></span>' +
+                            '<span class="indexLevel">$[properties.rating]</span></br>' +
+                            '</p>' +
+                            '<div class="dataCompany">' +
+                            '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
+                            '<p class="adressCompany">$[properties.address]</p>' +
+                            '<a href="$[properties.web]" class="siteCompany">$[properties.web_without_http]</a>' +
+                            '$[properties.specialDeal]' +
+                            '</div>' +
                             '</div>' +
                             '<div class="popupCardCompanyCont">' +
-                                '<div class="servicesPart">' +
-                                    '$[properties.specialization_html]' +
-                                '</div>' +
-                                '<div class="infoCompany">' +
-                                    '<p class="infoCompanyLable">' +
-                                        'Телефон:</br><span>$[properties.phone.0.phone]</span>' +
-                                    '</p>' +
-                                    '<p class="infoCompanyLable">' +
-                                        'Часы работы:</br>$[properties.workingTime_html]' +
-                                    '</p>' +
-                                '</div>' +
+                            '<div class="servicesPart">' +
+                            '$[properties.specialization_html]' +
                             '</div>' +
-                        '</div>'
-                    );
+                            '<div class="infoCompany">' +
+                            '<p class="infoCompanyLable">' +
+                            'Телефон:</br><span>$[properties.phone.0.phone]</span>' +
+                            '</p>' +
+                            '<p class="infoCompanyLable">' +
+                            'Часы работы:</br>$[properties.workingTime_html]' +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+            );
 
-                    ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
-                    myCollection.options.set({
-                        balloonContentBodyLayout:'my#superlayout',
-                        balloonMinWidth: 400
+            ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
+            myCollection.options.set({
+                balloonContentBodyLayout: 'my#superlayout',
+                balloonMinWidth: 400
+            });
+
+            myMap.geoObjects.add(myCollection);
+        }
+
+        function filterDataByZoom(indexZoom, companies) {
+            myMap.geoObjects.each(function (geoCollection) {
+                geoCollection.each(function (item) {
+                    geoCollection.remove(item);
+                });
+            });
+
+            addPlacemarks(companies);
+
+            $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
+                var id = element.id.replace('list-company', '');
+                var el = $(element);
+                var rating = parseFloat(el.find('div.span3 span.rating').text());
+                if (showByRate(indexZoom, rating)) {
+                    if ($('#' + el.attr('data-correspond')).css('display') == 'none') {
+                        el.show();
+                    }
+                } else {
+                    el.hide();
+                    $('#' + el.attr('data-correspond')).hide();
+                }
+            });
+        }
+
+        function showByRate(pZoom, pRating) {
+            if (pZoom == 11 && pRating > 8)
+                return true;
+            if (pZoom == 12 && pRating > 6)
+                return true;
+            if (pZoom == 13 && pRating > 4)
+                return true;
+            if (pZoom >= 14)
+                return true;
+            return false;
+        }
+
+        function companiesAjaxLoad() {
+            alert('load');
+            $.ajax({
+                url: Routing.generate('api_get_companies'),
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                dataType: 'json',
+                success: function (response) {
+                    $('.contentTopCenter span').text(response.length);
+
+                    $('#companiesListContainer').empty();
+                    $.each(response, function (index, item) {
+                        $('#companiesListContainer').append(item.html);
                     });
 
-                    myMap.geoObjects.add(myCollection);
-                }
-
-                function filterDataByZoom (indexZoom, companies) {
                     myMap.geoObjects.each(function (geoCollection) {
                         geoCollection.each(function (item) {
                             geoCollection.remove(item);
                         });
                     });
 
-                    addPlacemarks(companies);
-
                     myMap.geoObjects.each(function (geoCollection) {
                         geoCollection.each(function (item) {
-                            var rat =  parseFloat( item.properties.get('rating') );
-                            if (!showByRate( indexZoom, rat)) {
-                                // geoCollection.remove(item);
+                            var rat = parseFloat(item.properties.get('rating'));
+                            if (!showByRate(myMap.getZoom(), rat)) {
+                                geoCollection.remove(item);
                             }
                         });
                     });
 
-                    $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
-                        var id = element.id.replace('list-company', '');
-                        var el = $(element);
-                        var rating = parseFloat(el.find('div.span3 span.rating').text());
-                        if (showByRate(indexZoom, rating)) {
-                            if($('#'+el.attr('data-correspond')).css('display')=='none' ) { el.show(); }
-                        } else {
-                            el.hide();
-                            $('#'+el.attr('data-correspond')).hide();
-                        }
-                    });
+                    addPlacemarks(response);
+                    renderMap(response);
                 }
-
-                function showByRate (pZoom, pRating) {
-                    if (pZoom == 11 && pRating > 8)
-                        return true;
-                    if (pZoom == 12 && pRating > 6)
-                        return true;
-                    if (pZoom == 13 && pRating > 4)
-                        return true;
-                    if (pZoom >= 14)
-                        return true;
-                    return false;
-                }
-            }
+            });
         }
-    });
+
+        $(document).ready(function () {
+            myMap = new ymaps.Map("map", {
+                center: [city.split(",")[0], city.split(",")[1]],
+                zoom: oldZoom,
+                behaviors: ["default", "scrollZoom"]
+            });
+
+            myCollection = new ymaps.GeoObjectCollection();
+            myMap.myCollection = myCollection;
+
+            $('#companiesListContainer').on('click', '.cardCompanyItem', function () {
+                var id = $(this).data('item-id');
+                $('#x-list-company' + id).slideToggle(0);
+                $('#blocSmall_' + id).slideToggle(0);
+
+                myCollection.each(function (o) {
+                    if (o.properties.get('id') == id) {
+                        myMap.setCenter(o.geometry.getBounds()[0]);
+                        o.balloon.open(o.geometry.getBounds()[0]);
+                        return;
+                    }
+                })
+            });
+
+            companiesAjaxLoad();
+
+            $('#toggleCompaniesList').on("click", function () {
+                $(this).parent().toggleClass('showLeftColumn');
+                $('#companiesList').toggle();
+                $(this).html($('#companiesList').is(':hidden') ? 'Скрыть' : 'Скрыть');
+
+                myMap.container.fitToViewport();
+            });
+
+            $('#sto_content_company_sort_sort').on('change', function () {
+                companiesAjaxLoad();
+            });
+
+            $('#advanced-search-form').on('change', 'select', function () {
+                companiesAjaxLoad();
+            });
+
+            $('#advanced-search-form').on('change', 'input', function () {
+                companiesAjaxLoad();
+            });
+
+
+            /*
+             Убрать эту хрень, сделать нормально, на css
+             */
+            var mapHeight = $('#map').height(),
+                    footerHeight = $('section.footer').height();
+
+            $('#companiesListContainer').height(mapHeight - footerHeight - 1);
+            $('#advancedSearch').height(mapHeight - footerHeight - 75);
+        });
     </script>
-    <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
 {% endblock %}
 
 {% block wrap_container_open %}{% endblock %}
@@ -333,55 +274,58 @@
 {% block bottomHeaderWraperBlockEnd %}{% endblock %}
 
 {% block map %}
-<div id="map"></div>
+    <div id="map"></div>
 {% endblock %}
 
 {% block contentTop %}
-<div class="contentTop">
-    <div class="contentTopLeft">
-        <div class="btnShoeLeftCont">
-            <div class="hideLeftColumn">
-                <a href="#" class="hideBtn" id="toggleCompaniesList">Показать списком</a>
+    <div class="contentTop">
+        <div class="contentTopLeft">
+            <div class="btnShoeLeftCont">
+                <div class="hideLeftColumn">
+                    <a href="#" class="hideBtn" id="toggleCompaniesList">Показать списком</a>
+                </div>
             </div>
-        </div>
-        <div class="selectLeftColumn">
-            <div class="assortSelect">
-                <span>Сортировать по:</span>
-                <div class="parametrAssort">
-                    <div class="lineForm">
-                        {{ form_widget(sortForm.sort) }}
+            <div class="selectLeftColumn">
+                <div class="assortSelect">
+                    <span>Сортировать по:</span>
+
+                    <div class="parametrAssort">
+                        <div class="lineForm">
+                            {{ form_widget(sortForm.sort) }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="contentTopRight">
+        <div class="contentTopRight">
         <span class="hideRightSearch">
             <a href="#" class="hideBtn" id="toggleAdvancedSearch">Показать расширенный поиск</a>
         </span>
+        </div>
+        <p class="contentTopCenter">
+            Все <span>0 </span> компаний вашего города
+        </p>
     </div>
-    <p class="contentTopCenter">
-        Все <span>0 </span> компаний вашего города
-    </p>
-</div>
 
-<div id="companiesList" class="contentLeft">
-    <div class="scroll-pane jspScrollable" id="companiesListContainer"></div>
-    <script>companiesList(jQuery, Routing);</script>
-</div>
+    <div id="companiesList" class="contentLeft">
+        <div class="scroll-pane jspScrollable" id="companiesListContainer"></div>
+    </div>
 
-<div id="advancedSearch" class="contentRightWrap">
-    {% render controller('StoContentBundle:Company:advancedSearchForm') %}
-</div>
+    <div id="advancedSearch" class="contentRightWrap">
+        {% render controller('StoContentBundle:Company:advancedSearchForm') %}
+    </div>
 {% endblock %}
 
 {% block content %}
     {% if not app.user %}
         <div class="popupFirstVisit">
             <i class="icon-remove-sign popupClose"></i>
+
             <h3 class="titleFirstVisit">Впервый раз здесь?</h3>
+
             <p class="contentFirstVisit">
-                Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
+                Лицензией Свидетельством о государственной аккредитации выданные Федеральной службой по надзору в сфере
+                образования и науки России, объявляет прием документов по следующим направлениям и формам подготовки:
             </p>
             <a href="#" class="linkFirstVisitPeople" data-reveal-id="for-car-owners">
                 <i class="iconPeople"></i>
@@ -395,10 +339,11 @@
 
         <div id="for-car-owners" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
             <a href="#" class="close-reveal-modal"></a>
+
             <div class="slidCont">
                 <ul class="bxslider1">
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo3.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo3.jpg" alt="Image One"/>
                     </li>
                     <li class="bxsliderItem">
                         <img src="http://placehold.it/680x380" alt="">
@@ -407,15 +352,19 @@
                         <img src="http://placehold.it/680x380" alt="">
                     </li>
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo4.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo4.jpg" alt="Image One"/>
                     </li>
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo2.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo2.jpg" alt="Image One"/>
+
                         <div class="insideBlock">
                             <p class="whoop">Понравилось?</p>
+
                             <p class="whoop2">Примите участие в жизни нашего портала</p>
+
                             <div class="outBtn">
-                                <a href="#" class="btnEnter" data-reveal-id="registration-form-popup" id="carOwnerRegisterFromTour">Зарегистрироваться</a>
+                                <a href="#" class="btnEnter" data-reveal-id="registration-form-popup"
+                                   id="carOwnerRegisterFromTour">Зарегистрироваться</a>
                             </div>
                         </div>
                     </li>
@@ -425,10 +374,11 @@
 
         <div id="for-auto-companies" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
             <a href="#" class="close-reveal-modal"></a>
+
             <div class="slidCont">
                 <ul class="bxslider2">
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo3.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo3.jpg" alt="Image One"/>
                     </li>
                     <li class="bxsliderItem">
                         <img src="http://placehold.it/680x380" alt="">
@@ -437,15 +387,19 @@
                         <img src="http://placehold.it/680x380" alt="">
                     </li>
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo4.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo4.jpg" alt="Image One"/>
                     </li>
                     <li class="bxsliderItem">
-                        <img src="/bootstrap/img/photo2.jpg"  alt="Image One" />
+                        <img src="/bootstrap/img/photo2.jpg" alt="Image One"/>
+
                         <div class="insideBlock">
                             <p class="whoop">Понравилось?</p>
+
                             <p class="whoop2">Примите участие в жизни нашего портала</p>
+
                             <div class="outBtn">
-                                <a href="{{ path('registration_company_owner') }}" class="btnEnter">Зарегистрироваться</a>
+                                <a href="{{ path('registration_company_owner') }}"
+                                   class="btnEnter">Зарегистрироваться</a>
                             </div>
                         </div>
                     </li>
