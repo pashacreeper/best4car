@@ -8,14 +8,18 @@
                 {{ form_widget(form.companyType) }}
             </div>
         </div>
-        <p class="contentRightItem">
-            <label for="addtypeCompany">Подтип компании</label>
-        </p>
-        <div class="basket__cont__body__bottom__paper">
-            <div class="lineForm">
-                {{ form_widget(form.subCompanyType) }}
+
+        <div id="subCompanyTypeWrapper" style="display: none;">
+            <p class="contentRightItem">
+                <label for="addtypeCompany">Подтип компании</label>
+            </p>
+            <div class="basket__cont__body__bottom__paper">
+                <div class="lineForm">
+                    {{ form_widget(form.subCompanyType) }}
+                </div>
             </div>
         </div>
+
         <p class="contentRightItem">
             <label for="inputBrandField">Специализация на марке</label>
         </p>
@@ -30,7 +34,7 @@
                 <input type="text" id="amount" data-serarch-form="rating" name="rating" />
             </p>
             <div id="slider-range-max"></div>
-            <span class="indexSlyderLeft">1</span>
+            <span class="indexSlyderLeft">0</span>
             <span class="indexSlyderRight">10</span>
         </div>
         <p class="contentRightItem">
@@ -88,10 +92,6 @@
                 Только с акциями
             </span>
         </p>
-        <input type="hidden" name="responce-type" data-serarch-form="responce-type" value="json">
         <p class="cleanSearch secondaryLink" id="cleanSearch">Очистить поиск</p>
     </form>
 </div>
-<script>
-    (function(){$('.chzn-select').chosen();})();
-</script>

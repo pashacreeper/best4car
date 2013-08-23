@@ -36,123 +36,14 @@ class APICompanyController extends FOSRestController
      * @Route("/", name="api_get_companies", options={"expose"=true})
      * @Method({"GET"})
      */
-    public function getCompanies()
+    public function getCompanies(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
         $city = $this->get('sto_content.manager.city')->selectedCity();
-
-        $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Company');
-        $query = $repository->createQueryBuilder('company')
-            ->select('company, s, d')
-            ->join('company.specialization', 's')
-            ->leftJoin('company.deals', 'd')
-            ->where('company.visible = true')
-            ->andWhere('company.cityId = :city')
-            ->setParameter('city', $city->getId())
-        ;
-
-        $companies = $query
-            ->getQuery()
-            ->getArrayResult()
-        ;
-
-        foreach ($companies as $key => $value) {
-            $companies[$key]['specialization_template'] = $this->render(
-                    'StoContentBundle:Company:specialization_list.html.twig',
-                    ['specializations' => $value['specialization']]
-                )->getContent()
-            ;
-
-            $companies[$key]['workingTime_template'] = $this->render(
-                    'StoContentBundle:Company:workingTime_list.html.twig',
-                    ['workingTime' => $value['workingTime']]
-                )->getContent()
-            ;
-
-            $companies[$key]['specialDeal'] = $this->render(
-                    'StoContentBundle:Company:specialDealInBallon.html.twig',
-                    ['deals' => $value['deals']]
-                )->getContent()
-            ;
-        }
-
-        return new Response($serializer->serialize($companies, 'json'));
-    }
-
-    /**
-     * @Route("/search", name="api_get_companies_with_search", options={"expose"=true})
-     * @Rest\View
-     * @Method({"GET"})
-     */
-    public function getCompaniesWithSearchAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $city = $this->get('sto_content.manager.city')->selectedCity();
-        $serializer = $this->container->get('jms_serializer');
-
-        $repository = $em->getRepository('StoCoreBundle:Company');
-        $query = $repository->createQueryBuilder('company')
-            ->select('company, s')
-            ->join('company.specialization', 's')
-            ->where('company.visible = true')
-            ->andWhere('company.cityId = :city')
-            ->setParameter('city', $city->getId())
-        ;
-
-        $words = explode(" ", trim($request->get('search')));
-
-        foreach ($words as $word) {
-            $query->andWhere($query->expr()->orx(
-                $query->expr()->like('company.name',':search'),
-                $query->expr()->like('company.fullName',':search'),
-                $query->expr()->like('company.description',':search'),
-                $query->expr()->like('company.slogan',':search'),
-                $query->expr()->like('s.name',':search')
-            ))
-            ->setParameter('search', '%' . $word . '%');
-        }
-        $companies = $query->getQuery()->getArrayResult();
-
-        foreach ($companies as $key => $value) {
-            $companies[$key]['specialization_template'] = $this
-                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
-            ;
-
-            $companies[$key]['workingTime_template'] = $this
-                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
-            ;
-        }
-
-        return new Response($serializer->serialize($companies, 'json'));
-    }
-
-    /**
-     * @ApiDoc(
-     * description="Получить список всех моделей автомобилей для указанной марки",
-     *     statusCodes={
-     *         200="Returned when successful",
-     *     }
-     * )
-     *
-     * @Rest\View
-     * @Route("/filter", name="api_auto_get_companies_with_filter", options={"expose"=true})
-     */
-    public function getCompaniesWithFilter(Request $request)
-    {
-        $serializer = $this->container->get('jms_serializer');
-        $city = $this->get('sto_content.manager.city')->selectedCity();
-
-        $responseType = $request->get('responce-type', 'json');
 
         $form = $this->createForm(new AdvancedSearchType());
         $form->bind($request);
         $formData = $form->getData();
-        $companyType = $formData["companyType"];
-        $subCompanyType = $formData["subCompanyType"];
-        $auto = $formData["auto"];
-
-        $rating = $request->get('rating');
 
         $filter = [];
         $timing = [];
@@ -167,37 +58,33 @@ class APICompanyController extends FOSRestController
             $filter[$element] = $request->get($element);
         }
 
-        $deals = $request->get('deals');
-        $sort = $request->get('sort');
-
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
-            ->getCompaniesWithFilter($city, $companyType, $subCompanyType, $auto, $rating, $filter, $deals, $timing, $sort)
-        ;
+            ->getCompaniesWithFilter([
+                'city' => $city,
+                'companyType' => $formData["companyType"],
+                'subCompanyType' => $formData["subCompanyType"],
+                'auto' => $formData["auto"],
+                'rating' => $request->get('rating'),
+                'filter' => $filter,
+                'deals' => $request->get('deals'),
+                'timing' => $timing,
+                'sort' => $request->get('sort'),
+                'search' => trim($request->get('search'))
+        ]);
 
-        if ($responseType == 'html') {
-            if (!$companies) {
-                return new Response('Companies Not found.', 500);
-            }
+        foreach ($companies as $key => $value) {
+            $companies[$key]['specialization_template'] = $this
+                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent();
 
-            return new Response($this->renderView('StoContentBundle:Company:getAllAjax.html.twig',
-                [
-                    'companies' => $companies
-                ])
-            );
-        } elseif ($responseType == 'json') {
-            foreach ($companies as $key => $value) {
-                $companies[$key]['specialization_template'] = $this
-                    ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specialization']])->getContent()
-                ;
+            $companies[$key]['workingTime_template'] = $this
+                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent();
 
-                $companies[$key]['workingTime_template'] = $this
-                    ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent()
-                ;
-            }
-
-            return new Response($serializer->serialize($companies, 'json'));
+            $companies[$key]['html'] = $this
+                ->render('StoContentBundle:Company:company.html.twig', ['item' => $value])->getContent();
         }
+
+        return new Response($serializer->serialize($companies, 'json'));
     }
 }

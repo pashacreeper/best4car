@@ -42,7 +42,6 @@
                 'bootstrap/js/cookie.js'
                 'bootstrap/js/custom.js'
                 'bootstrap/js/custom.city-choice.js'
-                'bootstrap/js/custom.companies-list.js'
                 'bootstrap/js/chosen.jquery.js'
                 output='compiled/compiled.js'
             %}
@@ -181,7 +180,6 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.bigInfoCompany').hide();
                 $('.cardCompanyItem').click(function() {
                     $('#blocBig_' + this.id).slideToggle(0);
                     $('#blocSmall_' + this.id).slideToggle(0);
