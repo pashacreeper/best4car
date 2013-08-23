@@ -34,15 +34,19 @@ class CompanyRepository extends EntityRepository
             ->where('company.visible = true');
 
         if (isset($params['city']) && $params['city']) {
-            $qb->andWhere('company.city = :city')->setParameter('city', $params['city']->getId());
+            $qb->andWhere('company.city = :city')
+                ->setParameter('city', $params['city']
+                ->getId());
         }
 
         if (isset($params['companyType']) && $params['companyType']) {
-            $qb->andWhere('csp.id = :sp')->setParameter('sp', $params['companyType']);
+            $qb->andWhere('csp.id = :sp')
+                ->setParameter('sp', $params['companyType']);
         }
 
         if (isset($params['subCompanyType']) && $params['subCompanyType']) {
-            $qb->andWhere('cs.id = :s')->setParameter('s', $params['subCompanyType']);
+            $qb->andWhere('cs.id = :s')
+                ->setParameter('s', $params['subCompanyType']);
         }
 
         if (isset($params['deals']) && $params['deals']) {
@@ -50,7 +54,8 @@ class CompanyRepository extends EntityRepository
         }
 
         if (isset($params['rating']) && $params['rating']) {
-            $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')->setParameter('rating', $params['rating']);
+            $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')
+                ->setParameter('rating', $params['rating']);
         }
 
         if (isset($params['search']) && $params['search']) {
@@ -70,7 +75,8 @@ class CompanyRepository extends EntityRepository
         $tabNum = 0;
         foreach ($params['filter'] as $key => $value) {
             if ($params['filter'][$key]) {
-                $qb->join('company.additionalServices', "cas{$tabNum}")->andWhere($qb->expr()->like("cas{$tabNum}.shortName", "'{$key}%'"));
+                $qb->join('company.additionalServices', "cas{$tabNum}")
+                    ->andWhere($qb->expr()->like("cas{$tabNum}.shortName", "'{$key}%'"));
                 $tabNum++;
             }
         }
