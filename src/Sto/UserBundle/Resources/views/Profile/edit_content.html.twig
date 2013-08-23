@@ -76,7 +76,9 @@
             <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
                 <label>Контакты</label>
                 {% for field in form.contacts %}
-                    {{ form_widget(field) }}
+                    <div class="userContactsFormWrapper">
+                        {{ form_widget(field) }}
+                    </div>
                 {% endfor %}
             </div>
 
@@ -129,6 +131,10 @@
             var $newLink = $('<div class="element" />').append($addTagLink);
 
             collectionHolder.find('> div > div').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+
+            $('.userContactsFormWrapper > div').each(function() {
                 addTagFormDeleteLink($(this));
             });
 
