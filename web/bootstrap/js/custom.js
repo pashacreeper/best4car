@@ -420,6 +420,7 @@ var companyPage = function(){
 };
 
 var initPage = function(){
+    $('.chzn-select').chosen();
     mainLayout();
     catalogPage();
     dealsPage();
