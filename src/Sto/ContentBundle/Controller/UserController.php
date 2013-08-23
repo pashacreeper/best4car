@@ -229,7 +229,13 @@ class UserController extends MainController
         $company->addCompanyManager($manager);
         $cForm = $this->createForm(new CompanyType(), $company, ['em' => $em]);
 
+        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
+            ->createQueryBuilder('dictionary')
+            ->getQuery()
+            ->getResult();
+
         return [
+            'additionalServiceTypes' => $additionalServiceTypes,
             'company' => $company,
             'user' => $user->getId(),
             'cForm' => $cForm->createView()
