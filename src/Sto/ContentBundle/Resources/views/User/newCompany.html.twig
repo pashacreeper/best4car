@@ -416,4 +416,22 @@
     </form>
 </div>
 </section>
+
+<script>
+    $(function() {
+        var additionalServices = {};
+        {% for service in additionalServiceTypes %}
+            {% if service.iconNameSmall %}
+                additionalServices[{{ service.id }}] = '/storage/images/company_icon/{{ service.iconNameSmall }}';
+            {% endif %}
+        {% endfor %}
+
+        $('.additionalServItem').each(function() {
+            var service_id = $(this).find('input').val();
+            if (additionalServices[service_id])
+                $(this).find('span').css('background', 'none').html('<img src="'+ additionalServices[service_id] + '"/>');
+        });
+
+    });
+</script>
 {% endblock %}
