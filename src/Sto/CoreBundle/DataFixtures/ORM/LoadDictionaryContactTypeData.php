@@ -15,9 +15,9 @@ class LoadDictionaryContactTypeData extends AbstractFixture implements OrderedFi
             '' => 'Сайт',
             'mailto:' => 'Email',
             'skype:' => 'Skype',
-            'vk.com' => 'Вконтакте',
-            'facebook.com' => 'Facebook',
-            'twitter.com' => 'Twitter'
+            'http://vk.com/' => 'Вконтакте',
+            'http://facebook.com/' => 'Facebook',
+            'http://twitter.com/' => 'Twitter'
         ];
 
         $i = 0;

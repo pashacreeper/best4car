@@ -9,7 +9,7 @@
     </ul>
 
     <form action="{{ path('fos_user_profile_edit') }}" method="post" {{ form_enctype(form) }}>
-    <div class="content" data-tab-id="#information">
+        <div class="content" data-tab-id="#information">
             {{ form_row(form.firstName) }}
             <div>
                 {{ form_label(form.email) }}
@@ -33,94 +33,124 @@
             <div class="bottomContent">
                 <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
             </div>
-    </div>
-    <div class="content" data-tab-id="#aditional">
-            <div class="cityChoicer">
-                {{ form_label(form.city) }}
-                {{ form_widget(form.city) }}
-            </div>
-            <div class="contentLabel rightContaktItem">
-                <label>DRIVE2</label>
-                <p class="maskInput"><span>www.drive2.ru/users/</span>
-                    {{ form_widget(form.autoProfilesLinks) }}
-                </p>
-            </div>
-            {{ form_row(form.autoProfilesLinks) }}
-            <div class="contentLabel rightContaktItem">
-                <label>VKontakte</label>
-                <p class="maskInput"><span>www.vk.com/</span>
-                    {{ form_widget(form.linkVK) }}
-                </p>
-            </div>
-            <div class="contentLabel rightContaktItem">
-                <label>Google+</label>
-                <p class="maskInput"><span>plus.google.com/</span>
-                    {{ form_widget(form.linkGP) }}
-                </p>
-            </div>
-            <div class="contentLabel rightContaktItem">
-                <label>Facebook</label>
-                <p class="maskInput"><span>www.facebook.com/</span>
-                    {{ form_widget(form.linkFB) }}
-                </p>
-            </div>
-            <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
-                <label>Email для отображения в профиле</label>
-                <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
-                {% for field in form.contactEmails %}
-                    {{ form_widget(field) }}
-                {% endfor %}
-            </div>
+        </div>
+        <div class="content" data-tab-id="#aditional">
+                <div class="cityChoicer">
+                    {{ form_label(form.city) }}
+                    {{ form_widget(form.city) }}
+                </div>
+                <div class="contentLabel rightContaktItem">
+                    <label>DRIVE2</label>
+                    <p class="maskInput"><span>www.drive2.ru/users/</span>
+                        {{ form_widget(form.autoProfilesLinks) }}
+                    </p>
+                </div>
+                {{ form_row(form.autoProfilesLinks) }}
+                <div class="contentLabel rightContaktItem">
+                    <label>VKontakte</label>
+                    <p class="maskInput"><span>www.vk.com/</span>
+                        {{ form_widget(form.linkVK) }}
+                    </p>
+                </div>
+                <div class="contentLabel rightContaktItem">
+                    <label>Google+</label>
+                    <p class="maskInput"><span>plus.google.com/</span>
+                        {{ form_widget(form.linkGP) }}
+                    </p>
+                </div>
+                <div class="contentLabel rightContaktItem">
+                    <label>Facebook</label>
+                    <p class="maskInput"><span>www.facebook.com/</span>
+                        {{ form_widget(form.linkFB) }}
+                    </p>
+                </div>
+                <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+                    <label>Email для отображения в профиле</label>
+                    <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
+                    {% for field in form.contactEmails %}
+                        {{ form_widget(field) }}
+                    {% endfor %}
+                </div>
 
-            <div class="bottomContent">
-                <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
-            </div>
-            {{ form_rest(form) }}
-    </div>
+                <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
+                    <label>Контакты</label>
+                    {% for field in form.contacts %}
+                        <div class="userContactsFormWrapper">
+                            {{ form_widget(field) }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="bottomContent">
+                    <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+                </div>
+                {{ form_rest(form) }}
+        </div>
     </form>
-        <script>
-        $(document).ready(function(){
-            function addTagForm(collectionHolder, $newLink) {
-                var prototype = collectionHolder.data('prototype');
-                var index = collectionHolder.data('index');
-                var newForm = prototype.replace(/__name__/g, index);
-                collectionHolder.data('index', index + 1);
-                var $newForm = $('<div></div>').append(newForm);
-                $newLink.before($newForm);
-                $newForm.find('> div > div').each(function(){
-                    addTagFormDeleteLink($(this));
-                });
-            }
-
-            function addTagFormDeleteLink($tagForm) {
-                var $removeFormA = $('<a href="#"><i class="icon-remove-circle"></i></a>');
-                $tagForm.append($removeFormA);
-
-                $removeFormA.on('click', function(e) {
-                    e.preventDefault();
-                    $tagForm.remove();
-                });
-            }
-
-            var collectionHolder = $('#contact_emails');
-            var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-            var $newLink = $('<div class="element" />').append($addTagLink);
-
-            collectionHolder.find('> div > div').each(function() {
-                addTagFormDeleteLink($(this));
-            });
-
-            jQuery(document).ready(function() {
-                collectionHolder.append($newLink);
-                collectionHolder.data('index', collectionHolder.find(':input').length);
-                $addTagLink.on('click', function(e) {
-                    e.preventDefault();
-                    addTagForm(collectionHolder, $newLink);
-                });
-            });
-        });
-        </script>
-<script>
-    (function(){$('.chzn-select').chosen();})();
-</script>
 </section>
+
+<script>
+    function addTagForm(collectionHolder, $newLink) {
+        var prototype = collectionHolder.data('prototype');
+        var index = collectionHolder.data('index');
+        var newForm = prototype.replace(/__name__/g, index);
+        collectionHolder.data('index', index + 1);
+        var $newForm = $('<div></div>').append(newForm);
+        $newLink.before($newForm);
+        $newForm.find('> div > div').each(function(){
+            addTagFormDeleteLink($(this));
+        });
+    }
+
+    function addTagForm2(collectionHolder, $newLink) {
+        var prototype = collectionHolder.data('prototype');
+        var index = collectionHolder.data('index');
+        var newForm = prototype.replace(/__name__/g, index);
+        collectionHolder.data('index', index + 1);
+
+        var $newForm = $('<div class="userContactsFormWrapper"></div>').append(newForm);
+        $newLink.before($newForm);
+        $newForm.find('> div').each(function(){
+            addTagFormDeleteLink($(this));
+        });
+    }
+
+    function addTagFormDeleteLink($tagForm) {
+        var $removeFormA = $('<a href="#"><i class="icon-remove-circle"></i></a>');
+        $tagForm.append($removeFormA);
+
+        $removeFormA.on('click', function(e) {
+            e.preventDefault();
+            $tagForm.remove();
+        });
+    }
+
+    $(document).ready(function(){
+        var collectionHolder = $('#contact_emails');
+        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+        var $newLink = $('<div class="element" />').append($addTagLink);
+
+        collectionHolder.find('> div > div').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+        $('.userContactsFormWrapper > div').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+
+        collectionHolder.append($newLink);
+        collectionHolder.data('index', collectionHolder.find(':input').length);
+        $addTagLink.on('click', function(e) {
+            e.preventDefault();
+            addTagForm(collectionHolder, $newLink);
+        });
+
+        $('#contact_contacts').append('<div class="element"><span class="addImg">Добавить<i class="icon-ok-sign"></i></span></div>');
+        $('#contact_contacts').data('index', $('#contact_contacts').find(':input').length);
+        $('#contact_contacts .addImg').on('click', function(e) {
+            e.preventDefault();
+            addTagForm2($('#contact_contacts'), $(this));
+        });
+    });
+</script>
