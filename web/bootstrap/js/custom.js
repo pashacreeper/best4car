@@ -235,9 +235,9 @@ var catalogPage = function(){
         // slider
         var slider = $("#slider-range-max").slider({
             range: "max",
-            min: 1,
+            min: 0,
             max: 10,
-            value: 4,
+            value: 0,
             slide: function( event, ui ) {
                 $("#amount").val( ui.value );
             },
@@ -264,15 +264,41 @@ var catalogPage = function(){
                     $prevElement.attr('checked', false);
                 }
             });
-            $('#amount').val(4);
-            slider.slider("value", 4);
+            $('#amount').val(0);
+            slider.slider("value", 0);
 
             $('#advancedSearch select').each(function(index, element){
-                $element = $(element);
-                $element.find(':selected').removeAttr("selected");
-                $element.find("option:first").attr("selected", "selected");
-                $element.trigger("liszt:updated");
+                $(element).val('');
+                $(element).trigger("liszt:updated");
             });
+
+            $('#subCompanyTypeWrapper').hide();
+
+            companiesAjaxLoad();
+        });
+
+        $('#sto_content_advanced_search_companyType').change(function () {
+            var type_select = $(this);
+            var subtype_select = $('#sto_content_advanced_search_subCompanyType');
+            subtype_select.empty();
+
+            if (type_select.val()) {
+                $.getJSON(Routing.generate('api_dictionary_sub_company_types', {id: type_select.val()}))
+                    .done(function (json) {
+                        subtype_select.append('<option>Все</optin>');
+                        $.each(json, function (index, subtype) {
+                            subtype_select.append('<option value="' + subtype.id + '">' + subtype.name + '</option>');
+                        });
+                        subtype_select.trigger("liszt:updated");
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        console.log("Request Failed: " + textStatus + ', ' + error);
+                    });
+
+                $('#subCompanyTypeWrapper').show();
+            } else {
+                $('#subCompanyTypeWrapper').hide();
+            }
         });
     });
 };
@@ -420,6 +446,7 @@ var companyPage = function(){
 };
 
 var initPage = function(){
+    $('.chzn-select').chosen();
     mainLayout();
     catalogPage();
     dealsPage();

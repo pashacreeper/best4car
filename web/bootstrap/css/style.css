@@ -592,6 +592,7 @@ html, body {
 	position: relative;
 	bottom: 0;
 	z-index: 777;
+    display: none;
 }
 .smallInfoCompany{
 	position: relative;

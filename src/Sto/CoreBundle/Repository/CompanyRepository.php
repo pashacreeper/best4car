@@ -21,69 +21,67 @@ class CompanyRepository extends EntityRepository
     }
 
     /**
-     * @param  Country $city
-     * @param  string  $companyType
-     * @param  string  $subCompanyType
-     * @param  string  $auto
-     * @param  string  $rating
-     * @param  array   $filter
-     * @param  string  $deals
-     * @param  array   $timing
-     * @param  string  $sort
+     * @param array $params
      * @return array
      */
-    public function getCompaniesWithFilter(
-        $city = null,
-        $companyType = null,
-        $subCompanyType = null,
-        $auto = null,
-        $rating = null,
-        $filter = null,
-        $deals = null,
-        $timing = null,
-        $sort = null
-    ) {
+    public function getCompaniesWithFilter($params = array()) {
         $qb = $this->createQueryBuilder('company')
             ->select('company, csp, fb, d')
             ->join('company.specialization', 'csp')
             ->join('company.services', 'cs')
             ->join('company.deals', 'd')
             ->leftJoin('company.feedbacks', 'fb')
-            ->where('company.visible = true')
-            ->andWhere('company.city = :city')
-            ->setParameter('city', $city->getId())
-        ;
-        if ($companyType) {
-            $qb->andWhere('csp.id = :sp')
-                ->setParameter('sp', $companyType)
-            ;
-        }
-        if ($subCompanyType) {
-            $qb->andWhere('cs.id = :s')
-                ->setParameter('s', $subCompanyType)
-            ;
+            ->where('company.visible = true');
+
+        if (isset($params['city']) && $params['city']) {
+            $qb->andWhere('company.city = :city')
+                ->setParameter('city', $params['city']
+                ->getId());
         }
 
-        if ($deals) {
+        if (isset($params['companyType']) && $params['companyType']) {
+            $qb->andWhere('csp.id = :sp')
+                ->setParameter('sp', $params['companyType']);
+        }
+
+        if (isset($params['subCompanyType']) && $params['subCompanyType']) {
+            $qb->andWhere('cs.id = :s')
+                ->setParameter('s', $params['subCompanyType']);
+        }
+
+        if (isset($params['deals']) && $params['deals']) {
             $qb->andWhere('d.id IS NOT NULL');
         }
 
-        if ($rating) {
+        if (isset($params['rating']) && $params['rating']) {
             $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')
-                ->setParameter('rating', $rating)
-            ;
+                ->setParameter('rating', $params['rating']);
         }
+
+        if (isset($params['search']) && $params['search']) {
+            $words = explode(" ", $params['search']);
+            foreach ($words as $word) {
+                $qb->andWhere($qb->expr()->orx(
+                        $qb->expr()->like('company.name',':search'),
+                        $qb->expr()->like('company.fullName',':search'),
+                        $qb->expr()->like('company.description',':search'),
+                        $qb->expr()->like('company.slogan',':search'),
+                        $qb->expr()->like('cs.name',':search')
+                    ))
+                    ->setParameter('search', "%{$word}%");
+            }
+        }
+
         $tabNum = 0;
-        foreach ($filter as $key => $value) {
-            if ($filter[$key]) {
+        foreach ($params['filter'] as $key => $value) {
+            if ($params['filter'][$key]) {
                 $qb->join('company.additionalServices', "cas{$tabNum}")
-                    ->andWhere($qb->expr()->like("cas{$tabNum}.shortName","'$key%'"))
-                ;
+                    ->andWhere($qb->expr()->like("cas{$tabNum}.shortName", "'{$key}%'"));
                 $tabNum++;
             }
         }
 
-        if ($sort == 'price') {
+        if ($params['sort'] == 'price') {
             $qb->orderBy('company.hourPrice','ASC');
         } else {
             $qb->orderBy('company.rating','DESC');
@@ -91,7 +89,10 @@ class CompanyRepository extends EntityRepository
 
         $result = $qb->getQuery()->getArrayResult();
 
-        if ($timing['weekends']) {
+        /**
+         * Неведомая мне хрень, начало
+         */
+        if ($params['timing']['weekends']) {
             $qbd = $this->getEntityManager()
                 ->createQuery('SELECT u.id FROM StoCoreBundle:Dictionary\WeekDay u WHERE u.position in (5,6)')
                 ->getArrayResult()
@@ -112,7 +113,7 @@ class CompanyRepository extends EntityRepository
             $result = $trueResult;
         }
 
-        if ($timing['around_the_clock']) {
+        if ($params['timing']['around_the_clock']) {
             $hours24 = '00:00-23:59';
             $trueResult = [];
             foreach ($result as $row) {
@@ -130,7 +131,7 @@ class CompanyRepository extends EntityRepository
             $result = $trueResult;
         }
 
-        if ($timing['late']) {
+        if ($params['timing']['late']) {
             $latehours = '1800';
             $trueResult = [];
             foreach ($result as $row) {
