@@ -174,7 +174,6 @@
         }
 
         function companiesAjaxLoad() {
-            alert('load');
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
