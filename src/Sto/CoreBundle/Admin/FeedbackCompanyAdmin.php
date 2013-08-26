@@ -78,6 +78,7 @@ class FeedbackCompanyAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
+            ->add('company.city')
             ->add('content')
             ->add('visitDate')
             ->add('mastername')
