@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\UserBundle\Entity\Group;
 use Sto\UserBundle\Entity\RatingGroup;
-use Sto\UserBundle\Entity\Contacts;
+use Sto\UserBundle\Entity\UserContacts;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\UserBundle\Entity\UserGallery;
@@ -222,7 +222,7 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\Contacts", mappedBy="user", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\UserContacts", mappedBy="user", cascade={"all"})
      */
     private $contacts;
 
@@ -276,12 +276,23 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return $this->username;
+        return (string)$this->username;
     }
 
     public static function getGenders()
     {
         return ['male', 'female'];
+    }
+
+    public static function getAllRoles()
+    {
+        return [
+            'ROLE_ADMIN' => 'Администратор',
+            'ROLE_MODERATOR' => 'Модератор',
+            'ROLE_EDITOR' => 'Редактор',
+            'ROLE_MANAGER' => 'Менеджер',
+            'ROLE_USER' => 'Пользователь'
+        ];
     }
 
     /**
@@ -846,7 +857,7 @@ class User extends BaseUser
         return $this->contacts;
     }
 
-    public function addContact(Contacts $contact)
+    public function addContact(UserContacts $contact)
     {
         $contact->setUser($this);
         $this->contacts[] = $contact;
@@ -854,7 +865,7 @@ class User extends BaseUser
         return $this;
     }
 
-    public function removeContact(Contacts $contact)
+    public function removeContact(UserContacts $contact)
     {
         $this->contacts->removeElement($contact);
     }

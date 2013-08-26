@@ -269,7 +269,7 @@ class Company
     private $companyManager;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\UserBundle\Entity\Contacts", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyContacts", mappedBy="company", cascade={"all"})
      */
     private $contacts;
 
@@ -1192,8 +1192,9 @@ class Company
         return $this->contacts;
     }
 
-    public function addContact($contact)
+    public function addContact(CompanyContacts $contact)
     {
+        $contact->setCompany($this);
         $this->contacts[] =  $contact;
 
         return $this;

@@ -1,11 +1,12 @@
 <?php
 
-namespace Sto\AdminBundle\Form;
+namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 use Doctrine\ORM\EntityRepository;
 use Sto\AdminBundle\Form\UserContactEmailType;
+use Sto\ContentBundle\Form\UserContactsType;
 
 class UserProfileType extends BaseType
 {
@@ -124,7 +125,7 @@ class UserProfileType extends BaseType
                 'by_reference' => false,
             ])
             ->add('contacts', 'collection', [
-                'type' => new ContactsUserType(),
+                'type' => new UserContactsType(),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

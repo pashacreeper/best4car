@@ -64,8 +64,10 @@ class UserAdmin extends Admin
             ->add('expired', null, array(
                 'required' => false,
             ))
-            ->add('roles', null, array(
+            ->add('roles', 'choice', array(
                 'required' => false,
+                'multiple' => true,
+                'choices' => User::getAllRoles()
             ))
             ->add('firstName')
             ->add('rating')
@@ -94,6 +96,13 @@ class UserAdmin extends Admin
                 'required' => false,
             ))
             ->add('avatarVk')
+            ->add('contacts', 'sonata_type_collection', [
+                'by_reference' => false,
+            ],
+            [
+                'edit' => 'inline',
+                'inline' => 'table',
+            ])
         ;
     }
 
