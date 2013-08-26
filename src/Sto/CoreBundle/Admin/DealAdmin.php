@@ -71,6 +71,9 @@ class DealAdmin extends Admin
             ->add('draft', null, array(
                 'required' => false
             ))
+            ->add('is_vip', null, [
+                'required' => false,
+            ])
             ->add('auto', null, array(
                 'required' => false
             ))

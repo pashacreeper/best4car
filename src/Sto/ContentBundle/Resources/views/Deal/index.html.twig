@@ -66,11 +66,11 @@
                 </ul>
             </div>
             <div id="rightBar" class="text-r">
-                {% if deals %}
+                {% if vipDeals %}
                 <div class="slider">
                     <div class="img__prev__wrap">
                         <ul id="thumbnail" class="slide-wrap">
-                        {% for deal in [random(deals), random(deals), random(deals)] %}
+                        {% for deal in vipDeals %}
                             <li class="slide-item">
                                 <a class="linh__img__prev" href="{{ path('content_deal_show', { "id": deal.id }) }}">
                                     <p class="nameActionP">{{ deal.name }}</p>

@@ -334,11 +334,25 @@ class DealController extends MainController
         ;
         $countPopularDeals = count($popularDealsRows);
 
+        $vipDeals = $repository->createQueryBuilder('deal')
+            ->join('deal.company', 'dc')
+            ->where('deal.endDate > :endDate')
+            ->andWhere('dc.cityId = :city')
+            ->andWhere('deal.is_vip = 1')
+            ->setParameters([
+                    'endDate' => new \DateTime('now'),
+                    'city' => $city->getId()
+                ])
+            ->getQuery()
+            ->getResult()
+        ;
+
         return [
             'deals' => $deals,
             'dictionaries' => $dealsTypes,
             'countFeededDeals' => count($countFeededDeals),
             'countPopularDeals' => $countPopularDeals,
+            'vipDeals' => $vipDeals
         ];
     }
 

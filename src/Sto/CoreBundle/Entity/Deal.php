@@ -197,6 +197,11 @@ class Deal
      */
     private $autoServices;
 
+    /**
+     * @ORM\Column(name="is_vip", type="boolean")
+     */
+    private $is_vip;
+
     public function __construct(Company $company = null)
     {
         $this->feedbacks = new ArrayCollection();
@@ -204,6 +209,7 @@ class Deal
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
         $this->draft = false;
+        $this->is_vip = false;
 
         if ($company) {
             $this->setCompany($company);
@@ -701,5 +707,23 @@ class Deal
     public function getImagePath()
     {
         return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/deal_image/{$this->imageName}";
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsVip()
+    {
+        return $this->is_vip;
+    }
+
+    /**
+     * @param $value
+     * @return $this
+     */
+    public function setIsVip($value)
+    {
+        $this->is_vip = $value;
+        return $this;
     }
 }
