@@ -114,6 +114,12 @@ class CompanyAdmin extends Admin
             ->add('linkVK')
             ->add('linkTW')
             ->add('linkFB')
+            ->add('contacts', 'sonata_type_collection', [
+                    'by_reference' => false,
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ])
         ;
     }
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Sto\UserBundle\Entity;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User Contacts
+ * Company Contacts
  *
- * @ORM\Table(name="user_contacts")
- * @ORM\Entity(repositoryClass="Sto\UserBundle\Repository\ContactsRepository")
+ * @ORM\Table(name="company_contacts")
+ * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanyContactsRepository")
  */
-class Contacts
+class CompanyContacts
 {
     /**
      * @var integer
@@ -26,18 +26,6 @@ class Contacts
      * @ORM\Column(name="value", type="string")
      */
     private $value;
-
-    /**
-     * @var integer
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
-     */
-    private $userId;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="contacts")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
 
     /**
      * @var integer
@@ -96,49 +84,49 @@ class Contacts
     }
 
     /**
-     * Set userId
+     * Set companyId
      *
-     * @param  integer     $userId
+     * @param  integer     $companyId
      * @return RatingGroup
      */
-    public function setUserId($userId)
+    public function setCompanyId($companyId)
     {
-        $this->userId = $userId;
+        $this->companyId = $companyId;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get companyId
      *
      * @return integer
      */
-    public function getUserId()
+    public function getCompanyId()
     {
-        return $this->userId;
+        return $this->companyId;
     }
 
     /**
-     * Add user
+     * Add company
      *
-     * @param  \Sto\UserBundle\Entity\User $user
+     * @param  \Sto\CoreBundle\Entity\Company $company
      * @return RatingGroup
      */
-    public function setUser(\Sto\UserBundle\Entity\User $user)
+    public function setCompany(\Sto\CoreBundle\Entity\Company $company)
     {
-        $this->user = $user;
+        $this->company = $company;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get company
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUser()
+    public function getCompany()
     {
-        return $this->user;
+        return $this->company;
     }
 
     public function getTypeId()
@@ -170,32 +158,8 @@ class Contacts
         return $this;
     }
 
-    public function getCompanyId()
-    {
-        return $this->companyId;
-    }
-
-    public function setCompanyId($companyId)
-    {
-        $this->companyId = $companyId;
-
-        return $this;
-    }
-
-    public function setCompany(\Sto\CoreBundle\Entity\Company $company)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
     public function __toString()
     {
-        return $this->getValue();
+        return "{$this->type}: {$this->value}";
     }
 }

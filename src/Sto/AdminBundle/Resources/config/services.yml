@@ -35,7 +35,7 @@ services:
             - { name: knp_menu.menu, alias: main }
 
     sto_user.profile.form.type:
-        class: Sto\AdminBundle\Form\UserProfileType
+        class: Sto\ContentBundle\Form\UserProfileType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: sto_adminbundle_userprofiletype }
