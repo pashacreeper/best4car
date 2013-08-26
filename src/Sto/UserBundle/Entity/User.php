@@ -284,6 +284,17 @@ class User extends BaseUser
         return ['male', 'female'];
     }
 
+    public static function getAllRoles()
+    {
+        return [
+            'ROLE_ADMIN' => 'Администратор',
+            'ROLE_MODERATOR' => 'Модератор',
+            'ROLE_EDITOR' => 'Редактор',
+            'ROLE_MANAGER' => 'Менеджер',
+            'ROLE_USER' => 'Пользователь'
+        ];
+    }
+
     /**
      * Set firstName
      *
