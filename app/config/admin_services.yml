@@ -41,11 +41,11 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Компании, label: Менеджеры}
           arguments: [null, Sto\CoreBundle\Entity\CompanyManager, SonataAdminBundle:CRUD]
 
-    # app.admin.company_working_time:
-    #       class: Sto\CoreBundle\Admin\CompanyWorkingTimeAdmin
-    #       tags:
-    #         - { name: sonata.admin, manager_type: orm, group: Компании, label: Время работы}
-    #       arguments: [null, Sto\CoreBundle\Entity\CompanyWorkingTime, SonataAdminBundle:CRUD]
+    app.admin.company.company_contacts:
+          class: Sto\CoreBundle\Admin\CompanyContactsAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Контакты, show_in_dashboard: false}
+          arguments: [null, Sto\CoreBundle\Entity\CompanyContacts, SonataAdminBundle:CRUD]
 
     app.admin.feedback_company:
           class: Sto\CoreBundle\Admin\FeedbackCompanyAdmin
@@ -58,12 +58,6 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Отзывы об акциях}
           arguments: [null, Sto\CoreBundle\Entity\FeedbackDeal, SonataAdminBundle:CRUD]
-
-    # app.admin.feedback_evaluation:
-    #       class: Sto\CoreBundle\Admin\FeedbackEvaluationAdmin
-    #       tags:
-    #         - { name: sonata.admin, manager_type: orm, group: Отзывы, label: Оценки}
-    #       arguments: [null, Sto\CoreBundle\Entity\FeedbackEvaluation, SonataAdminBundle:CRUD]
 
     app.admin.feedback_answer:
           class: Sto\CoreBundle\Admin\FeedbackAnswerAdmin
@@ -137,12 +131,6 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Действия / работы}
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\Work, SonataAdminBundle:CRUD]
 
-    app.admin.user.contacts:
-          class: Sto\UserBundle\Admin\ContactsAdmin
-          tags:
-            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Контакты}
-          arguments: [null, Sto\UserBundle\Entity\Contacts, SonataAdminBundle:CRUD]
-
     app.admin.user.group:
           class: Sto\UserBundle\Admin\GroupAdmin
           tags:
@@ -166,3 +154,9 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Пользователи}
           arguments: [null, Sto\UserBundle\Entity\User, SonataAdminBundle:CRUD]
+
+    app.admin.user.user_contacts:
+          class: Sto\UserBundle\Admin\UserContactsAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Контакты, show_in_dashboard: false}
+          arguments: [null, Sto\UserBundle\Entity\UserContacts, SonataAdminBundle:CRUD]

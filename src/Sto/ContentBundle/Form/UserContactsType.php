@@ -1,13 +1,13 @@
 <?php
 
-namespace Sto\AdminBundle\Form;
+namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
-class ContactsUserType extends AbstractType
+class UserContactsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,7 +31,7 @@ class ContactsUserType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Sto\UserBundle\Entity\Contacts'
+                'data_class' => 'Sto\UserBundle\Entity\UserContacts'
             ]
         );
     }

@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User Contacts
  *
+ * @ORM\Entity
  * @ORM\Table(name="user_contacts")
- * @ORM\Entity(repositoryClass="Sto\UserBundle\Repository\ContactsRepository")
  */
-class Contacts
+class UserContacts
 {
     /**
      * @var integer
@@ -38,18 +38,6 @@ class Contacts
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
-
-    /**
-     * @var integer
-     * @ORM\Column(name="company_id", type="integer", nullable=true)
-     */
-    private $companyId;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Company", inversedBy="contacts")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
-     */
-    private $company;
 
     /**
      * @var integer
@@ -170,32 +158,8 @@ class Contacts
         return $this;
     }
 
-    public function getCompanyId()
-    {
-        return $this->companyId;
-    }
-
-    public function setCompanyId($companyId)
-    {
-        $this->companyId = $companyId;
-
-        return $this;
-    }
-
-    public function setCompany(\Sto\CoreBundle\Entity\Company $company)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
     public function __toString()
     {
-        return $this->getValue();
+        return "{$this->type}: {$this->value}";
     }
 }
