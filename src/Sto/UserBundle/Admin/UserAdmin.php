@@ -96,7 +96,8 @@ class UserAdmin extends Admin
             ->add('avatarVk')
             ->add('contacts', 'sonata_type_collection', [
                 'by_reference' => false,
-            ], [
+            ],
+            [
                 'edit' => 'inline',
                 'inline' => 'table',
             ])
