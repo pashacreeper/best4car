@@ -1,5 +1,5 @@
 <?php
-namespace Sto\AdminBundle\Form;
+namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
