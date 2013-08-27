@@ -154,7 +154,7 @@ class APIUserController extends FOSRestController
             $user->setUsername($request->get('userName'));
         $user->setBirthDate(new \DateTime($request->get('birthDate')));
         if ($request->get('city')>0) {
-            $city = $em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($request->get('city'));
+            $city = $em->getRepository('StoCoreBundle:Country')->findOneById($request->get('city'));
             if ($city) {
                 $user->setCity($city);
             }

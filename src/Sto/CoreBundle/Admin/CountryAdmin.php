@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Dictionary;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CompanyTypeAdmin extends Admin
+class CountryAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -18,14 +18,11 @@ class CompanyTypeAdmin extends Admin
             ->add('id')
             ->add('shortName')
             ->add('name')
-            ->add('parent')
-            ->add('children')
-            ->add('position')
-            ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
+            ->add('iconName')
+            ->add('imageName')
             ->add('updatedAt')
-            ->add('autoServices')
+            ->add('gps')
+            ->add('parent')
         ;
     }
 
@@ -34,13 +31,19 @@ class CompanyTypeAdmin extends Admin
         $formMapper
             ->add('shortName')
             ->add('name')
-            ->add('parent')
-            ->add('position')
-            ->add('iconMap', 'file')
-            ->add('iconSmall', 'file')
-            ->add('iconLarge', 'file')
-            ->add('updatedAt')
-            ->add('autoServices')
+            ->add('icon', 'file', [
+                'required' => false,
+            ])
+            ->add('image', 'file', [
+                'required' => false,
+            ])
+            ->add('updatedAt', null, [
+                'required' => false,
+            ])
+            ->add('gps')
+            ->add('parent', null, [
+                'required' => false,
+            ])
         ;
     }
 
@@ -48,8 +51,8 @@ class CompanyTypeAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('shortName')
             ->addIdentifier('name')
+            ->addIdentifier('shortName')
             ->addIdentifier('parent')
         ;
     }
@@ -60,13 +63,11 @@ class CompanyTypeAdmin extends Admin
             ->add('id')
             ->add('shortName')
             ->add('name')
-            ->add('position')
-            ->add('parent')
-            ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
+            ->add('iconName')
+            ->add('imageName')
             ->add('updatedAt')
-            ->add('autoServices')
+            ->add('gps')
+            ->add('parent')
         ;
     }
 }

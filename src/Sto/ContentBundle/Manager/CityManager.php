@@ -29,9 +29,9 @@ class CityManager
         }
 
         if ($session->has('city')) {
-            $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Dictionary\Country','json');
+            $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Country','json');
         } else {
-            $city = ($user instanceof User)? $user->getCity() : $this->em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById(102);
+            $city = ($user instanceof User)? $user->getCity() : $this->em->getRepository('StoCoreBundle:Country')->findOneById(102);
         }
 
         return $city;

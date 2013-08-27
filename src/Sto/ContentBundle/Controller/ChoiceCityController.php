@@ -36,13 +36,13 @@ class ChoiceCityController extends Controller
         }
         $serializer = $this->container->get('jms_serializer');
         if ($session->has('city')) {
-            $city = $serializer->deserialize($session->get('city'),'Sto\CoreBundle\Entity\Dictionary\Country','json');
+            $city = $serializer->deserialize($session->get('city'),'Sto\CoreBundle\Entity\Country','json');
             $session->set('cityName', $city->getName());
         } elseif ($this->getUser() && ($city = $this->getUser()->getCity())) {
             $session->set('city', $serializer->serialize($city, 'json'));
             $session->set('cityName', $city->getName());
         } else {
-            $city = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Dictionary\Country')->findOneById(102);
+            $city = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Country')->findOneById(102);
             $session->set('city', $serializer->serialize($city, 'json'));
             $session->set('cityName', $city->getName());
         }

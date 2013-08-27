@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Dictionary;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -16,8 +16,49 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class Country extends Base
+class Country
 {
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="short_name", type="string", length=15, nullable=true)
+     */
+    private $shortName;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="parent")
+     * @Serializer\Exclude
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @Serializer\Exclude
+     */
+    private $parent;
+
+    /**
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     */
+    private $parentId;
+
+    /**
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     * @Serializer\Exclude
+     */
+    private $position;
+
     /**
      * @Assert\Image(
      *     maxSize="512k",
@@ -77,9 +118,152 @@ class Country extends Base
 
     public function __construct()
     {
-        parent::__construct();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->companies = new ArrayCollection();
         $this->users = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param  string $code
+     * @return Country
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string $name
+     * @return Country
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set parentId
+     *
+     * @param  integer $parentId
+     * @return Country
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parentId
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Set parent
+     */
+    public function setParent(Country $parent = null)
+    {
+        $this->parent = $parent;
+        if ($parent != null) {
+            $this->parentId = $parent->getId();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     */
+    public function addChildren(Country $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     */
+    public function removeChildren(Country $children)
+    {
+        $this->children->removeElement($children);
+
+        return $this;
+    }
+
+    /**
+     * Get children
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * set Position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * get Position
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**
@@ -230,5 +414,9 @@ class Country extends Base
     public function getGps()
     {
         return $this->gps;
+    }
+
+    public function preRemove() {
+
     }
 }

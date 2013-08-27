@@ -5,7 +5,7 @@ namespace Sto\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sto\CoreBundle\Entity\Dictionary\AutoServices;
+use Sto\CoreBundle\Entity\AutoServices;
 
 class LoadDictionaryAutoServicesData extends AbstractFixture implements OrderedFixtureInterface
 {

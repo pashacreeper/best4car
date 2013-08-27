@@ -65,7 +65,7 @@ class RegistrationType extends BaseType
             ])
             ->add('city', 'entity', [
                 'label' => 'Город',
-                'class' => 'StoCoreBundle:Dictionary\Country',
+                'class' => 'StoCoreBundle:Country',
                 'query_builder' => function($er) {
                     return $er->createQueryBuilder('country')
                         ->where('country.parent is not null')

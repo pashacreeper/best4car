@@ -1,30 +1,15 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Dictionary;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
- * Base
+ * AutoServices
  *
- * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
- * @ORM\Table(name="dictionaries", indexes={
- *     @ORM\Index(name="DICTIONARY_NAME_IDX", columns={"name"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({
- *     "deals_type"         = "DealType",
- *     "additional_service" = "AdditionalService",
- *     "work"               = "Work",
- *     "currency"           = "Currency",
- *     "day_of_week"        = "WeekDay",
- *     "price_level"        = "PriceLevel",
- *     "contact_type"       = "ContactType",
- * })
+ * @ORM\Entity()
  */
-class Base
+class AutoServices
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -44,15 +29,13 @@ class Base
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
-     * @Serializer\Exclude
+     * @ORM\OneToMany(targetEntity="AutoServices", mappedBy="parent")
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="AutoServices", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     * @Serializer\Exclude
      */
     private $parent;
 
@@ -63,16 +46,37 @@ class Base
 
     /**
      * @ORM\Column(name="position", type="integer", nullable=true)
-     * @Serializer\Exclude
      */
     private $position;
 
     /**
-     * Constructor
+     * @ORM\Column(name="code", type="string", length=255, nullable=true)
      */
+    private $code;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType", cascade={"persist"})
+     * @ORM\JoinTable(name="company_type_auto_service",
+     *     joinColumns={@ORM\JoinColumn(name="auto_service_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="company_type_id", referencedColumnName="id")}
+     * )
+     */
+    private $companyType;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Company")
+     */
+    private $companies;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Deal")
+     */
+    private $deals;
+
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->companyType = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -87,7 +91,7 @@ class Base
      * Set code
      *
      * @param  string $code
-     * @return Base
+     * @return AutoServices
      */
     public function setShortName($shortName)
     {
@@ -108,7 +112,7 @@ class Base
      * Set name
      *
      * @param  string $name
-     * @return Base
+     * @return AutoServices
      */
     public function setName($name)
     {
@@ -129,7 +133,7 @@ class Base
      * Set parentId
      *
      * @param  integer $parentId
-     * @return Base
+     * @return AutoServices
      */
     public function setParentId($parentId)
     {
@@ -149,7 +153,7 @@ class Base
     /**
      * Set parent
      */
-    public function setParent(Base $parent = null)
+    public function setParent(AutoServices $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -170,7 +174,7 @@ class Base
     /**
      * Add children
      */
-    public function addChildren(Base $children)
+    public function addChildren(AutoServices $children)
     {
         $this->children[] = $children;
 
@@ -180,7 +184,7 @@ class Base
     /**
      * Remove children
      */
-    public function removeChildren(Base $children)
+    public function removeChildren(AutoServices $children)
     {
         $this->children->removeElement($children);
 
@@ -216,5 +220,43 @@ class Base
     public function getPosition()
     {
         return $this->position;
+    }
+
+    public function setCode($value)
+    {
+        $this->code = $value;
+
+        return $this;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function setCompanyType($value)
+    {
+        $this->companyType = $value;
+
+        return $this;
+    }
+
+    public function getCompanyType()
+    {
+        return $this->companyType;
+    }
+
+    public function addCompanyType($value)
+    {
+        $this->companyType[] = $value;
+
+        return $this;
+    }
+
+    public function removeCompanyType($value)
+    {
+        $this->companyType->removeElement($value);
+
+        return $this;
     }
 }

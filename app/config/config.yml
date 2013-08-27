@@ -302,3 +302,9 @@ services:
         class: Sto\CoreBundle\Twig\StoExtension
         tags:
             - { name: twig.extension }
+
+    country.listener:
+        class: Sto\CoreBundle\Services\Listeners\CountryListener
+        arguments: [%kernel.root_dir%]
+        tags:
+            - {name: doctrine.event_listener, event: preRemove}

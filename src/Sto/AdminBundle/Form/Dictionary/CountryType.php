@@ -37,7 +37,7 @@ class CountryType extends BaseType
                 'required' => false,
                 'render_optional_text' => false,
                 'empty_value' => "Выберите страну",
-                'class' => 'StoCoreBundle:Dictionary\Country',
+                'class' => 'StoCoreBundle:Country',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('country')
                         ->where('country.parent is null')
@@ -50,7 +50,7 @@ class CountryType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\Country'
+            'data_class' => 'Sto\CoreBundle\Entity\Country'
         ]);
     }
 

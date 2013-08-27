@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Dictionary;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CountryAdmin extends Admin
+class AutoServiceAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -18,11 +18,11 @@ class CountryAdmin extends Admin
             ->add('id')
             ->add('shortName')
             ->add('name')
-            ->add('iconName')
-            ->add('imageName')
-            ->add('updatedAt')
-            ->add('gps')
             ->add('parent')
+            ->add('children')
+            ->add('position')
+            ->add('code')
+            ->add('companyType')
         ;
     }
 
@@ -31,11 +31,12 @@ class CountryAdmin extends Admin
         $formMapper
             ->add('shortName')
             ->add('name')
-            ->add('icon', 'file')
-            ->add('image', 'file')
-            ->add('updatedAt')
-            ->add('gps')
             ->add('parent')
+            ->add('position')
+            ->add('code')
+            ->add('companyType', null, array(
+                'required' => false,
+            ))
         ;
     }
 
@@ -44,7 +45,6 @@ class CountryAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->addIdentifier('name')
-            ->addIdentifier('shortName')
             ->addIdentifier('parent')
         ;
     }
@@ -55,10 +55,9 @@ class CountryAdmin extends Admin
             ->add('id')
             ->add('shortName')
             ->add('name')
-            ->add('iconName')
-            ->add('imageName')
-            ->add('updatedAt')
-            ->add('gps')
+            ->add('position')
+            ->add('code')
+            ->add('companyType')
             ->add('parent')
         ;
     }

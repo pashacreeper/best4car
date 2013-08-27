@@ -29,7 +29,7 @@ class CompanyController extends MainController
         $em = $this->getDoctrine()->getManager();
         $specialization = $request->get('specialization');
         // var_dump($specialization);die();
-        $entity =$em->getRepository('StoCoreBundle:Dictionary\CompanyType')
+        $entity =$em->getRepository('StoCoreBundle:CompanyType')
             ->createQueryBuilder('services')
             ->where('services.parent in (:specializationId)')
             ->setParameter('specializationId',$specialization )

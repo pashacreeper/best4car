@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Dictionary;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class AutoServiceAdmin extends Admin
+class CompanyTypeAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -21,8 +21,11 @@ class AutoServiceAdmin extends Admin
             ->add('parent')
             ->add('children')
             ->add('position')
-            ->add('code')
-            ->add('companyType')
+            ->add('iconNameMap')
+            ->add('iconNameSmall')
+            ->add('iconNameLarge')
+            ->add('updatedAt')
+            ->add('autoServices')
         ;
     }
 
@@ -33,10 +36,11 @@ class AutoServiceAdmin extends Admin
             ->add('name')
             ->add('parent')
             ->add('position')
-            ->add('code')
-            ->add('companyType', null, array(
-                'required' => false,
-            ))
+            ->add('iconMap', 'file')
+            ->add('iconSmall', 'file')
+            ->add('iconLarge', 'file')
+            ->add('updatedAt')
+            ->add('autoServices')
         ;
     }
 
@@ -44,6 +48,7 @@ class AutoServiceAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('shortName')
             ->addIdentifier('name')
             ->addIdentifier('parent')
         ;
@@ -56,9 +61,12 @@ class AutoServiceAdmin extends Admin
             ->add('shortName')
             ->add('name')
             ->add('position')
-            ->add('code')
-            ->add('companyType')
             ->add('parent')
+            ->add('iconNameMap')
+            ->add('iconNameSmall')
+            ->add('iconNameLarge')
+            ->add('updatedAt')
+            ->add('autoServices')
         ;
     }
 }

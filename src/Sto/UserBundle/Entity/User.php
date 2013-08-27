@@ -113,7 +113,7 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Country", inversedBy="users")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
@@ -517,7 +517,7 @@ class User extends BaseUser
         return $this->gender;
     }
 
-    public function setCity(\Sto\CoreBundle\Entity\Dictionary\Country $city)
+    public function setCity(\Sto\CoreBundle\Entity\Country $city)
     {
         $this->city = $city;
         $this->cityId = $city->getId();

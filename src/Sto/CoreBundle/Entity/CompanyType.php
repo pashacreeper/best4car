@@ -1,11 +1,12 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Dictionary;
+namespace Sto\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\ORM\Mapping as ORM,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
+    Symfony\Component\Validator\Constraints as Assert,
+    Vich\UploaderBundle\Mapping\Annotation as Vich,
+    Sto\CoreBundle\Entity\AutoServices;
 
 /**
  * Company
@@ -13,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class CompanyType extends Base
+class CompanyType
 {
     /**
      * @Assert\Image(
@@ -69,21 +70,203 @@ class CompanyType extends Base
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AutoServices")
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\AutoServices")
      */
     private $autoServices;
 
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="short_name", type="string", length=15, nullable=true)
+     */
+    private $shortName;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyType", mappedBy="parent", cascade={"remove"})
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyType", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     */
+    private $parentId;
+
+    /**
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
     public function __construct()
     {
-        parent::__construct();
         $this->autoServices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param  string $code
+     * @return CompanyType
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string $name
+     * @return CompanyType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set parentId
+     *
+     * @param  integer $parentId
+     * @return CompanyType
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parentId
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Set parent
+     */
+    public function setParent(CompanyType $parent = null)
+    {
+        $this->parent = $parent;
+        if ($parent != null) {
+            $this->parentId = $parent->getId();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     */
+    public function addChildren(CompanyType $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     */
+    public function removeChildren(CompanyType $children)
+    {
+        $this->children->removeElement($children);
+
+        return $this;
+    }
+
+    /**
+     * Get children
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * set Position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * get Position
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**
      * Set iconMap
      *
      * @param  string  $iconMap
-     * @return Country
+     * @return CompanyType
      */
     public function setIconMap($iconMap)
     {
@@ -121,7 +304,7 @@ class CompanyType extends Base
      * Set iconSmall
      *
      * @param  string  $iconSmall
-     * @return Country
+     * @return CompanyType
      */
     public function setIconSmall($iconSmall)
     {
@@ -159,7 +342,7 @@ class CompanyType extends Base
      * Set iconLarge
      *
      * @param  string  $iconLarge
-     * @return Country
+     * @return CompanyType
      */
     public function setIconLarge($iconLarge)
     {

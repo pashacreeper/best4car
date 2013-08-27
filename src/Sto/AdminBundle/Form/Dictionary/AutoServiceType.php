@@ -18,7 +18,7 @@ class AutoServiceType extends BaseType
                 'label' => 'dict.fields.parent',
                 'required' => false,
                 'render_optional_text' => false,
-                'class' => 'StoCoreBundle:Dictionary\AutoServices',
+                'class' => 'StoCoreBundle:AutoServices',
                 'empty_value' => "Choise parent",
                 'empty_data' => null,
                 'query_builder' => function(EntityRepository $er) {
@@ -33,7 +33,7 @@ class AutoServiceType extends BaseType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Dictionary\AutoServices'
+            'data_class' => 'Sto\CoreBundle\Entity\AutoServices'
         ]);
     }
 

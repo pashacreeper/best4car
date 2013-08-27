@@ -48,7 +48,7 @@ class Company
     private $web;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\CompanyType")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType")
      * @ORM\JoinTable(name="company_dictionary_company_type_parrent",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -57,7 +57,7 @@ class Company
     private $specialization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\CompanyType")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType")
      * @ORM\JoinTable(name="company_dictionary_company_type_children",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -75,7 +75,7 @@ class Company
     private $additionalServices;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AutoServices")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\AutoServices")
      * @ORM\JoinTable(name="company_auto_service",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -229,13 +229,13 @@ class Company
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Dictionary\Country",inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Country",inversedBy="companies")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
 
     /**
-     * @ORM\Column(name="city_id", type="integer")
+     * @ORM\Column(name="city_id", type="integer", nullable=true)
      */
     private $cityId;
 
@@ -1075,7 +1075,7 @@ class Company
         return $this->gallery;
     }
 
-    public function setCity(\Sto\CoreBundle\Entity\Dictionary\Country $city)
+    public function setCity(\Sto\CoreBundle\Entity\Country $city)
     {
         $this->city = $city;
         $city->addCompany($this);
