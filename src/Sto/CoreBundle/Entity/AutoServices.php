@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AutoServices
  *
  * @ORM\Entity()
+ * @ORM\Table(name="auto_services")
  */
 class AutoServices
 {

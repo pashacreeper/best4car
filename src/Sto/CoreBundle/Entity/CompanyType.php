@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM,
  * Company
  *
  * @ORM\Entity()
+ * @ORM\Table(name="company_types")
  * @Vich\Uploadable
  */
 class CompanyType

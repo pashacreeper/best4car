@@ -14,6 +14,7 @@ use JMS\Serializer\Annotation as Serializer;
  * Country
  *
  * @ORM\Entity()
+ * @ORM\Table(name="countries")
  * @Vich\Uploadable
  */
 class Country
