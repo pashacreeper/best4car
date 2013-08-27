@@ -74,7 +74,7 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
         ];
 
         foreach ($all as $country => $cities) {
-            $vCountry = new Dictionary\Country;
+            $vCountry = new Country;
             $vCountry->setName($country);
             $vCountry->setShortName($codes[$country]);
 
@@ -97,7 +97,7 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
             $manager->persist($vCountry);
 
             foreach ($cities as $shortName => $city) {
-                $vCity = new Dictionary\Country;
+                $vCity = new Country;
                 $vCity->setName($city['name']);
                 $vCity->setGps($city['gps']);
                 $vCity->setParent($vCountry);

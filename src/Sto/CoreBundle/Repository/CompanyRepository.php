@@ -3,7 +3,7 @@
 namespace Sto\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Sto\CoreBundle\Entity\Dictionary\Country;
+use Sto\CoreBundle\Entity\Country;
 
 /**
  * CompanyRepository

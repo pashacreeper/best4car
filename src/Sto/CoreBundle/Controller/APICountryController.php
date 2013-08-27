@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sto\CoreBundle\Entity\Dictionary\Country;
+use Sto\CoreBundle\Entity\Country;
 
 /**
  * Country controller.
@@ -52,7 +52,7 @@ class APICountryController extends APIBaseController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary\Country')
+        $data = $em->getRepository('StoCoreBundle:Country')
             ->createQueryBuilder('dictionary')
             ->where('dictionary.parent is null')
             ->getQuery()

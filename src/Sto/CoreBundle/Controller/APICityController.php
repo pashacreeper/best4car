@@ -56,7 +56,7 @@ class APICityController extends APIBaseController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary\Country')
+        $data = $em->getRepository('StoCoreBundle:Country')
             ->createQueryBuilder('dictionary')
             ->where('dictionary.parent is NOT null')
             ->getQuery()
@@ -87,7 +87,7 @@ class APICityController extends APIBaseController
         $em = $this->getDoctrine()->getManager();
         $data = $em->createQueryBuilder()
             ->select('b')
-            ->from('StoCoreBundle:Dictionary\Country', 'b')
+            ->from('StoCoreBundle:Country', 'b')
             ->where('b.parentId = :id')
             ->setParameter('id', $id)
             ->getQuery()
@@ -114,7 +114,7 @@ class APICityController extends APIBaseController
      */
     public function choiceCity($id)
     {
-        $city = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Dictionary\Country')->findOneById($id);
+        $city = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Country')->findOneById($id);
 
         if (!$city) {
             return new JsonResponse(['message' => 'Not found city'], 404);

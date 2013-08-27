@@ -78,16 +78,16 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\AdditionalService, SonataAdminBundle:CRUD]
 
     app.admin.auto_service:
-          class: Sto\CoreBundle\Admin\Dictionary\AutoServiceAdmin
+          class: Sto\CoreBundle\Admin\AutoServiceAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Узлы и работы}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\AutoServices, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\AutoServices, SonataAdminBundle:CRUD]
 
     app.admin.company_type:
-          class: Sto\CoreBundle\Admin\Dictionary\CompanyTypeAdmin
+          class: Sto\CoreBundle\Admin\CompanyTypeAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы организаций}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\CompanyType, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\CompanyType, SonataAdminBundle:CRUD]
 
     app.admin.contact_type:
           class: Sto\CoreBundle\Admin\Dictionary\ContactTypeAdmin
@@ -96,10 +96,10 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\ContactType, SonataAdminBundle:CRUD]
 
     app.admin.country:
-          class: Sto\CoreBundle\Admin\Dictionary\CountryAdmin
+          class: Sto\CoreBundle\Admin\CountryAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Страны / Города}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\Country, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Country, SonataAdminBundle:CRUD]
 
     app.admin.currency:
           class: Sto\CoreBundle\Admin\Dictionary\CurrencyAdmin

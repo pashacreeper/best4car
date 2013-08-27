@@ -1,9 +1,0 @@
-<script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
-{{ form_javascript(form) }}
-
-<form class="form-horizontal" action="{{ path('save_answer', { 'id': entity.id, 'feedback_id': feedback_id}) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="{{ 'form.create'|trans({}) }}"/>
-    </div>
-</form>

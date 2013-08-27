@@ -100,7 +100,7 @@ class FOSUBUserProvider extends BaseClass
 
             $ratingGroup = $this->em->getRepository('StoUserBundle:RatingGroup')->find(1);
             $user->setRatingGroup($ratingGroup);
-            $oCity = $this->em->getRepository('StoCoreBundle:Dictionary\Country')->findOneById(102);
+            $oCity = $this->em->getRepository('StoCoreBundle:Country')->findOneById(102);
 
             if ($oCity) {
                 $user->setCity($oCity);

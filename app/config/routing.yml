@@ -1,8 +1,3 @@
-sto_admin:
-    resource: "@StoAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /admin/
-
 sto_content:
     resource: "@StoContentBundle/Controller/"
     type:     annotation
@@ -53,9 +48,13 @@ vkontakte_login:
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /sonata
+    prefix: /admin
 
 _sonata_admin:
     resource: .
     type: sonata_admin
-    prefix: /sonata
+    prefix: /admin
+
+admin_main:
+    pattern: /admin
+    defaults: { _controller: SonataAdminBundle:Core:dashboard }
