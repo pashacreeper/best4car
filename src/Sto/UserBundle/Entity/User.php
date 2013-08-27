@@ -114,7 +114,7 @@ class User extends BaseUser
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Country", inversedBy="users")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $city;
 

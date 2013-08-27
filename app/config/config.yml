@@ -293,12 +293,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    country.listener:
-        class: Sto\CoreBundle\Services\Listeners\CountryListener
-        arguments: [%kernel.root_dir%]
-        tags:
-            - {name: doctrine.event_listener, event: preRemove}
-
     sto_user.profile.form.type:
         class: Sto\ContentBundle\Form\UserProfileType
         arguments: [%fos_user.model.user.class%]

@@ -36,7 +36,7 @@ class Country
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Country", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="parent", cascade={"remove"})
      * @Serializer\Exclude
      */
     private $children;

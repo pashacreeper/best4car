@@ -230,7 +230,7 @@ class Company
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\CoreBundle\Entity\Country",inversedBy="companies")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $city;
 
