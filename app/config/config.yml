@@ -74,7 +74,7 @@ fos_user:
         group_class: Sto\UserBundle\Entity\Group
     profile:
         form:
-            type: sto_adminbundle_userprofiletype
+            type: sto_contentbundle_userprofile
     registration:
         form:
             type: sto_contentbundle_registration
@@ -91,16 +91,6 @@ mopa_bootstrap:
         error_type: block # or inline which is default
         templating: false
         render_fieldset: false
-
-knp_paginator:
-    page_range: 10
-    default_options:
-        page_name: page
-        sort_field_name: sort
-        sort_direction_name: direction
-        distinct: true
-    template:
-        pagination: StoAdminBundle:Pagination:sliding.html.twig
 
 knp_menu:
     twig:
@@ -302,3 +292,10 @@ services:
         class: Sto\CoreBundle\Twig\StoExtension
         tags:
             - { name: twig.extension }
+
+    sto_user.profile.form.type:
+        class: Sto\ContentBundle\Form\UserProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: sto_contentbundle_userprofile }
+

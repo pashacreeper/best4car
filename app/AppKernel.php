@@ -40,7 +40,6 @@ class AppKernel extends Kernel
 
             new Sto\CoreBundle\StoCoreBundle(),
             new Sto\ContentBundle\StoContentBundle(),
-            new Sto\AdminBundle\StoAdminBundle(),
             new Sto\UserBundle\StoUserBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),

@@ -189,7 +189,7 @@ class Deal
     private $auto;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AutoServices")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\AutoServices")
      * @ORM\JoinTable(name="deal_auto_service",
      *     joinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
