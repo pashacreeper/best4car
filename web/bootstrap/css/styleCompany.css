@@ -953,7 +953,7 @@ span.disabledIconNegativ i{
 
 
 
-/*---стили для слайдера---*/
+/*---пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ---*/
 .slider {
 	position: relative;
 	width: 680px;
@@ -980,8 +980,8 @@ span.disabledIconNegativ i{
 	position: relative;
 	position: relative;
 }
-.slide-item a img{
-	height: 100%;
+.slide-item img{
+	height: 280px;
 }
 .prev-slide {
 	display: block;

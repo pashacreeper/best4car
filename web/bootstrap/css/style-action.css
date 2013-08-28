@@ -194,8 +194,8 @@ header{
 	width: 500px;	
 	position: relative;
 }
-.slide-item a img{
-    height: 100%;
+.slide-item img{
+    height: 280px;
 }
 .prev-slide {
 	display: block;
