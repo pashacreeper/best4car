@@ -1,24 +1,16 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Catalog;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Base
+ * Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="auto_catalog", indexes={@ORM\Index(name="AUTO_CATALOG_NAME_IDX", columns={"name"})})
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({
- *     "mark"         = "Mark",
- *     "model"        = "Model",
- *     "modification" = "Modification"
- * })
+ * @ORM\Table(name="catalog_models")
  */
-class Base
+class Model
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -34,12 +26,12 @@ class Base
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Model", mappedBy="parent")
      */
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Model", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
@@ -72,6 +64,7 @@ class Base
         return $this;
     }
 
+
     /**
      * Get id
      */
@@ -84,7 +77,7 @@ class Base
      * Set name
      *
      * @param  string $name
-     * @return Base
+     * @return Model
      */
     public function setName($name)
     {
@@ -105,7 +98,7 @@ class Base
      * Set parentId
      *
      * @param  integer $parentId
-     * @return Base
+     * @return Model
      */
     public function setParentId($parentId)
     {
@@ -125,7 +118,7 @@ class Base
     /**
      * Set parent
      */
-    public function setParent(Base $parent = null)
+    public function setParent(Model $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -146,7 +139,7 @@ class Base
     /**
      * Add children
      */
-    public function addChildren(Base $children)
+    public function addChildren(Model $children)
     {
         $this->children[] = $children;
 
@@ -156,7 +149,7 @@ class Base
     /**
      * Remove children
      */
-    public function removeChildren(Base $children)
+    public function removeChildren(Model $children)
     {
         $this->children->removeElement($children);
 

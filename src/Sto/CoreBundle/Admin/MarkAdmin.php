@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Catalog;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ModificationAdmin extends Admin
+class MarkAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -17,16 +17,11 @@ class ModificationAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('parent')
+            ->add('children')
             ->add('uri')
             ->add('visible')
-            ->add('numberOfDoors')
-            ->add('engine')
-            ->add('power')
-            ->add('fullSpeed')
-            ->add('bodyType')
-            ->add('startOfProduction')
-            ->add('closingOfProduction')
+            ->add('iconName')
+            ->add('updatedAt')
         ;
     }
 
@@ -36,20 +31,9 @@ class ModificationAdmin extends Admin
             ->add('name', null, array(
                 'required' => true
             ))
-            ->add('parent', null, array(
-                'required' => true
-            ))
             ->add('uri')
-            ->add('visible', null, array(
-                'required' => false
-            ))
-            ->add('numberOfDoors')
-            ->add('engine')
-            ->add('power')
-            ->add('fullSpeed')
-            ->add('bodyType')
-            ->add('startOfProduction')
-            ->add('closingOfProduction')
+            ->add('visible')
+            ->add('icon', 'file')
         ;
     }
 
@@ -57,8 +41,8 @@ class ModificationAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
+            ->addIdentifier('icon', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
-            ->add('parent')
             ->add('uri')
             ->add('visible')
         ;
@@ -67,16 +51,11 @@ class ModificationAdmin extends Admin
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('parent')
+            ->add('id')
+            ->add('name')
             ->add('uri')
             ->add('visible')
-            ->add('numberOfDoors')
-            ->add('engine')
-            ->add('power')
-            ->add('fullSpeed')
-            ->add('bodyType')
-            ->add('startOfProduction')
-            ->add('closingOfProduction')
+            ->add('updatedAt')
         ;
     }
 }
