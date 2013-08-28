@@ -34,7 +34,6 @@ class AppKernel extends Kernel
 
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
-            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 

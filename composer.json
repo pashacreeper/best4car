@@ -34,7 +34,6 @@
 
         "leafo/lessphp": "v0.3.9",
         "twitter/bootstrap": "v2.3.2",
-        "mopa/bootstrap-bundle": "2.2.*@dev",
 
         "vich/uploader-bundle": "dev-master",
         "liip/imagine-bundle": "dev-master",
