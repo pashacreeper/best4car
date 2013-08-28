@@ -22,22 +22,22 @@
         </div>
         <div class="profilExpertRightCont">
             {% if user.gallery and user.gallery | length > 0 %}
-            <div class="slider">
-                <div class="img__prev__wrap">
-                    <ul id="thumbnail" class="slide-wrap">
-                        {% for item in user.gallery %}
-                        <li class="slide-item">
-                            <p class="nameActionP">{{ item.name }}</p>
-                            <a href="#" data-reveal-id="add-photo-modal"><i class="editIconAdd"></i></a>
-                            <a href="{{ path('profile_user_gallery_remove', { "id": item.id }) }}"><i class="editIconDel"></i></a>
-                            <img src="{{ vich_uploader_asset(item, 'image') | imagine_filter('deals_carusel_photos') }}"  alt="" />
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <span name="prev" class="navy prev-slide"></span>
-                    <span name="next" class="navy next-slide"></span>
+                <div class="slider">
+                    <div class="img__prev__wrap">
+                        <ul id="thumbnail" class="slide-wrap">
+                            {% for item in user.gallery %}
+                                <li class="slide-item">
+                                    <p class="nameActionP">{{ item.name }}</p>
+                                    <a href="#" data-reveal-id="add-photo-modal"><i class="editIconAdd"></i></a>
+                                    <a href="{{ path('profile_user_gallery_remove', { "id": item.id }) }}"><i class="editIconDel"></i></a>
+                                    <img src="{{ vich_uploader_asset(item, 'image') | imagine_filter('deals_carusel_photos') }}"  alt="" />
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <span name="prev" class="navy prev-slide"></span>
+                        <span name="next" class="navy next-slide"></span>
+                    </div>
                 </div>
-            </div>
             {% else %}
                 <div class="photoAddEmptyGallery">
                     <a href="#" data-reveal-id="add-photo-modal"><i class="iconPhotoAdd"></i><span>Добавить фотографию</span></a>
@@ -105,9 +105,9 @@
             <div class="aboutUsProfilExpertWrap">
                 <h4 class="contactData"><span>О себе</span><a href="{{ path('fos_user_profile_edit') }}"><i class="editIcon"></i></a></h4>
                 {% if user.description %}
-                <p class="aboutCompanyCont contentText">
-                    {{ user.description }}
-                </p>
+                    <p class="aboutCompanyCont contentText">
+                        {{ user.description }}
+                    </p>
                 {% endif %}
             </div>
         </div>

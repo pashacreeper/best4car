@@ -16,7 +16,6 @@ class UserGalleryType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'image',
                 ]

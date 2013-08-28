@@ -174,7 +174,7 @@ header{
 	padding: 5px 20px;
 }
 
-/*---стили для слайдера---*/
+/*---пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ---*/
 .img__prev__wrap {
 	position: absolute;
 	overflow: hidden;
@@ -195,8 +195,7 @@ header{
 	position: relative;
 }
 .slide-item a img{
-	width: 100%;
-	height: auto;
+    height: 100%;
 }
 .prev-slide {
 	display: block;
