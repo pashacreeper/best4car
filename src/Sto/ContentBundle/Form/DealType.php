@@ -35,7 +35,7 @@ class DealType extends AbstractType
                 'label' => 'Узлы и работы',
                 'required' => false,
                 'multiple' => true,
-                'class' => 'StoCoreBundle:Dictionary\autoServices',
+                'class' => 'StoCoreBundle:autoServices',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is not null')
