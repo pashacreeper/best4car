@@ -13,8 +13,6 @@ class PhotoUserType extends AbstractType
         $builder
             ->add('avatar', 'file', [
                 'label' => 'Аватар',
-                'render_optional_text' => false,
-                'label_render' => false,
                 'required' => false,
                 'attr' => [
                     'data-image' => 'avatar',

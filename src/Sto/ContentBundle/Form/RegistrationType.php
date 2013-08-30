@@ -13,7 +13,6 @@ class RegistrationType extends BaseType
         $builder
             ->add('firstName', null, [
                 'label' => 'Имя',
-                'render_optional_text' => false,
                 'required' => true,
                 'attr' => [
                     'class' => 'inputFormEnter span6'

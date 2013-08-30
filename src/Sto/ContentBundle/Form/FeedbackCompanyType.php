@@ -22,7 +22,6 @@ class FeedbackCompanyType extends FeedbackType
                 },
                 'required' => true,
                 'empty_value' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'priceLevelMarker'
                 ]

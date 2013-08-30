@@ -13,7 +13,6 @@ class RegistrationCompanyType extends AbstractType
         $builder
             ->add('firstName', null, [
                 'label' => 'Имя',
-                'render_optional_text' => false,
                 'required' => true,
             ])
             ->add('username', 'text', [
@@ -30,8 +29,7 @@ class RegistrationCompanyType extends AbstractType
                 'invalid_message' => "Пароли не совпадают",
                 'options' => [
                     'attr' => [
-                        'placeholder' => '**********',
-                        'render_optional_text' => false,
+                        'placeholder' => '**********'
                     ],
                 ],
                 'required' => true,

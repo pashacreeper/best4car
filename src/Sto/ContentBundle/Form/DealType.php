@@ -26,7 +26,6 @@ class DealType extends AbstractType
             ->add('description', 'textarea', [
                 'label' => 'Описание акции',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     "rows" => 4,
                     "class" => "span12",
@@ -35,7 +34,6 @@ class DealType extends AbstractType
             ->add('autoServices', null, [
                 'label' => 'Узлы и работы',
                 'required' => false,
-                'render_optional_text' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Dictionary\autoServices',
                 'query_builder' => function(EntityRepository $er) {
@@ -53,7 +51,6 @@ class DealType extends AbstractType
             ->add('auto', null, [
                 'label' => 'Автомабили',
                 'required' => false,
-                'render_optional_text' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Catalog\Base',
                 'query_builder' => function(EntityRepository $er) {
@@ -71,8 +68,6 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
                 'required' => false,
-                'label_render' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'image1'
                 ]
@@ -82,8 +77,6 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image2',
                 'required' => false,
-                'label_render' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'image2'
                 ]
@@ -93,8 +86,6 @@ class DealType extends AbstractType
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image3',
                 'required' => false,
-                'label_render' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'image3'
                 ]
@@ -102,7 +93,6 @@ class DealType extends AbstractType
             ->add('terms', 'textarea', [
                 'label' => 'Условия участия',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     "rows" => 4,
                     "class" => "span12",
@@ -151,7 +141,6 @@ class DealType extends AbstractType
             ->add('place', null, [
                 'label' => 'Место проведе',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => "span12"
                 ]
@@ -159,7 +148,6 @@ class DealType extends AbstractType
             ->add('contactInformationName', 'text', [
                 'label' => 'Контактное лицо',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     "class" => "inputField span12",
                 ]
@@ -167,7 +155,6 @@ class DealType extends AbstractType
             ->add('contactInformationPhone', 'text', [
                 'label' => 'Контактный номер',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     "class" => "inputField span12",
                 ]
@@ -175,7 +162,6 @@ class DealType extends AbstractType
             ->add('type', null, [
                 'label' => 'Тип акции',
                 'required' => true,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'styled'
                 ]

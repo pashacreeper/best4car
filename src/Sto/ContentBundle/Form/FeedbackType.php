@@ -16,7 +16,6 @@ class FeedbackType extends AbstractType
             ])
             ->add('content', 'genemu_tinymce', [
                 'label' => 'Текст отзыва',
-                'render_optional_text' => false,
                 'required' => false,
                 'configs' => [
                     'entity_encoding' => "raw",
@@ -43,7 +42,6 @@ class FeedbackType extends AbstractType
             ->add('mastername', null, [
                 'label' => 'Фамилия мастера',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => "inputField span4"
                 ]
@@ -51,7 +49,6 @@ class FeedbackType extends AbstractType
             ->add('car', null, [
                 'label' => 'Автомобиль',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => "inputField span4"
                 ]
@@ -59,7 +56,6 @@ class FeedbackType extends AbstractType
             ->add('statenumber', null, [
                 'label' => 'Гос. номер',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => "inputField span4"
                 ]
@@ -67,7 +63,6 @@ class FeedbackType extends AbstractType
             ->add('orderNumber', null, [
                 'label' => 'Номер заказа',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => "inputField span4"
                 ]

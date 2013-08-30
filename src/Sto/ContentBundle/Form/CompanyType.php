@@ -6,10 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use Sto\AdminBundle\Form\CompanyPhoneType;
+use Sto\ContentBundle\Form\CompanyPhoneType;
 use Sto\ContentBundle\Form\CompanyWorkingTimeType;
 use Sto\ContentBundle\Form\CompanyManagerType;
-use Sto\AdminBundle\Form\CompanyGalleryType;
+use Sto\ContentBundle\Form\CompanyGalleryType;
 
 class CompanyType extends AbstractType
 {
@@ -28,7 +28,6 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'show_legend' => false,
             ))
             ->add('city', 'entity', [
                 'label' => 'Город',
@@ -58,7 +57,6 @@ class CompanyType extends AbstractType
             ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'inputCost'
                 ],
@@ -101,7 +99,6 @@ class CompanyType extends AbstractType
             ->add('logo', null, [
                 'label' => 'Логотип компании',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'data-image' => 'logo',
                     'class' => 'hideLogoInput',
@@ -110,7 +107,6 @@ class CompanyType extends AbstractType
             ->add('slogan', 'text', [
                 'label' => 'Девиз (слоган)',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'input-xxlarge'
                 ]
@@ -118,7 +114,6 @@ class CompanyType extends AbstractType
             ->add('fullName', 'text', [
                 'label' => 'Полное наименование',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'input-xxlarge'
                 ]
@@ -126,12 +121,10 @@ class CompanyType extends AbstractType
             ->add('web', 'text', [
                 'label' => 'Адрес сайта',
                 'required' => false,
-                'render_optional_text' => false
             ])
             ->add('additionalServices', 'entity', [
                 'label' => 'Дополнительные услуги',
                 'required' => false,
-                'render_optional_text' => false,
                 'multiple' => true,
                 'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\AdditionalService',
@@ -147,12 +140,10 @@ class CompanyType extends AbstractType
             ->add('skype', null, [
                 'label' => 'Skype',
                 'required' => false,
-                'render_optional_text' => false
             ])
             ->add('email', 'email', [
                 'label' => 'E-mail',
                 'required' => false,
-                'render_optional_text' => false
             ])
             ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
@@ -167,7 +158,6 @@ class CompanyType extends AbstractType
             ->add('notes', 'textarea', [
                 'label' => 'Дополнительное описание деятельности компании',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'rows' => '3',
                     'style' => 'width: 100%'
@@ -183,7 +173,6 @@ class CompanyType extends AbstractType
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'inputFormEnter iputVkC'
                 ]
@@ -191,7 +180,6 @@ class CompanyType extends AbstractType
             ->add('linkFB', 'text', [
                 'label' => 'Страница Facebook',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'inputFormEnter iputFaceC'
                 ]
@@ -199,7 +187,6 @@ class CompanyType extends AbstractType
             ->add('linkTW', 'text', [
                 'label' => 'Twitter',
                 'required' => false,
-                'render_optional_text' => false,
                 'attr' => [
                     'class' => 'inputFormEnter iputTwittC'
                 ]
@@ -210,7 +197,6 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'show_legend' => false
             ))
             ->add('gallery','collection', array(
                 'label' => ' ',
@@ -218,7 +204,6 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'show_legend' => false,
             ))
         ;
     }
