@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e7046995eaf9d1f9d335e87ef3368c83",
+    "hash": "d0a12e696389333a253d480b98a1da46",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -2655,22 +2655,23 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "2.2.3",
+            "version": "dev-master",
             "target-dir": "Sonata/AdminBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "2.2.3"
+                "reference": "9d7591a8f8720643184a7d9be9cc26fae8cdb019"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/2.2.3",
-                "reference": "2.2.3",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/9d7591a8f8720643184a7d9be9cc26fae8cdb019",
+                "reference": "9d7591a8f8720643184a7d9be9cc26fae8cdb019",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
                 "knplabs/knp-menu-bundle": "~1.1",
+                "sensio/generator-bundle": "~2.2",
                 "sonata-project/block-bundle": "~2.2,>=2.2.1",
                 "sonata-project/exporter": "1.*",
                 "sonata-project/jquery-bundle": "1.8.*",
@@ -2726,7 +2727,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-07-29 14:31:37"
+            "time": "2013-08-23 14:40:19"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3654,6 +3655,7 @@
         "liip/imagine-bundle": 20,
         "genemu/form-bundle": 20,
         "gregwar/captcha-bundle": 20,
+        "sonata-project/admin-bundle": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
         "sonata-project/intl-bundle": 20,
         "sonata-project/cache-bundle": 20,
