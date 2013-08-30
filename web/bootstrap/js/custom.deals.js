@@ -27,7 +27,7 @@ var loadDealsFromMenu = function($, Routing, dealsType){
     $.ajax({
         type: 'POST',
         url: Routing.generate('deals_show'),
-        data: {deal_type: dealsType},
+        data: {deal_type: dealsType, search: $('#inputSearchHidden').val()},
         success: function(res){
             $('#dealsContainer').empty();
             $('#dealsContainer').append(res);

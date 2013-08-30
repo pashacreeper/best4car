@@ -304,6 +304,18 @@ class DealController extends MainController
             ->getResult()
         ;
 
+        if ($request->get('search')) {
+            $query->andWhere($query->expr()->orx(
+                    $query->expr()->like('deal.name',':search'),
+                    $query->expr()->like('deal.description',':search'),
+                    // TODO: fix deals search by services
+                    // $query->expr()->like('deal.services',':search'),
+                    $query->expr()->like('deal.terms',':search')
+                ))
+                ->setParameter('search', '%' . $request->get('search') . '%')
+            ;
+        }
+
         $countFeededDeals = $repository->createQueryBuilder('deal')
             ->join('deal.feedbacks', 'f')
             ->join('deal.company', 'dc')
@@ -352,7 +364,8 @@ class DealController extends MainController
             'dictionaries' => $dealsTypes,
             'countFeededDeals' => count($countFeededDeals),
             'countPopularDeals' => $countPopularDeals,
-            'vipDeals' => $vipDeals
+            'vipDeals' => $vipDeals,
+            'search_query' => $request->get('search'),
         ];
     }
 

@@ -17,9 +17,10 @@
 {% block search %}
     <div class="searchWrap">
         <div class="searchCont" id="searchWrapper">
-            <form class="form-search" action="{{ path('_index') }}" method="GET">
+            <form class="form-search" method="GET">
                 <label class="control-label" for="search">Я ищу:</label>
                     <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все акции" name="search">
+                    <input id="inputSearchHidden" type="hidden" value="{{ search_query }}"/>
                 <p class="searchExample">Например:
                 <i class="btnLeft icon-white"></i>
                 <i class="btnRight icon-white"></i>
