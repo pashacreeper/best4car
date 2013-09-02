@@ -372,6 +372,7 @@ ul.tabNavigation li a:focus {
 	font: Bold 1.8em 'PT Sans', sans;
 	margin: 3px 0;
 }
+.servedBrend img {width: 28px !important;}
 .iconBrand{
 	background: url('../img/icon-brand.png') no-repeat;
 	width: 28px;
