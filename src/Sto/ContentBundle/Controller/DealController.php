@@ -286,46 +286,44 @@ class DealController extends MainController
      */
     public function dealsAction(Request $request, $search = null)
     {
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
+            ->leftJoin('deal.services', 'ds')
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-        ;
+            ->setParameters(
+                [
+                    'endDate' => new \DateTime('now'),
+                    'city' => $cityId
+                ]
+            );
 
         $search = $request->request->get('search', $search);
         if ($search) {
-            $query->andWhere($query->expr()->orx(
-                    $query->expr()->like('deal.name',':search')
-                //$query->expr()->like('deal.description',':search'),
-                // TODO: fix deals search by services
-                // $query->expr()->like('deal.services',':search'),
-                //$query->expr()->like('deal.terms',':search')
-                ))
-                ->setParameter('search', '%' . $search . '%')
-            ;
+            $query->andWhere(
+                $query->expr()->orx(
+                    $query->expr()->like('deal.name', ':search'),
+                    $query->expr()->like('deal.description', ':search'),
+                    $query->expr()->like('deal.terms', ':search'),
+                    $query->expr()->like('ds.name', ':search')
+                )
+            )->setParameter('search', '%' . $search . '%');
         }
 
-        $deal_type = $request->get('deal_type', 0);
-        if ($deal_type > 0) {
+        $dealType = $request->get('deal_type', 0);
+        if ($dealType > 0) {
             $query->andWhere('deal.typeId = :type')
-                ->setParameter('type', $request->get('deal_type'))
-            ;
-        } elseif ($deal_type == -2) {
+                ->setParameter('type', $dealType);
+        } elseif ($dealType == -2) {
             $query->join('deal.feedbacks', 'f')
-                ->andWhere('f.content is not null')
-            ;
-        } elseif ($deal_type == -1) {
+                ->andWhere('f.content is not null');
+        } elseif ($dealType == -1) {
             $query->join('deal.feedbacks', 'f')
                 ->having('COUNT(f.id) > 5')
-                ->groupBy('deal.id')
-            ;
+                ->groupBy('deal.id');
         }
 
         $page = $this->get('request')->query->get('page', 1);
@@ -333,7 +331,7 @@ class DealController extends MainController
 
         return [
             'deals' => $deals,
-            'deal_type' => $deal_type,
+            'dealType' => $dealType,
         ];
     }
 
