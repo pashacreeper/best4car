@@ -37,7 +37,7 @@
                 <span data-dislike-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></span>
                 <span data-like="company" data-like-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></span>
                 <p class="reviewContText">
-                    {{ feedback.content|raw }}
+                    {{ feedback.content|raw|nl2br }}
                 </p>
 
                 <div class="reviewButtonsWrapper">
@@ -153,7 +153,7 @@
             <div class="responseReviewCont">
                 <div class="reviewContBottomText">
                     <p class="reviewContText">
-                        {{ feedback.feedbackAnswer.answer|raw }}
+                        {{ feedback.feedbackAnswer.answer|raw|nl2br }}
                     </p>
                 </div>
                 <div class="reviewContBottomAccount">

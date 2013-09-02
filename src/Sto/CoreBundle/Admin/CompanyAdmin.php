@@ -122,7 +122,9 @@ class CompanyAdmin extends Admin
                     'inline' => 'table',
                 ]
             )
-            ->add('autos')
+            ->add('autos', null, [
+                'required' => false,
+            ])
         ;
     }
 

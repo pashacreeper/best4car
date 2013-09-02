@@ -17,6 +17,7 @@ class DealAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('description')
             ->add('company')
             ->add('services')
             ->add('imageName')
@@ -45,6 +46,7 @@ class DealAdmin extends Admin
             ->add('name', null, array(
                 'required' => true
             ))
+            ->add('description')
             ->add('company')
             ->add('services', null, array(
                 'required' => false

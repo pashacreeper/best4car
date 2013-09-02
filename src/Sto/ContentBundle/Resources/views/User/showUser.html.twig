@@ -132,7 +132,7 @@
                 <h4 class="contactData"><span>О себе</span><i class="editIcon"></i></h4>
                 <p class="aboutCompanyCont contentText">
                     {% if user.description %}
-                        {{ user.description }}
+                        {{ user.description | nl2br }}
                     {% else %}
                         Пользователь про себя ничего не написал.
                     {% endif %}

@@ -106,7 +106,7 @@
                 <h4 class="contactData"><span>О себе</span><a href="{{ path('fos_user_profile_edit') }}"><i class="editIcon"></i></a></h4>
                 {% if user.description %}
                     <p class="aboutCompanyCont contentText">
-                        {{ user.description }}
+                        {{ user.description | nl2br }}
                     </p>
                 {% endif %}
             </div>
