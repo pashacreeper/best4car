@@ -240,7 +240,7 @@ class Company
     private $cityId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\mark")
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Mark")
      * @ORM\JoinTable(name="company_autos",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")}
