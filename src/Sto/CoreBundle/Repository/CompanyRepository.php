@@ -49,6 +49,12 @@ class CompanyRepository extends EntityRepository
                 ->setParameter('s', $params['subCompanyType']);
         }
 
+        if (isset($params['auto']) && $params['auto']) {
+            $qb->join('company.autos', 'ca')
+                ->andWhere('ca.id = :auto_id')
+                ->setParameter('auto_id', $params['auto']);
+        }
+
         if (isset($params['deals']) && $params['deals']) {
             $qb->andWhere('d.id IS NOT NULL');
         }

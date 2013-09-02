@@ -38,11 +38,6 @@ class AdvancedSearchType extends AbstractType
             ])
             ->add('auto', 'entity', [
                 'class' => 'StoCoreBundle:Mark',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('catalog')
-                        ->where('catalog.parent is null')
-                    ;
-                },
                 'required' => false,
                 'empty_value' => 'Все',
                 'attr' => [
