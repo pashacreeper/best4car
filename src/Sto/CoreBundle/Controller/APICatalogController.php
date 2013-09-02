@@ -38,7 +38,7 @@ class APICatalogController extends FOSRestController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Catalog\Mark')
+        $data = $em->getRepository('StoCoreBundle:Mark')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
             ->getQuery()
@@ -59,14 +59,14 @@ class APICatalogController extends FOSRestController
      * @Rest\View
      * @Route("/mark/{id}/models", name="api_auto_catalog_get_models_for_mark" )
      * @Method({"GET"})
-     * @ParamConverter("mark", class="StoCoreBundle:Catalog\Mark")
+     * @ParamConverter("mark", class="StoCoreBundle:Mark")
      */
-    public function getModelsForMark(Catalog\Mark $mark)
+    public function getModelsForMark(Mark $mark)
     {
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Catalog\Model')
+        $data = $em->getRepository('StoCoreBundle:Model')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
             ->where('c.parent = :mark')
@@ -89,14 +89,14 @@ class APICatalogController extends FOSRestController
      * @Rest\View
      * @Route("/model/{id}/modifications", name="api_auto_catalog_get_modifications_for_model" )
      * @Method({"GET"})
-     * @ParamConverter("model", class="StoCoreBundle:Catalog\Model")
+     * @ParamConverter("model", class="StoCoreBundle:Model")
      */
-    public function getModificationForModel(Catalog\Model $model)
+    public function getModificationForModel(Model $model)
     {
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Catalog\Modification')
+        $data = $em->getRepository('StoCoreBundle:Modification')
             ->createQueryBuilder('c')
             ->select('c.id, c.name')
             ->where('c.parent = :model')

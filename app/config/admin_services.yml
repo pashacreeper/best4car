@@ -6,22 +6,22 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Deal, SonataAdminBundle:CRUD]
 
     app.admin.mark:
-          class: Sto\CoreBundle\Admin\Catalog\MarkAdmin
+          class: Sto\CoreBundle\Admin\MarkAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Марки}
-          arguments: [null, Sto\CoreBundle\Entity\Catalog\Mark, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Mark, SonataAdminBundle:CRUD]
 
     app.admin.model:
-          class: Sto\CoreBundle\Admin\Catalog\ModelAdmin
+          class: Sto\CoreBundle\Admin\ModelAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модели}
-          arguments: [null, Sto\CoreBundle\Entity\Catalog\Model, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Model, SonataAdminBundle:CRUD]
 
     app.admin.modification:
-          class: Sto\CoreBundle\Admin\Catalog\ModificationAdmin
+          class: Sto\CoreBundle\Admin\ModificationAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модификации}
-          arguments: [null, Sto\CoreBundle\Entity\Catalog\Modification, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\Modification, SonataAdminBundle:CRUD]
 
     app.admin.company:
           class: Sto\CoreBundle\Admin\CompanyAdmin

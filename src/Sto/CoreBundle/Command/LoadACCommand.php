@@ -56,7 +56,7 @@ class LoadACCommand extends ContainerAwareCommand
 
         $nodes = new DOMXPath($catalog);
         foreach ($nodes->query(CssSelector::toXPath('div.cars_list_column > div > a')) as $node) {
-            $marks[$node->nodeValue] = (new Catalog\Mark)
+            $marks[$node->nodeValue] = (new Mark)
                 ->setName(trim($node->nodeValue))
                 ->setUri(self::URI_PRIMARY . trim($node->getAttribute('href')))
             ;
@@ -78,7 +78,7 @@ class LoadACCommand extends ContainerAwareCommand
 
             $nodes = new DOMXPath($catalog);
             foreach ($nodes->query(CssSelector::toXPath('div.cars_list_column > div > a')) as $node) {
-                $models[$mark->getName() . " - " . $node->nodeValue] = (new Catalog\Model)
+                $models[$mark->getName() . " - " . $node->nodeValue] = (new Model)
                     ->setParent($mark)
                     ->setName(trim($node->nodeValue))
                     ->setUri(self::URI_PRIMARY . trim($node->getAttribute('href')))
@@ -112,7 +112,7 @@ class LoadACCommand extends ContainerAwareCommand
 
                     $v = $column[0]->getElementsByTagName('a');
                     if ($v->length) {
-                        $modofication = (new Catalog\Modification)
+                        $modofication = (new Modification)
                             ->setParent($model)
                             ->setName(trim($v->item(0)->nodeValue))
                             ->setUri(self::URI_PRIMARY . trim($v->item(0)->getAttribute('href')))
@@ -130,7 +130,7 @@ class LoadACCommand extends ContainerAwareCommand
                     } else {
                         $v = $column[0]->getElementsByTagName('span');
 
-                        $modofication = (new Catalog\Modification)
+                        $modofication = (new Modification)
                             ->setParent($model)
                             ->setName(trim($v->item(0)->nodeValue))
                             ->setNumberOfDoors((int) trim($column[1]->nodeValue) ? (int) trim($column[1]->nodeValue) : null)
