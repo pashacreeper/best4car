@@ -104,7 +104,7 @@
         {% block content %}{% endblock %}
         <section class="footer">
             <div class="fotterCont">
-                <p class="footerLogo"></p>
+                <a href="/"><p class="footerLogo"></p></a>
                 {{ knp_menu_render('StoContentBundle:Builder:footerMenu', {'currentAsLink': true}) }}
                 {{ knp_menu_render('StoContentBundle:Builder:footerSocial', {'currentAsLink': true}) }}
                 <div id="linkUser"><a href="{{ path('info_show', {'name': 'useRules'}) }}">Условия использования сайта</a></div>
