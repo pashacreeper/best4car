@@ -21,9 +21,6 @@ class Version20130902152128 extends AbstractMigration
         $this->addSql("INSERT INTO catalog_marks (id, parent_id, name, uri, visible, icon_name, updated_at) SELECT id, parent_id, name, uri, visible, icon_name, updated_at FROM auto_catalog WHERE discr = 'mark'");
         $this->addSql("INSERT INTO catalog_models (id, parent_id, name, uri, visible) SELECT id, parent_id, name, uri, visible FROM auto_catalog WHERE discr = 'model'");
         $this->addSql("INSERT INTO catalog_modifications (id, parent_id, name, uri, visible, number_of_doors, engine, power, full_speed, body_type, start_of_production, closing_of_production) SELECT id, parent_id, name, uri, visible, number_of_doors, engine, power, full_speed, body_type, start_of_production, closing_of_production FROM auto_catalog WHERE discr = 'modification'");
-        $this->addSql("ALTER TABLE catalog_marks ADD CONSTRAINT FK_85799BEA727ACA70 FOREIGN KEY (parent_id) REFERENCES catalog_marks (id)");
-        $this->addSql("ALTER TABLE catalog_models ADD CONSTRAINT FK_56D22840727ACA70 FOREIGN KEY (parent_id) REFERENCES catalog_models (id)");
-        $this->addSql("ALTER TABLE catalog_modifications ADD CONSTRAINT FK_FD1885B727ACA70 FOREIGN KEY (parent_id) REFERENCES catalog_modifications (id)");
     }
 
     public function down(Schema $schema)
