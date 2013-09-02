@@ -25,12 +25,12 @@ class Model
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Model", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Modification", mappedBy="parent")
      */
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Model", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Mark", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
@@ -116,7 +116,7 @@ class Model
     /**
      * Set parent
      */
-    public function setParent(Model $parent = null)
+    public function setParent(Mark $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -137,7 +137,7 @@ class Model
     /**
      * Add children
      */
-    public function addChildren(Model $children)
+    public function addChildren(Modification $children)
     {
         $this->children[] = $children;
 
@@ -147,7 +147,7 @@ class Model
     /**
      * Remove children
      */
-    public function removeChildren(Model $children)
+    public function removeChildren(Modification $children)
     {
         $this->children->removeElement($children);
 

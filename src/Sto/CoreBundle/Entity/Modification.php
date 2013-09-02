@@ -25,12 +25,7 @@ class Modification
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Modification", mappedBy="parent")
-     */
-    protected $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Modification", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Model", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
@@ -131,7 +126,7 @@ class Modification
      * Set parentId
      *
      * @param  integer $parentId
-     * @return Modification
+     * @return Model
      */
     public function setParentId($parentId)
     {
@@ -151,7 +146,7 @@ class Modification
     /**
      * Set parent
      */
-    public function setParent(Modification $parent = null)
+    public function setParent(Model $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -167,26 +162,6 @@ class Modification
     public function getParent()
     {
         return $this->parent;
-    }
-
-    /**
-     * Add children
-     */
-    public function addChildren(Modification $children)
-    {
-        $this->children[] = $children;
-
-        return $this;
-    }
-
-    /**
-     * Remove children
-     */
-    public function removeChildren(Modification $children)
-    {
-        $this->children->removeElement($children);
-
-        return $this;
     }
 
     /**

@@ -31,20 +31,9 @@ class Mark
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mark", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Model", mappedBy="parent")
      */
     protected $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Mark", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected $parent;
-
-    /**
-     * @ORM\Column(name="parent_id", type="integer", nullable=true)
-     */
-    protected $parentId;
 
     /**
      * @Assert\Url()
@@ -121,51 +110,9 @@ class Mark
     }
 
     /**
-     * Set parentId
-     *
-     * @param  integer $parentId
-     * @return Mark
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
-     * Get parentId
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }
-
-    /**
-     * Set parent
-     */
-    public function setParent(Mark $parent = null)
-    {
-        $this->parent = $parent;
-        if ($parent != null) {
-            $this->parentId = $parent->getId();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
      * Add children
      */
-    public function addChildren(Mark $children)
+    public function addChildren(Model $children)
     {
         $this->children[] = $children;
 
@@ -175,7 +122,7 @@ class Mark
     /**
      * Remove children
      */
-    public function removeChildren(Mark $children)
+    public function removeChildren(Model $children)
     {
         $this->children->removeElement($children);
 
