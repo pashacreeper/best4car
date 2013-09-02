@@ -236,7 +236,7 @@
             $('#toggleCompaniesList').on("click", function () {
                 $(this).parent().toggleClass('showLeftColumn');
                 $('#companiesList').toggle();
-                $(this).html($('#companiesList').is(':hidden') ? 'Скрыть' : 'Скрыть');
+                $(this).html($('#companiesList').is(':hidden') ? 'Показать списком' : 'Скрыть');
 
                 myMap.container.fitToViewport();
             });
