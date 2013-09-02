@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Catalog;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class MarkAdmin extends Admin
+class ModelAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -18,10 +18,9 @@ class MarkAdmin extends Admin
             ->add('id')
             ->add('name')
             ->add('children')
+            ->add('parent')
             ->add('uri')
             ->add('visible')
-            ->add('iconName')
-            ->add('updatedAt')
         ;
     }
 
@@ -31,9 +30,13 @@ class MarkAdmin extends Admin
             ->add('name', null, array(
                 'required' => true
             ))
+            ->add('parent', null, array(
+                'required' => true
+            ))
             ->add('uri')
-            ->add('visible')
-            ->add('icon', 'file')
+            ->add('visible', null, array(
+                'required' => false
+            ))
         ;
     }
 
@@ -41,8 +44,8 @@ class MarkAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('icon', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
+            ->add('parent')
             ->add('uri')
             ->add('visible')
         ;
@@ -53,9 +56,9 @@ class MarkAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('name')
+            ->add('parent')
             ->add('uri')
             ->add('visible')
-            ->add('updatedAt')
         ;
     }
 }

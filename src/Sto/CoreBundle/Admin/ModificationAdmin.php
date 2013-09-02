@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Catalog;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ModelAdmin extends Admin
+class ModificationAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
@@ -17,10 +17,16 @@ class ModelAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('children')
             ->add('parent')
             ->add('uri')
             ->add('visible')
+            ->add('numberOfDoors')
+            ->add('engine')
+            ->add('power')
+            ->add('fullSpeed')
+            ->add('bodyType')
+            ->add('startOfProduction')
+            ->add('closingOfProduction')
         ;
     }
 
@@ -37,6 +43,13 @@ class ModelAdmin extends Admin
             ->add('visible', null, array(
                 'required' => false
             ))
+            ->add('numberOfDoors')
+            ->add('engine')
+            ->add('power')
+            ->add('fullSpeed')
+            ->add('bodyType')
+            ->add('startOfProduction')
+            ->add('closingOfProduction')
         ;
     }
 
@@ -54,11 +67,16 @@ class ModelAdmin extends Admin
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
             ->add('parent')
             ->add('uri')
             ->add('visible')
+            ->add('numberOfDoors')
+            ->add('engine')
+            ->add('power')
+            ->add('fullSpeed')
+            ->add('bodyType')
+            ->add('startOfProduction')
+            ->add('closingOfProduction')
         ;
     }
 }
