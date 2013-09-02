@@ -1,34 +1,31 @@
-{% if deals|length > 0 %}
-    {% set dealsLength = deals|length %}
-    {% if dealsLength > 6 %}
-        {% set dealsLength = 6 %}
-    {% endif %}
-
-    {% for index in 1..dealsLength %}
-        {% set i = index - 1 %}
-        {% if index % 2 != 0 or loop.first %}
-        <div class="actionItemCont">
+{% if deals | length %}
+    {% for deal in deals %}
+        {% if loop.index is odd %}
+            <div class="actionItemCont">
         {% endif %}
+
         <div class="actionItemMini">
-            <a href="{{ path('content_deal_show', {'id': deals[i].id }) }}" class="actionItemLink">
-                {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deals[i].imageName %}
+            <a href="{{ path('content_deal_show', {'id': deal.id }) }}" class="actionItemLink">
+                {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
                 <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
                 <div class="actionItemBottomWrap">
                     <div class="actionItemBottom">
-                        <h4>{{ deals[i].name }}</h4>
-                        <p>{{ deals[i].company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deals[i].company.rating }}</span></p>
-                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deals[i].startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} - {{ deals[i].endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
+                        <h4>{{ deal.name }}</h4>
+                        <p>{{ deal.company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deal.company.rating }}</span></p>
+                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} - {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
                     </div>
                 </div>
             </a>
         </div>
-        {% if index % 2 == 0 or loop.last %}
-        </div>
+
+        {% if loop.index is even %}
+            </div>
         {% endif %}
     {% endfor %}
+
     {% if not (deals.paginationData.current == deals.paginationData.last) %}
         <div class="bottomContent">
-            <a class="secondaryLink saveDraft" rel="{{ deals.paginationData.current }}" data-deal-type="{{ deal_type }}" data-page="2" id="showMoreDeals">Показать еще</a>
+            <a class="secondaryLink saveDraft" rel="{{ deals.paginationData.current }}" data-deal-type="{{ dealType }}" data-page="2" id="showMoreDeals">Показать еще</a>
         </div>
     {% endif %}
 {% else %}

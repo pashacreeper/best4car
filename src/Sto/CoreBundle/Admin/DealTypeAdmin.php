@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Admin\Dictionary;
+namespace Sto\CoreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;

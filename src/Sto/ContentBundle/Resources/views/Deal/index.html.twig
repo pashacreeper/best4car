@@ -19,8 +19,8 @@
         <div class="searchCont" id="searchWrapper">
             <form class="form-search" method="GET">
                 <label class="control-label" for="search">Я ищу:</label>
-                    <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все акции" name="search">
-                    <input id="inputSearchHidden" type="hidden" value="{{ search_query }}"/>
+                    <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все акции" name="search" value="{{ search }}">
+                    <input id="inputSearchHidden" type="hidden" value="{{ search }}"/>
                 <p class="searchExample">Например:
                 <i class="btnLeft icon-white"></i>
                 <i class="btnRight icon-white"></i>
@@ -48,7 +48,7 @@
                     {%- for dealsType in dictionaries %}
                         <li class="menuLeftBarItem" data-deal-type="{{ dealsType.id }}">
                             <span class="menuTagEmpty">{{ dealsType.name }}</span>
-                            <span class="acctBtn">{{ dealsType.deals|length }}</span>
+                            <span class="acctBtn">{{ dealsType.deals_count }}</span>
                         </li>
                     {% endfor -%}
                 </ul>
@@ -87,7 +87,7 @@
                 </div>
                 {% endif %}
                 <div id="dealsContainer">
-                {{ render(controller('StoContentBundle:Deal:deals')) }}
+                {{ render(controller('StoContentBundle:Deal:deals', {'search': search})) }}
                 </div>
                 <script>
                     loadDeals(jQuery, Routing);

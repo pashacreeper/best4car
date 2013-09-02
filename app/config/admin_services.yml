@@ -108,10 +108,10 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\Currency, SonataAdminBundle:CRUD]
 
     app.admin.deals_type:
-          class: Sto\CoreBundle\Admin\Dictionary\DealTypeAdmin
+          class: Sto\CoreBundle\Admin\DealTypeAdmin
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Типы акций}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\DealType, SonataAdminBundle:CRUD]
+          arguments: [null, Sto\CoreBundle\Entity\DealType, SonataAdminBundle:CRUD]
 
     app.admin.price_level:
           class: Sto\CoreBundle\Admin\Dictionary\PriceLevelAdmin

@@ -54,7 +54,7 @@ class APIDictionaryController extends APIBaseController
         $serializer = $this->container->get('jms_serializer');
 
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Dictionary\DealType')
+        $data = $em->getRepository('StoCoreBundle:DealType')
             ->createQueryBuilder('d')
             ->select('d.id, d.name')
             ->getQuery()

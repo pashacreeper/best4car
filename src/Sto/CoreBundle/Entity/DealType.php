@@ -1,29 +1,17 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Dictionary;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Base
+ * Deal
  *
- * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DictionaryRepository")
- * @ORM\Table(name="dictionaries", indexes={
- *     @ORM\Index(name="DICTIONARY_NAME_IDX", columns={"name"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({
- *     "additional_service" = "AdditionalService",
- *     "work"               = "Work",
- *     "currency"           = "Currency",
- *     "day_of_week"        = "WeekDay",
- *     "price_level"        = "PriceLevel",
- *     "contact_type"       = "ContactType",
- * })
+ * @ORM\Entity()
+ *@ORM\Table(name="deal_types")
  */
-class Base
+class DealType
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -43,15 +31,13 @@ class Base
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Base", mappedBy="parent")
-     * @Serializer\Exclude
+     * @ORM\OneToMany(targetEntity="DealType", mappedBy="parent")
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Base", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="DealType", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     * @Serializer\Exclude
      */
     private $parent;
 
@@ -62,17 +48,20 @@ class Base
 
     /**
      * @ORM\Column(name="position", type="integer", nullable=true)
-     * @Serializer\Exclude
      */
     private $position;
 
     /**
-     * Constructor
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\Deal", mappedBy="type", cascade={"persist"})
      */
+    protected $deals;
+
     public function __construct()
     {
+        $this->deals = new ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -86,7 +75,7 @@ class Base
      * Set code
      *
      * @param  string $code
-     * @return Base
+     * @return DealType
      */
     public function setShortName($shortName)
     {
@@ -107,7 +96,7 @@ class Base
      * Set name
      *
      * @param  string $name
-     * @return Base
+     * @return DealType
      */
     public function setName($name)
     {
@@ -128,7 +117,7 @@ class Base
      * Set parentId
      *
      * @param  integer $parentId
-     * @return Base
+     * @return DealType
      */
     public function setParentId($parentId)
     {
@@ -148,7 +137,7 @@ class Base
     /**
      * Set parent
      */
-    public function setParent(Base $parent = null)
+    public function setParent(DealType $parent = null)
     {
         $this->parent = $parent;
         if ($parent != null) {
@@ -169,7 +158,7 @@ class Base
     /**
      * Add children
      */
-    public function addChildren(Base $children)
+    public function addChildren(DealType $children)
     {
         $this->children[] = $children;
 
@@ -179,7 +168,7 @@ class Base
     /**
      * Remove children
      */
-    public function removeChildren(Base $children)
+    public function removeChildren(DealType $children)
     {
         $this->children->removeElement($children);
 
@@ -215,5 +204,24 @@ class Base
     public function getPosition()
     {
         return $this->position;
+    }
+
+    public function addDeal(\Sto\CoreBundle\Entity\Deal $deal)
+    {
+        $this->deals[] = $deal;
+
+        return $this;
+    }
+
+    public function removeDeal(\Sto\CoreBundle\Entity\Deal $deal)
+    {
+        $this->deals->removeElement($deal);
+
+        return $this;
+    }
+
+    public function getDeals()
+    {
+        return $this->deals->toArray();
     }
 }
