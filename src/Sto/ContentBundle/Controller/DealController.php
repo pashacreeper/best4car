@@ -258,114 +258,24 @@ class DealController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $city_id = $this->get('sto_content.manager.city')->selectedCity()->getId();
+        $search = $request->get('search');
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:Deal');
-        $query = $repository->createQueryBuilder('deal')
-            ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate')
-            ->andWhere('dc.cityId = :city')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-        ;
 
-        if ($request->get('search')) {
-            $query->andWhere($query->expr()->orx(
-                    $query->expr()->like('deal.name',':search'),
-                    $query->expr()->like('deal.description',':search'),
-                    // TODO: fix deals search by services
-                    // $query->expr()->like('deal.services',':search'),
-                    $query->expr()->like('deal.terms',':search')
-                ))
-                ->setParameter('search', '%' . $request->get('search') . '%')
-            ;
-        }
-
-        $deals = $query
-            ->getQuery()
-            ->getResult()
-        ;
-
-        $dealsTypes = $em->getRepository('StoCoreBundle:Dictionary\DealType')
-            ->createQueryBuilder('dictionary')
-            ->select('dictionary, deals')
-            ->join('dictionary.deals', 'deals')
-            ->join('deals.company', 'dc')
-            ->where('deals.endDate > :endDate')
-            ->andWhere('dc.cityId = :city')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-            ->orderBy('dictionary.position', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-
-        if ($request->get('search')) {
-            $query->andWhere($query->expr()->orx(
-                    $query->expr()->like('deal.name',':search'),
-                    $query->expr()->like('deal.description',':search'),
-                    // TODO: fix deals search by services
-                    // $query->expr()->like('deal.services',':search'),
-                    $query->expr()->like('deal.terms',':search')
-                ))
-                ->setParameter('search', '%' . $request->get('search') . '%')
-            ;
-        }
-
-        $countFeededDeals = $repository->createQueryBuilder('deal')
-            ->join('deal.feedbacks', 'f')
-            ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate AND f.content is not null')
-            ->andWhere('dc.cityId = :city')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-            ->getQuery()
-            ->getResult()
-        ;
-
-        $popularDealsRows = $repository->createQueryBuilder('deal')
-            ->select('COUNT(f.id)')
-            ->join('deal.feedbacks', 'f')
-            ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate AND f.content is not null')
-            ->andWhere('dc.cityId = :city')
-            ->having('COUNT(f.id) > 5')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-            ->groupBy('deal.id')
-            ->getQuery()
-            ->getScalarResult()
-        ;
-        $countPopularDeals = count($popularDealsRows);
-
-        $vipDeals = $repository->createQueryBuilder('deal')
-            ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate')
-            ->andWhere('dc.cityId = :city')
-            ->andWhere('deal.is_vip = 1')
-            ->setParameters([
-                    'endDate' => new \DateTime('now'),
-                    'city' => $city->getId()
-                ])
-            ->getQuery()
-            ->getResult()
-        ;
+        $deals = $repository->getDeals($city_id, $search);
+        $dealsTypes = $repository->getDealTypes($city_id, $search);
+        $countFeededDeals =$repository->getDealsWithFeedbacksCount($city_id);
+        $countPopularDeals = $repository->getPopularDealsCount($city_id);
+        $vipDeals = $repository->getVipDeals($city_id);
 
         return [
             'deals' => $deals,
             'dictionaries' => $dealsTypes,
-            'countFeededDeals' => count($countFeededDeals),
+            'countFeededDeals' => $countFeededDeals,
             'countPopularDeals' => $countPopularDeals,
             'vipDeals' => $vipDeals,
-            'search_query' => $request->get('search'),
+            'search' => $search,
         ];
     }
 
@@ -374,50 +284,54 @@ class DealController extends MainController
      * @Method({"POST"})
      * @Template()
      */
-    public function dealsAction(Request $request)
+    public function dealsAction(Request $request, $search = null)
     {
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
+            ->leftJoin('deal.services', 'ds')
             ->join('deal.company', 'dc')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
-            ->setParameters([
-                'endDate' => new \DateTime('now'),
-                'city' => $city->getId()
-            ])
-        ;
+            ->setParameters(
+                [
+                    'endDate' => new \DateTime('now'),
+                    'city' => $cityId
+                ]
+            );
 
-        $deal_type = $request->get('deal_type') ? $request->get('deal_type') : 0;
-        if ($deal_type > 0) {
-            $query->andWhere('deal.typeId = :type')
-                ->setParameter('type', $request->get('deal_type'))
-            ;
-        } elseif ($deal_type == -2) {
-            $query->join('deal.feedbacks', 'f')
-                ->andWhere('f.content is not null')
-            ;
-        } elseif ($deal_type == -1) {
-            $query->join('deal.feedbacks', 'f')
-                ->having('COUNT(f.id) > 5')
-                ->groupBy('deal.id')
-            ;
-        } else {
-            $deal_type = 0;
+        $search = $request->request->get('search', $search);
+        if ($search) {
+            $query->andWhere(
+                $query->expr()->orx(
+                    $query->expr()->like('deal.name', ':search'),
+                    $query->expr()->like('deal.description', ':search'),
+                    $query->expr()->like('deal.terms', ':search'),
+                    $query->expr()->like('ds.name', ':search')
+                )
+            )->setParameter('search', '%' . $search . '%');
         }
 
-        $query->getQuery();
+        $dealType = $request->get('deal_type', 0);
+        if ($dealType > 0) {
+            $query->andWhere('deal.typeId = :type')
+                ->setParameter('type', $dealType);
+        } elseif ($dealType == -2) {
+            $query->join('deal.feedbacks', 'f')
+                ->andWhere('f.content is not null');
+        } elseif ($dealType == -1) {
+            $query->join('deal.feedbacks', 'f')
+                ->having('COUNT(f.id) > 5')
+                ->groupBy('deal.id');
+        }
 
-        $deals = $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page',1),
-            6
-        );
+        $page = $this->get('request')->query->get('page', 1);
+        $deals = $this->get('knp_paginator')->paginate($query->getQuery(), $page, 6);
 
         return [
             'deals' => $deals,
-            'deal_type' => $deal_type,
+            'dealType' => $dealType,
         ];
     }
 
