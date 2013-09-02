@@ -20,7 +20,6 @@ class Model
     protected $id;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
@@ -42,7 +41,6 @@ class Model
     protected $parentId;
 
     /**
-     * @Assert\Url()
      * @ORM\Column(name="uri", type="string", length=255, nullable=true)
      */
     protected $uri;

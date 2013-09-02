@@ -1,6 +1,6 @@
 <?php
 
-namespace Sto\CoreBundle\Entity\Catalog;
+namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;

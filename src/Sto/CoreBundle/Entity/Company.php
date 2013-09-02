@@ -240,7 +240,7 @@ class Company
     private $cityId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\Catalog\Base")
+     * @ORM\ManyToMany(targetEntity="Sto\CoreBundle\Entity\mark")
      * @ORM\JoinTable(name="company_autos",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="auto_id", referencedColumnName="id")}
@@ -1103,7 +1103,7 @@ class Company
     /**
      * Set auto
      */
-    public function addAuto(\Sto\CoreBundle\Entity\Catalog\Base $auto)
+    public function addAuto(\Sto\CoreBundle\Entity\Mark $auto)
     {
         $this->autos[] = $auto;
 
@@ -1113,7 +1113,7 @@ class Company
     /**
      * remove auto
      */
-    public function removeAuto(\Sto\CoreBundle\Entity\Catalog\Base $auto)
+    public function removeAuto(\Sto\CoreBundle\Entity\Mark $auto)
     {
         $this->autos->removeElement($auto);
     }
