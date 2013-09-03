@@ -49,6 +49,7 @@ class CompanyType extends AbstractType
             ])
             ->add('workingTime','collection', array(
                 'label' => ' ',
+                'required' => true,
                 'type' => new CompanyWorkingTimeType($options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -113,7 +114,7 @@ class CompanyType extends AbstractType
             ])
             ->add('fullName', 'text', [
                 'label' => 'Полное наименование',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'input-xxlarge'
                 ]

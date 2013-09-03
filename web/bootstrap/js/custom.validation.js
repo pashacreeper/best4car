@@ -1,12 +1,18 @@
 var Validation = function(activeTabPane) {
     this.activeTabPane = activeTabPane;
     this.errorFlags = 0;
-    this.checkForValidation = function(element){
+    this.checkForValidation = function(element, type){
         object = this;
         $element = $(element);
         value = 0;
-        if ($element.val()) {
-            value = $element.val();
+
+        if (type == 'collection') {
+            value = $element.find('input').size();
+        }
+        else {
+            if ($element.val()) {
+                value = $element.val();
+            }
         }
         if (value < 1) {
             object.errorFlags = object.errorFlags + 1;
@@ -42,6 +48,14 @@ $(document).ready(function(){
             $requiredInputs.each(function(index, element){
                validation.checkForValidation(element);
             });
+
+            if ($('#workTimeAddWrapper:visible').size()) {
+                validation.checkForValidation('#workTimeAddWrapper', 'collection');
+            }
+
+            if ($('#phoneAddWrapper:visible').size()) {
+                validation.checkForValidation('#phoneAddWrapper', 'collection');
+            }
         }
 
         if (validation.errorFlags == 0 || $this.hasClass('btnPrev')) {
