@@ -2,4 +2,11 @@
 
 UPDATE_FLAG="--update"
 if [ "$1" = "$UPDATE_FLAG" ]; then bin/update; fi
-app/console server:run -v
+
+for port in {8000..8010}
+do
+    result=`lsof -i :$port`
+    if [ -z "$result" ]; then break; fi
+done
+
+app/console server:run -v localhost:$port
