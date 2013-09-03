@@ -518,3 +518,8 @@ a.btnNext:hover{
     position: absolute;
     right: 10px;
 }
+
+.push-footer{
+    height:68px; 
+    width:100%;
+}
