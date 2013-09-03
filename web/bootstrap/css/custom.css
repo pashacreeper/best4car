@@ -523,3 +523,7 @@ a.btnNext:hover{
     height:68px; 
     width:100%;
 }
+
+.mr10px{
+    margin-right: 10px;
+}

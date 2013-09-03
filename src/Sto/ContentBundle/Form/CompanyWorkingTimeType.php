@@ -29,6 +29,7 @@ class CompanyWorkingTimeType extends AbstractType
                     'class' => 'Sto\CoreBundle\Entity\Dictionary\WeekDay',
                     'multiple' => true,
                     'expanded' => true,
+                    'required' => false,
                     'attr' => [
                         'class' => 'workingTimeDays'
                     ],

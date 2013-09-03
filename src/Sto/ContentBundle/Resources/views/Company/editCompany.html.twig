@@ -16,6 +16,7 @@
 {% block js %}
     {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -32,7 +33,7 @@
 <div class="content">
     <form name="register-form" action="{{ path('content_company_update', {'id':company.id}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
         <ul class="stepRegistration" id="stepRegistration">
-            <li class="stepRegistrationItem centerStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
+            <li class="stepRegistrationItem firstStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
             <li class="stepRegistrationItem centerStep" id="business-profile-tab"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
             <li class="stepRegistrationItem centerStep" id="contact-info-tab"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
             <li class="stepRegistrationItem endStep" id="photo-tab"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
@@ -72,7 +73,11 @@
                     <div class="addLogo clear">
                         {{ form_label(cForm.logo) }}
                         <div class="addLogoImgWrap">
-                            <div class="addLogoImg" id='picture-preview-wrapper'></div>
+                            <div class="addLogoImg" id='picture-preview-wrapper'>
+                                {% if company.logoName %}
+                                    <img src="{{ vich_uploader_asset(company, 'logo') }}" alt="Логотип">
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="adminBlockImg span6">
                             {{ form_widget(cForm.logo) }}
@@ -83,7 +88,7 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#business-profile" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab">Продолжить</a>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="business-profile-tab" data-next="#business-profile">Продолжить</a>
             </div>
         </div>
         {# EOF General data #}
@@ -124,7 +129,8 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#contact-info" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="contact-info-tab">Продолжить</a>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-tab-switch-id="contact-info-tab" data-next="#contact-info">Продолжить</a>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn mr10px" data-tab-switch-id="general-data-tab" data-next="#general-data">Назад</a>
             </div>
         </div>
         {# EOF Buisinesss profile #}
@@ -139,8 +145,14 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Контактные телефоны</label>
-                    <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}"></div>
-                    {{ form_row(cForm.phones) }}
+                    <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}">
+                        {% for phone in cForm.phones %}
+                            <div class="contactDate">
+                                {{ form_widget(phone.phone) }}
+                                {{ form_widget(phone.description) }}
+                            </div>
+                        {% endfor %}
+                    </div>
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
                         var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -159,7 +171,15 @@
                 <div class="contentLabel marginBottom">
                     <label>Время работы</label>
                     <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
-                    <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}"></div>
+                    <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}">
+                        {% for time in cForm.workingTime %}
+                            <div class="contactDate">
+                                {{ form_widget(time.days) }}
+                                {{ form_widget(time.from) }}
+                                {{ form_widget(time.till) }}
+                            </div>
+                        {% endfor %}
+                    </div>
                     {{ form_row(cForm.workingTime) }}
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
@@ -179,8 +199,15 @@
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
                     <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
-                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}"></div>
-                    {{ form_row(cForm.companyManager) }}
+                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
+                        {% for manager in cForm.companyManager %}
+                            <div class="contactDate">
+                                {{ form_widget(manager.user) }}
+                                {{ form_widget(manager.phone) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
                         var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -230,14 +257,21 @@
                 </div>
             </div>
             <div class="bottomContent">
-                <a href="#photos" class="btnNext addPhotoBtn" data-toggle="tab" data-tab-switch-id="photo-tab">Продолжить</a>
+                <a href="#" class="btnNext addPhotoBtn" data-toggle="tab" data-tab-switch-id="photo-tab" data-next="#photos">Продолжить</a>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn mr10px" data-tab-switch-id="business-profile-tab" data-next="#business-profile">Назад</a>
             </div>
         </div>
         {# EOF Contact info #}
         <div class="tab-pane" id="photos">
             <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
-            <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
-            {{ form_row(cForm.gallery) }}
+            <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}">
+                {% for photo in cForm.gallery %}
+                    <div class="contactDate">
+                        {{ form_widget(photo.image) }}
+                        {{ form_widget(photo.name) }}
+                    </div>
+                {% endfor %}
+            </div>
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper');
                 var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
@@ -253,7 +287,8 @@
                 });
             </script>
             <div class="bottomContent">
-                <button type="submit" class="btnNext addPhotoBtn">Продолжить</button>
+                <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+                <a href="#" data-toggle="tab" class="btnNext addPhotoBtn mr10px" data-tab-switch-id="photo-tab" data-next="#photos">Назад</a>
             </div>
         </div>
     </div>

@@ -28,10 +28,10 @@ body{
 .firstStep{
 	background-position: 0 0;	
 }
-.firstStepActive{
+.firstStep.active{
 	background-position: 0 -46px;	
 }
-.firstStepActive a{
+.firstStep.active a{
 	color: #333;
 }
 .centerStep{

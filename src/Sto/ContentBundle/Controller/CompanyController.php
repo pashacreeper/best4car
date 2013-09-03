@@ -148,7 +148,13 @@ class CompanyController extends MainController
 
         if (count($manager) || $this->get('security.context')->isGranted('ROLE_ADMIN')) {
 
-            $form = $this->createForm(new CompanyType, $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+            $form = $this->createForm(
+                new CompanyType(),
+                $company,
+                [
+                    'em'=> $em = $this->getDoctrine()->getManager()
+                ]
+            );
 
             return [
                 'cForm' => $form->createView(),

@@ -54,6 +54,7 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
+                'required' => false,
             ))
             ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
