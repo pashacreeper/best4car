@@ -77,7 +77,9 @@ class UserAdmin extends Admin
             ->add('avatar', 'file', array(
                 'required' => false,
             ))
-            ->add('birthDate')
+            ->add('birthDate', 'date', [
+                'years' => range(1930, date('Y'))
+            ])
             ->add('gender', 'choice', array(
                 'choices' => User::getGenders()
             ))
