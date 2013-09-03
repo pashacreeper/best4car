@@ -175,12 +175,17 @@
                         var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
+                            collectionHolder.on('click', '.deleteElement', function() {
+                                alert('хуялерт')
+                                $(this).parents('.contactDate').remove();
+                            });
                             collectionHolder.append($newLink);
                             collectionHolder.data('index', collectionHolder.find(':input').length);
 
                             $addTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(collectionHolder, $newLink, false);
+                                $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                                addTagForm(collectionHolder, $newLink, false, $deleteLink);
                             });
                         });
                     </script>
@@ -196,7 +201,7 @@
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
                             managerCollectionHolder.append($managerNewLink);
-                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
+                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length + 1);
 
                             $managerAddTagLink.on('click', function(e) {
                                 e.preventDefault();
