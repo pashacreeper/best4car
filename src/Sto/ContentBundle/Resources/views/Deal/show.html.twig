@@ -58,8 +58,8 @@
         <div class="rightContent">
             <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="addPhotoBtn bttn" {% if not app.user %}data-reveal-id="not-loged-in"{% endif %}>Оставить отзыв<i class="writeReview"></i></a>
             {% if isManager %}
-                <a href="{{ path("company_deal_edit", {'id':deal.company.id, 'dealId':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Редактировать</a>
-                <a href="{{ path("company_deal_delete", {'id':deal.company.id, 'dealId':deal.id}) }}" class="btn btn-large" style="width:200px;margin-top:10px;">Удалить</a>
+                <a href="{{ path("company_deal_edit", {'id':deal.company.id, 'dealId':deal.id}) }}" class="addPhotoBtn bttn">Редактировать<i class="pencilIcon"></i></a>
+                <a href="{{ path("company_deal_delete", {'id':deal.company.id, 'dealId':deal.id}) }}" class="addPhotoBtn bttn">Удалить<i class="binIcon"></i></a>
             {% endif %}
             <div class="bannerImg"></div>
         </div>
