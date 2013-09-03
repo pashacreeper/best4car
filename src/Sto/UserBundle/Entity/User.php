@@ -276,7 +276,7 @@ class User extends BaseUser
 
     public function __toString()
     {
-        return (string)$this->username;
+        return (string) $this->username;
     }
 
     public static function getGenders()

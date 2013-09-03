@@ -92,7 +92,6 @@ class Modification
         return $this;
     }
 
-
     /**
      * Get id
      */
@@ -104,7 +103,7 @@ class Modification
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string       $name
      * @return Modification
      */
     public function setName($name)

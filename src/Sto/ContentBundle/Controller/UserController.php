@@ -180,10 +180,12 @@ class UserController extends MainController
             $another_user = $em->getRepository('StoUserBundle:User')->findBy(['username'=>$user->getUsername()]);
             $another_email = $em->getRepository('StoUserBundle:User')->findBy(['email'=>$user->getEmail()]);
             if ($another_user || $another_email) {
-                if ($another_user)
+                if ($another_user) {
                     $form->get('username')->addError(new FormError('Пользователь с таким ником уже зарегистрирован!'));
-                if ($another_email)
+                }
+                if ($another_email) {
                     $form->get('email')->addError(new FormError('Пользователь с таким почтовым адресом уже зарегистрирован!'));
+                }
 
                 return [
                     'user' => $user,
