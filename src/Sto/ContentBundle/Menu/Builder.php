@@ -31,7 +31,7 @@ class Builder extends ContainerAware
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
         if ('content_deal_show' == $route
             || 'content_deals' == $route
-        ) {
+) {
             $deals->setCurrent(true);
         }
 
@@ -45,7 +45,7 @@ class Builder extends ContainerAware
         if ($route == 'user_profile'
             || $route == 'fos_user_profile_show'
             || $route == 'fos_user_profile_edit'
-        ) {
+) {
             $experts->setCurrent(true);
         }
 

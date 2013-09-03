@@ -5,3 +5,5 @@ positive: положительные
 negative: отрицательные
 useful: полезные
 date: дате
+
+login.alerts.wrong_pass: Неправильный логин или пароль

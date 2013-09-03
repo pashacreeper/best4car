@@ -2,22 +2,22 @@
 
 namespace Sto\UserBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
+use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\UserBundle\Entity\Group;
 use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\UserContacts;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\UserBundle\Entity\UserGallery;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sto\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @Vich\Uploadable
  */

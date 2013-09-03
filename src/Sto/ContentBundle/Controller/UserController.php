@@ -73,7 +73,9 @@ class UserController extends MainController
         $errorFlag = false;
         if ($request->get('_username') && $request->get('_password')) {
             $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('StoUserBundle:User')->findOneBy(['username' => $request->get('_username')]);
+            $user = $em->getRepository('StoUserBundle:User')
+                ->findUserByNameOrByEmail($request->get('_username'))
+            ;
             if (!$user) {
                 $errors = "login.alerts.wrong_pass";
                 $errorFlag = true;
@@ -180,10 +182,12 @@ class UserController extends MainController
             $another_user = $em->getRepository('StoUserBundle:User')->findBy(['username'=>$user->getUsername()]);
             $another_email = $em->getRepository('StoUserBundle:User')->findBy(['email'=>$user->getEmail()]);
             if ($another_user || $another_email) {
-                if ($another_user)
+                if ($another_user) {
                     $form->get('username')->addError(new FormError('Пользователь с таким ником уже зарегистрирован!'));
-                if ($another_email)
+                }
+                if ($another_email) {
                     $form->get('email')->addError(new FormError('Пользователь с таким почтовым адресом уже зарегистрирован!'));
+                }
 
                 return [
                     'user' => $user,
