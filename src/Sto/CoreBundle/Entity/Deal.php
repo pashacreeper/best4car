@@ -724,6 +724,7 @@ class Deal
     public function setIsVip($value)
     {
         $this->is_vip = $value;
+
         return $this;
     }
 }

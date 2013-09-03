@@ -62,7 +62,6 @@ class Model
         return $this;
     }
 
-
     /**
      * Get id
      */

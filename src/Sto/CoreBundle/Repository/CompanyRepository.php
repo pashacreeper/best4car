@@ -3,7 +3,6 @@
 namespace Sto\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Sto\CoreBundle\Entity\Country;
 
 /**
  * CompanyRepository
@@ -21,10 +20,11 @@ class CompanyRepository extends EntityRepository
     }
 
     /**
-     * @param array $params
+     * @param  array $params
      * @return array
      */
-    public function getCompaniesWithFilter($params = array()) {
+    public function getCompaniesWithFilter($params = array())
+    {
         $qb = $this->createQueryBuilder('company')
             ->select('company, csp, fb, d')
             ->join('company.specialization', 'csp')

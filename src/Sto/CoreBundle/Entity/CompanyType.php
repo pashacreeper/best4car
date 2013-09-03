@@ -119,7 +119,6 @@ class CompanyType
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      */
@@ -131,7 +130,7 @@ class CompanyType
     /**
      * Set code
      *
-     * @param  string $code
+     * @param  string      $code
      * @return CompanyType
      */
     public function setShortName($shortName)
@@ -152,7 +151,7 @@ class CompanyType
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string      $name
      * @return CompanyType
      */
     public function setName($name)
@@ -173,7 +172,7 @@ class CompanyType
     /**
      * Set parentId
      *
-     * @param  integer $parentId
+     * @param  integer     $parentId
      * @return CompanyType
      */
     public function setParentId($parentId)
@@ -266,7 +265,7 @@ class CompanyType
     /**
      * Set iconMap
      *
-     * @param  string  $iconMap
+     * @param  string      $iconMap
      * @return CompanyType
      */
     public function setIconMap($iconMap)
@@ -304,7 +303,7 @@ class CompanyType
     /**
      * Set iconSmall
      *
-     * @param  string  $iconSmall
+     * @param  string      $iconSmall
      * @return CompanyType
      */
     public function setIconSmall($iconSmall)
@@ -342,7 +341,7 @@ class CompanyType
     /**
      * Set iconLarge
      *
-     * @param  string  $iconLarge
+     * @param  string      $iconLarge
      * @return CompanyType
      */
     public function setIconLarge($iconLarge)

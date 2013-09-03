@@ -91,7 +91,7 @@ class AutoServices
     /**
      * Set code
      *
-     * @param  string $code
+     * @param  string       $code
      * @return AutoServices
      */
     public function setShortName($shortName)
@@ -112,7 +112,7 @@ class AutoServices
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string       $name
      * @return AutoServices
      */
     public function setName($name)
@@ -133,7 +133,7 @@ class AutoServices
     /**
      * Set parentId
      *
-     * @param  integer $parentId
+     * @param  integer      $parentId
      * @return AutoServices
      */
     public function setParentId($parentId)

@@ -135,7 +135,7 @@ class Country
     /**
      * Set code
      *
-     * @param  string $code
+     * @param  string  $code
      * @return Country
      */
     public function setShortName($shortName)
@@ -156,7 +156,7 @@ class Country
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string  $name
      * @return Country
      */
     public function setName($name)
@@ -417,7 +417,7 @@ class Country
         return $this->gps;
     }
 
-    public function preRemove() {
-
+    public function preRemove()
+    {
     }
 }

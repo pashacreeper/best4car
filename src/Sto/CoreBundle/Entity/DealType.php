@@ -62,7 +62,6 @@ class DealType
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      */
@@ -74,7 +73,7 @@ class DealType
     /**
      * Set code
      *
-     * @param  string $code
+     * @param  string   $code
      * @return DealType
      */
     public function setShortName($shortName)
@@ -95,7 +94,7 @@ class DealType
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string   $name
      * @return DealType
      */
     public function setName($name)
@@ -116,7 +115,7 @@ class DealType
     /**
      * Set parentId
      *
-     * @param  integer $parentId
+     * @param  integer  $parentId
      * @return DealType
      */
     public function setParentId($parentId)
