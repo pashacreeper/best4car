@@ -25,29 +25,43 @@ var Validation = function(activeTabPane) {
 };
 
 $(document).ready(function(){
-    $('a[data-toggle="tab"]').on('click', function (e) {
-        e.preventDefault();
+    $('a[data-toggle="tab"]').on('click', function () {
         var $this = $(this),
-            next = $this.data('next'),
             $activeTabPane = $('.tab-pane.active'),
             $requiredInputs = $activeTabPane.find('input[required]'),
             $requiredSelects = $activeTabPane.find('select[required]'),
             validation = new Validation($activeTabPane),
-            tabs = $('#stepRegistration');
+            tabs = $('#stepRegistration'),
+            $oldTab = $(tabs.find('.active a').data('content'));
 
-        $requiredSelects.each(function(index, element){
-            validation.checkForValidation(element);
-        });
+        if (!$this.hasClass('btnPrev')) {
+            $requiredSelects.each(function(index, element){
+                validation.checkForValidation(element);
+            });
 
-        $requiredInputs.each(function(index, element){
-            validation.checkForValidation(element);
-        });
-
-        if (validation.errorFlags == 0) {
-            $activeTabPane.removeClass('active');
-            $(next).addClass('active');
-            tabs.find('.active').removeClass('active');
-            tabs.find('[data-content=' + next + ']').parent().addClass('active');
+            $requiredInputs.each(function(index, element){
+               validation.checkForValidation(element);
+            });
         }
+
+        if (validation.errorFlags == 0 || $this.hasClass('btnPrev')) {
+            tabs.find('.active').removeClass('active');
+            $oldTab.removeClass('active');
+            $oldTab.hide();
+
+            if ($this.hasClass('btnNext')) {
+                tabs.find('[data-content=' + $this.data('next') + ']').parent().addClass('active');
+                $($this.data('next')).addClass('active');
+                $($this.data('next')).show();
+            }
+            else {
+                $this.parents('li').addClass('active');
+                $($this.data('content')).addClass('active');
+                $($this.data('content')).show();
+            }
+
+        }
+
+        return false;
     });
 });
