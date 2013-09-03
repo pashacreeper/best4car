@@ -73,7 +73,9 @@ class UserController extends MainController
         $errorFlag = false;
         if ($request->get('_username') && $request->get('_password')) {
             $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('StoUserBundle:User')->findOneBy(['username' => $request->get('_username')]);
+            $user = $em->getRepository('StoUserBundle:User')
+                ->findUserByNameOrByEmail($request->get('_username'))
+            ;
             if (!$user) {
                 $errors = "login.alerts.wrong_pass";
                 $errorFlag = true;
