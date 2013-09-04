@@ -207,7 +207,7 @@
             });
         }
 
-        $(document).ready(function () {
+        function init() {
             myMap = new ymaps.Map("map", {
                 center: [city.split(",")[0], city.split(",")[1]],
                 zoom: oldZoom,
@@ -262,7 +262,9 @@
 
             $('#companiesListContainer').height(mapHeight - footerHeight - 1);
             $('#advancedSearch').height(mapHeight - footerHeight - 75);
-        });
+        }
+
+        ymaps.ready(init);
     </script>
 {% endblock %}
 
