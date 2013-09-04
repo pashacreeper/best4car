@@ -105,7 +105,7 @@ class CompanyController extends MainController
         $feedbacks = $qb->getQuery()->getResult();
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
-        $archivedDealsCount = (int)$em->getRepository('StoCoreBundle:Deal')
+        $archivedDealsCount = (int) $em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
             ->select("COUNT(deal)")
             ->where('deal.endDate < :endDate')
