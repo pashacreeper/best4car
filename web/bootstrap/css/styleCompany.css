@@ -604,6 +604,7 @@ a.addEmail{
 }
 .reviewAdditionalInfo td {
 	width: 33%;
+	font: 1.1em 'PT Sans', sans;
 }
 .reviewAdditionalInfo tr {
 	height: 40px;
@@ -683,7 +684,6 @@ a.addEmail{
 	text-decoration: none !important;
 }
 a.complain, span.complain{
-	float: right;
 }
 .complain-wrapper {float: right; display: inline-block;}
 .complain-wrapper span {float: none;}
@@ -706,6 +706,7 @@ a.complain, span.complain{
 	height: 13px;
 	background: url("/bootstrap/img/complainalert.png") no-repeat;
 	vertical-align: middle;
+	margin: 2px 3px 0 0;
 }
 .complainAlert.active{
 	cursor: pointer;

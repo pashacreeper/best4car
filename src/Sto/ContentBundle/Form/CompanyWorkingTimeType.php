@@ -5,7 +5,6 @@ use Doctrine\ORM\EntityManager;
 use Sto\ContentBundle\Form\DataTransformer\DayOfWeekTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 
 class CompanyWorkingTimeType extends AbstractType
