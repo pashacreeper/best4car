@@ -85,7 +85,7 @@
             <a href="#feedbacks">Отзывы  {{ company.feedbacks|length }}</a>
         </li>
         <li>
-            <a href="#deals">Акции  {{ company.deals|length - archivedDeals }}<span class="newPost">/ {{ archivedDeals }}</span></a>
+            <a href="#deals">Акции  {{ deals|length }}<span class="newPost">/ {{ archivedDealsCount }}</span></a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
@@ -96,7 +96,7 @@
         {% include "StoContentBundle:Company:tabs/feedbacks.html.twig" with { 'company': company } %}
     </div>
     <div data-tab-id="#deals" class="content">
-        {% include "StoContentBundle:Company:tabs/deals.html.twig" with { 'company': company } %}
+        {% include "StoContentBundle:Company:tabs/deals.html.twig" with { 'company': company, 'deals': deals, 'archivedDealsCount': archivedDealsCount } %}
     </div>
     <div id="map-modal" class="reveal-modal yandexMapModalCompanyPage">
         <a href="#" class="close-reveal-modal"></a>

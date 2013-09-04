@@ -1,31 +1,38 @@
 <div class="leftContent">
     <h1 class="title2">Действующие акции компании</h1>
-    {% for key,deal in company.deals %}
-    {% if deal.endDate >= date() and deal.draft == false %}
-    <div class="actionItem">
-        <a href="{{ path('content_deal_show', { "id": deal.id }) }}">
-            <img src="/../{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
-        </a>
-        <div class="actionItemRight">
-            <h4 class=""><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
-            <div class="actionItemBottom">
-                <p class="">Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
-                <p class="">Период проведения </br><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</span></p>
-                {% if deal.auto|length > 0 %}
-                    <p class="">Автомобили<br>
-                    {% for auto in deal.auto %}
-                        <span class="blue">{{ auto }}</span>
-                    {% endfor %}
-                {% endif %}
-                </p>
+    {% if deals|length %}
+        {% for deal in company.deals %}
+            <div class="actionItem">
+                <a href="{{ path('content_deal_show', {'id': deal.id}) }}">
+                    <img src="/{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
+                </a>
+                <div class="actionItemRight">
+                    <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
+                    <div class="actionItemBottom">
+                        <p>Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
+                        <p>Период проведения <br/><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</span></p>
+                        {% if deal.auto|length %}
+                            <p class="">Автомобили<br>
+                            {% for auto in deal.auto %}
+                                <span class="blue">{{ auto }}</span>
+                            {% endfor %}
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        {% endfor %}
+    {% else %}
+        <p>
+            В настоящее время действующих акций нет
+        </p>
     {% endif %}
-    {% endfor %}
 </div>
-<div class="rightContent">
-</div>
-<div class="bottomContent">
-    <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id':company.id}) }}">Показать архивные акции</a></span>
-</div>
+
+<div class="rightContent"></div>
+
+{% if archivedDealsCount %}
+    <div class="bottomContent">
+        <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id': company.id}) }}">Показать архивные акции</a></span>
+    </div>
+{% endif %}

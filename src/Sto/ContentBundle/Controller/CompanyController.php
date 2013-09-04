@@ -105,24 +105,33 @@ class CompanyController extends MainController
         $feedbacks = $qb->getQuery()->getResult();
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
-        $archivedDeals = $em->getRepository('StoCoreBundle:Deal')
+        $archivedDealsCount = (int)$em->getRepository('StoCoreBundle:Deal')
             ->createQueryBuilder('deal')
             ->select("COUNT(deal)")
             ->where('deal.endDate < :endDate')
-            ->andwhere('deal.companyId = :company')
-            ->setParameters(['endDate'=> new \DateTime('now'), 'company'=> $id])
+            ->andWhere('deal.companyId = :company')
+            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $id])
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult()[1];
+
+        $deals = $em->getRepository('StoCoreBundle:Deal')
+            ->createQueryBuilder('deal')
+            ->where('deal.endDate >= :endDate')
+            ->andWhere('deal.companyId = :company')
+            ->andWhere('deal.draft = 0')
+            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $id])
+            ->getQuery()
+            ->getResult();
 
         $refererRoute = $this->getRefererRoute();
 
         return [
             'company' => $company,
-            'tab'     => $tab,
+            'tab' => $tab,
             'isManager' => $isManager,
-            'feedbacks'  => $feedbacks,
-            'archivedDeals' => $archivedDeals[1],
+            'feedbacks' => $feedbacks,
+            'archivedDealsCount' => $archivedDealsCount,
+            'deals' => $deals,
             'refererRoute' => $refererRoute,
         ];
     }
