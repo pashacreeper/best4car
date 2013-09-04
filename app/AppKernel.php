@@ -51,7 +51,7 @@ class AppKernel extends Kernel
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
-            new Mannew\HipChatBundle\MannewHipchatBundle(),
+            new Mannew\HipchatBundle\MannewHipchatBundle(),
             new Evercode\HipchatBundle\EvercodeHipchatMonologBundle(),
         );
 
