@@ -94,7 +94,8 @@ class DealRepository extends EntityRepository
             ->andWhere('deal.draft = 0')
             ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     public function getArchivedDealsCountByCompany($companyId)
@@ -105,7 +106,8 @@ class DealRepository extends EntityRepository
             ->andWhere('deal.companyId = :company')
             ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult()
+        ;
     }
 
     public function getVipDeals($cityId)
@@ -121,7 +123,8 @@ class DealRepository extends EntityRepository
                     'city' => $cityId
                 ]
             )
-            ->getQuery();
+            ->getQuery()
+        ;
 
         return $query->getResult();
     }
