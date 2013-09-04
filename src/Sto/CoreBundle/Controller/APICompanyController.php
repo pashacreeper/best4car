@@ -45,31 +45,19 @@ class APICompanyController extends FOSRestController
         $form->bind($request);
         $formData = $form->getData();
 
-        $filter = [];
-        $timing = [];
-
-        $workingTime = new WorkTime();
-        foreach ($workingTime->getChoices() as $element) {
-            $timing[$element] = $request->get($element);
-        }
-
-        $additionalServices = new AdditionalServices();
-        foreach ($additionalServices->getChoices() as $element) {
-            $filter[$element] = $request->get($element);
-        }
+        $additionalServices = array_keys($request->query->get('additional_services', []));
 
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
             ->getCompaniesWithFilter([
-                'city' => $city,
+                'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
                 'subCompanyType' => $formData["subCompanyType"],
                 'auto' => $formData["auto"],
                 'rating' => $request->get('rating'),
-                'filter' => $filter,
+                'additionalServices' => $additionalServices,
                 'deals' => $request->get('deals'),
-                'timing' => $timing,
                 'sort' => $request->get('sort'),
                 'search' => trim($request->get('search'))
         ]);
