@@ -86,6 +86,28 @@ class DealRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getDealsByCompany($companyId)
+    {
+        return $this->createQueryBuilder('deal')
+            ->where('deal.endDate >= :endDate')
+            ->andWhere('deal.companyId = :company')
+            ->andWhere('deal.draft = 0')
+            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getArchivedDealsCountByCompany($companyId)
+    {
+        return $this->createQueryBuilder('deal')
+            ->select("COUNT(deal)")
+            ->where('deal.endDate < :endDate')
+            ->andWhere('deal.companyId = :company')
+            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getVipDeals($cityId)
     {
         $query = $this->createQueryBuilder('deal')
