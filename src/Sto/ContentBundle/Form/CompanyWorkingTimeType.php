@@ -1,11 +1,12 @@
 <?php
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sto\ContentBundle\Form\DataTransformer\DayOfWeekTransformer;
 use Doctrine\ORM\EntityManager;
+use Sto\ContentBundle\Form\DataTransformer\DayOfWeekTransformer;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 
 class CompanyWorkingTimeType extends AbstractType
 {
@@ -19,7 +20,8 @@ class CompanyWorkingTimeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $entityManager = $this->em;
-        $transformer = new DayOfWeekTransformer($entityManager);
+        $daysTransformer = new DayOfWeekTransformer($entityManager);
+        $timeTransformer = new TimeToDateTransformer();
 
         $builder
             ->add(
@@ -34,22 +36,32 @@ class CompanyWorkingTimeType extends AbstractType
                         'class' => 'workingTimeDays'
                     ],
                 ])
-                ->addModelTransformer($transformer)
+                ->addModelTransformer($daysTransformer)
             )
-            ->add('from', 'text', [
-                'label' => false,
-                'attr' => [
-                    'class' => 'inputTime',
-                    'data-format' => 'hh:mm:ss'
-                ]
-            ])
-            ->add('till', 'text', [
-                'label' => false,
-                'attr' => [
-                    'class' => 'inputTime',
-                    'data-format' => 'hh:mm:ss'
-                ]
-            ])
+            ->add(
+                $builder->create(
+                    'from', 'text', [
+                        'label' => false,
+                        'attr' => [
+                            'class' => 'inputTime',
+                            'data-format' => 'hh:mm:ss'
+                        ]
+                    ]
+                )
+                ->addModelTransformer($timeTransformer)
+            )
+            ->add(
+                $builder->create(
+                    'till', 'text', [
+                        'label' => false,
+                        'attr' => [
+                            'class' => 'inputTime',
+                            'data-format' => 'hh:mm:ss'
+                        ]
+                    ]
+                )
+                ->addModelTransformer($timeTransformer)
+            )
         ;
     }
 
