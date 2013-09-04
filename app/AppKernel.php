@@ -50,6 +50,9 @@ class AppKernel extends Kernel
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+
+            new Mannew\HipChatBundle\MannewHipchatBundle(),
+            new Evercode\HipchatBundle\EvercodeHipchatMonologBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

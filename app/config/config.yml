@@ -291,3 +291,8 @@ services:
         tags:
             - { name: form.type, alias: sto_contentbundle_userprofile }
 
+mannew_hipchat:
+    auth_token: 04496c58222155241da099df61acc4
+
+evercode_hipchat_monolog:
+    name: Diarrhea

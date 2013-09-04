@@ -9,11 +9,10 @@ imports:
 
 monolog:
     handlers:
-        main:
-            type:         fingers_crossed
-            action_level: error
-            handler:      nested
-        nested:
+        streamed:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
+        hipchat:
+            type: service
+            id: evercode.monolog.handler.hipchat
