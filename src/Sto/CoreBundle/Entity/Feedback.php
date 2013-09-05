@@ -449,7 +449,7 @@ class Feedback
 
     public function __toString()
     {
-        return $this->getContent();
+        return "Feedback from user #{$this->userId}";
     }
 
     /**

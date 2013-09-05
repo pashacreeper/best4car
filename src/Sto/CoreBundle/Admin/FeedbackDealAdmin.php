@@ -60,6 +60,7 @@ class FeedbackDealAdmin extends Admin
             ->add('hidden')
             ->add('dealRating')
             ->add('deal')
+            ->add('feedbackAnswer', 'sonata_type_model')
         ;
     }
 

@@ -62,6 +62,7 @@ class FeedbackCompanyAdmin extends Admin
             ->add('priceLevel')
             ->add('companyRating')
             ->add('company')
+            ->add('feedbackAnswer', 'sonata_type_model')
         ;
     }
 

@@ -190,4 +190,9 @@ class FeedbackAnswer
     {
         return $this->hidden;
     }
+
+    public function __toString()
+    {
+        return "Ответ на отзыв #{$this->feedbackId}";
+    }
 }

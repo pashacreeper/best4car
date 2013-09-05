@@ -54,6 +54,7 @@ class CompanyAdmin extends Admin
             ->add('linkFB')
             ->add('companyManager')
             ->add('contacts')
+            ->add('feedbacks')
         ;
     }
 

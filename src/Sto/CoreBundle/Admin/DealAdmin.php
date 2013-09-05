@@ -37,6 +37,7 @@ class DealAdmin extends Admin
             ->add('draft')
             ->add('auto')
             ->add('autoServices')
+            ->add('feedbacks')
         ;
     }
 
