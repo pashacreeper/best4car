@@ -159,12 +159,8 @@
                                 type: "POST",
                                 url: $this.attr('action'),
                                 data: $this.serialize(),
-                                success: function(responce) {
-                                    if (responce.indexOf('<!DOCTYPE HTML>') == 0) {
-                                        window.location.reload();
-                                    } else {
-                                        $loginFormWrapper.html(responce);
-                                    }
+                                success: function(response) {
+                                    window.location.reload();
                                 }
                             });
                         });
