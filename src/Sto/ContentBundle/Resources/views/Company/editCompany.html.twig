@@ -171,28 +171,39 @@
                 <div class="contentLabel marginBottom">
                     <label>Время работы</label>
                     <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
-                    <div id="workTimeAddWrapper" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}">
+                    <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}">
                         {% for time in cForm.workingTime %}
                             <div class="contactDate">
                                 {{ form_widget(time.days) }}
-                                {{ form_widget(time.from) }}
-                                {{ form_widget(time.till) }}
+                                <div class="input-append dateLeft">
+                                    {{ form_widget(time.from) }}
+                                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
+                                </div>
+                                <div class="input-append dateLeft">
+                                    {{ form_widget(time.till) }}
+                                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
-                    {{ form_row(cForm.workingTime) }}
+
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
                         var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
+                            deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                            collectionHolder.on('click', '.deleteElement', function() {
+                                $(this).parents('.contactDate').remove();
+                            });
                             collectionHolder.append($newLink);
                             collectionHolder.data('index', collectionHolder.find(':input').length);
 
-                            $addTagLink.on('click', function(e) {
+                            $addTagLink.on('click', function (e) {
                                 e.preventDefault();
-                                addTagForm(collectionHolder, $newLink, false);
+                                addTagForm(collectionHolder, $newLink, false, deleteLink);
                             });
+                            collectionHolder.find('.contactDate:first').append(deleteLink);
                         });
                     </script>
                 </div>
@@ -317,6 +328,10 @@
     </div>
     <script>
         $(document).ready(function(){
+            $('.dateLeft').datetimepicker({
+                pickDate: false
+            });
+
             ymaps.ready(init);
             var gCollection;
             var gps;
@@ -369,7 +384,9 @@
             });
         });
 
-        function addTagForm(collectionHolder, $newLink, isUnwrap) {
+        function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
+            deleteLink = typeof deleteLink !== 'undefined' ? deleteLink : false;
+
             var prototype = collectionHolder.data('prototype');
             var index = collectionHolder.data('index');
             var newForm = prototype.replace(/__name__/g, index);
@@ -390,6 +407,11 @@
                         pickDate: false
                     });
                 });
+            }
+
+            if (deleteLink) {
+                $newForm.append(deleteLink);
+                $newForm.append($('<div class="clear">'));
             }
 
             collectionHolder.data('index', index + 1);
