@@ -53,8 +53,7 @@ body{
 }
 .profilExpertImg{
 	width: 240px;
-	height: 240px;
-	background: #bebebe;
+	max-height: 240px;
 	margin-bottom: 10px;
 }
 .profilExpertImg img{
