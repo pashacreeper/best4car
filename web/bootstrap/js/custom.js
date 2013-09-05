@@ -401,6 +401,13 @@ var feedbackPage = function(){
 
 var profilePage = function(){
     (function(){
+        $(window).hashchange( function(){
+            var $tabButton = $('.tabs ul.tabNavigation').find('a[href="' + location.hash + '"]');
+            if (!$tabButton.hasClass('selected')) {
+                $tabButton.click();
+            }
+        });
+
         var tabContainers = $('.tabs'),
             tabLinksContainer = $('.tabs ul.tabNavigation'),
             url = document.URL,
