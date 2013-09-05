@@ -360,7 +360,7 @@ ul.tabNavigation li a:focus {
 	width: 100%;
 	height: auto;
 }
-.nameManager{
+.nameManager a {
 	color: #292d32;
 	font: 1.6em 'PT Sans', sans;
 }
