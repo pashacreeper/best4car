@@ -12,7 +12,17 @@
                     <div class="actionItemBottom">
                         <h4>{{ deal.name }}</h4>
                         <p>{{ deal.company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deal.company.rating }}</span></p>
-                        <p class="bottomP"><span class="actionItemBottomP">Все автомобили</span><span class="actionItemBottomSpan">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} - {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
+                        <p class="bottomP">
+                            <span class="actionItemBottomP">
+                                {% if deal.auto | length %}
+                                    {% for auto in deal.auto %}
+                                        {% if loop.index == 1 %}{{ auto.name }}{% else %}, {{ auto.name }}{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Все автомобили
+                                {% endif %}
+                            </span>
+                            <span class="actionItemBottomSpan">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} - {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
                     </div>
                 </div>
             </a>
