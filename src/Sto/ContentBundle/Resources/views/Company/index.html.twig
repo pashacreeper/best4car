@@ -40,6 +40,11 @@
             for (var key in companies) {
                 var val = companies[key];
 
+                var withoutHttp = '';
+                if (val.web) {
+                    withoutHttp = val.web.replace(/(http|https):\/\//, '');
+                }
+
                 var iconMap = (val.specialization[0] !== undefined && val.specialization[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/" + val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var vid = val.id;
@@ -63,7 +68,7 @@
                     address: val.address,
                     phone: val.phones,
                     web: val.web,
-                    web_without_http: val.web.replace(/(http|https):\/\//, ''),
+                    web_without_http: withoutHttp,
                     logo: val.logoName,
                     rating: val.rating,
                     specialization_html: val.specialization_template,
