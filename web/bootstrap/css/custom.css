@@ -32,10 +32,6 @@ a.bttn:hover{
     opacity: 1;
 }
 
-.menuLeftBar .activeBar .acctBtn:after{
-    content: '<i class="subActive"></i>';
-}
-
 .registration:hover{
     text-decoration: none;
 }
