@@ -524,6 +524,41 @@ a.btnNext:hover{
 .mr10px{
     margin-right: 10px;
 }
-.reviewButtonsWrapper{
+.reviewButtonsWrapper {
+    overflow: hidden;
     margin-top: 10px;
+    width: 100%;
+}
+.reviewButtonsWrapper .left {
+    height: 20px;
+    float: left;
+    text-align: left;
+    width: 30%;
+}
+.reviewButtonsWrapper .center {
+    height: 20px;
+    float: left;
+    text-align: center;
+    width: 40%;
+}
+.reviewButtonsWrapper .right {
+    height: 20px;
+    float: left;
+    text-align: right;
+    width: 30%;
+}
+.reviewButtonsWrapper a {
+    color: #f35d2e;
+    font: 1.3em 'PT Sans', sans;
+    border-bottom: 1px dotted #f35d2e;
+    cursor: pointer;
+}
+.reviewButtonsWrapper a:hover {
+    text-decoration: none;
+    color: #f35d2e;
+    border-bottom: 1px dotted transparent;
+}
+.reviewButtonsWrapper span {
+    color: #f35d2e;
+    font: 1.3em 'PT Sans', sans;
 }
