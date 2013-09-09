@@ -14,12 +14,15 @@ $(function() {
 	});
 
 	$('select.styled1').each(function() {
-
-		var option = $(this).find('option');
-		var optionSelected = $(this).find('option:selected');
+		var select = $(this);
+		var option = select.find('option');
+		var optionSelected = select.find('option:selected');
 		var dropdown = '';
-		var selectText = $(this).find('option:first').text();
-		if (optionSelected.length) selectText = optionSelected.text();
+		var selectText = select.find('option:first').text();
+		if (optionSelected.length) {
+			selectText = optionSelected.text();
+		}
+		var dropdownMarkup = '';
 
 		for (i = 0; i < option.length; i++) {
 			var selected = '';
@@ -29,36 +32,50 @@ $(function() {
 			dropdown += '<li' + selected + '>'+ option.eq(i).text() +'</li>';
 		}
 
-		$(this).before(
-			'<span class="selectbox1" style="display: inline-block; position: relative">'+
-				'<span class="select1" style="float: left; position: relative; z-index: 10000"><span class="text1">' + selectText + '</span>'+
-				'</span>'+
-				'<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'+
-			'</span>'
-		).css({position: 'absolute', left: -9999});
+		if ($(this).hasClass('withContainer')) {
+			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
+			+ '<span class="select1" style="position: relative; z-index: 10000">'
+			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
+			+ '</span>'
+			+ '<div class="dropdown-container" id="dropdown-container">'
+			+ '<ul class="dropdown" style="z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'
+			+ '</div>'
+			+ '</span>';
+		} else {
+			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
+			+ '<span class="select1" style="float: left; position: relative; z-index: 10000">'
+			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
+			+ '</span>'
+			+ '<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'
+			+ '</span>';
+		}
+
+		$(this).before(dropdownMarkup).css({position: 'absolute', left: -9999});
 
 		var ul = $(this).prev().find('ul');
 		var selectHeight = $(this).prev().outerHeight();
-		if ( ul.css('left') == 'auto' ) ul.css({left: 0});
-		if ( ul.css('top') == 'auto' ) ul.css({top: selectHeight});
+		if ( ul.css('left') == 'auto' ) {
+			ul.css({left: 0});
+		}
+		if ( ul.css('top') == 'auto' ) {
+			ul.css({top: selectHeight});
+		}
 		var liHeight = ul.find('li').outerHeight();
 		var position = ul.css('top');
 		ul.hide();
 
 		/* при клике на псевдоселекте */
 		$(this).prev().find('span.select1').click(function() {
-		
 			/* умное позиционирование */
-			
-
 			$('span.selectbox1').css({zIndex: 1}).removeClass('focused');
-			if ( $(this).next('ul').is(':hidden') ) {
+			if ( $(this).parent().find('ul').is(':hidden') ) {
 				$('ul.dropdown:visible').hide();
 				$('.trigger').addClass('actSel1');
-				$(this).next('ul').show();
+				$(this).parent().find('ul').show();
+				$('#dropdown-container').show();
 			} else {
-				$(this).next('ul').hide();
-
+				$(this).parent().find('ul').hide();
+				$('#dropdown-container').hide();
 			}
 			$(this).parent().css({zIndex: 3});
 			return false;
@@ -70,12 +87,11 @@ $(function() {
 		})
 		/* при клике на пункт списка */
 		.click(function() {
-			$(this).siblings().removeClass('selected sel').end()
-				.addClass('selected sel').parent().hide()
-				.prev('span.select1').find('span.text1').text($(this).text())
-			;
+			$(this).siblings().removeClass('selected sel').end().addClass('selected sel').parent().hide();
+			$('#selectTextLabel').text($(this).text());
+			$('#dropdown-container').hide();
 			option.prop('selected', false).eq($(this).index()).prop("selected", true);
-			$(this).parents('span.selectbox1').next().change();
+			$(select[0]).change();
 		});
 
 		/* фокус на селекте при нажатии на Tab */

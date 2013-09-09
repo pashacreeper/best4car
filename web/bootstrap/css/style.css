@@ -742,10 +742,10 @@ select{
     min-width: 120px;
     padding: 10px 0;
     text-align: left;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(199, 199, 199);
-    border-radius: 4px;
     color: #4a4747;
+    border: 1px solid #C7C7C7;
+    background-color: #fff;
+    border-radius: 4px;
 }
 .assortSelect>span{
     float: left;
@@ -760,6 +760,21 @@ select{
 .selectbox1 li:hover, .selectbox li.selected {
     background: #f35d2e;
     color: #fff;
+}
+.selectbox1 .dropdown-container{
+    background-color: #fff;
+    width: 122px;
+    height: 105px;
+    overflow: scroll;
+    border: 1px solid #C7C7C7;
+    border-radius: 4px;
+    display: none;
+}
+.selectbox1 .dropdown-container ul.dropdown{
+    background-color: none !important;
+    border-radius: 0px;
+    border: none !important;
+    top: 0px !important;
 }
 .text1{
     color: #f35d2e;

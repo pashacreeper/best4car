@@ -67,7 +67,7 @@ class CompanyType extends AbstractType
                 'label' => 'Валюта',
                 'empty_value' => 'Валюта',
                 'attr' => [
-                    'class' => 'styled1'
+                    'class' => 'styled1 withContainer'
                 ]
             ])
             ->add('services', 'entity', [
