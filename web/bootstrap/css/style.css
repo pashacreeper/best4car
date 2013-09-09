@@ -886,10 +886,10 @@ select{
     background: url('/bootstrap/img/iconmini.png') -196px -65px;
 }
 .iconcard{
-    background: url('/bootstrap/img/iconmini.png') -168px -32px;
+    background: url('/bootstrap/img/iconmini.png') -224px -32px;
 }
 .iconcafe{
-    background: url('/bootstrap/img/iconmini.png') -224px -32px;
+    background: url('/bootstrap/img/iconmini.png') -168px -32px;
 }
 .labelCheckBox{
     font: 1.4em 'PT Sans', sans;
