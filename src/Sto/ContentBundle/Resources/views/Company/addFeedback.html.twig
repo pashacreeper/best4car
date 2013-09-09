@@ -13,7 +13,7 @@
     {{ parent() }}
     <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
     <script src="{{ asset('bundles/stocore/js/tiny_mce/jquery.tinymce.min.js') }}"></script>
-    <script src="{{ asset('bundles/stocontent/js/jquery.rating.pack.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.rating.pack.js') }}"></script>
     {{ form_javascript(form) }}
 {% endblock %}
 
@@ -60,7 +60,7 @@
             <div class="contentLabel overflow marginBottom ">
 
                 <div class="inputReviewWrap">
-                    <label>Текс отзыва <span class="additionalInfo">(не обязательно)</span></label>
+                    <label>Текст отзыва <span class="additionalInfo">(не обязательно)</span></label>
                     {{ form_widget(form.content) }}
                 </div>
                 <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
