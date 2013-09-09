@@ -33,7 +33,7 @@ a.bttn:hover{
 }
 
 .menuLeftBar .activeBar .acctBtn:after{
-    content: <i class="subActive"></i>;
+    content: '<i class="subActive"></i>';
 }
 
 .registration:hover{
@@ -334,10 +334,11 @@ span.complain{
 }
 
 .registration-popup{
-    top: 40px !important;
+    top: 29px !important;
 }
 .registration-popup .contentLabel{
     margin: 2px;
+    padding-bottom: 0px;
 }
 .rowColumns p{
     float: left;
