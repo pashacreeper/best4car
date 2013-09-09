@@ -525,18 +525,25 @@ a.btnNext:hover{
     margin-right: 10px;
 }
 .reviewButtonsWrapper {
+    overflow: hidden;
     margin-top: 10px;
     width: 100%;
 }
 .reviewButtonsWrapper .left {
+    height: 20px;
+    float: left;
     text-align: left;
     width: 30%;
 }
 .reviewButtonsWrapper .center {
+    height: 20px;
+    float: left;
     text-align: center;
     width: 40%;
 }
 .reviewButtonsWrapper .right {
+    height: 20px;
+    float: left;
     text-align: right;
     width: 30%;
 }
