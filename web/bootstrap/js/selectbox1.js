@@ -19,7 +19,14 @@ $(function() {
 		var optionSelected = $(this).find('option:selected');
 		var dropdown = '';
 		var selectText = $(this).find('option:first').text();
-		if (optionSelected.length) selectText = optionSelected.text();
+		var withContainer = false;
+		if (optionSelected.length) {
+			selectText = optionSelected.text();
+		}
+
+		if ($(this).hasClass('withContainer')) {
+			withContainer = true;
+		}
 
 		for (i = 0; i < option.length; i++) {
 			var selected = '';
@@ -29,36 +36,46 @@ $(function() {
 			dropdown += '<li' + selected + '>'+ option.eq(i).text() +'</li>';
 		}
 
-		$(this).before(
-			'<span class="selectbox1" style="display: inline-block; position: relative">'+
-				'<span class="select1" style="float: left; position: relative; z-index: 10000"><span class="text1">' + selectText + '</span>'+
-				'</span>'+
-				'<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'+
-			'</span>'
-		).css({position: 'absolute', left: -9999});
+		var dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
+				+ '<span class="select1" style="float: left; position: relative; z-index: 10000">'
+					+ '<span class="text1">' + selectText + '</span>'
+				+ '</span>';
+		if (withContainer) {
+			dropdownMarkup = dropdownMarkup + '<div class="dropdown-container">';
+		}
+		dropdownMarkup = dropdownMarkup + '<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>';
+		if (withContainer) {
+			dropdownMarkup = dropdownMarkup + '</div>';
+		}
+		dropdownMarkup = dropdownMarkup + '</span>';
+
+		$(this).before(dropdownMarkup).css({position: 'absolute', left: -9999});
 
 		var ul = $(this).prev().find('ul');
 		var selectHeight = $(this).prev().outerHeight();
-		if ( ul.css('left') == 'auto' ) ul.css({left: 0});
-		if ( ul.css('top') == 'auto' ) ul.css({top: selectHeight});
+		if ( ul.css('left') == 'auto' ) {
+			ul.css({left: 0});
+		}
+		if ( ul.css('top') == 'auto' ) {
+			ul.css({top: selectHeight});
+		}
 		var liHeight = ul.find('li').outerHeight();
 		var position = ul.css('top');
 		ul.hide();
 
+		console.log(ul);
+		console.log(selectHeight);
+
 		/* при клике на псевдоселекте */
 		$(this).prev().find('span.select1').click(function() {
-		
 			/* умное позиционирование */
-			
-
 			$('span.selectbox1').css({zIndex: 1}).removeClass('focused');
-			if ( $(this).next('ul').is(':hidden') ) {
+			if ( $(this).parent().find('ul').is(':hidden') ) {
 				$('ul.dropdown:visible').hide();
 				$('.trigger').addClass('actSel1');
-				$(this).next('ul').show();
+				$(this).parent().find('ul').show();
 			} else {
-				$(this).next('ul').hide();
-
+				$(this).parent().find('ul').hide();
 			}
 			$(this).parent().css({zIndex: 3});
 			return false;
