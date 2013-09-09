@@ -2,14 +2,33 @@
 
 {% block title %}Дополнительная информация{% endblock %}
 
-{% block header %}<h4>{{ block('title') }}</h4>{% endblock %}
+{% block pageTitle %}
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">Дополнительная информация</h1>
+        </div>
+    </div>
+{% endblock %}
+{% block search %}{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-create-action.css') }}"/>
+{% endblock %}
 
 {% block content %}
-    <h1>Дополнительная информация</h1>
-    {% if form is defined %}
-        <form name="register-form" action="{{ path('user_vk_account_save') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-            {{ form_widget(form) }}
-            <input type="submit" name="additional_info_submit" value="Отправить" class="btn">
-        </form>
-    {% endif %}
+    <section class="contentMain  row">
+        <div class="content">
+            {% if form is defined %}
+                <form name="register-form" action="{{ path('user_vk_account_save') }}" method="post" {{ form_enctype(form) }} class="inputForm">
+                    {{ form_widget(form) }}
+                    <div class="bottomContent">
+                        <input type="submit" class="btnBottomContent addPhotoBtn" value="Сохранить"/>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

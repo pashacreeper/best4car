@@ -12,15 +12,28 @@ class AdditionalUserType extends AbstractType
     {
         $builder
             ->add('email', null, [
-                'label' => 'Email'
-            ])
+                    'label' => 'Email',
+                    'attr' => [
+                        'class' => 'inputField span12'
+                    ]
+                ])
             ->add('password', 'password', [
-                'label' => 'Пароль'
-            ])
+                    'label' => 'Пароль',
+                    'attr' => [
+                        'class' => 'inputField span12'
+                    ]
+                ])
             ->add('birthDate', 'date', [
-                'label' => 'Дата рождения',
-                'years' => range (1920, date('Y')),
-            ])
+                    'label' => 'Дата рождения',
+                    'years' => range (1920, date('Y')),
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                    'required' => false,
+                    'attr' => [
+                        'class' => "inputData span4",
+                        'data-format' => "yyyy-MM-dd"
+                    ]
+                ])
         ;
     }
 
