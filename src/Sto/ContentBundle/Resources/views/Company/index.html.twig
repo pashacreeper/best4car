@@ -16,14 +16,14 @@
         var oldZoom = 11;
         var myCollection;
         var myMap;
-        var globalCompanies = '';
+        var globalCompanies;
 
         function renderMap(companies) {
             filterDataByZoom(myMap.getZoom(), companies);
 
             myMap.events.add('actionend', function (evt) {
                 if (oldZoom != myMap.getZoom()) {
-                    filterDataByZoom(myMap.getZoom(), companies);
+                    filterDataByZoom(myMap.getZoom(), globalCompanies);
                     oldZoom = myMap.getZoom();
                 }
             });
@@ -184,6 +184,7 @@
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
                 dataType: 'json',
                 success: function (response) {
+                    globalCompanies = response;
                     $('.contentTopCenter span').text(response.length);
 
                     $('#companiesListContainer').empty();
