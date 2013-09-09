@@ -14,19 +14,15 @@ $(function() {
 	});
 
 	$('select.styled1').each(function() {
-
-		var option = $(this).find('option');
-		var optionSelected = $(this).find('option:selected');
+		var select = $(this);
+		var option = select.find('option');
+		var optionSelected = select.find('option:selected');
 		var dropdown = '';
-		var selectText = $(this).find('option:first').text();
-		var withContainer = false;
+		var selectText = select.find('option:first').text();
 		if (optionSelected.length) {
 			selectText = optionSelected.text();
 		}
-
-		if ($(this).hasClass('withContainer')) {
-			withContainer = true;
-		}
+		var dropdownMarkup = '';
 
 		for (i = 0; i < option.length; i++) {
 			var selected = '';
@@ -36,18 +32,23 @@ $(function() {
 			dropdown += '<li' + selected + '>'+ option.eq(i).text() +'</li>';
 		}
 
-		var dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
-				+ '<span class="select1" style="float: left; position: relative; z-index: 10000">'
-					+ '<span class="text1">' + selectText + '</span>'
-				+ '</span>';
-		if (withContainer) {
-			dropdownMarkup = dropdownMarkup + '<div class="dropdown-container">';
+		if ($(this).hasClass('withContainer')) {
+			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
+			+ '<span class="select1" style="position: relative; z-index: 10000">'
+			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
+			+ '</span>'
+			+ '<div class="dropdown-container" id="dropdown-container">'
+			+ '<ul class="dropdown" style="z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'
+			+ '</div>'
+			+ '</span>';
+		} else {
+			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
+			+ '<span class="select1" style="float: left; position: relative; z-index: 10000">'
+			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
+			+ '</span>'
+			+ '<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'
+			+ '</span>';
 		}
-		dropdownMarkup = dropdownMarkup + '<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>';
-		if (withContainer) {
-			dropdownMarkup = dropdownMarkup + '</div>';
-		}
-		dropdownMarkup = dropdownMarkup + '</span>';
 
 		$(this).before(dropdownMarkup).css({position: 'absolute', left: -9999});
 
@@ -74,8 +75,10 @@ $(function() {
 				$('ul.dropdown:visible').hide();
 				$('.trigger').addClass('actSel1');
 				$(this).parent().find('ul').show();
+				$('#dropdown-container').show();
 			} else {
 				$(this).parent().find('ul').hide();
+				$('#dropdown-container').hide();
 			}
 			$(this).parent().css({zIndex: 3});
 			return false;
@@ -87,12 +90,11 @@ $(function() {
 		})
 		/* при клике на пункт списка */
 		.click(function() {
-			$(this).siblings().removeClass('selected sel').end()
-				.addClass('selected sel').parent().hide()
-				.prev('span.select1').find('span.text1').text($(this).text())
-			;
+			$(this).siblings().removeClass('selected sel').end().addClass('selected sel').parent().hide();
+			$('#selectTextLabel').text($(this).text());
+			$('#dropdown-container').hide();
 			option.prop('selected', false).eq($(this).index()).prop("selected", true);
-			$(this).parents('span.selectbox1').next().change();
+			$(select[0]).change();
 		});
 
 		/* фокус на селекте при нажатии на Tab */

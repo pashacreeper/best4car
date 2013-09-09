@@ -764,10 +764,11 @@ select{
 .selectbox1 .dropdown-container{
     background-color: #fff;
     width: 122px;
-    height: 200px;
+    height: 105px;
     overflow: scroll;
     border: 1px solid #C7C7C7;
     border-radius: 4px;
+    display: none;
 }
 .selectbox1 .dropdown-container ul.dropdown{
     background-color: none !important;
