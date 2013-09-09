@@ -64,9 +64,6 @@ $(function() {
 		var position = ul.css('top');
 		ul.hide();
 
-		console.log(ul);
-		console.log(selectHeight);
-
 		/* при клике на псевдоселекте */
 		$(this).prev().find('span.select1').click(function() {
 			/* умное позиционирование */
