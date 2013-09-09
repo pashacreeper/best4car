@@ -562,3 +562,7 @@ a.btnNext:hover{
     color: #f35d2e;
     font: 1.3em 'PT Sans', sans;
 }
+
+.forgotPass:hover{
+    text-decoration: none !important;
+}
