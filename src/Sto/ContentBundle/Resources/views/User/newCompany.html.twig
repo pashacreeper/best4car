@@ -155,12 +155,16 @@
                         var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $phoneNewLink = $('<div class="contactDate"></div>').append($phoneAddTagLink);
                         jQuery(document).ready(function() {
+                            phoneCollectionHolder.on('click', '.deleteElement', function() {
+                                $(this).parents('.contactDate').remove();
+                            });
                             phoneCollectionHolder.append($phoneNewLink);
                             phoneCollectionHolder.data('index', phoneCollectionHolder.find(':input').length);
 
                             $phoneAddTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(phoneCollectionHolder, $phoneNewLink, true);
+                                $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                                addTagForm(phoneCollectionHolder, $phoneNewLink, true, $deleteLink);
                             });
                         });
                     </script>
@@ -199,12 +203,16 @@
                         var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
+                            managerCollectionHolder.on('click', '.deleteElement', function() {
+                                $(this).parents('.contactDate').remove();
+                            });
                             managerCollectionHolder.append($managerNewLink);
                             managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length + 1);
 
                             $managerAddTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(managerCollectionHolder, $managerNewLink, true);
+                                $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                                addTagForm(managerCollectionHolder, $managerNewLink, true, $deleteLink);
                             });
                         });
                     </script>
