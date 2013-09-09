@@ -621,19 +621,6 @@ a.addEmail{
 	margin-bottom: 2px; 
 	font-size: 10px;
 }
-.reviewAdditionalInfoButton {
-	color: #f35d2e;
-	border-bottom: 1px dotted #f35d2e;
-	font: 1.3em 'PT Sans', sans;
-	text-decoration: none;
-	display: inline-block;
-	margin-left: 150px;
-}
-.reviewAdditionalInfoButton:hover {
-	color: #f35d2e;
-	border-bottom: 1px dotted transparent;
-	text-decoration: none;
-}
 .collapsText{
 	display: block;
 }
@@ -699,14 +686,13 @@ a.complain, span.complain{
 	padding: 10px 10px 0 10px;
 	display: none;
 }
-.complainAlert{	
-	float: left;
+.complainAlert{
 	display: inline-block;
 	width: 16px;
 	height: 13px;
 	background: url("/bootstrap/img/complainalert.png") no-repeat;
 	vertical-align: middle;
-	margin: 2px 3px 0 0;
+	margin: 0 3px 0 5px;
 }
 .complainAlert.active{
 	cursor: pointer;
