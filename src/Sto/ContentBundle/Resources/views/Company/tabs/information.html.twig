@@ -161,6 +161,6 @@
     <a href="{{ path('content_company_feedbacks_add', { 'id' : company.id }) }}" class="addPhotoBtn bttn" {% if not app.user %}data-reveal-id="not-loged-in"{% endif %}>Оставить отзыв<i class="writeReview"></i></a>
     {% if isManager %}
         <a href="{{ path("content_company_edit", {'id': company.id}) }}" class="addPhotoBtn bttn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
-        <a href="{{ path("company_deal_new", {'id': company.id}) }}" class="addPhotoBtn bttn" style="margin-top:10px;">Добавить акцию<i class="binIcon"></i></a>
+        <a href="{{ path("company_deal_new", {'id': company.id}) }}" class="addPhotoBtn bttn" style="margin-top:10px;">Добавить акцию<i class="plusIconWhite"></i></a>
     {% endif %}
 </div>

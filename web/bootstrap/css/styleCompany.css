@@ -212,7 +212,7 @@ ul.tabNavigation li a:focus {
 	box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
 	color: #f6f6f6;
 }
-.writeReview, .pencilIcon, .binIcon{
+.writeReview, .pencilIcon, .binIcon, .plusIconWhite{
 	display: inline-block;
 	width: 26px;
 	height: 26px;
@@ -224,13 +224,16 @@ ul.tabNavigation li a:focus {
 	right: 20px;
 }
 .writeReview{
-	background: url("../img/iconreview.png") no-repeat;
+	background: url("/bootstrap/img/iconreview.png") no-repeat;
 }
 .pencilIcon{
-	background: url("../img/pencil-icon.png");
+	background: url("/bootstrap/img/pencil-icon.png") no-repeat;
 }
 .binIcon{
-	background: url("../img/bin-icon.png");
+	background: url("/bootstrap/img/bin-icon.png") no-repeat;
+}
+.plusIconWhite{
+	background: url("/bootstrap/img/icon-plus-white.png") no-repeat;
 }
 .acctBtn{
 	display: inline-block;
