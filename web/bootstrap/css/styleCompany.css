@@ -355,6 +355,7 @@ ul.tabNavigation li a:focus {
 .managerCompany span{
 	float: left;
 	width: 60px;
+	margin-right: 8px;
 }
 .managerCompany span img{
 	width: 100%;
