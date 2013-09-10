@@ -80,7 +80,7 @@ services:
     app.admin.auto_service:
           class: Sto\CoreBundle\Admin\AutoServiceAdmin
           tags:
-            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Узлы и работы}
+            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Перечень услуг}
           arguments: [null, Sto\CoreBundle\Entity\AutoServices, SonataAdminBundle:CRUD]
 
     app.admin.company_type:
