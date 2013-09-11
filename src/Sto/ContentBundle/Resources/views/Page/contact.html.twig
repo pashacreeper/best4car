@@ -1,30 +1,44 @@
 {% extends 'StoContentBundle:Page:show.html.twig' %}
 
 {% block page_content %}
-<div class="tab-content">
-    <form class="well span8">
-      <div class="row">
-            <div class="span3">
-                <label>Ваше имя</label>
-                <input type="text" class="span3" placeholder="Ваше имя" name="name" {% if app.user %}value="{{ app.user.firstName }} {{ app.user.lastName }}"{% endif %}>
-                <label>Город</label>
-                <input type="text" class="span3" placeholder="Город" {% if app.user %}value="{{ app.user.city.name }}"{% endif %}>
-                <label>Email Address</label>
-                <input type="text" class="span3" placeholder="Your email address"  {% if app.user %}value="{{ app.user.email }}"{% endif %}>
-                <label>Тема сообщения</label>
-                <select id="subject" name="subject" class="span3">
-                    <option value="na" selected="">Выберите:</option>
-                    <option value="error">Сообрщение об ошибке</option>
-                    <option value="suggestions">Пожелание</option>
-                </select>
-            </div>
-            <div class="span5">
-                <label>Сообщение</label>
-                <textarea name="message" id="message" class="input-xlarge span5" rows="10"></textarea>
-            </div>
+<p class="infoText">Друзья! Если у вас есть вопросы или предложения по работе сервиса, вы нашли ошибку или неточность в данных, у вас есть предложения по сотрудничеству - напишите нам на email - <a href="mailto:feedback@best4car.ru">feedback@best4car.ru</a>!</p>
 
-            <button type="submit" class="btn btn-primary pull-right">Отправить</button>
+<!-- <p class="infoText">Вы также можете воспользоваться формой обратной связи:</p>
+
+<form class="well span8">
+  <div class="row">
+        <div class="span3">
+            <label>Ваше имя</label>
+            <input type="text" class="span3" placeholder="Ваше имя" name="name" {% if app.user %}value="{{ app.user.firstName }} {{ app.user.lastName }}"{% endif %}>
+            <label>Город</label>
+            <input type="text" class="span3" placeholder="Город" {% if app.user %}value="{{ app.user.city.name }}"{% endif %}>
+            <label>Email Address</label>
+            <input type="text" class="span3" placeholder="Your email address"  {% if app.user %}value="{{ app.user.email }}"{% endif %}>
+            <label>Тема сообщения</label>
+            <select id="subject" name="subject" class="span3">
+                <option value="na" selected="">Выберите:</option>
+                <option value="error">Сообрщение об ошибке</option>
+                <option value="suggestions">Пожелание</option>
+            </select>
         </div>
-    </form>
-</div>
+        <div class="span5">
+            <label>Сообщение</label>
+            <textarea name="message" id="message" class="input-xlarge span5" rows="10"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary pull-right">Отправить</button>
+    </div>
+</form> -->
+
+
+<p class="infoTextItalic"><i>С уважением, создатели <a href="{{ path('_index') }}">best4car.ru</a> (ООО “Авто Эксперт”)</i></p>
+<p class="infoTextItalic"><i>Колесников Константин aka <strong>keles</strong></i></p>
+<p class="infoTextItalic"><i><a href="mailto:Колесников%20Константин%20&lt;kolesnikov@best4car.ru&gt;">kolesnikov@best4car.ru</a></i></p>
+<img src="{{ 'bootstrap/img/konstantin.jpg' | imagine_filter('contacts_photos') }}" alt="фото пользователя">
+<br />
+<br />
+<br />
+<p class="infoTextItalic"><i>Саенко Павел aka <strong>creeper</strong></i></p>
+<p class="infoTextItalic"><i><a href="mailto:Саенко%20Павел%20&lt;saenko@best4car.ru&gt;">saenko@best4car.ru</a></i></p>
+<img src="{{ 'bootstrap/img/pavel.jpg' | imagine_filter('contacts_photos') }}" alt="фото пользователя">
 {% endblock %}

@@ -230,6 +230,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 200 }
+        contacts_photos:
+            quality: 100
+            filters:
+                thumbnail: { size: [191, 258], mode: outbound }
 
 genemu_form:
     tinymce:
