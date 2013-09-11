@@ -95,14 +95,36 @@
         {# Buisinesss profile #}
         <div class="tab-pane" id="business-profile">
             <div class="contentLabel marginBottom">
-                {{ form_label(cForm.specialization) }}
-                <ul class="tagContBig" id="specializationContainer"></ul>
-                <a class="addImg clear" id="addSpecialization" data-reveal-id="sepcializationModal">Добавить<i class="icon-ok-sign"></i></a>
-            </div>
-            <div class="contentLabel marginBottom">
-                {{ form_label(cForm.services) }}
-                <ul class="tagContBig" id="serviceContainer"></ul>
-                <a class="addImg clear" id="addSpecialization" data-reveal-id="serviceModal">Добавить<i class="icon-ok-sign"></i></a>
+                <label>Специализация</label>
+                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}">
+                    {% for specialization in cForm.specializations %}
+                        <div class="contactDate">
+                            {{ form_widget(specialization.type) }}
+                            {{ form_widget(specialization.subType) }}
+                            <i class="icon-remove-circle deleteElement"></i>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <script>
+                    jQuery(document).ready(function() {
+                        var specializationsCollectionWrapper = $('#specializationsAddWrapper');
+                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+
+                        specializationsCollectionWrapper.append($newLink);
+                        specializationsCollectionWrapper.data('index', specializationsCollectionWrapper.find('.contactDate').length - 1);
+
+                        specializationsCollectionWrapper.on('click', '.deleteElement', function() {
+                            $(this).parents('.contactDate').remove();
+                        });
+                        specializationsCollectionWrapper.on('click', '.addImg', function() {
+                            $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                            addTagForm(specializationsCollectionWrapper, $newLink, true, $deleteLink);
+                            return false;
+                        });
+                    });
+                </script>
             </div>
             <div class="contentLabel marginBottom">
                 {{ form_label(cForm.additionalServices) }}
@@ -303,22 +325,7 @@
             </div>
         </div>
     </div>
-    <div id="sepcializationModal" class="reveal-modal sepcializationModal">
-        <a href="#" class="close-reveal-modal"></a>
-        <p class="popUpTitle">Основная специализация</p>
-        <div class="wrapper" data-type="specialization">
-            {{ form_widget(cForm.specialization) }}
-        </div>
-        <a href="#" class="btnNext addPhotoBtn" id="specializationSave" data-container="specializationContainer">Сохранить</a>
-    </div>
-    <div id="serviceModal" class="reveal-modal serviceModal">
-        <a href="#" class="close-reveal-modal"></a>
-        <p class="popUpTitle">Услуги</p>
-        <div class="wrapper" data-type="service">
-            {{ form_widget(cForm.services) }}
-        </div>
-        <a href="#" class="btnNext addPhotoBtn" id="serviceSave" data-container="serviceContainer">Сохранить</a>
-    </div>
+
     <div id="yandexMapModal" class="reveal-modal yandexMapModal"><!-- popUp firstReg-->
         <a href="#" class="close-reveal-modal"></a>
         <div class="slidCont">

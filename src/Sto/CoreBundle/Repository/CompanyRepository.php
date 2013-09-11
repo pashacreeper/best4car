@@ -26,8 +26,10 @@ class CompanyRepository extends EntityRepository
     public function getCompaniesWithFilter($params = array())
     {
         $qb = $this->createQueryBuilder('company')
-            ->select('company, csp, fb, d')
-            ->join('company.specializations', 'csp')
+            ->select('company, csp, fb, d, csp_type, csp_sub_type')
+            ->leftJoin('company.specializations', 'csp')
+            ->leftJoin('csp.type', 'csp_type')
+            ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
             ->where('company.visible = true');
 
@@ -36,7 +38,7 @@ class CompanyRepository extends EntityRepository
                 ->setParameter('city', $params['city']);
         }
 
-        /*if (isset($params['companyType']) && $params['companyType']) {
+        if (isset($params['companyType']) && $params['companyType']) {
             $qb->andWhere('csp.type = :sp')
                 ->setParameter('sp', $params['companyType']);
         }
@@ -44,7 +46,7 @@ class CompanyRepository extends EntityRepository
         if (isset($params['subCompanyType']) && $params['subCompanyType']) {
             $qb->andWhere('csp.subType = :s')
                 ->setParameter('s', $params['subCompanyType']);
-        }*/
+        }
 
         if (isset($params['auto']) && $params['auto']) {
             $qb->join('company.autos', 'ca')
@@ -95,9 +97,7 @@ class CompanyRepository extends EntityRepository
             $qb->orderBy('company.rating', 'DESC');
         }
 
-        $result = $qb->getQuery()->getArrayResult();
-        print_r($result[0]);
-        die();
+        return $qb->getQuery()->getArrayResult();
     }
 
     public function getCompaniesByCity($city)
