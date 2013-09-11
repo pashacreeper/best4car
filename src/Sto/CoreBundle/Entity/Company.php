@@ -48,22 +48,9 @@ class Company
     private $web;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType")
-     * @ORM\JoinTable(name="company_dictionary_company_type_parrent",
-     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanySpecialization", mappedBy="company", cascade={"all"})
      */
-    private $specialization;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType")
-     * @ORM\JoinTable(name="company_dictionary_company_type_children",
-     *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
-     * )
-     */
-    private $services;
+    private $specializations;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
@@ -281,7 +268,7 @@ class Company
         $this->deals = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
         $this->gallery = new ArrayCollection();
-        $this->specialization = new ArrayCollection();
+        $this->specializations = new ArrayCollection();
         $this->service = new ArrayCollection();
         $this->additionalServices = new ArrayCollection();
         $this->autoServices = new ArrayCollection();
@@ -413,19 +400,19 @@ class Company
     /**
      * Set specialization
      *
-     * @param  string  $specialization
+     * @param  string  $specializations
      * @return Company
      */
     public function addSpecialization($specialization)
     {
-        $this->specialization[] = $specialization;
+        $this->specializations[] = $specialization->setCompany($this);
 
         return $this;
     }
 
     public function removeSpecialization($specialization)
     {
-        $this->specialization->removeElement($specialization);
+        $this->specializations->removeElement($specialization);
 
         return $this;
     }
@@ -435,9 +422,16 @@ class Company
      *
      * @return string
      */
-    public function getSpecialization()
+    public function getSpecializations()
     {
-        return $this->specialization;
+        return $this->specializations;
+    }
+
+    public function setSpecializations($value)
+    {
+        $this->specializations = $value;
+
+        return $this;
     }
 
     public function setServices($services)

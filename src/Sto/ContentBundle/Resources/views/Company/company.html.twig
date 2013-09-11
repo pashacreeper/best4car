@@ -16,10 +16,10 @@
     </div>
     <div class="infoCompanyCont smallInfoCompany" id="blocSmall_{{ item.id }}">
         <ul class="iconSpecialisation">
-            {% for key, specialization in item.specialization %}
+            {% for specialization in item.specializations %}
                 <li class="iconSpecialisationitem">
-                    {% if specialization.iconNameLarge %}
-                        <img src="/storage/images/company_icon/{{ specialization.iconNameLarge }}" width="34" height="40">
+                    {% if specialization.type.iconNameLarge %}
+                        <img src="/storage/images/company_icon/{{ specialization.type.iconNameLarge }}" width="34" height="40">
                     {% else %}
                         <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
                     {% endif %}
@@ -30,14 +30,14 @@
         <div class="popupCardCompanyCont">
             <div class="servicesPart">
                 <ul class="services">
-                    {% for key, specialization in item.specialization %}
+                    {% for specialization in item.specializations %}
                         <li class="servisesItem">
-                            {% if specialization.iconNameLarge %}
-                                <img src="/storage/images/company_icon/{{ specialization.iconNameLarge }}" width="34" height="40">
+                            {% if specialization.type.iconNameLarge %}
+                                <img src="/storage/images/company_icon/{{ specialization.type.iconNameLarge }}" width="34" height="40">
                             {% else %}
                                 <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
                             {% endif %}
-                            <span class="serviceName">{{ specialization.name }}</span>
+                            <span class="serviceName">{{ specialization.type.name }}</span>
                         </li>
                     {% endfor %}
             </div>

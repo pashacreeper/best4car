@@ -167,11 +167,29 @@ class CompanyController extends MainController
      */
     public function updateCompanyAction(Request $request, Company $company)
     {
+        $originalSpecializations = [];
+        foreach ($company->getSpecializations() as $item) {
+            $originalSpecializations[] = $item;
+        }
+
         $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            foreach ($company->getSpecializations() as $item) {
+                foreach ($originalSpecializations as $key => $toDel) {
+                    if ($toDel->getId() === $item->getId()) {
+                        unset($originalSpecializations[$key]);
+                    }
+                }
+            }
+
+            foreach ($originalSpecializations as $item) {
+                $em->remove($item);
+            }
+
             $em->persist($company);
             $em->flush();
 

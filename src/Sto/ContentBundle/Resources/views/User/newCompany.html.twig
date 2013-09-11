@@ -88,17 +88,29 @@
         {# EOF General data #}
         {# Buisinesss profile #}
         <div class="tab-pane" id="business-profile">
-            <div class="contentLabel clear contentLabelNoOverflow">
-                {{ form_label(cForm.specialization) }}
-                <div class="basket__cont__body__bottom__paper">
-                    {{ form_widget(cForm.specialization) }}
-                </div>
-            </div>
-            <div class="contentLabel clear contentLabelNoOverflow">
-                {{ form_label(cForm.services) }}
-                <div class="basket__cont__body__bottom__paper">
-                    {{ form_widget(cForm.services) }}
-                </div>
+            <div class="contentLabel marginBottom">
+                <label>Специализация</label>
+                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}"></div>
+
+                <script>
+                    jQuery(document).ready(function() {
+                        var collectionWrapper = $('#specializationsAddWrapper');
+                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+
+                        collectionWrapper.append($newLink);
+                        collectionWrapper.data('index', collectionWrapper.find('.contactDate').length - 1);
+
+                        collectionWrapper.on('click', '.deleteElement', function() {
+                            $(this).parents('.contactDate').remove();
+                        });
+                        collectionWrapper.on('click', '.addImg', function() {
+                            $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                            addTagForm(collectionWrapper, $newLink, true, $deleteLink);
+                            return false;
+                        });
+                    });
+                </script>
             </div>
             <div class="contentLabel marginBottom clear">
                 {{ form_label(cForm.additionalServices) }}
@@ -313,17 +325,9 @@
         <a href="#" class="close-reveal-modal"></a>
         <p class="popUpTitle">Основная специализация</p>
         <div class="wrapper" data-type="specialization">
-            {{ form_widget(cForm.specialization) }}
+            {{ form_widget(cForm.specializations) }}
         </div>
         <a href="#" class="btnNext addPhotoBtn" id="specializationSave" data-container="specializationContainer">Сохранить</a>
-    </div>
-    <div id="serviceModal" class="reveal-modal serviceModal">
-        <a href="#" class="close-reveal-modal"></a>
-        <p class="popUpTitle">Услуги</p>
-        <div class="wrapper" data-type="service">
-            {{ form_widget(cForm.services) }}
-        </div>
-        <a href="#" class="btnNext addPhotoBtn" id="serviceSave" data-container="serviceContainer">Сохранить</a>
     </div>
     <div id="yandexMapModal" class="reveal-modal yandexMapModal"><!-- popUp firstReg-->
         <a href="#" class="close-reveal-modal"></a>
