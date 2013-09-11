@@ -311,3 +311,4 @@ shtumi_useful:
             class: StoCoreBundle:CompanyType
             parent_property: parent
             property: name
+            no_result_msg: ' '
