@@ -22,7 +22,7 @@ parameters:
 
     storage_path: storage/images
 
-    vk_client_id: 1234567
+    vk_client_id: 12345678
     vk_client_secret: xxxxxxxxxxxxx
 
     mail_vk_register: sto.ru
