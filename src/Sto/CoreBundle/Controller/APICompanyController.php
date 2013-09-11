@@ -13,7 +13,6 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Catalog;
-use Sto\ContentBundle\Form\Extension\ChoiceList\WorkTime;
 use Sto\ContentBundle\Form\Extension\ChoiceList\AdditionalServices;
 use Sto\ContentBundle\Form\AdvancedSearchType;
 

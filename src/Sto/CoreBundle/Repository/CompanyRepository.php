@@ -57,8 +57,7 @@ class CompanyRepository extends EntityRepository
             $qb->join('company.deals', 'd')
                 ->andWhere('d.endDate > :endDate')
                 ->setParameter('endDate', new \DateTime('now'));
-        }
-        else {
+        } else {
             $qb->leftJoin('company.deals', 'd');
         }
 

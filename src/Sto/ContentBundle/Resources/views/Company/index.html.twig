@@ -259,15 +259,13 @@
                 companiesAjaxLoad();
             });
 
-
-            /*
-             Убрать эту хрень, сделать нормально, на css
-             */
             var mapHeight = $('#map').height(),
-                    footerHeight = $('section.footer').height();
-
+                footerHeight = $('section.footer').height();
             $('#companiesListContainer').height(mapHeight - footerHeight - 1);
             $('#advancedSearch').height(mapHeight - footerHeight - 75);
+            if (document.documentElement.clientHeight < 800) {
+                $('#registration-form-popup').height(600);
+            }
         }
 
         ymaps.ready(init);

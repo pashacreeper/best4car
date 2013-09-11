@@ -1296,6 +1296,8 @@ select{
     color: #333;
     font: 1.6em 'PT Sans', sans;
     clear: both;
+    position: relative;
+    z-index: 10;
 }
 .popUpTitle2{
     color: #333;

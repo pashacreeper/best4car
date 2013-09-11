@@ -329,10 +329,11 @@ span.complain{
     width: 260px !important;
 }
 
-.registration-popup{
+.registration-form-popup{
     top: 29px !important;
+    overflow: scroll;
 }
-.registration-popup .contentLabel{
+.registration-form-popup .contentLabel{
     margin: 2px;
     padding-bottom: 0px;
 }
