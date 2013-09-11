@@ -156,15 +156,20 @@
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
                         var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-                        var $phoneNewLink = $('<div class="contactDate"></div>').append($phoneAddTagLink);
+                        var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
                         jQuery(document).ready(function() {
+                            deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                            phoneCollectionHolder.on('click', '.deleteElement', function() {
+                                $(this).parents('.contactDate').remove();
+                            });
                             phoneCollectionHolder.append($phoneNewLink);
                             phoneCollectionHolder.data('index', phoneCollectionHolder.find(':input').length);
 
                             $phoneAddTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(phoneCollectionHolder, $phoneNewLink, true);
+                                addTagForm(phoneCollectionHolder, $phoneNewLink, true, deleteLink);
                             });
+                            phoneCollectionHolder.find('.contactDate').append(deleteLink);
                         });
                     </script>
                 </div>
@@ -190,7 +195,7 @@
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
                         var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-                        var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+                        var $newLink = $('<div class="clear"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
                             collectionHolder.on('click', '.deleteElement', function() {
@@ -203,7 +208,7 @@
                                 e.preventDefault();
                                 addTagForm(collectionHolder, $newLink, false, deleteLink);
                             });
-                            collectionHolder.find('.contactDate:first').append(deleteLink);
+                            collectionHolder.find('.contactDate').append(deleteLink);
                         });
                     </script>
                 </div>
@@ -222,15 +227,20 @@
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
                         var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-                        var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
+                        var $managerNewLink = $('<div class="clear"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
+                            deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                            managerCollectionHolder.on('click', '.deleteElement', function() {
+                                $(this).parents('.contactDate').remove();
+                            });
                             managerCollectionHolder.append($managerNewLink);
                             managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
 
                             $managerAddTagLink.on('click', function(e) {
                                 e.preventDefault();
-                                addTagForm(managerCollectionHolder, $managerNewLink, true);
+                                addTagForm(managerCollectionHolder, $managerNewLink, true, deleteLink);
                             });
+                            managerCollectionHolder.find('.contactDate').append(deleteLink);
                         });
                     </script>
                 </div>
@@ -286,15 +296,20 @@
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper');
                 var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-                var $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+                var $photoNewLink = $('<div class="clear"></div>').append($photoAddTagLink);
                 jQuery(document).ready(function() {
+                    deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                    photoCollectionHolder.on('click', '.deleteElement', function() {
+                        $(this).parents('.contactDate').remove();
+                    });
                     photoCollectionHolder.append($photoNewLink);
                     photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
 
                     $photoAddTagLink.on('click', function(e) {
                         e.preventDefault();
-                        addTagForm(photoCollectionHolder, $photoNewLink, true);
+                        addTagForm(photoCollectionHolder, $photoNewLink, true, deleteLink);
                     });
+                    photoCollectionHolder.find('.contactDate').append(deleteLink);
                 });
             </script>
             <div class="bottomContent">
@@ -401,6 +416,7 @@
                 newestForm.find('p.contentLabel').children().unwrap();
                 newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>');
                 $newForm.append(newestForm);
+                $newForm.find('.contentLabel').remove();
                 timeInput = $newForm.find('.dateLeft');
                 timeInput.each(function(index, element){
                     $(element).datetimepicker({
