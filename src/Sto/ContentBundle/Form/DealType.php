@@ -52,12 +52,7 @@ class DealType extends AbstractType
                 'label' => 'Автомабили',
                 'required' => false,
                 'multiple' => true,
-                'class' => 'StoCoreBundle:Catalog\Base',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('catalog')
-                        ->where('catalog.parent is null')
-                    ;
-                },
+                'class' => 'StoCoreBundle:Model',
                 'attr' => [
                     'class' => 'chosen-multiple',
                     'data-placeholder' => "Выберите варианты"
