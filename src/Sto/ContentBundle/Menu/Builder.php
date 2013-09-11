@@ -29,9 +29,7 @@ class Builder extends ContainerAware
         $deals = $menu->addChild('Акции', ['route' => 'content_deals']);
         $deals->setAttribute('class', 'navTopItem');
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
-        if ('content_deal_show' == $route
-            || 'content_deals' == $route
-) {
+        if (('content_deal_show' == $route) || ('content_deals' == $route)) {
             $deals->setCurrent(true);
         }
 
@@ -42,10 +40,7 @@ class Builder extends ContainerAware
         $experts = $menu->addChild('Эксперты', ['uri' => '#']);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
-        if ($route == 'user_profile'
-            || $route == 'fos_user_profile_show'
-            || $route == 'fos_user_profile_edit'
-) {
+        if (($route == 'user_profile') || ($route == 'fos_user_profile_show') || ($route == 'fos_user_profile_edit')) {
             $experts->setCurrent(true);
         }
 
@@ -77,17 +72,9 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'footerCocial']);
 
-        $items = [
-            'google' => 'Google+',
-            'facebook' => 'Facebook',
-            'vk' => 'Вконтакте',
-        ];
-
-        foreach ($items as $key => $value) {
-            $link = $menu->addChild($value, ['uri' => '#']);
-            $link->setAttribute('class', 'footerCocialItem');
-            $link->setLinkAttributes(['class' => $key]);
-        }
+        $link = $menu->addChild('Вконтакте', ['uri' => 'http://vk.com/best4car']);
+        $link->setAttribute('class', 'footerCocialItem');
+        $link->setLinkAttributes(['class' => 'vk']);
 
         return $menu;
     }
