@@ -13,6 +13,10 @@ jQuery(document).ready(function(){
             prevLink.remove();
             sliderWidth = jQuery('.slider').width();
             $('.slide-item').css("margin-left", slideWidth);
+        } else if (jQuery('.slide-item').length == 2) {
+            clonedSlides = slideWrap.find('.slide-item').clone();
+            clonedSlides.addClass('clone');
+            slideWrap.append(clonedSlides);
         }
 
         if (autoplayInterval && jQuery('.slide-item').length > 1) {
