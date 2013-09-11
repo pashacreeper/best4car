@@ -10,6 +10,10 @@ class Builder extends ContainerAware
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $route = $this->container->get('request')->get('_route');
+        $routeParameters = $this->container->get('request')->get('_route_params');
+        if (isset($routeParameters['name'])) {
+            $routeParametersName = $routeParameters['name'];
+        }
         $menu = $factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'navTop']);
 
@@ -29,18 +33,28 @@ class Builder extends ContainerAware
         $deals = $menu->addChild('Акции', ['route' => 'content_deals']);
         $deals->setAttribute('class', 'navTopItem');
         $deals->setLinkAttributes(['data-span-class' => 'actions', 'class' => 'navLink']);
-        if (('content_deal_show' == $route) || ('content_deals' == $route)) {
+        if (in_array($route, [
+            'content_deal_show',
+            'content_deals',
+        ])) {
             $deals->setCurrent(true);
         }
 
         $clubs = $menu->addChild('Клубы', ['route' => 'info_show', 'routeParameters' => ['name' => 'clubs']]);
         $clubs->setAttribute('class', 'navTopItem');
         $clubs->setLinkAttributes(['data-span-class' => 'clubs', 'class' => 'navLink']);
+        if ('info_show' == $route && 'clubs' == $routeParametersName) {
+            $clubs->setCurrent(true);
+        }
 
         $experts = $menu->addChild('Эксперты', ['route' => 'info_show', 'routeParameters' => ['name' => 'experts']]);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
-        if (($route == 'user_profile') || ($route == 'fos_user_profile_show') || ($route == 'fos_user_profile_edit')) {
+        if (in_array($route, [
+            'user_profile',
+            'fos_user_profile_show',
+            'fos_user_profile_edit',
+        ]) || ('info_show' == $route && 'experts' == $routeParametersName)) {
             $experts->setCurrent(true);
         }
 
