@@ -16,7 +16,8 @@ class CompanySpecializationAdmin extends Admin
             ->add('id')
             ->add('company')
             ->add('type')
-            ->add('subType');
+            ->add('subType')
+        ;
     }
 
     public function configureFormFields(FormMapper $formMapper)
@@ -28,13 +29,10 @@ class CompanySpecializationAdmin extends Admin
                         ->where('company_type.parent is null');
                 },
             ])
-            ->add(
-                'subType',
-                'shtumi_dependent_filtered_entity',
-                [
-                    'entity_alias' => 'subType_by_type',
-                    'parent_field' => 'type'
-                ]
-            );
+            ->add('subType', 'shtumi_dependent_filtered_entity', [
+                'entity_alias' => 'subType_by_type',
+                'parent_field' => 'type'
+            ])
+        ;
     }
 }

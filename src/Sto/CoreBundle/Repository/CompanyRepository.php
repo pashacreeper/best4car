@@ -31,7 +31,8 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
-            ->where('company.visible = true');
+            ->where('company.visible = true')
+        ;
 
         if (isset($params['city']) && $params['city']) {
             $qb->andWhere('company.city = :city')

@@ -1,9 +1,9 @@
 <?php
 namespace Sto\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    Sto\CoreBundle\Entity\Company,
-    Sto\CoreBundle\Entity\CompanyType;
+use Doctrine\ORM\Mapping as ORM;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyType;
 
 /**
  * @ORM\Entity()

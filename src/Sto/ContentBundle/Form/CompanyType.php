@@ -2,15 +2,15 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface,
-    Doctrine\ORM\EntityRepository,
-    Sto\ContentBundle\Form\CompanyPhoneType,
-    Sto\ContentBundle\Form\CompanyWorkingTimeType,
-    Sto\ContentBundle\Form\CompanyManagerType,
-    Sto\ContentBundle\Form\CompanySpecializationType,
-    Sto\ContentBundle\Form\CompanyGalleryType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\CompanyPhoneType;
+use Sto\ContentBundle\Form\CompanyWorkingTimeType;
+use Sto\ContentBundle\Form\CompanyManagerType;
+use Sto\ContentBundle\Form\CompanySpecializationType;
+use Sto\ContentBundle\Form\CompanyGalleryType;
 
 class CompanyType extends AbstractType
 {

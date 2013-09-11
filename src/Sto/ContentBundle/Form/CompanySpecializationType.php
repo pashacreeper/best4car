@@ -2,10 +2,10 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface,
-    Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CompanySpecializationType extends AbstractType
 {
@@ -22,16 +22,14 @@ class CompanySpecializationType extends AbstractType
                     'class' => 'inputFormEnter'
                 ],
             ])
-            ->add('subType', 'shtumi_dependent_filtered_entity',
-                [
-                    'label' => false,
-                    'entity_alias' => 'subType_by_type',
-                    'parent_field' => 'type',
-                    'attr' => [
-                        'class' => 'inputFormEnter'
-                    ]
+            ->add('subType', 'shtumi_dependent_filtered_entity', [
+                'label' => false,
+                'entity_alias' => 'subType_by_type',
+                'parent_field' => 'type',
+                'attr' => [
+                    'class' => 'inputFormEnter'
                 ]
-            )
+            ])
         ;
     }
 

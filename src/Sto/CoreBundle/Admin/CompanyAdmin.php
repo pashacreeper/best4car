@@ -68,8 +68,7 @@ class CompanyAdmin extends Admin
             ->add('web')
             ->add('specializations', 'sonata_type_collection', [
                     'by_reference' => false,
-                ],
-                [
+                ], [
                     'edit' => 'inline',
                     'inline' => 'table',
                 ]
