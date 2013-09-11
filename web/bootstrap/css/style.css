@@ -1397,6 +1397,7 @@ label {
 .secondaryLink:hover{
     color: #555;
     border-bottom: 1px dotted transparent;
+    text-decoration: none;
 }
 .secondaryLink a{
     text-decoration: none;
@@ -1414,6 +1415,7 @@ label {
 .primaryLink:hover{
     color: #f35d2e;
     border-bottom: 1px dotted transparent;
+    text-decoration: none;
 }
 .countrySelectTabItem a{
     color: #555;
@@ -1525,6 +1527,10 @@ label {
     color: #f35d2e;
     font-size: 12px;
     display: block;
+}
+.siteCompany:hover{
+    color: #F35D2E;
+    text-decoration: underline;
 }
 .popupCardCompany .nameCompany a {
     background: url('/bootstrap/img/border-dotted-bg.jpg');
@@ -1978,12 +1984,12 @@ input[type="checkbox"].checkBox{
 }
 
 .activTown:hover {
-    border-bottom: 1px dotted transparent;
-    color: #0EB19C;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0);
+    color: #0EB19C !important;
     text-decoration: none;
 }
 .towns:hover{
     text-decoration: none;
     border-bottom: 1px dotted transparent;
-    color: #F35D2E !important;
+    color: #F35D2E;
 }
