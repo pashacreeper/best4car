@@ -123,13 +123,7 @@ class FeedbackController extends Controller
             ;
         }
 
-        $query = $qb->getQuery();
-
-        return $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page',1),
-            10
-        );
+        return $qb->getQuery()->getResult();
     }
 
     /**
