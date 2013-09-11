@@ -232,7 +232,7 @@ class User extends BaseUser
     private $companyManager;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedbackEvaluation", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedbackEvaluation", mappedBy="user", cascade={"all"})
      */
     private $evaluation;
 

@@ -46,12 +46,12 @@ class Feedback
     /**
      * @ORM\Column(name="state_number", type="string", length=255, nullable=true)
      */
-    private $stateNumber; // Гос номер автомобиля
+    private $stateNumber;
 
     /**
      * @ORM\Column(name="order_number", type="string", length=255, nullable=true)
      */
-    private $orderNumber; // Номер заказ-наряда
+    private $orderNumber;
 
     /**
      * @ORM\Column(name="user_id", type="integer")
@@ -82,12 +82,12 @@ class Feedback
     /**
      * @ORM\Column(name="target_rating", type="string", length=255, nullable=true)
      */
-    private $targetRating;  // Что оцениваем
+    private $targetRating;
 
     /**
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published; // Публикация
+    private $published;
 
     /**
      * @ORM\OneToOne(targetEntity="FeedbackAnswer", mappedBy="feedback", cascade={"remove"})
@@ -105,7 +105,7 @@ class Feedback
     private $ip;
 
     /**
-     * @ORM\OneToMany(targetEntity="FeedbackEvaluation", mappedBy="feedback")
+     * @ORM\OneToMany(targetEntity="FeedbackEvaluation", mappedBy="feedback", cascade={"remove"})
      */
     private $evaluation;
 

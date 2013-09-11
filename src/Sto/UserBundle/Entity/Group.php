@@ -19,7 +19,7 @@ class Group extends BaseGroup
      protected $id;
 
      /**
-     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\User", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="Sto\UserBundle\Entity\User", mappedBy="groups", cascade={"all"})
      *
      */
     protected $users;
