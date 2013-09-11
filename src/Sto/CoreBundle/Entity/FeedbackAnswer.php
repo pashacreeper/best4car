@@ -35,7 +35,7 @@ class FeedbackAnswer
     private $ownerId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="feedbackAnswers")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;

@@ -23,7 +23,7 @@ class UserContactEmail
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\User", inversedBy="contact_emails")
+     * @ORM\ManyToOne(targetEntity="Sto\UserBundle\Entity\User", inversedBy="contactEmails")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
