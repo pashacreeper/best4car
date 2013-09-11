@@ -52,7 +52,7 @@ class DealType extends AbstractType
                 'label' => 'Автомабили',
                 'required' => false,
                 'multiple' => true,
-                'class' => 'StoCoreBundle:Model',
+                'class' => 'StoCoreBundle:Mark',
                 'attr' => [
                     'class' => 'chosen-multiple',
                     'data-placeholder' => "Выберите варианты"
