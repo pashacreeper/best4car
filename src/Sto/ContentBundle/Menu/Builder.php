@@ -33,11 +33,11 @@ class Builder extends ContainerAware
             $deals->setCurrent(true);
         }
 
-        $clubs = $menu->addChild('Клубы', ['uri' => '#']);
+        $clubs = $menu->addChild('Клубы', ['route' => 'info_show', 'routeParameters' => ['name' => 'clubs']]);
         $clubs->setAttribute('class', 'navTopItem');
         $clubs->setLinkAttributes(['data-span-class' => 'clubs', 'class' => 'navLink']);
 
-        $experts = $menu->addChild('Эксперты', ['uri' => '#']);
+        $experts = $menu->addChild('Эксперты', ['route' => 'info_show', 'routeParameters' => ['name' => 'experts']]);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
         if (($route == 'user_profile') || ($route == 'fos_user_profile_show') || ($route == 'fos_user_profile_edit')) {
@@ -52,17 +52,18 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'footerMenu']);
 
-        $pages = [
-            'about' => 'О проекте',
-            'business' => 'Для автобизнеса',
-            'tour' => 'Тур по сайту',
-            'contact' => 'Контакты',
-        ];
+        $page = $menu->addChild('О проекте', ['route' => 'info_show', 'routeParameters' => ['name' => 'about']]);
+        $page->setAttribute('class', 'footerMenuItem');
 
-        foreach ($pages as $key => $pageName) {
-            $page = $menu->addChild($pageName, ['route' => 'info_show', 'routeParameters' => ['name' => $key]]);
-            $page->setAttribute('class', 'footerMenuItem');
-        }
+        $page = $menu->addChild('Для автобизнеса', ['route' => 'info_show', 'routeParameters' => ['name' => 'business']]);
+        $page->setAttribute('class', 'footerMenuItem');
+
+        $page = $menu->addChild('Тур по сайту', ['uri' => '#']);
+        $page->setAttribute('class', 'footerMenuItem');
+        $page->setLinkAttribute('data-reveal-id', 'for-car-owners');
+
+        $page = $menu->addChild('Контакты', ['route' => 'info_show', 'routeParameters' => ['name' => 'contact']]);
+        $page->setAttribute('class', 'footerMenuItem');
 
         return $menu;
     }

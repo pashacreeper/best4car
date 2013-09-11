@@ -19,6 +19,8 @@ class PageController extends MainController
         'tour' => 'Тур по сайту',
         'contact' => 'Контакты',
         'useRules' => 'Условия использования сайта',
+        'experts' => 'Эксперты',
+        'clubs' => 'Клубы',
     ];
 
     /**
