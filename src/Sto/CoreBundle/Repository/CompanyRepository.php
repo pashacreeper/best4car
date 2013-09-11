@@ -26,11 +26,13 @@ class CompanyRepository extends EntityRepository
     public function getCompaniesWithFilter($params = array())
     {
         $qb = $this->createQueryBuilder('company')
-            ->select('company, csp, fb, d')
-            ->join('company.specialization', 'csp')
-            ->join('company.services', 'cs')
+            ->select('company, csp, fb, d, csp_type, csp_sub_type')
+            ->leftJoin('company.specializations', 'csp')
+            ->leftJoin('csp.type', 'csp_type')
+            ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
-            ->where('company.visible = true');
+            ->where('company.visible = true')
+        ;
 
         if (isset($params['city']) && $params['city']) {
             $qb->andWhere('company.city = :city')
@@ -38,12 +40,12 @@ class CompanyRepository extends EntityRepository
         }
 
         if (isset($params['companyType']) && $params['companyType']) {
-            $qb->andWhere('csp.id = :sp')
+            $qb->andWhere('csp.type = :sp')
                 ->setParameter('sp', $params['companyType']);
         }
 
         if (isset($params['subCompanyType']) && $params['subCompanyType']) {
-            $qb->andWhere('cs.id = :s')
+            $qb->andWhere('csp.subType = :s')
                 ->setParameter('s', $params['subCompanyType']);
         }
 

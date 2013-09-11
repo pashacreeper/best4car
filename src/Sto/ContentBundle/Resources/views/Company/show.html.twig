@@ -35,7 +35,7 @@
                     coordinates: mapComany.getCenter()
                 }
             }, {
-                iconImageHref: "/storage/images/company_icon/{%- for specialization in company.specialization %}{%- if loop.first %}{{ specialization.iconNameMap }}{% endif -%}{% endfor -%}",
+                iconImageHref: "/storage/images/company_icon/{%- for specialization in company.specializations %}{%- if loop.first %}{{ specialization.type.iconNameMap }}{% endif -%}{% endfor -%}",
                 iconImageSize: [34, 45]
             });
             mapComany.geoObjects.add(myGeoObject);

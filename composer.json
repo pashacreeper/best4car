@@ -23,6 +23,7 @@
         "jms/di-extra-bundle": "1.3.*",
         "jms/serializer-bundle": "0.12.*@dev",
 
+        "shtumi/useful-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "0.12.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
 
