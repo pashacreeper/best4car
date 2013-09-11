@@ -23,10 +23,10 @@ class CompanyRepository extends EntityRepository
      * @param  array $params
      * @return array
      */
-    public function getCompaniesWithFilter($params = array())
+    public function getCompaniesWithFilter($params = [])
     {
         $qb = $this->createQueryBuilder('company')
-            ->select('company, csp, fb, d, csp_type, csp_sub_type')
+            ->select('company.id')
             ->leftJoin('company.specializations', 'csp')
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
@@ -90,6 +90,24 @@ class CompanyRepository extends EntityRepository
                 )->setParameter('search', "%{$word}%");
             }
         }
+
+        $result = $qb->getQuery()->getArrayResult();
+        $ids = [];
+
+        foreach ($result as $value) {
+            $ids[] = $value['id'];
+        }
+
+        $qb = $this->createQueryBuilder('company')
+            ->select('company, csp, fb, d, csp_type, csp_sub_type')
+            ->leftJoin('company.specializations', 'csp')
+            ->leftJoin('csp.type', 'csp_type')
+            ->leftJoin('csp.subType', 'csp_sub_type')
+            ->leftJoin('company.feedbacks', 'fb')
+            ->leftJoin('company.deals', 'd')
+            ->where('company.id IN(:ids)')
+            ->setParameter('ids', $ids)
+        ;
 
         if ($params['sort'] == 'price') {
             $qb->orderBy('company.hourPrice', 'ASC');
