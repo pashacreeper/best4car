@@ -20,8 +20,7 @@ class CompanyAdmin extends Admin
             ->add('slogan')
             ->add('fullName')
             ->add('web')
-            ->add('specialization')
-            ->add('services')
+            ->add('specializations')
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')
@@ -67,12 +66,14 @@ class CompanyAdmin extends Admin
             ->add('slogan')
             ->add('fullName')
             ->add('web')
-            ->add('specialization', null, array(
-                'required' => false,
-            ))
-            ->add('services', null, array(
-                'required' => false,
-            ))
+            ->add('specializations', 'sonata_type_collection', [
+                    'by_reference' => false,
+                ],
+                [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ]
+            )
             ->add('additionalServices', null, array(
                 'required' => false,
             ))
@@ -146,8 +147,6 @@ class CompanyAdmin extends Admin
             ->add('slogan')
             ->add('fullName')
             ->add('web')
-            ->add('specialization')
-            ->add('services')
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')

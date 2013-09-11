@@ -27,6 +27,9 @@ twig:
     globals:
         pagination_default_value: "%pagination_default_value%"
         storage_path: "%storage_path%"
+    form:
+        resources:
+            - ShtumiUsefulBundle::fields.html.twig
 
 assetic:
     debug:          "%kernel.debug%"
@@ -296,3 +299,10 @@ mannew_hipchat:
 
 evercode_hipchat_monolog:
     name: Diarrhea
+
+shtumi_useful:
+    dependent_filtered_entities:
+        subType_by_type:
+            class: StoCoreBundle:CompanyType
+            parent_property: parent
+            property: name

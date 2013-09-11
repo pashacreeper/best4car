@@ -2,14 +2,15 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
-use Sto\ContentBundle\Form\CompanyPhoneType;
-use Sto\ContentBundle\Form\CompanyWorkingTimeType;
-use Sto\ContentBundle\Form\CompanyManagerType;
-use Sto\ContentBundle\Form\CompanyGalleryType;
+use Symfony\Component\Form\AbstractType,
+    Symfony\Component\Form\FormBuilderInterface,
+    Symfony\Component\OptionsResolver\OptionsResolverInterface,
+    Doctrine\ORM\EntityRepository,
+    Sto\ContentBundle\Form\CompanyPhoneType,
+    Sto\ContentBundle\Form\CompanyWorkingTimeType,
+    Sto\ContentBundle\Form\CompanyManagerType,
+    Sto\ContentBundle\Form\CompanySpecializationType,
+    Sto\ContentBundle\Form\CompanyGalleryType;
 
 class CompanyType extends AbstractType
 {
@@ -49,7 +50,6 @@ class CompanyType extends AbstractType
             ])
             ->add('workingTime','collection', array(
                 'label' => ' ',
-                'required' => true,
                 'type' => new CompanyWorkingTimeType($options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -70,33 +70,12 @@ class CompanyType extends AbstractType
                     'class' => 'styled1 withContainer'
                 ]
             ])
-            ->add('services', 'entity', [
-                'label' => 'Подтип компании',
-                'multiple' => true,
-                'class' => 'StoCoreBundle:CompanyType',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('ct')
-                        ->where('ct.parent is not null')
-                    ;
-                },
-                'attr' => [
-                    'class' => 'chosen-multiple span6',
-                    'data-placeholder' => 'Выберете подтипы компании'
-                ]
-            ])
-            ->add('specialization', 'entity', [
-                'label' => 'Основная специализация',
-                'multiple' => true,
-                'class' => 'StoCoreBundle:CompanyType',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('ct')
-                        ->where('ct.parent is null')
-                    ;
-                },
-                'attr' => [
-                    'class' => 'chosen-multiple span6',
-                    'data-placeholder' => 'Выберете основные специализации компании'
-                ]
+            ->add('specializations', 'collection', [
+                'label' => false,
+                'type' => new CompanySpecializationType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
             ])
             ->add('logo', null, [
                 'label' => 'Логотип компании',

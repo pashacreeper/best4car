@@ -195,10 +195,13 @@ span.complain{
     clear: both;
 }
 
-.contactDate input{
+.contactDate input, .contactDate select{
     float: left;
     margin-right: 10px;
     margin-bottom: 10px !important;
+}
+.contactDate select {
+    height: 30px;
 }
 
 .workingTimeDays, 
