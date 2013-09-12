@@ -60,72 +60,94 @@ class CompanyAdmin extends Admin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array(
-                'required' => true
-            ))
-            ->add('slogan')
-            ->add('fullName')
-            ->add('web')
-            ->add('specializations', 'sonata_type_collection', [
-                    'by_reference' => false,
-                ], [
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                ]
-            )
-            ->add('additionalServices', null, array(
-                'required' => false,
-            ))
-            ->add('autoServices', null, array(
-                'required' => false,
-            ))
-            ->add('logo', 'file', array(
-                'required' => false,
-            ))
-            // ->add('workingTime')
-            // ->add('phones')
-            ->add('skype')
-            ->add('email')
-            ->add('address')
-            ->add('gps')
-            ->add('createtDate', 'date')
-            ->add('photos')
-            ->add('socialNetworks')
-            ->add('rating')
-            ->add('reviews')
-            ->add('description')
-            ->add('subscribable', null, array(
-                'required' => false,
-            ))
-            ->add('hourPrice')
-            ->add('currency')
-            ->add('administratorContactInfo')
-            ->add('visible', null, array(
-                'required' => false,
-            ))
-            ->add('notes')
-            ->add('groups', null, array(
-                'required' => false,
-            ))
-            ->add('updatedAt')
-            ->add('city')
-            ->add('autos', null, array(
-                'required' => false,
-            ))
-            ->add('linkVK')
-            ->add('linkTW')
-            ->add('linkFB')
-            ->add('contacts', 'sonata_type_collection', [
-                    'by_reference' => false,
-                ],
-                [
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                ]
-            )
-            ->add('autos', null, [
-                'required' => false,
-            ])
+            ->with('Компания')
+                ->add('name', null, array(
+                    'required' => true
+                ))
+                ->add('slogan')
+                ->add('fullName')
+                ->add('web')
+                ->add('specializations', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ], [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+                ->add('additionalServices', null, array(
+                    'required' => false,
+                ))
+                ->add('autoServices', null, array(
+                    'required' => false,
+                ))
+                ->add('logo', 'file', array(
+                    'required' => false,
+                ))
+                // ->add('workingTime')
+                // ->add('phones')
+                ->add('skype')
+                ->add('email')
+                ->add('address')
+                ->add('gps')
+                ->add('createtDate', 'date')
+                ->add('photos')
+                ->add('socialNetworks')
+                ->add('rating')
+                ->add('reviews')
+                ->add('description')
+                ->add('subscribable', null, array(
+                    'required' => false,
+                ))
+                ->add('hourPrice')
+                ->add('currency')
+                ->add('administratorContactInfo')
+                ->add('visible', null, array(
+                    'required' => false,
+                ))
+                ->add('notes')
+                ->add('groups', null, array(
+                    'required' => false,
+                ))
+                ->add('updatedAt')
+                ->add('city')
+                ->add('autos', null, array(
+                    'required' => false,
+                ))
+                ->add('linkVK')
+                ->add('linkTW')
+                ->add('linkFB')
+                ->add('contacts', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ],
+                    [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+                ->add('autos', null, [
+                    'required' => false,
+                ])
+            ->end()
+            ->with('Галерея')
+                ->add('gallery', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ],
+                    [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ->end()
+            ->with('Менеджеры')
+                ->add('companyManager', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ],
+                    [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ->end()
         ;
     }
 
