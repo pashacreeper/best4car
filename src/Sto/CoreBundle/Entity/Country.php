@@ -79,7 +79,7 @@ class Country
 
     /**
      * @Assert\Image(
-     *     maxSize="2048k",
+     *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpeg"},
      *     maxWidth="2048",
      *     maxHeight="2048"

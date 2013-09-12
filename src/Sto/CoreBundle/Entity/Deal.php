@@ -60,7 +60,7 @@ class Deal
 
     /**
      * @Assert\File(
-     *  maxSize="2M",
+     *  maxSize="5M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image", fileNameProperty="imageName")
@@ -74,7 +74,7 @@ class Deal
 
     /**
      * @Assert\File(
-     *  maxSize="2M",
+     *  maxSize="5M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image2", fileNameProperty="imageName2")
@@ -88,7 +88,7 @@ class Deal
 
     /**
      * @Assert\File(
-     *  maxSize="2M",
+     *  maxSize="5M",
      *  mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      *)
      * @Vich\UploadableField(mapping="deal_image3", fileNameProperty="imageName3")

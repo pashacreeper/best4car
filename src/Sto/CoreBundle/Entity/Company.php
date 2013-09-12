@@ -72,7 +72,7 @@ class Company
 
     /**
      * @Assert\File(
-     *     maxSize="2M",
+     *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logoName")
