@@ -36,43 +36,50 @@ class CompanyRepository extends EntityRepository
 
         if (isset($params['city']) && $params['city']) {
             $qb->andWhere('company.city = :city')
-                ->setParameter('city', $params['city']);
+               ->setParameter('city', $params['city'])
+            ;
         }
 
         if (isset($params['companyType']) && $params['companyType']) {
             $qb->andWhere('csp.type = :sp')
-                ->setParameter('sp', $params['companyType']);
+               ->setParameter('sp', $params['companyType'])
+            ;
         }
 
         if (isset($params['subCompanyType']) && $params['subCompanyType']) {
             $qb->andWhere('csp.subType = :s')
-                ->setParameter('s', $params['subCompanyType']);
+               ->setParameter('s', $params['subCompanyType'])
+            ;
         }
 
         if (isset($params['auto']) && $params['auto']) {
             $qb->join('company.autos', 'ca')
-                ->andWhere('ca.id = :auto_id')
-                ->setParameter('auto_id', $params['auto']);
+               ->andWhere('ca.id = :auto_id')
+               ->setParameter('auto_id', $params['auto'])
+            ;
         }
 
         if (isset($params['deals']) && $params['deals']) {
             $qb->join('company.deals', 'd')
-                ->andWhere('d.endDate > :endDate')
-                ->setParameter('endDate', new \DateTime('now'));
+               ->andWhere('d.endDate > :endDate')
+               ->setParameter('endDate', new \DateTime('now'))
+            ;
         } else {
             $qb->leftJoin('company.deals', 'd');
         }
 
         if (isset($params['rating']) && $params['rating']) {
             $qb->andWhere('company.rating BETWEEN :rating-0.01 AND 10.01')
-                ->setParameter('rating', $params['rating']);
+               ->setParameter('rating', $params['rating'])
+            ;
         }
 
         if (isset($params['additionalServices']) && $params['additionalServices']) {
             $qb->join('company.additionalServices', 'ads');
             foreach ($params['additionalServices'] as $k => $name) {
                 $qb->andWhere("ads.shortName = :name_{$k}")
-                    ->setParameter("name_{$k}", $name);
+                   ->setParameter("name_{$k}", $name)
+                ;
             }
         }
 

@@ -1,22 +1,22 @@
 <?php
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
+use Sto\ContentBundle\Form\AdvancedSearchType;
+use Sto\ContentBundle\Form\CompanyType;
+use Sto\ContentBundle\Form\FeedbackCompanyType;
+use Sto\ContentBundle\Form\Type\CompaniesSortType;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\FeedbackCompany;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sto\CoreBundle\Entity\Company;
-use Sto\CoreBundle\Entity\FeedbackCompany;
-use Sto\CoreBundle\Entity\FeedbackAnswer;
-use Sto\ContentBundle\Form\FeedbackCompanyType;
-use Sto\ContentBundle\Form\CompanyType;
-use Sto\ContentBundle\Form\AdvancedSearchType;
-use Sto\ContentBundle\Form\Type\CompaniesSortType;
 
 class CompanyController extends MainController
 {
@@ -28,7 +28,6 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $specialization = $request->get('specialization');
-        // var_dump($specialization);die();
         $entity =$em->getRepository('StoCoreBundle:CompanyType')
             ->createQueryBuilder('services')
             ->where('services.parent in (:specializationId)')

@@ -45,7 +45,11 @@
                     withoutHttp = val.web.replace(/(http|https):\/\//, '');
                 }
 
-                var iconMap = (val.specializations[0] !== undefined && val.specializations[0].iconNameMap !== undefined) ? "/../{{ storage_path }}/company_icon/" + val.specialization[0].iconNameMap : "{{ asset('bundles/stocontent/images/company.png') }}";
+                var iconMap = "{{ asset('bootstrap/img/company.png') }}";
+                if (val.specializations.length > 0) {
+                    iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMap;
+                }
+
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var vid = val.id;
 

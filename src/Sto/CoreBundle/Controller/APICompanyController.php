@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -33,7 +32,6 @@ class APICompanyController extends FOSRestController
      *
      * @Rest\View
      * @Route("/", name="api_get_companies", options={"expose"=true})
-     * @Method({"GET"})
      */
     public function getCompanies(Request $request)
     {
@@ -59,17 +57,24 @@ class APICompanyController extends FOSRestController
                 'deals' => $request->get('deals'),
                 'sort' => $request->get('sort'),
                 'search' => trim($request->get('search'))
-        ]);
+            ])
+        ;
 
         foreach ($companies as $key => $value) {
-            $companies[$key]['specialization_template'] = $this
-                ->render('StoContentBundle:Company:specialization_list.html.twig', ['specializations' => $value['specializations']])->getContent();
+            $companies[$key]['specialization_template'] = $this->render(
+                'StoContentBundle:Company:specialization_list.html.twig',
+                ['specializations' => $value['specializations']]
+            )->getContent();
 
-            $companies[$key]['workingTime_template'] = $this
-                ->render('StoContentBundle:Company:workingTime_list.html.twig', ['workingTime' => $value['workingTime']])->getContent();
+            $companies[$key]['workingTime_template'] = $this->render(
+                'StoContentBundle:Company:workingTime_list.html.twig',
+                ['workingTime' => $value['workingTime']]
+            )->getContent();
 
-            $companies[$key]['html'] = $this
-                ->render('StoContentBundle:Company:company.html.twig', ['item' => $value])->getContent();
+            $companies[$key]['html'] = $this->render(
+                'StoContentBundle:Company:company.html.twig',
+                ['item' => $value]
+            )->getContent();
         }
 
         return new Response($serializer->serialize($companies, 'json'));
