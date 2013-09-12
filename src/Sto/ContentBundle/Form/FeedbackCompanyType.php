@@ -2,10 +2,10 @@
 
 namespace Sto\ContentBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface,
-    Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\FeedbackType;
 
 class FeedbackCompanyType extends FeedbackType
 {

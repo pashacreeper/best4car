@@ -230,7 +230,11 @@ class CompanyController extends MainController
      */
     public function addFeedbackAction(Company $company)
     {
-        $form = $this->createForm(new FeedbackCompanyType, (new FeedbackCompany)->setCompany($company));
+        $feedbackCompany = new FeedbackCompany();
+        $form = $this->createForm(
+            new FeedbackCompanyType(),
+            $feedbackCompany->setCompany($company)
+        );
 
         return [
             'form' => $form->createView(),

@@ -453,10 +453,6 @@ a.btnNext:hover{
     width: 163px !important;
 }
 
-#blockAddInfo{
-    display: none;
-}
-
 .popUpPrimary{
     display:none
 }
@@ -569,4 +565,8 @@ a.btnNext:hover{
 
 .forgotPass:hover{
     text-decoration: none !important;
+}
+
+.contentLabel.ch-container{
+    margin-bottom: 22px;
 }

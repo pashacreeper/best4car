@@ -46,11 +46,13 @@ class FeedbackType extends AbstractType
                     'class' => "inputField span4"
                 ]
             ])
-            ->add('car', null, [
+            ->add('car', 'entity', [
                 'label' => 'Автомобиль',
                 'required' => false,
+                'class' => 'StoCoreBundle:Model',
                 'attr' => [
-                    'class' => "inputField span4"
+                    'class' => "span4 chzn-select",
+                    'data-placeholder' => 'Выберите марку'
                 ]
             ])
             ->add('statenumber', null, [
