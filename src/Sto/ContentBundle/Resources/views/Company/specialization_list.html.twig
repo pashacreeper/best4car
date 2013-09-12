@@ -1,29 +1,29 @@
-{% set itemClass = 'servisesItem' %}
-{% if specializations %}
+{% spaceless %}
+<ul class="services">
     {% for item in specializations %}
-        {% if loop.first %}
-            <ul class="services">
-        {% endif %}
-
-        {% if loop.index == 4 %}
-            </ul>
-            <ul class="servicesAdd">
-            {% set itemClass = 'servisesAddItem' %}
-        {% endif %}
-
-        <li class="{{ itemClass }}">
+        {%- if loop.index < 4 %}
+        <li class="servisesItem">
             {% if item.type.iconNameLarge %}
                 <img src="/storage/images/company_icon/{{ item.type.iconNameLarge }}" width="34" height="40">
             {% else %}
                 <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
             {% endif %}
-            {%- if loop.index < 4 %}
-                <span class="serviceName">{{ item.type.name }}</span>
-            {% endif -%}
+            <span class="serviceName">{{ item.type.name }}</span>
         </li>
-
-        {% if loop.last %}
-            </ul>
+        {% endif -%}
+    {% endfor %}
+</ul>
+<ul class="servicesAdd">
+    {% for item in additionalServices %}
+        {%- if loop.index < 8 %}
+        <li class="servisesAddItem">
+            {% if item.iconNameSmall %}
+                <img src="/storage/images/company_icon/{{ item.iconNameSmall }}" width="24" height="28">
+            {% else %}
+                <img src="/bootstrap/img/icon-type-default.png" width="24" height="28">
+            {% endif %}
+        </li>
         {% endif %}
     {% endfor %}
-{% endif %}
+</ul>
+{% endspaceless %}

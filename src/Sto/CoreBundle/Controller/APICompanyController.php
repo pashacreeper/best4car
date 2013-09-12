@@ -63,7 +63,10 @@ class APICompanyController extends FOSRestController
         foreach ($companies as $key => $value) {
             $companies[$key]['specialization_template'] = $this->render(
                 'StoContentBundle:Company:specialization_list.html.twig',
-                ['specializations' => $value['specializations']]
+                [  
+                    'specializations' => $value['specializations'],
+                    'additionalServices' => $value['additionalServices']
+                ]
             )->getContent();
 
             $companies[$key]['workingTime_template'] = $this->render(
