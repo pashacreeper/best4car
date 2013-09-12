@@ -12,6 +12,16 @@ class FeedbackCompanyAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
+    public function getFilterTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            array(
+                'ShtumiUsefulBundle::fields.html.twig',
+            )
+        );
+    }
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -99,7 +109,7 @@ class FeedbackCompanyAdmin extends Admin
             ->add('hidden')
             ->add('priceLevel')
             ->add('companyRating')
-            ->add('company')
+            ->add('company', null, [], 'shtumi_ajax_autocomplete', ['entity_alias'=>'company'])
         ;
     }
 }

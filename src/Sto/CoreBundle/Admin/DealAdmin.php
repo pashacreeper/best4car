@@ -12,6 +12,16 @@ class DealAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
+    public function getFilterTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            array(
+                'ShtumiUsefulBundle::fields.html.twig',
+            )
+        );
+    }
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -101,7 +111,7 @@ class DealAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('company')
+            ->add('company', null, [], 'shtumi_ajax_autocomplete', ['entity_alias'=>'company'])
             ->add('services')
             ->add('imageName')
             ->add('imageName2')

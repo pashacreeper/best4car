@@ -312,3 +312,7 @@ shtumi_useful:
             parent_property: parent
             property: name
             no_result_msg: ' '
+    autocomplete_entities:
+        company:
+            class: StoCoreBundle:Company
+            property: name
