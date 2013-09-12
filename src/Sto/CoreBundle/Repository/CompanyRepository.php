@@ -85,7 +85,7 @@ class CompanyRepository extends EntityRepository
                         $qb->expr()->like('company.fullName', ':search'),
                         $qb->expr()->like('company.description', ':search'),
                         $qb->expr()->like('company.slogan', ':search'),
-                        $qb->expr()->like('cs.name', ':search')
+                        $qb->expr()->like('csp_type.name', ':search')
                     )
                 )->setParameter('search', "%{$word}%");
             }
