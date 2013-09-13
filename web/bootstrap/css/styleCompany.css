@@ -331,14 +331,27 @@ ul.tabNavigation li a:focus {
 }
 .additionalServicesItem{
 	width: 180px;
-	float: left;
-	margin: 3px 3px 3px 0;	
+	margin: 3px 3px 0 0;	
+	vertical-align: middle;
+	display: inline-block;
 }
+
+.additionalServicesItem span,
 .additionalServicesItem i,
 .additionalServicesItem img{
-	float: left;
-	margin: -5px 3px 0 0;
+	vertical-align: middle;
+	display: inline-block;
 }
+
+.additionalServicesItem i,
+.additionalServicesItem img{
+	margin-right: 3px;
+}
+
+.additionalServicesItem span{
+	width: 153px;
+}
+
 .showAll{
 	float: right;
 	color: #474e56;

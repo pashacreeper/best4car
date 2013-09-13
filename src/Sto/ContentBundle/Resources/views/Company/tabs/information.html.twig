@@ -52,10 +52,10 @@
         {% for additionalService in company.additionalServices %}
             {% if additionalService.iconLarge %}
                 <p class="additionalServicesItem contentText">
-                    <img src="{{ vich_uploader_asset(additionalService, 'iconSmall') | imagine_filter('additional_service_icon') }}" alt="{{ additionalService.name }}">{{ additionalService.name }}
+                    <img src="{{ vich_uploader_asset(additionalService, 'iconSmall') | imagine_filter('additional_service_icon') }}" alt="{{ additionalService.name }}"><span>{{ additionalService.name }}</span>
                 </p>
             {% else %}
-                <p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i> {{ additionalService.name }}</p>
+                <p class="additionalServicesItem contentText"><i class="iconAddProfil wash"></i><span>{{ additionalService.name }}</span></p>
             {% endif %}
         {% endfor %}
     </div>
