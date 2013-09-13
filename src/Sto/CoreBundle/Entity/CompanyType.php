@@ -347,7 +347,7 @@ class CompanyType
      *
      * @return string
      */
-    public function getIconLarge()
+    public function getIconCompanyCard()
     {
         return $this->iconCompanyCard;
     }

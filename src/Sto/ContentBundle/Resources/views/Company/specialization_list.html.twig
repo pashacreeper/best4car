@@ -3,8 +3,8 @@
     {% for item in specializations %}
         {%- if loop.index < 4 %}
         <li class="servisesItem">
-            {% if item.type.iconNameLarge %}
-                <img src="/storage/images/company_icon/{{ item.type.iconNameLarge }}" width="34" height="40">
+            {% if item.type.iconNameCompanyCard %}
+                <img src="/storage/images/company_icon/{{ item.type.iconNameCompanyCard }}" width="34" height="40">
             {% else %}
                 <img src="/bootstrap/img/icon-type-default.png" width="34" height="40">
             {% endif %}
