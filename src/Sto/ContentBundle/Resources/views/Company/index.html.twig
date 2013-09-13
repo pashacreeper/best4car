@@ -45,9 +45,12 @@
                     withoutHttp = val.web.replace(/(http|https):\/\//, '');
                 }
 
-                var iconMap = "{{ asset('bootstrap/img/company.png') }}";
+                var iconMap = "{{ asset('bootstrap/img/icon-map-default.png') }}";
+                var iconMapSelected = "{{ asset('bootstrap/img/icon-map-default-active.png') }}";
+
                 if (val.specializations.length > 0) {
                     iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMap;
+                    iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
                 }
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
@@ -57,15 +60,16 @@
                 if (showByRate(myMap.getZoom(), val.rating)) {
                     img = {
                         iconImageHref: iconMap,
-                        iconImageSize: iconSize
+                        iconImageSize: iconSize,
+                        hideIconOnBalloonOpen: false
                     };
                 } else {
                     img = {
                         iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
-                        iconImageSize: [8, 8]
+                        iconImageSize: [8, 8],
+                        hideIconOnBalloonOpen: true
                     };
                 }
-                img.hideIconOnBalloonOpen = false;
                 myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -84,6 +88,14 @@
                     obj.options.set({ offset: [-15, -30] });
                 });
                 myCollection.add(myPlacemark2);
+
+                myPlacemark2.events.add('click', function(e){
+                    e.get('target').options.set('iconImageHref', iconMapSelected);
+                });
+                myPlacemark2.events.add('balloonclose', function(e){
+                    e.get('target').options.set('iconImageHref', iconMap);
+                });
+
             }
 
             myCollection.each(function (ob) {
@@ -92,7 +104,8 @@
                         // При клке на элементе расположенном на карте, при откртом списке
                         // компаний, показываем компанию в списке.
                         var itemId = "#list-company" + obPlacemark.properties.get('id'),
-                                listObj = $(itemId);
+                            listObj = $(itemId);
+
                         if (listObj.length && listObj.is(':visible')) {
                             obPlacemark.balloon.open();
                             $('#companiesList').find('.bigInfoCompany').hide();
