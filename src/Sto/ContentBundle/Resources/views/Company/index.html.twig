@@ -70,6 +70,11 @@
                         hideIconOnBalloonOpen: true
                     };
                 }
+
+                ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
+                    iconImageHref: iconMapSelected,
+                });
+
                 myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -247,8 +252,9 @@
 
                 myCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
+                        o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         myMap.setCenter(o.geometry.getBounds()[0]);
-                        o.balloon.open(o.geometry.getBounds()[0]);
+
                         return;
                     }
                 })
