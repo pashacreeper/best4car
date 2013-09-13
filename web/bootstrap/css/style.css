@@ -1561,9 +1561,12 @@ label {
 .servicesPart{
     float: left;
 }
-.popupCardCompany .servicesPart {width: 270px;}
+.popupCardCompany .servicesPart {
+    width: 270px;
+}
 .services {
     border-bottom: 1px solid #f35d2e;
+    min-height: 136px;
 }
 .servicesAdd{
     padding-top: 5px;
