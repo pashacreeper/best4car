@@ -6,34 +6,40 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * CompanyWorkingTime
+ * @ORM\Table(name="company_working_time")
+ * @ORM\Entity()
  */
 class CompanyWorkingTime
 {
+    private $days_of_week  = [1, 2, 4, 8, 16, 32, 64];
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Company", inversedBy="workingTime")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="time")
      */
     private $from;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\Column(type="time")
      */
     private $till;
 
     /**
-     * @ORM\OneToMany(targetEntity="Dictionary\WeekDay", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $dayFrom;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Dictionary\WeekDay", nullable=true)
-     */
-    private $dayTill;
+    private $days = 0;
 
     public function getId()
     {
@@ -52,6 +58,11 @@ class CompanyWorkingTime
         return $this->from;
     }
 
+    public function getTill()
+    {
+        return $this->till;
+    }
+
     public function setTill($till)
     {
         $this->till = $till;
@@ -59,27 +70,24 @@ class CompanyWorkingTime
         return $this;
     }
 
-    public function setDayFrom($day)
+    public function getDays()
     {
-        $this->dayFrom = $day;
+        $response = [];
+        foreach ($this->days_of_week as $day) {
+            $response[] = ($day & $this->days) > 0;
+        }
+
+        return $response;
+    }
+
+    public function setDays($days)
+    {
+        foreach ($days as $k => $day) {
+            if ($day) {
+                $this->days += pow(2, $k);
+            }
+        }
 
         return $this;
-    }
-
-    public function getDayFrom()
-    {
-        return $this->dayFrom;
-    }
-
-    public function setDayTill($day)
-    {
-        $this->dayTill = $day;
-
-        return $this;
-    }
-
-    public function getDayTill()
-    {
-        return $this->dayTill;
     }
 }
