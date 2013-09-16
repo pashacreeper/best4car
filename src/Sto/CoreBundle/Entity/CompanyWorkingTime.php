@@ -11,8 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CompanyWorkingTime
 {
-    private $days_of_week  = [1, 2, 4, 8, 16, 32, 64];
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -73,16 +71,11 @@ class CompanyWorkingTime
     public function getDays()
     {
         $response = [];
-        foreach ($this->days_of_week as $day) {
+        foreach ([1, 2, 4, 8, 16, 32, 64] as $day) {
             $response[] = ($day & $this->days) > 0;
         }
 
         return $response;
-    }
-
-    public function getDaysAsString()
-    {
-        return 'in progress';
     }
 
     public function setDays($days)
