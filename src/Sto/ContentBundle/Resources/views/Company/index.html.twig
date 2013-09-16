@@ -49,9 +49,20 @@
                 var iconMapSelected = "{{ asset('bootstrap/img/icon-map-default-active.png') }}";
 
                 if (val.specializations.length > 0) {
-                    iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMap;
-                    iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
+                    if (val.specializations[0].type.iconNameMap) {
+                        iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMap;
+                    }
+                    if (val.specializations[0].type.iconNameMapSelected) {
+                        iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
+                    }
                 }
+
+                ymaps.option.presetStorage.add("iconMap#" + val.id, {
+                    iconImageHref: iconMap,
+                });
+                ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
+                    iconImageHref: iconMapSelected,
+                });
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var vid = val.id;
@@ -70,10 +81,6 @@
                         hideIconOnBalloonOpen: true
                     };
                 }
-
-                ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
-                    iconImageHref: iconMapSelected,
-                });
 
                 myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
@@ -95,10 +102,18 @@
                 myCollection.add(myPlacemark2);
 
                 myPlacemark2.events.add('click', function(e){
-                    e.get('target').options.set('iconImageHref', iconMapSelected);
+                    selectedImg = ymaps.option.presetStorage.get("iconMapActive#" + e.get('target').properties.get('id')).iconImageHref;
+                    if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
+                        selectedImg = e.get('target').options.get('iconImageHref');
+                    }
+                    e.get('target').options.set('iconImageHref', selectedImg);
                 });
                 myPlacemark2.events.add('balloonclose', function(e){
-                    e.get('target').options.set('iconImageHref', iconMap);
+                    selectedImg = ymaps.option.presetStorage.get("iconMap#" + e.get('target').properties.get('id')).iconImageHref;
+                    if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
+                        selectedImg = e.get('target').options.get('iconImageHref');
+                    }
+                    e.get('target').options.set('iconImageHref', selectedImg);
                 });
 
             }
@@ -125,34 +140,28 @@
             });
 
             var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
-                    '<div class="popupCardCompany">' +
-                            '<div class="popupCardCompanyTop">' +
-                            '<img src="/{{ storage_path }}/company_logo/$[properties.logo]">' +
-                            '<p class="indexCardCompany">' +
-                            '<span class="indexbg"></span>' +
-                            '<span class="indexLevel">$[properties.rating]</span></br>' +
-                            '</p>' +
-                            '<div class="dataCompany">' +
+                '<div class="popupCardCompany">' +
+                    '<div class="popupCardCompanyTop">' +
+                        '<img src="/{{ storage_path }}/company_logo/$[properties.logo]">' +
+                        '<p class="indexCardCompany">' +
+                        '<span class="indexbg"></span>' +
+                        '<span class="indexLevel">$[properties.rating]</span></br>' +
+                        '</p>' +
+                        '<div class="dataCompany">' +
                             '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                             '<p class="adressCompany">$[properties.address]</p>' +
                             '<a href="$[properties.web]" class="siteCompany">$[properties.web_without_http]</a>' +
                             '$[properties.specialDeal]' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="popupCardCompanyCont">' +
-                            '<div class="servicesPart">' +
-                            '$[properties.specialization_html]' +
-                            '</div>' +
-                            '<div class="infoCompany">' +
-                            '<p class="infoCompanyLable">' +
-                            'Телефон:</br><span>$[properties.phone.0.phone]</span>' +
-                            '</p>' +
-                            '<p class="infoCompanyLable">' +
-                            'Часы работы:</br>$[properties.workingTime_html]' +
-                            '</p>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>'
+                        '</div>' +
+                    '</div>' +
+                    '<div class="popupCardCompanyCont">' +
+                        '<div class="servicesPart">$[properties.specialization_html]</div>' +
+                        '<div class="infoCompany">' +
+                            '<p class="infoCompanyLable">Телефон:</br><span>$[properties.phone.0.phone]</span></p>' +
+                            '<p class="infoCompanyLable">Часы работы:</br>$[properties.workingTime_html]</p>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>'
             );
 
             ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
