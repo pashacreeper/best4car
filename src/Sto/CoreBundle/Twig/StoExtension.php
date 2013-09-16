@@ -35,15 +35,25 @@ class StoExtension extends \Twig_Extension
 
     public function workingTimeDaysArrayToString($days)
     {
-        $dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-        $chunks = [];
+        $labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        $result = '';
 
-        foreach ($days as $k => $v) {
-            if ($v) {
-                $chunks[] = $dayLabels[$k];
+        foreach ($days as $key => $value) {
+            if (!$value) {
+                continue;
+            }
+            $previousKey = $key - 1;
+            $nextKey = $key + 1;
+            if (!isset($days[$previousKey]) || !$days[$previousKey]) {
+                if (!empty($result)) {
+                    $result .= ', ';
+                }
+                $result .= $labels[$key];
+            } elseif (isset($days[$nextKey]) && !$days[$nextKey]) {
+                $result .= ' - ' . $labels[$key];
             }
         }
 
-        return implode(', ', $chunks);
+        return $result;
     }
 }
