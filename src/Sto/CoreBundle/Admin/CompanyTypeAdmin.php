@@ -22,8 +22,8 @@ class CompanyTypeAdmin extends Admin
             ->add('children')
             ->add('position')
             ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
+            ->add('iconNameMapSelected')
+            ->add('iconNameCompanyCard')
             ->add('updatedAt')
             ->add('autoServices')
         ;
@@ -37,8 +37,8 @@ class CompanyTypeAdmin extends Admin
             ->add('parent')
             ->add('position')
             ->add('iconMap', 'file')
-            ->add('iconSmall', 'file')
-            ->add('iconLarge', 'file')
+            ->add('iconMapSelected', 'file')
+            ->add('iconCompanyCard', 'file')
             ->add('updatedAt')
             ->add('autoServices')
         ;
@@ -63,8 +63,8 @@ class CompanyTypeAdmin extends Admin
             ->add('position')
             ->add('parent')
             ->add('iconNameMap')
-            ->add('iconNameSmall')
-            ->add('iconNameLarge')
+            ->add('iconNameMapSelected')
+            ->add('iconNameCompanyCard')
             ->add('updatedAt')
             ->add('autoServices')
         ;
