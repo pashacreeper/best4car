@@ -40,14 +40,14 @@ class CompanyType
      *     maxWidth="512",
      *     maxHeight="512"
      * )
-     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameSmall")
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameMapSelected")
      */
-    protected $iconSmall;
+    protected $iconMapSelected;
 
     /**
-     * @ORM\Column(type="string", length=255, name="icon_name_small", nullable=true)
+     * @ORM\Column(type="string", length=255, name="icon_name_map_selected", nullable=true)
      */
-    protected $iconNameSmall;
+    protected $iconNameMapSelected;
 
     /**
      * @Assert\Image(
@@ -56,14 +56,14 @@ class CompanyType
      *     maxWidth="1024",
      *     maxHeight="1024"
      * )
-     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameLarge")
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameCompanyCard")
      */
-    protected $iconLarge;
+    protected $iconCompanyCard;
 
     /**
-     * @ORM\Column(type="string", length=255, name="icon_name_large", nullable=true)
+     * @ORM\Column(type="string", length=255, name="icon_name_company_card", nullable=true)
      */
-    protected $iconNameLarge;
+    protected $iconNameCompanyCard;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
@@ -301,15 +301,15 @@ class CompanyType
     }
 
     /**
-     * Set iconSmall
+     * Set iconMapSelected
      *
-     * @param  string      $iconSmall
+     * @param  string      $iconMapSelected
      * @return CompanyType
      */
-    public function setIconSmall($iconSmall)
+    public function setIconMapSelected($iconMapSelected)
     {
-        $this->iconSmall = $iconSmall;
-        if ($iconSmall instanceof UploadedFile) {
+        $this->iconMapSelected = $iconMapSelected;
+        if ($iconMapSelected instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
 
@@ -317,37 +317,25 @@ class CompanyType
     }
 
     /**
-     * Get iconSmall
+     * Get iconMapSelected
      *
      * @return string
      */
-    public function getIconSmall()
+    public function getIconMapSelected()
     {
-        return $this->iconSmall;
-    }
-
-    public function setIconNameSnall($icon)
-    {
-        $this->iconNameSmall = $icon;
-
-        return $this;
-    }
-
-    public function getIconNameSmall()
-    {
-        return $this->iconNameSmall;
+        return $this->iconMapSelected;
     }
 
     /**
-     * Set iconLarge
+     * Set iconCompanyCard
      *
-     * @param  string      $iconLarge
+     * @param  string      $iconCompanyCard
      * @return CompanyType
      */
-    public function setIconLarge($iconLarge)
+    public function setIconCompanyCard($iconCompanyCard)
     {
-        $this->iconLarge = $iconLarge;
-        if ($iconLarge instanceof UploadedFile) {
+        $this->iconCompanyCard = $iconCompanyCard;
+        if ($iconCompanyCard instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
 
@@ -355,25 +343,13 @@ class CompanyType
     }
 
     /**
-     * Get iconLarge
+     * Get iconCompanyCard
      *
      * @return string
      */
-    public function getIconLarge()
+    public function getIconCompanyCard()
     {
-        return $this->iconLarge;
-    }
-
-    public function setIconNameLarge($icon)
-    {
-        $this->iconNameLarge = $icon;
-
-        return $this;
-    }
-
-    public function getIconNameLarge()
-    {
-        return $this->iconNameLarge;
+        return $this->iconCompanyCard;
     }
 
     public function setUpdatedAt($date)
@@ -398,5 +374,97 @@ class CompanyType
     public function getAutoServices()
     {
         return $this->autoServices;
+    }
+
+    /**
+     * Set iconNameMapSelected
+     *
+     * @param string $iconNameMapSelected
+     * @return CompanyType
+     */
+    public function setIconNameMapSelected($iconNameMapSelected)
+    {
+        $this->iconNameMapSelected = $iconNameMapSelected;
+
+        return $this;
+    }
+
+    /**
+     * Get iconNameMapSelected
+     *
+     * @return string 
+     */
+    public function getIconNameMapSelected()
+    {
+        return $this->iconNameMapSelected;
+    }
+
+    /**
+     * Set iconNameCompanyCard
+     *
+     * @param string $iconNameCompanyCard
+     * @return CompanyType
+     */
+    public function setIconNameCompanyCard($iconNameCompanyCard)
+    {
+        $this->iconNameCompanyCard = $iconNameCompanyCard;
+
+        return $this;
+    }
+
+    /**
+     * Get iconNameCompanyCard
+     *
+     * @return string 
+     */
+    public function getIconNameCompanyCard()
+    {
+        return $this->iconNameCompanyCard;
+    }
+
+    /**
+     * Add autoServices
+     *
+     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @return CompanyType
+     */
+    public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices[] = $autoServices;
+
+        return $this;
+    }
+
+    /**
+     * Remove autoServices
+     *
+     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     */
+    public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices->removeElement($autoServices);
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyType $children
+     * @return CompanyType
+     */
+    public function addChild(\Sto\CoreBundle\Entity\CompanyType $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyType $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\CompanyType $children)
+    {
+        $this->children->removeElement($children);
     }
 }
