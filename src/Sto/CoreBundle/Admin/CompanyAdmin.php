@@ -24,8 +24,7 @@ class CompanyAdmin extends Admin
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')
-            // ->add('workingTime')
-            // ->add('phones')
+            ->add('workingTime')
             ->add('skype')
             ->add('email')
             ->add('address')
@@ -76,8 +75,6 @@ class CompanyAdmin extends Admin
                 ->add('logo', 'file', array(
                     'required' => false,
                 ))
-                // ->add('workingTime')
-                // ->add('phones')
                 ->add('skype')
                 ->add('email')
                 ->add('address')
@@ -181,7 +178,6 @@ class CompanyAdmin extends Admin
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')
-            //->add('workingTime')
             ->add('phones')
             ->add('skype')
             ->add('email')

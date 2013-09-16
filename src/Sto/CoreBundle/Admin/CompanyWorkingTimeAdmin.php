@@ -25,6 +25,7 @@ class CompanyWorkingTimeAdmin extends Admin
                 ]
             ])
             ->add('fromTime')
-            ->add('tillTime');
+            ->add('tillTime')
+        ;
     }
 }
