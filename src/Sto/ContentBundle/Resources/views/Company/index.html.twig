@@ -17,6 +17,7 @@
         var myCollection;
         var myMap;
         var globalCompanies;
+        var globalSelectedItem = null;
 
         function renderMap(companies) {
             filterDataByZoom(myMap.getZoom(), companies);
@@ -263,6 +264,15 @@
                     if (o.properties.get('id') == id) {
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         myMap.setCenter(o.geometry.getBounds()[0]);
+
+                        if (globalSelectedItem == null) {
+                            globalSelectedItem = o;
+
+                            return;
+                        }
+
+                        globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
+                        globalSelectedItem = o;
 
                         return;
                     }
