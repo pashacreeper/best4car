@@ -1,6 +1,6 @@
-{% if workingTime %}
+{# if workingTime %}
     {% for item in workingTime %}
         <span>{{item.from|date('H:i')}}-{{item.till|date('H:i')}} ({{item.days.string}})</span>
         {% if not loop.last %}<br>{% endif %}
     {% endfor %}
-{% endif %}
+{% endif #}

@@ -454,6 +454,11 @@ var companyPage = function(){
 
 var initPage = function(){
     $('.chzn-select').chosen();
+
+    $(document).on('click', '.workingTimeDays label', function() {
+        $(this).toggleClass('checked');
+    });
+
     mainLayout();
     catalogPage();
     dealsPage();

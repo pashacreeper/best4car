@@ -275,6 +275,7 @@ class Company
         $this->autos = new ArrayCollection();
         $this->companyManager = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->workingTime = new ArrayCollection();
     }
 
     /**
@@ -565,7 +566,7 @@ class Company
      */
     public function addWorkingTime($workingTime)
     {
-        $this->workingTime[] = $workingTime;
+        $this->workingTime[] = $workingTime->setCompany($this);
 
         return $this;
     }

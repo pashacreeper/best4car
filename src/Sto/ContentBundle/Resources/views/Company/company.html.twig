@@ -44,10 +44,10 @@
 
                 <p class="infoCompanyLable">
                     Часы работы:</br>
-                    {%- for workPhase in item.workingTime %}
+                    {#- for workPhase in item.workingTime %}
                         <span>{{ workPhase.from|date('H:i') }} - {{ workPhase.till|date('H:i') }} ({{ workPhase.days.string|lower }})</span>
                         {%- if not loop.last %}<br />{% endif -%}
-                    {% endfor -%}
+                    {% endfor -#}
                 </p>
             </div>
         </div>

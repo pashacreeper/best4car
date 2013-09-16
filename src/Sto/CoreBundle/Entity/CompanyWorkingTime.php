@@ -29,12 +29,12 @@ class CompanyWorkingTime
     /**
      * @ORM\Column(type="time")
      */
-    private $from;
+    private $fromTime;
 
     /**
      * @ORM\Column(type="time")
      */
-    private $till;
+    private $tillTime;
 
     /**
      * @ORM\Column(type="integer")
@@ -46,26 +46,26 @@ class CompanyWorkingTime
         return $this->id;
     }
 
-    public function setFrom($from)
+    public function setFromTime($from)
     {
-        $this->from = $from;
+        $this->fromTime = $from;
 
         return $this;
     }
 
-    public function getFrom()
+    public function getFromTime()
     {
-        return $this->from;
+        return $this->fromTime;
     }
 
-    public function getTill()
+    public function getTillTime()
     {
-        return $this->till;
+        return $this->tillTime;
     }
 
-    public function setTill($till)
+    public function setTillTime($till)
     {
-        $this->till = $till;
+        $this->tillTime = $till;
 
         return $this;
     }
@@ -80,13 +80,31 @@ class CompanyWorkingTime
         return $response;
     }
 
+    public function getDaysAsString()
+    {
+        return 'in progress';
+    }
+
     public function setDays($days)
     {
+        $this->days = 0;
         foreach ($days as $k => $day) {
             if ($day) {
                 $this->days += pow(2, $k);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function setCompany($value)
+    {
+        $this->company = $value;
 
         return $this;
     }

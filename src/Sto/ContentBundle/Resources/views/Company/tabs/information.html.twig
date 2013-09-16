@@ -4,11 +4,11 @@
     <div class="img__prev__wrap">
         <ul id="thumbnail" class="slide-wrap">
             {% for photo in company.gallery %}
-            <li class="slide-item">
-                <a class="linh__img__prev" href="#">
-                    <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo,'image') | imagine_filter('company_gallery_filter') }}"  alt="" />
-                </a>
-            </li>
+                <li class="slide-item">
+                    <a class="linh__img__prev" href="#">
+                        <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo,'image') | imagine_filter('company_gallery_filter') }}"  alt="" />
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <span name="prev" class="navy prev-slide"></span>
@@ -122,7 +122,7 @@
         <p class="infoCompanyTitle titleH3">Часы работы:</p>
         {%- for time in company.workingTime %}
             <p class="infoCompanyDescription">
-                {{ time.from|date('H:i') }} - {{ time.till|date('H:i') }} ({{ time.days.string }})
+                {{ time.fromTime|date('H:i') }} - {{ time.tillTime|date('H:i') }} ({{ time.daysAsString }})
             </p>
         {% endfor -%}
     </div>
