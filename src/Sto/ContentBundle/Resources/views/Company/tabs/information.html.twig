@@ -18,33 +18,35 @@
 {% endif %}
 <div class="servicesSpecialisationWrap">
     <div class="accordion" id="accordion2">
-        <h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
-        {% for specialization in company.specializations %}
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <div class="accordion-toggle" id="{{ loop.index }}">
-                        {% if specialization.type.iconCompanyCard %}
-                            <img src="{{ vich_uploader_asset(specialization.type, 'iconCompanyCard') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
-                        {% else %}
-                            <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.type.name }}">
-                        {% endif %}
-                        <p class="accordionTitle">{{ specialization.type.name }}</p>
-                        <p class="accordionDescription">{{ specialization.subType.name }}</p>
-                        <span class="iconAccord iconChevron" id="iconCollapse_{{ loop.index }}"></span>
+        {% if company.specializations | length %}
+            <h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
+            {% for specialization in company.specializations %}
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <div class="accordion-toggle" id="{{ loop.index }}">
+                            {% if specialization.type.iconCompanyCard %}
+                                <img src="{{ vich_uploader_asset(specialization.type, 'iconCompanyCard') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
+                            {% else %}
+                                <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.type.name }}">
+                            {% endif %}
+                            <p class="accordionTitle">{{ specialization.type.name }}</p>
+                            <p class="accordionDescription">{{ specialization.subType.name }}</p>
+                            <span class="iconAccord iconChevron" id="iconCollapse_{{ loop.index }}"></span>
+                        </div>
+                    </div>
+                    <div id="collapse_{{ loop.index }}" class="accordion-body">
+                        <div class="accordion-inner">
+                            <ul class="listServices">
+                                <li class="listServicesItem contentText">
+                                    {{ specialization.subType.name }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div id="collapse_{{ loop.index }}" class="accordion-body">
-                    <div class="accordion-inner">
-                        <ul class="listServices">
-                            <li class="listServicesItem contentText">
-                                {{ specialization.subType.name }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <span class="showAll">Показать все</span>
+            {% endfor %}
+            <span class="showAll">Показать все</span>
+        {% endif %}
     </div>
     {% if company.additionalServices|length %}
     <div class="additionalServices">
