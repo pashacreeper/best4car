@@ -34,7 +34,7 @@ $(function() {
 
 		if ($(this).hasClass('withContainer')) {
 			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
-			+ '<span class="select1" style="position: relative; z-index: 10000">'
+			+ '<span class="select1" style="position: relative;">'
 			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
 			+ '</span>'
 			+ '<div class="dropdown-container" id="dropdown-container">'
@@ -43,7 +43,7 @@ $(function() {
 			+ '</span>';
 		} else {
 			dropdownMarkup = '<span class="selectbox1" style="display: inline-block; position: relative">'
-			+ '<span class="select1" style="float: left; position: relative; z-index: 10000">'
+			+ '<span class="select1" style="float: left; position: relative;">'
 			+ '<span class="text1" id="selectTextLabel">' + selectText + '</span>'
 			+ '</span>'
 			+ '<ul class="dropdown" style="position: absolute; z-index: 9999; overflow: auto; overflow-x: hidden; list-style: none">' + dropdown + '</ul>'

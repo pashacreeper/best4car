@@ -189,6 +189,15 @@ class CompanyType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
             ))
+            ->add('autos', 'entity', [
+                'label' => 'Специализация на марке',
+                'multiple' => true,
+                'class' => 'StoCoreBundle:Mark',
+                'attr' => [
+                    'class' => 'chosen-multiple span6 chzn-select',
+                    'data-placeholder' => 'Выберете марки автомобилей'
+                ]
+            ])
         ;
     }
 

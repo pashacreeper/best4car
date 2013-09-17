@@ -123,6 +123,14 @@
                 {% endfor %}
                 </ul>
             </div>
+
+            <div class="contentLabel clear contentLabelNoOverflow">
+                {{ form_label(cForm.autos) }}
+                <div class="basket__cont__body__bottom__paper">
+                    {{ form_widget(cForm.autos) }}
+                </div>
+            </div>
+
             <div class="bottomBlock">
                 <div class="contentLabel costHour" id="costHour">
                     {{ form_label(cForm.hourPrice) }}
