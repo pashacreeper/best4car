@@ -40,6 +40,8 @@ class StoExtension extends \Twig_Extension
                 $result .= $labels[$key];
             } elseif (isset($days[$nextKey]) && !$days[$nextKey]) {
                 $result .= ' - ' . $labels[$key];
+            } elseif (!isset($days[$nextKey])) {
+                $result .= ' - ' . $labels[$key];
             }
         }
 
