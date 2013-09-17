@@ -185,10 +185,6 @@ class CompanyController extends MainController
                 }
             }
 
-            foreach ($originalSpecializations as $item) {
-                $em->remove($item);
-            }
-
             $em->persist($company);
             $em->flush();
 

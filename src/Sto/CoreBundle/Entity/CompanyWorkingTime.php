@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * CompanyWorkingTime
+ * @ORM\Table(name="company_working_time")
+ * @ORM\Entity()
  */
 class CompanyWorkingTime
 {
@@ -15,71 +17,122 @@ class CompanyWorkingTime
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    /**
-     * @ORM\Column(type="time", nullable=true)
-     */
-    private $from;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\Company", inversedBy="workingTime")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-    private $till;
+    private $company;
 
     /**
-     * @ORM\OneToMany(targetEntity="Dictionary\WeekDay", nullable=true)
+     * @ORM\Column(type="time")
      */
-    private $dayFrom;
+    private $fromTime;
 
     /**
-     * @ORM\OneToMany(targetEntity="Dictionary\WeekDay", nullable=true)
+     * @ORM\Column(type="time")
      */
-    private $dayTill;
+    private $tillTime;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_monday")
+     */
+    private $daysMonday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_tuesday")
+     */
+    private $daysTuesday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_wednesday")
+     */
+    private $daysWednesday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_thursday")
+     */
+    private $daysThursday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_friday")
+     */
+    private $daysFriday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_saturday")
+     */
+    private $daysSaturday = false;
+
+    /**
+     * @ORM\Column(type="boolean", name="days_sunday")
+     */
+    private $daysSunday = false;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function setFrom($from)
+    public function setFromTime($from)
     {
-        $this->from = $from;
+        $this->fromTime = $from;
 
         return $this;
     }
 
-    public function getFrom()
+    public function getFromTime()
     {
-        return $this->from;
+        return $this->fromTime;
     }
 
-    public function setTill($till)
+    public function getTillTime()
     {
-        $this->till = $till;
+        return $this->tillTime;
+    }
+
+    public function setTillTime($till)
+    {
+        $this->tillTime = $till;
 
         return $this;
     }
 
-    public function setDayFrom($day)
+    public function getDays()
     {
-        $this->dayFrom = $day;
+        return [
+            $this->daysMonday,
+            $this->daysTuesday,
+            $this->daysWednesday,
+            $this->daysThursday,
+            $this->daysFriday,
+            $this->daysSaturday,
+            $this->daysSunday
+        ];
+    }
+
+    public function setDays($days)
+    {
+        $this->daysMonday = $days[0];
+        $this->daysTuesday = $days[1];
+        $this->daysWednesday = $days[2];
+        $this->daysThursday = $days[3];
+        $this->daysFriday = $days[4];
+        $this->daysSaturday = $days[5];
+        $this->daysSunday = $days[6];
 
         return $this;
     }
 
-    public function getDayFrom()
+    public function getCompany()
     {
-        return $this->dayFrom;
+        return $this->company;
     }
 
-    public function setDayTill($day)
+    public function setCompany($value)
     {
-        $this->dayTill = $day;
+        $this->company = $value;
 
         return $this;
-    }
-
-    public function getDayTill()
-    {
-        return $this->dayTill;
     }
 }

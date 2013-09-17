@@ -53,6 +53,12 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Компании, label: Специализация, show_in_dashboard: false}
           arguments: [null, Sto\CoreBundle\Entity\CompanySpecialization, SonataAdminBundle:CRUD]
 
+    app.admin.company.company_working_time:
+          class: Sto\CoreBundle\Admin\CompanyWorkingTimeAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Время работы, show_in_dashboard: false}
+          arguments: [null, Sto\CoreBundle\Entity\CompanyWorkingTime, SonataAdminBundle:CRUD]
+
     app.admin.feedback_company:
           class: Sto\CoreBundle\Admin\FeedbackCompanyAdmin
           tags:
@@ -124,12 +130,6 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Справочники, label: Уровни цен}
           arguments: [null, Sto\CoreBundle\Entity\Dictionary\PriceLevel, SonataAdminBundle:CRUD]
-
-    app.admin.week_day:
-          class: Sto\CoreBundle\Admin\Dictionary\WeekDayAdmin
-          tags:
-            - { name: sonata.admin, manager_type: orm, group: Справочники, label: Дни недели}
-          arguments: [null, Sto\CoreBundle\Entity\Dictionary\WeekDay, SonataAdminBundle:CRUD]
 
     app.admin.work:
           class: Sto\CoreBundle\Admin\Dictionary\WorkAdmin

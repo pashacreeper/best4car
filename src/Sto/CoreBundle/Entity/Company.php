@@ -53,6 +53,11 @@ class Company
     private $specializations;
 
     /**
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyWorkingTime", mappedBy="company", cascade={"all"})
+     */
+    private $workingTime;
+
+    /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
      * @ORM\JoinTable(name="company_additional_service",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
@@ -83,11 +88,6 @@ class Company
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     protected $logoName;
-
-    /**
-     * @ORM\Column(name="working_time", type="array")
-     */
-    private $workingTime;
 
     /**
      * @ORM\Column(name="phones", type="array")
@@ -275,6 +275,7 @@ class Company
         $this->autos = new ArrayCollection();
         $this->companyManager = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->workingTime = new ArrayCollection();
     }
 
     /**
@@ -563,11 +564,16 @@ class Company
      * @param  string  $workingTime
      * @return Company
      */
-    public function setWorkingTime($workingTime)
+    public function addWorkingTime($workingTime)
     {
-        $this->workingTime = $workingTime;
+        $this->workingTime[] = $workingTime->setCompany($this);
 
         return $this;
+    }
+
+    public function removeWorkingTime($value)
+    {
+        $this->workingTime->remove($value);
     }
 
     /**

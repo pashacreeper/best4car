@@ -31,6 +31,7 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
+            ->leftJoin('company.workingTime', 'cwt')
             ->where('company.visible = true')
         ;
 
@@ -106,13 +107,14 @@ class CompanyRepository extends EntityRepository
         }
 
         $qb = $this->createQueryBuilder('company')
-            ->select('company, csp, fb, d, csp_type, csp_sub_type, additional_services')
+            ->select('company, csp, fb, d, csp_type, csp_sub_type, additional_services, cwt')
             ->leftJoin('company.specializations', 'csp')
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
             ->leftJoin('company.deals', 'd')
             ->leftJoin('company.additionalServices', 'additional_services')
+            ->leftJoin('company.workingTime', 'cwt')
             ->where('company.id IN(:ids)')
             ->setParameter('ids', $ids)
         ;

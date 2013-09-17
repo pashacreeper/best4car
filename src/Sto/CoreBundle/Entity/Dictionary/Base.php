@@ -18,7 +18,6 @@ use JMS\Serializer\Annotation as Serializer;
  *     "additional_service" = "AdditionalService",
  *     "work"               = "Work",
  *     "currency"           = "Currency",
- *     "day_of_week"        = "WeekDay",
  *     "price_level"        = "PriceLevel",
  *     "contact_type"       = "ContactType",
  * })

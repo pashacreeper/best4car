@@ -24,8 +24,7 @@ class CompanyAdmin extends Admin
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')
-            // ->add('workingTime')
-            // ->add('phones')
+            ->add('workingTime')
             ->add('skype')
             ->add('email')
             ->add('address')
@@ -67,13 +66,6 @@ class CompanyAdmin extends Admin
                 ->add('slogan')
                 ->add('fullName')
                 ->add('web')
-                ->add('specializations', 'sonata_type_collection', [
-                        'by_reference' => false,
-                    ], [
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                    ]
-                )
                 ->add('additionalServices', null, array(
                     'required' => false,
                 ))
@@ -83,8 +75,6 @@ class CompanyAdmin extends Admin
                 ->add('logo', 'file', array(
                     'required' => false,
                 ))
-                // ->add('workingTime')
-                // ->add('phones')
                 ->add('skype')
                 ->add('email')
                 ->add('address')
@@ -116,23 +106,23 @@ class CompanyAdmin extends Admin
                 ->add('linkVK')
                 ->add('linkTW')
                 ->add('linkFB')
-                ->add('contacts', 'sonata_type_collection', [
-                        'by_reference' => false,
-                    ],
-                    [
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                    ]
-                )
                 ->add('autos', null, [
                     'required' => false,
                 ])
             ->end()
+            ->with('Контакты')
+                ->add('contacts', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ], [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ->end()
             ->with('Галерея')
                 ->add('gallery', 'sonata_type_collection', [
                         'by_reference' => false,
-                    ],
-                    [
+                    ], [
                         'edit' => 'inline',
                         'inline' => 'table',
                     ]
@@ -141,8 +131,25 @@ class CompanyAdmin extends Admin
             ->with('Менеджеры')
                 ->add('companyManager', 'sonata_type_collection', [
                         'by_reference' => false,
-                    ],
-                    [
+                    ], [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ->end()
+            ->with('Специализация')
+                ->add('specializations', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ], [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ->end()
+            ->with('Время работы')
+                ->add('workingTime', 'sonata_type_collection', [
+                        'by_reference' => false,
+                    ], [
                         'edit' => 'inline',
                         'inline' => 'table',
                     ]
@@ -171,7 +178,6 @@ class CompanyAdmin extends Admin
             ->add('additionalServices')
             ->add('autoServices')
             ->add('logoName')
-            ->add('workingTime')
             ->add('phones')
             ->add('skype')
             ->add('email')
