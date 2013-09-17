@@ -61,6 +61,19 @@ class APICompanyController extends FOSRestController
         ;
 
         foreach ($companies as $key => $value) {
+            foreach ($value['workingTime'] as $wtKey => $wtValue)
+            {
+                $value['workingTime'][$wtKey]['days'] = [
+                    $wtValue['days_monday'],
+                    $wtValue['days_tuesday'],
+                    $wtValue['days_wednesday'],
+                    $wtValue['days_thursday'],
+                    $wtValue['days_friday'],
+                    $wtValue['days_saturday'],
+                    $wtValue['days_sunday']
+                ];
+            }
+
             $companies[$key]['specialization_template'] = $this->render(
                 'StoContentBundle:Company:specialization_list.html.twig',
                 [  

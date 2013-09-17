@@ -35,9 +35,39 @@ class CompanyWorkingTime
     private $tillTime;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
-    private $days = 0;
+    private $days_monday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_tuesday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_wednesday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_thursday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_friday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_saturday = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $days_sunday = false;
 
     public function getId()
     {
@@ -70,22 +100,18 @@ class CompanyWorkingTime
 
     public function getDays()
     {
-        $response = [];
-        foreach ([1, 2, 4, 8, 16, 32, 64] as $day) {
-            $response[] = ($day & $this->days) > 0;
-        }
-
-        return $response;
+        return [$this->days_monday, $this->days_tuesday, $this->days_wednesday, $this->days_thursday, $this->days_friday, $this->days_saturday, $this->days_sunday];
     }
 
     public function setDays($days)
     {
-        $this->days = 0;
-        foreach ($days as $k => $day) {
-            if ($day) {
-                $this->days += pow(2, $k);
-            }
-        }
+        $this->days_monday = $days[0];
+        $this->days_tuesday = $days[1];
+        $this->days_wednesday = $days[2];
+        $this->days_thursday = $days[3];
+        $this->days_friday = $days[4];
+        $this->days_saturday = $days[5];
+        $this->days_sunday = $days[6];
 
         return $this;
     }

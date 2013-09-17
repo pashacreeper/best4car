@@ -45,7 +45,7 @@
                 <p class="infoCompanyLable">
                     Часы работы:<br/>
                     {%- for workPhase in item.workingTime %}
-                        <span>{{ workPhase.fromTime|date('H:i') }} - {{ workPhase.tillTime|date('H:i') }} ({{ workPhase.days | working_time_days_number_to_array | working_time_days_array_to_string }})</span>
+                        <span>{{ workPhase.fromTime|date('H:i') }} - {{ workPhase.tillTime|date('H:i') }} ({{ workPhase.days | working_time_days_to_string }})</span>
                         {%- if not loop.last %}<br />{% endif -%}
                     {% endfor -%}
                 </p>
