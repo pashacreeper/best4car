@@ -23,8 +23,8 @@
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <div class="accordion-toggle" id="{{ loop.index }}">
-                        {% if specialization.type.iconLarge %}
-                            <img src="{{ vich_uploader_asset(specialization.type, 'iconLarge') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
+                        {% if specialization.type.iconCompanyCard %}
+                            <img src="{{ vich_uploader_asset(specialization.type, 'iconCompanyCard') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
                         {% else %}
                             <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.type.name }}">
                         {% endif %}
