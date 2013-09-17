@@ -184,6 +184,7 @@ class CompanyType extends AbstractType
             ->add('gallery','collection', array(
                 'label' => ' ',
                 'type' => new CompanyGalleryType(),
+                'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

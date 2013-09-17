@@ -1045,7 +1045,7 @@ class Company
      */
     public function addGallery(CompanyGallery $gallery)
     {
-        $this->gallery[] = $gallery;
+        $this->gallery[] = $gallery->setCompany($this);
 
         return $this;
     }
