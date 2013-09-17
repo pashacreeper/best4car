@@ -75,7 +75,7 @@ class APICompanyController extends FOSRestController
 
             $companies[$key]['specialization_template'] = $this->render(
                 'StoContentBundle:Company:specialization_list.html.twig',
-                [  
+                [
                     'specializations' => $value['specializations'],
                     'additionalServices' => $value['additionalServices']
                 ]

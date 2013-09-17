@@ -111,7 +111,7 @@ class CompanyAdmin extends Admin
                 ])
             ->end()
             ->with('Контакты')
-            ->add('contacts', 'sonata_type_collection', [
+                ->add('contacts', 'sonata_type_collection', [
                         'by_reference' => false,
                     ], [
                         'edit' => 'inline',

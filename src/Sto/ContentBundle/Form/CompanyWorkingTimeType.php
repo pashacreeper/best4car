@@ -1,7 +1,6 @@
 <?php
 namespace Sto\ContentBundle\Form;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
