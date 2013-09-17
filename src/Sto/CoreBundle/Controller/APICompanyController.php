@@ -61,16 +61,15 @@ class APICompanyController extends FOSRestController
         ;
 
         foreach ($companies as $key => $value) {
-            foreach ($value['workingTime'] as $wtKey => $wtValue)
-            {
+            foreach ($value['workingTime'] as $wtKey => $wtValue) {
                 $value['workingTime'][$wtKey]['days'] = [
-                    $wtValue['days_monday'],
-                    $wtValue['days_tuesday'],
-                    $wtValue['days_wednesday'],
-                    $wtValue['days_thursday'],
-                    $wtValue['days_friday'],
-                    $wtValue['days_saturday'],
-                    $wtValue['days_sunday']
+                    $wtValue['daysMonday'],
+                    $wtValue['daysTuesday'],
+                    $wtValue['daysWednesday'],
+                    $wtValue['daysThursday'],
+                    $wtValue['daysFriday'],
+                    $wtValue['daysSaturday'],
+                    $wtValue['daysSunday']
                 ];
             }
 

@@ -35,39 +35,39 @@ class CompanyWorkingTime
     private $tillTime;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_monday")
      */
-    private $days_monday = false;
+    private $daysMonday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_tuesday")
      */
-    private $days_tuesday = false;
+    private $daysTuesday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_wednesday")
      */
-    private $days_wednesday = false;
+    private $daysWednesday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_thursday")
      */
-    private $days_thursday = false;
+    private $daysThursday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_friday")
      */
-    private $days_friday = false;
+    private $daysFriday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_saturday")
      */
-    private $days_saturday = false;
+    private $daysSaturday = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="days_sunday")
      */
-    private $days_sunday = false;
+    private $daysSunday = false;
 
     public function getId()
     {
@@ -100,18 +100,26 @@ class CompanyWorkingTime
 
     public function getDays()
     {
-        return [$this->days_monday, $this->days_tuesday, $this->days_wednesday, $this->days_thursday, $this->days_friday, $this->days_saturday, $this->days_sunday];
+        return [
+            $this->daysMonday,
+            $this->daysTuesday,
+            $this->daysWednesday,
+            $this->daysThursday,
+            $this->daysFriday,
+            $this->daysSaturday,
+            $this->daysSunday
+        ];
     }
 
     public function setDays($days)
     {
-        $this->days_monday = $days[0];
-        $this->days_tuesday = $days[1];
-        $this->days_wednesday = $days[2];
-        $this->days_thursday = $days[3];
-        $this->days_friday = $days[4];
-        $this->days_saturday = $days[5];
-        $this->days_sunday = $days[6];
+        $this->daysMonday = $days[0];
+        $this->daysTuesday = $days[1];
+        $this->daysWednesday = $days[2];
+        $this->daysThursday = $days[3];
+        $this->daysFriday = $days[4];
+        $this->daysSaturday = $days[5];
+        $this->daysSunday = $days[6];
 
         return $this;
     }
