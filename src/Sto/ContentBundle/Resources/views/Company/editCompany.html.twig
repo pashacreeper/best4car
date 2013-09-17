@@ -200,14 +200,25 @@
                     <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
                     <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}">
                         {% for time in cForm.workingTime %}
-                            <div class="contactDate">
-                                {{ form_widget(time.days) }}
+                            <div class="contactDate" style="overflow: hidden">
+                                <div class="workingTimeDays">
+                                    {% for day in time.days %}
+                                        {% if day.get('checked') %}
+                                            {{ form_label(day, null, {'label_attr' : {'class': 'checked'}}) }}
+                                        {% else %}
+                                            {{ form_label(day) }}
+                                        {% endif %}
+
+                                        {{ form_widget(day) }}
+                                    {% endfor %}
+                                </div>
+
                                 <div class="input-append dateLeft">
-                                    {{ form_widget(time.from) }}
+                                    {{ form_widget(time.fromTime) }}
                                     <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
                                 </div>
                                 <div class="input-append dateLeft">
-                                    {{ form_widget(time.till) }}
+                                    {{ form_widget(time.tillTime) }}
                                     <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
                                 </div>
                             </div>

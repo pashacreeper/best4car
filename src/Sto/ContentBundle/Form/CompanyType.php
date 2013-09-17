@@ -50,11 +50,12 @@ class CompanyType extends AbstractType
             ])
             ->add('workingTime','collection', array(
                 'label' => ' ',
-                'type' => new CompanyWorkingTimeType($options['em']),
+                'type' => new CompanyWorkingTimeType(),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
                 'required' => false,
+                'by_reference' => false
             ))
             ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
