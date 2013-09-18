@@ -1996,3 +1996,6 @@ input[type="checkbox"].checkBox{
     border-bottom: 1px dotted transparent;
     color: #F35D2E;
 }
+
+.popupCardCompany .infoCompany {width: 150px;}
+.popupCardCompany .servicesPart {width: 250px;}
