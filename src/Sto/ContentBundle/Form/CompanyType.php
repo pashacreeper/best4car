@@ -193,6 +193,7 @@ class CompanyType extends AbstractType
                 'label' => 'Специализация на марке',
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
+                'required' => false,
                 'attr' => [
                     'class' => 'chosen-multiple span6 chzn-select',
                     'data-placeholder' => 'Выберете марки автомобилей'
