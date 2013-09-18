@@ -59,10 +59,10 @@
                 }
 
                 ymaps.option.presetStorage.add("iconMap#" + val.id, {
-                    iconImageHref: iconMap,
+                    iconImageHref: iconMap
                 });
                 ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
-                    iconImageHref: iconMapSelected,
+                    iconImageHref: iconMapSelected
                 });
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
@@ -83,6 +83,13 @@
                     };
                 }
 
+                if (val.deals.length) {
+                    var special = '<span class="spesialTerms">Спецпредложение!</span>';
+                }
+                else {
+                    var special = '';
+                }
+
                 myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -92,6 +99,7 @@
                     web_without_http: withoutHttp,
                     logo: val.logoName,
                     rating: val.rating,
+                    special: special,
                     specialization_html: val.specialization_template,
                     workingTime_html: val.workingTime_template,
                     specialDeal: val.specialDeal
@@ -151,6 +159,7 @@
                         '<div class="dataCompany">' +
                             '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                             '<p class="adressCompany">$[properties.address]</p>' +
+                            '$[properties.special]' +
                             '<a href="$[properties.web]" class="siteCompany">$[properties.web_without_http]</a>' +
                             '$[properties.specialDeal]' +
                         '</div>' +
