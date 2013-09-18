@@ -75,6 +75,7 @@ class Builder extends ContainerAware
         $page = $menu->addChild('Тур по сайту', ['uri' => '#']);
         $page->setAttribute('class', 'footerMenuItem');
         $page->setLinkAttribute('data-reveal-id', 'for-car-owners');
+        $page->setLinkAttribute('class', 'linkFirstVisitPeopleBottomButton');
 
         $page = $menu->addChild('Контакты', ['route' => 'info_show', 'routeParameters' => ['name' => 'contact']]);
         $page->setAttribute('class', 'footerMenuItem');

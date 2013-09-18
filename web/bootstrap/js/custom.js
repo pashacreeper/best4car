@@ -197,6 +197,9 @@ var catalogPage = function(){
     $('.linkFirstVisitCompany').on('click', function(){
         slider2.reloadSlider();
     });
+    $('.linkFirstVisitPeopleBottomButton').on('click', function() {
+        slider1.reloadSlider();
+    });
 
     // Отрабатываем нажатие по «Только с акциями» в меню расширенного поиска
     // start
