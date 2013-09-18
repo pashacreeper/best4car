@@ -138,12 +138,12 @@ class CompanyType extends AbstractType
                     'data-format' => "yyyy-MM-dd"
                 ]
             ])
-            ->add('notes', 'textarea', [
-                'label' => 'Дополнительное описание деятельности компании',
+            ->add('description', 'textarea', [
+                'label' => 'Описание компании',
                 'required' => false,
                 'attr' => [
                     'rows' => '3',
-                    'style' => 'width: 100%'
+                    'style' => 'width: 500px'
                 ]
             ])
             ->add('gps', null, [
