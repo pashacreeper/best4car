@@ -47,7 +47,7 @@ class Builder extends ContainerAware
             $clubs->setCurrent(true);
         }
 
-        $experts = $menu->addChild('Эксперты', ['route' => 'info_show', 'routeParameters' => ['name' => 'experts']]);
+        /*$experts = $menu->addChild('Эксперты', ['route' => 'info_show', 'routeParameters' => ['name' => 'experts']]);
         $experts->setAttribute('class', 'navTopItem');
         $experts->setLinkAttributes(['data-span-class' => 'experts', 'class' => 'navLink']);
         if (in_array($route, [
@@ -56,7 +56,7 @@ class Builder extends ContainerAware
             'fos_user_profile_edit',
         ]) || ('info_show' == $route && 'experts' == $routeParametersName)) {
             $experts->setCurrent(true);
-        }
+        }*/
 
         return $menu;
     }
