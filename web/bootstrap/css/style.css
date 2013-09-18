@@ -2001,3 +2001,5 @@ input[type="checkbox"].checkBox{
 .popupCardCompany .servicesPart {width: 250px;}
 .cardCompanyItem .infoCompany {width: 150px;}
 .cardCompanyItem .servicesPart {width: 175px;}
+
+.addFeedbackCarLabel {margin-bottom: 22px; overflow: visible;}
