@@ -1999,3 +1999,5 @@ input[type="checkbox"].checkBox{
 
 .popupCardCompany .infoCompany {width: 150px;}
 .popupCardCompany .servicesPart {width: 250px;}
+.cardCompanyItem .infoCompany {width: 150px;}
+.cardCompanyItem .servicesPart {width: 175px;}
