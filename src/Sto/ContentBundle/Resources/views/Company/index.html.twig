@@ -219,6 +219,11 @@
             return false;
         }
 
+        function declOfNum(number, titles) {
+            cases = [2, 0, 1, 1, 1, 2];
+            return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
+        }
+
         function companiesAjaxLoad() {
             $.ajax({
                 url: Routing.generate('api_get_companies'),
@@ -226,7 +231,8 @@
                 dataType: 'json',
                 success: function (response) {
                     globalCompanies = response;
-                    $('.contentTopCenter span').text(response.length);
+                    var text = 'Найдено <span>' + response.length + '</span> ' + declOfNum(response.length, ['компания', 'компании', 'компаний']) + ' в вашем городе';
+                    $('.contentTopCenter').html(text);
 
                     $('#companiesListContainer').empty();
                     $.each(response, function (index, item) {
@@ -360,7 +366,7 @@
         </span>
         </div>
         <p class="contentTopCenter">
-            Все <span>0 </span> компаний вашего города
+            Найдено <span>0</span> компаний в вашем городе
         </p>
     </div>
 
