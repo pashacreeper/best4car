@@ -1,3 +1,15 @@
+/**
+ * Функция склонения числительных в русском языке
+ *
+ * @param int number Число которое нужно просклонять
+ * @param array titles Массив слов для склонения
+ * @return string
+ **/
+function declensionOfNumerals(number, titles) {
+    cases = [2, 0, 1, 1, 1, 2];
+    return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
+}
+
 var mainLayout = function(){
     // Top menu hover effect
     $('.navTopItem').mouseenter(function() {
