@@ -1,6 +1,6 @@
 <div class="leftContent">
-    <h1 class="title2">Действующие акции компании</h1>
     {% if deals|length %}
+        <h1 class="title2">Действующие акции компании</h1>
         {% for deal in company.deals %}
             <div class="actionItem">
                 <a href="{{ path('content_deal_show', {'id': deal.id}) }}">
@@ -22,10 +22,6 @@
                 </div>
             </div>
         {% endfor %}
-    {% else %}
-        <p>
-            В настоящее время действующих акций нет
-        </p>
     {% endif %}
 </div>
 
