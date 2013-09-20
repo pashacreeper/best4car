@@ -72,7 +72,7 @@ fos_user:
     firewall_name: main
     user_class: Sto\UserBundle\Entity\User
     from_email:
-        address: no-reply@best4car.ru
+        address: noreply@best4car.ru
         sender_name: Администсрация портала best4car.ru
     group:
         group_class: Sto\UserBundle\Entity\Group
