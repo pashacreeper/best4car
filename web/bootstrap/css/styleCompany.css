@@ -377,10 +377,11 @@ ul.tabNavigation li a:focus {
 	width: 100%;
 	height: auto;
 }
-.nameManager a, .nameManager {
+.nameManager {
 	color: #292d32;
 	font: 1.6em 'PT Sans', sans;
 }
+.nameManager a {color: #292d32;}
 .phoneManager{
 	color: #f35d2e;
 	font: Bold 2.0em 'PT Sans', sans;
