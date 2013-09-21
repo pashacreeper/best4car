@@ -73,13 +73,15 @@
                     img = {
                         iconImageHref: iconMap,
                         iconImageSize: iconSize,
-                        hideIconOnBalloonOpen: false
+                        hideIconOnBalloonOpen: false,
+                        zIndex: 100
                     };
                 } else {
                     img = {
                         iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
                         iconImageSize: [8, 8],
-                        hideIconOnBalloonOpen: true
+                        hideIconOnBalloonOpen: true,
+                        zIndex: 99
                     };
                 }
 
