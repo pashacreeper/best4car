@@ -1,19 +1,20 @@
 jQuery(document).ready(function(){
     function htmSlider(autoplayInterval){
-        var slideWrap = jQuery('.slide-wrap'),
-            nextLink = jQuery('.next-slide'),
-            prevLink = jQuery('.prev-slide'),
-            playLink = jQuery('.auto'),
-            slideWidth = jQuery('.slide-item').outerWidth(),
-            newLeftPos = slideWrap.position().left - slideWidth,
-            timer = null;
+        var slideWrap = jQuery('.slide-wrap');
+        var nextLink = jQuery('.next-slide');
+        var prevLink = jQuery('.prev-slide');
+        var playLink = jQuery('.auto');
+        var slideWidth = jQuery('.slide-item').outerWidth();
+        var newLeftPos = slideWrap.position().left - slideWidth
+        var timer = null;
+        var sliderItemCount = jQuery('.slide-item').length;
 
-        if (jQuery('.slide-item').length == 1) {
+        if (sliderItemCount == 1) {
             nextLink.remove();
             prevLink.remove();
             sliderWidth = jQuery('.slider').width();
             $('.slide-item').css("margin-left", slideWidth);
-        } else if (jQuery('.slide-item').length == 2) {
+        } else if (sliderItemCount == 2 || sliderItemCount == 3) {
             clonedSlides = slideWrap.find('.slide-item').clone();
             clonedSlides.addClass('clone');
             slideWrap.append(clonedSlides);
