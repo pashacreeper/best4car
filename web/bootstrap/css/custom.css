@@ -340,7 +340,6 @@ span.complain{
 
 .registration-form-popup{
     top: 29px !important;
-    overflow: scroll;
 }
 .registration-form-popup .contentLabel{
     margin: 2px;

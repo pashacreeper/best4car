@@ -1306,11 +1306,8 @@ select{
 }
 .enterCocial{
     clear: both;
-    margin-bottom: 10px;
     padding: 10px 0;
     border-top: 1px solid #f35d2e;
-    border-bottom: 1px solid #f35d2e;
-    overflow: hidden;
 }
 .countrySelectTab{
     float: left;
