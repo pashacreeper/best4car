@@ -284,7 +284,13 @@ class UserController extends MainController
             return $this->redirect($this->generateUrl('content_company_show', ['id'=>$company->getId()]));
         }
 
+        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
+            ->createQueryBuilder('dictionary')
+            ->getQuery()
+            ->getResult();
+
         return [
+            'additionalServiceTypes' => $additionalServiceTypes,
             'company' => $company,
             'user' => $user->getId(),
             'cForm' => $form->createView(),
