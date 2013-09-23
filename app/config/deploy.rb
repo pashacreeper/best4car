@@ -1,16 +1,15 @@
+set :stage_dir, 'app/config/deploy'
+require 'capistrano/ext/multistage'
+
+set :stages, %w(prod staging)
+set :default_stage, "staging"
+
 # Capifony documentation: http://capifony.org
 # Capistrano documentation: https://github.com/capistrano/capistrano/wiki
 
 logger.level = Logger::MAX_LEVEL
 
 set :application, "sto-expert"
-set :domain,      "78.46.216.120"
-set :deploy_to,   "/var/www/php/#{application}"
-set :user,        "dev-user"
-
-role :web,        domain
-role :app,        domain, :primary => true
-role :db,         domain
 
 set :scm,         :git
 set :repository,  "git@github.com:pashacreeper/sto-expert.git"
