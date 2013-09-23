@@ -79,7 +79,9 @@ class CompanyAdmin extends Admin
                 ->add('email')
                 ->add('address')
                 ->add('gps')
-                ->add('createtDate', 'date')
+                ->add('createtDate', 'date', [
+                    'years' => range(1900, date('Y'))
+                ])
                 ->add('photos')
                 ->add('socialNetworks')
                 ->add('rating')
