@@ -41,9 +41,14 @@
             for (var key in companies) {
                 var val = companies[key];
 
-                var withoutHttp = val.web;
-                if (withoutHttp) {
-                    withoutHttp = val.web.replace(/(http|https):\/\//, '');
+                var siteUrl = val.web;
+                var siteUrlWithoutHttp = val.web;
+
+                if (val.web) {
+                    siteUrlWithoutHttp = val.web.replace(/(http|https):\/\//, '');
+                    if (!siteUrl.match(/(http|https):\/\//)) {
+                        siteUrl = 'http://' + siteUrl
+                    }
                 }
 
                 var iconMap = "{{ asset('bootstrap/img/icon-map-default.png') }}";
@@ -92,8 +97,8 @@
                     name: val.name,
                     address: val.address,
                     phone: val.phones,
-                    web: val.web,
-                    web_without_http: withoutHttp,
+                    web: siteUrl,
+                    web_without_http: siteUrlWithoutHttp,
                     logo: val.logoName,
                     rating: val.rating,
                     special: special,
