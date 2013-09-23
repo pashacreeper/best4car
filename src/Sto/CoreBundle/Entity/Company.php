@@ -48,17 +48,17 @@ class Company
     private $web;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanySpecialization", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanySpecialization", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $specializations;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyWorkingTime", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyWorkingTime", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $workingTime;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService", orphanRemoval=true)
      * @ORM\JoinTable(name="company_additional_service",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
@@ -206,7 +206,7 @@ class Company
     protected $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyGallery", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="CompanyGallery", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $gallery;
 
@@ -251,12 +251,12 @@ class Company
     private $linkFB;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyManager", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyManager", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $companyManager;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyContacts", mappedBy="company", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyContacts", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $contacts;
 
@@ -573,7 +573,7 @@ class Company
 
     public function removeWorkingTime($value)
     {
-        $this->workingTime->remove($value);
+        $this->workingTime->removeElement($value);
     }
 
     /**
@@ -1177,7 +1177,8 @@ class Company
 
     public function removeCompanyManager(CompanyManager $manager)
     {
-        $this->companyManager->remove($manager);
+
+        $this->companyManager->removeElement($manager);
     }
 
     public function setCompanyManager($managers)
@@ -1202,7 +1203,7 @@ class Company
 
     public function removeContact($contact)
     {
-        $this->contacts->remove($contact);
+        $this->contacts->removeElement($contact);
     }
 
     public function getImagePath()
