@@ -379,7 +379,7 @@ class CompanyType
     /**
      * Set iconNameMapSelected
      *
-     * @param string $iconNameMapSelected
+     * @param  string      $iconNameMapSelected
      * @return CompanyType
      */
     public function setIconNameMapSelected($iconNameMapSelected)
@@ -392,7 +392,7 @@ class CompanyType
     /**
      * Get iconNameMapSelected
      *
-     * @return string 
+     * @return string
      */
     public function getIconNameMapSelected()
     {
@@ -402,7 +402,7 @@ class CompanyType
     /**
      * Set iconNameCompanyCard
      *
-     * @param string $iconNameCompanyCard
+     * @param  string      $iconNameCompanyCard
      * @return CompanyType
      */
     public function setIconNameCompanyCard($iconNameCompanyCard)
@@ -415,7 +415,7 @@ class CompanyType
     /**
      * Get iconNameCompanyCard
      *
-     * @return string 
+     * @return string
      */
     public function getIconNameCompanyCard()
     {
@@ -425,7 +425,7 @@ class CompanyType
     /**
      * Add autoServices
      *
-     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @param  \Sto\CoreBundle\Entity\AutoServices $autoServices
      * @return CompanyType
      */
     public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
@@ -448,7 +448,7 @@ class CompanyType
     /**
      * Add children
      *
-     * @param \Sto\CoreBundle\Entity\CompanyType $children
+     * @param  \Sto\CoreBundle\Entity\CompanyType $children
      * @return CompanyType
      */
     public function addChild(\Sto\CoreBundle\Entity\CompanyType $children)

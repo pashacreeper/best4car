@@ -236,7 +236,8 @@ class UserController extends MainController
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
             ->createQueryBuilder('dictionary')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return [
             'additionalServiceTypes' => $additionalServiceTypes,
@@ -287,7 +288,8 @@ class UserController extends MainController
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
             ->createQueryBuilder('dictionary')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return [
             'additionalServiceTypes' => $additionalServiceTypes,
