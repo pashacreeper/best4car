@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.reviewAdditionalInfoButton').click(function() {
+    $(document).on('click', '.reviewAdditionalInfoButton', function() {
         var content_block = $(this).parents('.reviewCont').find('.reviewAdditionalInfo');
         if (content_block.is(':visible')) {
             content_block.hide();
