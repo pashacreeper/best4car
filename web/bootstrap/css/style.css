@@ -1523,7 +1523,6 @@ label {
 .siteCompany {
     color: #f35d2e;
     font-size: 12px;
-    display: block;
 }
 .siteCompany:hover{
     color: #F35D2E;
