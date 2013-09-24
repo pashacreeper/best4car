@@ -287,6 +287,9 @@ var catalogPage = function(){
                 $(element).trigger("liszt:updated");
             });
 
+            $('.checkBox__autograf__wrap').css('background-position', '0px 0px');
+            $('#advanced-search-form input[name="deals"]').prop('checked', false);
+
             $('#subCompanyTypeWrapper').hide();
 
             companiesAjaxLoad();
