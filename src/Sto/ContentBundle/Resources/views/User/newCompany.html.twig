@@ -249,18 +249,28 @@
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
                     <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
-                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}"></div>
-                    {{ form_row(cForm.companyManager) }}
+                    <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
+                        {% for manager in cForm.companyManager %}
+                            <div class="contactDate">
+                                {{ form_widget(manager.user) }}
+                                {{ form_widget(manager.phone) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
                         var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
+                            deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                            managerCollectionHolder.find('.contactDate').append(deleteLink);
+
                             managerCollectionHolder.on('click', '.deleteElement', function() {
                                 $(this).parents('.contactDate').remove();
                             });
                             managerCollectionHolder.append($managerNewLink);
-                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length + 1);
+                            managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
 
                             $managerAddTagLink.on('click', function(e) {
                                 e.preventDefault();
