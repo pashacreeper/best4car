@@ -31,7 +31,6 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
-            ->leftJoin('company.workingTime', 'cwt')
             ->where('company.visible = true')
         ;
 
@@ -97,6 +96,22 @@ class CompanyRepository extends EntityRepository
                     )
                 )->setParameter('search', "%{$word}%");
             }
+        }
+
+        if ($params['time']) {
+            $qb->join('company.workingTime', 'cwt');
+        }
+
+        if (in_array('24hours', $params['time'])) {
+            $qb->andWhere("cwt.fromTime < '01:00:00' AND cwt.tillTime > '23:00:00'  AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1 AND cwt.daysSaturday = 1 AND cwt.daysSunday = 1");
+        }
+
+        if (in_array('late', $params['time'])) {
+            $qb->andWhere("cwt.tillTime >= '21:00:00' AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1");
+        }
+
+        if (in_array('weekends', $params['time'])) {
+            $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
         }
 
         $result = $qb->getQuery()->getArrayResult();

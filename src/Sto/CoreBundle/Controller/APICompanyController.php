@@ -56,7 +56,8 @@ class APICompanyController extends FOSRestController
                 'additionalServices' => $additionalServices,
                 'deals' => $request->get('deals'),
                 'sort' => $request->get('sort'),
-                'search' => trim($request->get('search'))
+                'search' => trim($request->get('search')),
+                'time' => array_keys($request->get('time', []))
             ])
         ;
 
