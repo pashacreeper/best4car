@@ -1,4 +1,8 @@
-<img src="/storage/images/countries/{{ city.iconName }}" alt="{{ city.name }}" />
+{%- if city.iconName %}
+    <img src="/storage/images/countries/{{ city.iconName }}" alt="{{ city.name }}" />
+{% else %}
+    <img src="{{ asset('bundles/stocore/images/notimage.png') }}" alt="{{ city.name }}" />
+{% endif -%}
 <p class="townSelect" id="choice-city">{{ city.name }}</p>
 <div class="selectTownDropdown">
     <div class="selectTownDropdownTop">
