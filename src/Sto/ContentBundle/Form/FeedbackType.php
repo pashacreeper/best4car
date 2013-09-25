@@ -19,6 +19,7 @@ class FeedbackType extends AbstractType
                 'required' => false,
                 'configs' => [
                     'entity_encoding' => "raw",
+                    'content_css' => '/bootstrap/css/tinymce.css',
                     'language' => 'ru',
                     'menubar' => false,
                     'statusbar' => false,
