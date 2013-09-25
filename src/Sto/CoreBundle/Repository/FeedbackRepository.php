@@ -78,10 +78,10 @@ class FeedbackRepository extends EntityRepository
 
         switch ($filter) {
             case("positive"):
-                $qb->andWhere('fc.pluses > fc.minuses');
+                $qb->andWhere('fc.pluses - fc.minuses >= 3');
                 break;
             case("negative"):
-                $qb->andWhere('fc.pluses < fc.minuses');
+                $qb->andWhere('fc.minuses - fc.pluses >= 2');
                 break;
             case("useful"):
                 $qb->andWhere('fc.pluses > fc.minuses');
