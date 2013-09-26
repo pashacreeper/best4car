@@ -99,7 +99,7 @@
                     phone: val.phones,
                     web: siteUrl,
                     web_without_http: siteUrlWithoutHttp,
-                    logo: val.logoName,
+                    logo: val.logoName ? '<img src="/{{ storage_path }}/company_logo/' + val.logoName + '">' : '',
                     rating: val.rating,
                     special: special,
                     specialization_html: val.specialization_template,
@@ -153,7 +153,7 @@
             var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
                 '<div class="popupCardCompany">' +
                     '<div class="popupCardCompanyTop">' +
-                        '<img src="/{{ storage_path }}/company_logo/$[properties.logo]">' +
+                        '$[properties.logo]' +
                         '<p class="indexCardCompany">' +
                         '<span class="indexbg"></span>' +
                         '<span class="indexLevel">$[properties.rating]</span></br>' +
