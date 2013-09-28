@@ -299,6 +299,12 @@ services:
         tags:
             - { name: form.type, alias: sto_contentbundle_userprofile }
 
+    sto.core.validator.companymanager:
+        class: Sto\CoreBundle\Validator\Constraints\CompanyManagerValidator
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: company_manager_validator }
+
 mannew_hipchat:
     auth_token: 04496c58222155241da099df61acc4
 
