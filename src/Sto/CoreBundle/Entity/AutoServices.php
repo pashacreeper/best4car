@@ -20,6 +20,12 @@ class AutoServices
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="CompanyType")
+     * @ORM\JoinColumn(name="company_type_id", referencedColumnName="id")
+     */
+    private $companyType;
+
+    /**
      * @ORM\Column(name="short_name", type="string", length=15, nullable=true)
      */
     private $shortName;
@@ -54,15 +60,6 @@ class AutoServices
      * @ORM\Column(name="code", type="string", length=255, nullable=true)
      */
     private $code;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\CompanyType", cascade={"persist"})
-     * @ORM\JoinTable(name="company_type_auto_service",
-     *     joinColumns={@ORM\JoinColumn(name="auto_service_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="company_type_id", referencedColumnName="id")}
-     * )
-     */
-    private $companyType;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Company")
