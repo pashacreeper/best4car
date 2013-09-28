@@ -129,7 +129,7 @@ class DealRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getPopularDealsCount($cityId)
+    public function getPopularDealsCount($cityId, $search = null)
     {
         $query = $this->createQueryBuilder('deal')
             ->select('COUNT(f.id)')
@@ -145,12 +145,22 @@ class DealRepository extends EntityRepository
                 ]
             )
             ->groupBy('deal.id')
-            ->getQuery();
+        ;
 
-        return count($query->getResult());
+         if ($search) {
+             $query->andWhere(
+                 $query->expr()->orx(
+                     $query->expr()->like('deal.name', ':search'),
+                     $query->expr()->like('deal.description', ':search'),
+                     $query->expr()->like('deal.terms', ':search')
+                 )
+             )->setParameter('search', "%{$search}%");
+         }
+
+        return count($query->getQuery()->getResult());
     }
 
-    public function getDealsWithFeedbacksCount($cityId)
+    public function getDealsWithFeedbacksCount($cityId, $search = null)
     {
         $query = $this->createQueryBuilder('deal')
             ->join('deal.feedbacks', 'f')
@@ -163,8 +173,18 @@ class DealRepository extends EntityRepository
                     'city' => $cityId
                 ]
             )
-            ->getQuery();
+        ;
 
-        return count($query->getResult());
+        if ($search) {
+            $query->andWhere(
+                $query->expr()->orx(
+                    $query->expr()->like('deal.name', ':search'),
+                    $query->expr()->like('deal.description', ':search'),
+                    $query->expr()->like('deal.terms', ':search')
+                 )
+            )->setParameter('search', "%{$search}%");
+        }
+
+        return count($query->getQuery()->getResult());
     }
 }

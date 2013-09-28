@@ -265,8 +265,8 @@ class DealController extends MainController
 
         $deals = $repository->getDeals($city_id, $search);
         $dealsTypes = $repository->getDealTypes($city_id, $search);
-        $countFeededDeals =$repository->getDealsWithFeedbacksCount($city_id);
-        $countPopularDeals = $repository->getPopularDealsCount($city_id);
+        $countFeededDeals =$repository->getDealsWithFeedbacksCount($city_id, $search);
+        $countPopularDeals = $repository->getPopularDealsCount($city_id, $search);
         $vipDeals = $repository->getVipDeals($city_id);
 
         return [
