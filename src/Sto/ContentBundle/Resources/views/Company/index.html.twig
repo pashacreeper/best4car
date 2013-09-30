@@ -14,18 +14,18 @@
     <script>
         var city = '{{ city.gps }}';
         var oldZoom = 11;
-        var myCollection;
-        var myMap;
+        var placemarkCollection;
+        var mainMap;
         var globalCompanies;
         var globalSelectedItem = null;
 
         function renderMap(companies) {
-            filterDataByZoom(myMap.getZoom(), companies);
+            filterDataByZoom(mainMap.getZoom(), companies);
 
-            myMap.events.add('actionend', function (evt) {
-                if (oldZoom != myMap.getZoom()) {
-                    filterDataByZoom(myMap.getZoom(), globalCompanies);
-                    oldZoom = myMap.getZoom();
+            mainMap.events.add('actionend', function (evt) {
+                if (oldZoom != mainMap.getZoom()) {
+                    filterDataByZoom(mainMap.getZoom(), globalCompanies);
+                    oldZoom = mainMap.getZoom();
                 }
             });
         }
@@ -40,7 +40,7 @@
 
             for (var key in companies) {
                 var val = companies[key];
-
+                var placemark;
                 var siteUrl = val.web;
                 var siteUrlWithoutHttp = val.web;
 
@@ -71,10 +71,9 @@
                 });
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
-                var vid = val.id;
-
                 var img;
-                if (showByRate(myMap.getZoom(), val.rating)) {
+
+                if (showByRate(mainMap.getZoom(), val.rating)) {
                     img = {
                         iconImageHref: iconMap,
                         iconImageSize: iconSize,
@@ -85,6 +84,7 @@
                     img = {
                         iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
                         iconImageSize: [8, 8],
+                        iconOffset: [0, 37],
                         hideIconOnBalloonOpen: true,
                         zIndex: 99
                     };
@@ -92,7 +92,7 @@
 
                 var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
-                myPlacemark2 = new ymaps.Placemark(val.gps.split(','), {
+                placemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
                     address: val.address,
@@ -106,20 +106,23 @@
                     workingTime_html: val.workingTime_template,
                     specialDeal: val.specialDeal
                 }, img);
-                myPlacemark2.events.add('balloonopen', function (ev) {
-                    var obj = ev.get('balloon');
-                    obj.options.set({ offset: [-15, -30] });
-                });
-                myCollection.add(myPlacemark2);
 
-                myPlacemark2.events.add('click', function(e){
+                placemark.events.add('balloonopen', function (e) {
+                    var obj = e.get('balloon');
+                    var balloonOffset = [0, -30];
+                    if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
+                        balloonOffset = [-12, 2];
+                    }
+                    obj.options.set({ offset: balloonOffset });
+                });
+                placemark.events.add('click', function (e) {
                     selectedImg = ymaps.option.presetStorage.get("iconMapActive#" + e.get('target').properties.get('id')).iconImageHref;
                     if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
                         selectedImg = e.get('target').options.get('iconImageHref');
                     }
                     e.get('target').options.set('iconImageHref', selectedImg);
                 });
-                myPlacemark2.events.add('balloonclose', function(e){
+                placemark.events.add('balloonclose', function (e) {
                     selectedImg = ymaps.option.presetStorage.get("iconMap#" + e.get('target').properties.get('id')).iconImageHref;
                     if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
                         selectedImg = e.get('target').options.get('iconImageHref');
@@ -127,9 +130,10 @@
                     e.get('target').options.set('iconImageHref', selectedImg);
                 });
 
+                placemarkCollection.add(placemark);
             }
 
-            myCollection.each(function (ob) {
+            placemarkCollection.each(function (ob) {
                 ob.events.add('click', function () {
                     (function (obPlacemark) {
                         // При клке на элементе расположенном на карте, при откртом списке
@@ -150,7 +154,7 @@
                 });
             });
 
-            var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
+            var placemarkBalloonLayout = ymaps.templateLayoutFactory.createClass(
                 '<div class="popupCardCompany">' +
                     '<div class="popupCardCompanyTop">' +
                         '$[properties.logo]' +
@@ -176,17 +180,17 @@
                 '</div>'
             );
 
-            ymaps.layout.storage.add('my#superlayout', myBalloonLayout);
-            myCollection.options.set({
+            ymaps.layout.storage.add('my#superlayout', placemarkBalloonLayout);
+            placemarkCollection.options.set({
                 balloonContentBodyLayout: 'my#superlayout',
                 balloonMinWidth: 400
             });
 
-            myMap.geoObjects.add(myCollection);
+            mainMap.geoObjects.add(placemarkCollection);
         }
 
         function filterDataByZoom(indexZoom, companies) {
-            myMap.geoObjects.each(function (geoCollection) {
+            mainMap.geoObjects.each(function (geoCollection) {
                 geoCollection.each(function (item) {
                     geoCollection.remove(item);
                 });
@@ -236,16 +240,16 @@
                         $('#companiesListContainer').append(item.html);
                     });
 
-                    myMap.geoObjects.each(function (geoCollection) {
+                    mainMap.geoObjects.each(function (geoCollection) {
                         geoCollection.each(function (item) {
                             geoCollection.remove(item);
                         });
                     });
 
-                    myMap.geoObjects.each(function (geoCollection) {
+                    mainMap.geoObjects.each(function (geoCollection) {
                         geoCollection.each(function (item) {
                             var rat = parseFloat(item.properties.get('rating'));
-                            if (!showByRate(myMap.getZoom(), rat)) {
+                            if (!showByRate(mainMap.getZoom(), rat)) {
                                 geoCollection.remove(item);
                             }
                         });
@@ -258,24 +262,24 @@
         }
 
         function init() {
-            myMap = new ymaps.Map("map", {
+            mainMap = new ymaps.Map("map", {
                 center: [city.split(",")[0], city.split(",")[1]],
                 zoom: oldZoom,
                 behaviors: ["default", "scrollZoom"]
             });
 
-            myCollection = new ymaps.GeoObjectCollection();
-            myMap.myCollection = myCollection;
+            placemarkCollection = new ymaps.GeoObjectCollection();
+            mainMap.myCollection = placemarkCollection;
 
             $('#companiesListContainer').on('click', '.cardCompanyItem', function () {
                 var id = $(this).data('item-id');
                 $('#x-list-company' + id).slideToggle(0);
                 $('#blocSmall_' + id).slideToggle(0);
 
-                myCollection.each(function (o) {
+                placemarkCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
-                        myMap.setCenter(o.geometry.getBounds()[0]);
+                        mainMap.setCenter(o.geometry.getBounds()[0]);
 
                         if (globalSelectedItem == null) {
                             globalSelectedItem = o;
@@ -299,7 +303,7 @@
                 $('.assortSelect').toggle();
                 $(this).html($('#companiesList').is(':hidden') ? 'Показать списком' : 'Скрыть');
 
-                myMap.container.fitToViewport();
+                mainMap.container.fitToViewport();
             });
 
             $('#sto_content_company_sort_sort').on('change', function () {
@@ -314,8 +318,8 @@
                 companiesAjaxLoad();
             });
 
-            var mapHeight = $('#map').height(),
-                footerHeight = $('section.footer').height();
+            var mapHeight = $('#map').height();
+            var footerHeight = $('section.footer').height();
             $('#companiesListContainer').height(mapHeight - footerHeight - 1);
             $('#advancedSearch').height(mapHeight - footerHeight - 75);
             if (document.documentElement.clientHeight < 800) {
