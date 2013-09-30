@@ -27,16 +27,16 @@ class ModelAdmin extends Admin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array(
+            ->add('name', null, [
                 'required' => true
-            ))
-            ->add('parent', null, array(
+            ])
+            ->add('parent', null, [
                 'required' => true
-            ))
+            ])
             ->add('uri')
-            ->add('visible', null, array(
+            ->add('visible', null, [
                 'required' => false
-            ))
+            ])
         ;
     }
 

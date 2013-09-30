@@ -28,11 +28,13 @@ class MarkAdmin extends Admin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array(
+            ->add('name', null, [
                 'required' => true
-            ))
+            ])
             ->add('uri')
-            ->add('visible')
+            ->add('visible', null, [
+                'required' => false,
+            ])
             ->add('icon', 'file')
         ;
     }
