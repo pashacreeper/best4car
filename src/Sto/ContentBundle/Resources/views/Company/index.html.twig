@@ -63,13 +63,6 @@
                     }
                 }
 
-                ymaps.option.presetStorage.add("iconMap#" + val.id, {
-                    iconImageHref: iconMap
-                });
-                ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
-                    iconImageHref: iconMapSelected
-                });
-
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var img;
 
@@ -88,7 +81,16 @@
                         hideIconOnBalloonOpen: true,
                         zIndex: 99
                     };
+                    iconMap = "{{ asset('bootstrap/img/dot.png') }}";
+                    iconMapSelected = "{{ asset('bootstrap/img/dot.png') }}";
                 }
+
+                ymaps.option.presetStorage.add("iconMap#" + val.id, {
+                    iconImageHref: iconMap
+                });
+                ymaps.option.presetStorage.add("iconMapActive#" + val.id, {
+                    iconImageHref: iconMapSelected
+                });
 
                 var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
@@ -198,8 +200,7 @@
 
             addPlacemarks(companies);
 
-            $('.listItemCompany').each(function (index, element) { // 02 apply filter 2 List
-                var id = element.id.replace('list-company', '');
+            $('.listItemCompany').each(function (index, element) {
                 var el = $(element);
                 var rating = parseFloat(el.find('div.span3 span.rating').text());
                 if (showByRate(indexZoom, rating)) {
