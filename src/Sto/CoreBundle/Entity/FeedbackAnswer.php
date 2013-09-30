@@ -195,4 +195,60 @@ class FeedbackAnswer
     {
         return "Ответ на отзыв #{$this->feedbackId}";
     }
+
+    /**
+     * Set ownerId
+     *
+     * @param  integer        $ownerId
+     * @return FeedbackAnswer
+     */
+    public function setOwnerId($ownerId)
+    {
+        $this->ownerId = $ownerId;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerId
+     *
+     * @return integer
+     */
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
+    /**
+     * Set feedbackId
+     *
+     * @param  integer        $feedbackId
+     * @return FeedbackAnswer
+     */
+    public function setFeedbackId($feedbackId)
+    {
+        $this->feedbackId = $feedbackId;
+
+        return $this;
+    }
+
+    /**
+     * Get complain
+     *
+     * @return boolean
+     */
+    public function getComplain()
+    {
+        return $this->complain;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
 }

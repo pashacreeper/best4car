@@ -223,4 +223,27 @@ class DealType
     {
         return $this->deals->toArray();
     }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\DealType $children
+     * @return DealType
+     */
+    public function addChild(\Sto\CoreBundle\Entity\DealType $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\DealType $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\DealType $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

@@ -28,7 +28,7 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $specialization = $request->get('specialization');
-        $entity =$em->getRepository('StoCoreBundle:CompanyType')
+        $entity = $em->getRepository('StoCoreBundle:CompanyType')
             ->createQueryBuilder('services')
             ->where('services.parent in (:specializationId)')
             ->setParameter('specializationId',$specialization )
@@ -39,6 +39,21 @@ class CompanyController extends MainController
         $response->headers->set('Content-Type',' application-json; charset=utf8');
 
         return $response;
+    }
+
+    /**
+     * @Template("StoContentBundle:Company:tabs/information.html.twig")
+     */
+    public function informationAction(Company $company, $isManager)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($company->getSpecializations());
+
+        return [
+            'company' => $company,
+            'isManager' => $isManager,
+            'services' => $services,
+        ];
     }
 
     /**

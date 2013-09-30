@@ -1210,4 +1210,109 @@ class Company
     {
         return $this->logoName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/company_logo/{$this->logoName}";
     }
+
+    /**
+     * Set currencyId
+     *
+     * @param  integer $currencyId
+     * @return Company
+     */
+    public function setCurrencyId($currencyId)
+    {
+        $this->currencyId = $currencyId;
+
+        return $this;
+    }
+
+    /**
+     * Get currencyId
+     *
+     * @return integer
+     */
+    public function getCurrencyId()
+    {
+        return $this->currencyId;
+    }
+
+    /**
+     * Add additionalServices
+     *
+     * @param  \Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices
+     * @return Company
+     */
+    public function addAdditionalService(\Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices)
+    {
+        $this->additionalServices[] = $additionalServices;
+
+        return $this;
+    }
+
+    /**
+     * Remove additionalServices
+     *
+     * @param \Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices
+     */
+    public function removeAdditionalService(\Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices)
+    {
+        $this->additionalServices->removeElement($additionalServices);
+    }
+
+    /**
+     * Add autoServices
+     *
+     * @param  \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @return Company
+     */
+    public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices[] = $autoServices;
+
+        return $this;
+    }
+
+    /**
+     * Remove autoServices
+     *
+     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     */
+    public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices->removeElement($autoServices);
+    }
+
+    /**
+     * Add feedbacks
+     *
+     * @param  \Sto\CoreBundle\Entity\FeedbackCompany $feedbacks
+     * @return Company
+     */
+    public function addFeedback(\Sto\CoreBundle\Entity\FeedbackCompany $feedbacks)
+    {
+        $this->feedbacks[] = $feedbacks;
+
+        return $this;
+    }
+
+    /**
+     * Add groups
+     *
+     * @param  \Sto\UserBundle\Entity\Group $groups
+     * @return Company
+     */
+    public function addGroup(\Sto\UserBundle\Entity\Group $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Sto\UserBundle\Entity\Group $groups
+     */
+    public function removeGroup(\Sto\UserBundle\Entity\Group $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
 }

@@ -191,4 +191,27 @@ class CompanyGallery
     {
         return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/company/company_gallery/{$this->imageName}";
     }
+
+    /**
+     * Set imageName
+     *
+     * @param  string         $imageName
+     * @return CompanyGallery
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
 }

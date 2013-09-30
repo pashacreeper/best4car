@@ -12,3 +12,9 @@
     <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-admin.css') }}" type="text/css" media="all" />
 {% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/custom.admin.js') }}" type="text/javascript"></script>
+{% endblock %}

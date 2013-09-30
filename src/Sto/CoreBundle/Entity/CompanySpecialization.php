@@ -34,6 +34,20 @@ class CompanySpecialization
      */
     private $subType;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="specialization")
+     */
+    private $services;
+
+    public function __toString()
+    {
+        if ($this->type && $this->subType) {
+            return sprintf('%s - %s', $this->type->getName(), $this->subType->getName());
+        }
+
+        return (string) $this->id;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -80,5 +94,45 @@ class CompanySpecialization
         $this->subType = $value;
 
         return $this;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add services
+     *
+     * @param  \Sto\CoreBundle\Entity\CompanyAutoService $services
+     * @return CompanySpecialization
+     */
+    public function addService(\Sto\CoreBundle\Entity\CompanyAutoService $services)
+    {
+        $this->services[] = $services;
+
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyAutoService $services
+     */
+    public function removeService(\Sto\CoreBundle\Entity\CompanyAutoService $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Get services
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
 }

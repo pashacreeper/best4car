@@ -31,6 +31,10 @@ class CompanySpecializationAdmin extends Admin
                 'entity_alias' => 'subType_by_type',
                 'parent_field' => 'type'
             ])
+            ->add('services', 'sonata_type_collection', [
+                    'by_reference' => false,
+                ]
+            )
         ;
     }
 }

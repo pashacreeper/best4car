@@ -420,4 +420,27 @@ class Country
     public function preRemove()
     {
     }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\Country $children
+     * @return Country
+     */
+    public function addChild(\Sto\CoreBundle\Entity\Country $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\Country $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\Country $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

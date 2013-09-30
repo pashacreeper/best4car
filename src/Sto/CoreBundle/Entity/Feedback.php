@@ -517,4 +517,80 @@ class Feedback
     {
         return $this->hidden;
     }
+
+    /**
+     * Set userId
+     *
+     * @param  integer  $userId
+     * @return Feedback
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Get complain
+     *
+     * @return boolean
+     */
+    public function getComplain()
+    {
+        return $this->complain;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * Add evaluation
+     *
+     * @param  \Sto\CoreBundle\Entity\FeedbackEvaluation $evaluation
+     * @return Feedback
+     */
+    public function addEvaluation(\Sto\CoreBundle\Entity\FeedbackEvaluation $evaluation)
+    {
+        $this->evaluation[] = $evaluation;
+
+        return $this;
+    }
+
+    /**
+     * Remove evaluation
+     *
+     * @param \Sto\CoreBundle\Entity\FeedbackEvaluation $evaluation
+     */
+    public function removeEvaluation(\Sto\CoreBundle\Entity\FeedbackEvaluation $evaluation)
+    {
+        $this->evaluation->removeElement($evaluation);
+    }
+
+    /**
+     * Get evaluation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvaluation()
+    {
+        return $this->evaluation;
+    }
 }

@@ -291,4 +291,14 @@ class Modification
     {
         return $this->closingOfProduction;
     }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
 }
