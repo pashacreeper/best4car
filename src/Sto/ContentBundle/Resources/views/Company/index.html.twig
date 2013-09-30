@@ -281,6 +281,8 @@
                     if (o.properties.get('id') == id) {
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         mainMap.setCenter(o.geometry.getBounds()[0]);
+                        var position = mainMap.getGlobalPixelCenter();
+                        mainMap.setGlobalPixelCenter([ position[0] - 190, position[1] ]);
 
                         if (globalSelectedItem == null) {
                             globalSelectedItem = o;
