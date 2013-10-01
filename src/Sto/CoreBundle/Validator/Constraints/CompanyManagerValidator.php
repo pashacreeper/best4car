@@ -16,7 +16,7 @@ class CompanyManagerValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $user = $this->em->getRepository('StoUserBundle:User')->findOneBy(['username' => (string)$value]);
+        $user = $this->em->getRepository('StoUserBundle:User')->findOneBy(['username' => (string) $value]);
         if (!$user) {
             $this->context->addViolation($constraint->message);
         }

@@ -53,7 +53,6 @@ class CompanyController extends MainController
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
-        $em = $this->getDoctrine()->getManager();
         $city = $this->get('sto_content.manager.city')->selectedCity();
         $words = null;
 
@@ -206,7 +205,9 @@ class CompanyController extends MainController
     public function getAllAjaxAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('StoCoreBundle:Company')->getCompaniesByCity($this->get('sto_content.manager.city')->selectedCity());
+        $companies = $em->getRepository('StoCoreBundle:Company')->getCompaniesByCity(
+            $this->get('sto_content.manager.city')->selectedCity()
+        );
 
         if (!$companies) {
             return new Response('Companies Not found.', 500);

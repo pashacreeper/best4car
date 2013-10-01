@@ -83,6 +83,7 @@ fos_user:
         form:
             type: sto_contentbundle_registration
     resetting:
+        token_ttl: 7200
         email:
             template:   StoUserBundle:Resetting:email.html.twig
     service:

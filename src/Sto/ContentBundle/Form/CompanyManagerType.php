@@ -4,11 +4,9 @@ namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
 use Doctrine\ORM\EntityManager;
 use Sto\CoreBundle\Validator\Constraints\CompanyManager;
-use Symfony\Component\Validator\Constraints\Collection;
 
 class CompanyManagerType extends AbstractType
 {
