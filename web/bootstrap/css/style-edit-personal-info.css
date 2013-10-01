@@ -1,146 +1,171 @@
-body{
-	overflow: visible;
+body {
+    overflow: visible;
 }
-.you{
-	float: left;
-	color: #444;
-	font: 1.8em 'PT Sans', sans;
-	padding: 10px 5px 0 0;
+
+.you {
+    float: left;
+    color: #444;
+    font: 1.8em 'PT Sans', sans;
+    padding: 10px 5px 0 0;
 }
+
 .nameProfilExpert {
-	float: left;
-	padding: 8px;
+    float: left;
+    padding: 8px;
 }
-.titleProfilExpert{
-	color: #f35d2e;
-	font: Italic 2.2em 'PT Sans', sans;
+
+.titleProfilExpert {
+    color: #f35d2e;
+    font: Italic 2.2em 'PT Sans', sans;
 }
-.titleProfilExpert i{
-	vertical-align: middle;
+
+.titleProfilExpert i {
+    vertical-align: middle;
 }
-.profilExpertLeftCont{
-	float: left;
-	width: 240px;
+
+.profilExpertLeftCont {
+    float: left;
+    width: 240px;
 }
-.profilExpertRightCont{
-	float: right;
-	width: 680px;
+
+.profilExpertRightCont {
+    float: right;
+    width: 680px;
 }
-.infoProfilExpertWrap{
-	float: left;
-	margin-right: 20px;
-	width: 220px;
+
+.infoProfilExpertWrap {
+    float: left;
+    margin-right: 20px;
+    width: 220px;
 }
-.contactData{
-	padding-bottom: 5px;
-	border-bottom: 1px solid #f35d2e;
-	color: #333;
-	font: Italic 1.8em 'PT Sans', sans;
-	margin-bottom: 10px;
-	overflow: hidden;
-	line-height: 35px;
+
+.contactData {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f35d2e;
+    color: #333;
+    font: Italic 1.8em 'PT Sans', sans;
+    margin-bottom: 10px;
+    overflow: hidden;
+    line-height: 35px;
 }
-.aboutUsProfilExpertWrap{
-	float: left;
-	width: 440px;
+
+.aboutUsProfilExpertWrap {
+    float: left;
+    width: 440px;
 }
-.contactData span{
-	float: left;
+
+.contactData span {
+    float: left;
 }
-.contactData i{
-	float: right;
-	
+
+.contactData i {
+    float: right;
+
 }
-.profilExpertImg{
-	width: 240px;
-	max-height: 240px;
-	margin-bottom: 10px;
+
+.profilExpertImg {
+    width: 240px;
+    max-height: 240px;
+    margin-bottom: 10px;
 }
-.profilExpertImg img{
-	width: 100%;
-	height: auto;
+
+.profilExpertImg img {
+    width: 100%;
+    height: auto;
 }
-.titleImg{
-	color: #f35d2e;
-	font:  1.8em 'PT Sans', sans;
-	line-height: 35px;
+
+.titleImg {
+    color: #f35d2e;
+    font: 1.8em 'PT Sans', sans;
+    line-height: 35px;
 }
-.titleImg span{
-	float: left;
+
+.titleImg span {
+    float: left;
 }
-.titleImg i{
-	float: right;
+
+.titleImg i {
+    float: right;
 }
-.nameActionP{
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	font: Bold 1.8em 'PT Sans', sans;
-	color: #f35d2e;
-	background: url("../img/bg-action.png") repeat;
-	padding: 5px 20px;
+
+.nameActionP {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font: Bold 1.8em 'PT Sans', sans;
+    color: #f35d2e;
+    background: url("../img/bg-action.png") repeat;
+    padding: 5px 20px;
 }
-.editIconAdd{
-	display: block;
-	width: 35px;
-	height: 35px;
-	background: url("../img/edit-icon.png") -75px 0 no-repeat;
-	position: absolute;
-	bottom: 15px;
-	left: 215px;
-	cursor: pointer;
+
+.editIconAdd {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url("../img/edit-icon.png") -75px 0 no-repeat;
+    position: absolute;
+    bottom: 15px;
+    left: 215px;
+    cursor: pointer;
 }
-.editIconDel{
-	display: block;
-	width: 35px;
-	height: 35px;
-	background: url("../img/edit-icon.png") -35px 0 no-repeat;
-	position: absolute;
-	bottom: 15px;
-	left: 250px;
-	cursor: pointer;
+
+.editIconDel {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: url("../img/edit-icon.png") -35px 0 no-repeat;
+    position: absolute;
+    bottom: 15px;
+    left: 250px;
+    cursor: pointer;
 }
-.writeReviewSubmit{
-	float: right;
+
+.writeReviewSubmit {
+    float: right;
 }
-.cancelBtn{
-	margin-top: 10px;
-	display: inline-block;
+
+.cancelBtn {
+    margin-top: 10px;
+    display: inline-block;
 }
-.writeReviewCont{
-	float: left;
-	width: 440px;
+
+.writeReviewCont {
+    float: left;
+    width: 440px;
 }
-.writeReviewWrap{
-	width: 100%;
-	background: #e3ecf2;
-	border: 1px solid #acc7d2;
-	padding: 10px 10px 30px 10px;
-	position: relative;
-	overflow: hidden;
-	margin-top: -1px;
+
+.writeReviewWrap {
+    width: 100%;
+    background: #e3ecf2;
+    border: 1px solid #acc7d2;
+    padding: 10px 10px 30px 10px;
+    position: relative;
+    overflow: hidden;
+    margin-top: -1px;
 }
-.textareaWriteReview{
-	width: 100%;
-	height: 100px;
-	margin-bottom: 0;
-	resize: none;
+
+.textareaWriteReview {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 0;
+    resize: none;
 }
-.btnReview{
-	border-radius: 4px;
-	font: 1.6em 'PT Sans', sans;
-	color: #f6f6f6;
-	display: block;
-	vertical-align: middle;
-	text-decoration: none;
-	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
-	cursor: pointer;
-	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
-	position: relative;
-	text-align: center;
-	padding: 8px 20px;
+
+.btnReview {
+    border-radius: 4px;
+    font: 1.6em 'PT Sans', sans;
+    color: #f6f6f6;
+    display: block;
+    vertical-align: middle;
+    text-decoration: none;
+    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15);
+    position: relative;
+    text-align: center;
+    padding: 8px 20px;
 }
 
 

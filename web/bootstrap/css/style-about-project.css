@@ -1,128 +1,151 @@
-body{
-	overflow: visible;
+body {
+    overflow: visible;
 }
+
 .titleNameCompany {
-	color: #f35d2e;
-	font: Italic 2.4em 'PT Sans', sans;
-	padding-left: 20px;
-	line-height: 70px;
-	padding-top: 0;
+    color: #f35d2e;
+    font: Italic 2.4em 'PT Sans', sans;
+    padding-left: 20px;
+    line-height: 70px;
+    padding-top: 0;
 }
-.contentMain{
-	width: 960px;
-	margin: 0 auto;
-	background: none;
+
+.contentMain {
+    width: 960px;
+    margin: 0 auto;
+    background: none;
 }
-.infoTextItalic{
-	color: #333;
-	font: Italic 1.6em 'PT Sans', sans;
-	padding: 5px 0;
+
+.infoTextItalic {
+    color: #333;
+    font: Italic 1.6em 'PT Sans', sans;
+    padding: 5px 0;
 }
-.infoText{
-	color: #444;
-	font: 1.4em 'PT Sans', sans;
-	padding: 5px 0;
-	line-height: 18px;
-}
-.titleH1{
-	color: #333;
-	font: 2.0em 'PT Sans', sans;
-	padding: 8px 0 0 0;
-}
-.titleH2{
-	color: #333;
-	font: 1.8em 'PT Sans', sans;
-	padding: 7px 0 0 0;
-}
-.listItem{
-	color: #333;
+
+.infoText {
+    color: #444;
     font: 1.4em 'PT Sans', sans;
-	margin: 5px 0;
+    padding: 5px 0;
+    line-height: 18px;
 }
-.subActiveI{
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	border: 2px solid #fff;
-	background: #f35d2e;
-	display: inline-block;
-	margin-right: 5px;
+
+.titleH1 {
+    color: #333;
+    font: 2.0em 'PT Sans', sans;
+    padding: 8px 0 0 0;
+}
+
+.titleH2 {
+    color: #333;
+    font: 1.8em 'PT Sans', sans;
+    padding: 7px 0 0 0;
+}
+
+.listItem {
+    color: #333;
+    font: 1.4em 'PT Sans', sans;
+    margin: 5px 0;
+}
+
+.subActiveI {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: #f35d2e;
+    display: inline-block;
+    margin-right: 5px;
     position: relative;
     top: 1px;
 }
-.imgLink{
-	width: 60%;
-	display: block;
-	overflow: hidden;
+
+.imgLink {
+    width: 60%;
+    display: block;
+    overflow: hidden;
 }
-.imgLink img{
-	width: 100%;
-	height: auto;
+
+.imgLink img {
+    width: 100%;
+    height: auto;
 }
-.signature{
-	color: #f35d2e;
-	font: 1.3em 'PT Sans', sans;
+
+.signature {
+    color: #f35d2e;
+    font: 1.3em 'PT Sans', sans;
 }
-.tableWrap{
-	width: 100%;
-	background: none;
-	margin: 8px 0;
+
+.tableWrap {
+    width: 100%;
+    background: none;
+    margin: 8px 0;
 }
-table{
-	width: 100%;
-	border: 1px #ddd solid;
-	display: table;
-	table-layout: fixed;
-	background: #fff;
-	padding-bottom: 20px;
-	border-collapse: separate;
+
+table {
+    width: 100%;
+    border: 1px #ddd solid;
+    display: table;
+    table-layout: fixed;
+    background: #fff;
+    padding-bottom: 20px;
+    border-collapse: separate;
 }
+
 thead {
-	width: 100%;
-	vertical-align: middle;
+    width: 100%;
+    vertical-align: middle;
 }
+
 table, tr {
-	border-spacing: 0px;
-	border-radius: 6px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
+    border-spacing: 0px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
 }
+
 tbody {
-	text-align: center;
-	width: 100%;
-	display: table-header-group;
-	vertical-align: middle;
-	border-color: inherit;
+    text-align: center;
+    width: 100%;
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
 }
+
 table, th, td {
-	vertical-align: middle;
+    vertical-align: middle;
 }
-thead tr{
-	color: #444;
-	font: 1.6em 'PT Sans', sans;
-	text-align: center;
-	border: 1px #ddd solid;
+
+thead tr {
+    color: #444;
+    font: 1.6em 'PT Sans', sans;
+    text-align: center;
+    border: 1px #ddd solid;
 }
-tbody tr{
-	color: #444;
-	font: 1.4em 'PT Sans', sans;
-	border: 1px #ddd solid;
+
+tbody tr {
+    color: #444;
+    font: 1.4em 'PT Sans', sans;
+    border: 1px #ddd solid;
 }
-table td{
-	border-right: 1px #ddd solid;
-	border-bottom: 1px #ddd solid;
-	padding: 8px 10px;
-	height: 10px;
+
+table td {
+    border-right: 1px #ddd solid;
+    border-bottom: 1px #ddd solid;
+    padding: 8px 10px;
+    height: 10px;
 }
-tbody tr:nth-child(odd){
-	background: #e3ecf2;
+
+tbody tr:nth-child(odd) {
+    background: #e3ecf2;
 }
-.td1,.td4{
-	width: 18%;
+
+.td1, .td4 {
+    width: 18%;
 
 }
-.td2,.td3{
-	width: 32%;
+
+.td2, .td3 {
+    width: 32%;
 
 }
 
