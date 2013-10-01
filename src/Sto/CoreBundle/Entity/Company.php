@@ -767,7 +767,7 @@ class Company
      */
     public function getRating()
     {
-        return $this->rating;
+        return number_format($this->rating, 1);
     }
 
     /**

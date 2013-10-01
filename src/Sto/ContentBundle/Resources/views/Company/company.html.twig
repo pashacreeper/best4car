@@ -4,7 +4,7 @@
     {% endif %}
     <p class="index">
         <span class="indexbg"></span>
-        <span class="indexLevel">{{item.rating}}</span></br>
+        <span class="indexLevel">{{item.rating|number_format(1) }}</span></br>
         <span class="Otzyv">Отзывы: <span>{{item.feedbacks|length}}</span></span>
     </p>
     <div class="nameCompanyWrap">
