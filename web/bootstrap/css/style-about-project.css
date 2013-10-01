@@ -36,7 +36,7 @@ body{
 }
 .listItem{
 	color: #333;
-	font: 1.6em 'PT Sans', sans;
+    font: 1.4em 'PT Sans', sans;
 	margin: 5px 0;
 }
 .subActiveI{
@@ -47,6 +47,8 @@ body{
 	background: #f35d2e;
 	display: inline-block;
 	margin-right: 5px;
+    position: relative;
+    top: 1px;
 }
 .imgLink{
 	width: 60%;
@@ -106,7 +108,7 @@ tbody tr{
 	font: 1.4em 'PT Sans', sans;
 	border: 1px #ddd solid;
 }
-table td{	
+table td{
 	border-right: 1px #ddd solid;
 	border-bottom: 1px #ddd solid;
 	padding: 8px 10px;
@@ -117,11 +119,11 @@ tbody tr:nth-child(odd){
 }
 .td1,.td4{
 	width: 18%;
-	
+
 }
 .td2,.td3{
 	width: 32%;
-	
+
 }
 
 
