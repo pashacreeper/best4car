@@ -31,6 +31,9 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('company.feedbacks', 'fb')
+            ->leftJoin('company.autoServices', 'auto_services')
+            ->leftJoin('company.additionalServices', 'casp')
+            ->leftJoin('company.autos', 'mark')
             ->where('company.visible = true')
         ;
 
@@ -92,7 +95,10 @@ class CompanyRepository extends EntityRepository
                         $qb->expr()->like('company.fullName', ':search'),
                         $qb->expr()->like('company.description', ':search'),
                         $qb->expr()->like('company.slogan', ':search'),
-                        $qb->expr()->like('csp_type.name', ':search')
+                        $qb->expr()->like('csp_type.name', ':search'),
+                        $qb->expr()->like('auto_services.name', ':search'),
+                        $qb->expr()->like('casp.name', ':search'),
+                        $qb->expr()->like('mark.name', ':search')
                     )
                 )->setParameter('search', "%{$word}%");
             }

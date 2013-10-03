@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Mark
  *
  * @ORM\Entity()
- * @ORM\Table(name="catalog_marks")
+ * @ORM\Table(name="catalog_marks", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  * @Vich\Uploadable
  */
 class Mark
