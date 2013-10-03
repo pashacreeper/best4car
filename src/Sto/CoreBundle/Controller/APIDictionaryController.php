@@ -226,4 +226,48 @@ class APIDictionaryController extends APIBaseController
 
         return new Response($serializer->serialize($data, 'json'));
     }
+
+    /**
+     * @ApiDoc(
+     *  description="Получить список типов услуг",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @return List Of Dictionarioes
+     *
+     * @Rest\View
+     * @Route("/api/dictionary/services", name="api_service_choice", options={"expose"=true})
+     * @Method({"GET"})
+     */
+    public function getServicesTypesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null]);
+
+        $result = [];
+        foreach ($entities as $entity) {
+            $data = [];
+            $data['data'] = $entity->getName();
+            $data['attr'] = ['id' => $entity->getId()];
+            $data['children'] = $this->getAutoServicesTree($entity);
+            $result[] = $data;
+        }
+
+        return new Response(json_encode($result));
+    }
+
+    protected function getAutoServicesTree($parent)
+    {
+        $result = [];
+        foreach ($parent->getChildren() as $entity) {
+            $data = [];
+            $data['data'] = $entity->getName();
+            $data['attr'] = ['id' => $entity->getId()];
+            $data['children'] = $this->getAutoServicesTree($entity);
+            $result[] = $data;
+        }
+
+        return $result;
+    }
 }

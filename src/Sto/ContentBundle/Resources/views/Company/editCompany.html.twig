@@ -17,6 +17,7 @@
     {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.jstree.js') }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -100,10 +101,16 @@
             <div class="contentLabel marginBottom">
                 <label>Специализация</label>
                 <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}">
-                    {% for specialization in cForm.specializations %}
+                    {% for k, specialization in cForm.specializations %}
                         <div class="contactDate">
                             {{ form_widget(specialization.type) }}
                             {{ form_widget(specialization.subType) }}
+                            <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
+                                {% for service in specialization.vars.value.services %}
+                                <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                                {% endfor %}
+                            </select>
+                            <a data-index="{{ k }}" href="#" class="edit-services">Выбор услуг</a>
                             <i class="icon-remove-circle deleteElement"></i>
                         </div>
                     {% endfor %}
@@ -121,11 +128,60 @@
                         specializationsCollectionWrapper.on('click', '.deleteElement', function() {
                             $(this).parents('.contactDate').remove();
                         });
+
                         specializationsCollectionWrapper.on('click', '.addImg', function() {
                             $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
-                            addTagForm(specializationsCollectionWrapper, $newLink, true, $deleteLink);
+                            var newForm = addTagForm(specializationsCollectionWrapper, $newLink, true, $deleteLink);
+
+                            var index = specializationsCollectionWrapper.data('index')-1;
+
+                            var serviceSelect = $("<select data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
+                            newForm.append(serviceSelect);
+
+                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services'>Выбор услуг</a>");
+                            newForm.append(serviceLink);
+                            editServiceLink(serviceLink, index);
+
                             return false;
                         });
+
+                        var editServiceLink = function(link, index) {
+                            link.on('click', function(e) {
+                                var select = $('select[data-index='+index+']');
+                                e.preventDefault();
+                                $('#service-choose-modal').bind('reveal:open', function() {
+                                    $('#service-tree').jstree({
+                                        "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
+                                        "themes" : {
+                                            "theme" : "classic",
+                                            "icons" : false,
+                                        },
+                                        "json_data" : {
+                                            "ajax" : {
+                                                "url" : Routing.generate('api_service_choice'),
+                                            }
+                                        },
+                                    }).bind("loaded.jstree", function(e, data) {
+                                        select.find('option').each(function() {
+                                            $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
+                                        });
+                                    });
+                                });
+                                $('#service-choose-modal').bind('reveal:close', function() {
+                                    select.html('');
+                                    $('#service-tree').jstree('get_checked', null, true).each(function() {
+                                        var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
+                                        select.append(option);
+                                    });
+                                });
+                                $('#service-choose-modal').reveal();
+                            });
+                        };
+
+                        $('.edit-services').each(function() {
+                            var serviceId = $(this).data('index');
+                            editServiceLink($(this), serviceId)
+                        })
                     });
                 </script>
             </div>
@@ -461,10 +517,21 @@
 
             collectionHolder.data('index', index + 1);
             $newLink.before($newForm);
+
+            return $newForm;
         }
     </script>
     {{ form_rest(cForm) }}
     </form>
 </div>
 </section>
+<!-- Modal -->
+<div id="service-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
+    <a href="#" class="close-reveal-modal"></a>
+
+    <div class="content">
+        <div id="service-tree"></div>
+    </div>
+</div>
+<!-- EOF Modal -->
 {% endblock %}

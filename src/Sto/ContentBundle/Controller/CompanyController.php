@@ -13,6 +13,7 @@ use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\Type\CompaniesSortType;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -186,16 +187,34 @@ class CompanyController extends MainController
             $originalSpecializations[] = $item;
         }
 
-        $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new CompanyType(), $company, ['em'=> $em]);
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
             foreach ($company->getSpecializations() as $item) {
                 foreach ($originalSpecializations as $key => $toDel) {
                     if ($toDel->getId() === $item->getId()) {
                         unset($originalSpecializations[$key]);
+                    }
+                }
+            }
+            $services = $request->get('services');
+            foreach ($company->getSpecializations() as $key => $item) {
+                if (isset($services[$key])) {
+                    $itemServices = $services[$key];
+                    foreach ($item->getServices() as $oldService) {
+                        $serviceId = $oldService->getService()->getId();
+                        if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
+                            unset($itemServices[$serviceKey]);
+                        }
+                    }
+                    foreach ($itemServices as $serviceId) {
+                        $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
+                        $service = new CompanyAutoService();
+                        $service->setService($autoService);
+                        $service->setSpecialization($item);
+                        $em->persist($service);
                     }
                 }
             }
