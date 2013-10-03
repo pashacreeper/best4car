@@ -8,7 +8,7 @@ use Doctrine\DBAL\Migrations\AbstractMigration,
 /**
  * Auto-generated Migration: Please modify to your need!
  */
-class Version20131003135713 extends AbstractMigration
+class Version20131003154215 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
@@ -17,6 +17,7 @@ class Version20131003135713 extends AbstractMigration
         
         $this->addSql("CREATE INDEX search_idx ON companies (name, full_name, slogan)");
         $this->addSql("CREATE INDEX search_idx ON company_types (name)");
+        $this->addSql("CREATE INDEX search_idx ON deals (name, terms)");
         $this->addSql("CREATE INDEX search_idx ON catalog_marks (name)");
         $this->addSql("CREATE INDEX search_idx ON catalog_models (name)");
     }
@@ -30,5 +31,6 @@ class Version20131003135713 extends AbstractMigration
         $this->addSql("DROP INDEX search_idx ON catalog_models");
         $this->addSql("DROP INDEX search_idx ON companies");
         $this->addSql("DROP INDEX search_idx ON company_types");
+        $this->addSql("DROP INDEX search_idx ON deals");
     }
 }
