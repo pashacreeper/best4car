@@ -24,7 +24,8 @@ class DealRepository extends EntityRepository
                     'endDate' => new \DateTime('now'),
                     'city' => $cityId
                 ]
-            );
+            )
+        ;
 
         if ($search) {
             $query->andWhere(
@@ -44,7 +45,8 @@ class DealRepository extends EntityRepository
 
         $dealsTypes = $this->_em
             ->getRepository('StoCoreBundle:DealType')
-            ->findBy([], ['position' => 'ASC']);
+            ->findBy([], ['position' => 'ASC'])
+        ;
 
         $response = [];
         foreach ($dealsTypes as $type) {
@@ -60,8 +62,23 @@ class DealRepository extends EntityRepository
 
     public function getDeals($cityId, $search = null)
     {
+        return $this->getDealsQuery($cityId, $search)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getDealsQuery($cityId, $search = null)
+    {
         $query = $this->createQueryBuilder('deal')
             ->join('deal.company', 'dc')
+            ->leftJoin('dc.specializations', 'csp')
+            ->leftJoin('csp.type', 'csp_type')
+            ->leftJoin('csp.subType', 'csp_sub_type')
+            ->leftJoin('dc.feedbacks', 'fb')
+            ->leftJoin('dc.autoServices', 'auto_services')
+            ->leftJoin('dc.additionalServices', 'casp')
+            ->leftJoin('dc.autos', 'mark')
             ->leftJoin('deal.services', 'ds')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
@@ -70,7 +87,8 @@ class DealRepository extends EntityRepository
                     'endDate' => new \DateTime('now'),
                     'city' => $cityId
                 ]
-            );
+            )
+        ;
 
         if ($search) {
             $query->andWhere(
@@ -78,12 +96,20 @@ class DealRepository extends EntityRepository
                     $query->expr()->like('deal.name', ':search'),
                     $query->expr()->like('deal.description', ':search'),
                     $query->expr()->like('deal.terms', ':search'),
-                    $query->expr()->like('ds.name', ':search')
+                    $query->expr()->like('ds.name', ':search'),
+                    $query->expr()->like('dc.name', ':search'),
+                    $query->expr()->like('dc.fullName', ':search'),
+                    $query->expr()->like('dc.description', ':search'),
+                    $query->expr()->like('dc.slogan', ':search'),
+                    $query->expr()->like('csp_type.name', ':search'),
+                    $query->expr()->like('auto_services.name', ':search'),
+                    $query->expr()->like('casp.name', ':search'),
+                    $query->expr()->like('mark.name', ':search')
                 )
             )->setParameter('search', "%{$search}%");
         }
 
-        return $query->getQuery()->getResult();
+        return $query;
     }
 
     public function getDealsByCompany($companyId)

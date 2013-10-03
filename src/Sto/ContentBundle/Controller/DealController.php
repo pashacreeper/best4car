@@ -161,7 +161,7 @@ class DealController extends MainController
         ];
     }
 
-   /**
+    /**
      * Displays a form to edit an existing Deal entity.
      *
      * @Route("/company/{id}/deal/{dealId}/edit", name="company_deal_edit")
@@ -258,21 +258,21 @@ class DealController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $city_id = $this->get('sto_content.manager.city')->selectedCity()->getId();
+        $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
         $search = $request->get('search');
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:Deal');
 
-        $deals = $repository->getDeals($city_id, $search);
-        $dealsTypes = $repository->getDealTypes($city_id, $search);
-        $countFeededDeals =$repository->getDealsWithFeedbacksCount($city_id, $search);
-        $countPopularDeals = $repository->getPopularDealsCount($city_id, $search);
-        $vipDeals = $repository->getVipDeals($city_id);
+        $deals = $repository->getDeals($cityId, $search);
+        $dealsTypes = $repository->getDealTypes($cityId, $search);
+        $countDealsWithFeedback =$repository->getDealsWithFeedbacksCount($cityId, $search);
+        $countPopularDeals = $repository->getPopularDealsCount($cityId, $search);
+        $vipDeals = $repository->getVipDeals($cityId);
 
         return [
             'deals' => $deals,
             'dictionaries' => $dealsTypes,
-            'countFeededDeals' => $countFeededDeals,
+            'countDealsWithFeedback' => $countDealsWithFeedback,
             'countPopularDeals' => $countPopularDeals,
             'vipDeals' => $vipDeals,
             'search' => $search,
@@ -288,42 +288,22 @@ class DealController extends MainController
     {
         $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('StoCoreBundle:Deal')
-            ->createQueryBuilder('deal')
-            ->leftJoin('deal.services', 'ds')
-            ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate')
-            ->andWhere('dc.cityId = :city')
-            ->setParameters(
-                [
-                    'endDate' => new \DateTime('now'),
-                    'city' => $cityId
-                ]
-            );
-
-        $search = $request->request->get('search', $search);
-        if ($search) {
-            $query->andWhere(
-                $query->expr()->orx(
-                    $query->expr()->like('deal.name', ':search'),
-                    $query->expr()->like('deal.description', ':search'),
-                    $query->expr()->like('deal.terms', ':search'),
-                    $query->expr()->like('ds.name', ':search')
-                )
-            )->setParameter('search', '%' . $search . '%');
-        }
+        $query = $em->getRepository('StoCoreBundle:Deal')->getDealsQuery($cityId, $search);
 
         $dealType = $request->get('deal_type', 0);
         if ($dealType > 0) {
             $query->andWhere('deal.typeId = :type')
-                ->setParameter('type', $dealType);
+                ->setParameter('type', $dealType)
+            ;
         } elseif ($dealType == -2) {
             $query->join('deal.feedbacks', 'f')
-                ->andWhere('f.content is not null');
+                ->andWhere('f.content is not null')
+            ;
         } elseif ($dealType == -1) {
             $query->join('deal.feedbacks', 'f')
                 ->having('COUNT(f.id) > 5')
-                ->groupBy('deal.id');
+                ->groupBy('deal.id')
+            ;
         }
 
         $page = $this->get('request')->query->get('page', 1);
