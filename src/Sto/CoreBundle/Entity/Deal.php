@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Deal
  *
- * @ORM\Table(name="deals", indexes={@ORM\Index(name="search_idx", columns={"name", "terms"})})
+ * @ORM\Table(name="deals", indexes={@ORM\Index(name="deals_search_idx", columns={"name", "terms"})})
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\DealRepository")
  * @Vich\Uploadable
  */

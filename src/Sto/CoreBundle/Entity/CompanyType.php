@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM,
  * Company
  *
  * @ORM\Entity()
- * @ORM\Table(name="company_types", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="company_types", indexes={@ORM\Index(name="company_types_search_idx", columns={"name"})})
  * @Vich\Uploadable
  */
 class CompanyType

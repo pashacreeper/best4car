@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="catalog_models", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="catalog_models", indexes={@ORM\Index(name="models_search_idx", columns={"name"})})
  */
 class Model
 {

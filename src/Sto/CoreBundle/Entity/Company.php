@@ -13,7 +13,7 @@ use Sto\CoreBundle\Entity\CompanyManager;
 /**
  * Company
  *
- * @ORM\Table(name="companies", indexes={@ORM\Index(name="search_idx", columns={"name", "full_name", "slogan"})})
+ * @ORM\Table(name="companies", indexes={@ORM\Index(name="companies_search_idx", columns={"name", "full_name", "slogan"})})
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanyRepository")
  * @Vich\Uploadable
  */
