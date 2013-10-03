@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AutoServices
  *
  * @ORM\Entity()
- * @ORM\Table(name="auto_services")
+ * @ORM\Table(name="auto_services", indexes={@ORM\Index(name="auto_services_search_idx", columns={"name"})})
  */
 class AutoServices
 {
