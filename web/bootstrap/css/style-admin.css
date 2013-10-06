@@ -3,3 +3,36 @@
     height: 60px;
     border-radius: 5px;
 }
+
+.reveal-modal {
+    display: none;
+    top: 100px;
+    left: 50%;
+    margin-left: -140px;
+    width: 280px;
+    padding: 10px 10px 30px 10px;
+    position: absolute;
+    z-index: 10110;
+    background: #f6f6f6;
+    border-radius: 6px;
+    border: 2px solid #9e9a94;
+}
+
+#service-choose-modal {
+	overflow: auto;
+}
+
+.reveal-modal .close-reveal-modal {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background: url("/bootstrap/img/glyphicons-halflings.png") -48px -96px no-repeat;
+    z-index: 11;
+}

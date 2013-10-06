@@ -32,15 +32,29 @@ class CompanyTypeAdmin extends Admin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('shortName')
-            ->add('name')
-            ->add('parent')
-            ->add('position')
-            ->add('iconMap', 'file')
-            ->add('iconMapSelected', 'file')
-            ->add('iconCompanyCard', 'file')
-            ->add('updatedAt')
-            ->add('autoServices')
+            ->with('Тип компании')
+                ->add('shortName')
+                ->add('name')
+                ->add('parent')
+                ->add('position')
+                ->add('iconMap', 'file', [
+                    'required' => false,
+                ])
+                ->add('iconMapSelected', 'file', [
+                    'required' => false,
+                ])
+                ->add('iconCompanyCard', 'file', [
+                    'required' => false,
+                ])
+                ->add('updatedAt')
+            ->end()
+            ->with('Услуги')
+                ->add('autoServices', null, [
+                    'attr' => [
+                        'class' => 'admin-service-select',
+                    ],
+                ])
+            ->end()
         ;
     }
 

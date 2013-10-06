@@ -237,13 +237,17 @@ class APIDictionaryController extends APIBaseController
      * @return List Of Dictionarioes
      *
      * @Rest\View
-     * @Route("/api/dictionary/services/{specializationId}", name="api_service_choice", options={"expose"=true})
+     * @Route("/api/dictionary/services/{specializationId}", name="api_service_choice", defaults={"specializationId"=null}, options={"expose"=true})
      * @Method({"GET"})
      */
-    public function getServicesTypesAction($specializationId)
+    public function getServicesTypesAction($specializationId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null, 'companyType' => $specializationId]);
+        if ($specializationId) {
+            $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null, 'companyType' => $specializationId]);
+        } else {
+            $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null]);
+        }
 
         $result = [];
         foreach ($entities as $entity) {
