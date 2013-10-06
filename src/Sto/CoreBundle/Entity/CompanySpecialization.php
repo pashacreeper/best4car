@@ -35,7 +35,7 @@ class CompanySpecialization
     private $subType;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="specialization")
+     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="specialization", cascade={"all"})
      */
     private $services;
 

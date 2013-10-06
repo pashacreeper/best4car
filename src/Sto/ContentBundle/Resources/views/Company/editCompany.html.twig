@@ -158,7 +158,7 @@
                                         },
                                         "json_data" : {
                                             "ajax" : {
-                                                "url" : Routing.generate('api_service_choice'),
+                                                "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() }),
                                             }
                                         },
                                     }).bind("loaded.jstree", function(e, data) {

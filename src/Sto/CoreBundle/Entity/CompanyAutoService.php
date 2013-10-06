@@ -29,7 +29,7 @@ class CompanyAutoService
     private $specialization;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="parent", cascade={"all"})
      */
     private $children;
 
