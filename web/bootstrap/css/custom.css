@@ -472,6 +472,9 @@ a.btnNext:hover {
     float: none;
     line-height: 20px;
 }
+.servisesItem .serviceName.mapBalloon{
+    width: 202px;
+}
 
 /* custumize select for advanced search */
 .basket__cont__body__bottom__paper .chzn-container,
