@@ -476,7 +476,7 @@ a.btnNext:hover {
     float: none;
     line-height: 20px;
 }
-.servisesItem .serviceName.mapBalloon{
+.popupCardCompany .servisesItem .serviceName.mapBalloon{
     width: 202px;
 }
 

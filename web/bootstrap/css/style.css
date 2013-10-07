@@ -731,7 +731,6 @@ html, body {
 
 .iconSpecialisationitem {
     float: left;
-    width: 32px;
     margin-right: 5px;
     cursor: pointer;
 }
