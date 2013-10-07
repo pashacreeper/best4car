@@ -57,6 +57,10 @@
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconCompanyCard') }}" />
                                                 </div>
+                                            {% elseif object.iconName is defined and '' != object.iconName and 'icon' ==field_name %}
+                                                <div class="admin-icon-show">
+                                                    <img src="{{ vich_uploader_asset(object, 'icon') }}" />
+                                                </div>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
