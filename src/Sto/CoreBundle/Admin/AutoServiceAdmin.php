@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityRepository;
 
 class AutoServiceAdmin extends Admin
 {
@@ -35,7 +36,10 @@ class AutoServiceAdmin extends Admin
             ->add('position')
             ->add('code')
             ->add('companyType', null, array(
-                'required' => false,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('company_type')
+                        ->where('company_type.parent is null');
+                },
             ))
         ;
     }
@@ -46,6 +50,7 @@ class AutoServiceAdmin extends Admin
             ->addIdentifier('id')
             ->addIdentifier('name')
             ->addIdentifier('parent')
+            ->addIdentifier('companyType')
         ;
     }
 

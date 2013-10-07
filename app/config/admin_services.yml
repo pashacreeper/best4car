@@ -53,6 +53,12 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Компании, label: Специализация, show_in_dashboard: false}
           arguments: [null, Sto\CoreBundle\Entity\CompanySpecialization, SonataAdminBundle:CRUD]
 
+    app.admin.company.company_service:
+          class: Sto\CoreBundle\Admin\CompanyAutoServiceAdmin
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Услуги, show_in_dashboard: false}
+          arguments: [null, Sto\CoreBundle\Entity\CompanyAutoService, SonataAdminBundle:CRUD]
+
     app.admin.company.company_working_time:
           class: Sto\CoreBundle\Admin\CompanyWorkingTimeAdmin
           tags:

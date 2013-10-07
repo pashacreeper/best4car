@@ -90,7 +90,7 @@
     </ul>
     <!-- Это контейнеры содержимого -->
     <div data-tab-id="#information" class="content" >
-        {% include "StoContentBundle:Company:tabs/information.html.twig" with { 'company': company } %}
+        {% render(controller("StoContentBundle:Company:information", { 'company': company, 'isManager': isManager })) %}
     </div>
     <div data-tab-id="#feedbacks" class="content">
         {% include "StoContentBundle:Company:tabs/feedbacks.html.twig" with { 'company': company } %}

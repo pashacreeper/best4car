@@ -135,4 +135,165 @@ class CompanyWorkingTime
 
         return $this;
     }
+
+    /**
+     * Set daysMonday
+     *
+     * @param  boolean            $daysMonday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysMonday($daysMonday)
+    {
+        $this->daysMonday = $daysMonday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysMonday
+     *
+     * @return boolean
+     */
+    public function getDaysMonday()
+    {
+        return $this->daysMonday;
+    }
+
+    /**
+     * Set daysTuesday
+     *
+     * @param  boolean            $daysTuesday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysTuesday($daysTuesday)
+    {
+        $this->daysTuesday = $daysTuesday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysTuesday
+     *
+     * @return boolean
+     */
+    public function getDaysTuesday()
+    {
+        return $this->daysTuesday;
+    }
+
+    /**
+     * Set daysWednesday
+     *
+     * @param  boolean            $daysWednesday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysWednesday($daysWednesday)
+    {
+        $this->daysWednesday = $daysWednesday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysWednesday
+     *
+     * @return boolean
+     */
+    public function getDaysWednesday()
+    {
+        return $this->daysWednesday;
+    }
+
+    /**
+     * Set daysThursday
+     *
+     * @param  boolean            $daysThursday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysThursday($daysThursday)
+    {
+        $this->daysThursday = $daysThursday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysThursday
+     *
+     * @return boolean
+     */
+    public function getDaysThursday()
+    {
+        return $this->daysThursday;
+    }
+
+    /**
+     * Set daysFriday
+     *
+     * @param  boolean            $daysFriday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysFriday($daysFriday)
+    {
+        $this->daysFriday = $daysFriday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysFriday
+     *
+     * @return boolean
+     */
+    public function getDaysFriday()
+    {
+        return $this->daysFriday;
+    }
+
+    /**
+     * Set daysSaturday
+     *
+     * @param  boolean            $daysSaturday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysSaturday($daysSaturday)
+    {
+        $this->daysSaturday = $daysSaturday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysSaturday
+     *
+     * @return boolean
+     */
+    public function getDaysSaturday()
+    {
+        return $this->daysSaturday;
+    }
+
+    /**
+     * Set daysSunday
+     *
+     * @param  boolean            $daysSunday
+     * @return CompanyWorkingTime
+     */
+    public function setDaysSunday($daysSunday)
+    {
+        $this->daysSunday = $daysSunday;
+
+        return $this;
+    }
+
+    /**
+     * Get daysSunday
+     *
+     * @return boolean
+     */
+    public function getDaysSunday()
+    {
+        return $this->daysSunday;
+    }
 }

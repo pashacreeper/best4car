@@ -197,4 +197,37 @@ class Model
     {
         return $this->getName();
     }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\Modification $children
+     * @return Model
+     */
+    public function addChild(\Sto\CoreBundle\Entity\Modification $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\Modification $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\Modification $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

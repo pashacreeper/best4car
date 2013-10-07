@@ -226,4 +226,52 @@ class APIDictionaryController extends APIBaseController
 
         return new Response($serializer->serialize($data, 'json'));
     }
+
+    /**
+     * @ApiDoc(
+     *  description="Получить список типов услуг",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *         }
+     * )
+     * @return List Of Dictionarioes
+     *
+     * @Rest\View
+     * @Route("/api/dictionary/services/{specializationId}", name="api_service_choice", defaults={"specializationId"=null}, options={"expose"=true})
+     * @Method({"GET"})
+     */
+    public function getServicesTypesAction($specializationId = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($specializationId) {
+            $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null, 'companyType' => $specializationId]);
+        } else {
+            $entities = $em->getRepository('StoCoreBundle:AutoServices')->findBy(['parent' => null]);
+        }
+
+        $result = [];
+        foreach ($entities as $entity) {
+            $data = [];
+            $data['data'] = $entity->getName();
+            $data['attr'] = ['id' => $entity->getId()];
+            $data['children'] = $this->getAutoServicesTree($entity);
+            $result[] = $data;
+        }
+
+        return new Response(json_encode($result));
+    }
+
+    protected function getAutoServicesTree($parent)
+    {
+        $result = [];
+        foreach ($parent->getChildren() as $entity) {
+            $data = [];
+            $data['data'] = $entity->getName();
+            $data['attr'] = ['id' => $entity->getId()];
+            $data['children'] = $this->getAutoServicesTree($entity);
+            $result[] = $data;
+        }
+
+        return $result;
+    }
 }

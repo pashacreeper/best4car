@@ -34,4 +34,44 @@ class Work extends Base
     {
         return $this->description;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->deals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add deals
+     *
+     * @param  \Sto\CoreBundle\Entity\Deal $deals
+     * @return Work
+     */
+    public function addDeal(\Sto\CoreBundle\Entity\Deal $deals)
+    {
+        $this->deals[] = $deals;
+
+        return $this;
+    }
+
+    /**
+     * Remove deals
+     *
+     * @param \Sto\CoreBundle\Entity\Deal $deals
+     */
+    public function removeDeal(\Sto\CoreBundle\Entity\Deal $deals)
+    {
+        $this->deals->removeElement($deals);
+    }
+
+    /**
+     * Get deals
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDeals()
+    {
+        return $this->deals;
+    }
 }
