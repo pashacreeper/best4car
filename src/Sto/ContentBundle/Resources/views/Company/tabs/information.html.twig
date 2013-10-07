@@ -16,13 +16,14 @@
     </div>
 </div>
 {% endif %}
-{% macro service_list(services) %}
+{% macro service_list(services, level) %}
     {% for service in services %}
         <li class="listServicesItem">
+            {% if level > 0 %} - {% endif %}
             {{ service.service.name }}
             {% if service.children %}
                 <ul>
-                    {{ _self.service_list(service.children) }}
+                    {{ _self.service_list(service.children, level + 1) }}
                 </ul>
             {% endif %}
         </li>
@@ -50,7 +51,7 @@
                         <div class="accordion-inner">
                             <ul class="listServices">
                             {% if services[specialization.id] is defined %}
-                                {{ _self.service_list(services[specialization.id]) }}
+                                {{ _self.service_list(services[specialization.id], 0) }}
                             {% endif %}
                             </ul>
                         </div>

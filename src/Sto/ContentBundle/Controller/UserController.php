@@ -22,6 +22,7 @@ use Sto\UserBundle\Entity\UserGallery;
 use Sto\ContentBundle\Form\UserGalleryType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sto\CoreBundle\Entity\CompanyAutoService;
 
 /**
  * User controller.
@@ -278,6 +279,43 @@ class UserController extends MainController
             $company->setGallery($gallery);
 
             $em->persist($company);
+            $services = $request->get('services');
+
+            foreach ($company->getSpecializations() as $key => $item) {
+                if (isset($services[$key])) {
+                    $itemServices = $services[$key];
+                    foreach ($item->getServices() as $oldService) {
+                        $serviceId = $oldService->getService()->getId();
+                        if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
+                            unset($itemServices[$serviceKey]);
+                        }
+                    }
+                    $companyServices = [];
+                    foreach ($itemServices as $serviceId) {
+                        $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
+                        $service = new CompanyAutoService();
+                        $service->setService($autoService);
+                        $service->setSpecialization($item);
+                        $companyServices[] = $service;
+                        $em->persist($service);
+                    }
+                    foreach ($item->getServices() as $service) {
+                        $companyServices[] = $service;
+                    }
+                    foreach ($companyServices as $companyService) {
+                        if ($companyService->getService()->getParent()) {
+                            $this->createCompanyServiceParent($companyServices, $companyService, $item);
+                        }
+                    }
+                    $em->flush();
+                    foreach ($companyServices as $companyService) {
+                        if ($companyService->getService()->getParent()) {
+                            $this->setCompanyServiceParent($companyServices, $companyService);
+                        }
+                    }
+                }
+            }
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Your company was added. Login please.');
@@ -297,6 +335,40 @@ class UserController extends MainController
             'user' => $user->getId(),
             'cForm' => $form->createView(),
         ];
+    }
+
+    protected function createCompanyServiceParent(&$companyServices, $companyService, $specialization)
+    {
+        $companyServiceParent = null;
+        $service = $companyService->getService()->getParent();
+        foreach ($companyServices as $seachCompanyService) {
+            if ($service == $seachCompanyService->getService()) {
+                $companyServiceParent = $seachCompanyService;
+                break;
+            }
+        }
+        if (!$companyServiceParent) {
+            $companyServiceParent = new CompanyAutoService();
+            $companyServiceParent->setService($service);
+            $companyServiceParent->setSpecialization($specialization);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($companyServiceParent);
+            $em->flush();
+            $companyServices[] = $companyServiceParent;
+        }
+        if ($service->getParent()) {
+            $this->createCompanyServiceParent($companyServices, $companyServiceParent, $specialization);
+        }
+    }
+
+    protected function setCompanyServiceParent($companyServices, $companyService)
+    {
+        foreach ($companyServices as $seachCompanyService) {
+            if ($companyService->getService()->getParent() == $seachCompanyService->getService()) {
+                $companyService->setParent($seachCompanyService);
+                break;
+            }
+        }
     }
 
     /**
