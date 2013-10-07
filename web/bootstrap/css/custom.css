@@ -191,10 +191,14 @@ span.complain {
     background-color: #28799e;
 }
 
-.additionalServItem label {
+.additionalServiceItem label {
     clear: none;
     font: inherit;
     cursor: pointer;
+    width: 230px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 0 !important;
 }
 
 .linkUnder {

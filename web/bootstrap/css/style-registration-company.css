@@ -336,28 +336,29 @@ body {
     vertical-align: middle;
 }
 
-.additionalServItem {
-    float: left;
+.additionalServiceItem {
     color: #444;
     font: 1.4em 'PT Sans', sans;
-    line-height: 28px;
     position: relative;
-    margin: 5px 10px 10px 0
+    margin: 5px 10px 10px 0;
+    display: inline-block;
+    height: 32px;
+    vertical-align: middle;
 }
 
-.additionalServItem input {
-    float: left;
+.additionalServiceItem input {
     position: relative;
-    top: 4px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.additionalServItem span {
+.additionalServiceItem span {
     background: url('../img/iconmini.png') no-repeat;
     width: 24px;
     height: 28px;
-    display: block;
-    float: left;
     margin: 0 5px 0 5px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .costHour {

@@ -275,7 +275,7 @@ body{
 	color: #555;
 	vertical-align: middle;
 }
-.additionalServItem{
+.additionalServiceItem {
 	float: left;
 	color: #444;
 	font: 1.4em 'PT Sans', sans;
@@ -283,12 +283,12 @@ body{
 	position: relative;
 	margin: 5px 10px 10px 0
 }
-.additionalServItem input{
+.additionalServiceItem input{
 	float: left;
 	position: relative;
 	top: 4px;
 }
-.additionalServItem span{
+.additionalServiceItem span{
 	background: url('../img/iconmini.png') no-repeat;
 	width: 24px;
 	height: 28px;
