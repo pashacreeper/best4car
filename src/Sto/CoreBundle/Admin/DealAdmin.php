@@ -14,12 +14,7 @@ class DealAdmin extends Admin
 
     public function getFilterTheme()
     {
-        return array_merge(
-            parent::getFormTheme(),
-            array(
-                'ShtumiUsefulBundle::fields.html.twig',
-            )
-        );
+        return array_merge(parent::getFormTheme(), ['ShtumiUsefulBundle::fields.html.twig']);
     }
 
     public function configureShowFields(ShowMapper $showMapper)

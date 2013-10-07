@@ -36,3 +36,6 @@
     background: url("/bootstrap/img/glyphicons-halflings.png") -48px -96px no-repeat;
     z-index: 11;
 }
+.admin-icon-show{
+    margin: 0 0 10px 158px;
+}

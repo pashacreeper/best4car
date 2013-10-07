@@ -12,6 +12,16 @@ class CompanyTypeAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'StoCoreBundle:Admin:edit.html.twig';
+            default:
+                return parent::getTemplate($name);
+        }
+    }
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
