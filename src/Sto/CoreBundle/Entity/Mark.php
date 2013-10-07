@@ -233,4 +233,37 @@ class Mark
     {
         return $this->iconName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/catalog/icons/{$this->iconName}";
     }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\Model $children
+     * @return Mark
+     */
+    public function addChild(\Sto\CoreBundle\Entity\Model $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\Model $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\Model $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

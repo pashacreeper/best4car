@@ -19,7 +19,7 @@ class CompanySpecializationType extends AbstractType
                         ->where('company_type.parent is null');
                 },
                 'attr' => [
-                    'class' => 'inputFormEnter'
+                    'class' => 'inputFormEnter companySpecialization'
                 ],
             ])
             ->add('subType', 'shtumi_dependent_filtered_entity', [

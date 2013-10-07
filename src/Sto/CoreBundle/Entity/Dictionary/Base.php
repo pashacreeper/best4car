@@ -215,4 +215,27 @@ class Base
     {
         return $this->position;
     }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\Dictionary\Base $children
+     * @return Base
+     */
+    public function addChild(\Sto\CoreBundle\Entity\Dictionary\Base $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\Dictionary\Base $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\Dictionary\Base $children)
+    {
+        $this->children->removeElement($children);
+    }
 }

@@ -108,4 +108,27 @@ class FeedbackCompany extends Feedback
 
         return $this;
     }
+
+    /**
+     * Set priceLevelId
+     *
+     * @param  integer         $priceLevelId
+     * @return FeedbackCompany
+     */
+    public function setPriceLevelId($priceLevelId)
+    {
+        $this->priceLevelId = $priceLevelId;
+
+        return $this;
+    }
+
+    /**
+     * Get priceLevelId
+     *
+     * @return integer
+     */
+    public function getPriceLevelId()
+    {
+        return $this->priceLevelId;
+    }
 }

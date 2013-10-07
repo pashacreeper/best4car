@@ -727,4 +727,86 @@ class Deal
 
         return $this;
     }
+
+    /**
+     * Add services
+     *
+     * @param  \Sto\CoreBundle\Entity\Dictionary\Work $services
+     * @return Deal
+     */
+    public function addService(\Sto\CoreBundle\Entity\Dictionary\Work $services)
+    {
+        $this->services[] = $services;
+
+        return $this;
+    }
+
+    /**
+     * Remove services
+     *
+     * @param \Sto\CoreBundle\Entity\Dictionary\Work $services
+     */
+    public function removeService(\Sto\CoreBundle\Entity\Dictionary\Work $services)
+    {
+        $this->services->removeElement($services);
+    }
+
+    /**
+     * Add feedbacks
+     *
+     * @param  \Sto\CoreBundle\Entity\FeedbackDeal $feedbacks
+     * @return Deal
+     */
+    public function addFeedback(\Sto\CoreBundle\Entity\FeedbackDeal $feedbacks)
+    {
+        $this->feedbacks[] = $feedbacks;
+
+        return $this;
+    }
+
+    /**
+     * Add auto
+     *
+     * @param  \Sto\CoreBundle\Entity\Mark $auto
+     * @return Deal
+     */
+    public function addAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    {
+        $this->auto[] = $auto;
+
+        return $this;
+    }
+
+    /**
+     * Remove auto
+     *
+     * @param \Sto\CoreBundle\Entity\Mark $auto
+     */
+    public function removeAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    {
+        $this->auto->removeElement($auto);
+    }
+
+    /**
+     * Add autoServices
+     *
+     * @param  \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @return Deal
+     */
+    public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices[] = $autoServices;
+
+        return $this;
+    }
+
+    /**
+     * Remove autoServices
+     *
+     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     */
+    public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    {
+        $this->autoServices->removeElement($autoServices);
+    }
 }

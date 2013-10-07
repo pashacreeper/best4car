@@ -668,3 +668,19 @@ a.btnNext:hover {
 .contentLabel.ch-container {
     margin-bottom: 22px;
 }
+
+.listServicesItem {
+    color: #444;
+    font: 12pt 'PT Sans', sans;
+    padding-bottom: 5px;
+}
+
+.listServicesItem > ul > .listServicesItem {
+    padding-left: 10px;
+}
+
+.edit-services {
+    float: left;
+    padding: 4px 8px;
+    font: 1.4em 'PT Sans', sans;
+}

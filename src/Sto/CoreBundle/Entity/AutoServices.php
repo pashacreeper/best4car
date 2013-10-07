@@ -21,7 +21,7 @@ class AutoServices
 
     /**
      * @ORM\ManyToOne(targetEntity="CompanyType")
-     * @ORM\JoinColumn(name="company_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="company_type_id", referencedColumnName="id", nullable=false)
      */
     private $companyType;
 
@@ -256,5 +256,94 @@ class AutoServices
         $this->companyType->removeElement($value);
 
         return $this;
+    }
+
+    /**
+     * Add children
+     *
+     * @param  \Sto\CoreBundle\Entity\AutoServices $children
+     * @return AutoServices
+     */
+    public function addChild(\Sto\CoreBundle\Entity\AutoServices $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Sto\CoreBundle\Entity\AutoServices $children
+     */
+    public function removeChild(\Sto\CoreBundle\Entity\AutoServices $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Add companies
+     *
+     * @param  \Sto\CoreBundle\Entity\Company $companies
+     * @return AutoServices
+     */
+    public function addCompany(\Sto\CoreBundle\Entity\Company $companies)
+    {
+        $this->companies[] = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param \Sto\CoreBundle\Entity\Company $companies
+     */
+    public function removeCompany(\Sto\CoreBundle\Entity\Company $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Get companies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
+    /**
+     * Add deals
+     *
+     * @param  \Sto\CoreBundle\Entity\Deal $deals
+     * @return AutoServices
+     */
+    public function addDeal(\Sto\CoreBundle\Entity\Deal $deals)
+    {
+        $this->deals[] = $deals;
+
+        return $this;
+    }
+
+    /**
+     * Remove deals
+     *
+     * @param \Sto\CoreBundle\Entity\Deal $deals
+     */
+    public function removeDeal(\Sto\CoreBundle\Entity\Deal $deals)
+    {
+        $this->deals->removeElement($deals);
+    }
+
+    /**
+     * Get deals
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDeals()
+    {
+        return $this->deals;
     }
 }

@@ -273,4 +273,27 @@ class AdditionalService extends Base
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Add companies
+     *
+     * @param  \Sto\CoreBundle\Entity\Company $companies
+     * @return AdditionalService
+     */
+    public function addCompany(\Sto\CoreBundle\Entity\Company $companies)
+    {
+        $this->companies[] = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param \Sto\CoreBundle\Entity\Company $companies
+     */
+    public function removeCompany(\Sto\CoreBundle\Entity\Company $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
 }

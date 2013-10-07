@@ -16,6 +16,18 @@
     </div>
 </div>
 {% endif %}
+{% macro service_list(services) %}
+    {% for service in services %}
+        <li class="listServicesItem">
+            {{ service.service.name }}
+            {% if service.children %}
+                <ul>
+                    {{ _self.service_list(service.children) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
 <div class="servicesSpecialisationWrap">
     <div class="accordion" id="accordion2">
         {% if company.specializations | length %}
@@ -37,9 +49,9 @@
                     <div id="collapse_{{ loop.index }}" class="accordion-body">
                         <div class="accordion-inner">
                             <ul class="listServices">
-                                <li class="listServicesItem contentText">
-                                    {{ specialization.subType.name }}
-                                </li>
+                            {% if services[specialization.id] is defined %}
+                                {{ _self.service_list(services[specialization.id]) }}
+                            {% endif %}
                             </ul>
                         </div>
                     </div>
