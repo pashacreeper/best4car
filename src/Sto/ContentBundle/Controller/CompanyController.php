@@ -95,6 +95,10 @@ class CompanyController extends MainController
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
 
+        if (!$company) {
+            throw $this->createNotFoundException('Компании не обнаруженно');
+        }
+
         if ($this->getUser()) {
             $manager = $em->getRepository('StoCoreBundle:CompanyManager')
                 ->createQueryBuilder('cm')
