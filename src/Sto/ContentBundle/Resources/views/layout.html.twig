@@ -109,11 +109,6 @@
                 {{ knp_menu_render('StoContentBundle:Builder:footerMenu', {'currentAsLink': true}) }}
                 {{ knp_menu_render('StoContentBundle:Builder:footerSocial', {'currentAsLink': true}) }}
                 <div id="linkUser"><a href="{{ path('info_show', {'name': 'useRules'}) }}">Условия использования сайта</a></div>
-                <!-- Yandex.Metrika informer -->
-                <a href="http://metrika.yandex.ru/stat/?id=22424698&amp;from=informer"
-                   target="_blank" rel="nofollow" style="position: absolute; top: 32px; left: 20px;"><img src="//bs.yandex.ru/informer/22424698/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-                                                       style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:22424698,lang:'ru'});return false}catch(e){}"/></a>
-                <!-- /Yandex.Metrika informer -->
             </div>
         </section>
 
@@ -244,6 +239,7 @@
                 (w[c] = w[c] || []).push(function() {
                     try {
                         w.yaCounter22424698 = new Ya.Metrika({id:22424698,
+                            webvisor:true,
                             clickmap:true,
                             trackLinks:true,
                             accurateTrackBounce:true});
