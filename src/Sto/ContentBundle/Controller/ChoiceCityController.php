@@ -41,7 +41,11 @@ class ChoiceCityController extends Controller
             $session->set('city', $serializer->serialize($city, 'json'));
             $session->set('cityName', $city->getName());
         } else {
-            $city = $this->getDoctrine()->getManager()->getRepository('StoCoreBundle:Country')->findOneById(102);
+            $defaultCityId = $this->container->getParameter('default_city_id');
+            $city = $this->getDoctrine()->getManager()
+                ->getRepository('StoCoreBundle:Country')
+                ->findOneById($defaultCityId)
+            ;
             $session->set('city', $serializer->serialize($city, 'json'));
             $session->set('cityName', $city->getName());
         }

@@ -26,3 +26,5 @@ parameters:
     vk_client_secret: xxxxxxxxxxxxx
 
     mail_vk_register: sto.ru
+
+    default_city_id: 102

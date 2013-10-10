@@ -28,10 +28,15 @@ class CityManager
             $user = $token->getUser();
         }
 
-        if ($session->has('city')) {
-            $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Country','json');
+        if ($session->has('city') && $session->get('city') !== 'null') {
+            $city = $serializer->deserialize($session->get('city'), 'Sto\CoreBundle\Entity\Country', 'json');
         } else {
-            $city = ($user instanceof User)? $user->getCity() : $this->em->getRepository('StoCoreBundle:Country')->findOneById(102);
+            $city = ($user instanceof User)
+                ? $user->getCity()
+                : $this->em
+                    ->getRepository('StoCoreBundle:Country')
+                    ->findOneById($this->container->getParameter('default_city_id'))
+            ;
         }
 
         return $city;
