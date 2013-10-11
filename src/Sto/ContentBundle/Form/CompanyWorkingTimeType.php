@@ -34,7 +34,6 @@ class CompanyWorkingTimeType extends AbstractType
                         'label' => false,
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
-                            'data-format' => 'hh:mm:ss'
                         ]
                     ]
                 )
@@ -46,7 +45,6 @@ class CompanyWorkingTimeType extends AbstractType
                         'label' => false,
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
-                            'data-format' => 'hh:mm:ss'
                         ]
                     ]
                 )
