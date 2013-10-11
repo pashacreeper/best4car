@@ -11,11 +11,15 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
 {% endblock %}
 
 {% block js %}
     {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.jstree.js') }}"></script>
 {% endblock %}
@@ -52,16 +56,21 @@
                     {{ form_errors(cForm.name) }}
                     {{ form_row(cForm.slogan) }}
                     {{ form_errors(cForm.slogan) }}
-                    <div class="contentLabel clear">
+                    <div class="contentLabel clear datePickerInput">
                         {{ form_label(cForm.createtDate) }}
-                        <div id="datetimepicker1" class="input-append">
-                            {{ form_widget(cForm.createtDate) }}
-                            <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                </i>
-                            </span>
-                        </div>
+                        {{ form_widget(cForm.createtDate) }}
                     </div>
+                    <script type="text/javascript">
+                        $('.datepicker').datepicker({
+                            showOn: "both",
+                            buttonImage: "/bootstrap/img/calendar-additional-icon.png",
+                            buttonImageOnly: true,
+                            option: $.datepicker.regional[ "ru" ],
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "yy-mm-dd"
+                        });
+                    </script>
                     {{ form_errors(cForm.createtDate) }}
                     <div class="contentLabelNoOverflow">
                         {{ form_label(cForm.city) }}

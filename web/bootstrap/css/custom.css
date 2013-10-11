@@ -701,3 +701,11 @@ a.btnNext:hover {
 .unsubscribeLink{
     font: 1.4em 'PT Sans', sans;
 }
+
+.datePickerInput .ui-datepicker-trigger{
+    display: inline-block;
+    vertical-align: middle;
+}
+.datePickerInput .inputData{
+    border-radius: 4px 0 0 4px;
+}
