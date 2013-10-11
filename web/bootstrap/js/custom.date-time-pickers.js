@@ -10,6 +10,15 @@ var datePicker = function(){
     });
 };
 
+var timePicker = function(){
+    $('.init-ui-time').timepicker({
+        showOn: 'both',
+        showPeriodLabels: false,
+        hourText: 'Часы',
+        minuteText: 'Минуты'
+    });
+}
+
 $(document).ready(function(){
     datePicker();
 });
