@@ -709,3 +709,8 @@ a.btnNext:hover {
 .datePickerInput .inputData{
     border-radius: 4px 0 0 4px;
 }
+/*.inputTime{*/
+    /*background: url("/bootstrap/img/time-input-bg.png") no-repeat;*/
+    /*width: 96px;*/
+    /*height: 30px;*/
+/*}*/
