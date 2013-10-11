@@ -985,4 +985,22 @@ class User extends BaseUser
         return $this->contactEmails;
     }
 
+    public function hasVkontakteAccessToken()
+    {
+        if ($this->getVkontakteAccessToken() !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasVkontakteId()
+    {
+        if ($this->getVkontakteId() !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -118,7 +118,7 @@ a.bttn:hover {
 }
 
 .ymaps-b-balloon__sprite_type_tail {
-    background: url(/bootstrap/img/arrow-down.png) no-repeat !important;
+    background: url("/bootstrap/img/arrow-down.png") no-repeat !important;
 }
 
 .ymaps-shadows-pane {
@@ -682,5 +682,22 @@ a.btnNext:hover {
 .edit-services {
     float: left;
     padding: 4px 8px;
+    font: 1.4em 'PT Sans', sans;
+}
+
+.enterSocialIconItem{
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    text-indent: -3000px;
+    margin-right: 10px;
+    background-image: url("/bootstrap/img/icon-social-net.png");
+}
+
+.unsubscribeSocial a{
+    display: inline-block;
+    vertical-align: middle;
+}
+.unsubscribeLink{
     font: 1.4em 'PT Sans', sans;
 }

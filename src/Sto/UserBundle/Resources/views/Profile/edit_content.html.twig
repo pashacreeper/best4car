@@ -35,56 +35,67 @@
             </div>
         </div>
         <div class="content" data-tab-id="#aditional">
-                <div class="cityChoicer">
-                    {{ form_label(form.city) }}
-                    {{ form_widget(form.city) }}
-                </div>
-                <div class="contentLabel rightContaktItem">
-                    <label>DRIVE2</label>
-                    <p class="maskInput"><span>www.drive2.ru/users/</span>
-                        {{ form_widget(form.autoProfilesLinks) }}
-                    </p>
-                </div>
-                {{ form_row(form.autoProfilesLinks) }}
-                <div class="contentLabel rightContaktItem">
-                    <label>VKontakte</label>
-                    <p class="maskInput"><span>www.vk.com/</span>
-                        {{ form_widget(form.linkVK) }}
-                    </p>
-                </div>
-                <div class="contentLabel rightContaktItem">
-                    <label>Google+</label>
-                    <p class="maskInput"><span>plus.google.com/</span>
-                        {{ form_widget(form.linkGP) }}
-                    </p>
-                </div>
-                <div class="contentLabel rightContaktItem">
-                    <label>Facebook</label>
-                    <p class="maskInput"><span>www.facebook.com/</span>
-                        {{ form_widget(form.linkFB) }}
-                    </p>
-                </div>
-                <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
-                    <label>Email для отображения в профиле</label>
-                    <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
-                    {% for field in form.contactEmails %}
+            <div class="cityChoicer">
+                {{ form_label(form.city) }}
+                {{ form_widget(form.city) }}
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>DRIVE2</label>
+                <p class="maskInput"><span>www.drive2.ru/users/</span>
+                    {{ form_widget(form.autoProfilesLinks) }}
+                </p>
+            </div>
+            {{ form_row(form.autoProfilesLinks) }}
+            <div class="contentLabel rightContaktItem">
+                <label>VKontakte</label>
+                <p class="maskInput"><span>www.vk.com/</span>
+                    {{ form_widget(form.linkVK) }}
+                </p>
+
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>Google+</label>
+                <p class="maskInput"><span>plus.google.com/</span>
+                    {{ form_widget(form.linkGP) }}
+                </p>
+            </div>
+            <div class="contentLabel rightContaktItem">
+                <label>Facebook</label>
+                <p class="maskInput"><span>www.facebook.com/</span>
+                    {{ form_widget(form.linkFB) }}
+                </p>
+            </div>
+            <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+                <label>Email для отображения в профиле</label>
+                <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
+                {% for field in form.contactEmails %}
+                    {{ form_widget(field) }}
+                {% endfor %}
+            </div>
+
+            <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
+                <label>Контакты</label>
+                {% for field in form.contacts %}
+                    <div class="userContactsFormWrapper">
                         {{ form_widget(field) }}
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-                <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
-                    <label>Контакты</label>
-                    {% for field in form.contacts %}
-                        <div class="userContactsFormWrapper">
-                            {{ form_widget(field) }}
-                        </div>
-                    {% endfor %}
+            {% if user.vkontakteAccessToken %}
+            <div class="contentLabel rightContaktItem" id="contact_profiles">
+                <label>Привязанные аккаунты соц сетей</label>
+                <div class="unsubscribeSocial">
+                    <a href="http://vk.com/id{{ user.vkontakteId }}" alt="Вконтакте" title="Vkontakte" class="vk-blue enterSocialIconItem">Вконтакте</a>
+                    <a href="{{ path('vk_unsubscribe_account') }}" class="unsubscribeLink">Отвязать</a>
                 </div>
+            </div>
+            {% endif %}
 
-                <div class="bottomContent">
-                    <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
-                </div>
-                {{ form_rest(form) }}
+            <div class="bottomContent">
+                <button type="submit" class="btnNext addPhotoBtn">Сохранить</button>
+            </div>
+            {{ form_rest(form) }}
         </div>
     </form>
 </section>
