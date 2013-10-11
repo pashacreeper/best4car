@@ -11,13 +11,19 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.ui.timepicker.css') }}"/>
 {% endblock %}
 
 {% block js %}
     {{ parent() }}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.jstree.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -52,15 +58,9 @@
                     {{ form_errors(cForm.name) }}
                     {{ form_row(cForm.slogan) }}
                     {{ form_errors(cForm.slogan) }}
-                    <div class="contentLabel clear">
+                    <div class="contentLabel clear datePickerInput">
                         {{ form_label(cForm.createtDate) }}
-                        <div id="datetimepicker1" class="input-append">
-                            {{ form_widget(cForm.createtDate) }}
-                            <span class="add-on">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                </i>
-                            </span>
-                        </div>
+                        {{ form_widget(cForm.createtDate) }}
                     </div>
                     {{ form_errors(cForm.createtDate) }}
                     <div class="contentLabelNoOverflow">
@@ -130,13 +130,13 @@
                                         "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
                                         "themes" : {
                                             "theme" : "classic",
-                                            "icons" : false,
+                                            "icons" : false
                                         },
                                         "json_data" : {
                                             "ajax" : {
-                                                "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() }),
+                                                "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() })
                                             }
-                                        },
+                                        }
                                     }).bind("loaded.jstree", function(e, data) {
                                         select.find('option').each(function() {
                                             $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
@@ -258,18 +258,15 @@
                                         {% else %}
                                             {{ form_label(day) }}
                                         {% endif %}
-
                                         {{ form_widget(day) }}
                                     {% endfor %}
                                 </div>
 
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.fromTime) }}
-                                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
                                 </div>
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.tillTime) }}
-                                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>
                                 </div>
                             </div>
                         {% endfor %}
@@ -290,6 +287,17 @@
                             $addTagLink.on('click', function (e) {
                                 e.preventDefault();
                                 addTagForm(collectionHolder, $newLink, false, deleteLink);
+                                $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
+                                    var inputIndex = $(element).data('input-index');
+                                    var buttonIndex = '#b' + inputIndex;
+                                    $(element).timepicker({
+                                        showOn: 'both',
+                                        button: buttonIndex,
+                                        showPeriodLabels: false,
+                                        hourText: 'Часы',
+                                        minuteText: 'Минуты'
+                                    });
+                                });
                             });
                             collectionHolder.find('.contactDate').append(deleteLink);
                         });
@@ -520,14 +528,11 @@
             } else {
                 var newestForm = $(newForm);
                 newestForm.find('p.contentLabel').children().unwrap();
-                newestForm.find('.inputTime').wrap('<div class="input-append dateLeft" />').after('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-time"></i></span>');
-                $newForm.append(newestForm);
-                timeInput = $newForm.find('.dateLeft');
-                timeInput.each(function(index, element){
-                    $(element).datetimepicker({
-                        pickDate: false
-                    });
+                newestForm.find('.inputTime').each(function(i, element){
+                    $(element).data('input-index', index + '-' + i);
+                    $(element).wrap('<div class="input-append dateLeft" />').after('<span class="add-on init-time" id="b' + index + '-' + i + '"><i data-time-icon="icon-time" class="icon-time"></i></span>');
                 });
+                $newForm.append(newestForm);
             }
 
             if (deleteLink) {

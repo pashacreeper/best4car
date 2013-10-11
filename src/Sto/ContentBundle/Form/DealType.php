@@ -98,7 +98,7 @@ class DealType extends AbstractType
                     'label' => 'Начало',
                     'required' => true,
                     'attr' => [
-                        'class' => 'inputTime',
+                        'class' => 'inputTime init-ui-datepicker',
                         'data-format' => 'yyyy-MM-dd'
                     ]
                 ])->addModelTransformer($transformer)
@@ -108,7 +108,7 @@ class DealType extends AbstractType
                     'label' => 'Начало',
                     'required' => true,
                     'attr' => [
-                        'class' => 'inputTime',
+                        'class' => 'inputTime init-ui-datepicker',
                         'data-format' => 'yyyy-MM-dd'
                     ]
                 ])->addModelTransformer($transformer)
@@ -118,8 +118,8 @@ class DealType extends AbstractType
                     'label' => 'Start time',
                     'required' => true,
                     'attr' => [
-                        'class' => 'inputTime',
-                        'data-format' => "hh:mm:ss"
+                        'class' => 'inputTime init-ui-time',
+                        'data-button-index' => 'timepicker1'
                     ]
                 ])->addModelTransformer($timeTransformer)
             )
@@ -128,8 +128,8 @@ class DealType extends AbstractType
                     'label' => 'End time',
                     'required' => true,
                     'attr' => [
-                        'class' => 'inputTime',
-                        'data-format' => "hh:mm:ss"
+                        'class' => 'inputTime init-ui-time',
+                        'data-button-index' => 'timepicker2'
                     ]
                 ])->addModelTransformer($timeTransformer)
             )

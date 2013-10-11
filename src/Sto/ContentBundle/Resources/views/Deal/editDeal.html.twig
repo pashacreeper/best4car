@@ -3,8 +3,17 @@
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
-    <link rel="stylesheet"
-          href="{{ asset('bootstrap/css/style-create-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.ui.timepicker.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
 {% endblock %}
 
 {% block title %}Редактирование акции{% endblock %}
@@ -20,7 +29,6 @@
 {% block content %}
     <section class="contentMain  row">
         <div class="content">
-
             <form action="{{ path('company_deal_update', {'companyId': company.id, 'id': deal.id}) }}"
                   method="post" {{ form_enctype(edit_form) }} class="inputForm">
                 <div class="container">
@@ -48,53 +56,43 @@
                         <label class="required">
                             Сроки проведения
                         </label>
-
                         <div class="well startData span2">
-                            <div id="datetimepicker1" class="input-append">
+                            <div class="input-append">
                                 {{ form_errors(edit_form.startDate) }}
                                 {{ form_widget(edit_form.startDate) }}
-                                <span class="add-on">
-                                <i data-time-icon="icon-time"
-                                   data-date-icon="icon-calendar"></i>
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="well endData span2">
-                            <div id="datetimepicker2" class="input-append">
+                            <div class="input-append">
                                 {{ form_errors(edit_form.endDate) }}
                                 {{ form_widget(edit_form.endDate) }}
-                                <span class="add-on">
-                                <i data-time-icon="icon-time"
-                                   data-date-icon="icon-calendar"></i>
-                            </span>
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="contentLabel clear">
                         <label>Время проведения</label>
-
                         <div class="well startData span2">
-                            <div id="datetimepicker3" class="input-append">
+                            <div class="input-append">
                                 {{ form_errors(edit_form.startTime) }}
                                 {{ form_widget(edit_form.startTime) }}
-                                <span class="add-on">
-                                <i data-time-icon="icon-time"
-                                   data-date-icon="icon-calendar">
+                                <span class="add-on init-time" id="timepicker1"><i data-time-icon="icon-time" class="icon-time"></i></span>
                                 </i>
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="well endData span2">
                             <div id="datetimepicker4" class="input-append">
                                 {{ form_errors(edit_form.endTime) }}
                                 {{ form_widget(edit_form.endTime) }}
-                                <span class="add-on">
-                                <i data-time-icon="icon-time"
-                                   data-date-icon="icon-calendar">
-                                </i>
-                            </span>
+                                <span class="add-on init-time" id="timepicker2"><i data-time-icon="icon-time" class="icon-time"></i></span>
+                                </span>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            timePicker();
+                        </script>
                     </div>
                     <div class="contentLabel clear">
                         <label>Автомобили</label>
@@ -139,7 +137,7 @@
                                     не меньше 640 х 360 пикселей</br></br>Формат
                                     изображения: JPG, PNG, GIF не более 1Мь</em>
                             </small>
-                        <p>
+                        </p>
                     </div>
                     <div class="span3">
                         <div class="control-group">
@@ -222,19 +220,6 @@
     </section>
     <script type="text/javascript">
         $(function () {
-            $('#datetimepicker1').datetimepicker({
-                pickTime: false
-            });
-            $('#datetimepicker2').datetimepicker({
-                pickTime: false
-            });
-
-            $('#datetimepicker3').datetimepicker({
-                pickDate: false
-            });
-            $('#datetimepicker4').datetimepicker({
-                pickDate: false
-            });
             $('.chosen-multiple').chosen();
             $('#in-company-place').click(function (e) {
                 e.preventDefault();

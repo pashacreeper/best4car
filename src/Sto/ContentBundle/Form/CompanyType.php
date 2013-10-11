@@ -134,8 +134,7 @@ class CompanyType extends AbstractType
                 'label' => 'Начало работы на рынке',
                 'required' => false,
                 'attr' => [
-                    'class' => "inputData",
-                    'data-format' => "yyyy-MM-dd"
+                    'class' => "inputData init-ui-datepicker",
                 ]
             ])
             ->add('description', 'textarea', [
