@@ -220,8 +220,9 @@ class UserController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$this->getUser())
+        if (!$this->getUser()) {
             return new Response('User Not found.', 404);
+        }
 
         $user = $this->getUser();
 

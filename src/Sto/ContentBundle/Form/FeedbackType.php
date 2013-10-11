@@ -36,7 +36,7 @@ class FeedbackType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'attr' => [
-                    'class' => 'visitDate',
+                    'class' => 'visitDate init-ui-datepicker',
                     'data-format' => 'dd-MM-yyyy',
                 ],
             ])

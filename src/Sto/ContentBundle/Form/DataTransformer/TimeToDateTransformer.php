@@ -12,14 +12,14 @@ class TimeToDateTransformer implements DataTransformerInterface
             return null;
         }
 
-        return $datetime->format('h:i:s');
+        return $datetime->format('h:i');
     }
 
     public function reverseTransform($time)
     {
-        list($hours, $minutes, $seconds) = explode(":", $time, 3);
+        list($hours, $minutes) = explode(":", $time, 2);
         $date = new \DateTime();
-        $date->setTime($hours, $minutes, $seconds);
+        $date->setTime($hours, $minutes);
 
         return $date;
     }

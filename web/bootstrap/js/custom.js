@@ -351,9 +351,6 @@ var registrationPage = function(){
     $('#submitRegisterForm').on('click', function(){
         $('#registerForm').submit();
     });
-    $('#datetimepicker1').datetimepicker({
-        pickTime: false
-    });
 
     var appendIcons = function(link){
         var checkboxes = $(link).parent().find('.wrapper').find('input[type="checkbox"]:checked'),
@@ -406,12 +403,7 @@ var registrationPage = function(){
 };
 
 var feedbackPage = function(){
-    $('#datetimepicker1').datetimepicker({
-        pickTime: false
-    });
-    $('#datetimepicker2').datetimepicker({
-        pickTime: false
-    });
+
     $('#btnAddInfo').click(function(){
         $('#blockAddInfo').toggle();
     });
