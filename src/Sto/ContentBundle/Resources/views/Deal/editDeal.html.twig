@@ -29,7 +29,6 @@
 {% block content %}
     <section class="contentMain  row">
         <div class="content">
-
             <form action="{{ path('company_deal_update', {'companyId': company.id, 'id': deal.id}) }}"
                   method="post" {{ form_enctype(edit_form) }} class="inputForm">
                 <div class="container">

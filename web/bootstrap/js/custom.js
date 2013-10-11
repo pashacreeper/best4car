@@ -403,6 +403,7 @@ var registrationPage = function(){
 };
 
 var feedbackPage = function(){
+
     $('#btnAddInfo').click(function(){
         $('#blockAddInfo').toggle();
     });

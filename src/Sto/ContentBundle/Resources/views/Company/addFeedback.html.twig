@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
     <link href="{{ asset('bootstrap/css/styleCompany.css') }}" type="text/css" rel="stylesheet" media="screen" />
     <link href="{{ asset('bootstrap/css/style-review-about-company.css') }}" type="text/css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.ui.timepicker.css') }}"/>
 {% endblock %}
 
 {% block js %}
@@ -14,6 +16,10 @@
     <script src="{{ asset('bundles/stocore/js/tiny_mce/tinymce.min.js') }}"></script>
     <script src="{{ asset('bundles/stocore/js/tiny_mce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.rating.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
     {{ form_javascript(form) }}
 {% endblock %}
 
@@ -73,10 +79,6 @@
                         <div class="well startData ">
                             <div id="datetimepicker1" class="input-append">
                                 {{ form_widget(form.visitDate) }}
-                                <span class="add-on">
-                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                    </i>
-                                </span>
                             </div>
                         </div>
                     </div>
