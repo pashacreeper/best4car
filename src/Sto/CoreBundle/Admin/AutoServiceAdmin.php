@@ -50,7 +50,7 @@ class AutoServiceAdmin extends Admin
             ->addIdentifier('id')
             ->addIdentifier('name')
             ->addIdentifier('parent')
-            ->addIdentifier('companyType')
+            ->add('companyTypeName')
         ;
     }
 

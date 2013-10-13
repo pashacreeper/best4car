@@ -244,6 +244,11 @@ class AutoServices
         return $this->companyType;
     }
 
+    public function getCompanyTypeName()
+    {
+        return $this->companyType->getId() ? $this->companyType->getName() : '';
+    }
+
     public function addCompanyType($value)
     {
         $this->companyType[] = $value;
