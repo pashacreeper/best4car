@@ -133,6 +133,7 @@ class CompanyAdmin extends Admin
             ->with('Менеджеры')
                 ->add('companyManager', 'sonata_type_collection', [
                         'by_reference' => false,
+                        'required' => false
                     ], [
                         'edit' => 'inline',
                         'inline' => 'table',
