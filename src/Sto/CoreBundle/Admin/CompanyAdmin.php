@@ -115,6 +115,7 @@ class CompanyAdmin extends Admin
             ->with('Контакты')
                 ->add('contacts', 'sonata_type_collection', [
                         'by_reference' => false,
+                        'required' => false
                     ], [
                         'edit' => 'inline',
                         'inline' => 'table',
@@ -124,6 +125,7 @@ class CompanyAdmin extends Admin
             ->with('Галерея')
                 ->add('gallery', 'sonata_type_collection', [
                         'by_reference' => false,
+                        'required' => false
                     ], [
                         'edit' => 'inline',
                         'inline' => 'table',
