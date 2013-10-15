@@ -6,7 +6,9 @@ var datePicker = function(){
         option: $.datepicker.regional[ "ru" ],
         changeMonth: true,
         changeYear: true,
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        shortYearCutoff: "+40",
+        yearRange: "1970:" + new Date().getFullYear()
     });
 };
 
