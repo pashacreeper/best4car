@@ -2,6 +2,7 @@
 
 namespace Sto\ContentBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -36,7 +37,7 @@ class FeedbackType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'attr' => [
-                    'class' => 'visitDate init-ui-datepicker',
+                    'class' => 'visitDate init-ui-datepicker inputData',
                     'data-format' => 'dd-MM-yyyy',
                 ],
             ])
@@ -51,6 +52,14 @@ class FeedbackType extends AbstractType
                 'label' => 'Автомобиль',
                 'required' => false,
                 'class' => 'StoCoreBundle:Model',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('model')
+                        ->select('model')
+                        ->leftJoin('model.parent', 'mark')
+                        ->where('mark.visible = true')
+                        ->andWhere('model.visible = true')
+                    ;
+                },
                 'attr' => [
                     'class' => "span4 chzn-select",
                     'data-placeholder' => 'Выберите марку'

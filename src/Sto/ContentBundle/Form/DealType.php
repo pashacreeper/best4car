@@ -53,6 +53,11 @@ class DealType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('mark')
+                        ->where('mark.visible = true')
+                        ;
+                },
                 'attr' => [
                     'class' => 'chosen-multiple',
                     'data-placeholder' => "Выберите варианты"

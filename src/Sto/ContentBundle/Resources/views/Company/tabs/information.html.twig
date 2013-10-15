@@ -101,7 +101,7 @@
     {% if company.autos | length %}
         <div class="infoCompanyItem">
             <p class="servedBrendTitle titleH3">Обслуживаемые бренды:</p>
-            {% for car in company.autos %}
+            {% for car in company.autos if car.visible %}
                 <p class="servedBrend"><img src="{{ car.imagePath }}" alt="{{ car }}"> <span class="car-name">{{ car }}</span></p>
             {% endfor %}
         </div>

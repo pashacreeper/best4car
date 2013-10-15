@@ -192,6 +192,11 @@ class CompanyType extends AbstractType
                 'label' => 'Специализация на марке',
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('mark')
+                        ->where('mark.visible = true')
+                    ;
+                },
                 'required' => false,
                 'attr' => [
                     'class' => 'chosen-multiple span6 chzn-select',
