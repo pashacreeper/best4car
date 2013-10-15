@@ -113,7 +113,7 @@ class CompanyType extends AbstractType
                 'class' => 'StoCoreBundle:Dictionary\AdditionalService',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
-                        ->orderBy('ct.name')
+                        ->orderBy('ct.position', 'ASC')
                     ;
                 },
                 'attr' => [

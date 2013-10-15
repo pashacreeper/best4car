@@ -12,6 +12,11 @@ class AdditionalServiceAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
+    protected $datagridValues = array(
+        '_sort_order'   => 'ASC',
+        '_sort_by'      => 'position'
+    );
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -46,6 +51,7 @@ class AdditionalServiceAdmin extends Admin
             ->addIdentifier('id')
             ->addIdentifier('shortName')
             ->addIdentifier('name')
+            ->addIdentifier('position')
         ;
     }
 
