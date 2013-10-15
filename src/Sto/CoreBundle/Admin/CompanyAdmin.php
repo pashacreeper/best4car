@@ -100,7 +100,6 @@ class CompanyAdmin extends Admin
                 ->add('groups', null, array(
                     'required' => false,
                 ))
-                ->add('updatedAt')
                 ->add('city')
                 ->add('autos', null, array(
                     'required' => false,
