@@ -141,14 +141,22 @@
             </p>
         {% endfor -%}
     </div>
+    {% if company.web or company.skype or company.email %}
     <div class="infoCompanyItem">
+        {% if company.web %}
         <p class="infoCompanyAddTitle contentText">Сайт:</p>
         <p class="infoCompanyDescription"><a class="linkContact" href="{{ company.web }}">{{ company.web }}</a></p>
+        {% endif %}
+        {% if company.skype %}
         <p class="infoCompanyAddTitle contentText">Skype:</p>
         <p class="infoCompanyDescription"><a class="linkContact" href="skype:{{ company.skype }}?chat">{{ company.skype }}</a></p>
+        {% endif %}
+        {% if company.email %}
         <p class="infoCompanyAddTitle contentText">E-mail:</p>
         <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ company.email }}">{{ company.email }}</a></p>
+        {% endif %}
     </div>
+    {% endif %}
     <ul class="infoCompanySocialNet">
         {% if company.linkTW %}
         <li class="infoCompanySocialNetItem">
