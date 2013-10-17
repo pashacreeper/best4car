@@ -94,8 +94,6 @@
 
                 var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
-                console.log(val);
-
                 placemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
