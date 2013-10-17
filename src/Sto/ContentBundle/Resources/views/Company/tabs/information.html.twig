@@ -116,7 +116,9 @@
         {% endif %}
         </span>
         </p>
+        {% if company.hourPrice %}
         <p class="infoCompanyTitle contentText">Нормо-час: <span>{{ company.hourPrice }}  {% if company.currency %}{{company.currency.shortName}}{% endif %}</span></p>
+        {% endif %}
     </div>
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Адрес:</p>
