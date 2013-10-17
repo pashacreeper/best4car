@@ -6,7 +6,7 @@
         <span class="indexbg"></span>
         {% set rating = 'n/a' %}
         {% if item.rating %}
-            {% set rating = item.rating %}
+            {% set rating = item.rating|number_format(1) %}
         {% endif %}
         <span class="indexLevel">{{ rating }}</span></br>
         <span class="Otzyv">Отзывы: <span>{{item.feedbacks|length}}</span></span>

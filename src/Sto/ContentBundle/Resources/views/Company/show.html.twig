@@ -69,7 +69,11 @@
     <div class="indexCompany">
         <p>Рейтинг:</p>
         <span class="indexbg"></span>
-        <span class="indexLevel">{{ company.rating }}</span></br>
+        {% set rating = 'n/a' %}
+        {% if company.rating %}
+            {% set rating = company.rating|number_format(1) %}
+        {% endif %}
+        <span class="indexLevel">{{ rating }}</span></br>
     </div>
 </div>
 {% endblock %}
