@@ -362,7 +362,7 @@ class AutoServices
     /**
      * Add companyServices
      *
-     * @param \Sto\CoreBundle\Entity\CompanyAutoService $companyServices
+     * @param  \Sto\CoreBundle\Entity\CompanyAutoService $companyServices
      * @return AutoServices
      */
     public function addCompanyService(\Sto\CoreBundle\Entity\CompanyAutoService $companyServices)
@@ -385,7 +385,7 @@ class AutoServices
     /**
      * Get companyServices
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCompanyServices()
     {

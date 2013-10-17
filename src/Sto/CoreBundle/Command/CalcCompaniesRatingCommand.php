@@ -29,7 +29,7 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
         /** @var $em EntityManager */
         $em = $this->getContainer()->get('doctrine')->getManager();
         $name = $input->getArgument('name');
-        if (!$name){
+        if (!$name) {
             $companies = $em->getRepository('StoCoreBundle:Company')->findAll();
         } else {
             $companies = $em->getRepository('StoCoreBundle:Company')->findBy(['name'=>$name]);
@@ -52,7 +52,7 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
                             'company' => $company->getId()
                         ]
                     );
-                    if($feedbackCompany === null) {
+                    if ($feedbackCompany === null) {
                         $usersRatingToCompany = 1;
                     } else {
                         $usersRatingToCompany = $feedbackCompany->getFeedbackRating();
