@@ -62,7 +62,11 @@ class APICompanyController extends FOSRestController
         ;
 
         foreach ($companies as $key => $value) {
-            $companies[$key]['rating'] = number_format($companies[$key]['rating'], 1);
+            $companies[$key]['rating'] = ($companies[$key]['rating'] !== null)
+                ? number_format($companies[$key]['rating'], 1)
+                : 'n/a'
+            ;
+
             foreach ($value['workingTime'] as $wtKey => $wtValue) {
                 $value['workingTime'][$wtKey]['days'] = [
                     $wtValue['daysMonday'],

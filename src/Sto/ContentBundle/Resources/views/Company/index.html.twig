@@ -94,6 +94,8 @@
 
                 var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
+                console.log(val);
+
                 placemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -215,6 +217,8 @@
         }
 
         function showByRate(pZoom, pRating) {
+            {# For now we just return true, cos we need all icons on map to be visible #}
+            {# later we need this functionality back to work #}
             return true;
 //            if (pZoom == 11 && pRating > 8)
 //                return true;
@@ -232,7 +236,7 @@
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
                 dataType: 'json',
-                success: function (response) {
+                success: function(response){
                     globalCompanies = response;
                     var text = 'Найдено <span>' + response.length + '</span> ' + declensionOfNumerals(response.length, ['компания', 'компании', 'компаний']) + ' в вашем городе';
                     $('.contentTopCenter').html(text);
@@ -256,9 +260,11 @@
                             }
                         });
                     });
-
                     addPlacemarks(response);
                     renderMap(response);
+                },
+                error: function(response){
+                    console.log(response);
                 }
             });
         }

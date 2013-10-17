@@ -1,6 +1,7 @@
 <?php
 namespace Sto\CoreBundle\Command;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,36 +26,53 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var $em EntityManager */
         $em = $this->getContainer()->get('doctrine')->getManager();
         $name = $input->getArgument('name');
-        if (!$name)
+        if (!$name){
             $companies = $em->getRepository('StoCoreBundle:Company')->findAll();
-        else
+        } else {
             $companies = $em->getRepository('StoCoreBundle:Company')->findBy(['name'=>$name]);
+        }
 
-        foreach ($companies as $key => $company) {
+        /** @var $company Company */
+        foreach ($companies as $company) {
             $feedbacks = $company->getFeedbacks();
-            if ($feedbacks->count()) {
+            $companyRating = null;
+            if ($feedbacks->count() && $feedbacks->count() >= 5) {
                 $numerator = 0.0;
                 $denominator = 0.0;
                 foreach ($feedbacks as $feedback) {
                     $user = $feedback->getUser();
                     $ratingGroup = $user->getRatingGroup();
                     $categoryMultiplier = $ratingGroup->getMultiplier();
-                    if(($feedbackCompany = $em->getRepository('StoCoreBundle:FeedbackCompany')->findOneBy(['user'=>$user->getId(), 'company'=>$company->getId()]))===null)
+                    $feedbackCompany = $em->getRepository('StoCoreBundle:FeedbackCompany')->findOneBy(
+                        [
+                            'user' => $user->getId(),
+                            'company' => $company->getId()
+                        ]
+                    );
+                    if($feedbackCompany === null) {
                         $usersRatingToCompany = 1;
-                    else
+                    } else {
                         $usersRatingToCompany = $feedbackCompany->getFeedbackRating();
+                    }
                     $trustMultiplier = ($feedback->getPluses()+$feedback->getMinuses() <> 0) ? $feedback->getPluses()/($feedback->getPluses()+$feedback->getMinuses()) : 1;
 
                     $numerator += $usersRatingToCompany * $categoryMultiplier * $trustMultiplier;
                     $denominator += $categoryMultiplier;
                 }
                 $companyRating = number_format($numerator / $denominator * 2.0, 1);
-                $output->writeln("Company '" . $company->getName() . "', feedbacks " . $feedbacks->count() . ", rating now is " . $companyRating);
-                $company->setRating($companyRating);
-                $em->persist($company);
             }
+            $company->setRating($companyRating);
+            $em->persist($company);
+            $output->writeln(
+                sprintf("Company '%s', feedbacks %s, rating now is %s",
+                    $company->getName(),
+                    $feedbacks->count(),
+                    $companyRating ? $companyRating : 'NULL'
+                )
+            );
         }
         $em->flush();
     }

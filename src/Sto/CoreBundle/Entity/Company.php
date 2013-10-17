@@ -138,7 +138,7 @@ class Company
     /**
      * @ORM\Column(name="rating", type="float", nullable=true)
      */
-    private $rating = 0;
+    private $rating;
 
     /**
      * @ORM\Column(name="reviews", type="string", length=255, nullable=true)
@@ -767,7 +767,7 @@ class Company
      */
     public function getRating()
     {
-        return number_format($this->rating, 1);
+        return ($this->rating !== null) ? number_format($this->rating, 1) : 'n/a';
     }
 
     /**
