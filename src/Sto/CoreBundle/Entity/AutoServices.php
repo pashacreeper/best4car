@@ -2,6 +2,7 @@
 
 namespace Sto\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,10 +72,16 @@ class AutoServices
      */
     private $deals;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyAutoService", mappedBy="service", cascade={"all"})
+     */
+    private $companyServices;
+
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->companyType = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->companyType = new ArrayCollection();
+        $this->companyServices = new ArrayCollection();
     }
 
     /**
@@ -350,5 +357,38 @@ class AutoServices
     public function getDeals()
     {
         return $this->deals;
+    }
+
+    /**
+     * Add companyServices
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyAutoService $companyServices
+     * @return AutoServices
+     */
+    public function addCompanyService(\Sto\CoreBundle\Entity\CompanyAutoService $companyServices)
+    {
+        $this->companyServices[] = $companyServices;
+
+        return $this;
+    }
+
+    /**
+     * Remove companyServices
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyAutoService $companyServices
+     */
+    public function removeCompanyService(\Sto\CoreBundle\Entity\CompanyAutoService $companyServices)
+    {
+        $this->companyServices->removeElement($companyServices);
+    }
+
+    /**
+     * Get companyServices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyServices()
+    {
+        return $this->companyServices;
     }
 }
