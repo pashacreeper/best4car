@@ -6,8 +6,10 @@
 
         <div class="actionItemMini">
             <a href="{{ path('content_deal_show', {'id': deal.id }) }}" class="actionItemLink">
-                {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
-                <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
+                {% if deal.imageName %}
+                    {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
+                    <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
+                {% endif %}
                 <div class="actionItemBottomWrap">
                     <div class="actionItemBottom">
                         <h4>{{ deal.name }}</h4>
