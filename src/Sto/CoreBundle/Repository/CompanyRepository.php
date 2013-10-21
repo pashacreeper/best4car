@@ -26,7 +26,7 @@ class CompanyRepository extends EntityRepository
     public function getCompaniesWithFilter($params = [])
     {
         $qb = $this->createQueryBuilder('company')
-            ->select('company.id')
+            ->select('DISTINCT company.id')
             ->leftJoin('company.specializations', 'csp')
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
