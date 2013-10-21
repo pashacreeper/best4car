@@ -12,7 +12,7 @@ class TimeToDateTransformer implements DataTransformerInterface
             return null;
         }
 
-        return $datetime->format('h:i');
+        return $datetime->format('H:i');
     }
 
     public function reverseTransform($time)
