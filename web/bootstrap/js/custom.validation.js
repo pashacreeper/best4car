@@ -32,13 +32,17 @@ var Validation = function(activeTabPane) {
 
 $(document).ready(function(){
     $('a[data-toggle="tab"]').on('click', function () {
-        var $this = $(this),
-            $activeTabPane = $('.tab-pane.active'),
-            $requiredInputs = $activeTabPane.find('input[required]'),
-            $requiredSelects = $activeTabPane.find('select[required]'),
-            validation = new Validation($activeTabPane),
-            tabs = $('#stepRegistration'),
-            $oldTab = $(tabs.find('.active span').data('content'));
+        var $this = $(this);
+        var $activeTabPane = $('.tab-pane.active');
+        var $requiredInputs = $activeTabPane.find('input[required]');
+        var $requiredSelects = $activeTabPane.find('select[required]');
+        var validation = new Validation($activeTabPane);
+        var tabs = $('#stepRegistration');
+        var $oldTab = $(tabs.find('.active span').data('content'));
+
+        if (document.URL.indexOf('company-edit') > 1) {
+            $oldTab = $(tabs.find('.active a').data('content'));
+        }
 
         if (!$this.hasClass('btnPrev')) {
             $requiredSelects.each(function(index, element){
