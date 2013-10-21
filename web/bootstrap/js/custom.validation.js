@@ -38,7 +38,7 @@ $(document).ready(function(){
             $requiredSelects = $activeTabPane.find('select[required]'),
             validation = new Validation($activeTabPane),
             tabs = $('#stepRegistration'),
-            $oldTab = $(tabs.find('.active a').data('content'));
+            $oldTab = $(tabs.find('.active span').data('content'));
 
         if (!$this.hasClass('btnPrev')) {
             $requiredSelects.each(function(index, element){

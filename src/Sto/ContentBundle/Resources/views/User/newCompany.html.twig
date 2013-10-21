@@ -41,10 +41,10 @@
         <form name="register-form" action="{{ path('registration_company_create', {'id':user}) }}" method="post" {{ form_enctype(cForm) }} class="form-horizontal">
         <ul class="stepRegistration" id="stepRegistration">
             <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
-            <li class="stepRegistrationItem centerStep active"><a href="#general-data" data-content="#general-data" data-toggle="tab" class="stepLink">Общие сведения</a></li>
-            <li class="stepRegistrationItem centerStep" id="business-profile-tab"><a href="#business-profile" data-content="#business-profile" data-toggle="tab" class="stepLink">Профиль деятельности</a></li>
-            <li class="stepRegistrationItem centerStep" id="contact-info-tab"><a href="#contact-info" data-content="#contact-info" data-toggle="tab" class="stepLink">Контактные данные</a></li>
-            <li class="stepRegistrationItem endStep" id="photo-tab"><a href="#photos" data-content="#photos" data-toggle="tab" class="stepLink">Фотографии</a></li>
+            <li class="stepRegistrationItem centerStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
+            <li class="stepRegistrationItem centerStep" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
+            <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
+            <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#" class="stepLink">Фотографии</span></li>
         </ul>
 
     <div class="tab-content">
