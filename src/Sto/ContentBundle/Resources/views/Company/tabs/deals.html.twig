@@ -4,7 +4,9 @@
         {% for deal in company.deals %}
             <div class="actionItem">
                 <a href="{{ path('content_deal_show', {'id': deal.id}) }}">
-                    <img src="/{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
+                    {% if deal.imageName %}
+                        <img src="/{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
+                    {% endif %}
                 </a>
                 <div class="actionItemRight">
                     <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
