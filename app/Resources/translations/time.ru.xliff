@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="1">
                 <source>diff.ago.year</source>
-                <target>1 год|%count% года|%count% лет</target>
+                <target>%count% год|%count% года|%count% лет</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>diff.ago.month</source>
