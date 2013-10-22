@@ -214,7 +214,7 @@ html, body {
 }
 
 .navCont {
-    width: 368px;
+    width: 368px !important;
     margin: 0 auto;
     z-index: 888;
     position: static;
