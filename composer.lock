@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c4cc6a17b82e08ced01f8f13452cd9eb",
+    "hash": "910e7a18ef771d6c51fe10f59e62e9fb",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -1171,23 +1171,23 @@
         },
         {
             "name": "genemu/form-bundle",
-            "version": "v2.1.3",
+            "version": "v2.2.1",
             "target-dir": "Genemu/Bundle/FormBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/genemu/GenemuFormBundle.git",
-                "reference": "8e4691527aa6231c68af76b1267fac6ad3ec085a"
+                "reference": "78fcd307a69b499241d7f0fa5c1b378e77358f16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/8e4691527aa6231c68af76b1267fac6ad3ec085a",
-                "reference": "8e4691527aa6231c68af76b1267fac6ad3ec085a",
+                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/78fcd307a69b499241d7f0fa5c1b378e77358f16",
+                "reference": "78fcd307a69b499241d7f0fa5c1b378e77358f16",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1"
+                "symfony/form": "~2.3",
+                "symfony/framework-bundle": "~2.3"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "1.*",
@@ -1195,7 +1195,7 @@
                 "doctrine/orm": "2.*",
                 "phpunit/phpunit": "3.7.*",
                 "propel/propel-bundle": "*",
-                "symfony/doctrine-bridge": "~2.1",
+                "symfony/doctrine-bridge": "~2.3",
                 "symfony/finder": "2.*"
             },
             "suggest": {
@@ -1207,7 +1207,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -1238,7 +1238,7 @@
                 "extra form",
                 "form"
             ],
-            "time": "2013-04-28 19:26:46"
+            "time": "2013-07-31 22:28:58"
         },
         {
             "name": "gregwar/captcha",

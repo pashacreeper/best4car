@@ -173,14 +173,15 @@ class CompanyType extends AbstractType
                     'class' => 'inputFormEnter iputTwittC'
                 ]
             ])
-            ->add('companyManager','collection', array(
+            ->add('companyManager', 'collection', array(
                 'label' => ' ',
                 'type' => new CompanyManagerType($options['em']),
+                'by_reference' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
             ))
-            ->add('gallery','collection', array(
+            ->add('gallery', 'collection', array(
                 'label' => ' ',
                 'type' => new CompanyGalleryType(),
                 'by_reference' => false,

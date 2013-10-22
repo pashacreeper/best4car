@@ -42,7 +42,7 @@
 
         "friendsofsymfony/jsrouting-bundle": "1.1.5",
 
-        "genemu/form-bundle": "2.1.*@dev",
+        "genemu/form-bundle": "2.2.*@dev",
         "gregwar/captcha-bundle": "dev-master",
 
         "hwi/oauth-bundle": "~0.3",
