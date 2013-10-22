@@ -12,7 +12,7 @@
                     <h4><a href="{{ path('content_deal_show', {'id': deal.id} ) }}"> {{ deal.name }} </a></h4>
                     <div class="actionItemBottom">
                         <p>Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
-                        <p>Период проведения <br/><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</span></p>
+                        <p>Период проведения <br/><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM YYYY') }}</span></p>
                         {% if deal.auto|length %}
                             <p class="">Автомобили<br>
                             {% for auto in deal.auto %}
