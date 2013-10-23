@@ -25,11 +25,6 @@
             {{ form_errors(form.plainPassword.second) }}
         </p>
     </div>
-    <p class="contentLabel noOverflowHidden">
-        {{ form_label(form.captcha) }}
-        {{ form_widget(form.captcha, {attr: {class: 'addFloat'}}) }}
-        {{ form_errors(form.captcha) }}
-    </p>
     {{ form_rest(form) }}
     <div>
         <button class="btnEnter" type="submit">Войти</button>

@@ -54,26 +54,6 @@ class RegistrationType extends BaseType
                 ],
                 'invalid_message' => 'fos_user.password.mismatch',
             ])
-            ->add('captcha', 'captcha', [
-                'reload' => true,
-                'bypass_code' => '1234567',
-                'label' => "Введите текст изображенный на картинке",
-                'attr' => [
-                    'class' => 'inputFormEnter span2 clear'
-                ]
-            ])
-            ->add('city', 'entity', [
-                'label' => 'Город',
-                'class' => 'StoCoreBundle:Country',
-                'query_builder' => function($er) {
-                    return $er->createQueryBuilder('country')
-                        ->where('country.parent is not null')
-                    ;
-                },
-                'attr' => [
-                    'class' => 'select2'
-                ]
-            ])
         ;
     }
 

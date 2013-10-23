@@ -32,13 +32,14 @@
 
 #myModal3,
 #registration-form-popup {
-    margin-left: -340px;
-    width: 680px;
+    margin-left: -232px;
+    width: 465px;
+    height: 420px !important;
 }
 
 #myModal3 span.btnEnter,
 #registration-form-popup .btnEnter {
-    width: 260px !important;
+    width: 226px !important;
     float: left;
     clear: both;
 }
