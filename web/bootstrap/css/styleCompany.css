@@ -93,8 +93,15 @@ body {
 
 .logoCompany {
     display: inline-block;
-    float: left;
-    padding: 8px 10px 0 0;
+    width: 52px;
+    vertical-align: middle;
+    padding-right: 10px;
+}
+
+.titles{
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
 }
 
 .titleNameCompany {
