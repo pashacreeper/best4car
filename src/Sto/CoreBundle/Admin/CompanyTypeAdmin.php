@@ -63,6 +63,7 @@ class CompanyTypeAdmin extends Admin
                     'attr' => [
                         'class' => 'admin-service-select',
                     ],
+                    'required' => false
                 ])
             ->end()
         ;
