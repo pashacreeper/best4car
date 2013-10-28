@@ -23,7 +23,7 @@ class CompanyAutoService
     private $service;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\CompanySpecialization", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\CompanySpecialization", inversedBy="services", cascade={"persist"})
      * @ORM\JoinColumn(name="specialization_id", referencedColumnName="id")
      */
     private $specialization;
