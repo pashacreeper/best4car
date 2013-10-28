@@ -92,18 +92,6 @@ class DealController extends MainController
     public function newDealAction(Company $company)
     {
         $em = $this->getDoctrine()->getManager();
-        $activ_deals = $em->getRepository('StoCoreBundle:Deal')
-            ->createQueryBuilder('deal')
-            ->where('deal.endDate > :endDate ')
-            ->andwhere('deal.companyId = :company')
-            ->andWhere('deal.draft = false')
-            ->setParameters([
-                'endDate'=> new \DateTime('now'),
-                'company'=> $company->getId()
-            ])
-            ->getQuery()
-            ->getResult()
-        ;
 
         $deal = new Deal($company);
         $form = $this->createForm(new DealType(), $deal);
@@ -111,7 +99,6 @@ class DealController extends MainController
         return [
             'form'        => $form->createView(),
             'company'     => $company,
-            'activ_deals' => $activ_deals
         ];
     }
 
@@ -128,7 +115,7 @@ class DealController extends MainController
     {
         $deal = (new Deal)->setCompany($company);
         $form = $this->createForm(new DealType, $deal);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             if ($request->get("draft")) {

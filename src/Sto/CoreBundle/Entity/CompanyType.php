@@ -2,11 +2,11 @@
 
 namespace Sto\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    Symfony\Component\HttpFoundation\File\UploadedFile,
-    Symfony\Component\Validator\Constraints as Assert,
-    Vich\UploaderBundle\Mapping\Annotation as Vich,
-    Sto\CoreBundle\Entity\AutoServices;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Sto\CoreBundle\Entity\AutoServices;
 
 /**
  * Company

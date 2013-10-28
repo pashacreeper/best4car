@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
 use Doctrine\ORM\EntityManager;
 use Sto\CoreBundle\Validator\Constraints\CompanyManager;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompanyManagerType extends AbstractType
 {
@@ -42,14 +43,14 @@ class CompanyManagerType extends AbstractType
         ;
     }
 
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return [
-            'data_class' => 'Sto\CoreBundle\Entity\CompanyManager',
+        $resolver->setDefaults([
+            'data_class'            => 'Sto\CoreBundle\Entity\CompanyManager',
             'validation_constraint' => array(
                 'user' => new CompanyManager(),
-            ),
-        ];
+            )
+        ]);
     }
 
     public function getName()

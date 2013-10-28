@@ -5,6 +5,7 @@ use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseClass
 {
@@ -30,7 +31,7 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritDoc}
      */
-    public function connect($user, UserResponseInterface $response)
+    public function connect(UserInterface $user, UserResponseInterface $response)
     {
         $property = $this->getProperty($response);
         $username = $response->getUsername();

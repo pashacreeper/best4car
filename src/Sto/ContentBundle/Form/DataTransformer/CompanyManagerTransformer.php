@@ -24,7 +24,9 @@ class CompanyManagerTransformer implements DataTransformerInterface
     /**
      * Transforms an object (issue) to a array (number).
      *
-     * @param  Issue|null $issue
+     * @param mixed $username
+     *
+     * @internal param null|\Sto\ContentBundle\Form\DataTransformer\Issue $issue
      * @return array
      */
     public function reverseTransform($username)
@@ -44,14 +46,18 @@ class CompanyManagerTransformer implements DataTransformerInterface
     /**
      * Transforms a string (number) to an object (issue).
      *
-     * @param  string                        $number
+     * @param mixed $user
+     *
+     * @internal param string $number
+     *
      * @return Issue|null
-     * @throws TransformationFailedException if object (issue) is not found.
      */
     public function transform($user)
     {
-        if ($user)
+        if ($user) {
             return $user->getUsername();
+        }
+
         return '';
     }
 }

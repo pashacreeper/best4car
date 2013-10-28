@@ -270,7 +270,7 @@
                             <div class="contactDate" style="overflow: hidden">
                                 <div class="workingTimeDays">
                                     {% for day in time.days %}
-                                        {% if day.get('checked') %}
+                                        {% if day.vars.checked %}
                                             {{ form_label(day, null, {'label_attr' : {'class': 'checked'}}) }}
                                         {% else %}
                                             {{ form_label(day) }}
