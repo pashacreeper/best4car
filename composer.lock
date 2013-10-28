@@ -3075,19 +3075,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4"
+                "reference": "1af21e442e390c145e6d1980998d38fc8afe3a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4",
-                "reference": "d3861f5f6a5f0e63d105ed9f5874ef04e951d9c4",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/1af21e442e390c145e6d1980998d38fc8afe3a72",
+                "reference": "1af21e442e390c145e6d1980998d38fc8afe3a72",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
                 "knplabs/knp-menu-bundle": "~1.1",
                 "sensio/generator-bundle": "~2.2",
-                "sonata-project/block-bundle": "~2.2,>=2.2.1",
+                "sonata-project/block-bundle": "~2.2,>=2.2.7",
                 "sonata-project/exporter": "1.*",
                 "sonata-project/jquery-bundle": "1.8.*",
                 "symfony/class-loader": "~2.2",
@@ -3145,7 +3145,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-10-21 08:35:15"
+            "time": "2013-10-26 14:59:46"
         },
         {
             "name": "sonata-project/block-bundle",
