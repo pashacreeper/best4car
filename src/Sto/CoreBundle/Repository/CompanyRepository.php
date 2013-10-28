@@ -123,8 +123,13 @@ class CompanyRepository extends EntityRepository
         $result = $qb->getQuery()->getArrayResult();
         $ids = [];
 
+
         foreach ($result as $value) {
             $ids[] = $value['id'];
+        }
+
+        if (empty($ids)) {
+            return [];
         }
 
         $qb = $this->createQueryBuilder('company')
