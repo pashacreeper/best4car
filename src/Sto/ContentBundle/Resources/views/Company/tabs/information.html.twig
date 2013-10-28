@@ -128,10 +128,10 @@
         <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
         {% for phone in company.phones %}
             {% if loop.first %}
-                <p class="infoCompanyAddTitle contentText">{{ phone.description }}:</p>
+                {% if phone.description %}<p class="infoCompanyAddTitle contentText">{{ phone.description }}:</p>{% endif %}
                 <p class="infoCompanyDescription">{{ phone.phone }}</p>
             {% else %}
-                <p class="infoCompanyAddTitle contentText">{{ phone.description }}:<span class="phoneRight">{{ phone.phone }}</span></p>
+                <p class="infoCompanyAddTitle contentText">{% if phone.description %}{{ phone.description }}:{% endif %}<span class="phoneRight">{{ phone.phone }}</span></p>
             {% endif %}
         {% endfor %}
     </div>
