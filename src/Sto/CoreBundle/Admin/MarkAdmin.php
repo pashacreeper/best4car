@@ -45,7 +45,9 @@ class MarkAdmin extends Admin
             ->add('visible', null, [
                 'required' => false,
             ])
-            ->add('icon', 'file')
+            ->add('icon', 'file', [
+                'required' => false
+            ])
         ;
     }
 
