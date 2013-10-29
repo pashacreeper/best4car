@@ -48,7 +48,11 @@ class CompanyController extends MainController
     public function informationAction(Company $company, $isManager)
     {
         $em = $this->getDoctrine()->getManager();
-        $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($company->getSpecializations());
+
+        $services = [];
+        if (0 < $company->getSpecializations()->count()) {
+            $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($company->getSpecializations());
+        }
 
         return [
             'company' => $company,
