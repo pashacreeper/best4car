@@ -2,14 +2,16 @@ var Validation = function(activeTabPane) {
     this.activeTabPane = activeTabPane;
     this.errorFlags = 0;
     this.checkForValidation = function(element, type){
-        object = this;
-        $element = $(element);
-        value = 0;
+        var object = this;
+        var $element = $(element);
+        var value = 0;
 
         if (type == 'collection') {
             value = $element.find('input').size();
-        }
-        else {
+        } else if(type == 'companyType') {
+            value = $element.find('select').find(':selected').length;
+            console.log(value);
+        } else {
             if ($element.val()) {
                 value = $element.val();
             }
@@ -36,6 +38,7 @@ $(document).ready(function(){
         var $activeTabPane = $('.tab-pane.active');
         var $requiredInputs = $activeTabPane.find('input[required]');
         var $requiredSelects = $activeTabPane.find('select[required]');
+        var $requiredSpecialisation = $activeTabPane.find('#specializationsAddWrapper');
         var validation = new Validation($activeTabPane);
         var tabs = $('#stepRegistration');
         var $oldTab = $(tabs.find('.active span').data('content'));
@@ -51,6 +54,10 @@ $(document).ready(function(){
 
             $requiredInputs.each(function(index, element){
                validation.checkForValidation(element);
+            });
+
+            $requiredSpecialisation.each(function(index, element){
+                validation.checkForValidation(element, 'companyType');
             });
 
             if ($('#workTimeAddWrapper:visible').size()) {
