@@ -713,8 +713,13 @@ a.btnNext:hover {
 .datePickerInput .inputData{
     border-radius: 4px 0 0 4px;
 }
-/*.inputTime{*/
-    /*background: url("/bootstrap/img/time-input-bg.png") no-repeat;*/
-    /*width: 96px;*/
-    /*height: 30px;*/
-/*}*/
+.hint-text{
+    display: block;
+    color: #0cbca5;
+    margin-bottom: 4px;
+    font: 1.4em 'PT Sans', sans;
+}
+.hint-text strong{
+    color: #bc2013;
+    font-weight: normal;
+}

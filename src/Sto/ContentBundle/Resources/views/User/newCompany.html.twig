@@ -52,12 +52,24 @@
         <div class="tab-pane active" id="general-data">
             <div class="row-fluid">
                 <div class="span10">
-                    {{ form_row(cForm.fullName) }}
-                    {{ form_errors(cForm.fullName) }}
-                    {{ form_row(cForm.name) }}
-                    {{ form_errors(cForm.name) }}
-                    {{ form_row(cForm.slogan) }}
-                    {{ form_errors(cForm.slogan) }}
+                    <p class="contentLabel">
+                        {{ form_errors(cForm.fullName) }}
+                        {{ form_label(cForm.fullName) }}
+                        <span class="hint-text">Полное наименование юр.лица, например: ООО «Авто Эксперт»</span>
+                        {{ form_widget(cForm.fullName) }}
+                    </p>
+                    <p class="contentLabel">
+                        {{ form_errors(cForm.name) }}
+                        {{ form_label(cForm.name) }}
+                        <span class="hint-text">Общеупотребимое название компании, например: BEST4CAR</span>
+                        {{ form_widget(cForm.name) }}
+                    </p>
+                    <p class="contentLabel">
+                        {{ form_errors(cForm.slogan) }}
+                        {{ form_label(cForm.slogan) }}
+                        <span class="hint-text">Например: Автоэксперты рекомендуют. Лучшее для вашего авто!</span>
+                        {{ form_widget(cForm.slogan) }}
+                    </p>
                     <div class="contentLabel clear datePickerInput">
                         {{ form_label(cForm.createtDate) }}
                         {{ form_widget(cForm.createtDate) }}
@@ -76,7 +88,10 @@
                         <div class="adminBlockImg span6">
                             {{ form_widget(cForm.logo) }}
                             <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
-                            <p class="additionalInfo">Формат: JPEG, PNG, GIF не более 1Мб</p>
+                            <p class="additionalInfo">
+                                Логотип должен быть вписан в квадрат с белым или прозрачным фоном. <br/>
+                                Формат: JPEG, PNG, GIF не более 1Мб
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -91,6 +106,10 @@
         <div class="tab-pane" id="business-profile">
             <div class="contentLabel marginBottom">
                 <label>Специализация</label>
+                <span class="hint-text">
+                    Выберите специализацию компании (одну или несколько) и предоставляемые услуги в рамках каждой специализации. <br/>
+                    Первая по порядку специализация будет являться основным типом компании.
+                </span>
                 <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}"></div>
 
                 <script>
@@ -169,6 +188,7 @@
             </div>
             <div class="contentLabel marginBottom clear">
                 {{ form_label(cForm.additionalServices) }}
+                <span class="hint-text">Выберите дополнительные услуги, предоставляемые компанией.</span>
                 <ul class="additionalServ">
                 {% for service in cForm.additionalServices %}
                     <li class="additionalServiceItem">
@@ -199,6 +219,10 @@
                         {{ form_errors(cForm.description) }}
                         {{ form_label(cForm.description) }}
                         {{ form_widget(cForm.description) }}
+                        <span class="hint-text">
+                            Вы можете увеличить форму ввода потянув за нижний правый край формы. <br/>
+                            Максимально допустимый объем описания - 1250 символов. <strong>В описании не допускается использование ссылок</strong>.
+                        </span>
                     </div>
                 </div>
             </div>
@@ -214,6 +238,7 @@
             <div class="leftContaktDate">
                 <div class="contentLabel marginBottom">
                     {{ form_label(cForm.address) }}
+                    <span class="hint-text">Адрес компании указывается без индекса и города, например: ул. Ленина д.5</span>
                     {{ form_widget(cForm.address) }}
                 </div>
                 <div class="contentLabel marginBottom">
@@ -223,6 +248,7 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Контактные телефоны</label>
+                    <span class="hint-text">Вы можете указать несколько контактных телефонов, добавив к каждому текстовое описание, например: СТО, Запасные части, Многоканальный или иное.</span>
                     <div id="phoneAddWrapper" data-prototype="{{ form_widget(cForm.phones.vars.prototype)|e }}">
                         {% for phone in cForm.phones %}
                             <div class="contactDate">
@@ -253,7 +279,7 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Время работы</label>
-                    <p class="additionalInfo">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</p>
+                    <span class="hint-text">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</span>
                     <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(cForm.workingTime.vars.prototype)|e }}">
                         {% for time in cForm.workingTime %}
                             <div class="contactDate" style="overflow: hidden">
@@ -312,7 +338,7 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
-                    <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
+                    <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</span>
                     <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
                         {% for manager in cForm.companyManager %}
                             <div class="contactDate">
