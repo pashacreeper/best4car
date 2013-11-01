@@ -2,6 +2,7 @@
 
 namespace Sto\ContentBundle\Form;
 
+use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -77,7 +78,10 @@ class CompanyType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'constraints' => [
+                    new ConstraintCompanySpecialization(),
+                ],
             ])
             ->add('logo', null, [
                 'label' => 'Логотип компании',
