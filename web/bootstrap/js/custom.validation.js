@@ -10,7 +10,6 @@ var Validation = function(activeTabPane) {
             value = $element.find('input').size();
         } else if(type == 'companyType') {
             value = $element.find('select').find(':selected').length;
-            console.log(value);
         } else {
             if ($element.val()) {
                 value = $element.val();
