@@ -5,4 +5,3 @@ set :user,        "deployer"
 role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
-

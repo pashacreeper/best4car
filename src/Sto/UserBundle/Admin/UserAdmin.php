@@ -57,7 +57,12 @@ class UserAdmin extends Admin
             ->add('enabled', null, array(
                 'required' => false,
             ))
-            ->add('plainPassword', 'password', array('required' => false))
+            ->add('plainPassword', 'password', array(
+                'required' => false,
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ))
             ->add('locked', null, array(
                 'required' => false,
             ))
