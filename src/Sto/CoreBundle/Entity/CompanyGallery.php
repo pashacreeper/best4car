@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -51,6 +52,7 @@ class CompanyGallery
     private $visible = 1;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -112,9 +114,6 @@ class CompanyGallery
     public function setImage($image)
     {
         $this->image = $image;
-        if ($image instanceof UploadedFile) {
-            $this->setUpdatedAt(new \DateTime());
-        }
 
         return $this;
     }
@@ -214,4 +213,6 @@ class CompanyGallery
     {
         return $this->visible;
     }
+
+
 }

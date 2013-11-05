@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "910e7a18ef771d6c51fe10f59e62e9fb",
+    "hash": "9ced7846073673c49520dd5335020e3b",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -1177,6 +1177,86 @@
                 "User management"
             ],
             "time": "2013-10-28 10:50:07"
+        },
+        {
+            "name": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
+                "reference": "7f7b49f01093e10f0af99be3296a4d71b4058128"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/7f7b49f01093e10f0af99be3296a4d71b4058128",
+                "reference": "7f7b49f01093e10f0af99be3296a4d71b4058128",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": ">=2.2,<2.5-dev",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.4.0-RC3",
+                "doctrine/dbal": ">=2.4.0-RC1",
+                "doctrine/mongodb": ">=1.0.3",
+                "doctrine/mongodb-odm": ">=1.0.0-BETA9",
+                "doctrine/orm": ">=2.4.0-RC1",
+                "symfony/yaml": "2.3.1"
+            },
+            "suggest": {
+                "doctrine/dbal": ">=2.3.2",
+                "doctrine/mongodb": ">=1.0.1",
+                "doctrine/mongodb-odm": ">=1.0.0-BETA7",
+                "doctrine/orm": ">=2.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Gedmo\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "Blameable",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree",
+                "uploadable"
+            ],
+            "time": "2013-11-03 12:09:29"
         },
         {
             "name": "genemu/form-bundle",
@@ -3084,12 +3164,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "1af21e442e390c145e6d1980998d38fc8afe3a72"
+                "reference": "b794b728ae7ac50ec7b923e2ff273b2597affa2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/1af21e442e390c145e6d1980998d38fc8afe3a72",
-                "reference": "1af21e442e390c145e6d1980998d38fc8afe3a72",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b794b728ae7ac50ec7b923e2ff273b2597affa2e",
+                "reference": "b794b728ae7ac50ec7b923e2ff273b2597affa2e",
                 "shasum": ""
             },
             "require": {
@@ -3154,7 +3234,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-10-26 14:59:46"
+            "time": "2013-11-01 17:10:12"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3225,12 +3305,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCacheBundle.git",
-                "reference": "30e03b0cc7be3635fccffce9d85afb76e353a847"
+                "reference": "bc6957dd5c22ee891de979b49b4c0e1479d4db90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/30e03b0cc7be3635fccffce9d85afb76e353a847",
-                "reference": "30e03b0cc7be3635fccffce9d85afb76e353a847",
+                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/bc6957dd5c22ee891de979b49b4c0e1479d4db90",
+                "reference": "bc6957dd5c22ee891de979b49b4c0e1479d4db90",
                 "shasum": ""
             },
             "require": {
@@ -3281,7 +3361,7 @@
             "keywords": [
                 "cache block"
             ],
-            "time": "2013-10-23 16:37:07"
+            "time": "2013-10-31 10:35:02"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -3887,20 +3967,20 @@
         },
         {
             "name": "twig/extensions",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig-extensions.git",
-                "reference": "v1.0.0"
+                "reference": "f91a82ec225e5bb108e01a0f93c9be04f84dcfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/v1.0.0",
-                "reference": "v1.0.0",
+                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/f91a82ec225e5bb108e01a0f93c9be04f84dcfa0",
+                "reference": "f91a82ec225e5bb108e01a0f93c9be04f84dcfa0",
                 "shasum": ""
             },
             "require": {
-                "twig/twig": "1.*"
+                "twig/twig": "~1.0"
             },
             "type": "library",
             "extra": {
@@ -3930,20 +4010,20 @@
                 "i18n",
                 "text"
             ],
-            "time": "2013-02-28 14:21:30"
+            "time": "2013-10-18 19:37:15"
         },
         {
             "name": "twig/twig",
-            "version": "v1.14.1",
+            "version": "v1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "8873d7593ad7c120004f177c0fd01459b383c9cb"
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/8873d7593ad7c120004f177c0fd01459b383c9cb",
-                "reference": "8873d7593ad7c120004f177c0fd01459b383c9cb",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ca445842fcea4f844d68203ffa2d00f5e3cdea64",
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64",
                 "shasum": ""
             },
             "require": {
@@ -3979,7 +4059,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-15 19:17:38"
+            "time": "2013-10-30 08:20:53"
         },
         {
             "name": "twitter/bootstrap",
@@ -4140,6 +4220,7 @@
         "liip/imagine-bundle": 20,
         "genemu/form-bundle": 20,
         "gregwar/captcha-bundle": 20,
+        "gedmo/doctrine-extensions": 20,
         "sonata-project/admin-bundle": 20,
         "sonata-project/doctrine-orm-admin-bundle": 20,
         "sonata-project/intl-bundle": 20,

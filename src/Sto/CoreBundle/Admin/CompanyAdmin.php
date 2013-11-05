@@ -211,4 +211,12 @@ class CompanyAdmin extends Admin
             ->add('contacts')
         ;
     }
+
+    public function preUpdate($object)
+    {
+        foreach ($object->getGallery() as $file){
+            $file->setUpdatedAt(new \Datetime('now'));
+        }
+    }
+
 }

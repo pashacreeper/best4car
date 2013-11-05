@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CompanyGalleryAdmin extends Admin
 {
@@ -61,4 +62,11 @@ class CompanyGalleryAdmin extends Admin
             ->add('company')
         ;
     }
+
+    public function preUpdate($object)
+    {
+        $now = new \DateTime('now');
+        $object->setUpdatedAt($now);
+    }
+
 }
