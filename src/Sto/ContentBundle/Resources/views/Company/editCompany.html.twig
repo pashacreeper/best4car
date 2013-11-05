@@ -408,6 +408,7 @@
                     <div class="contactDate">
                         {{ form_widget(photo.image) }}
                         {{ form_widget(photo.name) }}
+                        {{ form_widget(photo.imageName) }}
                     </div>
                 {% endfor %}
             </div>
@@ -427,7 +428,40 @@
                         e.preventDefault();
                         addTagForm(photoCollectionHolder, $photoNewLink, true, deleteLink);
                     });
-                    photoCollectionHolder.find('.contactDate').append(deleteLink);
+                    photoCollectionHolder.find('.contactDate').append(deleteLink).append('<div class="clear">');
+                });
+
+                $(document).ready(function(){
+
+                    (function(){
+                        $('#photoAddWrapper .contactDate').each(function(index, element){
+                            var image = $(element).find('.imageName').val();
+                            var path = "storage/images/company/company_gallery";
+                            var upload = $(element).find('input[type="file"]');
+
+                            wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
+
+                            upload.before(wrapper);
+                            upload.addClass('hiddenFotoUpload');
+                        });
+                    })();
+
+                    $('#photoAddWrapper').on('change', 'input[type="file"]', function(){
+                        var reader = new FileReader(),
+                            $this = $(this);
+
+                        reader.onload = function (e) {
+                            if ($this.prev('.photoDateImg')) {
+                                $this.prev('.photoDateImg').remove();
+                                $this.removeClass('hiddenFotoUpload');
+                            }
+                            wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"><i class="editImg"></i></div>');
+                            $this.before(wrapper);
+                            $this.addClass('hiddenFotoUpload');
+                        };
+
+                        reader.readAsDataURL($(this)[0].files[0]);
+                    });
                 });
             </script>
             <div class="bottomContent">
