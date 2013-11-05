@@ -201,6 +201,10 @@ span.complain {
     padding-bottom: 0 !important;
 }
 
+.company-edit .additionalServiceItem label{
+    width: auto;
+}
+
 .linkUnder {
     margin-top: 10px;
     margin-left: -7px;
