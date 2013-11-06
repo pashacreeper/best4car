@@ -1739,7 +1739,6 @@ label {
     background-position: bottom;
     background-repeat: repeat-x;
     border-bottom: none;
-    display: inline-block;
 }
 
 .popupCardCompany .nameCompany a:hover {
@@ -1749,6 +1748,7 @@ label {
 .dataCompany {
     padding: 0 20px;
     margin-left: 35px;
+    width: 284px;
 }
 
 .indexCardCompany {
