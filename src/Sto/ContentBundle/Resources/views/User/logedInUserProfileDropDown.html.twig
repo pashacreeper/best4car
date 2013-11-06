@@ -3,9 +3,9 @@
     <a class="userImg btnUser" href="#">
     {%- if user.avatarUrl %}
         {% set userPhoto = 'storage/images/user_photo/' ~ user.avatarUrl %}
-        <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+        <img src="{{ asset(userPhoto|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
     {% else %}
-        <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+        <img src="{{ asset('/bootstrap/img/default_user_avatar.png'|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
     {% endif -%}
     </a>
     <p class="userName btnUser">{{ user.firstName }}</p>
