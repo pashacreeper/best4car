@@ -156,9 +156,9 @@
                     <div  class="responseReviewAccountImg">
                         {%- if feedback.feedbackAnswer.owner.avatarUrl %}
                             {% set userPhoto = 'storage/images/user_photo/' ~ feedback.feedbackAnswer.owner.avatarUrl %}
-                            <img src="{{ userPhoto | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+                            <img src="{{ userPhoto|imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
                         {% else %}
-                            <img src="{{ '/bootstrap/img/default_user_avatar.png' | imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
+                            <img src="{{ asset('/bootstrap/img/default_user_avatar.png'|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
                         {% endif -%}
                     </div>
                     <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
