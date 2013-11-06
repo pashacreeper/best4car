@@ -727,3 +727,6 @@ a.btnNext:hover {
     color: #bc2013;
     font-weight: normal;
 }
+.footer-additional-links a{
+    margin-right: 15px;
+}

@@ -107,7 +107,10 @@
                 <a href="/"><p class="footerLogo"></p></a>
                 {{ knp_menu_render('StoContentBundle:Builder:footerMenu', {'currentAsLink': true}) }}
                 {{ knp_menu_render('StoContentBundle:Builder:footerSocial', {'currentAsLink': true}) }}
-                <div id="linkUser"><a href="{{ path('info_show', {'name': 'useRules'}) }}">Условия использования сайта</a></div>
+                <div id="linkUser" class="footer-additional-links">
+                    <a href="{{ path('add_company') }}">Зарегистрировать компанию</a>
+                    <a href="{{ path('info_show', {'name': 'useRules'}) }}">Условия использования сайта</a>
+                </div>
             </div>
         </section>
 
