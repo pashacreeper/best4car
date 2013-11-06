@@ -86,7 +86,7 @@
                 <span>
                     {%- if manager.user.avatarUrl %}
                         {% set userPhoto = 'storage/images/user_photo/' ~ manager.user.avatarUrl %}
-                        <img src="{{ asset(userPhoto|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
+                        <img src="{{ userPhoto|imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
                     {% else %}
                         <img src="{{ asset('/bootstrap/img/default_user_avatar.png'|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
                     {% endif -%}
