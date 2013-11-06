@@ -151,7 +151,11 @@ class Company
     private $deals;
 
     /**
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="string", length=1250, nullable=true)
+     * @Assert\Length(
+     *     max = "1250",
+     *     maxMessage = "Длина описания компании может быть максимум 1250 символов."
+     * )
      */
     private $description;
 
