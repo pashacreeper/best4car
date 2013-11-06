@@ -69,11 +69,7 @@ class UserAdmin extends Admin
             ->add('expired', null, array(
                 'required' => false,
             ))
-            ->add('roles', 'choice', array(
-                'required' => false,
-                'multiple' => true,
-                'choices' => User::getAllRoles()
-            ))
+            ->add('groups')
             ->add('firstName')
             ->add('rating')
             ->add('ratingBonus')
@@ -98,7 +94,6 @@ class UserAdmin extends Admin
             ->add('description')
             ->add('subscriptions')
             ->add('requests')
-            ->add('groups')
             ->add('usingEmail', null, array(
                 'required' => false,
             ))
