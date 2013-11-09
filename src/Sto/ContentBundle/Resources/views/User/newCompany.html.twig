@@ -351,7 +351,7 @@
                     <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
                         {% for manager in cForm.companyManager %}
                             <div class="contactDate">
-                                {{ form_widget(manager.user) }}
+                                {{ form_widget(manager.user, {'attr': {'readonly': 'readonly'}}) }}
                                 {{ form_widget(manager.phone) }}
                             </div>
                         {% endfor %}

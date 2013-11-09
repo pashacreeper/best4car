@@ -1,6 +1,7 @@
 var Validation = function(activeTabPane) {
     this.activeTabPane = activeTabPane;
     this.errorFlags = 0;
+
     this.checkForValidation = function(element, type){
         var object = this;
         var $element = $(element);
@@ -16,17 +17,42 @@ var Validation = function(activeTabPane) {
             }
         }
         if (value < 1) {
-            object.errorFlags = object.errorFlags + 1;
-            $element.parents('.contentLabel').addClass('error');
-            object.activeTabPane.find('.alertSelect').show();
+            object.setError(element, object);
 
             $element.on('change', function(){
-                $(this).parents().removeClass('error');
-                object.errorFlags = object.errorFlags - 1;
-                if (object.errorFlags == 0) {
-                    object.activeTabPane.find('.alertSelect').hide();
-                }
+                object.removeError(this, object);
             });
+        }
+    };
+
+    this.checkTextAreaForLength = function(element) {
+        var object = this;
+        var $element = $(element);
+        var length = $element.data('length');
+
+        console.log(length);
+        console.log($element.val().length);
+
+        if ($element.val().length > length) {
+            object.setError(element, object);
+
+            $(element).on('change', function(){
+                object.removeError(this, object);
+            });
+        }
+    };
+
+    this.setError = function(element, object) {
+        object.errorFlags = object.errorFlags + 1;
+        $(element).parents('.contentLabel').addClass('error');
+        object.activeTabPane.find('.alertSelect').show();
+    };
+
+    this.removeError = function(element, object) {
+        $(element).parents().removeClass('error');
+        object.errorFlags = object.errorFlags - 1;
+        if (object.errorFlags == 0) {
+            object.activeTabPane.find('.alertSelect').hide();
         }
     }
 };
@@ -38,6 +64,7 @@ $(document).ready(function(){
         var $requiredInputs = $activeTabPane.find('input[required]');
         var $requiredSelects = $activeTabPane.find('select[required]');
         var $requiredSpecialisation = $activeTabPane.find('#specializationsAddWrapper');
+        var descriptionTextarea = $activeTabPane.find('.description-textarea');
         var validation = new Validation($activeTabPane);
         var tabs = $('#stepRegistration');
         var $oldTab = $(tabs.find('.active span').data('content'));
@@ -57,6 +84,9 @@ $(document).ready(function(){
 
             $requiredSpecialisation.each(function(index, element){
                 validation.checkForValidation(element, 'companyType');
+            });
+            descriptionTextarea.each(function(index, element){
+                validation.checkTextAreaForLength(element);
             });
 
             if ($('#workTimeAddWrapper:visible').size()) {

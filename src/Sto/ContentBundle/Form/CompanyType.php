@@ -145,8 +145,10 @@ class CompanyType extends AbstractType
                 'label' => 'Описание компании',
                 'required' => false,
                 'attr' => [
+                    'class' => 'description-textarea',
+                    'data-length' => '1250',
                     'rows' => '3',
-                    'style' => 'width: 500px'
+                    'style' => 'width: 500px',
                 ]
             ])
             ->add('gps', null, [
