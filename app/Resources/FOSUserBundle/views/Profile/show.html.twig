@@ -37,9 +37,7 @@
                     <span>{{ user.ratingGroup.name }}</span> &ndash;
                 {% endif %}
                 {{ user.city.name }}
-                {% if user.years %}
-                    , {{ user.years }} год(а)
-                {% endif %}
+                {%- if user.years %}, {{ 'years.old'|transchoice(user.years) }} {% endif -%}
                 </p>
             {% endspaceless %}
         </div>
@@ -47,7 +45,7 @@
     <div class="indexCompany">
         <p>Рейтинг:</p>
         <span class="indexbg"></span>
-        <span class="indexLevel">{{ user.rating }}</span></br>
+        <span class="indexLevel">{{ user.rating + user.ratingBonus }}</span></br>
     </div>
 </div>
 {% endblock %}

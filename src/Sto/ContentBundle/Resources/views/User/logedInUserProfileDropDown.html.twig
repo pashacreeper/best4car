@@ -9,7 +9,7 @@
     {% endif -%}
     </a>
     <p class="userName btnUser">{{ user.firstName }}</p>
-    <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating }}</span></p>
+    <p class="userInfo">{{ user.ratingGroup }}<span class="userInfoLevel"><span class="indexbg"></span>{{ user.rating + user.ratingBonus }}</span></p>
     <div class="userDropdown">
         <div id="myCanvasTop" class="myCanvasTop"></div>
         <p class="popUpTitle">Ваш личный профиль</p>
