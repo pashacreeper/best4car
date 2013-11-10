@@ -358,7 +358,7 @@ class DealController extends MainController
      */
     public function createFeedbackAction(Request $request, Deal $deal)
     {
-        $entity = new FeedbackDeal;
+        $entity = new FeedbackDeal();
         $form = $this->createForm(new FeedbackDealType(), $entity);
         $form->bind($request);
 

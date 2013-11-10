@@ -48,20 +48,11 @@ class FeedbackType extends AbstractType
                     'class' => "inputField span4"
                 ]
             ])
-            ->add('car', 'entity', [
+            ->add('car', 'text', [
                 'label' => 'Автомобиль',
                 'required' => false,
-                'class' => 'StoCoreBundle:Model',
-                'query_builder' => function(EntityRepository $er) {
-                    return $er->createQueryBuilder('model')
-                        ->select('model')
-                        ->leftJoin('model.parent', 'mark')
-                        ->where('mark.visible = true')
-                        ->andWhere('model.visible = true')
-                    ;
-                },
                 'attr' => [
-                    'class' => "span4 chzn-select",
+                    'class' => "span4",
                     'data-placeholder' => 'Выберите марку'
                 ]
             ])

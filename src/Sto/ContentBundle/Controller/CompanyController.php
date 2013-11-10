@@ -343,7 +343,7 @@ class CompanyController extends MainController
      */
     public function createFeedbackAction(Request $request, Company $company)
     {
-        $entity = new FeedbackCompany;
+        $entity = new FeedbackCompany();
         $form = $this->createForm(new FeedbackCompanyType(), $entity);
         $form->bind($request);
 

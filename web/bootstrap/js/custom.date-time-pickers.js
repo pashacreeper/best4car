@@ -6,7 +6,7 @@ var datePicker = function(){
         option: $.datepicker.regional[ "ru" ],
         changeMonth: true,
         changeYear: true,
-        dateFormat: "yy-mm-dd",
+        dateFormat: "dd-mm-yy",
         shortYearCutoff: "+40",
         yearRange: "1970:" + new Date().getFullYear()
     });

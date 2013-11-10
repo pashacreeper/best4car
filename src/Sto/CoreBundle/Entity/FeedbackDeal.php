@@ -13,7 +13,7 @@ use Sto\UserBundle\Entity\User;
 class FeedbackDeal extends Feedback
 {
     /**
-     * @ORM\Column(name="deal_rating", type="integer")
+     * @ORM\Column(name="deal_rating", type="integer", nullable=true)
      */
     private $dealRating;
 

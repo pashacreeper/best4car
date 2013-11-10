@@ -53,14 +53,18 @@
                 <form action="{{ path('content_company_feedbacks_create', { 'id': company.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
             {% endif %}
 
+            {{ form_errors(form) }}
+
             <div class="contentLabel marginBottom">
                 <label class="spanFloatLeft">Ваша оценка компании: </label>
                 {{ form_widget(form.feedbackRating) }}
+                {{ form_errors(form.feedbackRating) }}
             </div>
 
             <div class="contentLabel marginBottom">
                 <label class="spanFloatLeft">Уровень цен: </label>
                 {{ form_widget(form.priceLevel) }}
+                {{ form_errors(form.priceLevel) }}
             </div>
 
             <div class="contentLabel overflow marginBottom ">
@@ -68,6 +72,7 @@
                 <div class="inputReviewWrap">
                     <label>Текст отзыва <span class="additionalInfo">(пожалуйста поделитесь своим мнением)</span></label>
                     {{ form_widget(form.content) }}
+                    {{ form_errors(form.content) }}
                 </div>
                 <p class="secondaryLink spanFloatLeft" id="btnAddInfo">Указать дополнительные сведения</p>
             </div>
@@ -78,6 +83,7 @@
                         <label>Дата посещения</label>
                         <div class="well startData ">
                             {{ form_widget(form.visitDate) }}
+                            {{ form_errors(form.visitDate) }}
                         </div>
                     </div>
                     <div class="contentLabel">
@@ -85,17 +91,14 @@
                         {{ form_widget(form.mastername) }}
                         {{ form_errors(form.mastername) }}
                     </div>
-
                     <div class="contentLabel">
                         {{ form_label(form.orderNumber) }}
                         {{ form_widget(form.orderNumber) }}
                         {{ form_errors(form.orderNumber) }}
                     </div>
-
-                    {{ form_row(form.orderNumber) }}
                 </div>
                 <div class="contentItemRight" id="contentItemRight">
-                    <div class="contentLabel ch-container">
+                    <div class="contentLabel">
                         {{ form_label(form.car) }}
                         {{ form_widget(form.car) }}
                         {{ form_errors(form.car) }}
