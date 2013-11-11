@@ -77,7 +77,7 @@
     {% endif %}
     <p class="servicesSpecialisationTitle titleH2">О компании</p>
     <p class="aboutCompanyCont contentText">
-        {{ company.description|nl2br[:1250] }}
+        {{ company.description[:1250]|nl2br }}
     </p>
     {% if company.companyManager|length %}
     <p class="servicesSpecialisationTitle titleH2">Менеджеры компании:</p>
