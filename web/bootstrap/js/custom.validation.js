@@ -30,9 +30,6 @@ var Validation = function(activeTabPane) {
         var $element = $(element);
         var length = $element.data('length');
 
-        console.log(length);
-        console.log($element.val().length);
-
         if ($element.val().length > length) {
             object.setError(element, object);
 
