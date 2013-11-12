@@ -54,10 +54,13 @@ class CompanyController extends MainController
             $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($company->getSpecializations());
         }
 
+        $gallery = $em->getRepository('StoCoreBundle:Company')->getCompanyGallery($company);
+
         return [
             'company' => $company,
             'isManager' => $isManager,
             'services' => $services,
+            'gallery' => $gallery
         ];
     }
 

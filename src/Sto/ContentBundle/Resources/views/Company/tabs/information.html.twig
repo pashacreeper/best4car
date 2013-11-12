@@ -1,9 +1,9 @@
 <div class="leftContent">
-{% if company.gallery|length %}
+{% if gallery|length %}
 <div class="slider">
     <div class="img__prev__wrap">
         <ul id="thumbnail" class="slide-wrap">
-            {% for photo in company.gallery if photo.imageName %}
+            {% for photo in gallery if photo.imageName %}
                 <li class="slide-item">
                     <a class="linh__img__prev" href="#">
                         <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'image') | imagine_filter('company_gallery_filter') }}"  alt="" />

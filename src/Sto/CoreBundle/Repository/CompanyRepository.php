@@ -19,6 +19,21 @@ class CompanyRepository extends EntityRepository
         ;
     }
 
+    public function getCompanyGallery($company)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb
+            ->select('gallery')
+            ->from('StoCoreBundle:CompanyGallery', 'gallery')
+            ->where('gallery.visible = :visible')
+            ->andWhere('gallery.company = :company')
+            ->setParameter('visible', 1)
+            ->setParameter('company', $company)
+        ;
+        
+        return $qb->getQuery()->execute();
+    }
+
     /**
      * @param  array $params
      * @return array
