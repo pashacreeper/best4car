@@ -49,17 +49,21 @@
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconMap') }}" />
                                                 </div>
-                                            {% elseif object.iconNameMapSelected is defined and '' != object.iconNameMapSelected and 'iconMapSelected' ==field_name %}
+                                            {% elseif object.iconNameMapSelected is defined and '' != object.iconNameMapSelected and 'iconMapSelected' == field_name %}
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconMapSelected') }}" />
                                                 </div>
-                                            {% elseif object.iconNameCompanyCard is defined and '' != object.iconNameCompanyCard and 'iconCompanyCard' ==field_name %}
+                                            {% elseif object.iconNameCompanyCard is defined and '' != object.iconNameCompanyCard and 'iconCompanyCard' == field_name %}
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconCompanyCard') }}" />
                                                 </div>
-                                            {% elseif object.iconName is defined and '' != object.iconName and 'icon' ==field_name %}
+                                            {% elseif object.iconName is defined and '' != object.iconName and 'icon' == field_name %}
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'icon') }}" />
+                                                </div>
+                                            {% elseif object.imageName is defined and '' != object.imageName and 'image' == field_name %}
+                                                <div class="admin-icon-show">
+                                                    <img src="{{ vich_uploader_asset(object, 'image') }}" />
                                                 </div>
                                             {% endif %}
                                         {% endif %}
