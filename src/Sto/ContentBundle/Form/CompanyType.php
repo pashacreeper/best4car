@@ -134,7 +134,7 @@ class CompanyType extends AbstractType
             ])
             ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'dd-MM-yyyy',
                 'label' => 'Начало работы на рынке',
                 'required' => false,
                 'attr' => [
