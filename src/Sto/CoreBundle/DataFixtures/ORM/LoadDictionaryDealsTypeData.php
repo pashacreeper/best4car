@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sto\CoreBundle\Entity\Dictionary;
+use Sto\CoreBundle\Entity\DealType;
 
 class LoadDictionaryDealsTypeData extends AbstractFixture implements OrderedFixtureInterface
 {

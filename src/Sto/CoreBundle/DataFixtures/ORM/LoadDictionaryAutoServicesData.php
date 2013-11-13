@@ -849,6 +849,8 @@ class LoadDictionaryAutoServicesData extends AbstractFixture implements OrderedF
     {
         foreach ($data as $key => $value) {
             $service = new AutoServices();
+            $type = $manager->getRepository('StoCoreBundle:CompanyType')->findOneBy(['shortName' => 'A']);
+            $service->setCompanyType($type);
             if (isset($value['code'])) {
                 $service->setCode($value['code']);
                 $service->setName($key);
