@@ -157,31 +157,36 @@
                             link.on('click', function(e) {
                                 var select = $('select[data-index='+index+']');
                                 e.preventDefault();
-                                $('#service-choose-modal').bind('reveal:open', function() {
-                                    $('#service-tree').jstree({
-                                        "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
-                                        "themes" : {
-                                            "theme" : "classic",
-                                            "icons" : false
-                                        },
-                                        "json_data" : {
-                                            "ajax" : {
-                                                "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() })
+                                if (select.parent().find('.companySpecialization').val()) {
+                                    $('#service-choose-modal').bind('reveal:open', function() {
+                                        $('#service-tree').jstree({
+                                            "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
+                                            "themes" : {
+                                                "theme" : "classic",
+                                                "icons" : false
+                                            },
+                                            "json_data" : {
+                                                "ajax" : {
+                                                    "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() })
+                                                }
                                             }
-                                        }
-                                    }).bind("loaded.jstree", function(e, data) {
-                                        select.find('option').each(function() {
-                                            $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
+                                        }).bind("loaded.jstree", function(e, data) {
+                                                    select.find('option').each(function() {
+                                                        $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
+                                                    });
+                                                });
+                                    });
+                                    $('#service-choose-modal').bind('reveal:close', function() {
+                                        select.html('');
+                                        $('#service-tree').jstree('get_checked', null, true).each(function() {
+                                            var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
+                                            select.append(option);
                                         });
                                     });
-                                });
-                                $('#service-choose-modal').bind('reveal:close', function() {
-                                    select.html('');
-                                    $('#service-tree').jstree('get_checked', null, true).each(function() {
-                                        var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
-                                        select.append(option);
-                                    });
-                                });
+                                } else {
+                                    $('#service-tree').html("Для выбора услуг необходимо выбрать специализацию!");
+                                }
+
                                 $('#service-choose-modal').reveal();
                             });
                         };
