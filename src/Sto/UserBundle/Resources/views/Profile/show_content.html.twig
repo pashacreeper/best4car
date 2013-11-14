@@ -12,10 +12,14 @@
     <div class="content" data-tab-id="#information">
         <div class="profilExpertLeftCont">
             <div class="profilExpertImg">
-                {% if user.avatar %}
-                    <img src="{{ vich_uploader_asset(user, 'avatar') }}" />
+                {%- if user.avatarUrl %}
+                    <img src="{{ 'storage/images/user_photo/' ~ user.avatarUrl }}" alt="фото пользователя" />
                 {% else %}
-                    <img src="{{ asset('bundles/stocore/images/user_avatar.jpg') }}" />
+                    {% if user.gender == 'female' %}
+                        <img src="{{ asset('/bootstrap/img/default_user_avatar_female.png') }}" alt="фото пользователя" />
+                    {% else %}
+                        <img src="{{ asset('/bootstrap/img/default_user_avatar.png') }}" alt="фото пользователя" />
+                    {% endif -%}
                 {% endif %}
             </div>
             <p class="titleImg"><span>Ваше фото</span><a href="{{ path('fos_user_profile_edit') }}"><i class="editIcon"></i></a></p>
