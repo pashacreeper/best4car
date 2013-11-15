@@ -84,6 +84,8 @@ class Company
      */
     protected $logo;
 
+    public $adminLogoDelete = false;
+
     /**
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
@@ -280,6 +282,21 @@ class Company
         $this->companyManager = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->workingTime = new ArrayCollection();
+    }
+
+    public function getAdminLogoDelete()
+    {
+        return $this->adminLogoDelete;
+    }
+
+    public function setAdminLogoDelete($value)
+    {
+        $this->adminLogoDelete = $value;
+        if ($value) {
+            $this->logoName = null;
+        }
+
+        return $this;
     }
 
     /**

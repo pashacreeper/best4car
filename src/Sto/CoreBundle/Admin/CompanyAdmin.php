@@ -85,6 +85,10 @@ class CompanyAdmin extends Admin
                 ->add('logo', 'file', array(
                     'required' => false,
                 ))
+                ->add('adminLogoDelete', 'checkbox', [
+                    'label' => 'Удалить логотип?',
+                    'required' => false,
+                ])
                 ->add('skype')
                 ->add('email')
                 ->add('address')
