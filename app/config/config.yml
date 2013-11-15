@@ -285,6 +285,8 @@ sonata_block:
 
 sonata_admin:
     title: Sto Admin
+    options:
+        confirm_exit: false
     templates:
         layout:  StoCoreBundle:Admin:layout.html.twig
 
