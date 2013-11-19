@@ -92,6 +92,22 @@
                     iconImageHref: iconMapSelected
                 });
 
+                var special = '';
+                var now = new Date();
+                var specialText = '<span class="spesialTerms">Спецпредложение!</span>';
+                var nowDate = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate();
+                if (val.deals.length) {
+                    val.deals.forEach(function(item){
+                        for (var i = val.deals.length - 1; i >= 0; i--) {
+                            var item = val.deals[i];
+                            if (item.endDate.substring(0, item.endDate.indexOf('T')) > nowDate) {
+                                special = specialText;
+                                return;
+                            }
+                        }
+                    });
+                }
+
                 var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
                 placemark = new ymaps.Placemark(val.gps.split(','), {
