@@ -39,6 +39,18 @@ var Validation = function(activeTabPane) {
         }
     };
 
+    this.checkSelectedAutoServices = function(element) {
+        var object = this;
+        var $element = $(element);
+        if ($element.find('option').size() == 0) {
+            object.setError(element, object);
+
+            $('#service-choose-modal').bind('reveal:close', function() {
+                object.removeError(element, object);
+            });
+        }
+    };
+
     this.setError = function(element, object) {
         object.errorFlags = object.errorFlags + 1;
         $(element).parents('.contentLabel').addClass('error');
@@ -61,6 +73,7 @@ $(document).ready(function(){
         var $requiredInputs = $activeTabPane.find('input[required]');
         var $requiredSelects = $activeTabPane.find('select[required]');
         var $requiredSpecialisation = $activeTabPane.find('#specializationsAddWrapper');
+        var $autoServicesSelects = $activeTabPane.find('.selected-auto-services');
         var descriptionTextarea = $activeTabPane.find('.description-textarea');
         var validation = new Validation($activeTabPane);
         var tabs = $('#stepRegistration');
@@ -84,6 +97,10 @@ $(document).ready(function(){
             });
             descriptionTextarea.each(function(index, element){
                 validation.checkTextAreaForLength(element);
+            });
+
+            $autoServicesSelects.each(function(index, element){
+                validation.checkSelectedAutoServices(element);
             });
 
             if ($('#workTimeAddWrapper:visible').size()) {

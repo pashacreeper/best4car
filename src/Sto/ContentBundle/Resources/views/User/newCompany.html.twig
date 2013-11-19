@@ -137,7 +137,7 @@
 
                             var newForm = addTagForm(collectionWrapper, $newLink, true, $deleteLink);
                             var index = collectionWrapper.data('index')-1;
-                            var serviceSelect = $("<select data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
+                            var serviceSelect = $("<select class='selected-auto-services' data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
 
                             collectionWrapper.find('.companySpecialization').each(function(index, element){
                                 if ($(element).find(':selected').val() != '') {
@@ -172,7 +172,7 @@
                                                 }
                                             }
                                         }).bind("loaded.jstree", function(e, data) {
-                                                    select.find('option').each(function() {
+                                                    select.find('option').each(function(e) {
                                                         $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
                                                     });
                                                 });
@@ -183,6 +183,7 @@
                                             var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
                                             select.append(option);
                                         });
+                                        e.preventDefault();
                                     });
                                 } else {
                                     $('#service-tree').html("Для выбора услуг необходимо выбрать специализацию!");
