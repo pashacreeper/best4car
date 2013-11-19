@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityRepository;
 
 class CompanyAdmin extends Admin
 {
@@ -190,39 +191,16 @@ class CompanyAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('slogan')
-            ->add('fullName')
-            ->add('web')
-            ->add('additionalServices')
-            ->add('autoServices')
-            ->add('logoName')
-            ->add('phones')
-            ->add('skype')
-            ->add('email')
-            ->add('address')
-            ->add('gps')
-            ->add('createtDate')
-            ->add('photos')
-            ->add('socialNetworks')
-            ->add('rating')
-            ->add('reviews')
-            ->add('description')
-            ->add('subscribable')
-            ->add('hourPrice')
-            ->add('currency')
-            ->add('administratorContactInfo')
             ->add('visible')
-            ->add('notes')
-            ->add('groups')
-            ->add('gallery')
-            ->add('updatedAt')
             ->add('city')
-            ->add('autos')
-            ->add('linkVK')
-            ->add('linkTW')
-            ->add('linkFB')
             ->add('companyManager')
-            ->add('contacts')
+            ->add('specializations.type')
+            ->add('specializations.subType', null, [], null, [
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('subType')
+                        ->where('subType.parent is NOT NULL');
+                }
+            ])
         ;
     }
 
