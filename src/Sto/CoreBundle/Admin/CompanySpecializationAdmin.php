@@ -26,6 +26,9 @@ class CompanySpecializationAdmin extends Admin
                     return $er->createQueryBuilder('company_type')
                         ->where('company_type.parent is null');
                 },
+                'attr' => [
+                    'class' => 'auto_specialization_select_company'
+                ],
             ])
             ->add('subType', 'shtumi_dependent_filtered_entity', [
                 'entity_alias' => 'subType_by_type',
