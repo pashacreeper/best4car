@@ -21,6 +21,7 @@
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.limit-1.2.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.jstree.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
@@ -233,8 +234,16 @@
                         {{ form_widget(cForm.description) }}
                         <span class="hint-text">
                             Вы можете увеличить форму ввода потянув за нижний правый край формы. <br/>
-                            Максимально допустимый объем описания - 1250 символов. <br/>
+                            Максимально допустимый объем описания - 1250 символов (<span id="chleft"></span> осталось). <br/>
                             <strong>В описании не допускается использование ссылок.</strong>
+                            <script>
+                            $(document).ready(function(){
+                                var textarea = $('.description-textarea');
+                                var length = textarea.data('length');
+
+                                $('.description-textarea').limit(length, '#chleft');
+                            });
+                            </script>
                         </span>
                     </div>
                 </div>
