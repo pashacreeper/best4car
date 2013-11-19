@@ -13,9 +13,10 @@ class UserContactsType extends AbstractType
         $builder
             ->add('type', null, [
                 'label' => 'Тип',
-                    'attr' => [
-                        'class' => 'select2'
-                    ]
+                'empty_value' => false,
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('value', 'text', [
                 'label' => 'Значение',
