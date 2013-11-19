@@ -28,6 +28,10 @@ class CompanyGalleryType extends AbstractType
                     'placeholder' => 'Описание фотографии'
                 ]
             ])
+            ->add('visible', 'hidden', [
+                'label' => false,
+                'data' => true,
+            ])
             ->add('imageName', 'hidden', [
                 'attr' => [
                     'class' => 'imageName'

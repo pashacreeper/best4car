@@ -47,7 +47,7 @@ class CompanyGallery
     protected $imageName;
 
     /**
-     * @ORM\Column(name="visible", type="boolean", nullable=true)
+     * @ORM\Column(name="visible", type="boolean", options={"default" = 1})
      */
     private $visible = 1;
 
