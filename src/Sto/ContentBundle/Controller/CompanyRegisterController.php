@@ -9,6 +9,7 @@ use Sto\UserBundle\Entity\User;
 use Symfony\Component\Form\FormError;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sto\CoreBundle\Entity\Company;
+use Sto\ContentBundle\Form\Type\CompanyBaseType;
 
 class CompanyRegisterController extends Controller
 {
@@ -89,7 +90,7 @@ class CompanyRegisterController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
+        if (! $id || ! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
             $company = new Company();
         }
 
