@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Sto\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;

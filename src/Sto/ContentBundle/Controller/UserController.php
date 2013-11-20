@@ -14,7 +14,6 @@ use Sto\CoreBundle\Entity\Company;
 use Sto\ContentBundle\Form\RegistrationType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\UserPersonalType;
-use Symfony\Component\Form\FormError;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\AdditionalUserType;
 use Sto\ContentBundle\Form\PhotoUserType;

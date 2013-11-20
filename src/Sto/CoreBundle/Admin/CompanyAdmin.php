@@ -196,7 +196,7 @@ class CompanyAdmin extends Admin
             ->add('companyManager')
             ->add('specializations.type')
             ->add('specializations.subType', null, [], null, [
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('subType')
                         ->where('subType.parent is NOT NULL');
                 }
@@ -206,7 +206,7 @@ class CompanyAdmin extends Admin
 
     public function preUpdate($object)
     {
-        foreach ($object->getGallery() as $file){
+        foreach ($object->getGallery() as $file) {
             $file->setUpdatedAt(new \Datetime('now'));
         }
     }

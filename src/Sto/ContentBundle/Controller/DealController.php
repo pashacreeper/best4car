@@ -196,7 +196,7 @@ class DealController extends MainController
      * @Template("StoContentBundle:Deal:editDeal.html.twig")
      * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
-    public function updateDealAction(Request $request, $id, $companyId )
+    public function updateDealAction(Request $request, $id, $companyId)
     {
         $em = $this->getDoctrine()->getManager();
         $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);

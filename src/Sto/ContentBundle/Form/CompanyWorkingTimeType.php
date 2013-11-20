@@ -2,12 +2,10 @@
 namespace Sto\ContentBundle\Form;
 
 use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingDays;
-use Sto\CoreBundle\Validator\Constraints\WorkingDays;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CompanyWorkingTimeType extends AbstractType
 {

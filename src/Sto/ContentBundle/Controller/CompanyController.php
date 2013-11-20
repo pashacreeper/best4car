@@ -245,7 +245,7 @@ class CompanyController extends MainController
                 }
             }
 
-            foreach ($company->getGallery() as $image){
+            foreach ($company->getGallery() as $image) {
                 $image->setUpdatedAt(new \DateTime());
             }
 
