@@ -25,7 +25,7 @@
         {% if refererRoute == 'content_company_show' %}
             <a href="{{ path('content_company_show', { "id": deal.company.id }) }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Карточка компании</span></a>
         {% elseif refererRoute == 'content_deals' %}
-            <a href="{{ app.request.headers.get('referer') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
+            <a href="{{ app.request.headers.get('referer') | url_to_local }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
         {% else %}
             <a href="{{ path('content_deals') }}" class="btnBack"><i class="btnBackIcon"></i></br><span class="btnBackCont">Результаты поиска</span></a>
         {% endif %}
