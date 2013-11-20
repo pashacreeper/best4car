@@ -32,6 +32,26 @@
     </div>
 </div>
 {% endblock %}
+
 {% block search %}{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+    <section class="contentMain row">
+    <div class="content">
+        {% block links %}{% endblock %}
+        <form name="register-form" {% block form_path %}{% endblock %} method="post" {{ form_enctype(form) }} class="form-horizontal">
+            <div class="tab-content">
+                <div class="row-fluid">
+                    <div class="span10">
+                        {% block form_content %}{% endblock %}
+                    </div>
+                </div>
+                <div class="bottomContent">
+                    <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
+                    <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-next="#business-profile">Продолжить</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    </section>
+{% endblock %}
