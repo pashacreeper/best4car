@@ -1,6 +1,6 @@
 <?php
 namespace Sto\ContentBundle\Form\Type;
-    
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\CompanyGalleryType as Gallery;

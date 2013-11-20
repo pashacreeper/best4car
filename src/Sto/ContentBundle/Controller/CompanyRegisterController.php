@@ -8,6 +8,7 @@ use Sto\ContentBundle\Form\RegistrationType;
 use Sto\UserBundle\Entity\User;
 use Symfony\Component\Form\FormError;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sto\CoreBundle\Entity\Company;
 
 class CompanyRegisterController extends Controller
 {
@@ -76,6 +77,65 @@ class CompanyRegisterController extends Controller
         return [
             'user' => $user,
             'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Route("/new-company/base", name="registration_company_base")
+     * @Route("/new-company/{id}/base", name="registration_company_base_with_id")
+     * @Template()
+     */
+    public function baseAction($id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if (! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
+            $company = new Company();
+        }
+
+        $form = $this->createForm(new CompanyBaseType(), $company);
+
+        return [
+            'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * @Route("/new-company/{id}/business-profile/", name="registration_company_business_profile")
+     * @Template()
+     */
+    public function businessProfileAction(Company $company)
+    {
+        $form = $this->createForm(new CompanyBuisnessProfileType(), $company);
+
+        return [
+            'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * @Route("/new-company/{id}/contacts", name="registration_company_contacts")
+     * @Template()
+     */
+    public function contactsAction(Company $company)
+    {
+        $form = $this->createForm(new CompanyContactsType(), $company);
+
+        return [
+            'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * @Route("/new-company/{id}/gallery", name="registration_company_gallery")
+     * @Template()
+     */
+    public function galleryAction(Company $company)
+    {
+        $form = $this->createForm(new ComapnyGalleryType(), $company);
+
+        return [
+            'form' => $form->createView()
         ];
     }
 

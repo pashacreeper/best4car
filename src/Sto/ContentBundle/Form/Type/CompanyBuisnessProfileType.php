@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
 use Sto\ContentBundle\Form\CompanySpecializationType;
 
-class CompanyBuisnessProfileForm extends AbstractType
+class CompanyBuisnessProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
