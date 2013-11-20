@@ -157,9 +157,39 @@
             </div>
         </div>
     </div>
-    <div class="bottomContent">
-        <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
-        <a href="#" data-toggle="tab" class="btnNext addPhotoBtn" data-next="#contact-info">Продолжить</a>
-        <a href="#" data-toggle="tab" class="btnNext btnPrev addPhotoBtn" data-next="#general-data">Назад</a>
+{% endblock %}
+
+{% block modal %}
+<div id="service-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
+    <a href="#" class="close-reveal-modal"></a>
+
+    <div class="content">
+        <div id="service-tree"></div>
     </div>
+</div>
+{% endblock %}
+
+{% block form_scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            var additionalServices = {};
+            {% for service in additionalServiceTypes %}
+                {% if service.iconNameSmall %}
+                    additionalServices[{{ service.id }}] = '/storage/images/company_icon/{{ service.iconNameSmall }}';
+                {% endif %}
+            {% endfor %}
+
+            $('.additionalServiceItem').each(function() {
+                var service_id = $(this).find('input').val();
+                if (additionalServices[service_id]){
+                    $(this).find('span').css('background', 'none').html('<img src="'+ additionalServices[service_id] + '"/>');
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block back_link %}
+<a href="{{ path('registration_company_base_with_id', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
 {% endblock %}

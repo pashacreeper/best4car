@@ -49,17 +49,131 @@
         <form name="register-form" {% block form_path %}{% endblock %} method="post" {{ form_enctype(form) }} class="form-horizontal">
             <div class="tab-content">
                 <div class="row-fluid">
-                    <div class="span10">
-                        {% block form_content %}{% endblock %}
-                    </div>
+                    {% block form_content %}{% endblock %}
                 </div>
                 {{ form_rest(form) }}
                 <div class="bottomContent">
                     <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
                     <button class="btnNext addPhotoBtn">Продолжить</button>
+                    {% block back_link %}{% endblock %}
                 </div>
             </div>
         </form>
     </div>
     </section>
+
+{% block modal %}{% endblock %}
+{% block form_scripts %}
+<script>
+    $(document).ready(function(){
+        (function(){
+            $('.chzn-select').chosen();
+            $('.chosen-multiple').chosen();
+        })();
+
+        ymaps.ready(init);
+        var gCollection;
+        var gps;
+        var addressName = '';
+        function init() {
+            mapCompany = new ymaps.Map ("myMap", {
+                center: [59.933373, 30.357903],
+                zoom: 10,
+                behaviors: ["default", "scrollZoom"]
+            });
+            attachReverseGeocode(mapCompany);
+            function attachReverseGeocode(myMap) {
+                myMap.events.add('click', function (e) {
+                    var coords = e.get('coordPosition');
+                    if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
+                    ymaps.geocode(coords).then(function (res) {
+                        var names = [];
+                        res.geoObjects.each(function (obj) {
+                            names.push(obj.properties.get('name'));
+                        });
+                        gCollection = new ymaps.Placemark(coords, {
+                                iconContent: names[0],
+                                balloonContent: names.reverse().join(', ')
+                            },
+                            {preset:'twirl#redStretchyIcon', balloonMaxWidth:'250'}
+                        );
+                        myMap.geoObjects.add(gCollection);
+                        gps = coords;
+
+                        addressName = '';
+                        for (key in names){
+                            if (2 != key) {
+                                addressName = addressName + names[key] + ", "
+                            }
+                        }
+                        addressName = $.trim(addressName);
+                        lastIndex = addressName.lastIndexOf(',');
+                        if (lastIndex == addressName.length - 1) {
+                            addressName = addressName.substring(0, lastIndex);
+                        }
+                    });
+                });
+            }
+        }
+
+        $('#saveMapCoordinates').on('click', function(){
+            $(this).parent().trigger('reveal:close');
+            $('#sto_content_company_registration_gps').val(gps);
+            $('#sto_content_company_registration_gps').trigger('change');
+            $('#activateMap').html('Изменить отметку на карте');
+        });
+    });
+
+    function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
+
+        deleteLink = typeof deleteLink !== 'undefined' ? deleteLink : false;
+
+        var prototype = collectionHolder.data('prototype');
+        var index = collectionHolder.data('index');
+        var newForm = prototype.replace(/__name__/g, index);
+        var $newForm = $('<div class="contactDate"></div>');
+        if (isUnwrap) {
+            var newestForm = $(newForm).find('.contentLabel').children().unwrap();
+            newestForm.each(function(){
+                $newForm.append($(this));
+            });
+        } else {
+            var newestForm = $(newForm);
+            newestForm.find('p.contentLabel').children().unwrap();
+            newestForm.find('.inputTime').each(function(i, element){
+                $(element).data('input-index', index + '-' + i);
+                $(element).wrap('<div class="input-append dateLeft" />').after('<span class="add-on init-time" id="b' + index + '-' + i + '"><i data-time-icon="icon-time" class="icon-time"></i></span>');
+            });
+            $newForm.append(newestForm);
+        }
+
+        if (deleteLink) {
+            $newForm.append(deleteLink);
+            $newForm.append($('<div class="clear">'));
+        }
+
+        collectionHolder.data('index', index + 1);
+        $newLink.before($newForm);
+
+        return $newForm;
+    }
+
+    $(document).ready(function(){
+        var additionalServices = {};
+        {% for service in additionalServiceTypes %}
+            {% if service.iconNameSmall %}
+                additionalServices[{{ service.id }}] = '/storage/images/company_icon/{{ service.iconNameSmall }}';
+            {% endif %}
+        {% endfor %}
+
+        $('.additionalServiceItem').each(function() {
+            var service_id = $(this).find('input').val();
+            if (additionalServices[service_id]){
+                $(this).find('span').css('background', 'none').html('<img src="'+ additionalServices[service_id] + '"/>');
+            }
+        });
+    });
+</script>
+{% endblock %}
+
 {% endblock %}

@@ -129,13 +129,36 @@ class CompanyRegisterController extends Controller
      * @Route("/new-company/{id}/business-profile/", name="registration_company_business_profile")
      * @Template()
      */
-    public function businessProfileAction(Company $company)
+    public function businessProfileAction(Request $request, Company $company)
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyBuisnessProfileType(), $company);
+
+        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
+            ->createQueryBuilder('dictionary')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $form = $this->createForm(new CompanyBaseType(), $company);
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em->persist($company);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('registration_company_contacts', [
+                    'id' => $company->getId()
+                ]));
+            }
+        }
 
         return [
             'company' => $company,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'additionalServiceTypes' => $additionalServiceTypes
         ];
     }
 
