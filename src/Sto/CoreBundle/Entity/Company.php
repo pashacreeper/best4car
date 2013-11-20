@@ -1191,7 +1191,7 @@ class Company
 
     public function addCompanyManager(CompanyManager $manager)
     {
-        $this->companyManager[] = $manager;
+        $this->companyManager[] = $manager->setCompany($this);
 
         return $this;
     }
