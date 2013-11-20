@@ -58,7 +58,7 @@ class Company
     private $workingTime;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="\Sto\CoreBundle\Entity\Dictionary\AdditionalService")
      * @ORM\JoinTable(name="company_additional_service",
      *     joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
