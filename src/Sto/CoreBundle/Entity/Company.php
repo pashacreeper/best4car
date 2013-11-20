@@ -27,8 +27,7 @@ class Company
     private $id;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -111,8 +110,7 @@ class Company
     private $email;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
@@ -122,8 +120,7 @@ class Company
     private $gps;
 
     /**
-     * @Assert\Date()
-     * @ORM\Column(name="createt_date", type="date")
+     * @ORM\Column(name="createt_date", type="date", nullable=true)
      */
     private $createtDate;
 
@@ -188,7 +185,7 @@ class Company
     private $administratorContactInfo;
 
     /**
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
      */
     private $visible;
 

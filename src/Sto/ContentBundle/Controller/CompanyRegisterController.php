@@ -10,6 +10,9 @@ use Symfony\Component\Form\FormError;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sto\CoreBundle\Entity\Company;
 use Sto\ContentBundle\Form\Type\CompanyBaseType;
+use Symfony\Component\HttpFoundation\Request;
+use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\ContentBundle\Form\Type\CompanyBuisnessProfileType;
 
 class CompanyRegisterController extends Controller
 {
@@ -86,15 +89,36 @@ class CompanyRegisterController extends Controller
      * @Route("/new-company/{id}/base", name="registration_company_base_with_id")
      * @Template()
      */
-    public function baseAction($id = null)
+    public function baseAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         if (! $id || ! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
             $company = new Company();
         }
 
         $form = $this->createForm(new CompanyBaseType(), $company);
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $manager = new CompanyManager();
+                $manager->setUser($user);
+                $manager->setPhone($user->getPhoneNumber());
+                $manager->setCompany($company);
+
+                $company->addCompanyManager($manager);
+
+                $em->persist($company);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('registration_company_business_profile', [
+                    'id' => $company->getId()
+                ]));
+            }
+        }
 
         return [
             'form' => $form->createView()
@@ -110,6 +134,7 @@ class CompanyRegisterController extends Controller
         $form = $this->createForm(new CompanyBuisnessProfileType(), $company);
 
         return [
+            'company' => $company,
             'form' => $form->createView()
         ];
     }

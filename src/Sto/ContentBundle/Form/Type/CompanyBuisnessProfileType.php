@@ -5,6 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
 use Sto\ContentBundle\Form\CompanySpecializationType;
+use Doctrine\ORM\EntityRepository;
 
 class CompanyBuisnessProfileType extends AbstractType
 {

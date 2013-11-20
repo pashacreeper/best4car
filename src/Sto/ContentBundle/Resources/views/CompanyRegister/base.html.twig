@@ -17,7 +17,7 @@
     </ul>
 {% endblock %}
 
-{% block form_path %}action="{{ path('registration_company_create') }}"{% endblock %}
+{% block form_path %}action="{{ path('registration_company_base') }}"{% endblock %}
 
 {% block form_content %}
 <p class="contentLabel">
@@ -39,16 +39,19 @@
     {{ form_widget(form.slogan) }}
 </p>
 <div class="contentLabel clear datePickerInput">
+    {{ form_errors(form.fullName) }}
     {{ form_label(form.createtDate) }}
     {{ form_widget(form.createtDate) }}
 </div>
 {{ form_errors(form.createtDate) }}
 <div class="contentLabelNoOverflow">
+    {{ form_errors(form.fullName) }}
     {{ form_label(form.city) }}
     {{ form_widget(form.city) }}
 </div>
 <br>
 <div class="addLogo clear">
+    {{ form_errors(form.fullName) }}
     {{ form_label(form.logo) }}
     <div class="addLogoImgWrap">
         <div class="addLogoImg" id='picture-preview-wrapper'></div>

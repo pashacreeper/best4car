@@ -79,16 +79,19 @@
                         {{ form_widget(cForm.slogan) }}
                     </p>
                     <div class="contentLabel clear datePickerInput">
+                        {{ form_errors(cForm.fullName) }}
                         {{ form_label(cForm.createtDate) }}
                         {{ form_widget(cForm.createtDate) }}
                     </div>
                     {{ form_errors(cForm.createtDate) }}
                     <div class="contentLabelNoOverflow">
+                        {{ form_errors(cForm.fullName) }}
                         {{ form_label(cForm.city) }}
                         {{ form_widget(cForm.city) }}
                     </div>
                     <br>
                     <div class="addLogo clear">
+                        {{ form_errors(cForm.fullName) }}
                         {{ form_label(cForm.logo) }}
                         <div class="addLogoImgWrap">
                             <div class="addLogoImg" id='picture-preview-wrapper'></div>
