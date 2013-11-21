@@ -26,8 +26,7 @@ class CompanyGallery
     private $id;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -47,7 +46,7 @@ class CompanyGallery
     protected $imageName;
 
     /**
-     * @ORM\Column(name="visible", type="boolean", options={"default" = 1})
+     * @ORM\Column(name="visible", type="boolean", options={"default" = 1}, nullable=true)
      */
     private $visible = 1;
 
