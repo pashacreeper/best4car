@@ -128,7 +128,7 @@ class CompanyType extends AbstractType
                 'label' => 'Skype',
                 'required' => false,
             ])
-            ->add('email', 'email', [
+            ->add('email', 'text', [
                 'label' => 'E-mail',
                 'required' => false,
             ])
