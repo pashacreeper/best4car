@@ -247,6 +247,7 @@ class CompanyController extends MainController
 
             foreach ($company->getGallery() as $image){
                 $image->setUpdatedAt(new \DateTime());
+                $image->setVisible(true);
             }
 
             $em->persist($company);

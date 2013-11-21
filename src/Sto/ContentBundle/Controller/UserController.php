@@ -275,6 +275,7 @@ class UserController extends MainController
 
             $gallery = $company->getGallery();
             foreach ($gallery as $value) {
+                $value->setVisible(true);
                 $value->setCompany($company);
             }
             $company->setGallery($gallery);
