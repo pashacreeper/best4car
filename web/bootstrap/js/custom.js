@@ -447,6 +447,12 @@ var profilePage = function(){
 var companyPage = function(){
     $('.accordion-body').hide();
     $('.accordion-toggle').click(function(){
+        $accordion = $('.accordion-body');
+        if (!$accordion.is(":visible")) {
+            $('.showAll').text('Скрыть все');
+        } else {
+            $('.showAll').text('Показать все');
+        }
         $('#collapse_' + this.id).toggle();
         $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
     });
