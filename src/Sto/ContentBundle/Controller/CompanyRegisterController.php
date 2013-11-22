@@ -13,6 +13,8 @@ use Sto\ContentBundle\Form\Type\CompanyBaseType;
 use Symfony\Component\HttpFoundation\Request;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\Type\CompanyBuisnessProfileType;
+use Sto\ContentBundle\Form\Type\CompanyContactsType;
+use Sto\ContentBundle\Form\Type\ComapnyGalleryType;
 
 class CompanyRegisterController extends Controller
 {
@@ -140,8 +142,6 @@ class CompanyRegisterController extends Controller
             ->getResult()
         ;
 
-        $form = $this->createForm(new CompanyBaseType(), $company);
-
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
@@ -166,12 +166,30 @@ class CompanyRegisterController extends Controller
      * @Route("/new-company/{id}/contacts", name="registration_company_contacts")
      * @Template()
      */
-    public function contactsAction(Company $company)
+    public function contactsAction(Request $request, Company $company)
     {
-        $form = $this->createForm(new CompanyContactsType(), $company);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new CompanyContactsType(), 
+            $company,
+            ['em' => $em]
+        );
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em->persist($company);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('registration_company_gallery', [
+                    'id' => $company->getId()
+                ]));
+            }
+        }
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'company' => $company
         ];
     }
 

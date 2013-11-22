@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\CompanyPhoneType;
 use Sto\ContentBundle\Form\CompanyWorkingTimeType;
 use Sto\ContentBundle\Form\CompanyManagerType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompanyContactsType extends AbstractType
 {
@@ -22,7 +23,7 @@ class CompanyContactsType extends AbstractType
                 'label' => 'Координаты на карте',
                 'required' => true,
                 'attr' => [
-                    'style' => 'display:none'
+                    // 'style' => 'display:none'
                 ]
             ])
             ->add('phones','collection', array(
@@ -85,8 +86,20 @@ class CompanyContactsType extends AbstractType
         ;
     }
 
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver
+            ->setRequired([
+                'em',
+            ])
+            ->setAllowedTypes([
+                'em' => 'Doctrine\Common\Persistence\ObjectManager',
+            ])
+        ;
+    }
+
     public function getName()
     {
-        return 'sto_company_reguister_contacts';
+        return 'sto_company_register_contacts';
     }
 }
