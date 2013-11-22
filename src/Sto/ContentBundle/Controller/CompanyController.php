@@ -217,6 +217,8 @@ class CompanyController extends MainController
                         $serviceId = $oldService->getService()->getId();
                         if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
                             unset($itemServices[$serviceKey]);
+                        } else {
+                            $em->remove($oldService);
                         }
                     }
                     $companyServices = [];
