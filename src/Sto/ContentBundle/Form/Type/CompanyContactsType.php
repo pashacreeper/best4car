@@ -23,7 +23,7 @@ class CompanyContactsType extends AbstractType
                 'label' => 'Координаты на карте',
                 'required' => true,
                 'attr' => [
-                    // 'style' => 'display:none'
+                    'style' => 'display:none'
                 ]
             ])
             ->add('phones','collection', array(

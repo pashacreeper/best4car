@@ -1,0 +1,72 @@
+{% extends 'StoContentBundle:CompanyRegister:_newCompany.html.twig' %}
+
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+    – Галерея фотографий
+{% endblock %}
+
+{% block links %}
+    <ul class="stepRegistration" id="stepRegistration">
+        <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
+        <li class="stepRegistrationItem centerStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
+        <li class="stepRegistrationItem centerStep" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
+        <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
+        <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#photos" class="stepLink">Фотографии</span></li>
+    </ul>
+{% endblock %}
+
+{% block form_path %}action="{{ path('registration_company_gallery', {id: company.id}) }}"{% endblock %}
+
+{% block form_content %}
+    <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
+    <p class="additionalInfo">Тип файла JPG или PNG, размер не более 3 Мб, соотношение сторон 16:9</p>
+    <div id="photoAddWrapper" data-prototype="{{ form_widget(form.gallery.vars.prototype)|e }}"></div>
+
+    <script>
+        var photoCollectionHolder = $('#photoAddWrapper'),
+            $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>'),
+            $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
+
+        jQuery(document).ready(function() {
+            photoCollectionHolder.append($photoNewLink);
+            photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
+
+            $photoAddTagLink.on('click', function(e) {
+                e.preventDefault();
+                $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                addTagForm(photoCollectionHolder, $photoNewLink, true, $deleteLink);
+            });
+        });
+
+        jQuery(document).ready(function() {
+            $('#photoAddWrapper').on('click', '.deleteElement', function(){
+                $(this).parent().remove();
+            });
+        });
+
+        $(document).ready(function(){
+            $('#photoAddWrapper').on('change', 'input[type="file"]', function(){
+                var reader = new FileReader(),
+                    $this = $(this);
+
+                reader.onload = function (e) {
+                    if ($this.prev('.photoDateImg')) {
+                        $this.prev('.photoDateImg').remove();
+                        $this.removeClass('hiddenFotoUpload');
+                    }
+                    wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"><i class="editImg"></i></div>');
+                    $this.before(wrapper);
+                    $this.addClass('hiddenFotoUpload');
+                };
+
+                reader.readAsDataURL($(this)[0].files[0]);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block back_link %}
+<a href="{{ path('registration_company_contacts', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
+{% endblock %}

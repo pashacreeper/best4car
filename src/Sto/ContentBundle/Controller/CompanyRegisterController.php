@@ -197,12 +197,27 @@ class CompanyRegisterController extends Controller
      * @Route("/new-company/{id}/gallery", name="registration_company_gallery")
      * @Template()
      */
-    public function galleryAction(Company $company)
+    public function galleryAction(Request $request, Company $company)
     {
         $form = $this->createForm(new ComapnyGalleryType(), $company);
+        $em = $this->getDoctrine()->getManager();
+
+        if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em->persist($company);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('content_company_show', [
+                    'id' => $company->getId()
+                ]));
+            }
+        }
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'company' => $company
         ];
     }
 
