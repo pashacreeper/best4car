@@ -13,7 +13,7 @@ class CompanyPhoneType extends AbstractType
             ->add('phone', 'text', [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Телефон',
+                        'placeholder' => '8 (921) 123-45-67',
                         'class' => 'inputFormEnter span3'
                     ],
                 ])
@@ -22,7 +22,7 @@ class CompanyPhoneType extends AbstractType
                     'required' => false,
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Описание',
+                        'placeholder' => 'Многоканальный',
                         'class' => 'inputFormEnter span4'
                     ]
                 ]
