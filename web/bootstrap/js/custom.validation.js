@@ -65,11 +65,13 @@ var Validation = function(activeTabPane) {
 
     this.setError = function(element, object) {
         object.errorFlags = object.errorFlags + 1;
+        $(element).addClass('error');
         $(element).parents('.contentLabel').addClass('error');
         object.activeTabPane.find('.alertSelect').show();
     };
 
     this.removeError = function(element, object) {
+        $(element).removeClass('error');
         $(element).parents().removeClass('error');
         object.errorFlags = object.errorFlags - 1;
         if (object.errorFlags == 0) {
