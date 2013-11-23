@@ -127,6 +127,7 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('city')
             ->add('groups')
+            ->add('ratingGroup')
         ;
     }
 }

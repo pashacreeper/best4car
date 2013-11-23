@@ -196,7 +196,12 @@ class CompanyAdmin extends Admin
             ->add('visible')
             ->add('city')
             ->add('companyManager')
-            ->add('specializations.type')
+            ->add('specializations.type', null, [], null, [
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('type')
+                        ->where('type.parent is NULL');
+                }
+            ])
             ->add('specializations.subType', null, [], null, [
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('subType')
