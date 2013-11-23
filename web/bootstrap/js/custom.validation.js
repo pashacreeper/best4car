@@ -55,7 +55,7 @@ var Validation = function(activeTabPane) {
         var object = this;
         var $element = $(element);
         if ($element.find('option').size() == 0) {
-            object.setError(element, object);
+            object.setAutoServicesError(element, object);
 
             $('#service-choose-modal').bind('reveal:close', function() {
                 object.removeError(element, object);
@@ -70,9 +70,17 @@ var Validation = function(activeTabPane) {
         object.activeTabPane.find('.alertSelect').show();
     };
 
+    this.setAutoServicesError = function(element, object) {
+        object.errorFlags = object.errorFlags + 1;
+        $(element).addClass('error');
+        $(element).parents('.contentLabel').addClass('error');
+        $(element).parents('.contactDate').find('.edit-services').addClass('error');
+        object.activeTabPane.find('.alertSelect').show();
+    };
+
     this.removeError = function(element, object) {
         $(element).removeClass('error');
-        $(element).parents().removeClass('error');
+        $(element).parents('.contactDate').find('.error').removeClass('error');
         object.errorFlags = object.errorFlags - 1;
         if (object.errorFlags == 0) {
             object.activeTabPane.find('.alertSelect').hide();
