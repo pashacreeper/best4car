@@ -444,27 +444,30 @@ var profilePage = function(){
     })();
 };
 
-var companyPage = function(){
+var companyPage = function () {
     $('.accordion-body').hide();
-    $('.accordion-toggle').click(function(){
+    $('.accordion-toggle').click(function () {
         $accordion = $('.accordion-body');
-        if (!$accordion.is(":visible")) {
-            $('.showAll').text('Скрыть все');
-        } else {
-            $('.showAll').text('Показать все');
-        }
         $('#collapse_' + this.id).toggle();
-        $('#iconCollapse_'+ this.id).toggleClass('iconChevronDown');
-    });
-    $('.showAll').click(function(){
-        $accordion = $('.accordion-body');
-        $accordion.toggle();
-        if ($accordion.is(":visible")) {
+        $('#iconCollapse_' + this.id).toggleClass('iconChevronDown');
+
+        if ($('.accordion-body:visible').size() > 0) {
             $('.showAll').text('Скрыть все');
         } else {
             $('.showAll').text('Показать все');
         }
-        $('.iconAccord').toggleClass('iconChevronDown');
+    });
+    
+    $('.showAll').click(function () {
+        if ($('.accordion-body:visible').size() > 0) {
+            $('.accordion-body').hide();
+            $(this).text('Показать все');
+            $('.iconAccord').removeClass('iconChevronDown');
+        } else {
+            $('.accordion-body').show();
+            $(this).text('Скрыть все');
+            $('.iconAccord').addClass('iconChevronDown');
+        }
     });
 };
 
