@@ -421,6 +421,10 @@ class Company
      */
     public function setWeb($web)
     {
+        $web = str_replace(['http://', 'https://', 'www.'], '', $web);
+        $web = rtrim($web, '/');
+        $web = strtolower($web);
+
         $this->web = $web;
 
         return $this;
