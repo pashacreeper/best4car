@@ -290,6 +290,10 @@
                 behaviors: ["default", "scrollZoom"]
             });
 
+            mainMap.events.add('click', function (e) {
+                mainMap.balloon.close();
+            });
+
             placemarkCollection = new ymaps.GeoObjectCollection();
             mainMap.myCollection = placemarkCollection;
 
@@ -316,7 +320,7 @@
 
                         return;
                     }
-                })
+                });
             });
 
             companiesAjaxLoad();
