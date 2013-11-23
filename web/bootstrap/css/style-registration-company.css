@@ -492,12 +492,15 @@ body {
 
 .alertSelect {
     float: left;
-    padding: 20px 30px;
+    padding: 0 30px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 48px;
+    line-height: 48px !important;
     background: #eb6969;
     font: 1.8em 'PT Sans', sans;
     color: #fff;
     border-radius: 4px;
-    margin-top: -10px;
     position: relative;
 }
 

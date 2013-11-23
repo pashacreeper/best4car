@@ -118,12 +118,13 @@
                     Выберите специализацию компании (одну или несколько) и предоставляемые услуги в рамках каждой специализации. <br/>
                     Первая по порядку специализация будет являться основным типом компании.
                 </span>
-                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}"></div>
+                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}">
+                </div>
 
                 <script>
                     jQuery(document).ready(function() {
                         var collectionWrapper = $('#specializationsAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
 
                         collectionWrapper.append($newLink);
@@ -148,7 +149,7 @@
 
                             newForm.append(serviceSelect);
 
-                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services'>Выбор услуг</a>");
+                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services linkContact'>Выбор услуг</a>");
                             newForm.find('.deleteElement').before(serviceLink);
                             editServiceLink(serviceLink, index);
                             return false;
@@ -196,7 +197,9 @@
                         $('.edit-services').each(function() {
                             var serviceId = $(this).data('index');
                             editServiceLink($(this), serviceId)
-                        })
+                        });
+
+                        collectionWrapper.find('.addImg').click();
                     });
                 </script>
             </div>
@@ -215,6 +218,7 @@
 
             <div class="contentLabel clear contentLabelNoOverflow">
                 {{ form_label(cForm.autos) }}
+                <label>Все марки? {{ form_widget(cForm.allAuto) }}</label>
                 <div class="basket__cont__body__bottom__paper">
                     {{ form_widget(cForm.autos) }}
                 </div>
@@ -282,7 +286,7 @@
                     </div>
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
-                        var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $phoneAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -297,6 +301,8 @@
                                 addTagForm(phoneCollectionHolder, $phoneNewLink, true, deleteLink);
                             });
                             phoneCollectionHolder.find('.contactDate').append(deleteLink);
+
+                            $phoneAddTagLink.click();
                         });
                     </script>
                 </div>
@@ -330,7 +336,7 @@
 
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="clear"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -357,6 +363,8 @@
                                 });
                             });
                             collectionHolder.find('.contactDate').append(deleteLink);
+
+                            $addTagLink.click();
                         });
                     </script>
                 </div>
@@ -374,7 +382,7 @@
 
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
-                        var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
@@ -442,7 +450,7 @@
             
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper'),
-                    $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>'),
+                    $photoAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>'),
                     $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
 
                 jQuery(document).ready(function() {
@@ -611,6 +619,12 @@
 
 <script>
     $(document).ready(function(){
+        $('#sto_content_company_registration_allAuto').change(function() {
+            $('.basket__cont__body__bottom__paper').toggle();
+
+            return false;
+        });
+
         var additionalServices = {};
         {% for service in additionalServiceTypes %}
             {% if service.iconNameSmall %}

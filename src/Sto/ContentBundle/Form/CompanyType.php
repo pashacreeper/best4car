@@ -210,6 +210,7 @@ class CompanyType extends AbstractType
                     'data-placeholder' => 'Выберете марки автомобилей'
                 ]
             ])
+            ->add('allAuto', 'checkbox')
         ;
     }
 

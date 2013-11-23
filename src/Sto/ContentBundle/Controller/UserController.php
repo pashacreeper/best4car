@@ -227,6 +227,7 @@ class UserController extends MainController
         $user = $this->getUser();
 
         $company = new Company();
+        $company->setCurrency($em->getRepository('StoCoreBundle:Dictionary\Currency')->findOneBy(['shortName' => 'RUB']));
         $manager = new CompanyManager();
         $manager->setUser($user);
         $manager->setPhone($user->getPhoneNumber());

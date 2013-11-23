@@ -457,7 +457,7 @@ var companyPage = function () {
             $('.showAll').text('Показать все');
         }
     });
-    
+
     $('.showAll').click(function () {
         if ($('.accordion-body:visible').size() > 0) {
             $('.accordion-body').hide();

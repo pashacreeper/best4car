@@ -116,15 +116,17 @@ class CompanyAdmin extends Admin
                     'required' => false,
                 ))
                 ->add('city')
+                ->add('allAuto', 'checkbox', [
+                    'label' => 'Все марки?',
+                    'required' => false,
+                ])
                 ->add('autos', null, array(
                     'required' => false,
                 ))
                 ->add('linkVK')
                 ->add('linkTW')
                 ->add('linkFB')
-                ->add('autos', null, [
-                    'required' => false,
-                ])
+
             ->end()
             ->with('Контакты')
                 ->add('contacts', 'sonata_type_collection', [
