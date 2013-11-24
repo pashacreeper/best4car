@@ -218,6 +218,14 @@ class Deal
     }
 
     /**
+     * @Assert\True(message = "Дата начала акции должна быть меньше даты окончания")
+     */
+    public function isEndDateValid()
+    {
+        return $this->startDate->getTimestamp() < $this->endDate->getTimestamp();
+    }
+
+    /**
      * Get id
      */
     public function getId()
