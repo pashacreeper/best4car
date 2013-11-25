@@ -61,7 +61,7 @@ namespace :deploy do
             'Disallow: /'
         ].join($/)
 
-        logger.info "Uploading robots.txt"
-        put content, "#{current_path}/web/robots.txt"
+        logger.info "Update robots.txt"
+        put content, "#{current_release}/web/robots.txt"
     end
 end
