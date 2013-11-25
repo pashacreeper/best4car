@@ -62,6 +62,6 @@ namespace :deploy do
         ].join($/)
 
         logger.info "Uploading robots.txt"
-        put content, "#{current_path}/www/robots.txt"
+        put content, "#{current_path}/web/robots.txt"
     end
 end
