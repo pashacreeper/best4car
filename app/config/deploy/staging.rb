@@ -6,4 +6,4 @@ role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
 
-run "cp /var/www/php/#{application}/web/robots_staging.txt /var/www/php/#{application}/web/robots.txt"
+after "deploy:update_code", "deploy:block_robots"

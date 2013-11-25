@@ -51,3 +51,17 @@ set :hipchat_failed_color, 'red' # cancelled deployment message color
 require "whenever/capistrano"
 set :whenever_variables, ""
 set :whenever_command, "whenever --load-file app/config/schedule.rb --set environment=#{symfony_env_prod}"
+
+namespace :deploy do
+    desc "Update robots.txt"
+    task :block_robots, :roles => :app do
+        content = [
+            '# This is a staging site. Do not index.',
+            'User-agent: *',
+            'Disallow: /'
+        ].join($/)
+
+        logger.info "Uploading robots.txt"
+        put content, "#{current_path}/www/robots.txt"
+    end
+end
