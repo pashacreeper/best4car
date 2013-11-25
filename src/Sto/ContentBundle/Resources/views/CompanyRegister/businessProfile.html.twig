@@ -46,7 +46,7 @@
         <script>
             jQuery(document).ready(function() {
                 var collectionWrapper = $('#specializationsAddWrapper');
-                var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                 var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
 
                 collectionWrapper.append($newLink);
@@ -71,7 +71,7 @@
 
                     newForm.append(serviceSelect);
 
-                    var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services'>Выбор услуг</a>");
+                    var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services linkContact'>Выбор услуг</a>");
                     newForm.find('.deleteElement').before(serviceLink);
                     editServiceLink(serviceLink, index);
                     return false;
@@ -141,6 +141,7 @@
         <div class="basket__cont__body__bottom__paper">
             {{ form_widget(form.autos) }}
         </div>
+        <label class="all-marks-label">или <span class="linkContact">все марки?</span>{{ form_widget(form.allAuto) }}</label>
     </div>
 
     <div class="bottomBlock">

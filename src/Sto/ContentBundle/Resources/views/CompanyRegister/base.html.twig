@@ -20,50 +20,48 @@
 {% block form_path %}action="{{ path('registration_company_base') }}"{% endblock %}
 
 {% block form_content %}
-<div class="span10">
-    <p class="contentLabel">
-        {{ form_label(form.fullName) }}
-        {{ form_errors(form.fullName) }}
-        <span class="hint-text">Полное наименование юр.лица, например: ООО «Авто Эксперт»</span>
-        {{ form_widget(form.fullName) }}
-    </p>
-    <p class="contentLabel">
-        {{ form_label(form.name) }}
-        {{ form_errors(form.name) }}
-        <span class="hint-text">Общеупотребимое название компании, например: BEST4CAR</span>
-        {{ form_widget(form.name) }}
-    </p>
-    <p class="contentLabel">
-        {{ form_label(form.slogan) }}
-        {{ form_errors(form.slogan) }}
-        <span class="hint-text">Например: Автоэксперты рекомендуют. Лучшее для вашего авто!</span>
-        {{ form_widget(form.slogan) }}
-    </p>
-    <div class="contentLabel clear datePickerInput">
-        {{ form_label(form.createtDate) }}
-        {{ form_errors(form.createtDate) }}
-        {{ form_widget(form.createtDate) }}
+<p class="contentLabel">
+    {{ form_label(form.fullName) }}
+    {{ form_errors(form.fullName) }}
+    <span class="hint-text">Полное наименование юр.лица, например: ООО «Авто Эксперт»</span>
+    {{ form_widget(form.fullName) }}
+</p>
+<p class="contentLabel">
+    {{ form_label(form.name) }}
+    {{ form_errors(form.name) }}
+    <span class="hint-text">Общеупотребимое название компании, например: BEST4CAR</span>
+    {{ form_widget(form.name) }}
+</p>
+<p class="contentLabel">
+    {{ form_label(form.slogan) }}
+    {{ form_errors(form.slogan) }}
+    <span class="hint-text">Например: Автоэксперты рекомендуют. Лучшее для вашего авто!</span>
+    {{ form_widget(form.slogan) }}
+</p>
+<div class="contentLabel clear datePickerInput">
+    {{ form_label(form.createtDate) }}
+    {{ form_errors(form.createtDate) }}
+    {{ form_widget(form.createtDate) }}
+</div>
+<div class="contentLabelNoOverflow">
+    {{ form_label(form.city) }}
+    {{ form_errors(form.city) }}
+    {{ form_widget(form.city) }}
+</div>
+<br>
+<div class="addLogo clear">
+    {{ form_label(form.logo) }}
+    {{ form_errors(form.logo) }}
+    <div class="addLogoImgWrap">
+        <div class="addLogoImg" id='picture-preview-wrapper'></div>
     </div>
-    <div class="contentLabelNoOverflow">
-        {{ form_label(form.city) }}
-        {{ form_errors(form.city) }}
-        {{ form_widget(form.city) }}
-    </div>
-    <br>
-    <div class="addLogo clear">
-        {{ form_label(form.logo) }}
-        {{ form_errors(form.logo) }}
-        <div class="addLogoImgWrap">
-            <div class="addLogoImg" id='picture-preview-wrapper'></div>
-        </div>
-        <div class="adminBlockImg span6">
-            {{ form_widget(form.logo) }}
-            <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
-            <p class="additionalInfo">
-                Логотип должен быть вписан в квадрат с белым или прозрачным фоном. <br/>
-                Формат: JPEG, PNG, GIF не более 1Мб
-            </p>
-        </div>
+    <div class="adminBlockImg span6">
+        {{ form_widget(form.logo) }}
+        <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
+        <p class="additionalInfo">
+            Логотип должен быть вписан в квадрат с белым или прозрачным фоном. <br/>
+            Формат: JPEG, PNG, GIF не более 1Мб
+        </p>
     </div>
 </div>
 {% endblock %}

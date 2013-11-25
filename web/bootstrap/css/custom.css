@@ -729,3 +729,13 @@ a.btnNext:hover {
     margin-right: 15px;
 }
 .edit-services.error {color: #bc2013;}
+
+.all-marks-label{
+    padding: 0 !important;
+    margin: 0!important;
+}
+.all-marks-label input[type=checkbox]{
+    position: relative;
+    top: -2px;
+    left: 4px;
+}
