@@ -7,6 +7,7 @@ use Sto\ContentBundle\Form\CompanyPhoneType;
 use Sto\ContentBundle\Form\CompanyWorkingTimeType;
 use Sto\ContentBundle\Form\CompanyManagerType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyContactsType extends AbstractType
 {
@@ -15,15 +16,22 @@ class CompanyContactsType extends AbstractType
         $builder
             ->add('address', null, [
                 'label' => 'Адрес',
+                'required' => false,
                 'attr' => [
                     'class' => 'inputFormEnter inputleftContDate'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('gps', null, [
                 'label' => 'Координаты на карте',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'style' => 'display:none'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('phones','collection', array(
@@ -40,7 +48,7 @@ class CompanyContactsType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'required' => false,
-                'by_reference' => false
+                'by_reference' => false,
             ))
             ->add('companyManager', 'collection', array(
                 'label' => ' ',

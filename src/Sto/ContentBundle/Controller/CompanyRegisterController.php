@@ -11,13 +11,13 @@ use Sto\ContentBundle\Form\Type\CompanyBaseType;
 use Sto\ContentBundle\Form\Type\CompanyBusinessProfileType;
 use Sto\ContentBundle\Form\Type\CompanyContactsType;
 use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Sto\CoreBundle\Entity\CompanyAutoService;
 
 class CompanyRegisterController extends Controller
 {

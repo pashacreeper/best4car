@@ -15,7 +15,7 @@ class ConstraintCompanySpecializationValidator extends ConstraintValidator
             if (! $value->first() instanceof CompanySpecialization 
                 || ($value->first()->getType() === null && $value->first()->getSubType() === null)
             ) {
-                $this->context->addViolationAt('specializations', $constraint->message);
+                $this->context->addViolation($constraint->message);
             }
         }
     }

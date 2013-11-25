@@ -49,7 +49,7 @@
         <form name="register-form" {% block form_path %}{% endblock %} method="post" {{ form_enctype(form) }} class="form-horizontal">
             <div class="tab-content">
                 {% block form_content %}{% endblock %}
-                {{ form_rest(form) }}
+                {{ form_widget(form._token) }}
                 <div class="bottomContent">
                     <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
                     <button class="btnNext addPhotoBtn">Продолжить</button>

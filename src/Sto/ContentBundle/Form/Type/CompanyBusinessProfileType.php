@@ -1,11 +1,12 @@
 <?php
 namespace Sto\ContentBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\CompanySpecializationType;
+use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
-use Sto\ContentBundle\Form\CompanySpecializationType;
-use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyBusinessProfileType extends AbstractType
 {
@@ -17,6 +18,7 @@ class CompanyBusinessProfileType extends AbstractType
                 'type' => new CompanySpecializationType(),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'error_bubbling' => false,
                 'prototype' => true,
                 'by_reference' => false,
                 'constraints' => [

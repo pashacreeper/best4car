@@ -24,16 +24,19 @@
     <div class="leftContaktDate">
     <div class="contentLabel marginBottom">
         {{ form_label(form.address) }}
+        {{ form_errors(form.address) }}
         <span class="hint-text">Адрес компании указывается без индекса и города, например: ул. Ленина д.5</span>
         {{ form_widget(form.address) }}
     </div>
     <div class="contentLabel marginBottom">
         {{ form_label(form.gps) }}
+        {{ form_errors(form.gps) }}
         {{ form_widget(form.gps) }}
         <a href="#" class="linkUnder" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
     </div>
     <div class="contentLabel marginBottom">
         <label>Контактные телефоны</label>
+        {{ form_errors(form.phones) }}
         <span class="hint-text">Вы можете указать несколько контактных телефонов, добавив к каждому текстовое описание, например: СТО, Запасные части, Многоканальный или иное.</span>
         <div id="phoneAddWrapper" data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}">
             {% for phone in form.phones %}
@@ -65,6 +68,7 @@
     </div>
     <div class="contentLabel marginBottom">
         <label>Время работы</label>
+        {{ form_errors(form.phones) }}
         <span class="hint-text">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</span>
         <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(form.workingTime.vars.prototype)|e }}">
             {% for time in form.workingTime %}
@@ -76,7 +80,6 @@
                             {% else %}
                                 {{ form_label(day) }}
                             {% endif %}
-
                             {{ form_widget(day) }}
                         {% endfor %}
                     </div>
@@ -125,6 +128,7 @@
     </div>
     <div class="contentLabel marginBottom">
         <label>Менеджеры компании</label>
+        {{ form_errors(form.companyManager) }}
         <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</span>
         <div id="managerAddWrapper" data-prototype="{{ form_widget(form.companyManager.vars.prototype)|e }}">
             {% for manager in form.companyManager %}
@@ -161,30 +165,36 @@
 <div class="rightContaktDate">
     <p class="contentLabel rightContaktItem">
         <label>Сайт</label>
+        {{ form_errors(form.web) }}
         {{ form_widget(form.web) }}
     </p>
     <p class="contentLabel rightContaktItem">
         <label>Skype</label>
+        {{ form_errors(form.skype) }}
         {{ form_widget(form.skype) }}
     </p>
     <p class="contentLabel rightContaktItem">
         <label>Email</label>
+        {{ form_errors(form.email) }}
         {{ form_widget(form.email) }}
     </p>
     <div class="contentLabel rightContaktItem">
         <label>VKontakte</label>
+        {{ form_errors(form.linkVK) }}
         <p class="maskInput rightMask"><span>www.vk.com/</span>
             {{ form_widget(form.linkVK) }}
         </p>
     </div>
     <div class="contentLabel rightContaktItem">
         <label>Twitter</label>
+        {{ form_errors(form.linkTW) }}
         <p class="maskInput rightMask"><span>www.twitter.com/</span>
             {{ form_widget(form.linkTW) }}
         </p>
     </div>
     <div class="contentLabel rightContaktItem">
         <label>Facebook</label>
+        {{ form_errors(form.linkFB) }}
         <p class="maskInput rightMask"><span>www.facebook.com/</span>
             {{ form_widget(form.linkFB) }}
         </p>
