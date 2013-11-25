@@ -39,10 +39,10 @@
                 {% include "StoContentBundle:Company:specialization_list.html.twig" with { 'specializations': item.specializations, 'additionalServices': item.additionalServices } %}
             </div>
             <div class="infoCompany">
-                {% if item.phones | length > 0 %}
+                {% if item.phones | length > 0 and item.phones.0 is defined %}
                     <p class="infoCompanyLable">
                         Телефон:<br/>
-                        <span>{{item.phones[0].phone}}</span>
+                        {{ item.phones.0.phone }}
                     </p>
                 {% endif %}
 

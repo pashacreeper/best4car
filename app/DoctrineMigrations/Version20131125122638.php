@@ -16,6 +16,7 @@ class Version20131125122638 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "mysql");
         
         $this->addSql("ALTER TABLE companies ADD registred_fully TINYINT(1) DEFAULT NULL, ADD registration_step VARCHAR(255) DEFAULT NULL");
+        $this->addSql("UPDATE `companies` SET `registred_fully` = TRUE");
     }
 
     public function down(Schema $schema)

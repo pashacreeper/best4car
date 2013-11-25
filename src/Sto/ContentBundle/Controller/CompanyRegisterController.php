@@ -119,7 +119,8 @@ class CompanyRegisterController extends Controller
 
                 $company->addCompanyManager($manager);
                 $company->setRegistredFully(false);
-                $company->setRegistrationStep(CompanyRegistrationStep::BASE);
+                $company->setRegistrationStep(CompanyRegistrationStep::BUSINESS);
+                $company->setVisible(false);
 
                 $em->persist($company);
                 $em->flush();
@@ -193,6 +194,7 @@ class CompanyRegisterController extends Controller
             if ($form->isValid()) {
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
                 $company->setRegistredFully(true);
+                $company->setVisible(true);
                 $em->persist($company);
                 $em->flush();
 
