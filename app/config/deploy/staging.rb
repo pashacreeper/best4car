@@ -5,3 +5,5 @@ set :user,        "dev-user"
 role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
+
+run "cp /var/www/php/#{application}/web/robots_staging.txt /var/www/php/#{application}/web/robots.txt"
