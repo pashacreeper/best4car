@@ -35,10 +35,10 @@ class FeedbackType extends AbstractType
                 'label' => 'Дата посещения',
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'attr' => [
                     'class' => 'visitDate init-ui-datepicker inputData',
-                    'data-format' => 'dd-MM-yyyy',
+                    'type' => 'text'
                 ],
             ])
             ->add('mastername', null, [

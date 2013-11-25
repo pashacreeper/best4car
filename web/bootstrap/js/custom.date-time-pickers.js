@@ -1,4 +1,8 @@
 var datePicker = function(){
+    $('.init-ui-datepicker').each(function(i, element) {
+        $(element).attr('type', 'text');
+    });
+
     $('.init-ui-datepicker').datepicker({
         showOn: "both",
         buttonImage: "/bootstrap/img/calendar-additional-icon.png",

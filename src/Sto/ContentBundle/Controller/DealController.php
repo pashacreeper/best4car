@@ -365,7 +365,6 @@ class DealController extends MainController
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setUser($this->getUser())
-                ->setVisitDate(new \DateTime('now'))
                 ->setDeal($deal)
                 ->setPluses(0)
                 ->setMinuses(0)
