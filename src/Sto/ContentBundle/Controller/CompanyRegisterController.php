@@ -1,20 +1,22 @@
 <?php
 namespace Sto\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 use Sto\ContentBundle\Form\RegistrationType;
-use Sto\UserBundle\Entity\User;
-use Symfony\Component\Form\FormError;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sto\CoreBundle\Entity\Company;
+use Sto\ContentBundle\Form\Type\ComapnyGalleryType;
 use Sto\ContentBundle\Form\Type\CompanyBaseType;
-use Symfony\Component\HttpFoundation\Request;
-use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\Type\CompanyBuisnessProfileType;
 use Sto\ContentBundle\Form\Type\CompanyContactsType;
-use Sto\ContentBundle\Form\Type\ComapnyGalleryType;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\UserBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CompanyRegisterController extends Controller
 {
@@ -100,6 +102,10 @@ class CompanyRegisterController extends Controller
             $company = new Company();
         }
 
+        if ($company->isRegistredFully()) {
+            throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
         $form = $this->createForm(new CompanyBaseType(), $company);
 
         if ('POST' === $request->getMethod()) {
@@ -112,6 +118,8 @@ class CompanyRegisterController extends Controller
                 $manager->setCompany($company);
 
                 $company->addCompanyManager($manager);
+                $company->setRegistredFully(false);
+                $company->setRegistrationStep(CompanyRegistrationStep::BASE);
 
                 $em->persist($company);
                 $em->flush();
@@ -133,19 +141,20 @@ class CompanyRegisterController extends Controller
      */
     public function businessProfileAction(Request $request, Company $company)
     {
+        if ($company->isRegistredFully()) {
+            throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyBuisnessProfileType(), $company);
 
-        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
-            ->createQueryBuilder('dictionary')
-            ->getQuery()
-            ->getResult()
-        ;
+        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findAll();
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
             if ($form->isValid()) {
+                $company->setRegistrationStep(CompanyRegistrationStep::CONTACTS);
                 $em->persist($company);
                 $em->flush();
 
@@ -168,6 +177,10 @@ class CompanyRegisterController extends Controller
      */
     public function contactsAction(Request $request, Company $company)
     {
+        if ($company->isRegistredFully()) {
+            throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyContactsType(), 
             $company,
@@ -178,6 +191,8 @@ class CompanyRegisterController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
+                $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
+                $company->setRegistredFully(true);
                 $em->persist($company);
                 $em->flush();
 
@@ -199,6 +214,10 @@ class CompanyRegisterController extends Controller
      */
     public function galleryAction(Request $request, Company $company)
     {
+        if ($company->isRegistredFully() && $company->getRegistrationStep() === null) {
+            throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
         $form = $this->createForm(new ComapnyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
 
@@ -206,6 +225,7 @@ class CompanyRegisterController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
+                $company->setRegistrationStep(null);
                 $em->persist($company);
                 $em->flush();
 

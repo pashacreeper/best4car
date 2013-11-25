@@ -263,6 +263,62 @@ class Company
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(name="registred_fully", type="boolean", nullable=true)
+     */
+    private $registredFully;
+
+    /**
+     * @ORM\Column(name="registration_step", type="string", length=255, nullable=true)
+     */
+    private $registrationStep;
+    
+    /**
+     * Set registrationStep
+     *
+     * @param string $registrationStep
+     * @return Company
+     */
+    public function setRegistrationStep($registrationStep)
+    {
+        $this->registrationStep = $registrationStep;
+    
+        return $this;
+    }
+    
+    /**
+     * Get registrationStep
+     *
+     * @return string
+     */
+    public function getRegistrationStep()
+    {
+        return $this->registrationStep;
+    }
+    
+    /**
+     * Set registredFully
+     *
+     * @param boolean $registredFully
+     * @return Company
+     */
+    public function setRegistredFully($registredFully)
+    {
+        $this->registredFully = $registredFully;
+    
+        return $this;
+    }
+    
+    /**
+     * Get registredFully
+     *
+     * @return boolean
+     */
+    public function getRegistredFully()
+    {
+        return $this->registredFully;
+    }
+
     public function __construct()
     {
         $this->createtDate = new \DateTime('now');
@@ -1332,5 +1388,10 @@ class Company
     public function removeGroup(\Sto\UserBundle\Entity\Group $groups)
     {
         $this->groups->removeElement($groups);
+    }
+
+    public function isRegistredFully()
+    {
+        return $this->registredFully;
     }
 }
