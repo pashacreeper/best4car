@@ -119,6 +119,19 @@
                     Первая по порядку специализация будет являться основным типом компании.
                 </span>
                 <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}">
+                    {% for k, specialization in cForm.specializations %}
+                        <div class="contactDate">
+                            {{ form_widget(specialization.type) }}
+                            {{ form_widget(specialization.subType) }}
+                            <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
+                                {% for service in specialization.vars.value.services %}
+                                    <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                                {% endfor %}
+                            </select>
+                            <a data-index="{{ k }}" href="#" class="edit-services linkContact">Выбор услуг</a>
+                            <i class="icon-remove-circle deleteElement"></i>
+                        </div>
+                    {% endfor %}
                 </div>
 
                 <script>
@@ -198,8 +211,6 @@
                             var serviceId = $(this).data('index');
                             editServiceLink($(this), serviceId)
                         });
-
-                        collectionWrapper.find('.addImg').click();
                     });
                 </script>
             </div>
@@ -301,8 +312,6 @@
                                 addTagForm(phoneCollectionHolder, $phoneNewLink, true, deleteLink);
                             });
                             phoneCollectionHolder.find('.contactDate').append(deleteLink);
-
-                            $phoneAddTagLink.click();
                         });
                     </script>
                 </div>
@@ -326,9 +335,11 @@
 
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.fromTime) }}
+                                    <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                                 </div>
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.tillTime) }}
+                                    <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                                 </div>
                             </div>
                         {% endfor %}
@@ -363,8 +374,18 @@
                                 });
                             });
                             collectionHolder.find('.contactDate').append(deleteLink);
-
-                            $addTagLink.click();
+                            $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
+                                var inputIndex = $(element).data('input-index');
+                                var buttonIndex = '#b' + inputIndex;
+                                $(element).timepicker({
+                                    showOn: 'both',
+                                    button: buttonIndex,
+                                    showPeriodLabels: false,
+                                    hourText: 'Часы',
+                                    minuteText: 'Минуты',
+                                    defaultTime: '12:00'
+                                });
+                            });
                         });
                     </script>
                 </div>

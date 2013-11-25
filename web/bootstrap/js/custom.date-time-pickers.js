@@ -35,4 +35,8 @@ $(document).ready(function(){
     $('#timepicker2').click(function() {
         $(this).parents('.input-append').find('.init-ui-time').focus();
     });
+
+    $('.init-time').click(function() {
+        $(this).parents('.input-append').find('.init-ui-time').focus();
+    });
 });

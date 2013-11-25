@@ -8,6 +8,7 @@ use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
 use Doctrine\ORM\EntityManager;
 use Sto\CoreBundle\Validator\Constraints\CompanyManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CompanyManagerType extends AbstractType
 {
@@ -29,7 +30,10 @@ class CompanyManagerType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Ник пользователя на сайте',
                         'class' => 'inputFormEnter span4'
-                    ]
+                    ],
+                        'constraints' => [
+                            new NotBlank(),
+                        ],
                 ])
                 ->addModelTransformer($transformer)
             )

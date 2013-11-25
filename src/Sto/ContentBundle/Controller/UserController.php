@@ -2,6 +2,9 @@
 
 namespace Sto\ContentBundle\Controller;
 
+use Sto\CoreBundle\Entity\CompanyContacts;
+use Sto\CoreBundle\Entity\CompanySpecialization;
+use Sto\CoreBundle\Entity\CompanyWorkingTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -227,6 +230,9 @@ class UserController extends MainController
         $user = $this->getUser();
 
         $company = new Company();
+        $company->addSpecialization(new CompanySpecialization());
+        $company->addWorkingTime(new CompanyWorkingTime());
+        $company->setPhones([['phone' => '', 'description' => '']]);
         $company->setCurrency($em->getRepository('StoCoreBundle:Dictionary\Currency')->findOneBy(['shortName' => 'RUB']));
         $manager = new CompanyManager();
         $manager->setUser($user);
