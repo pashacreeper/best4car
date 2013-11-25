@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyWorkingTimeType extends AbstractType
 {
@@ -39,6 +40,9 @@ class CompanyWorkingTimeType extends AbstractType
                         'required' => true,
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
+                        ],
+                        'constraints' => [
+                            new Assert\NotBlank()
                         ]
                     ]
                 )
@@ -51,6 +55,9 @@ class CompanyWorkingTimeType extends AbstractType
                         'required' => true,
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
+                        ],
+                        'constraints' => [
+                            new Assert\NotBlank()
                         ]
                     ]
                 )

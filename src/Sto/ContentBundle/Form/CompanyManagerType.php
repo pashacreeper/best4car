@@ -2,12 +2,13 @@
 
 namespace Sto\ContentBundle\Form;
 
+use Doctrine\ORM\EntityManager;
+use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
+use Sto\CoreBundle\Validator\Constraints\CompanyManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Sto\ContentBundle\Form\DataTransformer\CompanyManagerTransformer;
-use Doctrine\ORM\EntityManager;
-use Sto\CoreBundle\Validator\Constraints\CompanyManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyManagerType extends AbstractType
 {
@@ -26,18 +27,26 @@ class CompanyManagerType extends AbstractType
             ->add(
                 $builder->create('user', 'text', [
                     'label' => false,
+                    'required' => true,
                     'attr' => [
                         'placeholder' => 'Ник пользователя на сайте',
                         'class' => 'inputFormEnter span4'
+                    ],
+                    'constraints' => [
+                        new CompanyManager(),
                     ]
                 ])
                 ->addModelTransformer($transformer)
             )
             ->add('phone', 'text', [
                 'label' => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Телефон',
                     'class' => 'inputFormEnter span3'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
                 ]
             ])
         ;
@@ -46,10 +55,7 @@ class CompanyManagerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'            => 'Sto\CoreBundle\Entity\CompanyManager',
-            'validation_constraint' => array(
-                'user' => new CompanyManager(),
-            )
+            'data_class' => 'Sto\CoreBundle\Entity\CompanyManager',
         ]);
     }
 

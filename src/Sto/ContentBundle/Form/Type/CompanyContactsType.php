@@ -40,6 +40,10 @@ class CompanyContactsType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
+                'error_bubbling' => false,
+                'constraints' => [
+                    new Assert\NotBlank()
+                ]
             ))
             ->add('workingTime','collection', array(
                 'label' => ' ',
@@ -49,6 +53,7 @@ class CompanyContactsType extends AbstractType
                 'prototype' => true,
                 'required' => false,
                 'by_reference' => false,
+                'error_bubbling' => false,
             ))
             ->add('companyManager', 'collection', array(
                 'label' => ' ',
@@ -57,6 +62,7 @@ class CompanyContactsType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
+                'error_bubbling' => false,
             ))
             ->add('web', 'text', [
                 'label' => 'Адрес сайта',
@@ -69,6 +75,9 @@ class CompanyContactsType extends AbstractType
             ->add('email', 'email', [
                 'label' => 'E-mail',
                 'required' => false,
+                'constraints' => [
+                    new Assert\Email()
+                ]
             ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
