@@ -549,6 +549,12 @@ ul.tabNavigation li a:focus {
     color: #f35d2e;
     margin-bottom: 10px;
     display: inline-block;
+    border-bottom: 1px dotted #f35d2e;
+}
+.linkContact:hover {
+    border-bottom: 1px dotted transparent;
+    color: #f35d2e;
+    text-decoration: none;
 }
 
 a.addEmail {

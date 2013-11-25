@@ -121,12 +121,26 @@
                     Выберите специализацию компании (одну или несколько) и предоставляемые услуги в рамках каждой специализации. <br/>
                     Первая по порядку специализация будет являться основным типом компании.
                 </span>
-                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}"></div>
+                <div id="specializationsAddWrapper" data-prototype="{{ form_widget(cForm.specializations.vars.prototype)|e }}">
+                    {% for k, specialization in cForm.specializations %}
+                        <div class="contactDate">
+                            {{ form_widget(specialization.type) }}
+                            {{ form_widget(specialization.subType) }}
+                            <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
+                                {% for service in specialization.vars.value.services %}
+                                    <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                                {% endfor %}
+                            </select>
+                            <a data-index="{{ k }}" href="#" class="edit-services linkContact">Выбор услуг</a>
+                            <i class="icon-remove-circle deleteElement"></i>
+                        </div>
+                    {% endfor %}
+                </div>
 
                 <script>
                     jQuery(document).ready(function() {
                         var collectionWrapper = $('#specializationsAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
 
                         collectionWrapper.append($newLink);
@@ -151,7 +165,7 @@
 
                             newForm.append(serviceSelect);
 
-                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services'>Выбор услуг</a>");
+                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services linkContact'>Выбор услуг</a>");
                             newForm.find('.deleteElement').before(serviceLink);
                             editServiceLink(serviceLink, index);
                             return false;
@@ -199,7 +213,7 @@
                         $('.edit-services').each(function() {
                             var serviceId = $(this).data('index');
                             editServiceLink($(this), serviceId)
-                        })
+                        });
                     });
                 </script>
             </div>
@@ -218,6 +232,7 @@
 
             <div class="contentLabel clear contentLabelNoOverflow">
                 {{ form_label(cForm.autos) }}
+                <label>Все марки? {{ form_widget(cForm.allAuto) }}</label>
                 <div class="basket__cont__body__bottom__paper">
                     {{ form_widget(cForm.autos) }}
                 </div>
@@ -285,7 +300,7 @@
                     </div>
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
-                        var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $phoneAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -323,9 +338,11 @@
 
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.fromTime) }}
+                                    <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                                 </div>
                                 <div class="input-append dateLeft">
                                     {{ form_widget(time.tillTime) }}
+                                    <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                                 </div>
                             </div>
                         {% endfor %}
@@ -333,7 +350,7 @@
 
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="clear"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -360,6 +377,18 @@
                                 });
                             });
                             collectionHolder.find('.contactDate').append(deleteLink);
+                            $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
+                                var inputIndex = $(element).data('input-index');
+                                var buttonIndex = '#b' + inputIndex;
+                                $(element).timepicker({
+                                    showOn: 'both',
+                                    button: buttonIndex,
+                                    showPeriodLabels: false,
+                                    hourText: 'Часы',
+                                    minuteText: 'Минуты',
+                                    defaultTime: '12:00'
+                                });
+                            });
                         });
                     </script>
                 </div>
@@ -377,7 +406,7 @@
 
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
-                        var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
@@ -438,13 +467,14 @@
         </div>
         {# EOF Contact info #}
         <div class="tab-pane" id="photos">
+            <label class="contentLabel">Фотографии</label>
             <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
             <p class="additionalInfo">Тип файла JPG или PNG, размер не более 3 Мб, соотношение сторон 16:9</p>
             <div id="photoAddWrapper" data-prototype="{{ form_widget(cForm.gallery.vars.prototype)|e }}"></div>
 
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper'),
-                    $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>'),
+                    $photoAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>'),
                     $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
 
                 jQuery(document).ready(function() {
@@ -484,7 +514,7 @@
                 });
             </script>
             <div class="bottomContent">
-                <button type="submit" class="btnNext addPhotoBtn">Завершить</button>
+                <a data-toggle="tab" class="btnNext addPhotoBtn btnSubmit" data-next="#photos">Завершить</a>
                 <a href="#" data-toggle="tab" class="btnNext btnPrev addPhotoBtn" data-next="#contact-info">Назад</a>
             </div>
         </div>
@@ -629,6 +659,12 @@
 
 <script>
     $(document).ready(function(){
+        $('#sto_content_company_registration_allAuto').change(function() {
+            $('.basket__cont__body__bottom__paper').toggle();
+
+            return false;
+        });
+
         var additionalServices = {};
         {% for service in additionalServiceTypes %}
             {% if service.iconNameSmall %}

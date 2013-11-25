@@ -110,7 +110,7 @@
                                 <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
                                 {% endfor %}
                             </select>
-                            <a data-index="{{ k }}" href="#" class="edit-services">Выбор услуг</a>
+                            <a data-index="{{ k }}" href="#" class="edit-services linkContact">Выбор услуг</a>
                             <i class="icon-remove-circle deleteElement"></i>
                         </div>
                     {% endfor %}
@@ -119,7 +119,7 @@
                 <script>
                     jQuery(document).ready(function() {
                         var specializationsCollectionWrapper = $('#specializationsAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
 
                         specializationsCollectionWrapper.append($newLink);
@@ -136,10 +136,16 @@
                             var index = specializationsCollectionWrapper.data('index')-1;
 
                             var serviceSelect = $("<select data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
+                            specializationsCollectionWrapper.find('.companySpecialization').each(function(index, element){
+                                if ($(element).find(':selected').val() != '') {
+                                    var selectedId = parseInt($(element).find(':selected').val());
+                                    newForm.find('option[value=' + selectedId + ']').remove();
+                                }
+                            });
                             newForm.append(serviceSelect);
 
-                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services'>Выбор услуг</a>");
-                            newForm.append(serviceLink);
+                            var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services linkContact'>Выбор услуг</a>");
+                            newForm.find('.deleteElement').before(serviceLink);
                             editServiceLink(serviceLink, index);
 
                             return false;
@@ -182,6 +188,7 @@
                             var serviceId = $(this).data('index');
                             editServiceLink($(this), serviceId)
                         })
+
                     });
                 </script>
             </div>
@@ -201,6 +208,7 @@
                 {{ form_label(cForm.autos) }}
                 <div class="basket__cont__body__bottom__paper">
                     {{ form_widget(cForm.autos) }}
+                    <label>Все марки? {{ form_widget(cForm.allAuto) }}</label>
                 </div>
             </div>
 
@@ -244,7 +252,7 @@
                     </div>
                     <script>
                         var phoneCollectionHolder = $('#phoneAddWrapper');
-                        var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $phoneAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -301,7 +309,7 @@
 
                     <script>
                         var collectionHolder = $('#workTimeAddWrapper');
-                        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $newLink = $('<div class="clear"></div>').append($addTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -344,7 +352,7 @@
 
                     <script>
                         var managerCollectionHolder = $('#managerAddWrapper');
-                        var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                        var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $managerNewLink = $('<div class="clear"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
                             deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -415,7 +423,7 @@
             </div>
             <script>
                 var photoCollectionHolder = $('#photoAddWrapper');
-                var $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+                var $photoAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                 var $photoNewLink = $('<div class="clear"></div>').append($photoAddTagLink);
                 jQuery(document).ready(function() {
                     deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -565,6 +573,12 @@
 
             return $newForm;
         }
+
+        $('#sto_content_company_registration_allAuto').change(function() {
+            $('.basket__cont__body__bottom__paper').toggle();
+
+            return false;
+        });
     </script>
     {{ form_rest(cForm) }}
     </form>

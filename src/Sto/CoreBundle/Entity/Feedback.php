@@ -126,6 +126,7 @@ class Feedback
         }
 
         $this->date = new \DateTime('now');
+        $this->visitDate = new \DateTime('now');
         $this->hidden = false;
     }
 

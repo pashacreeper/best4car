@@ -238,6 +238,8 @@ class Company
      */
     protected $autos;
 
+    private $allAuto = false;
+
     /**
      * @ORM\Column(name="vk_link", type="string", length=255, nullable=true)
      */
@@ -335,6 +337,21 @@ class Company
         $this->companyManager = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->workingTime = new ArrayCollection();
+    }
+
+    public function getAllAuto()
+    {
+        return $this->allAuto;
+    }
+
+    public function setAllAuto($value)
+    {
+        $this->allAuto = $value;
+        if ($value) {
+            $this->autos = new ArrayCollection();
+        }
+
+        return$this;
     }
 
     public function getAdminLogoDelete()
@@ -457,6 +474,10 @@ class Company
      */
     public function setWeb($web)
     {
+        $web = str_replace(['http://', 'https://'], '', $web);
+        $web = rtrim($web, '/');
+        $web = strtolower($web);
+
         $this->web = $web;
 
         return $this;
@@ -1179,7 +1200,9 @@ class Company
      */
     public function addAuto(\Sto\CoreBundle\Entity\Mark $auto)
     {
-        $this->autos[] = $auto;
+        if ($this->allAuto == false) {
+            $this->autos[] = $auto;
+        }
 
         return $this;
     }
@@ -1244,7 +1267,7 @@ class Company
 
     public function addCompanyManager(CompanyManager $manager)
     {
-        $this->companyManager[] = $manager;
+        $this->companyManager[] = $manager->setCompany($this);
 
         return $this;
     }

@@ -38,6 +38,7 @@
 
             <form action="{{ path('company_deal_create' ,{'id': company.id}) }}"
                   method="post" {{ form_enctype(form) }} class="inputForm">
+                {{ form_errors(form) }}
                 <div class="container">
                     <div class="contentLabel clear">
                         {{ form_label(form.name) }}
@@ -67,14 +68,12 @@
                             <div class="input-append">
                                 {{ form_errors(form.startDate) }}
                                 {{ form_widget(form.startDate) }}
-                            </span>
                             </div>
                         </div>
                         <div class="well endData span2">
                             <div class="input-append">
                                 {{ form_errors(form.endDate) }}
                                 {{ form_widget(form.endDate) }}
-                            </span>
                             </div>
                         </div>
                     </div>
@@ -85,8 +84,6 @@
                                 {{ form_errors(form.startTime) }}
                                 {{ form_widget(form.startTime) }}
                                 <span class="add-on init-time" id="timepicker1"><i data-time-icon="icon-time" class="icon-time"></i></span>
-                                </i>
-                            </span>
                             </div>
                         </div>
                         <div class="well endData span2">
@@ -94,7 +91,6 @@
                                 {{ form_errors(form.endTime) }}
                                 {{ form_widget(form.endTime) }}
                                 <span class="add-on init-time" id="timepicker2"><i data-time-icon="icon-time" class="icon-time"></i></span>
-                            </span>
                             </div>
                         </div>
                         <script type="text/javascript">
@@ -181,7 +177,7 @@
                     </div>
                 </div>
                 <hr style="margin: 0 0 20px 0;">
-                {{ form_widget(form) }}
+
                 {{ form_rest(form) }}
                 <div class="bottomContent">
                     <input type="submit" class="btnBottomContent addPhotoBtn"

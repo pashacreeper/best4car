@@ -25,6 +25,18 @@ var Validation = function(activeTabPane) {
         }
     };
 
+    this.checkFileForValidation = function(element){
+        var object = this;
+        var $element = $(element);
+        if (!$element.val()) {
+            object.setError(element, object);
+
+            $element.on('change', function(){
+                object.removeError(this, object);
+            });
+        }
+    };
+
     this.checkTextAreaForLength = function(element) {
         var object = this;
         var $element = $(element);
@@ -43,7 +55,7 @@ var Validation = function(activeTabPane) {
         var object = this;
         var $element = $(element);
         if ($element.find('option').size() == 0) {
-            object.setError(element, object);
+            object.setAutoServicesError(element, object);
 
             $('#service-choose-modal').bind('reveal:close', function() {
                 object.removeError(element, object);
@@ -53,12 +65,22 @@ var Validation = function(activeTabPane) {
 
     this.setError = function(element, object) {
         object.errorFlags = object.errorFlags + 1;
+        $(element).addClass('error');
         $(element).parents('.contentLabel').addClass('error');
         object.activeTabPane.find('.alertSelect').show();
     };
 
+    this.setAutoServicesError = function(element, object) {
+        object.errorFlags = object.errorFlags + 1;
+        $(element).addClass('error');
+        $(element).parents('.contentLabel').addClass('error');
+        $(element).parents('.contactDate').find('.edit-services').addClass('error');
+        object.activeTabPane.find('.alertSelect').show();
+    };
+
     this.removeError = function(element, object) {
-        $(element).parents().removeClass('error');
+        $(element).removeClass('error');
+        $(element).parents('.contactDate').find('.error').removeClass('error');
         object.errorFlags = object.errorFlags - 1;
         if (object.errorFlags == 0) {
             object.activeTabPane.find('.alertSelect').hide();
@@ -67,10 +89,11 @@ var Validation = function(activeTabPane) {
 };
 
 $(document).ready(function(){
-    $('a[data-toggle="tab"]').on('click', function () {
+    $('a[data-toggle="tab"]').on('click', function (e) {
         var $this = $(this);
         var $activeTabPane = $('.tab-pane.active');
         var $requiredInputs = $activeTabPane.find('input[required]');
+        var $requiredFiles = $activeTabPane.find('.photoFileInput');
         var $requiredSelects = $activeTabPane.find('select[required]');
         var $requiredSpecialisation = $activeTabPane.find('#specializationsAddWrapper');
         var $autoServicesSelects = $activeTabPane.find('.selected-auto-services');
@@ -90,6 +113,10 @@ $(document).ready(function(){
 
             $requiredInputs.each(function(index, element){
                validation.checkForValidation(element);
+            });
+
+            $requiredFiles.each(function(index, element){
+                validation.checkFileForValidation(element);
             });
 
             $requiredSpecialisation.each(function(index, element){
@@ -113,6 +140,11 @@ $(document).ready(function(){
         }
 
         if (validation.errorFlags == 0 || $this.hasClass('btnPrev')) {
+            if ($this.hasClass('btnSubmit')) {
+                $this.parents('form').submit();
+
+                return false;
+            }
             tabs.find('.active').removeClass('active');
             $oldTab.removeClass('active');
             $oldTab.hide();
@@ -130,6 +162,6 @@ $(document).ready(function(){
 
         }
 
-        return false;
+        e.preventDefault();
     });
 });

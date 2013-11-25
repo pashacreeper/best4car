@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationType extends BaseType
 {
@@ -23,7 +24,10 @@ class RegistrationType extends BaseType
                 'required' => true,
                 'attr' => [
                     'class' => 'inputFormEnter span6'
-                ]
+                ],
+                'constraints' => [
+                    new NotBlank(),
+                ],
             ])
             ->add('email', 'email', [
                 'label' => 'Ваш email',

@@ -280,10 +280,10 @@ span.complain {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     vertical-align: middle;
     cursor: pointer;
-    background: #52abd3;
-    border-top: 1px solid #177eab;
-    border-bottom: 1px solid #177eab;
-    border-right: 1px solid #177eab;
+    background: #a6b5bc;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
     -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
@@ -292,13 +292,10 @@ span.complain {
 .workingTimeDays .checked,
 .priceLevelMarker input:checked + label,
 .genderSelect input:checked + label {
-    background: #1b96ca;
-    -webkit-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
-    -moz-box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
-    box-shadow: inset 0px 0px 5px rgba(36, 112, 145, 0.5);
-    border-top: 1px solid #0c6991;
-    border-bottom: 1px solid #0c6991;
-    border-right: 1px solid #0c6991;
+    background: #f35d2e;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
 }
 
 .workingTimeDays label:first-of-type,
@@ -690,7 +687,7 @@ a.btnNext:hover {
 
 .edit-services {
     float: left;
-    padding: 4px 8px;
+    margin: 4px 8px;
     font: 1.4em 'PT Sans', sans;
 }
 
@@ -731,3 +728,4 @@ a.btnNext:hover {
 .footer-additional-links a{
     margin-right: 15px;
 }
+.edit-services.error {color: #bc2013;}

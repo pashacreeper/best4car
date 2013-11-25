@@ -27,7 +27,6 @@ class CompanyManagerAdmin extends Admin
         $formMapper
             ->add('phone')
             ->add('user')
-            ->add('company')
         ;
     }
 

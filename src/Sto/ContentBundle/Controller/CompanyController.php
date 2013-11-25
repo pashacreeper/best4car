@@ -217,6 +217,8 @@ class CompanyController extends MainController
                         $serviceId = $oldService->getService()->getId();
                         if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
                             unset($itemServices[$serviceKey]);
+                        } else {
+                            $em->remove($oldService);
                         }
                     }
                     $companyServices = [];
@@ -247,6 +249,7 @@ class CompanyController extends MainController
 
             foreach ($company->getGallery() as $image) {
                 $image->setUpdatedAt(new \DateTime());
+                $image->setVisible(true);
             }
 
             $em->persist($company);

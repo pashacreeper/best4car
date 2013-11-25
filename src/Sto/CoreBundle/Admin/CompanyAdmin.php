@@ -116,15 +116,17 @@ class CompanyAdmin extends Admin
                     'required' => false,
                 ))
                 ->add('city')
+                ->add('allAuto', 'checkbox', [
+                    'label' => 'Все марки?',
+                    'required' => false,
+                ])
                 ->add('autos', null, array(
                     'required' => false,
                 ))
                 ->add('linkVK')
                 ->add('linkTW')
                 ->add('linkFB')
-                ->add('autos', null, [
-                    'required' => false,
-                ])
+
             ->end()
             ->with('Контакты')
                 ->add('contacts', 'sonata_type_collection', [
@@ -194,7 +196,12 @@ class CompanyAdmin extends Admin
             ->add('visible')
             ->add('city')
             ->add('companyManager')
-            ->add('specializations.type')
+            ->add('specializations.type', null, [], null, [
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('type')
+                        ->where('type.parent is NULL');
+                }
+            ])
             ->add('specializations.subType', null, [], null, [
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('subType')

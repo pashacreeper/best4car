@@ -2279,3 +2279,5 @@ input[type="checkbox"].checkBox {
     margin-bottom: 22px;
     overflow: visible;
 }
+
+input.error {border: 1px solid #ff0000;}

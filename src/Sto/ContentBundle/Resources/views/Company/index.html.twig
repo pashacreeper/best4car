@@ -184,7 +184,7 @@
                             '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                             '<p class="adressCompany">$[properties.address]</p>' +
                             '$[properties.special]' +
-                            '<div><a href="$[properties.web]" class="siteCompany" target="_blank">$[properties.web_without_http]</a></div>' +
+                            '<div><a href="http://$[properties.web_without_http]" class="siteCompany" target="_blank">$[properties.web_without_http]</a></div>' +
                             '$[properties.specialDeal]' +
                         '</div>' +
                     '</div>' +
@@ -290,6 +290,10 @@
                 behaviors: ["default", "scrollZoom"]
             });
 
+            mainMap.events.add('click', function (e) {
+                mainMap.balloon.close();
+            });
+
             placemarkCollection = new ymaps.GeoObjectCollection();
             mainMap.myCollection = placemarkCollection;
 
@@ -316,7 +320,7 @@
 
                         return;
                     }
-                })
+                });
             });
 
             companiesAjaxLoad();
@@ -409,7 +413,7 @@
         <div class="popupFirstVisit">
             <i class="icon-remove-sign popupClose"></i>
 
-            <h3 class="titleFirstVisit">Впервый раз здесь?</h3>
+            <h3 class="titleFirstVisit">В первый раз здесь?</h3>
 
             <p class="contentFirstVisit">
                 Ознакомьтесь с возможностями сервиса:

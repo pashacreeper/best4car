@@ -5,3 +5,5 @@ set :user,        "dev-user"
 role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
+
+after "deploy:update_code", "deploy:block_robots"

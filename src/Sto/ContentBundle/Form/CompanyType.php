@@ -128,13 +128,13 @@ class CompanyType extends AbstractType
                 'label' => 'Skype',
                 'required' => false,
             ])
-            ->add('email', 'email', [
+            ->add('email', 'text', [
                 'label' => 'E-mail',
                 'required' => false,
             ])
             ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'label' => 'Начало работы на рынке',
                 'required' => false,
                 'attr' => [
@@ -209,6 +209,9 @@ class CompanyType extends AbstractType
                     'class' => 'chosen-multiple span6 chzn-select',
                     'data-placeholder' => 'Выберете марки автомобилей'
                 ]
+            ])
+            ->add('allAuto', 'checkbox', [
+                'required' => false,
             ])
         ;
     }
