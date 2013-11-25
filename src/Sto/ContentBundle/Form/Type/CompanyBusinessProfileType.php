@@ -7,7 +7,7 @@ use Sto\CoreBundle\Validator\Constraints\ConstraintCompanySpecialization;
 use Sto\ContentBundle\Form\CompanySpecializationType;
 use Doctrine\ORM\EntityRepository;
 
-class CompanyBuisnessProfileType extends AbstractType
+class CompanyBusinessProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -75,6 +75,11 @@ class CompanyBuisnessProfileType extends AbstractType
                     'data-length' => '1250',
                     'rows' => '3',
                     'style' => 'width: 500px',
+                ],
+                'constraints' => [
+                    new Assert\Length([
+                        'max' => 1250
+                    ])
                 ]
             ])
         ;

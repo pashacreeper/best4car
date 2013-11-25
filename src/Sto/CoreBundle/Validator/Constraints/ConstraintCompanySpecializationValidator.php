@@ -12,8 +12,10 @@ class ConstraintCompanySpecializationValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (! $value instanceof ArrayCollection) {
-            if (! $value->first() instanceof CompanySpecialization) {
-                $this->context->addViolation($constraint->message);
+            if (! $value->first() instanceof CompanySpecialization 
+                || ($value->first()->getType() === null && $value->first()->getSubType() === null)
+            ) {
+                $this->context->addViolationAt('specializations', $constraint->message);
             }
         }
     }

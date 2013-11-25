@@ -8,7 +8,7 @@ use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 use Sto\ContentBundle\Form\RegistrationType;
 use Sto\ContentBundle\Form\Type\ComapnyGalleryType;
 use Sto\ContentBundle\Form\Type\CompanyBaseType;
-use Sto\ContentBundle\Form\Type\CompanyBuisnessProfileType;
+use Sto\ContentBundle\Form\Type\CompanyBusinessProfileType;
 use Sto\ContentBundle\Form\Type\CompanyContactsType;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\CompanyManager;
@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sto\CoreBundle\Entity\CompanyAutoService;
 
 class CompanyRegisterController extends Controller
 {
@@ -147,7 +148,7 @@ class CompanyRegisterController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new CompanyBuisnessProfileType(), $company);
+        $form = $this->createForm(new CompanyBusinessProfileType(), $company);
 
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findAll();
 
@@ -157,6 +158,43 @@ class CompanyRegisterController extends Controller
             if ($form->isValid()) {
                 $company->setRegistrationStep(CompanyRegistrationStep::CONTACTS);
                 $em->persist($company);
+
+                $services = $request->get('services');
+                foreach ($company->getSpecializations() as $key => $item) {
+                    if (isset($services[$key])) {
+                        $itemServices = $services[$key];
+                        foreach ($item->getServices() as $oldService) {
+                            $serviceId = $oldService->getService()->getId();
+                            if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
+                                unset($itemServices[$serviceKey]);
+                            }
+                        }
+                        $companyServices = [];
+                        foreach ($itemServices as $serviceId) {
+                            $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
+                            $service = new CompanyAutoService();
+                            $service->setService($autoService);
+                            $service->setSpecialization($item);
+                            $companyServices[] = $service;
+                            $em->persist($service);
+                        }
+                        foreach ($item->getServices() as $service) {
+                            $companyServices[] = $service;
+                        }
+                        foreach ($companyServices as $companyService) {
+                            if ($companyService->getService()->getParent()) {
+                                $this->createCompanyServiceParent($companyServices, $companyService, $item);
+                            }
+                        }
+                        $em->flush();
+                        foreach ($companyServices as $companyService) {
+                            if ($companyService->getService()->getParent()) {
+                                $this->setCompanyServiceParent($companyServices, $companyService);
+                            }
+                        }
+                    }
+                }
+
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('registration_company_contacts', [
@@ -240,134 +278,6 @@ class CompanyRegisterController extends Controller
         return [
             'form' => $form->createView(),
             'company' => $company
-        ];
-    }
-
-    /**
-     * Registration company
-     *
-     * @Route("/new-company/", name="add_company")
-     * @Template()
-     */
-    public function newCompanyAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$this->getUser()) {
-            return new Response('User Not found.', 404);
-        }
-
-        $user = $this->getUser();
-
-        $company = new Company();
-        $manager = new CompanyManager();
-        $manager->setUser($user);
-        $manager->setPhone($user->getPhoneNumber());
-        $manager->setCompany($company);
-
-        $company->addCompanyManager($manager);
-        $cForm = $this->createForm(new CompanyType(), $company, ['em' => $em]);
-
-        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
-            ->createQueryBuilder('dictionary')
-            ->getQuery()
-            ->getResult()
-        ;
-
-        return [
-            'additionalServiceTypes' => $additionalServiceTypes,
-            'company' => $company,
-            'user' => $user->getId(),
-            'cForm' => $cForm->createView()
-        ];
-    }
-
-    /**
-     * Creates a new User entity.
-     *
-     * @Route("/create-company/", name="registration_company_create")
-     * @Method("POST")
-     * @Template("StoContentBundle:User:newCompany.html.twig")
-     */
-    public function createCompanyAction(Request $request)
-    {
-        $company  = new Company();
-        $form = $this->createForm(new CompanyType(), $company, ['em'=> $em = $this->getDoctrine()->getManager()]);
-        $form->bind($request);
-        $user = $this->container->get('security.context')->getToken()->getUser();
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $company->setUpdatedAt(new \DateTime());
-
-            $managers = $company->getCompanyManager();
-            foreach ($managers as $value) {
-                $value->setCompany($company);
-            }
-            $company->setCompanyManager($managers);
-
-            $gallery = $company->getGallery();
-            foreach ($gallery as $value) {
-                $value->setCompany($company);
-            }
-            $company->setGallery($gallery);
-
-            $em->persist($company);
-            $services = $request->get('services');
-
-            foreach ($company->getSpecializations() as $key => $item) {
-                if (isset($services[$key])) {
-                    $itemServices = $services[$key];
-                    foreach ($item->getServices() as $oldService) {
-                        $serviceId = $oldService->getService()->getId();
-                        if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
-                            unset($itemServices[$serviceKey]);
-                        }
-                    }
-                    $companyServices = [];
-                    foreach ($itemServices as $serviceId) {
-                        $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
-                        $service = new CompanyAutoService();
-                        $service->setService($autoService);
-                        $service->setSpecialization($item);
-                        $companyServices[] = $service;
-                        $em->persist($service);
-                    }
-                    foreach ($item->getServices() as $service) {
-                        $companyServices[] = $service;
-                    }
-                    foreach ($companyServices as $companyService) {
-                        if ($companyService->getService()->getParent()) {
-                            $this->createCompanyServiceParent($companyServices, $companyService, $item);
-                        }
-                    }
-                    $em->flush();
-                    foreach ($companyServices as $companyService) {
-                        if ($companyService->getService()->getParent()) {
-                            $this->setCompanyServiceParent($companyServices, $companyService);
-                        }
-                    }
-                }
-            }
-
-            $em->flush();
-
-            $this->get('session')->getFlashBag()->add('notice', 'Your company was added. Login please.');
-
-            return $this->redirect($this->generateUrl('content_company_show', ['id'=>$company->getId()]));
-        }
-
-        $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')
-            ->createQueryBuilder('dictionary')
-            ->getQuery()
-            ->getResult()
-        ;
-
-        return [
-            'additionalServiceTypes' => $additionalServiceTypes,
-            'company' => $company,
-            'user' => $user->getId(),
-            'cForm' => $form->createView(),
         ];
     }
 

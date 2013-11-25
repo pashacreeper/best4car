@@ -10,8 +10,8 @@
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
         <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
-        <li class="stepRegistrationItem centerStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
-        <li class="stepRegistrationItem centerStep" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('registration_company_base_with_id', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
+        <li class="stepRegistrationItem centerStep active" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
         <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
         <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#photos" class="stepLink">Фотографии</span></li>
     </ul>
@@ -22,11 +22,26 @@
 {% block form_content %}
     <div class="contentLabel marginBottom">
         <label>Специализация</label>
+        {{ form_errors(form.specializations) }}
         <span class="hint-text">
             Выберите специализацию компании (одну или несколько) и предоставляемые услуги в рамках каждой специализации. <br/>
             Первая по порядку специализация будет являться основным типом компании.
         </span>
-        <div id="specializationsAddWrapper" data-prototype="{{ form_widget(form.specializations.vars.prototype)|e }}"></div>
+        <div id="specializationsAddWrapper" data-prototype="{{ form_widget(form.specializations.vars.prototype)|e }}">
+            {% for k, specialization in form.specializations if form.specializations is defined %}
+                <div class="contactDate">
+                    {{ form_widget(specialization.type) }}
+                    {{ form_widget(specialization.subType) }}
+                    <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
+                        {% for service in specialization.vars.value.services %}
+                        <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                        {% endfor %}
+                    </select>
+                    <a data-index="{{ k }}" href="#" class="edit-services">Выбор услуг</a>
+                    <i class="icon-remove-circle deleteElement"></i>
+                </div>
+            {% endfor %}
+        </div>
 
         <script>
             jQuery(document).ready(function() {

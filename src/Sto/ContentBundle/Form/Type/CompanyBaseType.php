@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyBaseType extends AbstractType
 {
@@ -15,12 +16,19 @@ class CompanyBaseType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'input-xxlarge'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
                 ]
             ])
             ->add('name', 'text', [
                 'label' => 'Краткое наименование',
+                'required' => true,
                 'attr' => [
                     'class' => 'input-xxlarge'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
                 ]
             ])
             ->add('slogan', 'text', [
@@ -37,6 +45,9 @@ class CompanyBaseType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => "inputData init-ui-datepicker",
+                ],
+                'constraints' => [
+                    new Assert\Date()
                 ]
             ])
             ->add('city', 'entity', [
@@ -57,6 +68,9 @@ class CompanyBaseType extends AbstractType
                 'attr' => [
                     'data-image' => 'logo',
                     'class' => 'hideLogoInput',
+                ],
+                'constraints' => [
+                    new Assert\Image()
                 ]
             ])
         ;

@@ -48,9 +48,7 @@
         </div>
         <form name="register-form" {% block form_path %}{% endblock %} method="post" {{ form_enctype(form) }} class="form-horizontal">
             <div class="tab-content">
-                <div class="row-fluid">
-                    {% block form_content %}{% endblock %}
-                </div>
+                {% block form_content %}{% endblock %}
                 {{ form_rest(form) }}
                 <div class="bottomContent">
                     <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>

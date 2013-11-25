@@ -586,6 +586,7 @@ a.btnNext:hover {
     display: block;
     color: #b94a48;
     font-size: 1.2em;
+    padding-bottom: 5px;
 }
 
 .error label {
