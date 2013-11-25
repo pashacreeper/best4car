@@ -136,10 +136,16 @@
                             var index = specializationsCollectionWrapper.data('index')-1;
 
                             var serviceSelect = $("<select data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
+                            specializationsCollectionWrapper.find('.companySpecialization').each(function(index, element){
+                                if ($(element).find(':selected').val() != '') {
+                                    var selectedId = parseInt($(element).find(':selected').val());
+                                    newForm.find('option[value=' + selectedId + ']').remove();
+                                }
+                            });
                             newForm.append(serviceSelect);
 
                             var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services linkContact'>Выбор услуг</a>");
-                            newForm.append(serviceLink);
+                            newForm.find('.deleteElement').before(serviceLink);
                             editServiceLink(serviceLink, index);
 
                             return false;
