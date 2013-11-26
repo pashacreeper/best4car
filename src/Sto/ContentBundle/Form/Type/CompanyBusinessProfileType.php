@@ -55,7 +55,9 @@ class CompanyBusinessProfileType extends AbstractType
                     'data-placeholder' => 'Выберете марки автомобилей'
                 ]
             ])
-            ->add('allAuto', 'checkbox')
+            ->add('allAuto', 'checkbox', [
+                'required' => false,
+            ])
             ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
                 'required' => false,

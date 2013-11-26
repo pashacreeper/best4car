@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sto\CoreBundle\Entity\CompanyWorkingTime;
 
 class CompanyRegisterController extends Controller
 {
@@ -218,6 +219,13 @@ class CompanyRegisterController extends Controller
     {
         if ($company->isRegistredFully()) {
             throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
+        if ($company->getWorkingTime()->count() === 0) {
+            $company->addWorkingTime(new CompanyWorkingTime());
+        }
+        if (!$company->getPhones()) {
+            $company->setPhones([['phone' => '', 'description' => '']]);
         }
 
         $em = $this->getDoctrine()->getManager();

@@ -16,7 +16,7 @@ class CompanyContactsType extends AbstractType
         $builder
             ->add('address', null, [
                 'label' => 'Адрес',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'inputFormEnter inputleftContDate'
                 ],

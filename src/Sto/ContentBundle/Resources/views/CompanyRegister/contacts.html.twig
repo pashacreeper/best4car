@@ -32,7 +32,7 @@
         {{ form_label(form.gps) }}
         {{ form_errors(form.gps) }}
         {{ form_widget(form.gps) }}
-        <a href="#" class="linkUnder" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
+        <a href="#" class="linkUnder linkContact" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
     </div>
     <div class="contentLabel marginBottom">
         <label>Контактные телефоны</label>
@@ -48,7 +48,7 @@
         </div>
         <script>
             var phoneCollectionHolder = $('#phoneAddWrapper');
-            var $phoneAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+            var $phoneAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
             var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
             jQuery(document).ready(function() {
                 deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
@@ -86,9 +86,11 @@
 
                     <div class="input-append dateLeft">
                         {{ form_widget(time.fromTime) }}
+                        <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                     </div>
                     <div class="input-append dateLeft">
                         {{ form_widget(time.tillTime) }}
+                        <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
                     </div>
                 </div>
             {% endfor %}
@@ -96,8 +98,23 @@
 
         <script>
             var collectionHolder = $('#workTimeAddWrapper');
-            var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+            var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
             var $newLink = $('<div class="clear"></div>').append($addTagLink);
+
+            var initTimePicker = function(element){
+                $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
+                    var inputIndex = $(element).data('input-index');
+                    var buttonIndex = '#b' + inputIndex;
+                    $(element).timepicker({
+                        showOn: 'both',
+                        button: buttonIndex,
+                        showPeriodLabels: false,
+                        hourText: 'Часы',
+                        minuteText: 'Минуты',
+                        defaultTime: '12:00'
+                    });
+                });
+            };
             jQuery(document).ready(function() {
                 deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
                 collectionHolder.on('click', '.deleteElement', function() {
@@ -109,20 +126,11 @@
                 $addTagLink.on('click', function (e) {
                     e.preventDefault();
                     addTagForm(collectionHolder, $newLink, false, deleteLink);
-                    $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
-                        var inputIndex = $(element).data('input-index');
-                        var buttonIndex = '#b' + inputIndex;
-                        $(element).timepicker({
-                            showOn: 'both',
-                            button: buttonIndex,
-                            showPeriodLabels: false,
-                            hourText: 'Часы',
-                            minuteText: 'Минуты',
-                            defaultTime: '12:00'
-                        });
-                    });
+                    initTimePicker();
                 });
+
                 collectionHolder.find('.contactDate').append(deleteLink);
+                initTimePicker();
             });
         </script>
     </div>
@@ -141,7 +149,7 @@
 
         <script>
             var managerCollectionHolder = $('#managerAddWrapper');
-            var $managerAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
+            var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
             var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
             jQuery(document).ready(function() {
                 deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
