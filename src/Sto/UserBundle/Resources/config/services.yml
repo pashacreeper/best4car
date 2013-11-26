@@ -10,3 +10,6 @@ services:
     rating_group:
         class: Sto\UserBundle\Services\RatingService
         arguments: [@doctrine.orm.entity_manager]
+    sto.user.authenticate:
+        class: Sto\UserBundle\Services\AuthenticateUserService
+        arguments: [@security.context]

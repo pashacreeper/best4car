@@ -80,9 +80,9 @@ class CompanyRegisterController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->authenticateUser($user);
+            $this->get('sto.user.authenticate')->authenticate($user);
 
-            return $this->redirect($this->generateUrl('add_company'));
+            return $this->redirect($this->generateUrl('registration_company_base'));
         }
 
         return [
@@ -284,7 +284,7 @@ class CompanyRegisterController extends Controller
                     $value->setCompany($company);
                 }
                 $company->setGallery($gallery);
-                
+
                 $company->setRegistrationStep(null);
                 $em->persist($company);
                 $em->flush();
