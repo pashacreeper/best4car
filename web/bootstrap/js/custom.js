@@ -429,7 +429,7 @@ var registrationPage = function(){
 
             reader.readAsDataURL($(this)[0].files[0]);
         });
-    )};
+    });
 };
 
 var feedbackPage = function(){
