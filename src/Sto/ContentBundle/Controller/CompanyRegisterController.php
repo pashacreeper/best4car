@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sto\CoreBundle\Entity\CompanyWorkingTime;
+use Sto\CoreBundle\Entity\CompanyGallery;
 
 class CompanyRegisterController extends Controller
 {
@@ -264,6 +265,10 @@ class CompanyRegisterController extends Controller
     {
         if ($company->isRegistredFully() && $company->getRegistrationStep() === null) {
             throw new AccessDeniedException('Данная компания уже зарегистрирована');
+        }
+
+        if ($company->getGallery()->count() === 0) {
+            $company->addGallery(new CompanyGallery());
         }
 
         $form = $this->createForm(new ComapnyGalleryType(), $company);

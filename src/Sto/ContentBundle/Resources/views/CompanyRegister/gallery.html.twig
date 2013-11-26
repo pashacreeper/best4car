@@ -23,11 +23,20 @@
 {% block form_content %}
     <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
     <p class="additionalInfo">Тип файла JPG или PNG, размер не более 3 Мб, соотношение сторон 16:9</p>
-    <div id="photoAddWrapper" data-prototype="{{ form_widget(form.gallery.vars.prototype)|e }}"></div>
+    <div id="photoAddWrapper" data-prototype="{{ form_widget(form.gallery.vars.prototype)|e }}">
+        {% for photo in form.gallery %}
+            <div class="contactDate">
+                {{ form_widget(photo.image) }}
+                {{ form_widget(photo.name) }}
+                {{ form_widget(photo.imageName) }}
+                {{ form_widget(photo.visible) }}
+            </div>
+        {% endfor %}
+    </div>
 
     <script>
         var photoCollectionHolder = $('#photoAddWrapper'),
-            $photoAddTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>'),
+            $photoAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>'),
             $photoNewLink = $('<div class="photoDateItem"></div>').append($photoAddTagLink);
 
         jQuery(document).ready(function() {

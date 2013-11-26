@@ -741,3 +741,7 @@ a.btnNext:hover {
     top: -2px;
     left: 4px;
 }
+
+#photoAddWrapper{
+    margin-bottom: 8px;
+}
