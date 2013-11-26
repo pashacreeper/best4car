@@ -2,8 +2,6 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Sto\CoreBundle\Entity\CompanySpecialization;
-use Sto\CoreBundle\Entity\CompanyWorkingTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,16 +12,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\UserBundle\Entity\User;
 use Sto\CoreBundle\Entity\Company;
 use Sto\ContentBundle\Form\RegistrationType;
-use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\UserPersonalType;
-use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\ContentBundle\Form\AdditionalUserType;
 use Sto\ContentBundle\Form\PhotoUserType;
 use Sto\UserBundle\Entity\UserGallery;
 use Sto\ContentBundle\Form\UserGalleryType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sto\CoreBundle\Entity\CompanyAutoService;
 
 /**
  * User controller.

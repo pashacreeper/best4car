@@ -1,9 +1,9 @@
 <?php
 namespace Sto\ContentBundle\Form\Type;
 
+use Sto\ContentBundle\Form\CompanyGalleryType as Gallery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Sto\ContentBundle\Form\CompanyGalleryType as Gallery;
 
 class ComapnyGalleryType extends AbstractType
 {
@@ -17,6 +17,7 @@ class ComapnyGalleryType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
+                'error_bubbling' => false,
             ))
         ;
     }
