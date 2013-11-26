@@ -94,7 +94,7 @@ class UserController extends MainController
         if (!$errorFlag) {
             $this->get('sto.user.authenticate')->authenticate($user);
 
-            return $this->redirect($this->generateUrl('add_company'));
+            return $this->redirect($this->generateUrl('registration_company_base'));
         }
 
         $user = new User();
@@ -207,7 +207,7 @@ class UserController extends MainController
 
         $redirectUrl = 'fos_user_profile_show';
         if ($this->getRequest()->getSession()->get('last_route') == 'registration_company_owner') {
-            $redirectUrl = 'add_company';
+            $redirectUrl = 'registration_company_base';
         }
 
         return $this->redirect($this->generateUrl($redirectUrl));
@@ -242,7 +242,7 @@ class UserController extends MainController
 
             $redirectUrl = 'fos_user_profile_show';
             if ($this->getRequest()->getSession()->get('last_route') == 'registration_company_owner') {
-                $redirectUrl = 'add_company';
+                $redirectUrl = 'registration_company_base';
             }
 
             return $this->redirect($this->generateUrl($redirectUrl));
