@@ -2,7 +2,6 @@
 
 namespace Sto\ContentBundle\Controller;
 
-use Sto\CoreBundle\Entity\CompanyContacts;
 use Sto\CoreBundle\Entity\CompanySpecialization;
 use Sto\CoreBundle\Entity\CompanyWorkingTime;
 use Symfony\Component\HttpFoundation\Request;

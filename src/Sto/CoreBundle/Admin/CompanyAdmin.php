@@ -197,7 +197,7 @@ class CompanyAdmin extends Admin
             ->add('city')
             ->add('companyManager')
             ->add('specializations.type', null, [], null, [
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('type')
                         ->where('type.parent is NULL');
                 }

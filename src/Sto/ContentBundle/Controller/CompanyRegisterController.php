@@ -230,7 +230,7 @@ class CompanyRegisterController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new CompanyContactsType(), 
+        $form = $this->createForm(new CompanyContactsType(),
             $company,
             ['em' => $em]
         );

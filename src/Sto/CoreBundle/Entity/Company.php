@@ -274,20 +274,20 @@ class Company
      * @ORM\Column(name="registration_step", type="string", length=255, nullable=true)
      */
     private $registrationStep;
-    
+
     /**
      * Set registrationStep
      *
-     * @param string $registrationStep
+     * @param  string  $registrationStep
      * @return Company
      */
     public function setRegistrationStep($registrationStep)
     {
         $this->registrationStep = $registrationStep;
-    
+
         return $this;
     }
-    
+
     /**
      * Get registrationStep
      *
@@ -297,20 +297,20 @@ class Company
     {
         return $this->registrationStep;
     }
-    
+
     /**
      * Set registredFully
      *
-     * @param boolean $registredFully
+     * @param  boolean $registredFully
      * @return Company
      */
     public function setRegistredFully($registredFully)
     {
         $this->registredFully = $registredFully;
-    
+
         return $this;
     }
-    
+
     /**
      * Get registredFully
      *
