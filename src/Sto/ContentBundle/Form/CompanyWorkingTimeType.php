@@ -1,12 +1,10 @@
 <?php
 namespace Sto\ContentBundle\Form;
 
-use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingDays;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyWorkingTimeType extends AbstractType
 {
@@ -26,9 +24,6 @@ class CompanyWorkingTimeType extends AbstractType
                     [6, 'checkbox', ['required' => false, 'label' => 'Вс']]
                 ],
                 'label' => false,
-                'constraints' => [
-                    new ConstraintWorkingDays(),
-                ],
                 'attr' => [
                     'class' => 'workingTimeDays'
                 ]
@@ -41,9 +36,6 @@ class CompanyWorkingTimeType extends AbstractType
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
                         ],
-                        'constraints' => [
-                            new Assert\NotBlank()
-                        ]
                     ]
                 )
                 ->addModelTransformer($timeTransformer)
@@ -56,9 +48,6 @@ class CompanyWorkingTimeType extends AbstractType
                         'attr' => [
                             'class' => 'inputTime init-ui-time',
                         ],
-                        'constraints' => [
-                            new Assert\NotBlank()
-                        ]
                     ]
                 )
                 ->addModelTransformer($timeTransformer)

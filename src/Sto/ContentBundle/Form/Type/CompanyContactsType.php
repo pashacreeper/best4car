@@ -8,6 +8,7 @@ use Sto\ContentBundle\Form\CompanyWorkingTimeType;
 use Sto\ContentBundle\Form\CompanyManagerType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingTime;
 
 class CompanyContactsType extends AbstractType
 {
@@ -51,9 +52,11 @@ class CompanyContactsType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'required' => false,
                 'by_reference' => false,
                 'error_bubbling' => false,
+                'constraints' => [
+                    new ConstraintWorkingTime()
+                ]
             ))
             ->add('companyManager', 'collection', array(
                 'label' => ' ',

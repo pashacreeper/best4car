@@ -12,6 +12,7 @@ class CompanyPhoneType extends AbstractType
         $builder
             ->add('phone', 'text', [
                     'label' => false,
+                    'required' => true,
                     'attr' => [
                         'placeholder' => '8 (921) 123-45-67',
                         'class' => 'inputFormEnter span3'

@@ -66,7 +66,7 @@
     </div>
     <div class="contentLabel marginBottom">
         <label>Время работы</label>
-        {{ form_errors(form.phones) }}
+        {{ form_errors(form.workingTime) }}
         <span class="hint-text">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</span>
         <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(form.workingTime.vars.prototype)|e }}">
             {% for time in form.workingTime %}
