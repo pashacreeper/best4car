@@ -92,6 +92,6 @@ class CompanyBusinessProfileType extends AbstractType
 
     public function getName()
     {
-        return 'sto_company_reguister_business_profile';
+        return 'sto_company_register_business_profile';
     }
 }

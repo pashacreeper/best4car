@@ -24,6 +24,6 @@ class CompanyGalleryType extends AbstractType
 
     public function getName()
     {
-        return 'sto_company_reguister_gallery';
+        return 'sto_company_register_gallery';
     }
 }

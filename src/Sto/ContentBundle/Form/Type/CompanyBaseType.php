@@ -78,6 +78,6 @@ class CompanyBaseType extends AbstractType
 
     public function getName()
     {
-        return 'sto_company_reguister_base';
+        return 'sto_company_register_base';
     }
 }

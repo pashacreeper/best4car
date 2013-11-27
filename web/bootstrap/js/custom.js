@@ -376,7 +376,7 @@ var registrationPage = function(){
         appendIcons(this);
     });
 
-    $('#sto_company_reguister_base_logo').on('change', function(){
+    $('#sto_company_register_base_logo').on('change', function(){
         var reader = new FileReader(),
             thisElem = $(this);
 
