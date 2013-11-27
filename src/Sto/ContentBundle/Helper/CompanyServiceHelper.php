@@ -10,7 +10,7 @@ class CompanyServiceHelper
      * @var ObjectManager
      */
     protected $em;
-    
+
     public function __construct(ObjectManager $em)
     {
         $this->em = $em;

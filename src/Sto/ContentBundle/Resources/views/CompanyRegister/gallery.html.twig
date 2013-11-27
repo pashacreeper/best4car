@@ -9,16 +9,14 @@
 
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
-        <ul class="stepRegistration" id="stepRegistration">
-        <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('registration_company_base_with_id', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('registration_company_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('registration_company_gallery', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
+        <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
         <li class="stepRegistrationItem endStep active"><span class="stepLink">Фотографии</span></li>
     </ul>
 {% endblock %}
 
-{% block form_path %}action="{{ path('registration_company_gallery', {id: company.id}) }}"{% endblock %}
+{% block form_path %}action="{{ path('company_edit_gallery', {id: company.id}) }}"{% endblock %}
 
 {% block form_content %}
     <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
@@ -80,5 +78,5 @@
 {% endblock %}
 
 {% block back_link %}
-<a href="{{ path('registration_company_contacts', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
+<a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
 {% endblock %}

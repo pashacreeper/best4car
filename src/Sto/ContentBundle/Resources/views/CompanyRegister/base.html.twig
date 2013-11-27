@@ -9,15 +9,20 @@
 
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
-        <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
-        <li class="stepRegistrationItem centerStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
+        <li class="stepRegistrationItem firstStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
         <li class="stepRegistrationItem centerStep" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
         <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
         <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#photos" class="stepLink">Фотографии</span></li>
     </ul>
 {% endblock %}
 
-{% block form_path %}action="{{ path('registration_company_base') }}"{% endblock %}
+{% block form_path %}
+    {% if id %}
+        action="{{ path('company_edit_base', {id: id}) }}"
+    {% else %}
+        action="{{ path('registration_company_base') }}"
+    {% endif %}
+{% endblock %}
 
 {% block form_content %}
 <p class="contentLabel">

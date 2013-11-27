@@ -46,11 +46,11 @@
                         <a href="{{ path('content_company_show', { "id": manager.company.id }) ~ '#deals' }}" class="facebook-blue">Акции</a>
                     </li>
                 {% else %}
-                    {% set routerName = 'registration_company_base_with_id' %}
+                    {% set routerName = 'company_edit_base' %}
                     {% if manager.company.registrationStep == constant('Sto\\ContentBundle\\Form\\Extension\\ChoiceList\\CompanyRegistrationStep::BUSINESS') %}
-                        {% set routerName = 'registration_company_business_profile' %}
+                        {% set routerName = 'company_edit_business_profile' %}
                     {% elseif manager.company.registrationStep == constant('Sto\\ContentBundle\\Form\\Extension\\ChoiceList\\CompanyRegistrationStep::CONTACTS') %}
-                        {% set routerName = 'registration_company_contacts' %}
+                        {% set routerName = 'company_edit_contacts' %}
                     {% endif %}
                     <li class="userProfilItem">
                         <a href="{{ path(routerName, { "id": manager.company.id }) }}" class="facebook-blue">Закончить регистрацию компании</a>

@@ -6,22 +6,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 use Sto\ContentBundle\Form\RegistrationType;
-use Sto\ContentBundle\Form\Type\CompanyGalleryType;
 use Sto\ContentBundle\Form\Type\CompanyBaseType;
 use Sto\ContentBundle\Form\Type\CompanyBusinessProfileType;
 use Sto\ContentBundle\Form\Type\CompanyContactsType;
+use Sto\ContentBundle\Form\Type\CompanyGalleryType;
+use Sto\ContentBundle\Helper\CompanyServiceHelper;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\CoreBundle\Entity\CompanySpecialization;
+use Sto\CoreBundle\Entity\CompanyWorkingTime;
+use Sto\UserBundle\Entity\Group;
+use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Sto\CoreBundle\Entity\CompanyWorkingTime;
-use Sto\CoreBundle\Entity\CompanySpecialization;
-use Sto\UserBundle\Entity\RatingGroup;
-use Sto\UserBundle\Entity\Group;
-use Sto\ContentBundle\Helper\CompanyServiceHelper;
 
 class CompanyRegisterController extends Controller
 {
@@ -79,20 +78,18 @@ class CompanyRegisterController extends Controller
 
     /**
      * @Route("/new-company/base", name="registration_company_base")
-     * @Route("/new-company/{id}/base", name="registration_company_base_with_id")
+     * @Route("/company/edit/{id}/base", name="company_edit_base")
      * @Template()
      */
     public function baseAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
+        $isCompanyNew = false;
 
         if (! $id || ! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
             $company = new Company();
-        }
-
-        if ($company->isRegistredFully()) {
-            throw new AccessDeniedException('Данная компания уже зарегистрирована');
+            $isCompanyNew = true;
         }
 
         $form = $this->createForm(new CompanyBaseType(), $company);
@@ -101,40 +98,39 @@ class CompanyRegisterController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
-                $manager = new CompanyManager();
-                $manager->setUser($user);
-                $manager->setPhone($user->getPhoneNumber());
-                $manager->setCompany($company);
+                if ($isCompanyNew) {
+                    $manager = new CompanyManager();
+                    $manager->setUser($user);
+                    $manager->setPhone($user->getPhoneNumber());
+                    $manager->setCompany($company);
 
-                $company->addCompanyManager($manager);
-                $company->setRegistredFully(false);
-                $company->setRegistrationStep(CompanyRegistrationStep::BUSINESS);
-                $company->setVisible(false);
+                    $company->addCompanyManager($manager);
+                    $company->setRegistredFully(false);
+                    $company->setRegistrationStep(CompanyRegistrationStep::BUSINESS);
+                    $company->setVisible(false);
+                }
 
                 $em->persist($company);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('registration_company_business_profile', [
+                return $this->redirect($this->generateUrl('company_edit_business_profile', [
                     'id' => $company->getId()
                 ]));
             }
         }
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'id' => $id
         ];
     }
 
     /**
-     * @Route("/new-company/{id}/business-profile/", name="registration_company_business_profile")
+     * @Route("/company/edit/{id}/business-profile/", name="company_edit_business_profile")
      * @Template()
      */
     public function businessProfileAction(Request $request, Company $company)
     {
-        if ($company->isRegistredFully()) {
-            throw new AccessDeniedException('Данная компания уже зарегистрирована');
-        }
-
         if ($company->getSpecializations()->count() === 0) {
             $company->addSpecialization(new CompanySpecialization());
         }
@@ -190,7 +186,7 @@ class CompanyRegisterController extends Controller
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('registration_company_contacts', [
+                return $this->redirect($this->generateUrl('company_edit_contacts', [
                     'id' => $company->getId()
                 ]));
             }
@@ -204,15 +200,11 @@ class CompanyRegisterController extends Controller
     }
 
     /**
-     * @Route("/new-company/{id}/contacts", name="registration_company_contacts")
+     * @Route("/company/edit/{id}/contacts", name="company_edit_contacts")
      * @Template()
      */
     public function contactsAction(Request $request, Company $company)
     {
-        if ($company->isRegistredFully()) {
-            throw new AccessDeniedException('Данная компания уже зарегистрирована');
-        }
-
         if ($company->getWorkingTime()->count() === 0) {
             $company->addWorkingTime(new CompanyWorkingTime());
         }
@@ -236,7 +228,7 @@ class CompanyRegisterController extends Controller
                 $em->persist($company);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('registration_company_gallery', [
+                return $this->redirect($this->generateUrl('company_edit_gallery', [
                     'id' => $company->getId()
                 ]));
             }
@@ -249,15 +241,11 @@ class CompanyRegisterController extends Controller
     }
 
     /**
-     * @Route("/new-company/{id}/gallery", name="registration_company_gallery")
+     * @Route("/company/edit/{id}/gallery", name="company_edit_gallery")
      * @Template()
      */
     public function galleryAction(Request $request, Company $company)
     {
-        if ($company->isRegistredFully() && $company->getRegistrationStep() === null) {
-            throw new AccessDeniedException('Данная компания уже зарегистрирована');
-        }
-
         $form = $this->createForm(new CompanyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
 

@@ -9,15 +9,14 @@
 
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
-        <li class="stepRegistrationItem firstStep"><span class="stepLink">Личные данные</span></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('registration_company_base_with_id', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
+        <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
         <li class="stepRegistrationItem centerStep active" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
         <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
         <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#photos" class="stepLink">Фотографии</span></li>
     </ul>
 {% endblock %}
 
-{% block form_path %}action="{{ path('registration_company_business_profile', {id: company.id}) }}"{% endblock %}
+{% block form_path %}action="{{ path('company_edit_business_profile', {id: company.id}) }}"{% endblock %}
 
 {% block form_content %}
     <div class="contentLabel marginBottom">
@@ -212,5 +211,5 @@
 {% endblock %}
 
 {% block back_link %}
-<a href="{{ path('registration_company_base_with_id', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
+<a href="{{ path('company_edit_base', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
 {% endblock %}
