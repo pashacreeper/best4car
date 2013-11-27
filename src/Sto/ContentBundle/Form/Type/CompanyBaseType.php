@@ -40,7 +40,7 @@ class CompanyBaseType extends AbstractType
             ])
             ->add('createtDate', 'datetime', [
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-MM-dd',
                 'label' => 'Начало работы на рынке',
                 'required' => false,
                 'attr' => [
