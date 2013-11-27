@@ -238,6 +238,9 @@ class Company
      */
     protected $autos;
 
+    /**
+     * @ORM\Column(name="all_auto", type="boolean", nullable=true)
+     */
     private $allAuto = false;
 
     /**
