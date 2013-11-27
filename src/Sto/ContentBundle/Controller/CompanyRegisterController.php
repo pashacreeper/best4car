@@ -21,6 +21,7 @@ use Sto\CoreBundle\Entity\CompanyWorkingTime;
 use Sto\CoreBundle\Entity\CompanySpecialization;
 use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\Group;
+use Sto\ContentBundle\Helper\CompanyServiceHelper;
 
 class CompanyRegisterController extends Controller
 {
@@ -172,15 +173,16 @@ class CompanyRegisterController extends Controller
                         foreach ($item->getServices() as $service) {
                             $companyServices[] = $service;
                         }
+                        $companyServiceHelper = new CompanyServiceHelper($em);
                         foreach ($companyServices as $companyService) {
                             if ($companyService->getService()->getParent()) {
-                                $this->createCompanyServiceParent($companyServices, $companyService, $item);
+                                $companyServiceHelper->createCompanyServiceParent($companyServices, $companyService, $item);
                             }
                         }
                         $em->flush();
                         foreach ($companyServices as $companyService) {
                             if ($companyService->getService()->getParent()) {
-                                $this->setCompanyServiceParent($companyServices, $companyService);
+                                $companyServiceHelper->setCompanyServiceParent($companyServices, $companyService);
                             }
                         }
                     }
@@ -284,39 +286,5 @@ class CompanyRegisterController extends Controller
             'form' => $form->createView(),
             'company' => $company
         ];
-    }
-
-    protected function createCompanyServiceParent(&$companyServices, $companyService, $specialization)
-    {
-        $companyServiceParent = null;
-        $service = $companyService->getService()->getParent();
-        foreach ($companyServices as $seachCompanyService) {
-            if ($service == $seachCompanyService->getService()) {
-                $companyServiceParent = $seachCompanyService;
-                break;
-            }
-        }
-        if (!$companyServiceParent) {
-            $companyServiceParent = new CompanyAutoService();
-            $companyServiceParent->setService($service);
-            $companyServiceParent->setSpecialization($specialization);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($companyServiceParent);
-            $em->flush();
-            $companyServices[] = $companyServiceParent;
-        }
-        if ($service->getParent()) {
-            $this->createCompanyServiceParent($companyServices, $companyServiceParent, $specialization);
-        }
-    }
-
-    protected function setCompanyServiceParent($companyServices, $companyService)
-    {
-        foreach ($companyServices as $seachCompanyService) {
-            if ($companyService->getService()->getParent() == $seachCompanyService->getService()) {
-                $companyService->setParent($seachCompanyService);
-                break;
-            }
-        }
     }
 }
