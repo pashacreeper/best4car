@@ -11,7 +11,7 @@
     <ul class="stepRegistration" id="stepRegistration">
         <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
         <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
         <li class="stepRegistrationItem endStep active"><span class="stepLink">Фотографии</span></li>
     </ul>
 {% endblock %}

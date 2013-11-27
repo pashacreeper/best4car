@@ -9,6 +9,7 @@ use Sto\ContentBundle\Form\CompanyManagerType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingTime;
+use Sto\CoreBundle\Validator\Constraints\ConstraintPhones;
 
 class CompanyContactsType extends AbstractType
 {
@@ -43,7 +44,7 @@ class CompanyContactsType extends AbstractType
                 'prototype' => true,
                 'error_bubbling' => false,
                 'constraints' => [
-                    new Assert\NotBlank()
+                    new ConstraintPhones()
                 ]
             ))
             ->add('workingTime','collection', array(
