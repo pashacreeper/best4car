@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 use Sto\ContentBundle\Form\RegistrationType;
-use Sto\ContentBundle\Form\Type\ComapnyGalleryType;
+use Sto\ContentBundle\Form\Type\CompanyGalleryType;
 use Sto\ContentBundle\Form\Type\CompanyBaseType;
 use Sto\ContentBundle\Form\Type\CompanyBusinessProfileType;
 use Sto\ContentBundle\Form\Type\CompanyContactsType;
@@ -15,11 +15,12 @@ use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sto\CoreBundle\Entity\CompanyWorkingTime;
 use Sto\CoreBundle\Entity\CompanySpecialization;
+use Sto\UserBundle\Entity\RatingGroup;
+use Sto\UserBundle\Entity\Group;
 
 class CompanyRegisterController extends Controller
 {
@@ -55,27 +56,11 @@ class CompanyRegisterController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $ratingGroup = $em->getRepository('StoUserBundle:RatingGroup')->find(1);
+            $ratingGroup = $em->getRepository('StoUserBundle:RatingGroup')->find(RatingGroup::ENTHUSIAST);
             $user->setRatingGroup($ratingGroup);
-            $group = $em->getRepository('StoUserBundle:Group')->find(4);
+            $group = $em->getRepository('StoUserBundle:Group')->find(Group::MANAGER);
             $user->setGroups([$group]);
             $user->setEnabled(true);
-
-            $another_user = $em->getRepository('StoUserBundle:User')->findBy(['username'=>$user->getUsername()]);
-            $another_email = $em->getRepository('StoUserBundle:User')->findBy(['email'=>$user->getEmail()]);
-            if ($another_user || $another_email) {
-                if ($another_user) {
-                    $form->get('username')->addError(new FormError('Пользователь с таким ником уже зарегистрирован!'));
-                }
-                if ($another_email) {
-                    $form->get('email')->addError(new FormError('Пользователь с таким почтовым адресом уже зарегистрирован!'));
-                }
-
-                return [
-                    'user' => $user,
-                    'form' => $form->createView(),
-                ];
-            }
 
             $em->persist($user);
             $em->flush();
@@ -271,7 +256,7 @@ class CompanyRegisterController extends Controller
             throw new AccessDeniedException('Данная компания уже зарегистрирована');
         }
 
-        $form = $this->createForm(new ComapnyGalleryType(), $company);
+        $form = $this->createForm(new CompanyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
 
         if ('POST' === $request->getMethod()) {

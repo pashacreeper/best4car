@@ -11,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 class RatingGroup
 {
     /**
+     * IDs of groups from database.
+     * TODO: move this to separete fil
+     */
+    const ENTHUSIAST = 1;
+    const EXPERT = 2;
+    const PROFI = 3;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
