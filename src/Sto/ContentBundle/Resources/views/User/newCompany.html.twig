@@ -406,8 +406,12 @@
                         var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                         var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
                         jQuery(document).ready(function() {
-                            deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
-                            managerCollectionHolder.find('.contactDate').append(deleteLink);
+                            deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+                            managerCollectionHolder.find('.contactDate').each(function(index, element){
+                                if (index > 0) {
+                                    $(element).append(deleteLink);
+                                }
+                            });
 
                             managerCollectionHolder.on('click', '.deleteElement', function() {
                                 $(this).parents('.contactDate').remove();
