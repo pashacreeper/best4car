@@ -108,11 +108,17 @@
                             });
                             $('#service-choose-modal').bind('reveal:close', function() {
                                 select.html('');
+                                var hasSelected = false;
                                 $('#service-tree').jstree('get_checked', null, true).each(function() {
                                     var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
                                     select.append(option);
+                                    hasSelected = true;
                                 });
-                                link.html(changeServiceLabel);
+
+                                if (hasSelected) {
+                                    link.html(changeServiceLabel);
+                                }
+
                                 e.preventDefault();
                             });
                         } else {
