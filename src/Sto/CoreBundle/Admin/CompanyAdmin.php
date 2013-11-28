@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 
 class CompanyAdmin extends Admin
 {
@@ -126,7 +127,12 @@ class CompanyAdmin extends Admin
                 ->add('linkVK')
                 ->add('linkTW')
                 ->add('linkFB')
-
+                ->add('registredFully')
+                ->add('registrationStep', 'choice', [
+                    'choice_list' => new CompanyRegistrationStep(),
+                    'empty_value' => 'Choose an option',
+                    'empty_data' => false
+                ])
             ->end()
             ->with('Контакты')
                 ->add('contacts', 'sonata_type_collection', [
