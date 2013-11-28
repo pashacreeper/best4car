@@ -21,6 +21,7 @@ use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 
 class CompanyRegisterController extends Controller
 {
@@ -140,8 +141,14 @@ class CompanyRegisterController extends Controller
 
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findAll();
 
+        $services = $request->get('services');
+
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
+
+            if (empty($services)) {
+                $form->get('specializations')->addError(new FormError('Необходимо выбрать услуги'));
+            }
 
             if ($form->isValid()) {
                 $company->setRegistrationStep(CompanyRegistrationStep::CONTACTS);
