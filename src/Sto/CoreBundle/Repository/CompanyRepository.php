@@ -30,7 +30,7 @@ class CompanyRepository extends EntityRepository
             ->setParameter('visible', 1)
             ->setParameter('company', $company)
         ;
-        
+
         return $qb->getQuery()->execute();
     }
 
@@ -137,7 +137,6 @@ class CompanyRepository extends EntityRepository
 
         $result = $qb->getQuery()->getArrayResult();
         $ids = [];
-
 
         foreach ($result as $value) {
             $ids[] = $value['id'];

@@ -5,7 +5,6 @@ namespace Sto\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -46,7 +45,7 @@ class CompanyGallery
     protected $imageName;
 
     /**
-     * @ORM\Column(name="visible", type="boolean", options={"default" = 1})
+     * @ORM\Column(name="visible", type="boolean", options={"default" = 1}, nullable=true)
      */
     private $visible = 1;
 
@@ -212,6 +211,5 @@ class CompanyGallery
     {
         return $this->visible;
     }
-
 
 }

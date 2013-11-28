@@ -22,7 +22,7 @@ class FeedbackRepository extends EntityRepository
         $feedbacks = $qb->getQuery()->execute();
         $feedbackIds = null;
         if (! empty($feedbacks)) {
-            $feedbackIds = array_map(function($item){
+            $feedbackIds = array_map(function ($item) {
                 return $item->getId();
             }, $feedbacks);
         }

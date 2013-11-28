@@ -17,10 +17,14 @@ class TimeToDateTransformer implements DataTransformerInterface
 
     public function reverseTransform($time)
     {
-        list($hours, $minutes) = explode(":", $time, 2);
-        $date = new \DateTime();
-        $date->setTime($hours, $minutes);
+        if ($time) {
+            list($hours, $minutes) = explode(":", $time, 2);
+            $date = new \DateTime();
+            $date->setTime($hours, $minutes);
 
-        return $date;
+            return $date;
+        }
+
+        return null;
     }
 }

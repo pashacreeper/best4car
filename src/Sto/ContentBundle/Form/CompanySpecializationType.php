@@ -14,21 +14,24 @@ class CompanySpecializationType extends AbstractType
         $builder
             ->add('type', null, [
                 'label' => false,
-                'query_builder' => function(EntityRepository $er) {
+                'required' => true,
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('company_type')
                         ->where('company_type.parent is null');
                 },
+                'empty_value' => ' ',
                 'attr' => [
                     'class' => 'inputFormEnter companySpecialization'
                 ],
             ])
             ->add('subType', 'shtumi_dependent_filtered_entity', [
                 'label' => false,
+                'required' => true,
                 'entity_alias' => 'subType_by_type',
                 'parent_field' => 'type',
                 'attr' => [
                     'class' => 'inputFormEnter'
-                ]
+                ],
             ])
         ;
     }

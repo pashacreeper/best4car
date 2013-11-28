@@ -25,7 +25,7 @@ class CompanyManager
 
     /**
      * @var string
-     * @ORM\Column(name="phone", type="string")
+     * @ORM\Column(name="phone", type="string", nullable=true)
      */
     private $phone;
 

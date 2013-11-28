@@ -27,8 +27,7 @@ class Company
     private $id;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -111,8 +110,7 @@ class Company
     private $email;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
@@ -122,8 +120,7 @@ class Company
     private $gps;
 
     /**
-     * @Assert\Date()
-     * @ORM\Column(name="createt_date", type="date")
+     * @ORM\Column(name="createt_date", type="date", nullable=true)
      */
     private $createtDate;
 
@@ -188,7 +185,7 @@ class Company
     private $administratorContactInfo;
 
     /**
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
      */
     private $visible;
 
@@ -241,6 +238,9 @@ class Company
      */
     protected $autos;
 
+    /**
+     * @ORM\Column(name="all_auto", type="boolean", nullable=true)
+     */
     private $allAuto = false;
 
     /**
@@ -267,6 +267,62 @@ class Company
      * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyContacts", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     private $contacts;
+
+    /**
+     * @ORM\Column(name="registred_fully", type="boolean", nullable=true)
+     */
+    private $registredFully;
+
+    /**
+     * @ORM\Column(name="registration_step", type="string", length=255, nullable=true)
+     */
+    private $registrationStep;
+
+    /**
+     * Set registrationStep
+     *
+     * @param  string  $registrationStep
+     * @return Company
+     */
+    public function setRegistrationStep($registrationStep)
+    {
+        $this->registrationStep = $registrationStep;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationStep
+     *
+     * @return string
+     */
+    public function getRegistrationStep()
+    {
+        return $this->registrationStep;
+    }
+
+    /**
+     * Set registredFully
+     *
+     * @param  boolean $registredFully
+     * @return Company
+     */
+    public function setRegistredFully($registredFully)
+    {
+        $this->registredFully = $registredFully;
+
+        return $this;
+    }
+
+    /**
+     * Get registredFully
+     *
+     * @return boolean
+     */
+    public function getRegistredFully()
+    {
+        return $this->registredFully;
+    }
 
     public function __construct()
     {
@@ -1358,5 +1414,10 @@ class Company
     public function removeGroup(\Sto\UserBundle\Entity\Group $groups)
     {
         $this->groups->removeElement($groups);
+    }
+
+    public function isRegistredFully()
+    {
+        return $this->registredFully;
     }
 }

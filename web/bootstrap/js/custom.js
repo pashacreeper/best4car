@@ -376,7 +376,7 @@ var registrationPage = function(){
         appendIcons(this);
     });
 
-    $('#sto_content_company_registration_logo').on('change', function(){
+    $('#sto_company_register_base_logo').on('change', function(){
         var reader = new FileReader(),
             thisElem = $(this);
 
@@ -399,6 +399,36 @@ var registrationPage = function(){
             $(this).remove();
         });
         reader.readAsDataURL($(this)[0].files[0]);
+    });
+
+    $(document).ready(function(){
+        (function(){
+            $('#photoAddWrapper .contactDate').each(function(index, element){
+                var image = $(element).find('.imageName').val();
+                var path = "storage/images/company/company_gallery";
+                var upload = $(element).find('input[type="file"]');
+
+                wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
+
+                upload.before(wrapper);
+                upload.addClass('hiddenFotoUpload');
+            });
+        })();
+        $('#photoAddWrapper').on('change', 'input[type="file"]', function(){
+            var reader = new FileReader(),
+                $this = $(this);
+            reader.onload = function (e) {
+                if ($this.prev('.photoDateImg')) {
+                    $this.prev('.photoDateImg').remove();
+                    $this.removeClass('hiddenFotoUpload');
+                }
+                wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"><i class="editImg"></i></div>');
+                $this.before(wrapper);
+                $this.addClass('hiddenFotoUpload');
+            };
+
+            reader.readAsDataURL($(this)[0].files[0]);
+        });
     });
 };
 

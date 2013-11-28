@@ -22,7 +22,7 @@ class CompanySpecializationAdmin extends Admin
     {
         $formMapper
             ->add('type', null, [
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('company_type')
                         ->where('company_type.parent is null');
                 },

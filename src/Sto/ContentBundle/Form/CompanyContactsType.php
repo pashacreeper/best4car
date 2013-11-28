@@ -15,7 +15,7 @@ class CompanyContactsType extends AbstractType
             ->add('type', 'entity', [
                 'label' => ' ',
                 'class' => 'StoCoreBundle:Dictionary\ContactType',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->orderBy('ct.name')
                     ;

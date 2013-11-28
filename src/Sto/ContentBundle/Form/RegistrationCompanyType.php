@@ -38,7 +38,7 @@ class RegistrationCompanyType extends AbstractType
             ->add('city', 'entity', [
                 'label' => 'Город',
                 'class' => 'StoCoreBundle:Country',
-                'query_builder' => function($er) {
+                'query_builder' => function ($er) {
                     return $er->createQueryBuilder('country')
                         ->where('country.parent is not null')
                     ;

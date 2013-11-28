@@ -36,7 +36,7 @@ class AutoServiceAdmin extends Admin
             ->add('position')
             ->add('code')
             ->add('companyType', null, array(
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('company_type')
                         ->where('company_type.parent is null');
                 },

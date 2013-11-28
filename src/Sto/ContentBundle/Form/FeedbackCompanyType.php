@@ -17,7 +17,7 @@ class FeedbackCompanyType extends FeedbackType
                 'label' => 'Уровень цен',
                 'class' => '\Sto\CoreBundle\Entity\Dictionary\PriceLevel',
                 'expanded' => true,
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u');
                 },
                 'required' => true,

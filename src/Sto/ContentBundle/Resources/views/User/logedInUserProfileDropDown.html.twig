@@ -29,21 +29,33 @@
             </li>
         </ul>
         {% if user.companyManager is not empty %}
-            {% for company in user.companyManager %}
-                <p class="popUpTitle">{{ company.company.name }}</p>
+            {% for manager in user.companyManager %}
+                <p class="popUpTitle">{{ manager.company.name }}</p>
                 <ul class="userProfilCont">
+                {% if manager.company.isRegistredFully %}
                     <li class="userProfilItem">
                         <i class="iconProfilGray"></i>
-                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#information' }}" class="google-blue">Профиль</a>
+                        <a href="{{ path('content_company_show', { "id": manager.company.id }) ~ '#information' }}" class="google-blue">Профиль</a>
                     </li>
                     <li class="userProfilItem">
                         <i class="iconReviewGray"></i>
-                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#feedbacks' }}" class="facebook-blue">Отзывы</a>
+                        <a href="{{ path('content_company_show', { "id": manager.company.id }) ~ '#feedbacks' }}" class="facebook-blue">Отзывы</a>
                     </li>
                     <li class="userProfilItem">
                         <i class="iconActionGray"></i>
-                        <a href="{{ path('content_company_show', { "id": company.company.id }) ~ '#deals' }}" class="facebook-blue">Акции</a>
+                        <a href="{{ path('content_company_show', { "id": manager.company.id }) ~ '#deals' }}" class="facebook-blue">Акции</a>
                     </li>
+                {% else %}
+                    {% set routerName = 'company_edit_base' %}
+                    {% if manager.company.registrationStep == constant('Sto\\ContentBundle\\Form\\Extension\\ChoiceList\\CompanyRegistrationStep::BUSINESS') %}
+                        {% set routerName = 'company_edit_business_profile' %}
+                    {% elseif manager.company.registrationStep == constant('Sto\\ContentBundle\\Form\\Extension\\ChoiceList\\CompanyRegistrationStep::CONTACTS') %}
+                        {% set routerName = 'company_edit_contacts' %}
+                    {% endif %}
+                    <li class="userProfilItem">
+                        <a href="{{ path(routerName, { "id": manager.company.id }) }}" class="facebook-blue">Закончить регистрацию компании</a>
+                    </li>
+                {% endif %}
                 </ul>
             {% endfor %}
         {% endif %}

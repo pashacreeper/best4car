@@ -34,7 +34,7 @@ class CompanyType extends AbstractType
             ->add('city', 'entity', [
                 'label' => 'Город',
                 'class' => 'StoCoreBundle:Country',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('country')
                         ->where('country.parent is not null')
                     ;
@@ -115,7 +115,7 @@ class CompanyType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'class' => 'StoCoreBundle:Dictionary\AdditionalService',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->orderBy('ct.position', 'ASC')
                     ;
@@ -199,7 +199,7 @@ class CompanyType extends AbstractType
                 'label' => 'Специализация на марке',
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('mark')
                         ->where('mark.visible = true')
                     ;

@@ -246,6 +246,7 @@ span.complain {
     font-size: 0;
     margin-bottom: 14px;
     overflow: hidden;
+    border-radius: 4px;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;
     -webkit-border-top-right-radius: 4px;
@@ -311,10 +312,11 @@ span.complain {
     border-left: 1px solid #0c6991;
 }
 
-.workingTimeDays label:last-child,
-.priceLevelMarker label:last-child,
-.genderSelect label:last-child {
+.workingTimeDays label:last-of-type,
+.priceLevelMarker label:last-of-type,
+.genderSelect label:last-of-type {
     margin-left: 0;
+    border-radius: 0 4px 4px 0;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;
     -webkit-border-top-right-radius: 4px;
@@ -583,6 +585,7 @@ a.btnNext:hover {
     display: block;
     color: #b94a48;
     font-size: 1.2em;
+    padding-bottom: 5px;
 }
 
 .error label {
@@ -728,3 +731,26 @@ a.btnNext:hover {
     margin-right: 15px;
 }
 .edit-services.error {color: #bc2013;}
+
+.all-marks-label{
+    padding: 0 !important;
+    margin: 0!important;
+}
+.all-marks-label input[type=checkbox]{
+    position: relative;
+    top: -2px;
+    left: 4px;
+}
+
+#photoAddWrapper{
+    margin-bottom: 8px;
+}
+.btn-select-services{
+    border-radius: 5px;
+    padding: 5px 6px 4px;
+    margin-top: -1px;
+}
+.btn-select-services:hover{
+    text-decoration: none;
+    color: #fff;
+}

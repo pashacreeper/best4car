@@ -12,7 +12,7 @@ class AdvancedSearchType extends AbstractType
         $builder
             ->add('companyType', 'entity', [
                 'class' => 'StoCoreBundle:CompanyType',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is null')
                     ;
@@ -25,7 +25,7 @@ class AdvancedSearchType extends AbstractType
             ])
             ->add('subCompanyType', 'entity', [
                 'class' => 'StoCoreBundle:CompanyType',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is not null')
                     ;
@@ -38,7 +38,7 @@ class AdvancedSearchType extends AbstractType
             ])
             ->add('auto', 'entity', [
                 'class' => 'StoCoreBundle:Mark',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('mark')
                         ->where('mark.visible = true')
                     ;

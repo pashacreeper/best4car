@@ -796,7 +796,7 @@ select {
 /*--selectbox--*/
 .basket__cont__body__bottom__paper {
     float: left;
-    padding: 5px 0 14px 0;
+    padding-top: 5px;
     box-sizing: border-box;
 }
 
