@@ -36,7 +36,7 @@
                         <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
                         {% endfor %}
                     </select>
-                    <a data-index="{{ k }}" href="#" class="edit-services">Выбор услуг</a>
+                    <a data-index="{{ k }}" href="#" class="edit-services btn-select-services addPhotoBtn">Выбор услуг</a>
                     <i class="icon-remove-circle deleteElement"></i>
                 </div>
             {% endfor %}
@@ -44,6 +44,7 @@
 
         <script>
             jQuery(document).ready(function() {
+                var changeServiceLabel = "Изменить услуги";
                 var collectionWrapper = $('#specializationsAddWrapper');
                 var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
                 var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
@@ -76,6 +77,12 @@
                     return false;
                 });
 
+                $('select[data-index]').each(function(index, element){
+                    if ($(element).find(':selected').length) {
+                        $(element).next('a').html(changeServiceLabel);
+                    }
+                });
+
                 var editServiceLink = function(link, index) {
                     link.on('click', function(e) {
                         var select = $('select[data-index='+index+']');
@@ -94,10 +101,10 @@
                                         }
                                     }
                                 }).bind("loaded.jstree", function(e, data) {
-                                            select.find('option').each(function(e) {
-                                                $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
-                                            });
-                                        });
+                                    select.find('option').each(function(e) {
+                                        $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
+                                    });
+                                });
                             });
                             $('#service-choose-modal').bind('reveal:close', function() {
                                 select.html('');
@@ -105,6 +112,7 @@
                                     var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
                                     select.append(option);
                                 });
+                                link.html(changeServiceLabel);
                                 e.preventDefault();
                             });
                         } else {

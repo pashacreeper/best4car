@@ -141,20 +141,20 @@ class CompanyRegisterController extends Controller
 
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findAll();
 
-        $services = $request->get('services');
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
-            if (empty($services)) {
-                $form->get('specializations')->addError(new FormError('Необходимо выбрать услуги'));
+            $services = $request->get('services');
+
+            if (empty($services) || (count($services) < $form->getData()->getSpecializations()->count())) {
+                $form->get('specializations')->addError(new FormError('Необходимо выбрать услуги в рамках специализации'));
             }
 
             if ($form->isValid()) {
                 $company->setRegistrationStep(CompanyRegistrationStep::CONTACTS);
                 $em->persist($company);
 
-                $services = $request->get('services');
                 foreach ($company->getSpecializations() as $key => $item) {
                     if (isset($services[$key])) {
                         $itemServices = $services[$key];
