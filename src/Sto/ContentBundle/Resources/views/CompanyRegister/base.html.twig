@@ -3,22 +3,28 @@
 {% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
 
 {% block title %}
-    {{ parent() }}
-    – Общие сведения
+    Best4Car – Редактирование компании – Общие сведения
 {% endblock %}
 
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
+    {% if company.isRegistredFully %}
         <li class="stepRegistrationItem firstStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
-        <li class="stepRegistrationItem centerStep" id="business-profile-tab"><span data-content="#business-profile"  class="stepLink">Профиль деятельности</span></li>
-        <li class="stepRegistrationItem centerStep" id="contact-info-tab"><span data-content="#contact-info"  class="stepLink">Контактные данные</span></li>
-        <li class="stepRegistrationItem endStep" id="photo-tab"><span data-content="#photos" class="stepLink">Фотографии</span></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
+        <li class="stepRegistrationItem endStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Фотографии</a></li>
+    {% else %}
+        <li class="stepRegistrationItem firstStep active"><span data-content="#general-data" class="stepLink">Общие сведения</span></li>
+        <li class="stepRegistrationItem centerStep"><span class="stepLink">Профиль деятельности</span></li>
+        <li class="stepRegistrationItem centerStep"><span class="stepLink">Контактные данные</span></li>
+        <li class="stepRegistrationItem endStep"><span class="stepLink">Фотографии</span></li>
+    {% endif %}
     </ul>
 {% endblock %}
 
 {% block form_path %}
-    {% if id %}
-        action="{{ path('company_edit_base', {id: id}) }}"
+    {% if company.id %}
+        action="{{ path('company_edit_base', {id: company.id}) }}"
     {% else %}
         action="{{ path('registration_company_base') }}"
     {% endif %}

@@ -20,8 +20,8 @@ use Sto\UserBundle\Entity\Group;
 use Sto\UserBundle\Entity\RatingGroup;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompanyRegisterController extends Controller
 {
@@ -122,7 +122,7 @@ class CompanyRegisterController extends Controller
 
         return [
             'form' => $form->createView(),
-            'id' => $id
+            'company' => $company,
         ];
     }
 

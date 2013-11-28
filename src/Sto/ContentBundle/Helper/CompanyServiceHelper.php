@@ -16,7 +16,7 @@ class CompanyServiceHelper
         $this->em = $em;
     }
 
-    protected function createCompanyServiceParent(&$companyServices, $companyService, $specialization)
+    public function createCompanyServiceParent(&$companyServices, $companyService, $specialization)
     {
         $companyServiceParent = null;
         $service = $companyService->getService()->getParent();
@@ -39,7 +39,7 @@ class CompanyServiceHelper
         }
     }
 
-    protected function setCompanyServiceParent($companyServices, $companyService)
+    public function setCompanyServiceParent($companyServices, $companyService)
     {
         foreach ($companyServices as $seachCompanyService) {
             if ($companyService->getService()->getParent() == $seachCompanyService->getService()) {
