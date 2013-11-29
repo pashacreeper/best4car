@@ -366,7 +366,11 @@
                                 e.preventDefault();
                                 addTagForm(managerCollectionHolder, $managerNewLink, true, deleteLink);
                             });
-                            managerCollectionHolder.find('.contactDate').append(deleteLink);
+                            managerCollectionHolder.find('.contactDate').each(function(index, element){
+                                if (index > 0) {
+                                    $(element).append(deleteLink);
+                                }
+                            });
                         });
                     </script>
                 </div>
