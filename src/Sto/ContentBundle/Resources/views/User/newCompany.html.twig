@@ -391,11 +391,15 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
-                    <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</span>
+                    <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте. Так же необходимо указать телефон.</span>
                     <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
                         {% for manager in cForm.companyManager %}
                             <div class="contactDate">
+                            {% if loop.first %}
                                 {{ form_widget(manager.user, {'attr': {'readonly': 'readonly'}}) }}
+                            {% else %}
+                                {{ form_widget(manager.user) }}
+                            {% endif %}
                                 {{ form_widget(manager.phone) }}
                             </div>
                         {% endfor %}

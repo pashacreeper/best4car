@@ -340,11 +340,15 @@
                 </div>
                 <div class="contentLabel marginBottom">
                     <label>Менеджеры компании</label>
-                    <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</p>
+                    <p class="additionalInfo">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте. Так же необходимо указать телефон.</p>
                     <div id="managerAddWrapper" data-prototype="{{ form_widget(cForm.companyManager.vars.prototype)|e }}">
                         {% for manager in cForm.companyManager %}
                             <div class="contactDate">
+                            {% if loop.first %}
+                                {{ form_widget(manager.user, {'attr': {'readonly': 'readonly'}}) }}
+                            {% else %}
                                 {{ form_widget(manager.user) }}
+                            {% endif %}
                                 {{ form_widget(manager.phone) }}
                             </div>
                         {% endfor %}
@@ -408,6 +412,7 @@
                 </div>
             </div>
             <div class="bottomContent">
+                <span class="alertSelect hide">Необходимо заполнить все обязательные поля</span>
                 <a href="#" class="btnNext addPhotoBtn" data-toggle="tab" data-tab-switch-id="photo-tab" data-next="#photos">Продолжить</a>
                 <a href="#" data-toggle="tab" class="btnNext addPhotoBtn mr10px" data-tab-switch-id="business-profile-tab" data-next="#business-profile">Назад</a>
             </div>
