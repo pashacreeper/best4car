@@ -129,8 +129,9 @@ class CompanyAdmin extends Admin
                 ->add('linkFB')
                 ->add('registredFully')
                 ->add('registrationStep', 'choice', [
+                    'required' => false,
                     'choice_list' => new CompanyRegistrationStep(),
-                    'empty_value' => 'Choose an option',
+                    'empty_value' => 'Выберите один из пунктов',
                     'empty_data' => false
                 ])
             ->end()

@@ -9,14 +9,12 @@
 
 {% block links %}
     <ul class="stepRegistration" id="stepRegistration">
-    {% if company.isRegistredFully %}
         <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
         <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
+    {% if company.isRegistredFully %}
         <li class="stepRegistrationItem centerStep active"><a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
         <li class="stepRegistrationItem endStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Фотографии</a></li>
     {% else %}
-        <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
-        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
         <li class="stepRegistrationItem centerStep active"><span class="stepLink">Контактные данные</span></li>
         <li class="stepRegistrationItem endStep"><span class="stepLink">Фотографии</span></li>
     {% endif %}
