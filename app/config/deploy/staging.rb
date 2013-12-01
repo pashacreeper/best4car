@@ -6,6 +6,4 @@ role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
 
-set :branch,      "registration-form"
-
 after "deploy:update_code", "deploy:block_robots"
