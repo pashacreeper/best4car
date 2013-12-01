@@ -79,9 +79,6 @@ class CompanyContactsType extends AbstractType
             ->add('email', 'email', [
                 'label' => 'E-mail',
                 'required' => false,
-                'constraints' => [
-                    new Assert\Email()
-                ]
             ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',

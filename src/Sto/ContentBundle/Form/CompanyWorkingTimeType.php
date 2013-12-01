@@ -23,7 +23,7 @@ class CompanyWorkingTimeType extends AbstractType
                     [5, 'checkbox', ['required' => false, 'label' => 'Сб']],
                     [6, 'checkbox', ['required' => false, 'label' => 'Вс']]
                 ],
-                'label' => false,
+                'label' => ' ' ,
                 'attr' => [
                     'class' => 'workingTimeDays'
                 ]

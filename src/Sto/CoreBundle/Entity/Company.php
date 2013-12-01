@@ -102,7 +102,7 @@ class Company
 
     /**
      * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
+     *     message = "Необходимо указать правильный email адрес",
      *     checkMX = true
      * )
      * @ORM\Column(name="email", type="string", length=255, nullable=true)

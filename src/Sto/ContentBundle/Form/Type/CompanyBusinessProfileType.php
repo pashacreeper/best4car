@@ -58,7 +58,7 @@ class CompanyBusinessProfileType extends AbstractType
             ->add('allAuto', 'checkbox', [
                 'required' => false,
             ])
-            ->add('hourPrice', 'text', [
+            ->add('hourPrice', null, [
                 'label' => 'Стоимость нормочаса',
                 'required' => false,
                 'attr' => [
@@ -69,7 +69,7 @@ class CompanyBusinessProfileType extends AbstractType
                         'type' => 'integer',
                         'message' => 'Необходимо ввести число'
                     ])
-                ]   
+                ]
             ])
             ->add('currency', null, [
                 'label' => 'Валюта',

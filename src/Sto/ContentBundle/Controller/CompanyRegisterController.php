@@ -141,7 +141,6 @@ class CompanyRegisterController extends Controller
 
         $additionalServiceTypes = $em->getRepository('StoCoreBundle:Dictionary\AdditionalService')->findAll();
 
-
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 

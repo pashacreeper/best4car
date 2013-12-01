@@ -750,7 +750,7 @@ a.btnNext:hover {
     padding: 5px 6px 4px;
     margin-top: -1px;
 }
-.btn-select-services:hover{
+.btn-select-services:hover, .btn-select-services:active{
     text-decoration: none;
     color: #fff;
 }

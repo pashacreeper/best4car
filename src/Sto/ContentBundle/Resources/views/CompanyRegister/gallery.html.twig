@@ -25,6 +25,7 @@
 {% block form_content %}
     <p class="additionalInfo">Хорошие фотографии вашего офиса, цехов и персонала помогут привлечь внимание посетителей к вашей компании.</p>
     <p class="additionalInfo">Тип файла JPG или PNG, размер не более 3 Мб, соотношение сторон 16:9</p>
+    <br>
     {{ form_errors(form.gallery) }}
     <div id="photoAddWrapper" data-prototype="{{ form_widget(form.gallery.vars.prototype)|e }}">
         {% for photo in form.gallery %}
