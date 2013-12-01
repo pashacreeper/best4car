@@ -305,9 +305,9 @@ class CompanyRegisterController extends Controller
 
     /**
      * Check is user is one of company managers
-     * @param  PersistentCollection $managers 
-     * @param  User $user     
-     * @return boolean           
+     * @param  PersistentCollection $managers
+     * @param  User                 $user
+     * @return boolean
      */
     protected function checkCompanyManager(PersistentCollection $managers, User $user)
     {
@@ -316,7 +316,6 @@ class CompanyRegisterController extends Controller
                 return true;
             }
         }
-        die;
 
         throw new AccessDeniedException();
     }
