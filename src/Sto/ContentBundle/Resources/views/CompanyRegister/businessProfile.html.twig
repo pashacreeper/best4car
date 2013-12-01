@@ -166,6 +166,7 @@
     <div class="bottomBlock">
         <div class="contentLabel costHour" id="costHour">
             {{ form_label(form.hourPrice) }}
+            {{ form_errors(form.hourPrice) }}
             {{ form_widget(form.hourPrice) }}
             <div class="lineForm costSelect">
                 {{ form_widget(form.currency) }}

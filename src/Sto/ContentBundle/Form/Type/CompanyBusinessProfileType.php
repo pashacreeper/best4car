@@ -58,12 +58,18 @@ class CompanyBusinessProfileType extends AbstractType
             ->add('allAuto', 'checkbox', [
                 'required' => false,
             ])
-            ->add('hourPrice', null, [
+            ->add('hourPrice', 'text', [
                 'label' => 'Стоимость нормочаса',
                 'required' => false,
                 'attr' => [
                     'class' => 'inputCost'
                 ],
+                'constraints' => [
+                    new Assert\Type([
+                        'type' => 'integer',
+                        'message' => 'Необходимо ввести число'
+                    ])
+                ]   
             ])
             ->add('currency', null, [
                 'label' => 'Валюта',
