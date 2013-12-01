@@ -22,6 +22,9 @@ use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CompanyRegisterController extends Controller
 {
@@ -81,6 +84,7 @@ class CompanyRegisterController extends Controller
      * @Route("/new-company/base", name="registration_company_base")
      * @Route("/company/edit/{id}/base", name="company_edit_base")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function baseAction(Request $request, $id = null)
     {
@@ -91,6 +95,10 @@ class CompanyRegisterController extends Controller
         if (! $id || ! $company = $em->getRepository('StoCoreBundle:Company')->find($id)) {
             $company = new Company();
             $isCompanyNew = true;
+        }
+
+        if ($managers = $company->getCompanyManager()) {
+            $this->checkCompanyManager($managers, $user);
         }
 
         $form = $this->createForm(new CompanyBaseType(), $company);
@@ -129,12 +137,14 @@ class CompanyRegisterController extends Controller
     /**
      * @Route("/company/edit/{id}/business-profile/", name="company_edit_business_profile")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function businessProfileAction(Request $request, Company $company)
     {
         if ($company->getSpecializations()->count() === 0) {
             $company->addSpecialization(new CompanySpecialization());
         }
+        $this->checkCompanyManager($company->getCompanyManager(), $user);
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyBusinessProfileType(), $company);
@@ -208,9 +218,12 @@ class CompanyRegisterController extends Controller
     /**
      * @Route("/company/edit/{id}/contacts", name="company_edit_contacts")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function contactsAction(Request $request, Company $company)
     {
+        $this->checkCompanyManager($company->getCompanyManager(), $user);
+
         if ($company->getWorkingTime()->count() === 0) {
             $company->addWorkingTime(new CompanyWorkingTime());
         }
@@ -254,9 +267,12 @@ class CompanyRegisterController extends Controller
     /**
      * @Route("/company/edit/{id}/gallery", name="company_edit_gallery")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function galleryAction(Request $request, Company $company)
     {
+        $this->checkCompanyManager($company->getCompanyManager(), $user);
+
         $form = $this->createForm(new CompanyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
 
@@ -285,5 +301,23 @@ class CompanyRegisterController extends Controller
             'form' => $form->createView(),
             'company' => $company
         ];
+    }
+
+    /**
+     * Check is user is one of company managers
+     * @param  PersistentCollection $managers 
+     * @param  User $user     
+     * @return boolean           
+     */
+    protected function checkCompanyManager(PersistentCollection $managers, User $user)
+    {
+        foreach ($managers as $manager) {
+            if ($manager->getUser() == $user) {
+                return true;
+            }
+        }
+        die;
+
+        throw new AccessDeniedException();
     }
 }
