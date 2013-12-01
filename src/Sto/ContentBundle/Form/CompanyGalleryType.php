@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Sto\CoreBundle\Validator\Constraints\ConstrainIsImage;
 
 class CompanyGalleryType extends AbstractType
 {
@@ -16,13 +17,12 @@ class CompanyGalleryType extends AbstractType
                 'label' => false,
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'data-image' => 'image',
                     'class' => 'photoFileInput'
                 ],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Не выбрана фотография для загрузки']),
                     new Assert\Image()
                 ]
             ])

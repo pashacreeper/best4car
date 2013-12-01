@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Form\Type;
 use Sto\ContentBundle\Form\CompanyGalleryType as Gallery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Sto\CoreBundle\Validator\Constraints\ConstrainIsImage;
 
 class CompanyGalleryType extends AbstractType
 {
@@ -18,6 +19,9 @@ class CompanyGalleryType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'error_bubbling' => false,
+                'constraints' => [
+                    new ConstrainIsImage()
+                ]
             ))
         ;
     }
