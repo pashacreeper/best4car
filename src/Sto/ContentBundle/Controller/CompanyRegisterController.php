@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class CompanyRegisterController extends Controller
 {
@@ -97,8 +98,8 @@ class CompanyRegisterController extends Controller
             $isCompanyNew = true;
         }
 
-        if ($managers = $company->getCompanyManager()) {
-            $this->checkCompanyManager($managers, $user);
+        if ($company->getCompanyManager()->count() > 0) {
+            $this->checkCompanyManager($company->getCompanyManager(), $user);
         }
 
         $form = $this->createForm(new CompanyBaseType(), $company);
@@ -144,7 +145,7 @@ class CompanyRegisterController extends Controller
         if ($company->getSpecializations()->count() === 0) {
             $company->addSpecialization(new CompanySpecialization());
         }
-        $this->checkCompanyManager($company->getCompanyManager(), $user);
+        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyBusinessProfileType(), $company);
@@ -222,7 +223,7 @@ class CompanyRegisterController extends Controller
      */
     public function contactsAction(Request $request, Company $company)
     {
-        $this->checkCompanyManager($company->getCompanyManager(), $user);
+        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
 
         if ($company->getWorkingTime()->count() === 0) {
             $company->addWorkingTime(new CompanyWorkingTime());
@@ -271,7 +272,7 @@ class CompanyRegisterController extends Controller
      */
     public function galleryAction(Request $request, Company $company)
     {
-        $this->checkCompanyManager($company->getCompanyManager(), $user);
+        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
 
         $form = $this->createForm(new CompanyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
@@ -309,7 +310,7 @@ class CompanyRegisterController extends Controller
      * @param  User                 $user
      * @return boolean
      */
-    protected function checkCompanyManager(PersistentCollection $managers, User $user)
+    protected function checkCompanyManager($managers, User $user)
     {
         foreach ($managers as $manager) {
             if ($manager->getUser() == $user) {
