@@ -145,6 +145,7 @@
         <div id="managerAddWrapper" data-prototype="{{ form_widget(form.companyManager.vars.prototype)|e }}">
             {% for manager in form.companyManager %}
                 <div class="contactDate">
+                    {{ form_errors(manager.user) }}
                     {{ form_widget(manager.user, {'attr': {'readonly': 'readonly'}}) }}
                     {{ form_widget(manager.phone) }}
                 </div>
@@ -156,8 +157,11 @@
             var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
             var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
             jQuery(document).ready(function() {
-                deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
                 managerCollectionHolder.find('.contactDate').each(function(index, element){
+                    if ($(element).find('.errorMessage').length > 0) {
+                        $(element).find('input:first-of-type').attr('readonly', false);
+                    }
+                    var deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
                     if (index > 0) {
                         $(element).append(deleteLink);
                     }

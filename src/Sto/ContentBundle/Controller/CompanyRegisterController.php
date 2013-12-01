@@ -228,6 +228,11 @@ class CompanyRegisterController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
+                foreach ($company->getCompanyManager() as $manager) {
+                    if ($manager->getCompany() === null) {
+                        $manager->setCompany($company);
+                    }
+                }
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
                 $company->setRegistredFully(true);
                 $company->setVisible(true);

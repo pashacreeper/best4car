@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingTime;
 use Sto\CoreBundle\Validator\Constraints\ConstraintPhones;
+use Sto\CoreBundle\Validator\Constraints\CompanyManager;
 
 class CompanyContactsType extends AbstractType
 {
