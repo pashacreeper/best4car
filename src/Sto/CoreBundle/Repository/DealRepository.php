@@ -97,10 +97,6 @@ class DealRepository extends EntityRepository
                     $query->expr()->like('deal.description', ':search'),
                     $query->expr()->like('deal.terms', ':search'),
                     $query->expr()->like('ds.name', ':search'),
-                    $query->expr()->like('dc.name', ':search'),
-                    $query->expr()->like('dc.fullName', ':search'),
-                    $query->expr()->like('dc.description', ':search'),
-                    $query->expr()->like('dc.slogan', ':search'),
                     $query->expr()->like('mark.name', ':search')
                 )
             )->setParameter('search', "%{$search}%");

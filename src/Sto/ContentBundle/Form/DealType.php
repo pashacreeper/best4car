@@ -36,7 +36,7 @@ class DealType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:autoServices',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->where('ct.parent is not null')
                         ->andWhere('ct.code is null')
@@ -53,7 +53,7 @@ class DealType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('mark')
                         ->where('mark.visible = true')
                         ;

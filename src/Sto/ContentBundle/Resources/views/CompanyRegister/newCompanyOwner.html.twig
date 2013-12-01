@@ -1,0 +1,94 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+{% from 'StoContentBundle::flash.html.twig' import flash %}
+
+{% block title %}
+    {{ parent() }}
+     - регистрация компании
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/styleCompany.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/style-registration-company.css') }}"/>
+{% endblock %}
+
+{% block pageTitle %}
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <h1 class="titleNameCompany">Регистрация компании</h1>
+    </div>
+</div>
+{% endblock %}
+{% block search %}{% endblock %}
+
+{% block content %}
+<section class="contentMain  row">
+    <div class="content">
+        <ul class="stepRegistration">
+            <li class="stepRegistrationItem firstStep"><span href="#" class="stepLink">Общие сведения </span></li>
+            <li class="stepRegistrationItem centerStep"><span href="#" class="stepLink">Профиль деятельности</span></li>
+            <li class="stepRegistrationItem centerStep"><span href="#" class="stepLink">Контактные данные</span></li>
+            <li class="stepRegistrationItem endStep"><span href="#" class="stepLink">Фотографии</a></li>
+        </ul>
+        {% if app.user %}
+            <div class="leftRegistrationCompany">
+                <p class="popUpTitle">Вы уже авторизованы на сайте</p>
+                <a href="{{ path('registration_company_base') }}" class="btnEnter" style="width:290px !important;">Продолжить регистрацию компании</a>
+                <div class="pushDownBlock"></div>
+            </div>
+        {% else %}
+            <div class="leftRegistrationCompany">
+                <h2 class="titleRegistrationCompany">Зарегистрировать профиль на best4car.ru</h2>
+                <form name="register-form" action="{{ path('registration_company_owner_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal" id="registerForm">
+                    {{ form_row(form.firstName, { attr: {class: "inputFormEnter span6" } }) }}
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    <div class="contentLabel rowColumns">
+                        <p class="contentLabel" style="margin-right: 5px;">
+                            {{ form_label(form.plainPassword.first) }}
+                            {{ form_widget(form.plainPassword.first) }}
+                            {{ form_errors(form.plainPassword.first) }}
+                        </p>
+                        <p class="contentLabel">
+                            {{ form_label(form.plainPassword.second) }}
+                            {{ form_widget(form.plainPassword.second) }}
+                            {{ form_errors(form.plainPassword.second) }}
+                        </p>
+                    </div>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+            <div class="rightRegistrationCompany">
+                <p class="popUpTitle">Войти на best4car.ru</p>
+                <div class="blockEnter">
+                    <form action="{{ path("content_register_company_with_owner") }}" method="post">
+                        {% if errorFlag is defined and errorFlag %}
+                            {{ flash('error', errors|trans, false, true) }}
+                        {% endif %}
+                        <p class="contentLabel">
+                            <label>Email</label>
+                            <input type="text" class="inputFormEnter" id="username" name="_username" value="{% if last_username is defined %}{{last_username}}{% endif %}" />
+                        </p>
+                        <p class="contentLabel">
+                            <label>Пароль</label>
+                            <input type="password" class="inputFormEnter" id="password" name="_password" />
+                        </p>
+                        <button class="btnEnter" type="submit">Войти</button>
+                        <a data-reveal-id="resetting-popup" href="#" data-href="/resetting/request" class="secondaryLink forgotPass" id="resettingPassword">Забыли пароль?</a>
+                    </form>
+                </div>
+                <p class="popUpTitle">Войти используя аккаунт соц. сетей</p>
+                <ul class="infoCompanySocialNet">
+                    <li class="infoCompanySocialNetItem">
+                        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}" alt="Войти через Вконтакте" title="Sign in with Vkontakte"><i class="vk-blue"></i>Вконтакте</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottomContent">
+                <span class="btnNext addPhotoBtn" id="submitRegisterForm">Продолжить</span>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

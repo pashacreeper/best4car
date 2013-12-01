@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
+use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
 
 class CompanyAdmin extends Admin
 {
@@ -126,7 +127,13 @@ class CompanyAdmin extends Admin
                 ->add('linkVK')
                 ->add('linkTW')
                 ->add('linkFB')
-
+                ->add('registredFully')
+                ->add('registrationStep', 'choice', [
+                    'required' => false,
+                    'choice_list' => new CompanyRegistrationStep(),
+                    'empty_value' => 'Выберите один из пунктов',
+                    'empty_data' => false
+                ])
             ->end()
             ->with('Контакты')
                 ->add('contacts', 'sonata_type_collection', [
@@ -197,13 +204,13 @@ class CompanyAdmin extends Admin
             ->add('city')
             ->add('companyManager')
             ->add('specializations.type', null, [], null, [
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('type')
                         ->where('type.parent is NULL');
                 }
             ])
             ->add('specializations.subType', null, [], null, [
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('subType')
                         ->where('subType.parent is NOT NULL');
                 }
@@ -213,7 +220,7 @@ class CompanyAdmin extends Admin
 
     public function preUpdate($object)
     {
-        foreach ($object->getGallery() as $file){
+        foreach ($object->getGallery() as $file) {
             $file->setUpdatedAt(new \Datetime('now'));
         }
     }

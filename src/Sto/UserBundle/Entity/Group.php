@@ -12,6 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Group extends BaseGroup
 {
     /**
+     * IDs of groups
+     * TODO: use shrot names for same purpose.
+     */
+    const FROZEN = 1;
+    const BLOCKED = 2;
+    const USER = 3;
+    const MANAGER = 4;
+    const REDACTOR = 5;
+    const MODERATOR = 6;
+    const ADMINISTRATOR = 7;
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")

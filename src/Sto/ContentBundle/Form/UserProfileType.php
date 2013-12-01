@@ -63,7 +63,7 @@ class UserProfileType extends BaseType
                 'label' => 'Город',
                 'required' => false,
                 'class' => 'StoCoreBundle:Country',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('country')
                         ->where('country.parent is not null')
                     ;

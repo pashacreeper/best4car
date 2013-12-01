@@ -2,8 +2,8 @@
 namespace Sto\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyPhoneType extends AbstractType
 {
@@ -12,10 +12,14 @@ class CompanyPhoneType extends AbstractType
         $builder
             ->add('phone', 'text', [
                     'label' => false,
+                    'required' => true,
                     'attr' => [
                         'placeholder' => '8 (921) 123-45-67',
                         'class' => 'inputFormEnter span3'
                     ],
+                    'constraints' => [
+                        new Assert\NotBlank()
+                    ]
                 ])
             ->add('description', 'text', [
                     'max_length' => 35,
@@ -24,6 +28,9 @@ class CompanyPhoneType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Многоканальный',
                         'class' => 'inputFormEnter span4'
+                    ],
+                    'constraints' => [
+                        new Assert\NotBlank()
                     ]
                 ]
             );

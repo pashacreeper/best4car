@@ -188,6 +188,7 @@ body {
     text-decoration: none;
     float: right;
     padding: 0px;
+    margin-right: 3px;
 }
 
 .btnPrev {
@@ -226,6 +227,7 @@ body {
     background: #fff;
     text-align: center;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .addLogoImg img {

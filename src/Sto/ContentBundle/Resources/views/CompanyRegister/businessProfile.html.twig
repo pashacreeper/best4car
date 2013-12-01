@@ -1,0 +1,239 @@
+{% extends 'StoContentBundle:CompanyRegister:_newCompany.html.twig' %}
+
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+    – Профиль деятельности
+{% endblock %}
+
+{% block links %}
+    <ul class="stepRegistration" id="stepRegistration">
+        <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
+    {% if company.isRegistredFully %}
+        <li class="stepRegistrationItem centerStep active"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
+        <li class="stepRegistrationItem endStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Фотографии</a></li>
+    {% else %}
+        <li class="stepRegistrationItem centerStep active"><span class="stepLink">Профиль деятельности</span></li>
+        <li class="stepRegistrationItem centerStep"><span class="stepLink">Контактные данные</span></li>
+        <li class="stepRegistrationItem endStep"><span class="stepLink">Фотографии</span></li>
+    {% endif %}
+    </ul>
+{% endblock %}
+
+{% block form_path %}action="{{ path('company_edit_business_profile', {id: company.id}) }}"{% endblock %}
+
+{% block form_content %}
+    <div class="contentLabel marginBottom">
+        <label>Специализация</label>
+        {{ form_errors(form.specializations) }}
+        <span class="hint-text">
+            Выберите специализацию компании (одну или несколько) и предоставляемые услуги в рамках каждой специализации. <br/>
+            Первая по порядку специализация будет являться основным типом компании.
+        </span>
+        <div id="specializationsAddWrapper" data-prototype="{{ form_widget(form.specializations.vars.prototype)|e }}">
+            {% for k, specialization in form.specializations if form.specializations is defined %}
+                <div class="contactDate">
+                    {{ form_widget(specialization.type) }}
+                    {{ form_widget(specialization.subType) }}
+                    <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
+                        {% for service in specialization.vars.value.services %}
+                        <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                        {% endfor %}
+                    </select>
+                    <a data-index="{{ k }}" href="#" class="edit-services btn-select-services addPhotoBtn">Выбор услуг</a>
+                    <i class="icon-remove-circle deleteElement"></i>
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            jQuery(document).ready(function() {
+                var changeServiceLabel = "Изменить услуги";
+                var collectionWrapper = $('#specializationsAddWrapper');
+                var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
+                var $newLink = $('<div class="contactDate"></div>').append($addTagLink);
+
+                collectionWrapper.append($newLink);
+                collectionWrapper.data('index', collectionWrapper.find('.contactDate').length - 1);
+
+                collectionWrapper.on('click', '.deleteElement', function() {
+                    $(this).parents('.contactDate').remove();
+                });
+                collectionWrapper.on('click', '.addImg', function() {
+                    $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+
+                    var newForm = addTagForm(collectionWrapper, $newLink, true, $deleteLink);
+                    var index = collectionWrapper.data('index')-1;
+                    var serviceSelect = $("<select class='selected-auto-services' data-index='"+index+"' name='services["+index+"][]' style='display:none' multiple='multiple'></select>");
+
+                    collectionWrapper.find('.companySpecialization').each(function(index, element){
+                        if ($(element).find(':selected').val() != '') {
+                            var selectedId = parseInt($(element).find(':selected').val());
+                            newForm.find('option[value=' + selectedId + ']').remove();
+                        }
+                    });
+
+                    newForm.append(serviceSelect);
+
+                    var serviceLink = $("<a href='#' data-index='"+index+"' class='edit-services btn-select-services addPhotoBtn'>Выбор услуг</a>");
+                    newForm.find('.deleteElement').before(serviceLink);
+                    editServiceLink(serviceLink, index);
+                    return false;
+                });
+
+                $('select[data-index]').each(function(index, element){
+                    if ($(element).find(':selected').length) {
+                        $(element).next('a').html(changeServiceLabel);
+                    }
+                });
+
+                var editServiceLink = function(link, index) {
+                    link.on('click', function(e) {
+                        var select = $('select[data-index='+index+']');
+                        e.preventDefault();
+                        if (select.parent().find('.companySpecialization').val()) {
+                            $('#service-choose-modal').bind('reveal:open', function() {
+                                $('#service-tree').jstree({
+                                    "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
+                                    "themes" : {
+                                        "theme" : "classic",
+                                        "icons" : false
+                                    },
+                                    "json_data" : {
+                                        "ajax" : {
+                                            "url" : Routing.generate('api_service_choice', {'specializationId': select.parent().find('.companySpecialization').val() })
+                                        }
+                                    }
+                                }).bind("loaded.jstree", function(e, data) {
+                                    select.find('option').each(function(e) {
+                                        $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
+                                    });
+                                });
+                            });
+                            $('#service-choose-modal').bind('reveal:close', function() {
+                                select.html('');
+                                var hasSelected = false;
+                                $('#service-tree').jstree('get_checked', null, true).each(function() {
+                                    var option = $('<option value='+$(this).attr('id')+'>'+$(this).attr('id')+'</option>').prop('selected', true);
+                                    select.append(option);
+                                    hasSelected = true;
+                                });
+
+                                if (hasSelected) {
+                                    link.html(changeServiceLabel);
+                                }
+
+                                e.preventDefault();
+                            });
+                        } else {
+                            $('#service-tree').html("Для выбора услуг необходимо выбрать специализацию!");
+                        }
+
+                        $('#service-choose-modal').reveal();
+                    });
+                };
+
+                $('.edit-services').each(function() {
+                    var serviceId = $(this).data('index');
+                    editServiceLink($(this), serviceId)
+                })
+            });
+        </script>
+    </div>
+    <div class="contentLabel marginBottom clear">
+        {{ form_label(form.additionalServices) }}
+        <span class="hint-text">Выберите дополнительные услуги, предоставляемые компанией.</span>
+        <ul class="additionalServ">
+        {% for service in form.additionalServices %}
+            <li class="additionalServiceItem">
+                {{ form_widget(service) }}
+                <span></span>{{ form_label(service) }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="contentLabel clear contentLabelNoOverflow">
+        {{ form_label(form.autos) }}
+        <div class="basket__cont__body__bottom__paper">
+            {{ form_widget(form.autos) }}
+        </div>
+        <label class="all-marks-label">или <span class="linkContact">все марки?</span>{{ form_widget(form.allAuto) }}</label>
+    </div>
+
+    <div class="bottomBlock">
+        <div class="contentLabel costHour" id="costHour">
+            {{ form_label(form.hourPrice) }}
+            {{ form_errors(form.hourPrice) }}
+            {{ form_widget(form.hourPrice) }}
+            <div class="lineForm costSelect">
+                {{ form_widget(form.currency) }}
+            </div>
+        </div>
+        <div class="addDescriptionInfo">
+            <div class="contentLabel contentLabelNoOverflow">
+                {{ form_errors(form.description) }}
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+                <span class="hint-text">
+                    Вы можете увеличить форму ввода потянув за нижний правый край формы. <br/>
+                    Максимально допустимый объем описания - 1250 символов (<span id="chleft"></span> осталось). <br/>
+                    В описании не допускается использование ссылок.
+                    <script>
+                    $(document).ready(function(){
+                        var textarea = $('.description-textarea');
+                        var length = textarea.data('length');
+
+                        $('.description-textarea').limit(length, '#chleft');
+                    });
+                    </script>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modal %}
+<div id="service-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
+    <a href="#" class="close-reveal-modal"></a>
+
+    <div class="content">
+        <div id="service-tree"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block form_scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            var additionalServices = {};
+            {% for service in additionalServiceTypes %}
+                {% if service.iconNameSmall %}
+                    additionalServices[{{ service.id }}] = '/storage/images/company_icon/{{ service.iconNameSmall }}';
+                {% endif %}
+            {% endfor %}
+
+            $('.additionalServiceItem').each(function() {
+                var service_id = $(this).find('input').val();
+                if (additionalServices[service_id]){
+                    $(this).find('span').css('background', 'none').html('<img src="'+ additionalServices[service_id] + '"/>');
+                }
+            });
+
+            if ($('#sto_company_register_business_profile_allAuto').is(':checked')) {
+                $('.basket__cont__body__bottom__paper').toggle();
+            }
+
+            $('#sto_company_register_business_profile_allAuto').on('change', function() {
+                $('.basket__cont__body__bottom__paper').toggle();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block back_link %}
+<a href="{{ path('company_edit_base', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
+{% endblock %}

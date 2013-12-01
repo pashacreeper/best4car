@@ -4,6 +4,7 @@ namespace Sto\CoreBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManager;
+use Sto\UserBundle\Entity\User;
 
 class CompanyManagerValidator extends ConstraintValidator
 {
@@ -16,8 +17,7 @@ class CompanyManagerValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $user = $this->em->getRepository('StoUserBundle:User')->findOneBy(['username' => (string) $value]);
-        if (!$user) {
+        if (!$value instanceof User) {
             $this->context->addViolation($constraint->message);
         }
     }

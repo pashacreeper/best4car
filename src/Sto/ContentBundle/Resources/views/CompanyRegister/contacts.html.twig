@@ -1,0 +1,237 @@
+{% extends 'StoContentBundle:CompanyRegister:_newCompany.html.twig' %}
+
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+    – Контактная информация
+{% endblock %}
+
+{% block links %}
+    <ul class="stepRegistration" id="stepRegistration">
+        <li class="stepRegistrationItem firstStep"><a href="{{ path('company_edit_base', { "id": company.id }) }}" class="stepLink">Общие сведения</a></li>
+        <li class="stepRegistrationItem centerStep"><a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="stepLink">Профиль деятельности</a></li>
+    {% if company.isRegistredFully %}
+        <li class="stepRegistrationItem centerStep active"><a href="{{ path('company_edit_contacts', { "id": company.id }) }}" class="stepLink">Контактные данные</a></li>
+        <li class="stepRegistrationItem endStep"><a href="{{ path('company_edit_gallery', { "id": company.id }) }}" class="stepLink">Фотографии</a></li>
+    {% else %}
+        <li class="stepRegistrationItem centerStep active"><span class="stepLink">Контактные данные</span></li>
+        <li class="stepRegistrationItem endStep"><span class="stepLink">Фотографии</span></li>
+    {% endif %}
+    </ul>
+{% endblock %}
+
+{% block form_path %}action="{{ path('company_edit_contacts', {id: company.id}) }}"{% endblock %}
+
+{% block form_content %}
+    <div class="leftContaktDate">
+    <div class="contentLabel marginBottom">
+        {{ form_label(form.address) }}
+        {{ form_errors(form.address) }}
+        <span class="hint-text">Адрес компании указывается без индекса и города, например: ул. Ленина д.5</span>
+        {{ form_widget(form.address) }}
+    </div>
+    <div class="contentLabel marginBottom">
+        {{ form_label(form.gps) }}
+        {{ form_errors(form.gps) }}
+        {{ form_widget(form.gps) }}
+        <a href="#" class="btn-select-services addPhotoBtn" id="activateMap" data-reveal-id="yandexMapModal">Установить отметку на карте</a>
+    </div>
+    <div class="contentLabel marginBottom">
+        <label>Контактные телефоны</label>
+        {{ form_errors(form.phones) }}
+        <span class="hint-text">Вы можете указать несколько контактных телефонов, добавив к каждому текстовое описание, например: СТО, Запасные части, Многоканальный или иное.</span>
+        <div id="phoneAddWrapper" data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}">
+            {% for phone in form.phones %}
+                <div class="contactDate">
+                    {{ form_widget(phone.phone) }}
+                    {{ form_widget(phone.description) }}
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            var phoneCollectionHolder = $('#phoneAddWrapper');
+            var $phoneAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
+            var $phoneNewLink = $('<div class="clear"></div>').append($phoneAddTagLink);
+            jQuery(document).ready(function() {
+                deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                phoneCollectionHolder.on('click', '.deleteElement', function() {
+                    $(this).parents('.contactDate').remove();
+                });
+                phoneCollectionHolder.append($phoneNewLink);
+                phoneCollectionHolder.data('index', phoneCollectionHolder.find(':input').length);
+
+                $phoneAddTagLink.on('click', function(e) {
+                    e.preventDefault();
+                    addTagForm(phoneCollectionHolder, $phoneNewLink, true, deleteLink);
+                });
+                phoneCollectionHolder.find('.contactDate').append(deleteLink);
+            });
+        </script>
+    </div>
+    <div class="contentLabel marginBottom">
+        <label>Время работы</label>
+        {{ form_errors(form.workingTime) }}
+        <span class="hint-text">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</span>
+        <div id="workTimeAddWrapper" class="collection-form" data-prototype="{{ form_widget(form.workingTime.vars.prototype)|e }}">
+            {% for time in form.workingTime %}
+                <div class="contactDate" style="overflow: hidden">
+                    <div class="workingTimeDays">
+                        {% for day in time.days %}
+                            {% if day.vars.checked %}
+                                {{ form_label(day, null, {'label_attr' : {'class': 'checked'}}) }}
+                            {% else %}
+                                {{ form_label(day) }}
+                            {% endif %}
+                            {{ form_widget(day) }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="input-append dateLeft">
+                        {{ form_widget(time.fromTime) }}
+                        <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
+                    </div>
+                    <div class="input-append dateLeft">
+                        {{ form_widget(time.tillTime) }}
+                        <span class="add-on init-time"><i data-time-icon="icon-time" class="icon-time"></i></span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            var collectionHolder = $('#workTimeAddWrapper');
+            var $addTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
+            var $newLink = $('<div class="clear"></div>').append($addTagLink);
+
+            var initTimePicker = function(element){
+                $('#workTimeAddWrapper').find('.init-ui-time').each(function(index, element){
+                    var inputIndex = $(element).data('input-index');
+                    var buttonIndex = '#b' + inputIndex;
+                    $(element).timepicker({
+                        showOn: 'both',
+                        button: buttonIndex,
+                        showPeriodLabels: false,
+                        hourText: 'Часы',
+                        minuteText: 'Минуты',
+                        defaultTime: '12:00'
+                    });
+                });
+            };
+            jQuery(document).ready(function() {
+                deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+                collectionHolder.on('click', '.deleteElement', function() {
+                    $(this).parents('.contactDate').remove();
+                });
+                collectionHolder.append($newLink);
+                collectionHolder.data('index', collectionHolder.find(':input').length);
+
+                $addTagLink.on('click', function (e) {
+                    e.preventDefault();
+                    $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>')
+                    addTagForm(collectionHolder, $newLink, false, $deleteLink);
+                    initTimePicker();
+                });
+
+                collectionHolder.find('.contactDate').append(deleteLink);
+                initTimePicker();
+            });
+        </script>
+    </div>
+    <div class="contentLabel marginBottom">
+        <label>Менеджеры компании</label>
+        {{ form_errors(form.companyManager) }}
+        <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</span>
+        <div id="managerAddWrapper" data-prototype="{{ form_widget(form.companyManager.vars.prototype)|e }}">
+            {% for manager in form.companyManager %}
+                <div class="contactDate">
+                    {{ form_errors(manager.user) }}
+                    {{ form_widget(manager.user, {'attr': {'readonly': 'readonly'}}) }}
+                    {{ form_widget(manager.phone) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            var managerCollectionHolder = $('#managerAddWrapper');
+            var $managerAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
+            var $managerNewLink = $('<div class="contactDate"></div>').append($managerAddTagLink);
+            jQuery(document).ready(function() {
+                managerCollectionHolder.find('.contactDate').each(function(index, element){
+                    if ($(element).find('.errorMessage').length > 0) {
+                        $(element).find('input:first-of-type').attr('readonly', false);
+                    }
+                    var deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+                    if (index > 0) {
+                        $(element).append(deleteLink);
+                    }
+                });
+
+                managerCollectionHolder.on('click', '.deleteElement', function() {
+                    $(this).parents('.contactDate').remove();
+                });
+                managerCollectionHolder.append($managerNewLink);
+                managerCollectionHolder.data('index', managerCollectionHolder.find(':input').length);
+
+                $managerAddTagLink.on('click', function(e) {
+                    e.preventDefault();
+                    $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+                    addTagForm(managerCollectionHolder, $managerNewLink, true, $deleteLink);
+                });
+            });
+        </script>
+    </div>
+</div>
+<div class="rightContaktDate">
+    <p class="contentLabel rightContaktItem">
+        <label>Сайт</label>
+        {{ form_errors(form.web) }}
+        {{ form_widget(form.web) }}
+    </p>
+    <p class="contentLabel rightContaktItem">
+        <label>Skype</label>
+        {{ form_errors(form.skype) }}
+        {{ form_widget(form.skype) }}
+    </p>
+    <p class="contentLabel rightContaktItem">
+        <label>Email</label>
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email) }}
+    </p>
+    <div class="contentLabel rightContaktItem">
+        <label>VKontakte</label>
+        {{ form_errors(form.linkVK) }}
+        <p class="maskInput rightMask"><span>www.vk.com/</span>
+            {{ form_widget(form.linkVK) }}
+        </p>
+    </div>
+    <div class="contentLabel rightContaktItem">
+        <label>Twitter</label>
+        {{ form_errors(form.linkTW) }}
+        <p class="maskInput rightMask"><span>www.twitter.com/</span>
+            {{ form_widget(form.linkTW) }}
+        </p>
+    </div>
+    <div class="contentLabel rightContaktItem">
+        <label>Facebook</label>
+        {{ form_errors(form.linkFB) }}
+        <p class="maskInput rightMask"><span>www.facebook.com/</span>
+            {{ form_widget(form.linkFB) }}
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+<div id="yandexMapModal" class="reveal-modal yandexMapModal">
+        <a href="#" class="close-reveal-modal"></a>
+        <div class="slidCont">
+            <div id="myMap" style="height:400px;width:670px;left:5px" ></div>
+        </div>
+        <span class="btnNext addPhotoBtn" id="saveMapCoordinates">Выбрать</span>
+    </div>
+{% endblock %}
+
+{% block back_link %}
+<a href="{{ path('company_edit_business_profile', { "id": company.id }) }}" class="btnNext btnPrev addPhotoBtn">Назад</a>
+{% endblock %}
