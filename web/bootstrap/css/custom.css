@@ -754,3 +754,21 @@ a.btnNext:hover {
     text-decoration: none;
     color: #fff;
 }
+#service-choose-modal{
+    width: 420px;
+    margin-left: -210px;
+}
+#service-choose-modal h3{
+    font-size: 14px;
+}
+.service-modal{
+    padding: 10px 0 0 10px;
+}
+.jstree a{
+    font-size: 12px;
+}
+.service-popup-type-title{
+    font-size: 13px;
+    margin-bottom: 4px;
+    display: block;
+}

@@ -110,7 +110,9 @@
                                     select.find('option').each(function(e) {
                                         $('#service-tree').jstree('check_node', $('li#'+$(this).val()));
                                     });
+                                    $('#service-tree').prepend('<span class="service-popup-type-title">Услуги для типа «' + selectedType + '»');
                                 });
+                                var selectedType = link.parent().first('select').find(':selected').html();
                             });
                             $('#service-choose-modal').bind('reveal:close', function() {
                                 select.html('');
@@ -128,7 +130,7 @@
                                 e.preventDefault();
                             });
                         } else {
-                            $('#service-tree').html("Для выбора услуг необходимо выбрать специализацию!");
+                            $('#service-tree').html("<h3>Для выбора услуг необходимо выбрать специализацию!</h3>");
                         }
 
                         $('#service-choose-modal').reveal();
@@ -198,8 +200,7 @@
 {% block modal %}
 <div id="service-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
     <a href="#" class="close-reveal-modal"></a>
-
-    <div class="content">
+    <div class="service-modal">
         <div id="service-tree"></div>
     </div>
 </div>
