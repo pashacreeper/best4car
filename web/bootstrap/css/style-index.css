@@ -505,7 +505,6 @@
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px !important;
     margin-left: 10px;
 }
 
@@ -514,8 +513,14 @@
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
     margin-left: 10px;
+}
+.hideLeftColumn a, .hideRightSearch a {
+    padding: 0 0 0 16px;
+    background: url('/bootstrap/img/showicon.png') no-repeat 0 14px;
+}
+.showLeftColumn a, .showRightSearch a {
+    background: url('/bootstrap/img/hideicon.png') no-repeat 0 14px !important;
 }
 
 .showRightSearch {
@@ -523,7 +528,6 @@
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px !important;
     margin-left: 10px;
 }
 
@@ -532,7 +536,6 @@
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
     margin-left: 10px;
 }
 

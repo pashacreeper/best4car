@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class CompanyRegisterController extends Controller
 {

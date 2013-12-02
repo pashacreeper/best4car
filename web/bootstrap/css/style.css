@@ -627,7 +627,6 @@ html, body {
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px;
     margin-left: 10px;
 }
 
@@ -636,7 +635,6 @@ html, body {
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
     margin-left: 10px;
 }
 
@@ -645,7 +643,6 @@ html, body {
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/hideicon.png') no-repeat 0 16px;
     margin-left: 10px;
 }
 
@@ -654,7 +651,6 @@ html, body {
     line-height: 42px;
     padding-left: 15px;
     cursor: pointer;
-    background: url('/bootstrap/img/showicon.png') no-repeat 0 16px;
     margin-left: 10px;
 }
 
