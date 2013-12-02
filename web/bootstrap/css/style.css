@@ -155,7 +155,6 @@ html, body {
 .topHeader {
     width: 100%;
     min-width: 1000px;
-    position: relative;
     height: 75px;
     background: #676c72; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
