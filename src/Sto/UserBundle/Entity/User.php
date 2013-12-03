@@ -38,7 +38,6 @@ class User extends BaseUser
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="first_name", type="string", length=255)
-     *
      */
     protected $firstName;
 

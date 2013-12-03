@@ -19,12 +19,10 @@ var mainLayout = function(){
         $(this).children().css("opacity", "0.5");
     });
     // Login form
-    $('.enterDropdown').hide();
     $('.enter').click(function() {
         $('.enterDropdown').toggle();
     });
     // User menu
-    $('.userDropdown').hide();
     $('.btnUser').click(function() {
         $('.userDropdown').toggle();
     });

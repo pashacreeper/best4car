@@ -775,3 +775,6 @@ a.btnNext:hover {
 .no-margin{
     margin-bottom: 0 !important;
 }
+.enterDropdown, .userDropdown{
+    display: none;
+}
