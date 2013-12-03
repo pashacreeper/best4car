@@ -74,12 +74,12 @@ class FOSUBUserProvider extends BaseClass
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
             $url = 'https://api.vk.com/method/users.get?fields=sex,city,nickname,photo_max_orig&access_token='.$response->getAccessToken();
-            $additional_data=json_decode(file_get_contents($url));
-            $photo = $additional_data->response[0]->photo_max_orig;
-            $city_id = $additional_data->response[0]->city;
-            $city=file_get_contents('https://api.vk.com/method/places.getCityById?cid='.$city_id);
+            $additionalData = json_decode(file_get_contents($url));
+            $photo = $additionalData->response[0]->photo_max_orig;
+            $city_id = $additionalData->response[0]->city;
+            $city = file_get_contents('https://api.vk.com/method/places.getCityById?cid='.$city_id);
 
-            $nickname = $additional_data->response[0]->nickname;
+            $nickname = $additionalData->response[0]->nickname;
             if ($nickname != '') {
                 $user->setUsername($nickname);
             } else {
@@ -87,17 +87,16 @@ class FOSUBUserProvider extends BaseClass
             }
             $user->setAvatarVk($photo);
             $user->setEmail($username.'@'.$this->mailServer);
+            $user->setGender(($additionalData->response[0]->sex == 1) ? 'female' : 'male');
 
             $user->setPassword($username);
             $user->setEnabled(true);
             $user->setUsingEmail(false);
 
-            $user_data = $response->getResponse();
+            $userData = $response->getResponse();
 
-            $user_name = explode(' ', $user_data['response']['user_name']);
-            $user->setFirstName($user_name[0]);
-            $user->setLastName($user_name[1]);
-            $user->setGender(($user_data['response']['user_name'] == 1) ? 'female' : 'male');
+            $user->setFirstName($userData['response'][0]['first_name']);
+            $user->setLastName($userData['response'][0]['last_name']);
 
             $ratingGroup = $this->em->getRepository('StoUserBundle:RatingGroup')->find(1);
             $user->setRatingGroup($ratingGroup);
