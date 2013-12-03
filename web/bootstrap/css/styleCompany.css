@@ -473,6 +473,7 @@ ul.tabNavigation li a:focus {
     color: #51acd3;
     font: Bold 1.8em 'PT Sans', sans;
     margin: 3px 0;
+    height: 24px;
 }
 
 .servedBrend img {
