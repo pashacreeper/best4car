@@ -163,8 +163,6 @@
                             obPlacemark.balloon.open();
                             $('#companiesList').find('.bigInfoCompany').hide();
                             $('#companiesList').find('.smallInfoCompany').show();
-                            var api = $('#companiesListContainer').data('jsp');
-                            api.scrollToElement(itemId, true);
                             listObj.find('.smallInfoCompany').hide();
                             listObj.find('.bigInfoCompany').show();
                         }
@@ -315,6 +313,8 @@
                             return;
                         }
 
+                        if (globalSelectedItem.properties.get('id') == id) { return; }
+
                         globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
                         globalSelectedItem = o;
 
@@ -400,7 +400,7 @@
     </div>
 
     <div id="companiesList" class="contentLeft">
-        <div class="scroll-pane jspScrollable" id="companiesListContainer"></div>
+        <div id="companiesListContainer"></div>
     </div>
 
     <div id="advancedSearch" class="contentRightWrap">
