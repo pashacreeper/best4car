@@ -30,19 +30,12 @@ class AdditionalUserType extends AbstractType
                     'format' => 'yyyy-MM-dd',
                     'required' => false,
                     'attr' => [
-                        'class' => "inputData span4",
+                        'class' => "inputData span4 init-ui-datepicker no-margin",
                         'data-format' => "yyyy-MM-dd"
                     ]
                 ])
         ;
     }
-
-    /*public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'Sto\UserBundle\Entity\User'
-        ]);
-    }*/
 
     public function getName()
     {

@@ -772,3 +772,6 @@ a.btnNext:hover {
     margin-bottom: 4px;
     display: block;
 }
+.no-margin{
+    margin-bottom: 0 !important;
+}
