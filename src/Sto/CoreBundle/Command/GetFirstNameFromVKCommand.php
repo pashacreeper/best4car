@@ -28,10 +28,7 @@ class GetFirstNameFromVKCommand extends ContainerAwareCommand
                 $additionalData = json_decode(file_get_contents($url));
                 $data = $additionalData->response[0];
 
-                if (! $user->getFirstName()) {
-                    $user->setFirstName($data->first_name);
-                }
-
+                $user->setFirstName($data->first_name);
                 if (! $user->getLastName()) {
                     $user->setLastName($data->last_name);
                 }
