@@ -114,114 +114,117 @@
             </div>
         </section>
 
-        <div id="for-car-owners" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
-            <a href="#" class="close-reveal-modal"></a>
-            <div class="slidCont">
-                <ul class="bxslider1">
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/owner-1.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/owner-2.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/owner-3.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/owner-4.png" alt="">
-                        <div class="sliderRegisterButton">
-                            <a href="#" class="btnEnter" data-reveal-id="registration-form-popup" id="carOwnerRegisterFromTour">Зарегистрироваться</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="for-auto-companies" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
-            <a href="#" class="close-reveal-modal"></a>
-            <div class="slidCont">
-                <ul class="bxslider2">
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/business-1.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/business-2.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/business-3.png" alt="">
-                    </li>
-                    <li class="bxsliderItem">
-                        <img src="/bootstrap/img/tour_slides/business-4.png" alt="">
-                        <div class="sliderRegisterButton">
-                            <a href="{{ path('registration_company_owner') }}" class="btnEnter">Зарегистрироваться</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        {% if not app.user %}
-            <div id="registration-popup" class="reveal-modal">
+        {% block modal_windows %}
+            <div id="for-car-owners" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
                 <a href="#" class="close-reveal-modal"></a>
-                <p class="popUpTitle">Регистрация на best4car.ru</p>
-                <p class="popUpTitle2">Кем вы хотите зарегистрироваться?</p>
-                <a href="#" class="btnHowReg btnRegPeople" id="carOwnerRegister">
-                    <i class="iconPeople"></i>
-                    <span>Автовладельцем</span>
-                </a>
-                <a href="{{ path('registration_company_owner') }}" class="btnHowReg btnRegComp">
-                    <i class="iconCompany"></i>
-                    <span>Представителем компании</span>
-                </a>
+                <div class="slidCont">
+                    <ul class="bxslider1">
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/owner-1.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/owner-2.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/owner-3.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/owner-4.png" alt="">
+                            <div class="sliderRegisterButton">
+                                <a href="#" class="btnEnter" data-reveal-id="registration-form-popup" id="carOwnerRegisterFromTour">Зарегистрироваться</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <div id="resetting-popup" class="reveal-modal resetting-modal">
+            <div id="for-auto-companies" class="reveal-modal siteTourPopup"><!-- popUp firstReg-->
                 <a href="#" class="close-reveal-modal"></a>
-                <p class="popUpTitle">Для восстановления пароля введите адрес электронной почты.</p>
-                <div id="resetting-container"></div>
+                <div class="slidCont">
+                    <ul class="bxslider2">
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/business-1.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/business-2.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/business-3.png" alt="">
+                        </li>
+                        <li class="bxsliderItem">
+                            <img src="/bootstrap/img/tour_slides/business-4.png" alt="">
+                            <div class="sliderRegisterButton">
+                                <a href="{{ path('registration_company_owner') }}" class="btnEnter">Зарегистрироваться</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <div id="registration-form-popup" class="reveal-modal registration-form-popup">
-                <a href="#" class="close-reveal-modal"></a>
-                <p class="popUpTitle">Регистрация на best4car.ru</p>
-                <div id="registration-container"></div>
-            </div>
+            {% if not app.user %}
+                <div id="registration-popup" class="reveal-modal">
+                    <a href="#" class="close-reveal-modal"></a>
+                    <p class="popUpTitle">Регистрация на best4car.ru</p>
+                    <p class="popUpTitle2">Кем вы хотите зарегистрироваться?</p>
+                    <a href="#" class="btnHowReg btnRegPeople" id="carOwnerRegister">
+                        <i class="iconPeople"></i>
+                        <span>Автовладельцем</span>
+                    </a>
+                    <a href="{{ path('registration_company_owner') }}" class="btnHowReg btnRegComp">
+                        <i class="iconCompany"></i>
+                        <span>Представителем компании</span>
+                    </a>
+                </div>
 
-            <div id="not-loged-in" class="reveal-modal">
-                <a href="#" class="close-reveal-modal"></a>
-                <div class="formWrapper">{% render controller('StoUserBundle:User:userLogin') %}</div>
-                <script>
-                    $(document).ready(function(){
-                        var link = $('#not-loged-in .regisrationLink'),
-                            id = link.data('reveal-id');
+                <div id="resetting-popup" class="reveal-modal resetting-modal">
+                    <a href="#" class="close-reveal-modal"></a>
+                    <p class="popUpTitle">Для восстановления пароля введите адрес электронной почты.</p>
+                    <div id="resetting-container"></div>
+                </div>
 
-                        link.attr('data-reveal', id)
-                            .removeData('reveal-id')
-                            .removeAttr('data-reveal-id')
-                        ;
+                <div id="registration-form-popup" class="reveal-modal registration-form-popup">
+                    <a href="#" class="close-reveal-modal"></a>
+                    <p class="popUpTitle">Регистрация на best4car.ru</p>
+                    <div id="registration-container"></div>
+                </div>
 
-                        $('#not-loged-in').on('submit', 'form', function(e){
-                            e.preventDefault();
-                            var $this = $(this),
-                                $loginFormWrapper = $('#not-loged-in .formWrapper');
+                <div id="not-loged-in" class="reveal-modal">
+                    <a href="#" class="close-reveal-modal"></a>
+                    <div class="formWrapper">{% render controller('StoUserBundle:User:userLogin') %}</div>
+                    <script>
+                        $(document).ready(function(){
+                            var link = $('#not-loged-in .regisrationLink'),
+                                id = link.data('reveal-id');
 
-                            $.ajax({
-                                type: "POST",
-                                url: $this.attr('action'),
-                                data: $this.serialize(),
-                                success: function(response) {
-                                    window.location.reload();
-                                }
+                            link.attr('data-reveal', id)
+                                .removeData('reveal-id')
+                                .removeAttr('data-reveal-id')
+                            ;
+
+                            $('#not-loged-in').on('submit', 'form', function(e){
+                                e.preventDefault();
+                                var $this = $(this),
+                                    $loginFormWrapper = $('#not-loged-in .formWrapper');
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: $this.attr('action'),
+                                    data: $this.serialize(),
+                                    success: function(response) {
+                                        window.location.reload();
+                                    }
+                                });
+                            });
+                            $('#not-loged-in').on('click', '.regisrationLink', function(){
+                                $(this).parents('.reveal-modal').trigger('reveal:close');
+                                $('#' + $(this).data('reveal')).reveal($(this).data());
                             });
                         });
-                        $('#not-loged-in').on('click', '.regisrationLink', function(){
-                            $(this).parents('.reveal-modal').trigger('reveal:close');
-                            $('#' + $(this).data('reveal')).reveal($(this).data());
-                        });
-                    });
-                </script>
-            </div>
-        {% endif %}
+                    </script>
+                </div>
+            {% endif %}
+        {% endblock %}
+
         {% block wrap_container_close %}</div>{% endblock %}
 
         <script type="text/javascript">
