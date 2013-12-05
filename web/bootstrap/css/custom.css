@@ -778,3 +778,10 @@ a.btnNext:hover {
 .enterDropdown, .userDropdown{
     display: none;
 }
+.subCompanyTypeWrapper{
+    display: none;
+}
+.advancedSearchElement{
+    margin-bottom: 12px;
+    
+}

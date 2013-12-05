@@ -1,15 +1,18 @@
 <div class="contentRight">
     <form action method="post" class="inputTypeForm" id="advanced-search-form">
-        <p class="contentRightItem">
-            <label for="typeCompany">Тип компании</label>
-        </p>
-        <div class="basket__cont__body__bottom__paper">
-            <div class="lineForm">
-                {{ form_widget(form.companyType) }}
+        <div class="advancedSearchElement">
+            <p class="contentRightItem">
+                <label for="typeCompany">Тип компании</label>
+            </p>
+            <div class="basket__cont__body__bottom__paper">
+                <div class="lineForm">
+                    {{ form_widget(form.companyType) }}
+                </div>
             </div>
+            <div class="clear"></div>
         </div>
 
-        <div id="subCompanyTypeWrapper" style="display: none;">
+        <div id="subCompanyTypeWrapper" class="subCompanyTypeWrapper advancedSearchElement">
             <p class="contentRightItem">
                 <label for="addtypeCompany">Подтип компании</label>
             </p>
@@ -18,16 +21,21 @@
                     {{ form_widget(form.subCompanyType) }}
                 </div>
             </div>
+            <div class="clear"></div>
         </div>
 
-        <p class="contentRightItem">
-            <label for="inputBrandField">Специализация на марке</label>
-        </p>
-        <div class="basket__cont__body__bottom__paper" style="float: none; margin-bottom: 30px;">
-            <div class="lineForm">
-                {{ form_widget(form.auto) }}
+        <div class="advancedSearchElement">
+            <p class="contentRightItem">
+                <label for="inputBrandField">Специализация на марке</label>
+            </p>
+            <div class="basket__cont__body__bottom__paper" style="float: none; margin-bottom: 30px;">
+                <div class="lineForm">
+                    {{ form_widget(form.auto) }}
+                </div>
             </div>
+            <div class="clear"></div>
         </div>
+
         <div class="reitingSlyder">
             <p class="contentAmount">
                 <span id="lableAmount" for="amount">Минимальный рейтинг:</span>
