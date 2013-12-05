@@ -374,6 +374,14 @@ var registrationPage = function(){
         appendIcons(this);
     });
 
+    $('#addLogoImgWrap').on('click', '#deleteImg', function(){
+        var control = $('#sto_company_register_base_logo');
+        $('#picture-preview-wrapper').find('img').remove();
+        $(this).remove();
+        $('#sto_company_register_base_adminLogoDelete').prop('checked', true);
+        control.replaceWith(control = control.clone( true ));
+    });
+
     $('#sto_company_register_base_logo').on('change', function(){
         var reader = new FileReader(),
             thisElem = $(this);
@@ -390,12 +398,9 @@ var registrationPage = function(){
 
             $wrapper.append('<img style="max-width: 200px; margin-top: 10px;" src="'+e.target.result+'">');
             $wrapper.after('<a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>');
+            $('#sto_company_register_base_adminLogoDelete').prop('checked', false);
         };
 
-        $('#general-data').on('click', '#deleteImg', function(){
-            $('#picture-preview-wrapper').find('img').remove();
-            $(this).remove();
-        });
         reader.readAsDataURL($(this)[0].files[0]);
     });
 

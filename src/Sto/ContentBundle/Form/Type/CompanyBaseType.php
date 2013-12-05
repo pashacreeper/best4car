@@ -73,6 +73,13 @@ class CompanyBaseType extends AbstractType
                     new Assert\Image()
                 ]
             ])
+            ->add('adminLogoDelete', 'radio', [
+                'label' => ' ',
+                'required' => false,
+                'attr' => [
+                    'class' => 'hidden',
+                ]
+            ])
         ;
     }
 

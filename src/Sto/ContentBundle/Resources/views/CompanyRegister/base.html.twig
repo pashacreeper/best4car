@@ -63,15 +63,19 @@
 <div class="addLogo clear">
     {{ form_label(form.logo) }}
     {{ form_errors(form.logo) }}
-    <div class="addLogoImgWrap">
+    <div class="addLogoImgWrap" id="addLogoImgWrap">
         <div class="addLogoImg" id='picture-preview-wrapper'>
             {% if company.logo %}
                 <img style="max-width: 200px; margin-top: 10px;" src="{{ vich_uploader_asset(company, 'logo') }}" alt="">
             {% endif %}
         </div>
+        {% if company.logo %}
+            <a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>
+        {% endif %}
     </div>
     <div class="adminBlockImg span6">
         {{ form_widget(form.logo) }}
+        {{ form_widget(form.adminLogoDelete) }}
         <span class="addPhotoBtn">Загрузить изображение<i class="addPhoto"></i></span>
         <p class="additionalInfo">
             Логотип должен быть вписан в квадрат с белым или прозрачным фоном. <br/>

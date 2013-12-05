@@ -783,5 +783,7 @@ a.btnNext:hover {
 }
 .advancedSearchElement{
     margin-bottom: 12px;
-    
+}
+.hidden{
+    display: none !important;
 }
