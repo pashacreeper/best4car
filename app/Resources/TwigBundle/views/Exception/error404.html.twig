@@ -20,7 +20,9 @@
 {% block content %}
 <section class="contentMain  row">
     <div class="content">
-        <h1 class="titleH1">Страница не найдена</h1>
+        <h1 class="titleH1">Сожалеем, но запрашиваемая вами страница не найдена :-(</h1>
+        <p class="infoText">Возможно она была удалена или ее никогда не существовало на сервере.</p>
+        <p class="infoText">Воспользуйтесь <a href="{{ path('_index') }}">данной ссылкой</a> для перехода на главную страницу.</p>
     </div>
 </section>
 {% endblock %}
