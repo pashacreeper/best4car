@@ -41,16 +41,6 @@
             for (var key in companies) {
                 var val = companies[key];
                 var placemark;
-                var siteUrl = val.web;
-                var siteUrlWithoutHttp = val.web;
-
-                if (val.web) {
-                    siteUrlWithoutHttp = val.web.replace(/(http|https):\/\//, '');
-                    if (!siteUrl.match(/(http|https):\/\//)) {
-                        siteUrl = 'http://' + siteUrl
-                    }
-                }
-
                 var iconMap = "{{ asset('bootstrap/img/icon-map-default.png') }}";
                 var iconMapSelected = "{{ asset('bootstrap/img/icon-map-default-active.png') }}";
 
@@ -115,8 +105,7 @@
                     name: val.name,
                     address: val.address,
                     phone: val.phones,
-                    web: siteUrl,
-                    web_without_http: siteUrlWithoutHttp,
+                    web: val.web,
                     logo: val.logoName ? '<img src="/{{ storage_path }}/company_logo/' + val.logoName + '">' : '<img src="/bootstrap/img/default_company_logo.png">',
                     rating: val.rating,
                     special: special,
@@ -182,7 +171,7 @@
                             '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
                             '<p class="adressCompany">$[properties.address]</p>' +
                             '$[properties.special]' +
-                            '<div><a href="http://$[properties.web_without_http]" class="siteCompany" target="_blank">$[properties.web_without_http]</a></div>' +
+                            '<div><a href="http://$[properties.web]" class="siteCompany" target="_blank">$[properties.web]</a></div>' +
                             '$[properties.specialDeal]' +
                         '</div>' +
                     '</div>' +
