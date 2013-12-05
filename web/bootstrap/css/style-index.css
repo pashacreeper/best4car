@@ -20,7 +20,6 @@
     background: -ms-linear-gradient(top, #676c72 0%, #464a4e 100%); /* IE10+ */
     background: linear-gradient(to bottom, #676c72 0%, #464a4e 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#676c72', endColorstr='#464a4e', GradientType=0); /* IE6-8 */
-    z-index: 888;
 }
 
 .logoCont {
@@ -262,11 +261,9 @@
     min-width: 1000px;
     height: 70px;
     background: #51acd3;
-    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid #7d7f81;
-    position: relative;
     z-index: 777;
 }
 
