@@ -64,7 +64,11 @@
     {{ form_label(form.logo) }}
     {{ form_errors(form.logo) }}
     <div class="addLogoImgWrap">
-        <div class="addLogoImg" id='picture-preview-wrapper'></div>
+        <div class="addLogoImg" id='picture-preview-wrapper'>
+            {% if company.logo %}
+                <img style="max-width: 200px; margin-top: 10px;" src="{{ vich_uploader_asset(company, 'logo') }}" alt="">
+            {% endif %}
+        </div>
     </div>
     <div class="adminBlockImg span6">
         {{ form_widget(form.logo) }}
