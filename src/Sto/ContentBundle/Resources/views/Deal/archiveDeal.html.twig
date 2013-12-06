@@ -38,13 +38,28 @@
     <div class="indexCompany">
         <p>Рейтинг:</p>
         <span class="indexbg"></span>
-        <span class="indexLevel">{{ company.rating }}</span></br>
+        {% set rating = 'n/a' %}
+        {% if company.rating %}
+            {% set rating = company.rating|number_format(1) %}
+        {% endif %}
+        <span class="indexLevel">{{ rating }}</span></br>
     </div>
 </div>
 {% endblock %}
 
 {% block content %}
 <section class="contentMain">
+    <ul class="tabNavigation">
+        <li>
+            <a href="{{ path('content_company_show', { "id": company.id }) }}#information">Информация</a>
+        </li>
+        <li>
+            <a href="{{ path('content_company_show', { "id": company.id }) }}#feedbacks">Отзывы</a>
+        </li>
+        <li>
+            <a href="#deals" class="selected">Акции  {{ deals|length }}<span class="newPost">/ {{ archive_deal|length }}</span></a>
+        </li>
+    </ul>
     <div class="content">
         <div class="leftContent">
             <h1 class="title2">Архивные акции компании</h1>

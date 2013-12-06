@@ -35,6 +35,8 @@ class DealController extends MainController
             ->setParameters(['endDate'=> new \DateTime('now'),'company'=> $company->getId()])
         ;
 
+        $deals = $repository->getDealsByCompany($company->getId());
+
         $arhive_deals = $query
             ->getQuery()
             ->getResult()
@@ -43,6 +45,7 @@ class DealController extends MainController
         return [
             'archive_deal' => $arhive_deals,
             'company'      => $company,
+            'deals' => $deals
         ];
     }
 
