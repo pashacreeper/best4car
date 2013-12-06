@@ -261,8 +261,6 @@
     min-width: 1000px;
     height: 70px;
     background: #51acd3;
-    -moz-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid #7d7f81;
     z-index: 777;
 }
@@ -441,7 +439,7 @@
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 222;
-    background: #fff;
+    background: #fff url('/bootstrap/img/top.bg.png') left top repeat-x;
 }
 
 .contentTopLeft {
