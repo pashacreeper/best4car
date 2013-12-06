@@ -787,3 +787,9 @@ a.btnNext:hover {
 .hidden{
     display: none !important;
 }
+.dealCharCounter{
+    float: right;
+    position: relative;
+    top: -20px;
+    right: 10px;
+}

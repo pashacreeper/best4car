@@ -60,7 +60,7 @@
     <div class="servicesSpecialisationWrap">
     {% if deal.description %}
         <p class="servicesSpecialisationTitle titleH2">Об акции</p>
-        <p class="aboutCompanyCont contentText">{{ deal.description | nl2br }}</p>
+        <p class="aboutCompanyCont contentText">{{ deal.description[:1250]|nl2br  }}</p>
     {% endif %}
     {% if deal.terms %}
         <p class="servicesSpecialisationTitle titleH2">Условия</p>

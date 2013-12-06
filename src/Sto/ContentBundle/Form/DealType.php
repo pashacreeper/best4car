@@ -28,7 +28,8 @@ class DealType extends AbstractType
                 'required' => false,
                 'attr' => [
                     "rows" => 4,
-                    "class" => "span12",
+                    "class" => "span12 description-textarea",
+                    'data-length' => '1250',
                 ]
             ])
             ->add('autoServices', null, [
