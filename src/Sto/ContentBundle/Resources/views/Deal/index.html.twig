@@ -21,11 +21,6 @@
                 <label class="control-label" for="search">Я ищу:</label>
                     <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все акции" name="search" value="{{ search }}">
                     <input id="inputSearchHidden" type="hidden" value="{{ search }}"/>
-                <p class="searchExample">Например:
-                <i class="btnLeft icon-white"></i>
-                <i class="btnRight icon-white"></i>
-                <span class="exampleName" id="variantContainer">ремонт двигателя Mazda3 спб</span></p>
-                {% render controller('StoContentBundle:Deal:searchVariants') %}
                 <button type="submit" href="#" class="btnSearch">
                     <i class="iconSearch icon-search icon-white"></i>Найти
                 </button>
