@@ -736,6 +736,7 @@ a.addEmail {
 
 .reviewCont p {
     font-size: 1.4em;
+    margin: 0 0 10px 0;
 }
 
 .reviewAdditionalInfo {
@@ -799,7 +800,6 @@ a.addEmail {
 }
 
 .reviewContText {
-    font: 1.3em 'PT Sans', sans;
     color: #444;
     padding-top: 10px;
     clear: both;

@@ -793,3 +793,14 @@ a.btnNext:hover {
     top: -20px;
     right: 10px;
 }
+
+.reviewContText ul, .reviewContText ol{
+    padding: 0 0 10px 20px;
+    font-size: 1.4em;
+}
+.reviewContText ul{
+    list-style: disc !important;
+}
+.reviewContText ol{
+    list-style-type: decimal !important;
+}
