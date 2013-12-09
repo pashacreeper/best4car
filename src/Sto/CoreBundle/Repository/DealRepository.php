@@ -82,6 +82,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('deal.services', 'ds')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
+            ->orderBy('deal.id', 'DESC')
             ->setParameters(
                 [
                     'endDate' => new \DateTime('now'),

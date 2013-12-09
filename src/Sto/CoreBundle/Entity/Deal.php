@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Deal
@@ -170,9 +171,16 @@ class Deal
     private $type;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     /**
      * @ORM\Column(name="draft", type="boolean")
@@ -816,5 +824,28 @@ class Deal
     public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
     {
         $this->autoServices->removeElement($autoServices);
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Deal
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
