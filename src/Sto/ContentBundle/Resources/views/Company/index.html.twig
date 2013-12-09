@@ -98,7 +98,7 @@
                     });
                 }
 
-                var special = val.deals.length ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
+                var special = (val.activeDeals && val.activeDeals > 0) ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
                 placemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,

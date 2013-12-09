@@ -61,14 +61,21 @@ class APICompanyController extends FOSRestController
             ])
         ;
 
-        foreach ($companies as $key => $value) {
+        foreach ($companies as $key => $company) {
             $companies[$key]['rating'] = ($companies[$key]['rating'] !== null)
                 ? number_format($companies[$key]['rating'], 1)
                 : 'n/a'
             ;
 
-            foreach ($value['workingTime'] as $wtKey => $wtValue) {
-                $value['workingTime'][$wtKey]['days'] = [
+            $company['activeDeals'] = $companies[$key]['activeDeals'] = 0;
+            if (!empty($company['deals'])) {
+                $em = $this->getDoctrine()->getManager();
+                $company['activeDeals'] = $companies[$key]['activeDeals'] = $em->getRepository('StoCoreBundle:Deal')
+                    ->getActiveDaelsCountByCompany($company['id']);
+            }
+
+            foreach ($company['workingTime'] as $wtKey => $wtValue) {
+                $company['workingTime'][$wtKey]['days'] = [
                     $wtValue['daysMonday'],
                     $wtValue['daysTuesday'],
                     $wtValue['daysWednesday'],
@@ -82,19 +89,19 @@ class APICompanyController extends FOSRestController
             $companies[$key]['specialization_template'] = $this->render(
                 'StoContentBundle:Company:specialization_list.html.twig',
                 [
-                    'specializations' => $value['specializations'],
-                    'additionalServices' => $value['additionalServices']
+                    'specializations' => $company['specializations'],
+                    'additionalServices' => $company['additionalServices']
                 ]
             )->getContent();
 
             $companies[$key]['workingTime_template'] = $this->render(
                 'StoContentBundle:Company:workingTime_list.html.twig',
-                ['workingTime' => $value['workingTime']]
+                ['workingTime' => $company['workingTime']]
             )->getContent();
 
             $companies[$key]['html'] = $this->render(
                 'StoContentBundle:Company:company.html.twig',
-                ['item' => $value]
+                ['item' => $company]
             )->getContent();
         }
 

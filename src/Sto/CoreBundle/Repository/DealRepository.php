@@ -117,6 +117,18 @@ class DealRepository extends EntityRepository
         ;
     }
 
+    public function getActiveDaelsCountByCompany($companyId)
+    {
+        return $this->createQueryBuilder('deal')
+            ->select('COUNT(deal)')
+            ->where('deal.endDate >= :endDate')
+            ->andWhere('deal.companyId = :company')
+            ->andWhere('deal.draft = 0')
+            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getArchivedDealsCountByCompany($companyId)
     {
         return $this->createQueryBuilder('deal')
