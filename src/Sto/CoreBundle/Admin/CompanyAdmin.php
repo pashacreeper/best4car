@@ -132,7 +132,7 @@ class CompanyAdmin extends Admin
                     'required' => false,
                     'choice_list' => new CompanyRegistrationStep(),
                     'empty_value' => 'Выберите один из пунктов',
-                    'empty_data' => false
+                    'empty_data' => null
                 ])
             ->end()
             ->with('Контакты')
