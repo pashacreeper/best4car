@@ -97,6 +97,9 @@
                             $('#service-choose-modal').bind('reveal:open', function() {
                                 $('#service-tree').jstree({
                                     "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
+                                    "checkbox": {
+                                        "two_state": true
+                                    },
                                     "themes" : {
                                         "theme" : "classic",
                                         "icons" : false
