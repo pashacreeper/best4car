@@ -121,14 +121,12 @@ class Deal
     private $endDate;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="start_time", type="time")
+     * @ORM\Column(name="start_time", type="time", nullable=true)
      */
     private $startTime;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(name="end_time", type="time")
+     * @ORM\Column(name="end_time", type="time", nullable=true)
      */
     private $endTime;
 

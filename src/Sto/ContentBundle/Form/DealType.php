@@ -116,7 +116,7 @@ class DealType extends AbstractType
             ->add(
                 $builder->create('startTime', 'text', [
                     'label' => 'Start time',
-                    'required' => true,
+                    'required' => false,
                     'attr' => [
                         'class' => 'inputTime init-ui-time',
                         'data-button-index' => 'timepicker1'
@@ -126,7 +126,7 @@ class DealType extends AbstractType
             ->add(
                 $builder->create('endTime', 'text', [
                     'label' => 'End time',
-                    'required' => true,
+                    'required' => false,
                     'attr' => [
                         'class' => 'inputTime init-ui-time',
                         'data-button-index' => 'timepicker2'
