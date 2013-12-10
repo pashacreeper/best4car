@@ -1144,11 +1144,16 @@ span.disabledIconNegativ i {
     overflow: hidden;
     height: 280px;
 }
+.slider.deals-slider{
+    background: url("/bootstrap/img/action_bg.png");
+}
+.slider.company-slider{
+    background: url("/bootstrap/img/company_bg.png");
+}
 
 .img__prev__wrap {
     position: absolute;
     overflow: hidden;
-    background: #fff;
     left: -410px;
     height: 280px;
 }

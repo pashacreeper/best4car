@@ -1,6 +1,6 @@
 <div class="leftContent">
-{% if gallery|length %}
-<div class="slider">
+
+<div class="slider company-slider">
     <div class="img__prev__wrap">
         <ul id="thumbnail" class="slide-wrap">
             {% for photo in gallery if photo.imageName %}
@@ -11,11 +11,12 @@
                 </li>
             {% endfor %}
         </ul>
+        {% if gallery|length %}
         <span name="prev" class="navy prev-slide"></span>
         <span name="next" class="navy next-slide"></span>
+        {% endif %}
     </div>
 </div>
-{% endif %}
 {% macro service_list(services, level) %}
     {% for service in services %}
         <li class="listServicesItem">

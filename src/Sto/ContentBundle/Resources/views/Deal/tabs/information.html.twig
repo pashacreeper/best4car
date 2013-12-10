@@ -1,6 +1,5 @@
 <div class="leftContent">
-    {% if deal.imageName or deal.imageName2 or deal.imageName3 %}
-    <div class="slider">
+    <div class="slider deals-slider">
         <div class="img__prev__wrap">
             <ul id="thumbnail" class="slide-wrap">
                 {% if deal.imageName %}
@@ -52,11 +51,12 @@
                 </li>
                 {% endif %}
             </ul>
+            {% if deal.imageName or deal.imageName2 or deal.imageName3 %}
             <span name="prev" class="navy prev-slide"></span>
             <span name="next" class="navy next-slide"></span>
+            {% endif %}
         </div>
     </div>
-    {% endif %}
     <div class="servicesSpecialisationWrap">
     {% if deal.description %}
         <p class="servicesSpecialisationTitle titleH2">Об акции</p>
