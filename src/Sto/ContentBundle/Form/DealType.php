@@ -37,13 +37,7 @@ class DealType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:autoServices',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('ct')
-                        ->where('ct.parent is not null')
-                        ->andWhere('ct.code is null')
-                        ->groupBy('ct.parent')
-                    ;
-                },
+                'query_builder' => function (EntityRepository $er) { return $er->createQueryBuilder('ct')->select('ct'); },
                 'attr' => [
                     'class' => 'chosen-multiple',
                     'data-placeholder' => "Выберите варианты"

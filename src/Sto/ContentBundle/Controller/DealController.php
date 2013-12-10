@@ -100,8 +100,8 @@ class DealController extends MainController
         $form = $this->createForm(new DealType(), $deal);
 
         return [
-            'form'        => $form->createView(),
-            'company'     => $company,
+            'form'    => $form->createView(),
+            'company' => $company,
         ];
     }
 

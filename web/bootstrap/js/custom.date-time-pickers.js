@@ -21,7 +21,8 @@ var timePicker = function(){
         showOn: 'both',
         showPeriodLabels: false,
         hourText: 'Часы',
-        minuteText: 'Минуты'
+        minuteText: 'Минуты',
+        defaultTime: '12:00'
     });
 }
 
