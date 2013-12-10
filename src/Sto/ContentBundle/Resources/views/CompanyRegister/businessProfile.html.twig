@@ -38,9 +38,15 @@
                     {{ form_widget(specialization.type) }}
                     {{ form_widget(specialization.subType) }}
                     <select data-index="{{ k }}" name="services[{{ k }}][]" multiple="multiple" style="display:none">
-                        {% for service in specialization.vars.value.services %}
-                        <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
-                        {% endfor %}
+                        {% if app.request.get('services') %}
+                            {% for service in app.request.get('services')[k] %}
+                            <option value="{{ service }}" selected="selected">{{ service }}</option>
+                            {% endfor %}
+                        {% else %}
+                            {% for service in specialization.vars.value.services %}
+                            <option value="{{ service.service.id }}" selected="selected">{{ service.service.id }}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                     <a data-index="{{ k }}" href="#" class="edit-services btn-select-services addPhotoBtn">Выбор услуг</a>
                     <i class="icon-remove-circle deleteElement"></i>

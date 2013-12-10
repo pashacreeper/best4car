@@ -210,42 +210,7 @@ class CompanyController extends MainController
             }
             $services = $request->get('services');
 
-            foreach ($company->getSpecializations() as $key => $item) {
-                if (isset($services[$key])) {
-                    $itemServices = $services[$key];
-                    foreach ($item->getServices() as $oldService) {
-                        $serviceId = $oldService->getService()->getId();
-                        if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
-                            unset($itemServices[$serviceKey]);
-                        } else {
-                            $em->remove($oldService);
-                        }
-                    }
-                    $companyServices = [];
-                    foreach ($itemServices as $serviceId) {
-                        $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
-                        $service = new CompanyAutoService();
-                        $service->setService($autoService);
-                        $service->setSpecialization($item);
-                        $companyServices[] = $service;
-                        $em->persist($service);
-                    }
-                    foreach ($item->getServices() as $service) {
-                        $companyServices[] = $service;
-                    }
-                    foreach ($companyServices as $companyService) {
-                        if ($companyService->getService()->getParent()) {
-                            $this->createCompanyServiceParent($companyServices, $companyService, $item);
-                        }
-                    }
-                    $em->flush();
-                    foreach ($companyServices as $companyService) {
-                        if ($companyService->getService()->getParent()) {
-                            $this->setCompanyServiceParent($companyServices, $companyService);
-                        }
-                    }
-                }
-            }
+            $this->saveServices($company, $services);
 
             foreach ($company->getGallery() as $image) {
                 $image->setUpdatedAt(new \DateTime());
@@ -262,6 +227,47 @@ class CompanyController extends MainController
             'cForm'    => $form->createView(),
             'company' => $company,
         ];
+    }
+
+    protected function saveServices($company, $services)
+    {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($company->getSpecializations() as $key => $item) {
+            if (isset($services[$key])) {
+                $itemServices = $services[$key];
+                foreach ($item->getServices() as $oldService) {
+                    $serviceId = $oldService->getService()->getId();
+                    if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
+                        unset($itemServices[$serviceKey]);
+                    } else {
+                        $em->remove($oldService);
+                    }
+                }
+                $companyServices = [];
+                foreach ($itemServices as $serviceId) {
+                    $autoService = $em->getRepository('StoCoreBundle:AutoServices')->find($serviceId);
+                    $service = new CompanyAutoService();
+                    $service->setService($autoService);
+                    $service->setSpecialization($item);
+                    $companyServices[] = $service;
+                    $em->persist($service);
+                }
+                foreach ($item->getServices() as $service) {
+                    $companyServices[] = $service;
+                }
+                foreach ($companyServices as $companyService) {
+                    if ($companyService->getService()->getParent()) {
+                        $this->createCompanyServiceParent($companyServices, $companyService, $item);
+                    }
+                }
+                $em->flush();
+                foreach ($companyServices as $companyService) {
+                    if ($companyService->getService()->getParent()) {
+                        $this->setCompanyServiceParent($companyServices, $companyService);
+                    }
+                }
+            }
+        }
     }
 
     protected function createCompanyServiceParent(&$companyServices, $companyService, $specialization)
