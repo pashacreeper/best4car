@@ -131,7 +131,7 @@ class CompanyController extends MainController
         $isManager = (isset($manager) && count($manager) > 0) ? true : false;
 
         $archivedDealsCount = $em->getRepository('StoCoreBundle:Deal')->getArchivedDealsCountByCompany($id);
-        $deals = $em->getRepository('StoCoreBundle:Deal')->getDealsByCompany($id);
+        $deals = $em->getRepository('StoCoreBundle:Deal')->getActiveDealsByCompany($id);
 
         $refererRoute = $this->getRefererRoute();
 

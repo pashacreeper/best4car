@@ -35,7 +35,7 @@ class DealController extends MainController
             ->setParameters(['endDate'=> new \DateTime('now'),'company'=> $company->getId()])
         ;
 
-        $deals = $repository->getDealsByCompany($company->getId());
+        $deals = $repository->getActiveDealsByCompany($company->getId());
 
         $arhive_deals = $query
             ->getQuery()

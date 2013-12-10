@@ -106,13 +106,13 @@ class DealRepository extends EntityRepository
         return $query;
     }
 
-    public function getDealsByCompany($companyId)
+    public function getActiveDealsByCompany($companyId)
     {
         return $this->createQueryBuilder('deal')
-            ->where('deal.endDate >= :endDate')
+            ->where('deal.endDate >= :now')
             ->andWhere('deal.companyId = :company')
             ->andWhere('deal.draft = 0')
-            ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
+            ->setParameters(['now' => new \DateTime('now'), 'company' => $companyId])
             ->getQuery()
             ->getResult()
         ;
