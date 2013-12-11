@@ -67,7 +67,7 @@
             </div>
         <div class="titles">
             <h1 class="titleNameCompany"><a href="{{ path('content_company_show', { "id": company.id }) }}">{{ company.name }}</a></h1>
-            <p class="sloganCompany">{{ company.slogan }}</p>
+            <p class="sloganCompany">{{ company.slogan[:85] }}</p>
         </div>
     </div>
     <div class="indexCompany">

@@ -35,7 +35,11 @@ class CompanyBaseType extends AbstractType
                 'label' => 'Девиз (слоган)',
                 'required' => false,
                 'attr' => [
-                    'class' => 'input-xxlarge'
+                    'class' => 'input-xxlarge description-textarea',
+                    'data-length' => '85',
+                ],
+                'constraints' => [
+                    new Assert\Length(['max' => 85])
                 ]
             ])
             ->add('createtDate', 'datetime', [

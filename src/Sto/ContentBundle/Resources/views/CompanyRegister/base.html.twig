@@ -46,8 +46,15 @@
 <p class="contentLabel">
     {{ form_label(form.slogan) }}
     {{ form_errors(form.slogan) }}
-    <span class="hint-text">Например: Автоэксперты рекомендуют. Лучшее для вашего авто!</span>
+    <span class="hint-text">Например: Автоэксперты рекомендуют. Лучшее для вашего авто! Максимум 85 символов (<span id="chleft"></span>).</span>
     {{ form_widget(form.slogan) }}
+    <script>
+        $(document).ready(function(){
+            var textarea = $('.description-textarea');
+            var length = textarea.data('length');
+            $('.description-textarea').limit(length, '#chleft');
+        });
+    </script>
 </p>
 <div class="contentLabel clear datePickerInput">
     {{ form_label(form.createtDate) }}
