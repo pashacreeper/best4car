@@ -49,46 +49,49 @@ class DealAdmin extends Admin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array(
-                'required' => true
-            ))
-            ->add('description')
-            ->add('company')
-            ->add('services', null, array(
+            ->with('Информация')
+                ->add('name', null, array(
+                    'required' => true
+                ))
+                ->add('description')
+                ->add('company')
+                ->add('services', null, array(
+                    'required' => false
+                ))
+                ->add('terms')
+                ->add('startDate', 'date')
+                ->add('endDate', 'date')
+                ->add('startTime', 'time')
+                ->add('endTime', 'time')
+                ->add('place')
+                ->add('gps')
+                ->add('contactInformationName')
+                ->add('contactInformationPhone')
+                ->add('type')
+                ->add('draft', null, array(
+                    'required' => false
+                ))
+                ->add('is_vip', null, [
+                    'required' => false,
+                ])
+                ->add('auto', null, array(
+                    'required' => false
+                ))
+                ->add('autoServices', null, array(
+                    'required' => false
+                ))
+            ->end()
+            ->with('Галерея')
+                ->add('image', 'file', array(
                 'required' => false
-            ))
-            ->add('image', 'file', array(
-                'required' => false
-            ))
-            ->add('image2', 'file', array(
-                'required' => false
-            ))
-            ->add('image3', 'file', array(
-                'required' => false
-            ))
-            ->add('terms')
-            ->add('startDate', 'date')
-            ->add('endDate', 'date')
-            ->add('startTime', 'time')
-            ->add('endTime', 'time')
-            ->add('place')
-            ->add('gps')
-            ->add('contactInformationName')
-            ->add('contactInformationPhone')
-            ->add('type')
-            ->add('draft', null, array(
-                'required' => false
-            ))
-            ->add('is_vip', null, [
-                'required' => false,
-            ])
-            ->add('auto', null, array(
-                'required' => false
-            ))
-            ->add('autoServices', null, array(
-                'required' => false
-            ))
-        ;
+                ))
+                ->add('image2', 'file', array(
+                    'required' => false
+                ))
+                ->add('image3', 'file', array(
+                    'required' => false
+                ))
+            ->end();
     }
 
     public function configureListFields(ListMapper $listMapper)
@@ -126,5 +129,11 @@ class DealAdmin extends Admin
             ->add('auto')
             ->add('autoServices')
         ;
+    }
+
+    public function preUpdate($object)
+    {
+        $now = new \DateTime('now');
+        $object->setUpdatedAt($now);
     }
 }
