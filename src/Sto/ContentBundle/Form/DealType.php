@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DealType extends AbstractType
 {
@@ -139,6 +140,20 @@ class DealType extends AbstractType
                 'attr' => [
                     'class' => "span12"
                 ]
+            ])
+            ->add('gps', null, [
+                'label' => 'Координаты на карте',
+                'required' => false,
+                'attr' => [
+                    'style' => 'display:none'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ]
+            ])
+            ->add('onCompanyPlace', 'checkbox', [
+                'label' => 'По месту размещения компании',
+                'required' => false,
             ])
             ->add('contactInformationName', 'text', [
                 'label' => 'Контактное лицо',
