@@ -10,6 +10,7 @@
 
 {% block js %}
     {{ parent() }}
+    <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
@@ -118,12 +119,88 @@
                         {{ form_errors(form.autoServices) }}
                     </div>
                     <div class="contentLabel">
-                        <label>Место проведения акции</label>
-                        {{ form_widget(form.place) }}
-                        {{ form_errors(form.place) }}
-                        <a href="#" class="linkUnder" id="in-company-place"
-                           data-address="{{ company.address }}">по месту
-                            размещения компании</a>
+                        <label style="display: inline-block; margin-right: 10px;">Место проведения акции</label>
+                        (<span class="onPlace">{{ form_widget(form.onCompanyPlace) }}{{ form_label(form.onCompanyPlace) }}</span>)
+                        <span id="onPlaceElements">
+                            {{ form_widget(form.place) }}
+                            {{ form_errors(form.place) }}
+                            {{ form_widget(form.gps) }}
+                            <a href="#" id="activateMap" data-reveal-id="yandexMapModal" class="linkUnder">Установить отметку на карте</a>
+                        </span>
+                        <script>
+                            $(document).ready(function(){
+                                ymaps.ready(init);
+                                var gCollection;
+                                var gps;
+                                var addressName = '';
+                                function init() {
+                                    mapCompany = new ymaps.Map ("myMap", {
+                                        center: [59.933373, 30.357903],
+                                        zoom: 10,
+                                        behaviors: ["default", "scrollZoom"]
+                                    });
+                                    attachReverseGeocode(mapCompany);
+                                    function attachReverseGeocode(myMap) {
+                                        myMap.events.add('click', function (e) {
+                                            var coords = e.get('coordPosition');
+                                            if (gCollection != null) { myMap.geoObjects.remove(gCollection);};
+                                            ymaps.geocode(coords).then(function (res) {
+                                                var names = [];
+                                                res.geoObjects.each(function (obj) {
+                                                    names.push(obj.properties.get('name'));
+                                                });
+                                                gCollection = new ymaps.Placemark(coords, {
+                                                        iconContent: names[0],
+                                                        balloonContent: names.reverse().join(', ')
+                                                    },
+                                                    {preset:'twirl#redStretchyIcon', balloonMaxWidth:'250'}
+                                                );
+                                                myMap.geoObjects.add(gCollection);
+                                                gps = coords;
+
+                                                addressName = '';
+                                                for (key in names){
+                                                    if (2 != key) {
+                                                        addressName = addressName + names[key] + ", "
+                                                    }
+                                                }
+                                                addressName = $.trim(addressName);
+                                                lastIndex = addressName.lastIndexOf(',');
+                                                if (lastIndex == addressName.length - 1) {
+                                                    addressName = addressName.substring(0, lastIndex);
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+
+                                $('#sto_content_deal_onCompanyPlace').on('click', function(){
+                                    var $this = $(this);
+
+                                    if ($this.prop('checked')) {
+                                        $('#sto_content_deal_place').val("{{ company.address }}");
+                                        $('#sto_content_deal_gps').val("{{ company.gps }}");
+                                        $('#activateMap').html('Изменить отметку на карте');
+                                    } else {
+                                        $('#sto_content_deal_place').val('');
+                                        $('#sto_content_deal_gps').val('');
+                                        $('#activateMap').html('Поставить отметку на карте');
+                                    }
+                                    $('#onPlaceElements').toggle();
+                                });
+
+                                if ($('#sto_content_deal_gps').val() !== '') {
+                                    $('#activateMap').html('Изменить отметку на карте');
+                                }
+
+                                $('#saveMapCoordinates').on('click', function(){
+                                    $(this).parent().trigger('reveal:close');
+                                    $('#sto_content_deal_gps').val(gps);
+                                    $('#sto_content_deal_gps').trigger('change');
+                                    $('#activateMap').html('Изменить отметку на карте');
+                                });
+                            });
+                        </script>
                     </div>
                     <div class="contentLabel">
                         <label>Условия участия в акции</label>
@@ -194,18 +271,12 @@
                            value="Опубликовать"/>
                 </div>
             </form>
-            <div id="myModal" class="modal hide fade" style="width:720px;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
+            <div id="yandexMapModal" class="reveal-modal yandexMapModal">
+                <a href="#" class="close-reveal-modal"></a>
+                <div class="slidCont">
+                    <div id="myMap" style="height:400px;width:670px;left:5px" ></div>
                 </div>
-                <div class="modal-body ">
-                    <div id="myMap"
-                         style="height:400px;width:670px ;left:5px"></div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" id="save_madal" class="btn btn-primary">Save</a>
-                </div>
+                <span class="btnNext addPhotoBtn" id="saveMapCoordinates">Выбрать</span>
             </div>
         </div>
     </section>
@@ -217,73 +288,5 @@
                 $('#sto_content_deal_place').val($(this).data('address'));
             });
         });
-    </script>
-{% endblock %}
-
-{% block foot_script %}
-    {{ parent() }}
-    {% javascripts
-    'bundles/stocore/js/select2.js'
-    'bundles/stocore/js/bootstrap-inputmask.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"
-            type="text/javascript"></script>
-    <script type="text/javascript">
-        $(".select2").select2({width: "50%"});
-        $('#sto_content_deal_place').after('<br/><a href="#" ;return false; id="deal_location">По месту размещения компании</a>');
-
-        var gCollection;
-        var gps = '{{ company.gps }}';
-        var addres;
-        var names = [];
-        ymaps.ready(init);
-        function init() {
-            mapCompany = new ymaps.Map("myMap", {
-                center: [gps.split(",")[0], gps.split(",")[1]],
-                zoom: 15,
-                behaviors: ["default", "scrollZoom"]
-            });
-            myGeocode(mapCompany.getCenter(), mapCompany);
-
-            mapCompany.events.add('click', function (e) {
-                var coords = e.get('coordPosition');
-                if (gCollection != null) {
-                    mapCompany.geoObjects.remove(gCollection);
-                }
-                ;
-                myGeocode(coords, mapCompany);
-            });
-
-            function myGeocode(loc, Map) {
-                names = [];
-                ymaps.geocode(loc).then(function (res) {
-
-                    res.geoObjects.each(function (obj) {
-                        names.push(obj.properties.get('text'));
-
-                    });
-                    gCollection = new ymaps.Placemark(loc, {
-                                iconContent: names[0],
-                            },
-                            { preset: 'twirl#redStretchyIcon', balloonMaxWidth: '250'}
-                    );
-                    Map.geoObjects.add(gCollection);
-                    gps = loc;
-                    addres = names[0]
-                });
-            }
-
-        }
-        $("#save_madal").click(function () {
-            document.getElementById("sto_content_deal_gps").value = gps;
-            document.getElementById("sto_content_deal_place").value = addres;
-
-            $('#myModal').modal('hide');
-        });
-        $("#deal_location").click(function () {
-            document.getElementById("sto_content_deal_place").value = '{{company.address}}';
-            document.getElementById("sto_content_deal_gps").value = '{{company.gps}}';
-        })
     </script>
 {% endblock %}

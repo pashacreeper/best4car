@@ -208,6 +208,11 @@ class Deal
      */
     private $is_vip;
 
+    /**
+     * @ORM\Column(name="on_company_place", type="boolean")
+     */
+    private $onCompanyPlace;
+
     public function __construct(Company $company = null)
     {
         $this->feedbacks = new ArrayCollection();
@@ -845,5 +850,25 @@ class Deal
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set onCompanyPlace
+     *
+     * @param boolean $onCompanyPlace
+     */
+    public function setOnCompanyPlace($onCompanyPlace)
+    {
+        $this->onCompanyPlace = $onCompanyPlace;
+    }
+
+    /**
+     * Get onCompanyPlace
+     *
+     * @return boolean
+     */
+    public function getOnCompanyPlace()
+    {
+        return $this->onCompanyPlace;
     }
 }

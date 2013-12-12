@@ -816,3 +816,20 @@ a.btnNext:hover {
     text-transform: uppercase;
     color: #0EB19C;
 }
+
+.onPlace, .onPlace label, .onPlace input[type="checkbox"]{
+    display: inline-block;
+}
+.onPlace label{
+    font-size: 1.2em;
+    padding: 0 3px;
+    border-bottom: 1px dotted;
+}
+.onPlace input[type="checkbox"]:checked + label{
+    background-color: #F35D2E;
+    color: #fff;
+    border: none;
+}
+.onPlace input[type="checkbox"]{
+    display: none;
+}
