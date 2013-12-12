@@ -111,7 +111,8 @@
                     special: special,
                     specialization_html: val.specialization_template,
                     workingTime_html: val.workingTime_template,
-                    specialDeal: val.specialDeal
+                    specialDeal: val.specialDeal,
+                    hintContent: val.name + "<span class='smallRatingIcon'></span><span class='smallRatingCount'>" + val.rating + "</span>"
                 }, img);
 
                 placemark.events.add('balloonopen', function (e) {

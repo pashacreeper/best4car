@@ -804,3 +804,15 @@ a.btnNext:hover {
 .reviewContText ol{
     list-style-type: decimal !important;
 }
+.smallRatingIcon{
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background: url("/bootstrap/img/indexbg.small.png") no-repeat;
+    margin-left: 10px;
+    margin-right: 3px;
+}
+.smallRatingCount{
+    text-transform: uppercase;
+    color: #0EB19C;
+}
