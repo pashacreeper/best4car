@@ -18,7 +18,13 @@
     <script src="{{ asset('bootstrap/js/jquery.limit-1.2.js') }}"></script>
 {% endblock %}
 
-{% block title %}Новая акция{% endblock %}
+{% block title %}
+    {% if isNew %}
+        Новая акция
+    {% else %}
+        Редактирование акции
+    {% endif %}
+{% endblock %}
 
 {% block search %}
     <div class="back">
@@ -29,7 +35,7 @@
     </div>
     <div id="nameCompanyHeaderWrap">
         <div class="nameCompanyHeader">
-            <h1 class="titleNameCompany">Создание акции</h1>
+            <h1 class="titleNameCompany">{% if isNew %}Создание акции{% else %}Редактирование акции{% endif %}</h1>
         </div>
     </div>
 {% endblock %}
@@ -191,6 +197,9 @@
 
                                 if ($('#sto_content_deal_gps').val() !== '') {
                                     $('#activateMap').html('Изменить отметку на карте');
+                                }
+                                if ($('#sto_content_deal_onCompanyPlace').is(':checked')) {
+                                    $('#onPlaceElements').toggle();
                                 }
 
                                 $('#saveMapCoordinates').on('click', function(){

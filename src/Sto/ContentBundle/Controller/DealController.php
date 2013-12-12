@@ -102,6 +102,7 @@ class DealController extends MainController
         return [
             'form'    => $form->createView(),
             'company' => $company,
+            'isNew'   => true
         ];
     }
 
@@ -147,7 +148,8 @@ class DealController extends MainController
         return [
             'deal' => $deal,
             'form' => $form->createView(),
-            'company' => $company
+            'company' => $company,
+            'isNew'   => true
         ];
     }
 
@@ -156,7 +158,7 @@ class DealController extends MainController
      *
      * @Route("/company/{id}/deal/{dealId}/edit", name="company_deal_edit")
      * @ParamConverter("company", class="StoCoreBundle:Company")
-     * @Template()
+     * @Template("StoContentBundle:Deal:newDeal.html.twig")
      * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function editDealAction(Company $company ,$dealId)
@@ -185,9 +187,10 @@ class DealController extends MainController
 
         return [
             'deal'        => $deal,
-            'edit_form'   => $editForm->createView(),
-            'company'   => $company,
-            'activ_deals' => $activ_deals
+            'form'        => $editForm->createView(),
+            'company'     => $company,
+            'activ_deals' => $activ_deals,
+            'isNew'       => false
         ];
     }
 
@@ -237,7 +240,8 @@ class DealController extends MainController
         return [
             'deal'      => $deal,
             'edit_form' => $editForm->createView(),
-            'companyId' => $companyId
+            'companyId' => $companyId,
+            'isNew'     => false
         ];
     }
 
