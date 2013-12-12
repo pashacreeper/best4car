@@ -16,6 +16,32 @@
     <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script>
+    $(document).ready(function(){
+        var city = '{{ deal.gps }}', mapComany;
+
+        var init = function(){
+            mapComany = new ymaps.Map ("YMapsID", {
+                center: [city.split(",")[0], city.split(",")[1]],
+                zoom: 15,
+                behaviors: ["default", "scrollZoom"]
+            });
+            myGeoObject = new ymaps.GeoObject({
+                geometry: {
+                    type: "Point",
+                    coordinates: mapComany.getCenter()
+                }
+            }, {
+                iconImageHref: "/bootstrap/img/icon-map-default-active.png",
+                iconImageSize: [34, 45]
+            });
+            mapComany.geoObjects.add(myGeoObject);
+        };
+
+        ymaps.ready(init);
+    });
+    </script>
 {% endblock %}
 
 {% block search %}{% endblock %}
@@ -69,6 +95,12 @@
         <div class="rightContent">
             <a href="{{ path("content_deal_feedbacks_add", {'id':deal.id}) }}" class="addPhotoBtn bttn" {% if not app.user %}data-reveal-id="not-loged-in"{% endif %}>Оставить отзыв<i class="writeReview"></i></a>
             <div class="bannerImg"></div>
+        </div>
+    </div>
+    <div id="map-modal" class="reveal-modal yandexMapModalCompanyPage">
+        <a href="#" class="close-reveal-modal"></a>
+        <div class="slidCont">
+            <div id="YMapsID" style="height:400px"></div>
         </div>
     </div>
 </section>
