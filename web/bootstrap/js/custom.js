@@ -19,12 +19,27 @@ var mainLayout = function(){
         $(this).children().css("opacity", "0.5");
     });
     // Login form
-    $('.enter').click(function() {
-        $('.enterDropdown').toggle();
+    $('.enter').on('click', function() {
+        $('.enterDropdown').fadeIn(50, function(){
+            $(document).on('click', function(e){
+                if ($(event.target).closest(".enterDropdown").length) return;
+                $('.enterDropdown').hide();
+                e.stopPropagation();
+                $(document).off('click');
+            });
+        });
     });
+
     // User menu
-    $('.btnUser').click(function() {
-        $('.userDropdown').toggle();
+    $('.btnUser').on('click', function() {
+        $('.userDropdown').fadeIn(50, function(){
+            $(document).on('click', function(e){
+                if ($(event.target).closest(".userDropdown").length) return;
+                $('.userDropdown').hide();
+                e.stopPropagation();
+                $(document).off('click');
+            });
+        });
     });
 
     var loadRegistrationForm = function($registrationContainer, registrationUrl, data){
