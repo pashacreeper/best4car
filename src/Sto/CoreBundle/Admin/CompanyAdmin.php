@@ -106,6 +106,9 @@ class CompanyAdmin extends Admin
                 ->add('subscribable', null, array(
                     'required' => false,
                 ))
+                ->add('vip', null, array(
+                    'required' => false,
+                ))
                 ->add('hourPrice')
                 ->add('currency')
                 ->add('administratorContactInfo')

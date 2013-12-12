@@ -279,6 +279,11 @@ class Company
     private $registrationStep;
 
     /**
+     * @ORM\Column(name="vip", type="boolean", nullable=true)
+     */
+    private $vip;
+
+    /**
      * Set registrationStep
      *
      * @param  string  $registrationStep
@@ -1419,5 +1424,28 @@ class Company
     public function isRegistredFully()
     {
         return $this->registredFully;
+    }
+
+    /**
+     * Set vip
+     *
+     * @param  boolean $vip
+     * @return Company
+     */
+    public function setVip($vip)
+    {
+        $this->vip = $vip;
+
+        return $this;
+    }
+
+    /**
+     * Get vip
+     *
+     * @return boolean
+     */
+    public function getVip()
+    {
+        return $this->vip;
     }
 }

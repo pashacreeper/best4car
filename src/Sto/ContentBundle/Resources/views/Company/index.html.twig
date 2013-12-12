@@ -51,6 +51,9 @@
                     if (val.specializations[0].type.iconNameMapSelected) {
                         iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
                     }
+                    if (val.vip) {
+                        iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
+                    }
                 }
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
