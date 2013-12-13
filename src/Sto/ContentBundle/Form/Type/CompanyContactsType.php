@@ -86,10 +86,6 @@ class CompanyContactsType extends AbstractType
                 'label' => 'Skype',
                 'required' => false,
             ])
-            ->add('email', 'email', [
-                'label' => 'E-mail',
-                'required' => false,
-            ])
             ->add('linkVK', 'text', [
                 'label' => 'Группа Vkontakte',
                 'required' => false,
