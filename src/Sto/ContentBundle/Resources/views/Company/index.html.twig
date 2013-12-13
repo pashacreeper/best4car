@@ -103,6 +103,8 @@
 
                 var special = (val.activeDeals && val.activeDeals > 0) ? '<span class="spesialTerms">Спецпредложение!</span>' : '';
 
+                var hintRating = (val.rating === 'n/a') ? "" : ("<span class='smallRatingIcon'></span><span class='smallRatingCount'>" + val.rating + "</span>");
+
                 placemark = new ymaps.Placemark(val.gps.split(','), {
                     id: val.id,
                     name: val.name,
@@ -115,7 +117,7 @@
                     specialization_html: val.specialization_template,
                     workingTime_html: val.workingTime_template,
                     specialDeal: val.specialDeal,
-                    hintContent: val.name + "<span class='smallRatingIcon'></span><span class='smallRatingCount'>" + val.rating + "</span>"
+                    hintContent: val.name + hintRating
                 }, img);
 
                 placemark.events.add('balloonopen', function (e) {
