@@ -70,6 +70,38 @@
         </script>
     </div>
     <div class="contentLabel marginBottom">
+        <label>Контактные email</label>
+        {{ form_errors(form.emails) }}
+        <span class="hint-text">Вы можете указать несколько контактных адресов электронной почты, добавив к каждому текстовое описание по аналогии с телефонами.</span>
+        <div id="emailAddWrapper" data-prototype="{{ form_widget(form.emails.vars.prototype)|e }}">
+            {% for email in form.emails %}
+                <div class="contactDate">
+                    {{ form_widget(email.email) }}
+                    {{ form_widget(email.description) }}
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            var emailCollectionHolder = $('#emailAddWrapper');
+            var $emailAddTagLink = $('<span class="addImg"><span class="linkContact">Добавить</span><i class="icon-plus-sign"></i></span>');
+            var $emailNewLink = $('<div class="clear"></div>').append($emailAddTagLink);
+            jQuery(document).ready(function() {
+                var deleteLink = '<i class="icon-remove-circle deleteElement"></i>';
+                emailCollectionHolder.on('click', '.deleteElement', function() {
+                    $(this).parents('.contactDate').remove();
+                });
+                emailCollectionHolder.append($emailNewLink);
+                emailCollectionHolder.data('index', emailCollectionHolder.find(':input').length);
+
+                $emailAddTagLink.on('click', function(e) {
+                    e.preventDefault();
+                    addTagForm(emailCollectionHolder, $emailNewLink, true, deleteLink);
+                });
+                emailCollectionHolder.find('.contactDate').append(deleteLink);
+            });
+        </script>
+    </div>
+    <div class="contentLabel marginBottom">
         <label>Время работы</label>
         {{ form_errors(form.workingTime) }}
         <span class="hint-text">Укажите дни и время работы в них. Если у вас разные режимы в разные дни - добавьте несколько условий.</span>

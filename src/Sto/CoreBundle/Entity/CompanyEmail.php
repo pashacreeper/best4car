@@ -28,6 +28,11 @@ class CompanyEmail
     private $company;
 
     /**
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
      * Set email
      *
      * @param  string       $email
@@ -81,5 +86,28 @@ class CompanyEmail
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Set description
+     *
+     * @param  string       $description
+     * @return CompanyEmail
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
