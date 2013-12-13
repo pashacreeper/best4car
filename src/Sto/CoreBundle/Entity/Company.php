@@ -284,6 +284,11 @@ class Company
     private $vip;
 
     /**
+    * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyEmail", mappedBy="company", cascade={"persist", "remove", "merge", "detach"})
+    */
+    private $emails;
+
+    /**
      * Set registrationStep
      *
      * @param  string  $registrationStep
@@ -1447,5 +1452,38 @@ class Company
     public function getVip()
     {
         return $this->vip;
+    }
+
+    /**
+     * Add emails
+     *
+     * @param  \Sto\CoreBundle\Entity\CompanyEmail $emails
+     * @return Company
+     */
+    public function addEmail(\Sto\CoreBundle\Entity\CompanyEmail $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyEmail $emails
+     */
+    public function removeEmail(\Sto\CoreBundle\Entity\CompanyEmail $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }
