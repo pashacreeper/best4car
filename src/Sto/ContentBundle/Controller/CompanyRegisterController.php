@@ -246,6 +246,13 @@ class CompanyRegisterController extends Controller
                         $manager->setCompany($company);
                     }
                 }
+
+                foreach ($company->getEmails() as $manager) {
+                    if ($manager->getCompany() === null) {
+                        $manager->setCompany($company);
+                    }
+                }
+
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
                 $company->setRegistredFully(true);
                 $company->setVisible(true);

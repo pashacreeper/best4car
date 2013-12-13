@@ -284,7 +284,7 @@ class Company
     private $vip;
 
     /**
-    * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyEmail", mappedBy="company", cascade={"persist", "remove", "merge", "detach"})
+    * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyEmail", mappedBy="company", cascade={"all"}, orphanRemoval=true)
     */
     private $emails;
 
@@ -350,6 +350,7 @@ class Company
         $this->companyManager = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->workingTime = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     public function getAllAuto()
