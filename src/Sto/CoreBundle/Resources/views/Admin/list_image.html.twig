@@ -1,5 +1,5 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    <img src="{{ object.imagePath }}" class="admin-table-image"/>
+    <img src="{{ object.imagePath|imagine_filter('admin_thumbnails') }}" class="admin-table-image"/>
 {% endblock %}

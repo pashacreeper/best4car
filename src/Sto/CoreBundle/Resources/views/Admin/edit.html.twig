@@ -63,7 +63,7 @@
                                                 </div>
                                             {% elseif object.imageName is defined and '' != object.imageName and 'image' == field_name %}
                                                 <div class="admin-icon-show">
-                                                    <img src="{{ vich_uploader_asset(object, 'image') }}" />
+                                                    <img src="{{ vich_uploader_asset(object, 'image')|imagine_filter('admin_thumbnails_big') }}" />
                                                 </div>
                                             {% endif %}
                                         {% endif %}
