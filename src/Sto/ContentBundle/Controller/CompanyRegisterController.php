@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sto\CoreBundle\Entity\CompanyEmail;
 
 class CompanyRegisterController extends Controller
 {
@@ -227,6 +228,9 @@ class CompanyRegisterController extends Controller
         if ($company->getWorkingTime()->count() === 0) {
             $company->addWorkingTime(new CompanyWorkingTime());
         }
+        if ($company->getEmails()->count() === 0) {
+            $company->addEmail(new CompanyEmail());
+        }
         if (!$company->getPhones()) {
             $company->setPhones([['phone' => '', 'description' => '']]);
         }
@@ -246,6 +250,13 @@ class CompanyRegisterController extends Controller
                         $manager->setCompany($company);
                     }
                 }
+
+                foreach ($company->getEmails() as $manager) {
+                    if ($manager->getCompany() === null) {
+                        $manager->setCompany($company);
+                    }
+                }
+
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
                 $company->setRegistredFully(true);
                 $company->setVisible(true);

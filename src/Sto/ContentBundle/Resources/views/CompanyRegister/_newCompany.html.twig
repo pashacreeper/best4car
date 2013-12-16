@@ -30,7 +30,7 @@
     <div class="nameCompanyHeader">
         {% set title = 'Регистрация компании' %}
         {% if company.isRegistredFully %}
-            {% set title = 'Редактирование компании –' ~ company.name %}
+            {% set title = 'Редактирование компании – ' ~ company.name %}
         {% endif %}
         <h1 class="titleNameCompany">{{ title }}</h1>
     </div>

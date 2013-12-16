@@ -48,7 +48,16 @@ class CompanyContactsType extends AbstractType
                     new ConstraintPhones()
                 ]
             ))
-            ->add('workingTime','collection', array(
+            ->add('emails', 'collection', [
+                'label' => ' ',
+                'type' => new CompanyEmailsType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+                'error_bubbling' => false,
+            ])
+            ->add('workingTime', 'collection', [
                 'label' => ' ',
                 'type' => new CompanyWorkingTimeType(),
                 'allow_add' => true,
@@ -59,8 +68,8 @@ class CompanyContactsType extends AbstractType
                 'constraints' => [
                     new ConstraintWorkingTime()
                 ]
-            ))
-            ->add('companyManager', 'collection', array(
+            ])
+            ->add('companyManager', 'collection', [
                 'label' => ' ',
                 'type' => new CompanyManagerType($options['em']),
                 'by_reference' => true,
@@ -68,17 +77,13 @@ class CompanyContactsType extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'error_bubbling' => false,
-            ))
+            ])
             ->add('web', 'text', [
                 'label' => 'Адрес сайта',
                 'required' => false,
             ])
             ->add('skype', null, [
                 'label' => 'Skype',
-                'required' => false,
-            ])
-            ->add('email', 'email', [
-                'label' => 'E-mail',
                 'required' => false,
             ])
             ->add('linkVK', 'text', [
