@@ -320,7 +320,8 @@
 
             companiesAjaxLoad();
 
-            $('#toggleCompaniesList').on("click", function () {
+            $('#toggleCompaniesList').on("click", function(e) {
+                e.preventDefault();
                 $(this).parent().toggleClass('showLeftColumn');
                 $('#companiesList').toggle();
                 $('.assortSelect').toggle();

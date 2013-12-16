@@ -31,7 +31,8 @@ var mainLayout = function(){
     });
 
     // User menu
-    $('.btnUser').on('click', function() {
+    $('.btnUser').on('click', function(e) {
+        e.preventDefault();
         $('.userDropdown').fadeIn(50, function(){
             $(document).on('click', function(e){
                 if ($(event.target).closest(".userDropdown").length) return;
@@ -77,19 +78,24 @@ var mainLayout = function(){
 
     };
 
-    $('#carOwnerRegister').on('click', function(){
+    $('#carOwnerRegister').on('click', function(e){
+        e.preventDefault();
         showRegistrationPopup(this);
     });
-    $('#carOwnerRegisterFromTour').on('click', function(){
+    $('#carOwnerRegisterFromTour').on('click', function(e){
+        e.preventDefault();
         showRegistrationPopup(this);
     });
 
-    $('#notLogedInRegister').on('click', function(){
+    $('#notLogedInRegister').on('click', function(e){
         $(this).parents('.reveal-modal').trigger('reveal:close');
         $($(this).data('reveal')).reveal($(this).data());
+        e.preventDefault();
     });
 
-    $('#resettingPassword').on('click', function(){
+    $('#resettingPassword').on('click', function(e){
+        e.preventDefault();
+
         var $this = $(this),
             $resettingContainer = $('#resetting-container');
 
@@ -117,7 +123,8 @@ var mainLayout = function(){
     // Подстановка значений в строку поиска
     var $wrapper = $('#searchWrapper'),
         $inputSearch = $('#inputSearch');
-    $wrapper.on('click', '.exampleName', function(){
+    $wrapper.on('click', '.exampleName', function(e){
+        e.preventDefault();
         $this = $(this);
         $inputSearch.val($this.html());
     });
@@ -184,13 +191,15 @@ var catalogPage = function(){
     if (CookieHandler.get('popup_for_new_closed')) {
         $('.popupFirstVisit').hide();
     };
-    $('.popupClose').click(function() {
+    $('.popupClose').click(function(e) {
+        e.preventDefault();
         $('.popupFirstVisit').hide();
         CookieHandler.set('popup_for_new_closed', true, (3*24*60*60), '/');
     });
 
     $('#advancedSearch').hide();
-    $('#toggleAdvancedSearch').on("click", function(){
+    $('#toggleAdvancedSearch').on("click", function(e){
+        e.preventDefault();
         var $this = $(this),
             defaultText = 'Показать расширенный поиск',
             closeText = 'Скрыть расширенный поиск',
@@ -216,13 +225,16 @@ var catalogPage = function(){
         mode: 'fade',
         captions: true
     });
-    $('.linkFirstVisitPeople').on('click', function(){
+    $('.linkFirstVisitPeople').on('click', function(e){
+        e.preventDefault();
         slider1.reloadSlider();
     });
-    $('.linkFirstVisitCompany').on('click', function(){
+    $('.linkFirstVisitCompany').on('click', function(e){
+        e.preventDefault();
         slider2.reloadSlider();
     });
-    $('.linkFirstVisitPeopleBottomButton').on('click', function() {
+    $('.linkFirstVisitPeopleBottomButton').on('click', function(e) {
+        e.preventDefault();
         slider1.reloadSlider();
     });
 
@@ -280,7 +292,8 @@ var catalogPage = function(){
         });
 
         // Clear filter
-        $('#cleanSearch').click(function(){
+        $('#cleanSearch').click(function(e){
+            e.preventDefault();
             $('.btnFiltr').each(function(index, element){
                 $element = $(element);
                 $prevElement = $element.prev();
@@ -361,7 +374,8 @@ var dealsPage = function(){
 };
 
 var registrationPage = function(){
-    $('#submitRegisterForm').on('click', function(){
+    $('#submitRegisterForm').on('click', function(e){
+        e.preventDefault();
         $('#registerForm').submit();
     });
 
