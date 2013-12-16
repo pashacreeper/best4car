@@ -833,3 +833,12 @@ a.btnNext:hover {
 .onPlace input[type="checkbox"]{
     display: none;
 }
+
+a.infoCompanyDescription, .phoneRight a {
+    border-bottom: 1px dotted #F35D2E;
+    color: #F35D2E;
+}
+a.infoCompanyDescription:hover, .phoneRight a:hover{
+    text-decoration: none;
+    border: none;
+}

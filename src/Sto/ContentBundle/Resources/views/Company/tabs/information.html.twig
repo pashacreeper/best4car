@@ -141,9 +141,9 @@
         {% for email in company.emails %}
             {% if loop.first %}
                 {% if email.description %}<p class="infoCompanyAddTitle contentText">{{ email.description }}:</p>{% endif %}
-                <p class="infoCompanyDescription">{{ email.email }}</p>
+                <a href="mailto:{{ email.email }}" class="infoCompanyDescription">{{ email.email }}</a>
             {% else %}
-                <p class="infoCompanyAddTitle contentText">{% if email.description %}{{ email.description }}:{% endif %}<span class="phoneRight">{{ email.email }}</span></p>
+                <p class="infoCompanyAddTitle contentText">{% if email.description %}{{ email.description }}:{% endif %}<span class="phoneRight"><a href="mailto:{{ email.email }}">{{ email.email }}</a></span></p>
             {% endif %}
         {% endfor %}
     </div>
