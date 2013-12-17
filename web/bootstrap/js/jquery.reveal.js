@@ -129,8 +129,9 @@ var rvl = function($) {
     	modal.trigger('reveal:open')
 			
 			//Close Modal Listeners
-			var closeButton = $('.' + options.dismissmodalclass).bind('click.modalEvent', function () {
-			  modal.trigger('reveal:close')
+			var closeButton = $('.' + options.dismissmodalclass).bind('click.modalEvent', function (e) {
+				e.preventDefault();
+				modal.trigger('reveal:close')
 			});
 			
 			if(options.closeonbackgroundclick) {
