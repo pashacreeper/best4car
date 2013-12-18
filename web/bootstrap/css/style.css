@@ -1477,7 +1477,7 @@ select {
     overflow: hidden;
     border-right: 2px solid #9E9A94;
     background: #F6F6F6;
-    border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 3px;
 }
 
 .countrySelectTabItem {
@@ -1621,7 +1621,7 @@ label {
 .townSelectTabCont {
     background: #fff;
     overflow: hidden;
-    padding: 7px 10px 0 10px;
+    padding: 6px 10px 0 10px;
     border-radius: 0 0 5px 0;
 }
 

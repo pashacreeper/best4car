@@ -25,11 +25,13 @@ var cityChoiser = function(defaultImage, Routing){
 
                 root.empty();
                 $.each(countries, function (index, country) {
+                    var styleClass = "";
                     if (index == 0){
                         frst_id = country.id;
+                        styleClass = " class='selectedCountry'";
                     }
                     root.append('<li class="countrySelectTabItem">' +
-                        '<a href="#country-' + country.id  + '" id="a-country-' + country.id  + '">' +
+                        '<a href="#country-' + country.id  + '" id="a-country-' + country.id  + '"' + styleClass + '>' +
                         '<img src="/storage/images/countries/' + country.icon_name + '" alt="' + country.name + '" style="width:40px;"/>' +
                         '</a></li>' 
                     );
