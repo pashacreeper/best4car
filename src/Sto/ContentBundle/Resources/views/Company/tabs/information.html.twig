@@ -136,17 +136,19 @@
             {% endif %}
         {% endfor %}
     </div>
-    <div class="infoCompanyItem">
-        <p class="infoCompanyTitle titleH3">Контактные email:</p>
-        {% for email in company.emails %}
-            {% if loop.first %}
-                {% if email.description %}<p class="infoCompanyAddTitle contentText">{{ email.description }}:</p>{% endif %}
-                <a href="mailto:{{ email.email }}" class="infoCompanyDescription">{{ email.email }}</a>
-            {% else %}
-                <p class="infoCompanyAddTitle contentText">{% if email.description %}{{ email.description }}:{% endif %}<span class="phoneRight"><a href="mailto:{{ email.email }}">{{ email.email }}</a></span></p>
-            {% endif %}
-        {% endfor %}
-    </div>
+    {% if company.emails|length > 0 %}
+        <div class="infoCompanyItem">
+            <p class="infoCompanyTitle titleH3">Контактные email:</p>
+            {% for email in company.emails %}
+                {% if loop.first %}
+                    {% if email.description %}<p class="infoCompanyAddTitle contentText">{{ email.description }}:</p>{% endif %}
+                    <a href="mailto:{{ email.email }}" class="infoCompanyDescription">{{ email.email }}</a>
+                {% else %}
+                    <p class="infoCompanyAddTitle contentText">{% if email.description %}{{ email.description }}:{% endif %}<span class="phoneRight"><a href="mailto:{{ email.email }}">{{ email.email }}</a></span></p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Часы работы:</p>
         {%- for time in company.workingTime %}
