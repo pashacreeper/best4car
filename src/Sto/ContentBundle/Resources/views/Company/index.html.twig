@@ -109,7 +109,7 @@
                     address: val.address,
                     phone: val.phones,
                     web: val.web,
-                    logo: val.logoName ? '<img src="/{{ storage_path }}/company_logo/' + val.logoName + '">' : '<img src="/bootstrap/img/default_company_logo.png">',
+                    logo: val.cached_logo ? '<img src="' + val.cached_logo + '">' : '<img src="/bootstrap/img/default_company_logo.png">',
                     rating: val.rating,
                     special: special,
                     specialization_html: val.specialization_template,

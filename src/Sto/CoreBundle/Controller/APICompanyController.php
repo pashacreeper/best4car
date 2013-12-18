@@ -67,6 +67,16 @@ class APICompanyController extends FOSRestController
                 : 'n/a'
             ;
 
+            $companies[$key]['cached_logo'] = null;
+            if ($company['logoName']) {
+                $companies[$key]['cached_logo'] = $this->container->get('liip_imagine.cache.manager')
+                    ->getBrowserPath(
+                        "/".$this->container->getParameter('storage_path')."/company_logo/".$company['logoName'],
+                        'company_logo_card_filter'
+                    )
+                ;
+            }
+
             $company['activeDeals'] = $companies[$key]['activeDeals'] = 0;
             if (!empty($company['deals'])) {
                 $em = $this->getDoctrine()->getManager();

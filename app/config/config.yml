@@ -187,6 +187,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 120 }
+        company_logo_card_filter:
+            quality: 100
+            filters:
+                thumbnail: { size: [44, 44], mode: outbound }
         user_photo_filter:
             quality: 100
             filters:
