@@ -842,3 +842,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     text-decoration: none;
     border: none;
 }
+
+.companyMapHint{
+    font-size: 1.2em;
+}
