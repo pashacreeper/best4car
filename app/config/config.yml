@@ -190,7 +190,7 @@ liip_imagine:
         company_logo_card_filter:
             quality: 100
             filters:
-                thumbnail: { size: [44, 44], mode: outbound }
+                thumbnail: { size: [44, 44], mode: inset }
         user_photo_filter:
             quality: 100
             filters:
