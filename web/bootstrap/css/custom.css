@@ -842,7 +842,21 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     text-decoration: none;
     border: none;
 }
-
 .companyMapHint{
     font-size: 1.2em;
+}
+
+.dottedLink, .dottedLink:hover{
+    color: #F35D2E;
+    border-bottom: 1px dotted #F35D2E;
+    text-decoration: none;
+}
+.dottedLink:hover{
+    border: none !important;
+}
+
+.feedbackToCompanyLink{
+    float: right;
+    margin-top: 5px;
+    margin-right: -21px;
 }

@@ -168,6 +168,9 @@
             </div>
             {% endif %}
         </div>
+        {% if profile is defined and feedback.company %}
+        <a href="{{ path('content_company_show', { "id": feedback.company.id }) }}" class="dottedLink feedbackToCompanyLink">Ссылка на карточку компании</a>
+        {% endif %}
     </div>
 </div>
 {% endif %}

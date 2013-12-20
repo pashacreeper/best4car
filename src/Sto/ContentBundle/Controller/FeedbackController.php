@@ -72,6 +72,7 @@ class FeedbackController extends Controller
         return [
             'feedbacks' => $feedbacks,
             'isManager' => false,
+            'profile' => true
         ];
     }
 
