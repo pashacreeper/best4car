@@ -1315,13 +1315,13 @@ select {
 /*--popupFirstVisit--*/
 .popupFirstVisit {
     position: absolute;
-    top: 30%;
+    top: 35%;
     width: 260px;
     right: 20px;
     background: #fff;
     border-radius: 6px;
     overflow: hidden;
-    padding: 20px;
+    padding: 12px 20px;
     border: 2px solid #9e9a94;
     z-index: 4;
 }
@@ -1335,13 +1335,13 @@ select {
 .contentFirstVisit {
     font: 1.4em 'PT Sans', sans;
     color: #302f33;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .popupFirstVisit a {
     border-radius: 4px;
-    font: 1.6em 'PT Sans', sans;
-    color: #f5f5f5;
+    font: 1.8em 'PT Sans', sans;
+    color: #F5F5F5;
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
@@ -1351,6 +1351,7 @@ select {
     -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    font-weight: bold;
 }
 
 .popupFirstVisit a:active {
@@ -1362,7 +1363,7 @@ select {
 .popupFirstVisit span {
     float: left;
     position: relative;
-    top: 28px;
+    top: 16px;
     left: 35px;
 }
 
@@ -1407,6 +1408,7 @@ select {
     -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px !important;
 }
 
 .linkFirstVisitCompany:hover {
@@ -1428,7 +1430,7 @@ select {
 }
 
 .iconCompany {
-    background: url('/bootstrap/img/iconcompany.png') no-repeat;
+    background: url('/bootstrap/img/companyicon.png') no-repeat;
 }
 
 /*--popupSelectTown--*/
