@@ -44,7 +44,9 @@
                                 <img src="/bootstrap/img/icon-type-default.png" alt="{{ specialization.type.name }}">
                             {% endif %}
                             <p class="accordionTitle">{{ specialization.type.name }}</p>
-                            <p class="accordionDescription">{{ specialization.subType.name }}</p>
+                            {% if specialization.subType %}
+                                <p class="accordionDescription">{{ specialization.subType.name }}</p>
+                            {% endif %}
                             <span class="iconAccord iconChevron" id="iconCollapse_{{ loop.index }}"></span>
                         </div>
                     </div>
