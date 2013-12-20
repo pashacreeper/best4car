@@ -846,3 +846,12 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .companyMapHint{
     font-size: 1.2em;
 }
+
+.dottedLink, .dottedLink:hover{
+    color: #F35D2E;
+    border-bottom: 1px dotted #F35D2E;
+    text-decoration: none;
+}
+.dottedLink:hover{
+border: none !important;
+}

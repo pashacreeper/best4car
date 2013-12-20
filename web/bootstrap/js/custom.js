@@ -75,7 +75,6 @@ var mainLayout = function(){
         $.get(registrationUrl, function(data){
             loadRegistrationForm($registrationContainer, registrationUrl, data);
         });
-
     };
 
     $('#carOwnerRegister').on('click', function(e){
@@ -86,6 +85,19 @@ var mainLayout = function(){
         e.preventDefault();
         showRegistrationPopup(this);
     });
+
+    var showCompanyTourPopu = function(linkElement){
+        var $this = $(linkElement),
+            $companiesPopup = $('#for-auto-companies');
+
+        $this.parent().trigger('reveal:close');
+        $companiesPopup.reveal($(this).data());
+    };
+
+    $('#revealCompnayTourFromOwnerTour').on('click', function(e){
+        e.preventDefault();
+        showCompanyTourPopu(this);
+    })
 
     $('#notLogedInRegister').on('click', function(e){
         $(this).parents('.reveal-modal').trigger('reveal:close');
