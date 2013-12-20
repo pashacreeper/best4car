@@ -25,13 +25,12 @@ class AdditionalUserType extends AbstractType
                 ])
             ->add('birthDate', 'date', [
                     'label' => 'Дата рождения',
-                    'years' => range (1920, date('Y')),
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd',
+                    'format' => 'dd-MM-yyyy',
                     'required' => false,
                     'attr' => [
-                        'class' => "inputData span4 init-ui-datepicker no-margin",
-                        'data-format' => "yyyy-MM-dd"
+                        'class' => "inputData span4 init-ui-datepicker-birthdate no-margin",
+                        'data-format' => "dd-MM-yyyy"
                     ]
                 ])
         ;

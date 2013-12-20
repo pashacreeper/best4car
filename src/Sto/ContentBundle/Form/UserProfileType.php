@@ -40,11 +40,11 @@ class UserProfileType extends BaseType
             ->add('birthDate', 'datetime', [
                 'label' => 'Дата рождения',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'dd-MM-yyyy',
                 'required' => false,
                 'attr' => [
-                    'class' => "inputData",
-                    'data-format' => "yyyy-MM-dd"
+                    'class' => "inputData init-ui-datepicker-birthdate",
+                    'data-format' => "dd-MM-yyyy"
                 ]
             ])
             ->add('gender','choice', [

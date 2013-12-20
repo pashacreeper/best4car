@@ -14,6 +14,18 @@ var datePicker = function(){
         shortYearCutoff: "+40",
         yearRange: "1970:" + (new Date().getFullYear() + 1)
     });
+
+    $('.init-ui-datepicker-birthdate').datepicker({
+        showOn: "both",
+        buttonImage: "/bootstrap/img/calendar-additional-icon.png",
+        buttonImageOnly: true,
+        option: $.datepicker.regional[ "ru" ],
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd-mm-yy",
+        shortYearCutoff: "+40",
+        yearRange: "1900:" + (new Date().getFullYear() + 1)
+    });
 };
 
 var timePicker = function(){
