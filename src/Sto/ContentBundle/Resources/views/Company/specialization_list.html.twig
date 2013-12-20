@@ -18,9 +18,9 @@
         {%- if loop.index < 7 %}
         <li class="servisesAddItem">
             {% if item.iconNameSmall %}
-                <img src="/storage/images/company_icon/{{ item.iconNameSmall }}" width="24" height="28">
+                <img src="/storage/images/company_icon/{{ item.iconNameSmall }}" width="24" height="28" title="{{ item.name }}">
             {% else %}
-                <img src="/bootstrap/img/icon-type-default.png" width="24" height="28">
+                <img src="/bootstrap/img/icon-type-default.png" width="24" height="28" title="{{ item.name }}">
             {% endif %}
         </li>
         {% endif %}
