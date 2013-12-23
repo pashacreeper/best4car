@@ -1340,7 +1340,7 @@ select {
 
 .popupFirstVisit a {
     border-radius: 4px;
-    font: 1.8em 'PT Sans', sans;
+    font: 1.6em 'PT Sans', sans;
     color: #F5F5F5;
     display: inline-block;
     vertical-align: middle;
@@ -1363,7 +1363,7 @@ select {
 .popupFirstVisit span {
     float: left;
     position: relative;
-    top: 16px;
+    top: 20px;
     left: 35px;
 }
 
@@ -1372,7 +1372,7 @@ select {
     width: 26px;
     height: 26px;
     position: relative;
-    top: 25px;
+    top: 27px;
     left: 20px;
 }
 
