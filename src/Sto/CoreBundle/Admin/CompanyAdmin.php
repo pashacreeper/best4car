@@ -9,10 +9,16 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Sto\ContentBundle\Form\Extension\ChoiceList\CompanyRegistrationStep;
+use Doctrine\ORM\EntityManager;
 
 class CompanyAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
+
+    /**
+     * @var EntityManager
+     */
+    protected $em;
 
     public function getTemplate($name)
     {
@@ -81,9 +87,6 @@ class CompanyAdmin extends Admin
                 ->add('additionalServices', null, array(
                     'required' => false,
                 ))
-                ->add('autoServices', null, array(
-                    'required' => false,
-                ))
                 ->add('logo', 'file', array(
                     'required' => false,
                 ))
@@ -92,16 +95,12 @@ class CompanyAdmin extends Admin
                     'required' => false,
                 ])
                 ->add('skype')
-                ->add('email')
                 ->add('address')
                 ->add('gps')
                 ->add('createtDate', 'date', [
                     'years' => range(1900, date('Y'))
                 ])
-                ->add('photos')
-                ->add('socialNetworks')
                 ->add('rating')
-                ->add('reviews')
                 ->add('description')
                 ->add('subscribable', null, array(
                     'required' => false,
@@ -116,9 +115,6 @@ class CompanyAdmin extends Admin
                     'required' => false,
                 ))
                 ->add('notes')
-                ->add('groups', null, array(
-                    'required' => false,
-                ))
                 ->add('city')
                 ->add('allAuto', 'checkbox', [
                     'label' => 'Все марки?',
@@ -127,9 +123,7 @@ class CompanyAdmin extends Admin
                 ->add('autos', null, array(
                     'required' => false,
                 ))
-                ->add('linkVK')
-                ->add('linkTW')
-                ->add('linkFB')
+
                 ->add('registredFully')
                 ->add('registrationStep', 'choice', [
                     'required' => false,
@@ -139,7 +133,18 @@ class CompanyAdmin extends Admin
                 ])
             ->end()
             ->with('Контакты')
-                ->add('contacts', 'sonata_type_collection', [
+                ->add('linkVK')
+                ->add('linkTW')
+                ->add('linkFB')
+                ->add('phones', 'sonata_type_collection', [
+                        'by_reference' => false,
+                        'required' => false
+                    ], [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+                ->add('emails', 'sonata_type_collection', [
                         'by_reference' => false,
                         'required' => false
                     ], [
@@ -223,9 +228,41 @@ class CompanyAdmin extends Admin
 
     public function preUpdate($object)
     {
+        $this->setCompanyForPhones($object);
+        $this->setCompanyForEmails($object);
         foreach ($object->getGallery() as $file) {
             $file->setUpdatedAt(new \Datetime('now'));
         }
     }
 
+    public function prePersist($object)
+    {
+        $this->setCompanyForPhones($object);
+        $this->setCompanyForEmails($object);
+    }
+
+    private function setCompanyForPhones($object)
+    {
+        foreach ($object->getPhones() as $phone) {
+            if (!$phone->getCompany()) {
+                $phone->setCompany($object);
+                $this->em->persist($phone);
+            }
+        }
+    }
+
+    private function setCompanyForEmails($object)
+    {
+        foreach ($object->getEmails() as $email) {
+            if (!$email->getCompany()) {
+                $email->setCompany($object);
+                $this->em->persist($email);
+            }
+        }
+    }
+
+    public function setEntityManager(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 }

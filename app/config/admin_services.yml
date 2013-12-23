@@ -24,10 +24,12 @@ services:
           arguments: [null, Sto\CoreBundle\Entity\Modification, SonataAdminBundle:CRUD]
 
     app.admin.company:
-          class: Sto\CoreBundle\Admin\CompanyAdmin
-          tags:
+        class: Sto\CoreBundle\Admin\CompanyAdmin
+        tags:
             - { name: sonata.admin, manager_type: orm, group: Компании, label: Компании}
-          arguments: [null, Sto\CoreBundle\Entity\Company, SonataAdminBundle:CRUD]
+        arguments: [null, Sto\CoreBundle\Entity\Company, SonataAdminBundle:CRUD]
+        calls: 
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]
 
     app.admin.company_gallery:
           class: Sto\CoreBundle\Admin\CompanyGalleryAdmin
@@ -46,6 +48,18 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Компании, label: Контакты, show_in_dashboard: false}
           arguments: [null, Sto\CoreBundle\Entity\CompanyContacts, SonataAdminBundle:CRUD]
+
+    app.admin.company.company_phones:
+        class: Sto\CoreBundle\Admin\CompanyPhonesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Контакты, show_in_dashboard: false}
+        arguments: [null, Sto\CoreBundle\Entity\CompanyPhone, SonataAdminBundle:CRUD]
+
+    app.admin.company.company_emails:
+        class: Sto\CoreBundle\Admin\CompanyEmailsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Компании, label: Контакты, show_in_dashboard: false}
+        arguments: [null, Sto\CoreBundle\Entity\CompanyEmail, SonataAdminBundle:CRUD]
 
     app.admin.company.company_specialization:
           class: Sto\CoreBundle\Admin\CompanySpecializationAdmin

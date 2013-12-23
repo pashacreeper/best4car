@@ -127,6 +127,7 @@
         <p class="infoCompanyTitle titleH3">Адрес:</p>
         <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal">{{ company.address }}</a></p>
     </div>
+    {% if company.phones|length > 0 %}
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
         {% for phone in company.phones %}
@@ -138,6 +139,7 @@
             {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
     {% if company.emails|length > 0 %}
         <div class="infoCompanyItem">
             <p class="infoCompanyTitle titleH3">Контактные email:</p>
