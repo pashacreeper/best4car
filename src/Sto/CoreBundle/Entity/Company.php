@@ -91,8 +91,8 @@ class Company
     protected $logoName;
 
     /**
-     * @ORM\Column(name="phones", type="array")
-     */
+    * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\CompanyPhone", mappedBy="company", cascade={"all"})
+    */
     private $phones;
 
     /**
@@ -1486,5 +1486,28 @@ class Company
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * Add phones
+     *
+     * @param  \Sto\CoreBundle\Entity\CompanyPhone $phones
+     * @return Company
+     */
+    public function addPhone(\Sto\CoreBundle\Entity\CompanyPhone $phones)
+    {
+        $this->phones[] = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Remove phones
+     *
+     * @param \Sto\CoreBundle\Entity\CompanyPhone $phones
+     */
+    public function removePhone(\Sto\CoreBundle\Entity\CompanyPhone $phones)
+    {
+        $this->phones->removeElement($phones);
     }
 }

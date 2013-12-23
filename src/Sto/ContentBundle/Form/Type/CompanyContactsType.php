@@ -37,7 +37,7 @@ class CompanyContactsType extends AbstractType
                     new Assert\NotBlank(),
                 ]
             ])
-            ->add('phones','collection', array(
+            ->add('phones','collection', [
                 'label' => ' ',
                 'type' => new CompanyPhoneType(),
                 'allow_add' => true,
@@ -47,7 +47,7 @@ class CompanyContactsType extends AbstractType
                 'constraints' => [
                     new ConstraintPhones()
                 ]
-            ))
+            ])
             ->add('emails', 'collection', [
                 'label' => ' ',
                 'type' => new CompanyEmailsType(),

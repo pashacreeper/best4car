@@ -16,7 +16,7 @@ class ConstraintPhonesValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         foreach ($value as $item) {
-            if (!$item['phone'] || !$item['description']) {
+            if (!$item->getPhone() || !$item->getDescription()) {
                 $this->context->addviolation($constraint->message);
             }
         }
