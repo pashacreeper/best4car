@@ -35,7 +35,7 @@ class CompanyPhone
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,20 +45,20 @@ class CompanyPhone
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param  string       $phone
      * @return CompanyPhone
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -68,20 +68,20 @@ class CompanyPhone
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string       $description
      * @return CompanyPhone
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -91,20 +91,20 @@ class CompanyPhone
     /**
      * Set company
      *
-     * @param \Sto\CoreBundle\Entity\Company $company
+     * @param  \Sto\CoreBundle\Entity\Company $company
      * @return CompanyPhone
      */
     public function setCompany(\Sto\CoreBundle\Entity\Company $company = null)
     {
         $this->company = $company;
-    
+
         return $this;
     }
 
     /**
      * Get company
      *
-     * @return \Sto\CoreBundle\Entity\Company 
+     * @return \Sto\CoreBundle\Entity\Company
      */
     public function getCompany()
     {

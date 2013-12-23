@@ -32,7 +32,7 @@ class MovePhonesCommand extends ContainerAwareCommand
 
                     $em->persist($companyPhone);
                 }
-                
+
             }
         }
 
