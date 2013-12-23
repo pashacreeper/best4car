@@ -4,6 +4,7 @@ namespace Sto\ContentBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompanyPhoneType extends AbstractType
 {
@@ -34,6 +35,13 @@ class CompanyPhoneType extends AbstractType
                     ]
                 ]
             );
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => 'Sto\CoreBundle\Entity\CompanyPhone',
+        ]);
     }
 
     public function getName()

@@ -26,6 +26,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sto\CoreBundle\Entity\CompanyEmail;
+use Sto\CoreBundle\Entity\CompanyPhone;
 
 class CompanyRegisterController extends Controller
 {
@@ -231,8 +232,8 @@ class CompanyRegisterController extends Controller
         if ($company->getEmails()->count() === 0) {
             $company->addEmail(new CompanyEmail());
         }
-        if (!$company->getPhones()) {
-            $company->setPhones([['phone' => '', 'description' => '']]);
+        if ($company->getPhones()->count() === 0) {
+            $company->addPhone(new CompanyPhone());
         }
 
         $em = $this->getDoctrine()->getManager();
