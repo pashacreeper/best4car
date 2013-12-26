@@ -90,8 +90,13 @@ var mainLayout = function(){
         var $this = $(linkElement),
             $companiesPopup = $('#for-auto-companies');
 
+        var viewportHeight = $('#for-car-owners').find('.bx-viewport').height(),
+            slideWidth = $('#for-car-owners').find('.bxsliderItem').first().width();
+
         $this.parent().trigger('reveal:close');
         $companiesPopup.reveal($(this).data());
+        $companiesPopup.find('.bx-viewport').height(viewportHeight);
+        $companiesPopup.find('.bxsliderItem').width(slideWidth);
     };
 
     $('#revealCompnayTourFromOwnerTour').on('click', function(e){

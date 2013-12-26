@@ -855,3 +855,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .dottedLink:hover{
 border: none !important;
 }
+.revealCompnayTourFromOwnerTour{
+    float: right;
+    font-size: 1.2em;
+}
