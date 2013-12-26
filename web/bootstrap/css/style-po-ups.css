@@ -200,6 +200,7 @@
 .btnHowReg {
     border-radius: 4px;
     font: 1.6em 'PT Sans', sans;
+    font-weight: bold;
     color: #f5f5f5;
     display: inline-block;
     vertical-align: middle;
@@ -246,7 +247,7 @@
 .btnHowReg span {
     float: left;
     position: relative;
-    top: 18px;
+    top: 20px;
     left: 35px;
 }
 
