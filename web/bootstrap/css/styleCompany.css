@@ -767,12 +767,11 @@ a.addEmail {
 }
 
 .reviewAdditionalInfo span {
-    font-weight: bolder;
-    font-style: italic;
+    font-weight: bold;
     color: #666;
     display: block;
     margin-bottom: 2px;
-    font-size: 10px;
+    font-size: 0.9em;
 }
 
 .collapsText {
