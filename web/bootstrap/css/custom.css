@@ -863,3 +863,23 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     float: right;
     font-size: 1.2em;
 }
+
+.sliderDisplayPosition{
+    position: absolute;
+    bottom: 8px;
+    left: 105px;
+}
+.sliderDisplayPosition li{
+    display: inline-block;
+    width: 6px;
+    height: 0px;
+    padding-top: 6px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+    margin-right: 10px;
+}
+.sliderDisplayPosition li.active{
+    background-color: transparent;
+}

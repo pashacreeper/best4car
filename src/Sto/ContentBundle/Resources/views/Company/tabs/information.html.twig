@@ -5,9 +5,7 @@
         <ul id="thumbnail" class="slide-wrap">
             {% for photo in gallery if photo.imageName %}
                 <li class="slide-item">
-                    <a class="linh__img__prev" href="#">
-                        <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'image') | imagine_filter('company_gallery_filter') }}"  alt="" />
-                    </a>
+                    <img title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'image') | imagine_filter('company_gallery_filter') }}"  alt="{{ photo.name }}" />
                 </li>
             {% endfor %}
         </ul>
