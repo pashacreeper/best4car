@@ -86,7 +86,7 @@ var mainLayout = function(){
         showRegistrationPopup(this);
     });
 
-    var showCompanyTourPopu = function(linkElement){
+    var showCompanyTourPopup = function(linkElement){
         var $this = $(linkElement),
             $companiesPopup = $('#for-auto-companies');
 
@@ -101,7 +101,7 @@ var mainLayout = function(){
 
     $('#revealCompnayTourFromOwnerTour').on('click', function(e){
         e.preventDefault();
-        showCompanyTourPopu(this);
+        showCompanyTourPopup(this);
     })
 
     $('#notLogedInRegister').on('click', function(e){
