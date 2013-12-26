@@ -883,3 +883,6 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .sliderDisplayPosition li.active{
     background-color: transparent;
 }
+.servedBrend.one{
+    width: 230px !important;
+}

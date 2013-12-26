@@ -99,12 +99,16 @@
     {% endif %}
 </div>
 <div class="infoCompanyWrap">
-    {% if company.autos | length %}
+    {% if company.autos | length or company.allAuto %}
         <div class="infoCompanyItem">
             <p class="servedBrendTitle titleH3">Обслуживаемые бренды:</p>
-            {% for car in company.autos if car.visible %}
-                <p class="servedBrend"><img src="{{ car.imagePath }}" alt="{{ car }}"> <span class="car-name">{{ car }}</span></p>
-            {% endfor %}
+            {% if company.allAuto %}
+                <p class="servedBrend one"><img src="{{ asset('bootstrap/img/icon.all-autos.png') }}" alt="Любые автомобили"> <span class="car-name">Любые автомобили</span></p>
+            {% elseif company.autos | length %}
+                {% for car in company.autos if car.visible %}
+                    <p class="servedBrend"><img src="{{ car.imagePath }}" alt="{{ car }}"> <span class="car-name">{{ car }}</span></p>
+                {% endfor %}
+            {% endif %}
         </div>
     {% endif %}
     <div class="infoCompanyItem">
