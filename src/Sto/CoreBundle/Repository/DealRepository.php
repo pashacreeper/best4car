@@ -77,6 +77,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('csp.subType', 'csp_sub_type')
             ->leftJoin('dc.feedbacks', 'fb')
             ->leftJoin('dc.autoServices', 'auto_services')
+            ->leftJoin('deal.autoServices', 'deal_auto_services')
             ->leftJoin('dc.additionalServices', 'casp')
             ->leftJoin('dc.autos', 'mark')
             ->leftJoin('deal.services', 'ds')
@@ -98,7 +99,8 @@ class DealRepository extends EntityRepository
                     $query->expr()->like('deal.description', ':search'),
                     $query->expr()->like('deal.terms', ':search'),
                     $query->expr()->like('ds.name', ':search'),
-                    $query->expr()->like('mark.name', ':search')
+                    $query->expr()->like('mark.name', ':search'),
+                    $query->expr()->like('deal_auto_services.name', ':search')
                 )
             )->setParameter('search', "%{$search}%");
         }

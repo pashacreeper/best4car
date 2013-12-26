@@ -45,7 +45,7 @@ class DealController extends MainController
         return [
             'archive_deal' => $arhive_deals,
             'company'      => $company,
-            'deals' => $deals
+            'deals'        => $deals
         ];
     }
 
@@ -146,8 +146,8 @@ class DealController extends MainController
         }
 
         return [
-            'deal' => $deal,
-            'form' => $form->createView(),
+            'deal'    => $deal,
+            'form'    => $form->createView(),
             'company' => $company,
             'isNew'   => true
         ];
