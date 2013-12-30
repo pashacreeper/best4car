@@ -454,13 +454,16 @@ var registrationPage = function(){
         (function(){
             $('#photoAddWrapper .contactDate').each(function(index, element){
                 var image = $(element).find('.imageName').val();
-                var path = "storage/images/company/company_gallery";
-                var upload = $(element).find('input[type="file"]');
 
-                wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
+                if (image) {
+                    var path = "storage/images/company/company_gallery";
+                    var upload = $(element).find('input[type="file"]');
 
-                upload.before(wrapper);
-                upload.addClass('hiddenFotoUpload');
+                    wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
+
+                    upload.before(wrapper);
+                    upload.addClass('hiddenFotoUpload');
+                }
             });
         })();
         $('#photoAddWrapper').on('change', 'input[type="file"]', function(){
