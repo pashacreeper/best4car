@@ -12,10 +12,12 @@ class DealRepository extends EntityRepository
     public function getDealTypes($cityId, $search = null)
     {
         $query = $this->createQueryBuilder('deal')
-            ->select('dt.id, COUNT(deal.id) AS deals_count')
-            ->join('deal.type', 'dt')
-            ->join('deal.company', 'dc')
+            ->select('dt.id, COUNT(DISTINCT deal.id) AS deals_count')
+            ->leftJoin('deal.type', 'dt')
+            ->leftJoin('deal.company', 'dc')
             ->leftJoin('deal.services', 'ds')
+            ->leftJoin('dc.autos', 'mark')
+            ->leftJoin('deal.autoServices', 'deal_auto_services')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
             ->groupBy('dt.id')
@@ -33,7 +35,9 @@ class DealRepository extends EntityRepository
                     $query->expr()->like('deal.name', ':search'),
                     $query->expr()->like('deal.description', ':search'),
                     $query->expr()->like('deal.terms', ':search'),
-                    $query->expr()->like('ds.name', ':search')
+                    $query->expr()->like('ds.name', ':search'),
+                    $query->expr()->like('mark.name', ':search'),
+                    $query->expr()->like('deal_auto_services.name', ':search')
                 )
             )->setParameter('search', "%{$search}%");
         }
