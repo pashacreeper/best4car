@@ -243,7 +243,7 @@
                 dataType: 'json',
                 success: function(response){
                     globalCompanies = response;
-                    var text = 'Найдено <span>' + response.length + '</span> ' + declensionOfNumerals(response.length, ['компания', 'компании', 'компаний']) + ' в вашем городе';
+                    var text = 'Найдено <span>' + response.length + '</span> ' + declensionOfNumerals(response.length, ['компания', 'компании', 'компаний']);
                     $('.contentTopCenter').html(text);
 
                     $('#companiesListContainer').empty();
