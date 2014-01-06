@@ -1,3 +1,8 @@
+{% set notLogedinLink = '' %}
+{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% set notLogedinLink = "data-reveal-id=not-loged-in" %}
+{% endif %}
+
 {% for feedback in feedbacks %}
 {% if feedback.isHidden and not (app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) %}{% else %}
 <div class="reviewContentItem" data-feedback-block="{{ feedback.id }}">
@@ -34,8 +39,8 @@
                 {% if feedback.priceLevel is defined %}
                     {% if feedback.priceLevel %}<span class="levelPrice">Цена:<i class="levelPriceImg {{ feedback.priceLevel.shortName }}"></i></span>{% endif %}
                 {% endif %}
-                <span data-dislike-feedback="{{feedback.id}}" class="negativReview"><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></span>
-                <span data-like="company" data-like-feedback="{{feedback.id}}" class="positivReview"><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></span>
+                <a {% if is_granted('IS_AUTHENTICATED_FULLY') %}data-dislike="company" data-dislike-feedback="{{feedback.id}}"{% endif %} class="negativReview" {{ notLogedinLink }}><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></a>
+                <a {% if is_granted('IS_AUTHENTICATED_FULLY') %}data-like="company" data-like-feedback="{{feedback.id}}"{% endif %} class="positivReview" {{ notLogedinLink }}><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></a>
 
                 <div class="reviewContText">
                     {{ feedback.content|raw }}
