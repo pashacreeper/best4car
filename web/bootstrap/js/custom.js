@@ -458,9 +458,11 @@ var registrationPage = function(){
                 if (image) {
                     var path = "storage/images/company/company_gallery";
                     var upload = $(element).find('input[type="file"]');
+                    var $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
 
                     wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
 
+                    $(element).find('.clear').before($deleteLink);
                     upload.before(wrapper);
                     upload.addClass('hiddenFotoUpload');
                 }
