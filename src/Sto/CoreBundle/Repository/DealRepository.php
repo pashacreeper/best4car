@@ -83,7 +83,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('dc.autoServices', 'auto_services')
             ->leftJoin('deal.autoServices', 'deal_auto_services')
             ->leftJoin('dc.additionalServices', 'casp')
-            ->leftJoin('dc.autos', 'mark')
+            ->leftJoin('deal.auto', 'mark')
             ->leftJoin('deal.services', 'ds')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')
