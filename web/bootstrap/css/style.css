@@ -1169,7 +1169,7 @@ select {
     min-width: 1000px;
     background: #464b51;
     border-top: 1px solid #313236;
-    height: 68px;
+    height: 44px;
     z-index: 888;
 }
 
@@ -1205,7 +1205,7 @@ select {
 }
 
 .footerMenu {
-    width: 400px;
+    width: 800px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -1214,7 +1214,7 @@ select {
     float: left;
     font: 1.4em 'PT Sans', sans;
     padding: 0 10px;
-    line-height: 48px;
+    line-height: 44px;
 }
 
 .footerMenu li a {
@@ -1229,7 +1229,7 @@ select {
 
 .footerCocial {
     position: absolute;
-    top: 16px;
+    top: 12px;
     right: 20px;
 }
 

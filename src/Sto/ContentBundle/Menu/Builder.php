@@ -80,6 +80,12 @@ class Builder extends ContainerAware
         $page = $menu->addChild('Контакты', ['route' => 'info_show', 'routeParameters' => ['name' => 'contact']]);
         $page->setAttribute('class', 'footerMenuItem');
 
+        $page = $menu->addChild('Зарегистрировать компанию', ['route' => 'registration_company_owner']);
+        $page->setAttribute('class', 'footerMenuItem');
+
+        $page = $menu->addChild('Условия использования', ['route' => 'info_show', 'routeParameters' => ['name' => 'useRules']]);
+        $page->setAttribute('class', 'footerMenuItem');
+
         return $menu;
     }
 
