@@ -508,6 +508,8 @@
                     zoom: 10,
                     behaviors: ["default", "scrollZoom"]
                 });
+                mapCompany.controls.add('zoomControl');
+                mapCompany.controls.add('mapTools');
                 attachReverseGeocode(mapCompany);
                 function attachReverseGeocode(myMap) {
                     myMap.events.add('click', function (e) {

@@ -27,6 +27,8 @@
                 zoom: 15,
                 behaviors: ["default", "scrollZoom"]
             });
+            mapCompany.controls.add('zoomControl');
+            mapCompany.controls.add('mapTools');
             myGeoObject = new ymaps.GeoObject({
                 geometry: {
                     type: "Point",

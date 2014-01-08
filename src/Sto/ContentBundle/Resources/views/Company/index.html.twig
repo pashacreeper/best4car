@@ -22,6 +22,9 @@
         function renderMap(companies) {
             filterDataByZoom(mainMap.getZoom(), companies);
 
+            mainMap.controls.add('zoomControl');
+            mainMap.controls.add('mapTools');
+
             mainMap.events.add('actionend', function (evt) {
                 if (oldZoom != mainMap.getZoom()) {
                     filterDataByZoom(mainMap.getZoom(), globalCompanies);
