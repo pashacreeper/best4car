@@ -10,6 +10,7 @@
     {{ parent() }}
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
 
     <script>
         var city = '{{ city.gps }}';
@@ -22,8 +23,23 @@
         function renderMap(companies) {
             filterDataByZoom(mainMap.getZoom(), companies);
 
+            var buttonMyPlace = new GeolocationButton({
+                data : {
+                    image : "{{ asset('bootstrap/img/wifi.png') }}",
+                    plsImage : "{{ asset('bootstrap/img/man.png') }}",
+                    lImage : "{{ asset('bootstrap/img/loader.gif') }}",
+                    title : 'Определить мое местоположение'
+                },
+                geolocationOptions: {
+                    enableHighAccuracy : true
+                }
+            },{
+                selectOnClick: false
+            });
+
             mainMap.controls.add('zoomControl');
             mainMap.controls.add('mapTools');
+            mainMap.controls.add(buttonMyPlace, { top : 40, left : 5 });
 
             mainMap.events.add('actionend', function (evt) {
                 if (oldZoom != mainMap.getZoom()) {
@@ -186,12 +202,6 @@
         }
 
         function filterDataByZoom(indexZoom, companies) {
-            mainMap.geoObjects.each(function (geoCollection) {
-                geoCollection.each(function (item) {
-                    geoCollection.remove(item);
-                });
-            });
-
             addPlacemarks(companies);
 
             $('.listItemCompany').each(function (index, element) {
