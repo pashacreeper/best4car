@@ -885,3 +885,14 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .servedBrend.one{
     width: 230px !important;
 }
+.read-all{
+    color: #f35d2e;
+    font: 1.3em 'PT Sans', sans;
+    border-bottom: 1px dotted #f35d2e;
+    cursor: pointer;
+}
+.read-all:hover{
+    text-decoration: none;
+    border-bottom: none;
+    color: #f35d2e;
+}

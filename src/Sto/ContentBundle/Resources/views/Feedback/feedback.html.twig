@@ -42,9 +42,18 @@
                 <a {% if is_granted('IS_AUTHENTICATED_FULLY') %}data-dislike="company" data-dislike-feedback="{{feedback.id}}"{% endif %} class="negativReview" {{ notLogedinLink }}><i class="negativReviewI"></i><span data-dislike="count">{{ feedback.minuses }}</span></a>
                 <a {% if is_granted('IS_AUTHENTICATED_FULLY') %}data-like="company" data-like-feedback="{{feedback.id}}"{% endif %} class="positivReview" {{ notLogedinLink }}><i class="positivReviewI"></i><span data-like="count">{{ feedback.pluses }}</span></a>
 
-                <div class="reviewContText">
+                {% set style = '' %}
+                {% set showAll = false %}
+                {% if feedback.content|length > 500 %}
+                    {% set style = "style='height: 65px; overflow: hidden;'" %}
+                    {% set showAll = true %}
+                {% endif %}
+                <div class="reviewContText"{{ style|raw }}>
                     {{ feedback.content|raw }}
                 </div>
+                {% if showAll %}
+                    <a href="#" class="read-all">...читать дальше</a>
+                {% endif %}
 
                 <div class="reviewButtonsWrapper">
                     <div class="left">
@@ -180,3 +189,32 @@
 </div>
 {% endif %}
 {% endfor %}
+
+<script>
+(function(){
+    $('.read-all').on('click', function(e){
+        e.preventDefault();
+        
+        var $this = $(this),
+            height = '100%',
+            overflow = 'visible',
+            text = 'свернуть';
+
+        if ($this.hasClass('open')) {
+            height = '65px';
+            overflow = 'hidden';
+            text = '...читать дальше';
+
+            $this.removeClass('open');
+        } else {
+            $this.addClass('open');
+        }
+
+        $(this)
+            .html(text)
+            .prev('.reviewContText')
+            .css('height', height)
+            .css('overflow', overflow);
+    });
+})();
+</script>
