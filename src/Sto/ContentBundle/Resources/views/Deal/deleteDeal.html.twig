@@ -1,0 +1,35 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-registration-company.css') }}">
+{% endblock %}
+
+{% block title %}Удаление акции — {{ deal.name }}{% endblock %}
+
+{% block pageTitle %}
+<div id="nameCompanyHeaderWrap">
+    <div class="nameCompanyHeader">
+        <h1 class="titleNameCompany">Удаление акции — {{ deal.name }}</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block content %}
+    <section class="contentMain row">
+        <div class="content">
+            <p style="font-size: 18px;">Вы собираетесь удалить акцию {{ deal.name }}.</p>
+            <br>
+            <form action="{{ path('company_deal_delete', { "id": companyId, "dealId": deal.id }) }}" method="post">
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+                <a href="{{ path('content_company_show', { "id": companyId }) }}#deals" class="btn">Отменить</a>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

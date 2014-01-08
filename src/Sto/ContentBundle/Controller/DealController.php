@@ -55,32 +55,48 @@ class DealController extends MainController
      * @Route("/company/{id}/deals/{dealId}/delete", name="company_deal_delete")
      * @Method({"GET","POST"})
      * @ParamConverter("company", class="StoCoreBundle:Company")
+     * @Template()
      */
     public function deleteDealAction(Request $request,  $dealId, Company $company)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('StoCoreBundle:Deal')->findOneById($dealId);
+        $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($dealId);
 
-        if (!$entity) {
+        if (!$deal) {
             throw $this->createNotFoundException('Unable to find Deal entity.');
         }
 
-        $user = $this->get('security.context')->getToken()->getUser();
-        $resolution = false;
-        foreach ($company->getCompanyManager() as $manager) {
-            if ($manager->getUser()->getUserName() == $user->getUserName()) {
-                $resolution = true;
-                break;
+        $deleteForm = $this->createFormBuilder(['id' => $dealId])
+            ->add('id', 'hidden')
+            ->getForm();
+
+        if ('POST' === $request->getMethod()) {
+            $deleteForm->submit($request);
+            if ($deleteForm->isValid()) {
+                $user = $this->get('security.context')->getToken()->getUser();
+                $resolution = false;
+                foreach ($company->getCompanyManager() as $manager) {
+                    if ($manager->getUser()->getUserName() == $user->getUserName()) {
+                        $resolution = true;
+                        break;
+                    }
+                }
+                if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
+                    $em->remove($deal);
+                    $em->flush();
+                }
+
+                return $this->redirect(
+                    $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
+                );
             }
         }
-        if (true === $this->get('security.context')->isGranted('ROLE_ADMIN') or $resolution) {
-            $em->remove($entity);
-            $em->flush();
-        }
 
-        return $this->redirect(
-            $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
-        );
+        return[
+            'form' => $deleteForm->createView(),
+            'deal' => $deal,
+            'companyId' => $company->getId()
+        ];
     }
 
     /**
