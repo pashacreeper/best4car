@@ -1770,18 +1770,19 @@ label {
 }
 
 .services {
-    border-bottom: 1px solid #f35d2e;
     min-height: 136px;
 }
 
 .servicesAdd {
     padding-top: 5px;
+    border-bottom: 1px solid #f35d2e;
 }
 
 .servisesAddItem {
     float: left;
     width: 24px;
     margin-right: 5px;
+    padding-top: 5px;
 }
 
 .servisesAddItem img {
