@@ -100,7 +100,9 @@
                         var select = $('select[data-index='+index+']');
                         e.preventDefault();
                         if (select.parent().find('.companySpecialization').val()) {
-                            $('#service-choose-modal').bind('reveal:open', function() {
+                            var $serviceModal = $('#service-choose-modal');
+
+                            $serviceModal.bind('reveal:open', function() {
                                 $('#service-tree').jstree({
                                     "plugins" : ["json_data", "checkbox", "themes", "ui"] ,
                                     "checkbox": {
@@ -123,7 +125,14 @@
                                 });
                                 var selectedType = link.parent().first('select').find(':selected').html();
                             });
-                            $('#service-choose-modal').bind('reveal:close', function() {
+                            $serviceModal.on('click', '.serviceClose',function(e){
+                                e.preventDefault();
+
+                                $serviceModal.trigger('reveal:close');
+                            });
+                            $serviceModal.on('click', '.serviceSave' ,function(e){
+                                e.preventDefault();
+
                                 select.html('');
                                 var hasSelected = false;
                                 $('#service-tree').jstree('get_checked', null, true).each(function() {
@@ -135,8 +144,7 @@
                                 if (hasSelected) {
                                     link.html(changeServiceLabel);
                                 }
-
-                                e.preventDefault();
+                                $serviceModal.trigger('reveal:close');
                             });
                         } else {
                             $('#service-tree').html("<h3>Для выбора услуг необходимо выбрать специализацию!</h3>");
@@ -211,6 +219,9 @@
     <a href="#" class="close-reveal-modal"></a>
     <div class="service-modal">
         <div id="service-tree"></div>
+        <br>
+        <a href="#" class="addPhotoBtn btn-select-services serviceClose">Отмена</a>
+        <a href="#" class="addPhotoBtn btn-select-services serviceSave">Сохранить</a>
     </div>
 </div>
 {% endblock %}
