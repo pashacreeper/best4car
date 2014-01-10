@@ -19,6 +19,7 @@
     <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script>
     $(document).ready(function(){
         var city = '{{ company.gps }}', mapComany;
@@ -52,9 +53,9 @@
                 selectOnClick: false
             });
 
-            mainMap.controls.add('zoomControl');
-            mainMap.controls.add('mapTools');
-            mainMap.controls.add(buttonMyPlace, { top : 40, left : 5 });
+            mapComany.controls.add('zoomControl');
+            mapComany.controls.add('mapTools');
+            mapComany.controls.add(buttonMyPlace, { top : 40, left : 5 });
 
             mapComany.geoObjects.add(myGeoObject);
 

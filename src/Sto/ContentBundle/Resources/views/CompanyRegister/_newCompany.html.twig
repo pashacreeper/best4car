@@ -23,6 +23,7 @@
     <script type="text/javascript" src="{{ asset('bootstrap/js/custom.validation.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.jstree.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -97,9 +98,9 @@
                 selectOnClick: false
             });
 
-            mainMap.controls.add('zoomControl');
-            mainMap.controls.add('mapTools');
-            mainMap.controls.add(buttonMyPlace, { top : 40, left : 5 });
+            mapCompany.controls.add('zoomControl');
+            mapCompany.controls.add('mapTools');
+            mapCompany.controls.add(buttonMyPlace, { top : 40, left : 5 });
             attachReverseGeocode(mapCompany);
             function attachReverseGeocode(myMap) {
                 myMap.events.add('click', function (e) {
