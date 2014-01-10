@@ -341,6 +341,10 @@ ul.tabNavigation li a:focus {
 .servicesSpecialisationTitle {
     padding-bottom: 10px;
 }
+.servedBrendTitle, .infoCompanyTitle, .servicesSpecialisationTitle{
+    color: #494949 !important;
+    font: Bold 1.6em 'PT Sans', sans !important;
+}
 
 .accordion-heading {
     width: 100%;
