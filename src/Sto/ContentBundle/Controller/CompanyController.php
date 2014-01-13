@@ -97,19 +97,15 @@ class CompanyController extends MainController
      * @Method("GET")
      * @Template()
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, Company $company)
     {
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($id);
-
-        if (!$company) {
-            throw $this->createNotFoundException('Компании не обнаруженно');
-        }
+        $companyId = $company->getId();
 
         $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
-            ->setParameter('company', $id)
+            ->setParameter('company', $companyId)
         ;
 
         if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
@@ -124,8 +120,8 @@ class CompanyController extends MainController
             $isManager = true;
         }
 
-        $archivedDealsCount = $em->getRepository('StoCoreBundle:Deal')->getArchivedDealsCountByCompany($id);
-        $deals = $em->getRepository('StoCoreBundle:Deal')->getActiveDealsByCompany($id);
+        $archivedDealsCount = $em->getRepository('StoCoreBundle:Deal')->getArchivedDealsCountByCompany($companyId);
+        $deals = $em->getRepository('StoCoreBundle:Deal')->getActiveDealsByCompany($companyId);
 
         $refererRoute = $this->getRefererRoute();
 
