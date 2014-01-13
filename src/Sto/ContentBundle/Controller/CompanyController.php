@@ -106,16 +106,6 @@ class CompanyController extends MainController
             throw $this->createNotFoundException('Компании не обнаруженно');
         }
 
-        if ($this->getUser()) {
-            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
-                ->createQueryBuilder('cm')
-                ->where('cm.userId = :user_id AND cm.companyId = :company')
-                ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $id)
-                ->getQuery()
-                ->getResult()
-            ;
-        }
         $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->where('fc.companyId = :company')
@@ -124,11 +114,15 @@ class CompanyController extends MainController
 
         if (!$this->get('security.context')->isGranted('ROLE_MODERATOR')) {
             $qb->andWhere('fc.hidden = :hidden')
-                ->setParameter('hidden', 0);
+               ->setParameter('hidden', 0);
         }
 
         $feedbacks = $qb->getQuery()->getResult();
-        $isManager = (isset($manager) && count($manager) > 0) ? true : false;
+
+        $isManager = false;
+        if ($this->get('security.context')->isGranted("SHOW", $company)) {
+            $isManager = true;
+        }
 
         $archivedDealsCount = $em->getRepository('StoCoreBundle:Deal')->getArchivedDealsCountByCompany($id);
         $deals = $em->getRepository('StoCoreBundle:Deal')->getActiveDealsByCompany($id);
