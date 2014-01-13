@@ -5,8 +5,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sto\UserBundle\Entity\User;
 
-class CompanyManagerVoter implements VoterInterface 
+class CompanyManagerVoter implements VoterInterface
 {
     /**
      * @var EntityManager
@@ -32,14 +33,15 @@ class CompanyManagerVoter implements VoterInterface
 
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if (!$this->supportsClass(get_class($object)) || !$user = $token->getUser()) {
+        $user = $token->getUser();
+        if (!$this->supportsClass(get_class($object)) || !($user instanceof User)) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
         $companyManagerRepository = $this->em->getRepository('StoCoreBundle:CompanyManager');
 
-        if ($companyManagerRepository->isUserManager($user->getId(), $object->getId()) 
-            || $user->hasRole('ROLE_ADMIN')) 
+        if ($companyManagerRepository->isUserManager($user->getId(), $object->getId())
+            || $user->hasRole('ROLE_ADMIN'))
         {
             return VoterInterface::ACCESS_GRANTED;
         }
