@@ -99,8 +99,8 @@ class CompanyRegisterController extends Controller
             $isCompanyNew = true;
         }
 
-        if ($company->getCompanyManager()->count() > 0) {
-            $this->checkCompanyManager($company->getCompanyManager(), $user);
+        if ($company->getCompanyManager()->count() > 0 || $user->hasRole('ROLE_ADMIN')) {
+            $this->checkCompanyManager($company);
         }
 
         $form = $this->createForm(new CompanyBaseType(), $company);
@@ -146,7 +146,7 @@ class CompanyRegisterController extends Controller
         if ($company->getSpecializations()->count() === 0) {
             $company->addSpecialization(new CompanySpecialization());
         }
-        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
+        $this->checkCompanyManager($company);
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new CompanyBusinessProfileType(), $company);
@@ -224,7 +224,7 @@ class CompanyRegisterController extends Controller
      */
     public function contactsAction(Request $request, Company $company)
     {
-        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
+        $this->checkCompanyManager($company);
 
         if ($company->getWorkingTime()->count() === 0) {
             $company->addWorkingTime(new CompanyWorkingTime());
@@ -283,7 +283,7 @@ class CompanyRegisterController extends Controller
      */
     public function galleryAction(Request $request, Company $company)
     {
-        $this->checkCompanyManager($company->getCompanyManager(), $this->getUser());
+        $this->checkCompanyManager($company);
 
         $form = $this->createForm(new CompanyGalleryType(), $company);
         $em = $this->getDoctrine()->getManager();
@@ -321,12 +321,10 @@ class CompanyRegisterController extends Controller
      * @param  User                 $user
      * @return boolean
      */
-    protected function checkCompanyManager($managers, User $user)
+    protected function checkCompanyManager(Company $company)
     {
-        foreach ($managers as $manager) {
-            if ($manager->getUser() == $user) {
-                return true;
-            }
+        if ($this->get('security.context')->isGranted("EDIT", $company)) {
+            return true;
         }
 
         throw new AccessDeniedException();
