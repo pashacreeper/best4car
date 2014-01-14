@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sto\UserBundle\Entity\User;
 
 /**
@@ -24,6 +25,10 @@ class Feedback
     private $id;
 
     /**
+     * @Assert\Length(
+     *     min = "180",
+     *     max = "8000"
+     * )
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;

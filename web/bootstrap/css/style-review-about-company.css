@@ -399,3 +399,10 @@ div.star-rating-hover a {
     width: 286px;
     margin-bottom: 10px;
 }
+
+.errors{
+    font: 1.5em 'PT Sans', sans;
+    color: #BF271A;
+    clear: both;
+    padding-bottom: 5px;
+}
