@@ -8,7 +8,7 @@
                         <p class="nameActionP">
                             {% if deal.auto | length %}
                                 {% for auto in deal.auto %}
-                                    {% if loop.index == 1 %}{{ auto.name }}{% else %}, {{ auto.name }}{% endif %}
+                                    {%- if loop.index == 1 %}{{ auto.name }}{% else %}, {{ auto.name }}{% endif -%}
                                 {% endfor %}
                             {% else %}
                                 Все автомобили
