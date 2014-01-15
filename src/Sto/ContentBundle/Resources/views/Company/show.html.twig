@@ -1,7 +1,11 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 
 {% block title %}
-    {% if company %}{{ company.name }}{% endif %}
+    {%- if company %}{{ company.name }} — общая информация, отзывы, акции{% endif -%}
+{% endblock %}
+
+{% block metaTegs %}
+    <meta name="description" content="Общие сведения о компании «{{ company.name }}» - специализация, основные и дополнительные услуги, адрес, контактная информация, время работы, отзывы, специальные предложения.">
 {% endblock %}
 
 {% block css %}
