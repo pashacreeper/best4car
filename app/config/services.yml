@@ -12,3 +12,10 @@ services:
             - [setEntityManager, [@doctrine.orm.entity_manager]]
         tags: 
             - { name: security.voter }
+    sto.deal.manager_voter:
+        class: Sto\CoreBundle\Service\Voter\DealManagerVoter
+        public: true
+        calls:
+            - [setEntityManager, [@doctrine.orm.entity_manager]]
+        tags: 
+            - { name: security.voter }
