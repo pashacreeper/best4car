@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\CoreBundle\Entity\Deal;
 use Sto\CoreBundle\Entity\Company;
-use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\FeedbackDeal;
 use Sto\ContentBundle\Form\FeedbackDealType;
 use Sto\ContentBundle\Form\DealType;
@@ -215,7 +214,7 @@ class DealController extends MainController
      *
      * @Route("/company/{companyId}/deal/{id}/update", name="company_deal_update")
      * @Method({"POST"})
-     * @Template("StoContentBundle:Deal:editDeal.html.twig")
+     * @Template("StoContentBundle:Deal:newDeal.html.twig")
      * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
     public function updateDealAction(Request $request, $id, $companyId)
@@ -329,25 +328,15 @@ class DealController extends MainController
      * @Route("/deal/{id}", name="content_deal_show")
      * @Method("GET")
      * @Template()
-     * @ParamConverter("deal", class="StoCoreBundle:Deal")
      */
-    public function showAction(Request $request, Deal $deal)
+    public function showAction(Deal $deal)
     {
-        if ($this->getUser()) {
-            $em = $this->getDoctrine()->getManager();
-            $manager = $em->getRepository('StoCoreBundle:CompanyManager')
-                ->createQueryBuilder('cm')
-                ->where('cm.userId = :user_id AND cm.companyId = :company')
-                ->setParameter('user_id', $this->getUser()->getId())
-                ->setParameter('company', $deal->getCompany()->getId())
-                ->getQuery()
-                ->getResult()
-            ;
+        $isManager = false;
+        if ($this->get('security.context')->isGranted("SHOW", $deal)) {
+            $isManager = true;
         }
 
         $refererRoute = $this->getRefererRoute();
-
-        $isManager = (isset($manager) && count($manager)>0) ? true : false;
 
         return [
             'deal' => $deal,
@@ -411,7 +400,7 @@ class DealController extends MainController
      * @ParamConverter("deal", class="StoCoreBundle:Deal")
      * @Template("StoContentBundle:Deal:editFeedback.html.twig")
      */
-    public function editFeedbackAction(Deal $deal,$feedbackId)
+    public function editFeedbackAction(Deal $deal, $feedbackId)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:FeedbackDeal');
@@ -420,7 +409,7 @@ class DealController extends MainController
         if (!$feedback) {
             throw $this->createNotFoundException('Unable to find FeedbackDeal entity.');
         }
-        ;
+
         $editForm = $this->createForm(new FeedbackDealType, $feedback->setDeal($deal));
 
         return [

@@ -43,9 +43,11 @@
 {% block content %}
     <section class="contentMain  row">
         <div class="content">
-
-            <form action="{{ path('company_deal_create' ,{'id': company.id}) }}"
-                  method="post" {{ form_enctype(form) }} class="inputForm">
+            {% set actionPath = path('company_deal_create', {'id': company.id}) %}
+            {% if not isNew %}
+                {% set actionPath = path('company_deal_update' ,{'companyId': company.id, 'id': deal.id}) %}
+            {% endif %}
+            <form action="{{ actionPath }}" method="post" {{ form_enctype(form) }} class="inputForm">
                 {{ form_errors(form) }}
                 <div class="container">
                     <div class="contentLabel clear">

@@ -5,3 +5,17 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
+    sto.company.manager_voter:
+        class: Sto\CoreBundle\Service\Voter\CompanyManagerVoter
+        public: true
+        calls:
+            - [setEntityManager, [@doctrine.orm.entity_manager]]
+        tags: 
+            - { name: security.voter }
+    sto.deal.manager_voter:
+        class: Sto\CoreBundle\Service\Voter\DealManagerVoter
+        public: true
+        calls:
+            - [setEntityManager, [@doctrine.orm.entity_manager]]
+        tags: 
+            - { name: security.voter }
