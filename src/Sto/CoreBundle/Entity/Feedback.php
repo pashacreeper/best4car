@@ -26,9 +26,10 @@ class Feedback
 
     /**
      * @Assert\Length(
-     *     min = "180",
+     *     min = "150",
      *     max = "8000"
      * )
+     * @Assert\NotBlank()
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
