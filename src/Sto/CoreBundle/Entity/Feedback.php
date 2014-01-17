@@ -27,9 +27,10 @@ class Feedback
     /**
      * @Assert\Length(
      *     min = "150",
-     *     max = "8000"
+     *     max = "8000",
+     *     minMessage = "Отзыв слишком короткий, минимальная длина отзыва 150 символов"
      * )
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Отзыв не может быть пустой! Пожалуйста, поделитесь своим мнением!")
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
