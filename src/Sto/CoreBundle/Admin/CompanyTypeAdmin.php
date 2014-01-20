@@ -53,6 +53,12 @@ class CompanyTypeAdmin extends Admin
                 ->add('iconMapSelected', 'file', [
                     'required' => false,
                 ])
+                ->add('iconMapVip', 'file', [
+                    'required' => false,
+                ])
+                ->add('iconMapVipSelected', 'file', [
+                    'required' => false,
+                ])
                 ->add('iconCompanyCard', 'file', [
                     'required' => false,
                 ])

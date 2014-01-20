@@ -209,6 +209,7 @@ class CompanyAdmin extends Admin
             ->add('id')
             ->add('name')
             ->add('visible')
+            ->add('vip')
             ->add('city')
             ->add('companyManager')
             ->add('specializations.type', null, [], null, [

@@ -53,6 +53,14 @@
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconMapSelected') }}" />
                                                 </div>
+                                            {% elseif object.iconNameMapVip is defined and '' != object.iconNameMapVip and 'iconMapVip' == field_name %}
+                                                <div class="admin-icon-show">
+                                                    <img src="{{ vich_uploader_asset(object, 'iconMapVip') }}" />
+                                                </div>
+                                            {% elseif object.iconNameMapVipSelected is defined and '' != object.iconNameMapVipSelected and 'iconMapVipSelected' == field_name %}
+                                                <div class="admin-icon-show">
+                                                    <img src="{{ vich_uploader_asset(object, 'iconMapVipSelected') }}" />
+                                                </div>
                                             {% elseif object.iconNameCompanyCard is defined and '' != object.iconNameCompanyCard and 'iconCompanyCard' == field_name %}
                                                 <div class="admin-icon-show">
                                                     <img src="{{ vich_uploader_asset(object, 'iconCompanyCard') }}" />
