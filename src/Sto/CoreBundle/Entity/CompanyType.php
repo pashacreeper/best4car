@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Sto\CoreBundle\Entity\AutoServices;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Company
@@ -48,6 +49,38 @@ class CompanyType
      * @ORM\Column(type="string", length=255, name="icon_name_map_selected", nullable=true)
      */
     protected $iconNameMapSelected;
+
+    /**
+     * @Assert\Image(
+     *     maxSize="256k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="512",
+     *     maxHeight="512"
+     * )
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameMapVip")
+     */
+    protected $iconMapVip;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="icon_name_map_vip", nullable=true)
+     */
+    protected $iconNameMapVip;
+
+    /**
+     * @Assert\Image(
+     *     maxSize="256k",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     maxWidth="512",
+     *     maxHeight="512"
+     * )
+     * @Vich\UploadableField(mapping="company_type_icon", fileNameProperty="iconNameMapVipSelected")
+     */
+    protected $iconMapVipSelected;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="icon_name_map_vip_selected", nullable=true)
+     */
+    protected $iconNameMapVipSelected;
 
     /**
      * @Assert\Image(
@@ -466,5 +499,101 @@ class CompanyType
     public function removeChild(\Sto\CoreBundle\Entity\CompanyType $children)
     {
         $this->children->removeElement($children);
+    }
+
+    /**
+     * Set iconMapVip
+     *
+     * @param UploadedFile $iconMapVip
+     */
+    public function setIconMapVip(UploadedFile $iconMapVip = null)
+    {
+        $this->iconMapVip = $iconMapVip;
+        if ($iconMapVip instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get iconMapVip
+     *
+     * @return UploadedFile
+     */
+    public function getIconMapVip()
+    {
+        return $this->iconMapVip;
+    }
+
+    /**
+     * Set iconMapVipSelected
+     *
+     * @param UploadedFile $iconMapVipSelected
+     */
+    public function setIconMapVipSelected(UploadedFile $iconMapVipSelected = null)
+    {
+        $this->iconMapVipSelected = $iconMapVipSelected;
+        if ($iconMapVipSelected instanceof UploadedFile) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get iconMapVipSelected
+     *
+     * @return UploadedFile
+     */
+    public function getIconMapVipSelected()
+    {
+        return $this->iconMapVipSelected;
+    }
+
+    /**
+     * Set iconNameMapVip
+     *
+     * @param  string      $iconNameMapVip
+     * @return CompanyType
+     */
+    public function setIconNameMapVip($iconNameMapVip)
+    {
+        $this->iconNameMapVip = $iconNameMapVip;
+
+        return $this;
+    }
+
+    /**
+     * Get iconNameMapVip
+     *
+     * @return string
+     */
+    public function getIconNameMapVip()
+    {
+        return $this->iconNameMapVip;
+    }
+
+    /**
+     * Set iconNameMapVipSelected
+     *
+     * @param  string      $iconNameMapVipSelected
+     * @return CompanyType
+     */
+    public function setIconNameMapVipSelected($iconNameMapVipSelected)
+    {
+        $this->iconNameMapVipSelected = $iconNameMapVipSelected;
+
+        return $this;
+    }
+
+    /**
+     * Get iconNameMapVipSelected
+     *
+     * @return string
+     */
+    public function getIconNameMapVipSelected()
+    {
+        return $this->iconNameMapVipSelected;
     }
 }

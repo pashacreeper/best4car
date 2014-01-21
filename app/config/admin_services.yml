@@ -186,3 +186,9 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Пользователи, label: Контакты, show_in_dashboard: false}
           arguments: [null, Sto\UserBundle\Entity\UserContacts, SonataAdminBundle:CRUD]
+
+    app.admin.user.user_email:
+        class: Sto\CoreBundle\Admin\UserEmailAdmin
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Пользователи, label: Список email }
+        arguments: [null, Sto\UserBundle\Entity\User, SonataAdminBundle:CRUD]
