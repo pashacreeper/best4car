@@ -34,11 +34,8 @@ var mainLayout = function(){
     $('.btnUser').on('click', function(e) {
         e.preventDefault();
         $('.userDropdown').fadeIn(50, function(){
-            $(document).on('click', function(e){
-                if ($(event.target).closest(".userDropdown").length) return;
-                $('.userDropdown').hide();
-                e.stopPropagation();
-                $(document).off('click');
+            $(this).on('clickoutside', function(){
+                $(this).hide();
             });
         });
     });
