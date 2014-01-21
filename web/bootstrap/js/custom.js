@@ -21,11 +21,9 @@ var mainLayout = function(){
     // Login form
     $('.enter').on('click', function() {
         $('.enterDropdown').fadeIn(50, function(){
-            $(document).on('click', function(e){
-                if ($(event.target).closest(".enterDropdown").length) return;
-                $('.enterDropdown').hide();
-                e.stopPropagation();
-                $(document).off('click');
+            $(this).on('clickoutside', function(e){
+                $(this).hide();
+                $(this).off('clickoutside');
             });
         });
     });
