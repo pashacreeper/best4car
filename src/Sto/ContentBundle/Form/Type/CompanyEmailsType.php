@@ -33,9 +33,6 @@ class CompanyEmailsType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Основной email',
                         'class' => 'inputFormEnter span4'
-                    ],
-                    'constraints' => [
-                        new Assert\NotBlank()
                     ]
                 ]
             )

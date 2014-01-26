@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sto\CoreBundle\Validator\Constraints\ConstraintWorkingTime;
 use Sto\CoreBundle\Validator\Constraints\ConstraintPhones;
 use Sto\CoreBundle\Validator\Constraints\CompanyManager;
-use Sto\CoreBundle\Validator\Constraints\ConstraintEmails;
 
 class CompanyContactsType extends AbstractType
 {
@@ -57,9 +56,6 @@ class CompanyContactsType extends AbstractType
                 'prototype' => true,
                 'by_reference' => false,
                 'error_bubbling' => false,
-                'constraints' => [
-                    new ConstraintEmails()
-                ]
             ])
             ->add('workingTime', 'collection', [
                 'label' => ' ',
