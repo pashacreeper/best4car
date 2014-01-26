@@ -1,6 +1,9 @@
 <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="form-horizontal">
     <p class="contentLabel">
         <label>Ваше email</label>
+        {% if invalid_username is defined %}
+            <div class="errorMessage">Пользователя с таким email не зарегестрированно. Введите правильный адрес электронной почты.</div>
+        {% endif %}
         <input type="text" id="username" name="username" required="required" class="inputFormEnter span6" />
     </p>
     <div>
