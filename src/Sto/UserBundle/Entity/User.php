@@ -36,7 +36,6 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\NotBlank()
      * @ORM\Column(name="first_name", type="string", length=255)
      */
     protected $firstName;
@@ -89,7 +88,6 @@ class User extends BaseUser
      *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Assert\NotBlank(groups={"user"})
      * @Vich\UploadableField(mapping="user_photo", fileNameProperty="avatarUrl")
      */
     protected $avatar;
@@ -109,7 +107,6 @@ class User extends BaseUser
     private $birthDate;
 
     /**
-     * @Assert\Choice(callback = "getGenders")
      * @ORM\Column(name="gender", type="string", nullable=true)
      */
     protected $gender;
