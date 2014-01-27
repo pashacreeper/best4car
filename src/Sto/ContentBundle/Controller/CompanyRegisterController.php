@@ -246,15 +246,21 @@ class CompanyRegisterController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
+                foreach ($company->getPhones() as $phone) {
+                    if ($phone->getCompany() === null) {
+                        $phone->setCompany($company);
+                    }
+                }
+
                 foreach ($company->getCompanyManager() as $manager) {
                     if ($manager->getCompany() === null) {
                         $manager->setCompany($company);
                     }
                 }
 
-                foreach ($company->getEmails() as $manager) {
-                    if ($manager->getCompany() === null) {
-                        $manager->setCompany($company);
+                foreach ($company->getEmails() as $email) {
+                    if ($email->getCompany() === null) {
+                        $email->setCompany($company);
                     }
                 }
 
