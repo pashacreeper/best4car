@@ -43,23 +43,7 @@
                 iconImageHref: "/bootstrap/img/icon-map-default-active.png",
                 iconImageSize: [34, 45]
             });
-            var buttonMyPlace = new GeolocationButton({
-                data : {
-                    image : "{{ asset('bootstrap/img/wifi.png') }}",
-                    plsImage : "{{ asset('bootstrap/img/man.png') }}",
-                    lImage : "{{ asset('bootstrap/img/loader.gif') }}",
-                    title : 'Определить мое местоположение'
-                },
-                geolocationOptions: {
-                    enableHighAccuracy : true
-                }
-            },{
-                selectOnClick: false
-            });
-
-            mapComany.controls.add('zoomControl');
-            mapComany.controls.add(buttonMyPlace, { top : 40, left : 5 });
-
+            addButtonsToMap(mapComany, ymaps, GeolocationButton);
             mapComany.geoObjects.add(myGeoObject);
 
         };

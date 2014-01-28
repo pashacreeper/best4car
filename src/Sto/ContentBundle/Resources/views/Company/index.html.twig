@@ -22,29 +22,7 @@
 
         function renderMap(companies) {
             filterDataByZoom(mainMap.getZoom(), companies);
-
-            var buttonMyPlace = new GeolocationButton({
-                data : {
-                    image : "{{ asset('bootstrap/img/wifi.png') }}",
-                    plsImage : "{{ asset('bootstrap/img/man.png') }}",
-                    lImage : "{{ asset('bootstrap/img/loader.gif') }}",
-                    title : 'Определить мое местоположение'
-                },
-                geolocationOptions: {
-                    enableHighAccuracy : true
-                }
-            },{
-                selectOnClick: false,
-                layout: ymaps.templateLayoutFactory.createClass(
-                    "<div class='geo-location-button'>" +
-                    "<img src='" +
-                    "[if state.selected]$[data.lImage][else]$[data.image][endif]" +
-                    "'></div>"
-                ),
-            });
-
-            mainMap.controls.add('zoomControl', { top : 39, left : 5 });
-            mainMap.controls.add(buttonMyPlace, { top : 10, left : 6 });
+            addButtonsToMap(mainMap, ymaps, GeolocationButton);
 
             mainMap.events.add('actionend', function (evt) {
                 if (oldZoom != mainMap.getZoom()) {

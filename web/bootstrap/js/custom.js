@@ -10,6 +10,31 @@ function declensionOfNumerals(number, titles) {
     return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
 }
 
+var addButtonsToMap = function(map, ymaps, geoButton) {
+    var buttonMyPlace = new geoButton({
+        data : {
+            image : "/bootstrap/img/wifi.png",
+            plsImage : "/bootstrap/img/man.png",
+            lImage : "/bootstrap/img/loader.gif",
+            title : 'Определить мое местоположение'
+        },
+        geolocationOptions: {
+            enableHighAccuracy : true
+        }
+    },{
+        selectOnClick: false,
+        layout: ymaps.templateLayoutFactory.createClass(
+            "<div class='geo-location-button'>" +
+            "<img src='" +
+            "[if state.selected]$[data.lImage][else]$[data.image][endif]" +
+            "'></div>"
+        ),
+    });
+
+    map.controls.add('zoomControl', { top : 39, left : 5 });
+    map.controls.add(buttonMyPlace, { top : 10, left : 6 });
+}
+
 var mainLayout = function(){
     // Top menu hover effect
     $('.navTopItem').mouseenter(function() {
