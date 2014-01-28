@@ -896,3 +896,22 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     border-bottom: none;
     color: #f35d2e;
 }
+
+.geo-location-button{
+    display: block;
+    width: 15px;
+    height: 15px;
+    padding: 4px;
+    background: #f6f8fa; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f6f8fa 0%, #bcc4c9 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f8fa), color-stop(100%,#bcc4c9)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f6f8fa 0%,#bcc4c9 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f6f8fa 0%,#bcc4c9 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f6f8fa 0%,#bcc4c9 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f6f8fa 0%,#bcc4c9 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8fa', endColorstr='#bcc4c9',GradientType=0 ); /* IE6-9 */
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.9);
+    -moz-box-shadow:    0px 1px 2px 0px rgba(50, 50, 50, 0.9);
+    box-shadow:         0px 1px 2px 0px rgba(50, 50, 50, 0.9);
+    border-radius: 3px;
+}

@@ -34,11 +34,17 @@
                     enableHighAccuracy : true
                 }
             },{
-                selectOnClick: false
+                selectOnClick: false,
+                layout: ymaps.templateLayoutFactory.createClass(
+                    "<div class='geo-location-button'>" +
+                    "<img src='" +
+                    "[if state.selected]$[data.lImage][else]$[data.image][endif]" +
+                    "'></div>"
+                ),
             });
 
-            mainMap.controls.add('zoomControl');
-            mainMap.controls.add(buttonMyPlace, { top : 40, left : 5 });
+            mainMap.controls.add('zoomControl', { top : 39, left : 5 });
+            mainMap.controls.add(buttonMyPlace, { top : 10, left : 6 });
 
             mainMap.events.add('actionend', function (evt) {
                 if (oldZoom != mainMap.getZoom()) {

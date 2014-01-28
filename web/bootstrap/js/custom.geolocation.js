@@ -215,7 +215,7 @@ GeolocationButton.ERRORS = [
 function GeolocationButtonHint(button) {
     this._button = button;
     this._map = button.getMap();
-    this._offset = { left: 35, top: -18 };
+    this._offset = { left: 20, top: -8 };
 }
 /**
  * Отображает хинт справа от кнопки.
