@@ -1,1 +1,12 @@
 years.old: "%count% год|%count% года|%count% лет"
+
+template:
+    registration: Регистрация пользователя
+    reseting: Восстановление пароля
+    feedback_answer: Ответ на отзыв
+    manager:
+        company:
+            register: Менеджер: регистрация компании
+            feedabck: Менеджер: отзыв для компании
+        deal:
+            feedabck: Менеджер: отзыв для акции

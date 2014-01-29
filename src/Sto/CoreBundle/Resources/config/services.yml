@@ -1,0 +1,6 @@
+services:
+    sto_core.admin.email_templates:
+        class: Sto\CoreBundle\Admin\EmailTemplatesAdmin
+        arguments: [~, Sto\CoreBundle\Entity\EmailTemplates, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: EmailTemplates}
