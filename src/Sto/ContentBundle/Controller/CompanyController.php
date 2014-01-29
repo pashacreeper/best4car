@@ -76,6 +76,8 @@ class CompanyController extends MainController
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
+        $this->get('sto.notifications.email');
+
         $city = $this->get('sto_content.manager.city')->selectedCity();
         $words = null;
 

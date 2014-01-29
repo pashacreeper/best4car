@@ -19,3 +19,6 @@ services:
             - [setEntityManager, [@doctrine.orm.entity_manager]]
         tags: 
             - { name: security.voter }
+    sto.notifications.email:
+        class: Sto\CoreBundle\Service\EmailNotifications
+        arguments: ["@mailer", "@doctrine.orm.entity_manager"]
