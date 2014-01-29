@@ -6,13 +6,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * EmailTemplates
+ * EmailTemplate
  *
  * @ORM\Table(name="email_templates")
  * @ORM\Entity
  * @UniqueEntity("type")
  */
-class EmailTemplates
+class EmailTemplate
 {
     /**
      * @var integer
@@ -73,8 +73,8 @@ class EmailTemplates
     /**
      * Set title
      *
-     * @param  string         $title
-     * @return EmailTemplates
+     * @param  string        $title
+     * @return EmailTemplate
      */
     public function setTitle($title)
     {
@@ -96,8 +96,8 @@ class EmailTemplates
     /**
      * Set content
      *
-     * @param  string         $content
-     * @return EmailTemplates
+     * @param  string        $content
+     * @return EmailTemplate
      */
     public function setContent($content)
     {
@@ -119,8 +119,8 @@ class EmailTemplates
     /**
      * Set type
      *
-     * @param  string         $type
-     * @return EmailTemplates
+     * @param  string        $type
+     * @return EmailTemplate
      */
     public function setType($type)
     {
@@ -142,8 +142,8 @@ class EmailTemplates
     /**
      * Set createdAt
      *
-     * @param  \DateTime      $createdAt
-     * @return EmailTemplates
+     * @param  \DateTime     $createdAt
+     * @return EmailTemplate
      */
     public function setCreatedAt($createdAt)
     {
@@ -165,8 +165,8 @@ class EmailTemplates
     /**
      * Set updatedAt
      *
-     * @param  \DateTime      $updatedAt
-     * @return EmailTemplates
+     * @param  \DateTime     $updatedAt
+     * @return EmailTemplate
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -188,8 +188,8 @@ class EmailTemplates
     /**
      * Set updatedtAt
      *
-     * @param  \DateTime      $updatedtAt
-     * @return EmailTemplates
+     * @param  \DateTime     $updatedtAt
+     * @return EmailTemplate
      */
     public function setUpdatedtAt($updatedtAt)
     {

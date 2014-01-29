@@ -30,7 +30,7 @@ class EmailNotifications
         $this->em = $em;
         $this->transformer = $transformer;
 
-        $this->emailTemplateRepository = $em->getRepository('StoCoreBundle:EmailTemplates');
+        $this->emailTemplateRepository = $em->getRepository('StoCoreBundle:EmailTemplate');
     }
 
     private function getEmailTemplate($type)
