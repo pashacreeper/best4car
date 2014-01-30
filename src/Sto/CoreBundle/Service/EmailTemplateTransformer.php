@@ -15,6 +15,7 @@ class EmailTemplateTransformer
      *
      * @internal param \Sto\UserBundle\Entity\User $user
      * @internal param \Sto\CoreBundle\Entity\Company $company
+     * @internal param \Sto\CoreBundle\Entity\Deal $deal
      * @return string transformed template string
      */
     public function transform($template)

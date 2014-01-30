@@ -23,4 +23,4 @@ services:
         class: Sto\CoreBundle\Service\EmailTemplateTransformer
     sto.notifications.email:
         class: Sto\CoreBundle\Service\EmailNotifications
-        arguments: [@mailer, @doctrine.orm.entity_manager, @sto.template_transformer.email]
+        arguments: [@mailer, @doctrine.orm.entity_manager, @sto.template_transformer.email, @router]

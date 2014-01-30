@@ -8,6 +8,7 @@ use Sto\CoreBundle\Form\ChoiceList\EmailTemplateType;
 use Sto\UserBundle\Entity\User;
 use Sto\CoreBundle\Service\EmailTemplateTransformer;
 use Swift_Mailer;
+use Symfony\Component\Routing\RouterInterface;
 
 class EmailNotifications
 {
@@ -27,15 +28,21 @@ class EmailNotifications
     protected $transformer;
 
     /**
+     * @var RouterInterface
+     */
+    protected $router;
+
+    /**
      * @var EntityRepository
      */
     protected $emailTemplateRepository;
 
-    public function __construct(Swift_Mailer $mailer, EntityManager $em, EmailTemplateTransformer $transformer)
+    public function __construct(Swift_Mailer $mailer, EntityManager $em, EmailTemplateTransformer $transformer, RouterInterface $router)
     {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->transformer = $transformer;
+        $this->router = $router;
 
         $this->emailTemplateRepository = $em->getRepository('StoCoreBundle:EmailTemplate');
     }
@@ -50,6 +57,13 @@ class EmailNotifications
         return $this->emailTemplateRepository->findOneBy(['type' => $type]);
     }
 
+    /**
+     * @param $email
+     * @param $subject
+     * @param $message
+     *
+     * @return int
+     */
     private function send($email, $subject, $message)
     {
         $message = \Swift_Message::newInstance()
@@ -78,6 +92,11 @@ class EmailNotifications
         );
     }
 
+    /**
+     * @param User $user
+     *
+     * @return int
+     */
     public function sendResettingEmail(User $user)
     {
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_RESETING);
@@ -85,7 +104,10 @@ class EmailNotifications
         return $this->send(
             $user->getEmail(),
             $template->getTitle(),
-            $this->transformer->transform($template->getContent(), $user)
+            $this->transformer->transform($template->getContent(), [
+                'user' => $user,
+                'link' => $this->router->generate('fos_user_registration_confirm', ['token' => $user->getConfirmationToken()], true)
+            ])
         );
     }
 
