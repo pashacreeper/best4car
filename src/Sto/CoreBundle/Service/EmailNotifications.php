@@ -74,7 +74,7 @@ class EmailNotifications
         return $this->send(
             $user->getEmail(),
             $template->getTitle(),
-            $this->transformer->transform($template->getContent(), $user)
+            $this->transformer->transform($template->getContent(), ['user' => $user])
         );
     }
 
