@@ -4,6 +4,7 @@ namespace Sto\CoreBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\CompanyManager;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackDeal;
@@ -143,16 +144,24 @@ class EmailNotifications
         );
     }
 
+    /**
+     * @param Company $company
+     */
     public function sendCompanyRegisterEmail(Company $company)
     {
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_COMPANY_REGISTER);
 
+        /** @var CompanyManager $manager */
         foreach ($managers as $manager) {
             $this->send(
-                $manager->getEmail(),
+                $manager->getUser()->getEmail(),
                 $template->getTitle(),
-                $this->transformer->transform($template->getContent(), $manager, $company)
+                $this->transformer->transform($template->getContent(), [
+                    'user' => $manager->getUser(),
+                    'company' => $company,
+                    'link' => $this->router->generate('content_company_show', ['id' => $company->getId()], true)
+                ])
             );
         }
     }
@@ -162,11 +171,16 @@ class EmailNotifications
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_COMPANY_FEEDBACK);
 
+        /** @var CompanyManager $manager */
         foreach ($managers as $manager) {
             $this->send(
-                $manager->getEmail(),
+                $manager->getUser()->getEmail(),
                 $template->getTitle(),
-                $this->transformer->transform($template->getContent(), $manager, $company)
+                $this->transformer->transform($template->getContent(), [
+                    'user' => $manager->getUser(),
+                    'company' => $company,
+                    'link' => $this->router->generate('content_company_show', ['id' => $company->getId()], true)
+                ])
             );
         }
     }

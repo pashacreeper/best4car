@@ -13,7 +13,6 @@ use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\Type\CompaniesSortType;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\Feedback;
-use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

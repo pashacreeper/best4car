@@ -114,7 +114,7 @@ class EmailTemplateTransformer
                 '%company%'
             ],
             [
-                $company->getTitle()
+                $company->getName()
             ],
             $template
         );
@@ -133,7 +133,7 @@ class EmailTemplateTransformer
                 '%deal%'
             ],
             [
-                $deal->getTitle()
+                $deal->getName()
             ],
             $template
         );

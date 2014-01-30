@@ -243,38 +243,41 @@ class CompanyRegisterController extends Controller
             ['em' => $em]
         );
 
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                foreach ($company->getPhones() as $phone) {
-                    if ($phone->getCompany() === null) {
-                        $phone->setCompany($company);
-                    }
+        if ($form->isValid()) {
+            foreach ($company->getPhones() as $phone) {
+                if ($phone->getCompany() === null) {
+                    $phone->setCompany($company);
                 }
-
-                foreach ($company->getCompanyManager() as $manager) {
-                    if ($manager->getCompany() === null) {
-                        $manager->setCompany($company);
-                    }
-                }
-
-                foreach ($company->getEmails() as $email) {
-                    if ($email->getCompany() === null) {
-                        $email->setCompany($company);
-                    }
-                }
-
-                $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
-                $company->setRegistredFully(true);
-                $company->setVisible(true);
-                $em->persist($company);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('company_edit_gallery', [
-                    'id' => $company->getId()
-                ]));
             }
+
+            foreach ($company->getCompanyManager() as $manager) {
+                if ($manager->getCompany() === null) {
+                    $manager->setCompany($company);
+                }
+            }
+
+            foreach ($company->getEmails() as $email) {
+                if ($email->getCompany() === null) {
+                    $email->setCompany($company);
+                }
+            }
+
+            if (!$company->isRegistredFully()) {
+                $this->get('sto.notifications.email')->sendCompanyRegisterEmail($company);
+            }
+
+            $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
+            $company->setRegistredFully(true);
+            $company->setVisible(true);
+
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('company_edit_gallery', [
+                'id' => $company->getId()
+            ]));
         }
 
         return [
