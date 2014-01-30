@@ -79,11 +79,12 @@
         var gps;
         var addressName = '';
         function init() {
-            mapCompany = new ymaps.Map ("myMap", {
+            var mapCompany = new ymaps.Map ("myMap", {
                 center: [59.933373, 30.357903],
                 zoom: 10,
                 behaviors: ["default", "scrollZoom"]
             });
+            addButtonsToMap(mapCompany, ymaps, GeolocationButton);
             attachReverseGeocode(mapCompany);
             function attachReverseGeocode(myMap) {
                 myMap.events.add('click', function (e) {
