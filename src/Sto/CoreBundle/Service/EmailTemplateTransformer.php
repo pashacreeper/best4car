@@ -1,6 +1,9 @@
 <?php
 namespace Sto\CoreBundle\Service;
 
+use Sto\CoreBundle\Entity\Company;
+use Sto\UserBundle\Entity\User;
+
 class EmailTemplateTransformer
 {
     /**

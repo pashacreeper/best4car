@@ -71,6 +71,7 @@ class CompanyRegisterController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->get('sto.notifications.email')->sendRegistrationEmail($user);
             $this->get('sto.user.authenticate')->authenticate($user);
 
             return $this->redirect($this->generateUrl('registration_company_base'));

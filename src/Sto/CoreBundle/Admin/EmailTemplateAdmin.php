@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sto\CoreBundle\Form\ChoiceList\EmailTemplateType;
 
-class EmailTemplatesAdmin extends Admin
+class EmailTemplateAdmin extends Admin
 {
     /**
      * @param DatagridMapper $datagridMapper

@@ -56,6 +56,8 @@ class RegistrationController extends BaseController
                     }
                 }
 
+                $this->container->get('sto.notifications.email')->sendRegistrationEmail($user);
+
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
