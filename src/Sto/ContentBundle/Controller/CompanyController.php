@@ -190,7 +190,7 @@ class CompanyController extends MainController
     {
         $entity = new FeedbackCompany();
         $form = $this->createForm(new FeedbackCompanyType(), $entity);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -201,6 +201,7 @@ class CompanyController extends MainController
                 ->setPublished(false)
                 ->setIp($request->getClientIp())
             ;
+            $this->get('sto.notifications.email')->sendCompanyFeedbackEmail($company);
             $em->persist($entity);
             $em->flush();
 

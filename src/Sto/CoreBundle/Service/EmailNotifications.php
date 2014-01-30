@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\CoreBundle\Entity\Deal;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Sto\CoreBundle\Entity\FeedbackDeal;
@@ -166,6 +167,9 @@ class EmailNotifications
         }
     }
 
+    /**
+     * @param Company $company
+     */
     public function sendCompanyFeedbackEmail(Company $company)
     {
         $managers = $company->getCompanyManager();
@@ -179,22 +183,28 @@ class EmailNotifications
                 $this->transformer->transform($template->getContent(), [
                     'user' => $manager->getUser(),
                     'company' => $company,
-                    'link' => $this->router->generate('content_company_show', ['id' => $company->getId()], true)
+                    'link' => $this->router->generate('content_company_show', ['id' => $company->getId()], true) . '#feedbacks'
                 ])
             );
         }
     }
 
-    public function sendCompanyDealFeedbackEmail(Company $company)
+    public function sendCompanyDealFeedbackEmail(Company $company, Deal $deal)
     {
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_DEAL_FEEDBACK);
 
+        /** @var CompanyManager $manager */
         foreach ($managers as $manager) {
             $this->send(
-                $manager->getEmail(),
+                $manager->getUser()->getEmail(),
                 $template->getTitle(),
-                $this->transformer->transform($template->getContent(), $manager, $company)
+                $this->transformer->transform($template->getContent(), [
+                    'user' => $manager->getUser(),
+                    'company' => $company,
+                    'deal' => $deal,
+                    'link' => $this->router->generate('content_deal_show', ['id' => $deal->getId()], true) . '#feedbacks'
+                ])
             );
         }
     }
