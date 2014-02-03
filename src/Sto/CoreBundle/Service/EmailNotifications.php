@@ -73,7 +73,7 @@ class EmailNotifications
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('no-reply@best4car.ru')
+            ->setFrom('noreply@best4car.ru')
             ->setTo($email)
             ->setBody($message);
 
