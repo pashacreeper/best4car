@@ -326,6 +326,8 @@ mannew_hipchat:
 evercode_hipchat_monolog:
     name: Diarrhea
 
+sonata_core: ~
+
 shtumi_useful:
     dependent_filtered_entities:
         subType_by_type:

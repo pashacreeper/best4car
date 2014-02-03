@@ -48,16 +48,21 @@
         "hwi/oauth-bundle": "~0.3",
         "gedmo/doctrine-extensions": "dev-master",
 
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
-        "sonata-project/intl-bundle": "dev-master",
-        "sonata-project/cache-bundle": "dev-master",
-        "sonata-project/block-bundle": "dev-master",
-        
+        "sonata-project/core-bundle": "~2.2@dev",
+        "sonata-project/admin-bundle": "~2.2",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.2",
+        "sonata-project/intl-bundle": "~2.2",
+        "sonata-project/cache-bundle": "2.2.*@dev",
+        "sonata-project/block-bundle": "~2.2",
+
         "evercodelab/hipchat-monolog-bundle": "dev-master"
     },
     "require-dev": {
-        "elao/web-profiler-extra-bundle": "2.3.*"
+        "elao/web-profiler-extra-bundle": "2.3.*",
+        "liip/functional-test-bundle": "1.0.*@dev",
+        "phpunit/phpunit": "3.9.*@dev",
+        "phpunit/php-code-coverage": "1.4.*@dev",
+        "phpunit/phpunit-mock-objects": "1.4.*@dev"
     },
     "repositories": [
         {
