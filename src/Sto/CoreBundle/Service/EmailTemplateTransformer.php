@@ -91,9 +91,11 @@ class EmailTemplateTransformer
         return str_replace(
             [
                 '%user%',
+                '%nick%',
                 '%email%',
             ],
             [
+                $user->getFirstName(),
                 $user->getUsername(),
                 $user->getEmail(),
             ],
