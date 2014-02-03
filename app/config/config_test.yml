@@ -2,9 +2,20 @@ imports:
     - { resource: config_dev.yml }
 
 framework:
-    test: ~
-    session:
-        storage_id: session.storage.mock_file
+      test: ~
+      session:
+          storage_id: session.storage.filesystem
+
+liip_functional_test:
+    cache_sqlite_db: true
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_sqlite
+                path:     %kernel.cache_dir%/test.db
 
 web_profiler:
     toolbar: false
