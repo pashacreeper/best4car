@@ -10,7 +10,6 @@ use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sto\ContentBundle\Form\AdvancedSearchType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
-use Sto\ContentBundle\Form\Type\CompaniesSortType;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\FeedbackAnswer;
 use Sto\CoreBundle\Entity\CompanyAutoService;
@@ -29,20 +28,7 @@ class CompanyController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $city = $this->get('sto.service.city_manager')->selectedCity();
-        $words = null;
-
-        if ($request->isMethod('GET') && $request->get('search')) {
-            $words = $request->get('search');
-        }
-
-        $companySortForm = $this->createForm(new CompaniesSortType());
-
-        return [
-            'city' => $city,
-            'sortForm' => $companySortForm->createView(),
-            'words' => $words
-        ];
+        return $this->get('sto.service.controller.company')->mainPage($request);
     }
 
     /**
