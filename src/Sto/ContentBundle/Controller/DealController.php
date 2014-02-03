@@ -267,7 +267,7 @@ class DealController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
+        $cityId = $this->get('sto.service.city_manager')->selectedCity()->getId();
         $search = $request->get('search');
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('StoCoreBundle:Deal');
@@ -295,7 +295,7 @@ class DealController extends MainController
      */
     public function dealsAction(Request $request, $search = null)
     {
-        $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
+        $cityId = $this->get('sto.service.city_manager')->selectedCity()->getId();
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('StoCoreBundle:Deal')->getDealsQuery($cityId, $search);
 

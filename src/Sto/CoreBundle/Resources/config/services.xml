@@ -9,6 +9,14 @@
     </parameters>
 
     <services>
+        <service class="Sto\CoreBundle\Service\CityManager" id="sto.service.city_manager">
+            <argument id="doctrine.orm.entity_manager" type="service"/>
+            <argument id="session" type="service"/>
+            <argument id="serializer" type="service"/>
+            <argument id="security.context" type="service"/>
+            <argument type="string">%default_city_id%</argument>
+        </service>
+
         <service id="sto.service.base.controller" abstract="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="form.factory" />

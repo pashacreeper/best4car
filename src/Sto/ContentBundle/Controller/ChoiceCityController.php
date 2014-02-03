@@ -60,6 +60,6 @@ class ChoiceCityController extends Controller
      */
     public function renderChosenCityAction()
     {
-        return ['city' => $this->get('sto_content.manager.city')->selectedCity()];
+        return ['city' => $this->get('sto.service.city_manager')->selectedCity()];
     }
 }

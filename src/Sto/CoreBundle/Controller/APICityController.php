@@ -141,7 +141,7 @@ class APICityController extends APIBaseController
      */
     public function selectedCity()
     {
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $city = $this->get('sto.service.city_manager')->selectedCity();
 
         return new JsonResponse(['city' => $city->getName()]);
     }

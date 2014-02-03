@@ -30,10 +30,6 @@ services:
         tags:
             - { name: form.type, alias: sto_contentbundle_registration }
 
-    sto_content.manager.city:
-        class: Sto\ContentBundle\Manager\CityManager
-        arguments: [@doctrine.orm.entity_manager, @service_container]
-
     sto_content.city.choice_listener:
         class: Sto\ContentBundle\EventListener\ChoiceCityListener
         tags:

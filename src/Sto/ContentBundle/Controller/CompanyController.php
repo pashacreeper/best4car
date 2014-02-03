@@ -29,7 +29,7 @@ class CompanyController extends MainController
      */
     public function indexAction(Request $request)
     {
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $city = $this->get('sto.service.city_manager')->selectedCity();
         $words = null;
 
         if ($request->isMethod('GET') && $request->get('search')) {
@@ -141,7 +141,7 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $companies = $em->getRepository('StoCoreBundle:Company')->getCompaniesByCity(
-            $this->get('sto_content.manager.city')->selectedCity()
+            $this->get('sto.service.city_manager')->selectedCity()
         );
 
         if (!$companies) {
