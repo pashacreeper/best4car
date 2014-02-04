@@ -73,7 +73,7 @@ class EmailNotifications
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('noreply@best4car.ru')
+            ->setFrom(['noreply@best4car.ru' => 'best4car.ru'])
             ->setTo($email)
             ->setBody($message);
 
@@ -124,23 +124,39 @@ class EmailNotifications
      */
     public function sendFeedbackAnswerEmail(User $user, Feedback $feedback)
     {
-        $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER);
-        $link = null;
-
         if ($feedback instanceof FeedbackCompany) {
-            $link = $this->router->generate('content_company_show', ['id' => $feedback->getCompany()->getId()], true) . '#feedbacks';
+            $this->sendFeedbackCompanyAnswerEmail($feedback, $user, $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_COMPANY));
+        } else if ($feedback instanceof FeedbackDeal) {
+            $this->sendFeedbackDealAnswerEmail($feedback, $user, $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_DEAL));
         }
+    }
 
-        if ($feedback instanceof FeedbackDeal) {
-            $link = $this->router->generate('content_deal_show', ['id' => $feedback->getDeal()->getId()], true) . '#feedbacks';
-        }
+    private function sendFeedbackCompanyAnswerEmail(FeedbackCompany $feedback, User $user, $template)
+    {
+        $link = $this->router->generate('content_company_show', ['id' => $feedback->getCompany()->getId()], true) . '#feedbacks';
 
         return $this->send(
             $user->getEmail(),
             $template->getTitle(),
             $this->transformer->transform($template->getContent(), [
                 'user' => $user,
-                'link' => $link
+                'link' => $link,
+                'company' => $feedback->getCompany()
+            ])
+        );
+    }
+
+    private function sendFeedbackDealAnswerEmail(FeedbackDeal $feedback, User $user, $template)
+    {
+        $link = $this->router->generate('content_deal_show', ['id' => $feedback->getDeal()->getId()], true) . '#feedbacks';
+
+        return $this->send(
+            $user->getEmail(),
+            $template->getTitle(),
+            $this->transformer->transform($template->getContent(), [
+                'user' => $user,
+                'link' => $link,
+                'deal' => $feedback->getDeal()
             ])
         );
     }

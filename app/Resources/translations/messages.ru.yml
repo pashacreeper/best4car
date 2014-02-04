@@ -3,7 +3,9 @@ years.old: "%count% год|%count% года|%count% лет"
 template:
     registration: Регистрация пользователя
     reseting: Восстановление пароля
-    feedback_answer: Ответ на отзыв
+    feedback_answer:
+        company: Компания: Ответ на отзыв
+        deal: Акция: Ответ на отзыв
     manager:
         company:
             register: Менеджер: регистрация компании

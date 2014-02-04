@@ -79,6 +79,12 @@ class EmailTemplateAdmin extends Admin
         <tr>
             <td><strong>%link%</strong></td><td>Ссылка на страницу с отзывами, на которой был оставлен ответ на отзыв</td>
         </tr>
+        <tr>
+            <td><strong>%company%</strong></td><td>Название компании, если ответ относиться к компании</td>
+        </tr>
+        <tr>
+            <td><strong>%deal%</strong></td><td>Название акции, если ответ относиться к акции</td>
+        </tr>
         <tr class="info">
             <td colspan="2">Доступно во всех шаблонах для компаний</td>
         </tr>
