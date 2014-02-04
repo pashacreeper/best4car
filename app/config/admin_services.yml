@@ -192,3 +192,9 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: Пользователи, label: Список email }
         arguments: [null, Sto\UserBundle\Entity\User, SonataAdminBundle:CRUD]
+
+    sto_core.admin.email_templates:
+        class: Sto\CoreBundle\Admin\EmailTemplateAdmin
+        arguments: [~, Sto\CoreBundle\Entity\EmailTemplate, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Справочники, label: Шаблоны писем}

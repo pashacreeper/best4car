@@ -12,7 +12,7 @@ use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
 use Sto\ContentBundle\Form\Type\CompaniesSortType;
 use Sto\CoreBundle\Entity\Company;
-use Sto\CoreBundle\Entity\FeedbackAnswer;
+use Sto\CoreBundle\Entity\Feedback;
 use Sto\CoreBundle\Entity\CompanyAutoService;
 use Sto\CoreBundle\Entity\FeedbackCompany;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -188,7 +188,7 @@ class CompanyController extends MainController
     {
         $entity = new FeedbackCompany();
         $form = $this->createForm(new FeedbackCompanyType(), $entity);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -199,6 +199,7 @@ class CompanyController extends MainController
                 ->setPublished(false)
                 ->setIp($request->getClientIp())
             ;
+            $this->get('sto.notifications.email')->sendCompanyFeedbackEmail($company);
             $em->persist($entity);
             $em->flush();
 
@@ -256,30 +257,6 @@ class CompanyController extends MainController
             'company' => $feedback->getCompany(),
             'feededit' => true,
         ];
-    }
-
-    /**
-     * @Route("/company/{id}/feedback-answer/add", name="content_company_feedbacks_answer_add")
-     * @Method("POST")
-     * @Template()
-     * @Secure(roles="IS_AUTHENTICATED_FULLY")
-     */
-    public function addFeedbackAnswerAction(Request $request, $id)
-    {
-        $feedback_id = $request->get('feedback_id');
-        $em = $this->getDoctrine()->getManager();
-        $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
-        if (!$feedback)
-            return new Response('Feedback Not found.', 500);
-        $answer = new FeedbackAnswer();
-        $answer->setAnswer($request->get('answer'));
-        $answer->setOwner($this->getUser());
-        $answer->setFeedback($feedback);
-        $answer->setDate(new \DateTime('now'));
-        $em->persist($answer);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('content_company_show', ['id' => $id]));
     }
 
     /**
