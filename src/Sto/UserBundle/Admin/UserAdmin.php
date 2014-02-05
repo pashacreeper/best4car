@@ -13,6 +13,9 @@ class UserAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
 
+    protected $baseRouteName = 'admin_vendor_bundlename';
+    protected $baseRoutePattern = 'user_list';
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
