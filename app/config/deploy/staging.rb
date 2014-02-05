@@ -6,6 +6,6 @@ role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
 
-set :branch,      "email-notifications"
+set :branch,      "development"
 
 after "deploy:update_code", "deploy:block_robots"
