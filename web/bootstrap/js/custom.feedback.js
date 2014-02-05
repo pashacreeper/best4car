@@ -78,7 +78,7 @@ $(document).ready(function(){
     $('a[data-abort-answer]').click(function(){
         var feed_id = $(this).data('abort-answer');
         $('div[data-answerform='+feed_id+']').toggle();
-        $('a[data-feedback='+feed_id+']').css('display', 'block');
+        $('a[data-feedback='+feed_id+']').css('display', 'initial');
         return false;
     });
 
