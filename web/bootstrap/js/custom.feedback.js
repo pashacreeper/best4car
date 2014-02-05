@@ -90,7 +90,7 @@ $(document).ready(function(){
             location.reload();
         })
         .fail(function(e){
-            console.log(e.message);
+            console.log(e);
         })
 
         return false;

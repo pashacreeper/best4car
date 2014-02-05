@@ -131,6 +131,8 @@ class APIFeedbackController extends FOSRestController
      *         404="Returned when the Feedback is not found"}
      * )
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return Feedback
      *
      * @Rest\View
@@ -145,13 +147,17 @@ class APIFeedbackController extends FOSRestController
 
         $em = $this->getDoctrine()->getManager();
         $feedback = $em->getRepository('StoCoreBundle:Feedback')->findOneById($feedback_id);
-        if (!$feedback)
+        if (!$feedback) {
             return new Response($serializer->serialize(["message" => "Not found Feedback ".$feedback_id, "type" => "error", "code" => 404], 'json'));
+        }
         $oAnswer = new FeedbackAnswer();
         $oAnswer->setAnswer($answer);
         $oAnswer->setOwner($this->getUser());
         $oAnswer->setFeedback($feedback);
         $oAnswer->setDate(new \DateTime('now'));
+
+        $this->get('sto.notifications.email')->sendFeedbackAnswerEmail($feedback->getUser(), $feedback);
+
         $em->persist($oAnswer);
         $em->flush();
 

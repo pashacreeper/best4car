@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 class UserEmailAdmin extends Admin
 {
     protected $translationDomain = 'SonataAdmin';
+    protected $baseRouteName = 'admin_vendor_bundlename_adminclassname';
+    protected $baseRoutePattern = 'user_email_list';
 
     public function getExportFields()
     {
