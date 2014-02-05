@@ -507,6 +507,17 @@ class Company
         return $this->web;
     }
 
+    public function getWebLink()
+    {
+        $web = $this->web;
+
+        if(strpos($web, 'http://') === false && strpos($web, 'https://') === false) {
+            $web = 'http://'.$web;
+        }
+
+        return $web;
+    }
+
     /**
      * Set specialization
      *

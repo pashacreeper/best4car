@@ -167,7 +167,7 @@
     <div class="infoCompanyItem">
         {% if company.web %}
         <p class="infoCompanyAddTitle contentText">Сайт:</p>
-        <p class="infoCompanyDescription"><a class="linkContact" href="http://{{ company.web }}">{{ company.web }}</a></p>
+        <p class="infoCompanyDescription"><a class="linkContact" href="{{ company.webLink }}">{{ company.web }}</a></p>
         {% endif %}
         {% if company.skype %}
         <p class="infoCompanyAddTitle contentText">Skype:</p>
