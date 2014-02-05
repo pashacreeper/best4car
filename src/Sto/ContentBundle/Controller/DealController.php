@@ -372,7 +372,7 @@ class DealController extends MainController
     {
         $entity = new FeedbackDeal();
         $form = $this->createForm(new FeedbackDealType(), $entity);
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -383,6 +383,7 @@ class DealController extends MainController
                 ->setPublished(false)
                 ->setIp($request->getClientIp())
             ;
+            $this->get('sto.notifications.email')->sendCompanyDealFeedbackEmail($deal->getCompany(), $deal);
             $em->persist($entity);
             $em->flush();
 
