@@ -15,13 +15,19 @@ class ConstraintWorkingTimeValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        $wrongTime = false;
         foreach ($value as $item) {
             if (!in_array(true, $item->getDays()) || !$item->getFromTime() || !$item->getTillTime()) {
                 $this->context->addViolation($constraint->message);
             }
+
             if ($item->getFromTime() > $item->getTillTime()) {
-                $this->context->addViolation($constraint->timeMessage);
+                $wrongTime = true;
             }
+        }
+
+        if($wrongTime) {
+            $this->context->addViolation($constraint->timeMessage);
         }
     }
 }
