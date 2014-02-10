@@ -125,10 +125,12 @@
         <p class="infoCompanyTitle contentText">Нормо-час: <span>{{ company.hourPrice }}  {% if company.currency %}{{company.currency.shortName}}{% endif %}</span></p>
         {% endif %}
     </div>
+    {% if company.address %}
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Адрес:</p>
         <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal">{{ company.address }}</a></p>
     </div>
+    {% endif %}
     {% if company.phones|length > 0 %}
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Контактные телефоны:</p>
@@ -155,6 +157,7 @@
             {% endfor %}
         </div>
     {% endif %}
+    {% if company.workingTime %}
     <div class="infoCompanyItem">
         <p class="infoCompanyTitle titleH3">Часы работы:</p>
         {%- for time in company.workingTime %}
@@ -163,6 +166,7 @@
             </p>
         {% endfor -%}
     </div>
+    {% endif %}
     {% if company.web or company.skype %}
     <div class="infoCompanyItem">
         {% if company.web %}

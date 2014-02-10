@@ -395,7 +395,8 @@ ul.tabNavigation li a:focus {
 }
 
 .listServicesItem {
-    padding: 8px 0;
+    font-size: 10pt !important;
+    padding: 5px 0 !important;
 }
 
 .additionalServicesItem {
