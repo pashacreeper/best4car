@@ -87,7 +87,14 @@
                 <img src="{{ companyLogo }}" alt="{{ deal.company.name }}">
             </div>
             <div class="titles">
-                <h1 class="titleNameCompany"><a href="{{ path('content_deal_show', { "id": deal.id }) }}">{{ deal.name }}</a></h1>
+                <h1 class="titleNameCompany"><a href="{{ path('content_deal_show', { "id": deal.id }) }}">
+                        {% set titleLength = 75 %}
+                        {% if deal.name|length > titleLength %}
+                            {{ deal.name[:titleLength] }}
+                        {% else %}
+                            {{ deal.name }}
+                        {% endif %}
+                    </a></h1>
                 <p class="sloganCompany">
                     <a href="{{ path('content_company_show', { "id": deal.company.id }) }}">{{ deal.company.name }}</a>
                     &nbsp;>&nbsp;<a href="{{ path('content_company_show', { "id": deal.company.id }) }}#deals">АКЦИИ</a>

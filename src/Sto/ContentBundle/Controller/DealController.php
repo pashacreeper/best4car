@@ -331,17 +331,12 @@ class DealController extends MainController
      */
     public function showAction(Deal $deal)
     {
-        $isManager = false;
-        if ($this->get('security.context')->isGranted("SHOW", $deal)) {
-            $isManager = true;
-        }
-
-        $refererRoute = $this->getRefererRoute();
+        $isManager = ($this->get('security.context')->isGranted("SHOW", $deal)) ? true : false;
 
         return [
             'deal' => $deal,
             'isManager' => $isManager,
-            'refererRoute' => $refererRoute,
+            'refererRoute' => $this->getRefererRoute(),
         ];
     }
 

@@ -40,6 +40,7 @@ class Deal
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(max="75")
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

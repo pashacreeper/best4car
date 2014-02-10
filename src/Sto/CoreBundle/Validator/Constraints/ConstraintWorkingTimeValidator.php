@@ -26,11 +26,11 @@ class ConstraintWorkingTimeValidator extends ConstraintValidator
             }
         }
 
-        if($wrongTime) {
+        if ($wrongTime) {
             $this->context->addViolation($constraint->timeMessage);
         }
 
-        if($this->isTimeCollision($value)) {
+        if ($this->isTimeCollision($value)) {
             $this->context->addViolation($constraint->timeCollisionMessage);
         }
     }
@@ -38,7 +38,7 @@ class ConstraintWorkingTimeValidator extends ConstraintValidator
     private function isTimeCollision($value)
     {
         foreach ($value as $item) {
-            if($this->findColliding($value, $item)) {
+            if ($this->findColliding($value, $item)) {
                 return true;
             }
         }
@@ -49,13 +49,13 @@ class ConstraintWorkingTimeValidator extends ConstraintValidator
     private function findColliding($value, $checkItem)
     {
         foreach ($value as $item) {
-            if($item === $checkItem) {
+            if ($item === $checkItem) {
                 continue;
             }
 
             foreach ($item->getDays() as $key => $day) {
-                if($day && $checkItem->getDays()[$key]) {
-                    if($this->isTimeColliding($item, $checkItem)) {
+                if ($day && $checkItem->getDays()[$key]) {
+                    if ($this->isTimeColliding($item, $checkItem)) {
                         return true;
                     }
                 }

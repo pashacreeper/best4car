@@ -126,7 +126,7 @@ class EmailNotifications
     {
         if ($feedback instanceof FeedbackCompany) {
             $this->sendFeedbackCompanyAnswerEmail($feedback, $user, $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_COMPANY));
-        } else if ($feedback instanceof FeedbackDeal) {
+        } elseif ($feedback instanceof FeedbackDeal) {
             $this->sendFeedbackDealAnswerEmail($feedback, $user, $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_DEAL));
         }
     }

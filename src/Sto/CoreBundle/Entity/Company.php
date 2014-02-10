@@ -511,7 +511,7 @@ class Company
     {
         $web = $this->web;
 
-        if(strpos($web, 'http://') === false && strpos($web, 'https://') === false) {
+        if (strpos($web, 'http://') === false && strpos($web, 'https://') === false) {
             $web = 'http://'.$web;
         }
 
