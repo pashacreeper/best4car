@@ -85,7 +85,7 @@ class CompanyRegisterController extends Controller
 
     /**
      * @Route("/new-company/base", name="registration_company_base")
-     * @Route("/company/edit/{id}/base", name="company_edit_base")
+     * @Route("/company/{id}/edit/base", name="company_edit_base")
      * @Template()
      * @Secure(roles="ROLE_USER")
      */
@@ -138,7 +138,7 @@ class CompanyRegisterController extends Controller
     }
 
     /**
-     * @Route("/company/edit/{id}/business-profile/", name="company_edit_business_profile")
+     * @Route("/company/{id}/edit/business-profile/", name="company_edit_business_profile")
      * @Template()
      * @Secure(roles="ROLE_USER")
      */
@@ -219,7 +219,7 @@ class CompanyRegisterController extends Controller
     }
 
     /**
-     * @Route("/company/edit/{id}/contacts", name="company_edit_contacts")
+     * @Route("/company/{id}/edit/contacts", name="company_edit_contacts")
      * @Template()
      * @Secure(roles="ROLE_USER")
      */
@@ -287,7 +287,7 @@ class CompanyRegisterController extends Controller
     }
 
     /**
-     * @Route("/company/edit/{id}/gallery", name="company_edit_gallery")
+     * @Route("/company/{id}/edit/gallery", name="company_edit_gallery")
      * @Template()
      * @Secure(roles="ROLE_USER")
      */
