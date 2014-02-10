@@ -39,7 +39,7 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
         foreach ($companies as $company) {
             $feedbacks = $company->getFeedbacks();
             $companyRating = null;
-            if ($feedbacks->count() && $feedbacks->count() >= 5) {
+            if ($feedbacks->count() && $feedbacks->count() >= 2) {
                 $numerator = 0.0;
                 $denominator = 0.0;
                 foreach ($feedbacks as $feedback) {
