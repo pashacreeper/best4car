@@ -511,8 +511,7 @@ ul.tabNavigation li a:focus {
 .infoCompanyTitle span {
     color: #f35d2e;
     font: Bold 1.2em 'PT Sans', sans;
-    display: inline-block;
-    padding-left: 8px;
+    display: block;
 }
 
 .infoCompanyDescription a {
