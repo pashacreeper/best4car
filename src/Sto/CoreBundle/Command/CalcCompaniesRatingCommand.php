@@ -2,6 +2,7 @@
 namespace Sto\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManager;
+use Sto\CoreBundle\Entity\FeedbackCompany;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -43,24 +44,17 @@ class CalcCompaniesRatingCommand extends ContainerAwareCommand
                 $numerator = 0.0;
                 $denominator = 0.0;
                 foreach ($feedbacks as $feedback) {
-                    $user = $feedback->getUser();
-                    $ratingGroup = $user->getRatingGroup();
-                    $categoryMultiplier = $ratingGroup->getMultiplier();
-                    $feedbackCompany = $em->getRepository('StoCoreBundle:FeedbackCompany')->findOneBy(
-                        [
-                            'user' => $user->getId(),
-                            'company' => $company->getId()
-                        ]
-                    );
-                    if ($feedbackCompany === null) {
-                        $usersRatingToCompany = 1;
-                    } else {
-                        $usersRatingToCompany = $feedbackCompany->getFeedbackRating();
-                    }
-                    $trustMultiplier = ($feedback->getPluses()+$feedback->getMinuses() <> 0) ? $feedback->getPluses()/($feedback->getPluses()+$feedback->getMinuses()) : 1;
+                    if ($feedback instanceof FeedbackCompany) {
+                        $user = $feedback->getUser();
+                        $ratingGroup = $user->getRatingGroup();
+                        $categoryMultiplier = $ratingGroup->getMultiplier();
+                        $usersRatingToCompany = $feedback->getFeedbackRating();
 
-                    $numerator += $usersRatingToCompany * $categoryMultiplier * $trustMultiplier;
-                    $denominator += $categoryMultiplier;
+                        $trustMultiplier = ($feedback->getPluses()+$feedback->getMinuses() <> 0) ? $feedback->getPluses()/($feedback->getPluses()+$feedback->getMinuses()) : 1;
+
+                        $numerator += $usersRatingToCompany * $categoryMultiplier * $trustMultiplier;
+                        $denominator += $categoryMultiplier;
+                    }
                 }
                 $companyRating = number_format($numerator / $denominator * 2.0, 1);
             }
