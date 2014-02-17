@@ -399,7 +399,7 @@ ul.tabNavigation li a:focus {
 
 .listServicesItem {
     font-size: 10pt !important;
-    padding: 5px 0 !important;
+    padding-top: 5px !important;
 }
 
 .additionalServicesItem {

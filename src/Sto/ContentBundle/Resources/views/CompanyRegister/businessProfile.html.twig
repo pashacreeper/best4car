@@ -125,11 +125,13 @@
                                 });
                                 var selectedType = link.parent().first('select').find(':selected').html();
                             });
+                            $serviceModal.off('click', '.serviceClose');
                             $serviceModal.on('click', '.serviceClose',function(e){
                                 e.preventDefault();
 
                                 $serviceModal.trigger('reveal:close');
                             });
+                            $serviceModal.off('click', '.serviceSave');
                             $serviceModal.on('click', '.serviceSave' ,function(e){
                                 e.preventDefault();
 
