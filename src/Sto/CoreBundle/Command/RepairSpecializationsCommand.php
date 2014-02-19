@@ -4,7 +4,6 @@ namespace Sto\CoreBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Sto\CoreBundle\Entity\CompanyEmail;
 
 class RepairSpecializationsCommand extends ContainerAwareCommand
 {

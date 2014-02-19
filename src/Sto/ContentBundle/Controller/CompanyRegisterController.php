@@ -107,7 +107,7 @@ class CompanyRegisterController extends Controller
         $form = $this->createForm(new CompanyBaseType(), $company);
 
         if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 if ($isCompanyNew) {

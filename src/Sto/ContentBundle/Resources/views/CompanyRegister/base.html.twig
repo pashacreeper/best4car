@@ -72,11 +72,11 @@
     {{ form_errors(form.logo) }}
     <div class="addLogoImgWrap" id="addLogoImgWrap">
         <div class="addLogoImg" id='picture-preview-wrapper'>
-            {% if company.logo %}
+            {% if company.logo is defined and company.logoName %}
                 <img style="max-width: 200px; margin-top: 10px;" src="{{ vich_uploader_asset(company, 'logo') }}" alt="">
             {% endif %}
         </div>
-        {% if company.logo %}
+        {% if company.logo is defined and company.logoName %}
             <a class="deleteImg clear" id="deleteImg">Удалить<i class="icon-remove-circle"></i></a>
         {% endif %}
     </div>
