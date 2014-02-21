@@ -25,7 +25,7 @@
             <li class="userProfilItem">
                 <i class="iconRemovReviewGray"></i>
                 <a href="{{ path('fos_user_profile_show') }}#feedbacks" class="facebook-blue">Ответы на отзывы</a>
-                <span class="amountProfil">{{ user.feedbackAnswers|length }}</span>
+                <span class="amountProfil">{{ feedbacksCount }}</span>
             </li>
         </ul>
         {% if user.companyManager is not empty %}

@@ -431,12 +431,15 @@ class UserController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $user = null;
+        $feedbacksCount = 0;
         if ($token = $this->container->get('security.context')->getToken()) {
             $user = $token->getUser();
+            $feedbacksCount = $em->getRepository('StoCoreBundle:Feedback')->findFeedbackAnswersCountForUser($user)['answers'];
         }
 
         return [
             'user' => $user,
+            'feedbacksCount' => $feedbacksCount,
         ];
     }
 }
