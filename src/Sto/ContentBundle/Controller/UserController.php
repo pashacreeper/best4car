@@ -434,7 +434,9 @@ class UserController extends MainController
         $feedbacksCount = 0;
         if ($token = $this->container->get('security.context')->getToken()) {
             $user = $token->getUser();
-            $feedbacksCount = $em->getRepository('StoCoreBundle:Feedback')->findFeedbackAnswersCountForUser($user)['answers'];
+            if($user instanceof UserInterface) {
+                $feedbacksCount = $em->getRepository('StoCoreBundle:Feedback')->findFeedbackAnswersCountForUser($user)['answers'];
+            }
         }
 
         return [
