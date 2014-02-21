@@ -76,6 +76,8 @@ class CompanyController extends MainController
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
+        $em = $this->getDoctrine()->getManager();
+
         $city = $this->get('sto_content.manager.city')->selectedCity();
         $words = null;
 
@@ -85,10 +87,13 @@ class CompanyController extends MainController
 
         $companySortForm = $this->createForm(new CompaniesSortType());
 
+        $allTypes = $em->getRepository('StoCoreBundle:CompanyType')->findAll();
+
         return [
             'city' => $city,
             'sortForm' => $companySortForm->createView(),
-            'words' => $words
+            'words' => $words,
+            'allTypes' => $allTypes,
         ];
     }
 
