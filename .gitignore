@@ -12,6 +12,7 @@ web/css/*
 web/js/*
 web/storage/*
 bin/doctrine*
+bin/phpunit*
 
 # Configuration files
 app/config/parameters.yml

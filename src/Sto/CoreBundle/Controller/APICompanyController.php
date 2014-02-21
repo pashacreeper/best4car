@@ -36,7 +36,7 @@ class APICompanyController extends FOSRestController
     public function getCompanies(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
-        $city = $this->get('sto_content.manager.city')->selectedCity();
+        $city = $this->get('sto.service.city_manager')->selectedCity();
 
         $form = $this->createForm(new AdvancedSearchType());
         $form->bind($request);

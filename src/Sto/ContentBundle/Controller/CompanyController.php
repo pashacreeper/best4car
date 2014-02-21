@@ -10,7 +10,6 @@ use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Sto\ContentBundle\Form\AdvancedSearchType;
 use Sto\ContentBundle\Form\CompanyType;
 use Sto\ContentBundle\Form\FeedbackCompanyType;
-use Sto\ContentBundle\Form\Type\CompaniesSortType;
 use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\Feedback;
 use Sto\CoreBundle\Entity\CompanyAutoService;
@@ -21,6 +20,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CompanyController extends MainController
 {
+    /**
+     * @Route("/", name="_index", options={"expose"=true})
+     * @Route("/catalog", name="content_companies")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function indexAction(Request $request)
+    {
+        return $this->get('sto.service.controller.company')->mainPage($request);
+    }
+
     /**
      * @Route("/specialization", name="company_specialization")
      * @Method({"POST","GET"})
@@ -61,34 +71,6 @@ class CompanyController extends MainController
             'isManager' => $isManager,
             'services' => $services,
             'gallery' => $gallery
-        ];
-    }
-
-    /**
-     * @Route("/", name="_index", options={"expose"=true})
-     * @Route("/catalog", name="content_companies")
-     * @Method({"GET", "POST"})
-     * @Template()
-     */
-    public function indexAction(Request $request)
-    {
-        if ($this->get('security.context')->isGranted('ROLE_FROZEN')) {
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
-
-        $city = $this->get('sto_content.manager.city')->selectedCity();
-        $words = null;
-
-        if ($request->isMethod('GET') && $request->get('search')) {
-            $words = $request->get('search');
-        }
-
-        $companySortForm = $this->createForm(new CompaniesSortType());
-
-        return [
-            'city' => $city,
-            'sortForm' => $companySortForm->createView(),
-            'words' => $words
         ];
     }
 
@@ -148,7 +130,7 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $companies = $em->getRepository('StoCoreBundle:Company')->getCompaniesByCity(
-            $this->get('sto_content.manager.city')->selectedCity()
+            $this->get('sto.service.city_manager')->selectedCity()
         );
 
         if (!$companies) {

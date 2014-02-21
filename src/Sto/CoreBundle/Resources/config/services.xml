@@ -4,17 +4,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="sto_core.example.class">Sto\CoreBundle\Example</parameter>
+        <parameter key="sto.service.controller.company.class">Sto\CoreBundle\Service\Controller\Company</parameter>
     </parameters>
 
     <services>
-        <service id="sto_core.example" class="%sto_core.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service class="Sto\CoreBundle\Service\CityManager" id="sto.service.city_manager">
+            <argument id="doctrine.orm.entity_manager" type="service"/>
+            <argument id="session" type="service"/>
+            <argument id="serializer" type="service"/>
+            <argument id="security.context" type="service"/>
+            <argument type="string">%default_city_id%</argument>
+        </service>
+
+        <service id="sto.service.base.controller" abstract="true">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="form.factory" />
+        </service>
+
+        <service id="sto.service.controller.company" class="%sto.service.controller.company.class%" parent="sto.service.base.controller">
+            <call method="setCityManager">
+                <argument id="sto.service.city_manager" type="service"/>
+            </call>
         </service>
     </services>
-    -->
+
 </container>
