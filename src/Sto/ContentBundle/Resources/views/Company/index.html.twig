@@ -75,14 +75,14 @@
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var img;
 
-                // if (showByRate(mainMap.getZoom(), val.rating)) {
-                //     img = {
-                //         iconImageHref: iconMap,
-                //         iconImageSize: iconSize,
-                //         hideIconOnBalloonOpen: false,
-                //         zIndex: 100
-                //     };
-                // } else {
+                if (showByRate(mainMap.getZoom(), val.rating)) {
+                    img = {
+                        iconImageHref: iconMap,
+                        iconImageSize: iconSize,
+                        hideIconOnBalloonOpen: false,
+                        zIndex: 100
+                    };
+                } else {
                     img = {
                         iconImageHref: "{{ asset('bootstrap/img/dot.png') }}",
                         iconImageSize: [8, 8],
@@ -92,7 +92,7 @@
                     };
                     iconMap = "{{ asset('bootstrap/img/dot.png') }}";
                     iconMapSelected = "{{ asset('bootstrap/img/dot.png') }}";
-                // }
+                }
 
                 ymaps.option.presetStorage.add("iconMap#" + val.id, {
                     iconImageHref: iconMap
