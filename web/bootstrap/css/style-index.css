@@ -647,6 +647,7 @@
     opacity: 0.3;
     background-position-x: 48%;
     background-position-y: 11%;
+    background-position: 48% 11%;
     transition: opacity .15s ease-in-out;
     -webkit-transition: opacity .15s ease-in-out;
     -moz-transition: opacity .15s ease-in-out;
