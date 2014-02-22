@@ -251,6 +251,7 @@ var catalogPage = function(){
             $this.html(closeText);
             $('#map').css('right', '340px');
         }
+        mainMap.container.fitToViewport();
     });
 
     var slider1 = $('.bxslider1').bxSlider({
