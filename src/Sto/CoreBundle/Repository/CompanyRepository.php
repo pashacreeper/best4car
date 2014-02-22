@@ -38,7 +38,7 @@ class CompanyRepository extends EntityRepository
      * @param  array $params
      * @return array
      */
-    public function getCompaniesWithFilter($params = [])
+    protected function getCompanyIdsWithFilter($params = [])
     {
         $qb = $this->createQueryBuilder('company')
             ->select('DISTINCT company.id')
@@ -135,16 +135,40 @@ class CompanyRepository extends EntityRepository
             $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
         }
 
-        $result = $qb->getQuery()->getArrayResult();
+        $result = $qb->getQuery()->getResult();
         $ids = [];
 
         foreach ($result as $value) {
             $ids[] = $value['id'];
         }
 
-        if (empty($ids)) {
-            return [];
-        }
+        return $ids;
+    }
+
+    /**
+     * @param  array $params
+     * @return array
+     */
+    public function getCompaniesWithFilterForMap($params = [])
+    {
+        $ids = $this->getCompanyIdsWithFilter($params);
+
+        $qb = $this->createQueryBuilder('company')
+            ->select('company.id, company.name, company.gps, company.vip, IDENTITY(company.type) as type')
+            ->where('company.id IN(:ids)')
+            ->setParameter('ids', $ids)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param  array $params
+     * @return array
+     */
+    public function getCompaniesWithFilterForList($params = [])
+    {
+        $ids = $this->getCompanyIdsWithFilter($params);
 
         $qb = $this->createQueryBuilder('company')
             ->select('company, csp, fb, d, csp_type, csp_sub_type, additional_services, cwt')
@@ -158,13 +182,13 @@ class CompanyRepository extends EntityRepository
             ->where('company.id IN(:ids)')
             ->setParameter('ids', $ids)
         ;
-
+         
         if ($params['sort'] == 'price') {
             $qb->orderBy('company.hourPrice', 'ASC');
         } else {
             $qb->orderBy('company.rating', 'DESC');
         }
-
+        
         return $qb->getQuery()->getArrayResult();
     }
 

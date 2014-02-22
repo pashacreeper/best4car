@@ -38,7 +38,6 @@ class APICompanyController extends FOSRestController
      */
     public function getCompanies(Request $request)
     {
-        $serializer = $this->container->get('jms_serializer');
         $city = $this->get('sto_content.manager.city')->selectedCity();
 
         $form = $this->createForm(new AdvancedSearchType());
@@ -50,7 +49,7 @@ class APICompanyController extends FOSRestController
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
-            ->getCompaniesWithFilter([
+            ->getCompaniesWithFilterForMap([
                 'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
                 'subCompanyType' => $formData["subCompanyType"],
@@ -71,15 +70,12 @@ class APICompanyController extends FOSRestController
             $newCompany['n'] = $company['name'];
             $newCompany['g'] = $company['gps'];
             $newCompany['v'] = $company['vip'];
-
-            if(!empty($company['specializations'])) {
-                $newCompany['t'] = $company['specializations'][0]['type']['id'];
-            }
+            $newCompany['t'] = $company['type'];
 
             $returnCompanies[$key] = $newCompany;
         }
 
-        return new Response($serializer->serialize($returnCompanies, 'json'));
+        return new Response(json_encode($returnCompanies));
     }
 
     /**
@@ -107,7 +103,7 @@ class APICompanyController extends FOSRestController
 
         $companies = $em
             ->getRepository('StoCoreBundle:Company')
-            ->getCompaniesWithFilter([
+            ->getCompaniesWithFilterForList([
                 'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
                 'subCompanyType' => $formData["subCompanyType"],

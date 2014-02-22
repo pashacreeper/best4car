@@ -56,26 +56,28 @@
                 var iconMap = "{{ asset('bootstrap/img/icon-map-default.png') }}";
                 var iconMapSelected = "{{ asset('bootstrap/img/icon-map-default-active.png') }}";
 
-                if (typeIcons[val.t].iconNameMap) {
-                    iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMap;
-                }
-                if (typeIcons[val.t].iconNameMapSelected) {
-                    iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapSelected;
-                }
-                // v for vip!
-                if (val.v) {
-                    if (typeIcons[val.t].iconNameMapVip) {
-                        iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVip;
+                if(val.t) {
+                    if (typeIcons[val.t].iconNameMap) {
+                        iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMap;
                     }
-                    if (typeIcons[val.t].iconNameMapVipSelected) {
-                        iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVipSelected;
+                    if (typeIcons[val.t].iconNameMapSelected) {
+                        iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapSelected;
+                    }
+                    // v for vip!
+                    if (val.v) {
+                        if (typeIcons[val.t].iconNameMapVip) {
+                            iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVip;
+                        }
+                        if (typeIcons[val.t].iconNameMapVipSelected) {
+                            iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVipSelected;
+                        }
                     }
                 }
 
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var img;
 
-                if (showByRate(mainMap.getZoom(), val.rating)) {
+                if (val.t && showByRate(mainMap.getZoom(), val.rating)) {
                     img = {
                         iconImageHref: iconMap,
                         iconImageSize: iconSize,
