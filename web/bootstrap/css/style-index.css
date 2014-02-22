@@ -635,7 +635,7 @@
 }
 
 #loading {
-    background-image: url(/storage/images/loading.gif);
+    background-image: url(/bootstrap/img/loading.gif);
     height: 1000px;
     width: 100%;
     background-color: black;
