@@ -89,6 +89,7 @@ class CompanyController extends MainController
 
         $allTypes = $em->getRepository('StoCoreBundle:CompanyType')->findAll();
         $companiesCount = count($em->getRepository('StoCoreBundle:Company')->getCompanyIdsWithFilter(['search' => $words, 'city' => $city->getId(), 'time' => []]));
+        $companiesCountPlural = $this->declensionOfNumerals($companiesCount, ['компания', 'компании', 'компаний']);
 
         return [
             'city' => $city,
@@ -96,7 +97,13 @@ class CompanyController extends MainController
             'words' => $words,
             'allTypes' => $allTypes,
             'companiesCount' => $companiesCount,
+            'companiesCountPlural' => $companiesCountPlural,
         ];
+    }
+
+    protected function declensionOfNumerals($number, $titles) {
+        $cases = [2, 0, 1, 1, 1, 2];
+        return $titles[ ($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[($number % 10 < 5) ? $number % 10 : 5] ];
     }
 
     /**
