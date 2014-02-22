@@ -236,11 +236,15 @@
                     addPlacemarks(response);
                     renderMap(response);
                     $('#loading').hide();
+                    companiesAjaxLoadList();
                 },
                 error: function(response){
                     console.log(response);
                 }
             });
+        }
+
+        function companiesAjaxLoadList() {
             $.ajax({
                 url: Routing.generate('api_get_companies_list'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
