@@ -642,7 +642,7 @@
     position: absolute;
     top: 190px;
     left: 0;
-    z-index: 99999;
+    z-index: 777;
     background-repeat: no-repeat;
     opacity: 0.3;
     background-position-x: 48%;

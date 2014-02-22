@@ -38,7 +38,7 @@ class CompanyRepository extends EntityRepository
      * @param  array $params
      * @return array
      */
-    protected function getCompanyIdsWithFilter($params = [])
+    public function getCompanyIdsWithFilter($params = [])
     {
         $qb = $this->createQueryBuilder('company')
             ->select('DISTINCT company.id')
@@ -119,20 +119,20 @@ class CompanyRepository extends EntityRepository
             }
         }
 
-        if ($params['time']) {
+        if (isset($params['time'])) {
             $qb->join('company.workingTime', 'cwt');
-        }
 
-        if (in_array('24hours', $params['time'])) {
-            $qb->andWhere("cwt.fromTime < '01:00:00' AND cwt.tillTime > '23:00:00'  AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1 AND cwt.daysSaturday = 1 AND cwt.daysSunday = 1");
-        }
+            if (in_array('24hours', $params['time'])) {
+                $qb->andWhere("cwt.fromTime < '01:00:00' AND cwt.tillTime > '23:00:00'  AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1 AND cwt.daysSaturday = 1 AND cwt.daysSunday = 1");
+            }
 
-        if (in_array('late', $params['time'])) {
-            $qb->andWhere("cwt.tillTime >= '21:00:00' AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1");
-        }
+            if (in_array('late', $params['time'])) {
+                $qb->andWhere("cwt.tillTime >= '21:00:00' AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1");
+            }
 
-        if (in_array('weekends', $params['time'])) {
-            $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
+            if (in_array('weekends', $params['time'])) {
+                $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
+            }
         }
 
         $result = $qb->getQuery()->getResult();

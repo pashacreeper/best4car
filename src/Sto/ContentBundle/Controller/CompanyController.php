@@ -88,12 +88,14 @@ class CompanyController extends MainController
         $companySortForm = $this->createForm(new CompaniesSortType());
 
         $allTypes = $em->getRepository('StoCoreBundle:CompanyType')->findAll();
+        $companiesCount = count($em->getRepository('StoCoreBundle:Company')->getCompanyIdsWithFilter(['search' => $words, 'city' => $city, 'time' => []]));
 
         return [
             'city' => $city,
             'sortForm' => $companySortForm->createView(),
             'words' => $words,
             'allTypes' => $allTypes,
+            'companiesCount' => $companiesCount,
         ];
     }
 
