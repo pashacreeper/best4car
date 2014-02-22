@@ -634,6 +634,26 @@
     z-index: 1;
 }
 
+#loading {
+    background-image: url(/storage/images/loading.gif);
+    height: 1000px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 190px;
+    left: 0;
+    z-index: 99999;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    background-position-x: 48%;
+    background-position-y: 11%;
+    transition: opacity .15s ease-in-out;
+    -webkit-transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -ms-transition: opacity .15s ease-in-out;
+    -o-transition: opacity .15s ease-in-out;
+}
+
 #companiesList {
     display: none;
 }

@@ -209,6 +209,7 @@
         }
 
         function companiesAjaxLoad() {
+            $('#loading').show();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
@@ -234,6 +235,7 @@
                     });
                     addPlacemarks(response);
                     renderMap(response);
+                    $('#loading').hide();
                 },
                 error: function(response){
                     console.log(response);
@@ -341,6 +343,7 @@
 {% block bottomHeaderWraperBlockEnd %}{% endblock %}
 
 {% block map %}
+    <div id="loading"></div>
     <div id="map"></div>
 {% endblock %}
 
