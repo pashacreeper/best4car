@@ -53,14 +53,26 @@ var mainLayout = function(){
         });
     });
 
+    var menuShown = false;
+
     // User menu
-    $('.btnUser').on('click', function(e) {
+    $('.accountCont').on('click', function(e) {
+        if($(e.target).parents('.userDropdown').length || $(e.target).is('.userDropdown')) {
+            return true;
+        }
         e.preventDefault();
-        $('.userDropdown').fadeIn(50, function(){
-            $(this).on('clickoutside', function(){
-                $(this).hide();
-            });
-        });
+        if(menuShown) {
+            $('.userDropdown').hide();
+            menuShown = false;
+        } else {
+            $('.userDropdown').fadeIn(50);
+            menuShown = true;
+        }
+    });
+
+    $('.accountCont').on('clickoutside', function(){
+        menuShown = false;
+        $('.userDropdown').hide();
     });
 
     var loadRegistrationForm = function($registrationContainer, registrationUrl, data){
