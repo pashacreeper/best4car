@@ -46,13 +46,15 @@ class APICompanyController extends FOSRestController
 
         $additionalServices = array_keys($request->query->get('additional_services', []));
 
+        $subCompanyType = isset($formData["subCompanyType"]) ? $formData["subCompanyType"] : null;
+
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
             ->getCompaniesWithFilterForMap([
                 'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
-                'subCompanyType' => $formData["subCompanyType"],
+                'subCompanyType' => $subCompanyType,
                 'auto' => $formData["auto"],
                 'rating' => $request->get('rating'),
                 'additionalServices' => $additionalServices,
@@ -101,12 +103,14 @@ class APICompanyController extends FOSRestController
 
         $additionalServices = array_keys($request->query->get('additional_services', []));
 
+        $subCompanyType = isset($formData["subCompanyType"]) ? $formData["subCompanyType"] : null;
+
         $companies = $em
             ->getRepository('StoCoreBundle:Company')
             ->getCompaniesWithFilterForList([
                 'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
-                'subCompanyType' => $formData["subCompanyType"],
+                'subCompanyType' => $subCompanyType,
                 'auto' => $formData["auto"],
                 'rating' => $request->get('rating'),
                 'additionalServices' => $additionalServices,

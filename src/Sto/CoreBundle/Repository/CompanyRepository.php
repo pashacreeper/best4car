@@ -153,6 +153,10 @@ class CompanyRepository extends EntityRepository
     {
         $ids = $this->getCompanyIdsWithFilter($params);
 
+        if(empty($ids)) {
+            return [];
+        }
+
         $qb = $this->createQueryBuilder('company')
             ->select('company.id, company.name, company.gps, company.vip, IDENTITY(company.type) as type')
             ->where('company.id IN(:ids)')
@@ -169,6 +173,10 @@ class CompanyRepository extends EntityRepository
     public function getCompaniesWithFilterForList($params = [])
     {
         $ids = $this->getCompanyIdsWithFilter($params);
+
+        if(empty($ids)) {
+            return [];
+        }
 
         $qb = $this->createQueryBuilder('company')
             ->select('company, csp, fb, d, csp_type, csp_sub_type, additional_services, cwt')
