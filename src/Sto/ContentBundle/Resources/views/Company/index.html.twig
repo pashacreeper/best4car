@@ -34,12 +34,12 @@
             filterDataByZoom(mainMap.getZoom(), companies);
             addButtonsToMap(mainMap, ymaps, GeolocationButton);
 
-            mainMap.events.add('actionend', function (evt) {
-                if (oldZoom != mainMap.getZoom()) {
-                    filterDataByZoom(mainMap.getZoom(), globalCompanies);
-                    oldZoom = mainMap.getZoom();
-                }
-            });
+            // mainMap.events.add('actionend', function (evt) {
+            //     if (oldZoom != mainMap.getZoom()) {
+            //         filterDataByZoom(mainMap.getZoom(), globalCompanies); // dont add placemarks on every zoom!!111
+            //         oldZoom = mainMap.getZoom();
+            //     }
+            // });
         }
 
         function addPlacemarks(companies) {
@@ -280,6 +280,7 @@
 
                 placemarkCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
+                        // console.log('company');
                         o.options.set('zIndex', 900);
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         mainMap.setCenter(o.geometry.getBounds()[0]);
