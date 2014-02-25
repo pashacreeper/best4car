@@ -280,6 +280,7 @@
 
                 placemarkCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
+                        o.options.set('zIndex', 900);
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         mainMap.setCenter(o.geometry.getBounds()[0]);
                         var position = mainMap.getGlobalPixelCenter();
@@ -293,6 +294,7 @@
 
                         if (globalSelectedItem.properties.get('id') == id) { return; }
 
+                        globalSelectedItem.options.set('zIndex', 100);
                         globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
                         globalSelectedItem = o;
 
