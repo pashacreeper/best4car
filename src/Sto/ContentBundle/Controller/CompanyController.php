@@ -114,6 +114,9 @@ class CompanyController extends MainController
     public function showAction(Request $request, Company $company)
     {
         $em = $this->getDoctrine()->getManager();
+        if (!$company->getVisible()) {
+            throw $this->createNotFoundException('The company does not exist');
+        }
         $companyId = $company->getId();
 
         $qb = $em->getRepository('StoCoreBundle:FeedbackCompany')

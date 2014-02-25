@@ -173,7 +173,7 @@
     <div class="contentLabel marginBottom">
         <label>Менеджеры компании</label>
         {{ form_errors(form.companyManager) }}
-        <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегестрированны на сайте.</span>
+        <span class="hint-text">Вы можете указать других менеджеров компании. Они должны быть зарегистрированы на сайте.</span>
         <div id="managerAddWrapper" data-prototype="{{ form_widget(form.companyManager.vars.prototype)|e }}">
             {% for manager in form.companyManager %}
                 <div class="contactDate">

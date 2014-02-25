@@ -9,6 +9,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sto\UserBundle\Entity\Group;
 
 class RegistrationController extends BaseController
 {
@@ -43,6 +44,13 @@ class RegistrationController extends BaseController
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+                if (null === $response = $event->getResponse()) {
+                    if ($registration_type != 'company') {
+                        $group = $this->container->get('doctrine')->getManager()->getRepository('StoUserBundle:Group')->find(Group::USER);
+                        $user->setGroups([$group]);
+                    }
+                }
 
                 $userManager->updateUser($user);
 

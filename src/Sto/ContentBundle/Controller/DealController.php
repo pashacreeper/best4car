@@ -293,10 +293,11 @@ class DealController extends MainController
      * @Method({"POST"})
      * @Template()
      */
-    public function dealsAction(Request $request, $search = null)
+    public function dealsAction(Request $request)
     {
         $cityId = $this->get('sto_content.manager.city')->selectedCity()->getId();
         $em = $this->getDoctrine()->getManager();
+        $search = $request->get('search');
         $query = $em->getRepository('StoCoreBundle:Deal')->getDealsQuery($cityId, $search);
 
         $dealType = $request->get('deal_type', 0);

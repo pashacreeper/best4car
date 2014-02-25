@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block metaTegs %}
+    <meta name="vk:description" content="{{ company.description }}">
+    <meta name="og:description" content="{{ company.description }}">
+    <meta property="og:type" content="website" />
     <meta name="description" content="Общие сведения о компании «{{ company.name }}» - специализация, основные и дополнительные услуги, адрес, контактная информация, время работы, отзывы, специальные предложения.">
 {% endblock %}
 

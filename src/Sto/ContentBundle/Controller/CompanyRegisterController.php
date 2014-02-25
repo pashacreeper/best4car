@@ -107,7 +107,7 @@ class CompanyRegisterController extends Controller
         $form = $this->createForm(new CompanyBaseType(), $company);
 
         if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 if ($isCompanyNew) {
@@ -174,6 +174,8 @@ class CompanyRegisterController extends Controller
                             $serviceId = $oldService->getService()->getId();
                             if (($serviceKey = array_search($serviceId, $itemServices)) !== false) {
                                 unset($itemServices[$serviceKey]);
+                            } else {
+                                $em->remove($oldService);
                             }
                         }
                         $companyServices = [];
