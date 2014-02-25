@@ -60,6 +60,9 @@ var mainLayout = function(){
         if($(e.target).parents('.userDropdown').length || $(e.target).is('.userDropdown')) {
             return true;
         }
+        if($(e.target).parents('.enterDropdown').length || $(e.target).is('.enterDropdown')) {
+            return true;
+        }
         e.preventDefault();
         if(menuShown) {
             $('.userDropdown').hide();
