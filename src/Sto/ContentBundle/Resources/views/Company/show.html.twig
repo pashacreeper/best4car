@@ -7,6 +7,10 @@
 {% block metaTegs %}
     <meta name="vk:description" content="{{ company.description }}">
     <meta name="og:description" content="{{ company.description }}">
+    {% if gallery.0 and gallery.0.imageName %}
+    <meta name="og:image" content="http://{{ app.request.httpHost ~ (vich_uploader_asset(gallery.0, 'image') | imagine_filter('company_gallery_filter')) }}">
+    <meta name="vk:image" content="http://{{ app.request.httpHost ~ (vich_uploader_asset(gallery.0, 'image') | imagine_filter('company_gallery_filter')) }}">
+    {% endif %}
     <meta property="og:type" content="website" />
     <meta name="description" content="Общие сведения о компании «{{ company.name }}» - специализация, основные и дополнительные услуги, адрес, контактная информация, время работы, отзывы, специальные предложения.">
 {% endblock %}

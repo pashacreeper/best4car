@@ -142,6 +142,8 @@ class CompanyController extends MainController
 
         $refererRoute = $this->getRefererRoute();
 
+        $gallery = $em->getRepository('StoCoreBundle:Company')->getCompanyGallery($company);
+
         return [
             'company' => $company,
             'isManager' => $isManager,
@@ -149,6 +151,7 @@ class CompanyController extends MainController
             'archivedDealsCount' => $archivedDealsCount,
             'deals' => $deals,
             'refererRoute' => $refererRoute,
+            'gallery' => $gallery,
         ];
     }
 
