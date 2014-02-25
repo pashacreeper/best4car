@@ -117,16 +117,15 @@
                         balloonOffset = [-12, 2];
                     }
                     obj.options.set({ offset: balloonOffset });
-                });
-                placemark.events.add('click', function (e) {
-                    selectedImg = ymaps.option.presetStorage.get("iconMapActive#" + e.get('target').properties.get('id')).iconImageHref;
+
+                    var selectedImg = ymaps.option.presetStorage.get("iconMapActive#" + e.get('target').properties.get('id')).iconImageHref;
                     if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
                         selectedImg = e.get('target').options.get('iconImageHref');
                     }
                     e.get('target').options.set('iconImageHref', selectedImg);
                 });
                 placemark.events.add('balloonclose', function (e) {
-                    selectedImg = ymaps.option.presetStorage.get("iconMap#" + e.get('target').properties.get('id')).iconImageHref;
+                    var selectedImg = ymaps.option.presetStorage.get("iconMap#" + e.get('target').properties.get('id')).iconImageHref;
                     if (e.get('target').options.get('iconImageHref').indexOf('dot.png') != -1) {
                         selectedImg = e.get('target').options.get('iconImageHref');
                     }
