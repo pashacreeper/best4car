@@ -5,6 +5,10 @@
 {% block metaTegs %}
     <meta name="vk:description" content="{{ deal.description }}">
     <meta name="og:description" content="{{ deal.description }}">
+    {% if deal.imageName %}
+    <meta name="og:image" content="http://{{ app.request.httpHost ~ (vich_uploader_asset(deal, 'image') | imagine_filter('deals_carusel_photos')) }}">
+    <meta name="vk:image" content="http://{{ app.request.httpHost ~ (vich_uploader_asset(deal, 'image') | imagine_filter('deals_carusel_photos')) }}">
+    {% endif %}
     <meta property="og:type" content="website" />
     <meta name="description" content="Общие сведения об акции «{{ deal.name }}» компании {{ deal.company.name }} - условия и сроки проведения, адрес, контактная информация, отзывы.">
 {% endblock %}
