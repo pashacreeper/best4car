@@ -324,6 +324,7 @@
 
                         if (globalSelectedItem.properties.get('id') == id) { return; }
 
+                        globalSelectedItem.balloon.close();
                         globalSelectedItem.options.set('zIndex', 100);
                         globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
                         globalSelectedItem = o;
