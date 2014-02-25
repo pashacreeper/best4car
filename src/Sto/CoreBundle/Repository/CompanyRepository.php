@@ -38,7 +38,7 @@ class CompanyRepository extends EntityRepository
      * @param  array $params
      * @return array
      */
-    public function getCompaniesWithFilter($params = [])
+    public function getCompanyIdsWithFilter($params = [])
     {
         $qb = $this->createQueryBuilder('company')
             ->select('DISTINCT company.id')
@@ -119,30 +119,62 @@ class CompanyRepository extends EntityRepository
             }
         }
 
-        if ($params['time']) {
+        if (isset($params['time'])) {
             $qb->join('company.workingTime', 'cwt');
+
+            if (in_array('24hours', $params['time'])) {
+                $qb->andWhere("cwt.fromTime < '01:00:00' AND cwt.tillTime > '23:00:00'  AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1 AND cwt.daysSaturday = 1 AND cwt.daysSunday = 1");
+            }
+
+            if (in_array('late', $params['time'])) {
+                $qb->andWhere("cwt.tillTime >= '21:00:00' AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1");
+            }
+
+            if (in_array('weekends', $params['time'])) {
+                $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
+            }
         }
 
-        if (in_array('24hours', $params['time'])) {
-            $qb->andWhere("cwt.fromTime < '01:00:00' AND cwt.tillTime > '23:00:00'  AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1 AND cwt.daysSaturday = 1 AND cwt.daysSunday = 1");
-        }
-
-        if (in_array('late', $params['time'])) {
-            $qb->andWhere("cwt.tillTime >= '21:00:00' AND cwt.daysMonday = 1 AND cwt.daysTuesday = 1 AND cwt.daysWednesday = 1 AND cwt.daysThursday = 1 AND cwt.daysFriday = 1");
-        }
-
-        if (in_array('weekends', $params['time'])) {
-            $qb->andWhere('cwt.daysSaturday = 1 OR cwt.daysSunday = 1');
-        }
-
-        $result = $qb->getQuery()->getArrayResult();
+        $result = $qb->getQuery()->getResult();
         $ids = [];
 
         foreach ($result as $value) {
             $ids[] = $value['id'];
         }
 
-        if (empty($ids)) {
+        return $ids;
+    }
+
+    /**
+     * @param  array $params
+     * @return array
+     */
+    public function getCompaniesWithFilterForMap($params = [])
+    {
+        $ids = $this->getCompanyIdsWithFilter($params);
+
+        if(empty($ids)) {
+            return [];
+        }
+
+        $qb = $this->createQueryBuilder('company')
+            ->select('company.id, company.name, company.gps, company.vip, IDENTITY(company.type) as type')
+            ->where('company.id IN(:ids)')
+            ->setParameter('ids', $ids)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param  array $params
+     * @return array
+     */
+    public function getCompaniesWithFilterForList($params = [])
+    {
+        $ids = $this->getCompanyIdsWithFilter($params);
+
+        if(empty($ids)) {
             return [];
         }
 
@@ -158,13 +190,13 @@ class CompanyRepository extends EntityRepository
             ->where('company.id IN(:ids)')
             ->setParameter('ids', $ids)
         ;
-
+         
         if ($params['sort'] == 'price') {
             $qb->orderBy('company.hourPrice', 'ASC');
         } else {
             $qb->orderBy('company.rating', 'DESC');
         }
-
+        
         return $qb->getQuery()->getArrayResult();
     }
 

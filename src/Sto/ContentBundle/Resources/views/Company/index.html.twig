@@ -20,6 +20,16 @@
         var globalCompanies;
         var globalSelectedItem = null;
 
+        var typeIcons = [];
+        {% for type in allTypes %}
+            typeIcons[{{ type.id }}] = {
+                'iconNameMap': '{{ type.iconNameMap }}',
+                'iconNameMapSelected': '{{ type.iconNameMapSelected }}',
+                'iconNameMapVip': '{{ type.iconNameMapVip }}',
+                'iconNameMapVipSelected': '{{ type.iconNameMapVipSelected }}',
+            };
+        {% endfor %}
+
         function renderMap(companies) {
             filterDataByZoom(mainMap.getZoom(), companies);
             addButtonsToMap(mainMap, ymaps, GeolocationButton);
@@ -46,19 +56,20 @@
                 var iconMap = "{{ asset('bootstrap/img/icon-map-default.png') }}";
                 var iconMapSelected = "{{ asset('bootstrap/img/icon-map-default-active.png') }}";
 
-                if (val.specializations.length > 0) {
-                    if (val.specializations[0].type.iconNameMap) {
-                        iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMap;
+                if(val.t) {
+                    if (typeIcons[val.t].iconNameMap) {
+                        iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMap;
                     }
-                    if (val.specializations[0].type.iconNameMapSelected) {
-                        iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapSelected;
+                    if (typeIcons[val.t].iconNameMapSelected) {
+                        iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapSelected;
                     }
-                    if (val.vip) {
-                        if (val.specializations[0].type.iconNameMapVip) {
-                            iconMap = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapVip;
+                    // v for vip!
+                    if (val.v) {
+                        if (typeIcons[val.t].iconNameMapVip) {
+                            iconMap = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVip;
                         }
-                        if (val.specializations[0].type.iconNameMapVipSelected) {
-                            iconMapSelected = "/{{ storage_path }}/company_icon/" + val.specializations[0].type.iconNameMapVipSelected;
+                        if (typeIcons[val.t].iconNameMapVipSelected) {
+                            iconMapSelected = "/{{ storage_path }}/company_icon/" + typeIcons[val.t].iconNameMapVipSelected;
                         }
                     }
                 }
@@ -66,7 +77,7 @@
                 var iconSize = (sel == val.id) ? [60, 42] : [34, 45];
                 var img;
 
-                if (showByRate(mainMap.getZoom(), val.rating)) {
+                if (val.t && showByRate(mainMap.getZoom(), val.rating)) {
                     img = {
                         iconImageHref: iconMap,
                         iconImageSize: iconSize,
@@ -92,21 +103,11 @@
                     iconImageHref: iconMapSelected
                 });
 
-                var special = (val.activeDeals && val.activeDeals > 0) ? ('<a href="'+Routing.generate('content_company_show', {'id': val.id})+'#deals"><span class="spesialTerms">Спецпредложение!</span></a>') : '';
-
-                placemark = new ymaps.Placemark(val.gps.split(','), {
+                placemark = new ymaps.Placemark(val.g.split(','), {
                     id: val.id,
-                    name: val.name,
-                    address: val.address,
-                    phone: val.phones,
-                    web: val.web,
-                    logo: val.cached_logo ? '<img src="' + val.cached_logo + '">' : '<img src="/bootstrap/img/default_company_logo.png">',
-                    rating: val.rating,
-                    special: special,
-                    specialization_html: val.specialization_template,
-                    workingTime_html: val.workingTime_template,
-                    specialDeal: val.specialDeal,
-                    hintContent: "<span class='companyMapHint'>" + val.name + "</span>"
+                    name: val.n,
+                    hintContent: "<span class='companyMapHint'>" + val.n + "</span>",
+                    body: 'Идет загрузка данных...',
                 }, img);
 
                 placemark.events.add('balloonopen', function (e) {
@@ -136,47 +137,33 @@
             }
 
             placemarkCollection.each(function (ob) {
-                ob.events.add('click', function () {
-                    (function (obPlacemark) {
-                        // При клке на элементе расположенном на карте, при откртом списке
-                        // компаний, показываем компанию в списке.
-                        var itemId = "#list-company" + obPlacemark.properties.get('id'),
+                ob.events.add('click', onClick);
+            });
+
+            function onClick(e) {
+                var placemark = e.get('target');
+                var id = placemark.properties.get('id');
+                $.ajax(Routing.generate('api_get_company_balloon', {id: id}), {
+                    success : function (data) {
+                        placemark.properties.set('body', data);
+
+                        var itemId = "#list-company" + placemark.properties.get('id'),
                             listObj = $(itemId);
 
                         if (listObj.length && listObj.is(':visible')) {
-                            obPlacemark.balloon.open();
+                            placemark.balloon.open();
                             $('#companiesList').find('.bigInfoCompany').hide();
                             $('#companiesList').find('.smallInfoCompany').show();
                             listObj.find('.smallInfoCompany').hide();
                             listObj.find('.bigInfoCompany').show();
                         }
-                    })(ob);
+                    }
                 });
-            });
+            }
 
             var placemarkBalloonLayout = ymaps.templateLayoutFactory.createClass(
                 '<div class="popupCardCompany">' +
-                    '<div class="popupCardCompanyTop">' +
-                        '$[properties.logo]' +
-                        '<p class="indexCardCompany">' +
-                        '<span class="indexbg"></span>' +
-                        '<span class="indexLevel">$[properties.rating]</span></br>' +
-                        '</p>' +
-                        '<div class="dataCompany">' +
-                            '<p class="nameCompany"><a href="/company/$[properties.id]">$[properties.name]</a></p>' +
-                            '<p class="adressCompany">$[properties.address]</p>' +
-                            '$[properties.special]' +
-                            '<div><a href="http://$[properties.web]" class="siteCompany" target="_blank">$[properties.web]</a></div>' +
-                            '$[properties.specialDeal]' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="popupCardCompanyCont">' +
-                        '<div class="servicesPart">$[properties.specialization_html]</div>' +
-                        '<div class="infoCompany">' +
-                            '<p class="infoCompanyLable">Телефон:</br><span>$[properties.phone.0.phone]</span></p>' +
-                            '<p class="infoCompanyLable">Часы работы:</br>$[properties.workingTime_html]</p>' +
-                        '</div>' +
-                    '</div>' +
+                    '$[properties.body]' +
                 '</div>'
             );
 
@@ -222,6 +209,7 @@
         }
 
         function companiesAjaxLoad() {
+            $('#loading').show();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
@@ -230,11 +218,6 @@
                     globalCompanies = response;
                     var text = 'Найдено <span>' + response.length + '</span> ' + declensionOfNumerals(response.length, ['компания', 'компании', 'компаний']);
                     $('.contentTopCenter').html(text);
-
-                    $('#companiesListContainer').empty();
-                    $.each(response, function (index, item) {
-                        $('#companiesListContainer').append(item.html);
-                    });
 
                     mainMap.geoObjects.each(function (geoCollection) {
                         geoCollection.each(function (item) {
@@ -252,6 +235,25 @@
                     });
                     addPlacemarks(response);
                     renderMap(response);
+                    $('#loading').hide();
+                    companiesAjaxLoadList();
+                },
+                error: function(response){
+                    console.log(response);
+                }
+            });
+        }
+
+        function companiesAjaxLoadList() {
+            $.ajax({
+                url: Routing.generate('api_get_companies_list'),
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                dataType: 'json',
+                success: function(response){
+                    $('#companiesListContainer').empty();
+                    $.each(response, function (index, item) {
+                        $('#companiesListContainer').append(item.html);
+                    });
                 },
                 error: function(response){
                     console.log(response);
@@ -325,9 +327,6 @@
                 companiesAjaxLoad();
             });
 
-            var mapHeight = $('#map').height();
-            var footerHeight = $('section.footer').height();
-            $('#companiesListContainer').height(mapHeight - footerHeight - 1);
             if (document.documentElement.clientHeight < 800) {
                 $('#registration-form-popup').height(600);
             }
@@ -344,6 +343,7 @@
 {% block bottomHeaderWraperBlockEnd %}{% endblock %}
 
 {% block map %}
+    <div id="loading"></div>
     <div id="map"></div>
 {% endblock %}
 
@@ -373,7 +373,7 @@
             </span>
         </div>
         <p class="contentTopCenter">
-            Найдено <span>0</span> компаний
+            Найдено <span>{{ companiesCount }}</span> {{ companiesCountPlural }}
         </p>
     </div>
 

@@ -14,6 +14,9 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Catalog;
 use Sto\ContentBundle\Form\Extension\ChoiceList\AdditionalServices;
 use Sto\ContentBundle\Form\AdvancedSearchType;
+use Sto\CoreBundle\Entity\Company;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * APi Auto Catalog controller.
@@ -24,7 +27,7 @@ class APICompanyController extends FOSRestController
 {
     /**
      * @ApiDoc(
-     * description="Получить список всех компаний",
+     * description="Получить список всех компаний для карты",
      *     statusCodes={
      *         200="Returned when successful"
      *     }
@@ -35,7 +38,6 @@ class APICompanyController extends FOSRestController
      */
     public function getCompanies(Request $request)
     {
-        $serializer = $this->container->get('jms_serializer');
         $city = $this->get('sto_content.manager.city')->selectedCity();
 
         $form = $this->createForm(new AdvancedSearchType());
@@ -44,13 +46,15 @@ class APICompanyController extends FOSRestController
 
         $additionalServices = array_keys($request->query->get('additional_services', []));
 
+        $subCompanyType = isset($formData["subCompanyType"]) ? $formData["subCompanyType"] : null;
+
         $companies = $this->getDoctrine()
             ->getManager()
             ->getRepository('StoCoreBundle:Company')
-            ->getCompaniesWithFilter([
+            ->getCompaniesWithFilterForMap([
                 'city' => $city->getid(),
                 'companyType' => $formData["companyType"],
-                'subCompanyType' => $formData["subCompanyType"],
+                'subCompanyType' => $subCompanyType,
                 'auto' => $formData["auto"],
                 'rating' => $request->get('rating'),
                 'additionalServices' => $additionalServices,
@@ -61,26 +65,70 @@ class APICompanyController extends FOSRestController
             ])
         ;
 
+        $returnCompanies = [];
         foreach ($companies as $key => $company) {
-            $companies[$key]['rating'] = ($companies[$key]['rating'] !== null)
-                ? number_format($companies[$key]['rating'], 1)
-                : 'n/a'
-            ;
+            $newCompany = [];
+            $newCompany['id'] = $company['id'];
+            $newCompany['n'] = $company['name'];
+            $newCompany['g'] = $company['gps'];
+            $newCompany['v'] = $company['vip'];
+            $newCompany['t'] = $company['type'];
 
-            $companies[$key]['cached_logo'] = null;
-            if ($company['logoName']) {
-                $companies[$key]['cached_logo'] = $this->container->get('liip_imagine.cache.manager')
-                    ->getBrowserPath(
-                        "/".$this->container->getParameter('storage_path')."/company_logo/".$company['logoName'],
-                        'company_logo_card_filter'
-                    )
-                ;
-            }
+            $returnCompanies[$key] = $newCompany;
+        }
 
-            $company['activeDeals'] = $companies[$key]['activeDeals'] = 0;
+        return new Response(json_encode($returnCompanies));
+    }
+
+    /**
+     * @ApiDoc(
+     * description="Получить список всех компаний для списка",
+     *     statusCodes={
+     *         200="Returned when successful"
+     *     }
+     * )
+     *
+     * @Rest\View
+     * @Route("/list", name="api_get_companies_list", options={"expose"=true})
+     */
+    public function getCompaniesList(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $serializer = $this->container->get('jms_serializer');
+        $city = $this->get('sto_content.manager.city')->selectedCity();
+
+        $form = $this->createForm(new AdvancedSearchType());
+        $form->bind($request);
+        $formData = $form->getData();
+
+        $additionalServices = array_keys($request->query->get('additional_services', []));
+
+        $subCompanyType = isset($formData["subCompanyType"]) ? $formData["subCompanyType"] : null;
+
+        $companies = $em
+            ->getRepository('StoCoreBundle:Company')
+            ->getCompaniesWithFilterForList([
+                'city' => $city->getid(),
+                'companyType' => $formData["companyType"],
+                'subCompanyType' => $subCompanyType,
+                'auto' => $formData["auto"],
+                'rating' => $request->get('rating'),
+                'additionalServices' => $additionalServices,
+                'deals' => $request->get('deals'),
+                'sort' => $request->get('sort'),
+                'search' => trim($request->get('search')),
+                'time' => array_keys($request->get('time', []))
+            ])
+        ;
+
+        $returnCompanies = [];
+        foreach ($companies as $key => $company) {
+            $newCompany = [];
+            $newCompany['id'] = $company['id'];
+
+            $newCompany['activeDeals'] = $company['activeDeals'] = 0;
             if (!empty($company['deals'])) {
-                $em = $this->getDoctrine()->getManager();
-                $company['activeDeals'] = $companies[$key]['activeDeals'] = $em->getRepository('StoCoreBundle:Deal')
+                $newCompany['activeDeals'] = $company['activeDeals'] = $em->getRepository('StoCoreBundle:Deal')
                     ->getActiveDaelsCountByCompany($company['id']);
             }
 
@@ -96,25 +144,37 @@ class APICompanyController extends FOSRestController
                 ];
             }
 
-            $companies[$key]['specialization_template'] = $this->render(
-                'StoContentBundle:Company:specialization_list.html.twig',
-                [
-                    'specializations' => $company['specializations'],
-                    'additionalServices' => $company['additionalServices']
-                ]
-            )->getContent();
 
-            $companies[$key]['workingTime_template'] = $this->render(
-                'StoContentBundle:Company:workingTime_list.html.twig',
-                ['workingTime' => $company['workingTime']]
-            )->getContent();
-
-            $companies[$key]['html'] = $this->render(
+            $newCompany['html'] = $this->render(
                 'StoContentBundle:Company:company.html.twig',
                 ['item' => $company]
             )->getContent();
+
+            $returnCompanies[$key] = $newCompany;
         }
 
-        return new Response($serializer->serialize($companies, 'json'));
+        return new Response($serializer->serialize($returnCompanies, 'json'));
+    }
+
+    /**
+     * @ApiDoc(
+     * description="Получить балун для карт",
+     *     statusCodes={
+     *         200="Returned when successful"
+     *     }
+     * )
+     *
+     * @Template()
+     * @Route("/{id}/balloon/", name="api_get_company_balloon", options={"expose"=true})
+     * @ParamConverter("company", class="StoCoreBundle:Company")
+     */
+    public function companyBalloonAction(Request $request, Company $company)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $activeDeals = $em->getRepository('StoCoreBundle:Deal')->getActiveDaelsCountByCompany($company);
+        return [
+            'company' => $company,
+            'activeDeals' => $activeDeals,
+        ];
     }
 }

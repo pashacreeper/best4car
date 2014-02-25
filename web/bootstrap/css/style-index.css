@@ -579,6 +579,7 @@
     width: 380px;
     border-right: 1px solid #9ea395;
     z-index: 4;
+    bottom: 45px;
 }
 
 .jspVerticalBar {
@@ -632,6 +633,27 @@
     left: 0;
     overflow: hidden;
     z-index: 1;
+}
+
+#loading {
+    background-image: url(/bootstrap/img/loading.gif);
+    height: 1000px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 190px;
+    left: 0;
+    z-index: 777;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    background-position-x: 48%;
+    background-position-y: 11%;
+    background-position: 48% 11%;
+    transition: opacity .15s ease-in-out;
+    -webkit-transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -ms-transition: opacity .15s ease-in-out;
+    -o-transition: opacity .15s ease-in-out;
 }
 
 #companiesList {
