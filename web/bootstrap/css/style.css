@@ -2271,3 +2271,5 @@ input[type="checkbox"].checkBox {
 }
 
 input.error {border: 1px solid #ff0000;}
+
+.serviceSave { padding: 5px 23px 4px !important; }
