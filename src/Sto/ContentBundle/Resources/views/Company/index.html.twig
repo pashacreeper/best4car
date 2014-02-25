@@ -42,6 +42,30 @@
             // });
         }
 
+        var selectPlacemark = function(o) {
+            var id = o.properties.get('id');
+            o.options.set('zIndex', 900);
+            o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
+            mainMap.setCenter(o.geometry.getBounds()[0]);
+            var position = mainMap.getGlobalPixelCenter();
+            mainMap.setGlobalPixelCenter([ position[0] - 190, position[1] ]);
+
+            if (globalSelectedItem == null) {
+                globalSelectedItem = o;
+
+                return;
+            }
+
+            if (globalSelectedItem.properties.get('id') == id) { return; }
+
+            globalSelectedItem.balloon.close();
+            globalSelectedItem.options.set('zIndex', 100);
+            globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
+            globalSelectedItem = o;
+
+            return;
+        };
+
         function addPlacemarks(companies) {
             var sel;
             $('div.listItemCompanyPlain').each(function () {
@@ -140,24 +164,30 @@
             });
 
             function onClick(e) {
+                if(globalSelectedItem) {
+                    globalSelectedItem.options.set('zIndex', 100);
+                    globalSelectedItem.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMap#" + globalSelectedItem.properties.get('id')).iconImageHref);
+                }
+
                 var placemark = e.get('target');
                 var id = placemark.properties.get('id');
-                $.ajax(Routing.generate('api_get_company_balloon', {id: id}), {
-                    success : function (data) {
-                        placemark.properties.set('body', data);
-
-                        var itemId = "#list-company" + placemark.properties.get('id'),
-                            listObj = $(itemId);
-
-                        if (listObj.length && listObj.is(':visible')) {
-                            placemark.balloon.open();
-                            $('#companiesList').find('.bigInfoCompany').hide();
-                            $('#companiesList').find('.smallInfoCompany').show();
-                            listObj.find('.smallInfoCompany').hide();
-                            listObj.find('.bigInfoCompany').show();
+                var itemId = "#list-company" + id,
+                    listObj = $(itemId);
+                if (listObj.length && listObj.is(':visible')) {
+                    e.preventDefault();
+                    selectPlacemark(placemark);
+                    $('#companiesList').find('.bigInfoCompany').hide();
+                    $('#companiesList').find('.smallInfoCompany').show();
+                    listObj.find('.smallInfoCompany').hide();
+                    listObj.find('.bigInfoCompany').show();
+                } else {
+                    $.ajax(Routing.generate('api_get_company_balloon', {id: id}), {
+                        success : function (data) {
+                            placemark.properties.set('body', data);
                         }
-                    }
-                });
+                    });
+                }
+                globalSelectedItem = placemark;
             }
 
             var placemarkBalloonLayout = ymaps.templateLayoutFactory.createClass(
@@ -280,7 +310,6 @@
 
                 placemarkCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
-                        // console.log('company');
                         o.options.set('zIndex', 900);
                         o.options.set('iconImageHref', ymaps.option.presetStorage.get("iconMapActive#" + id).iconImageHref);
                         mainMap.setCenter(o.geometry.getBounds()[0]);
