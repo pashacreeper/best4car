@@ -177,6 +177,8 @@
                     $('#companiesList').find('.smallInfoCompany').show();
                     listObj.find('.smallInfoCompany').hide();
                     listObj.find('.bigInfoCompany').show();
+                    var parent = $("#companiesList")
+                    parent.scrollTop(parent.scrollTop() + listObj.position().top);
                 } else {
                     $.ajax(Routing.generate('api_get_company_balloon', {id: id}), {
                         success : function (data) {
