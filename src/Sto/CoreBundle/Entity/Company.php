@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sto\CoreBundle\Entity\CompanyManager;
+use Sto\CoreBundle\Entity\CompanyType;
 
 /**
  * Company
@@ -16,6 +17,7 @@ use Sto\CoreBundle\Entity\CompanyManager;
  * @ORM\Table(name="companies", indexes={@ORM\Index(name="companies_search_idx", columns={"name", "full_name", "slogan"})})
  * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanyRepository")
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Company
 {
@@ -289,6 +291,11 @@ class Company
     private $emails;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Sto\CoreBundle\Entity\CompanyType")
+     */
+    private $type;
+
+    /**
      * Set registrationStep
      *
      * @param  string  $registrationStep
@@ -529,6 +536,17 @@ class Company
         $this->specializations[] = $specialization->setCompany($this);
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setTypeFromSpecs()
+    {
+        if(!$this->specializations->isEmpty()) {
+            $this->setType($this->specializations->first()->getType());
+        }
     }
 
     public function removeSpecialization($specialization)
@@ -1520,5 +1538,17 @@ class Company
     public function removePhone(\Sto\CoreBundle\Entity\CompanyPhone $phones)
     {
         $this->phones->removeElement($phones);
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType(CompanyType $value)
+    {
+        $this->type = $value;
+
+        return $this;
     }
 }

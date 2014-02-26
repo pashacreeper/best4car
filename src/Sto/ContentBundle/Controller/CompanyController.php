@@ -76,6 +76,8 @@ class CompanyController extends MainController
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
+        $em = $this->getDoctrine()->getManager();
+
         $city = $this->get('sto_content.manager.city')->selectedCity();
         $words = null;
 
@@ -85,11 +87,23 @@ class CompanyController extends MainController
 
         $companySortForm = $this->createForm(new CompaniesSortType());
 
+        $allTypes = $em->getRepository('StoCoreBundle:CompanyType')->findAll();
+        $companiesCount = count($em->getRepository('StoCoreBundle:Company')->getCompanyIdsWithFilter(['search' => $words, 'city' => $city->getId(), 'time' => []]));
+        $companiesCountPlural = $this->declensionOfNumerals($companiesCount, ['компания', 'компании', 'компаний']);
+
         return [
             'city' => $city,
             'sortForm' => $companySortForm->createView(),
-            'words' => $words
+            'words' => $words,
+            'allTypes' => $allTypes,
+            'companiesCount' => $companiesCount,
+            'companiesCountPlural' => $companiesCountPlural,
         ];
+    }
+
+    protected function declensionOfNumerals($number, $titles) {
+        $cases = [2, 0, 1, 1, 1, 2];
+        return $titles[ ($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[($number % 10 < 5) ? $number % 10 : 5] ];
     }
 
     /**

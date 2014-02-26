@@ -1,0 +1,29 @@
+<div class="popupCardCompanyTop">
+    {% set companyLogo = asset('/bootstrap/img/default_company_logo.png'|imagine_filter('company_logo')) %}
+    {% if company.logo %}
+        {% set companyLogo = vich_uploader_asset(company, 'logo')|imagine_filter('company_logo') %}
+    {% endif %}
+    <img src="{{ companyLogo }}" alt="{{ company.name }}">
+
+    <p class="indexCardCompany">
+    <span class="indexbg"></span>
+    <span class="indexLevel">{{ company.rating }}</span></br>
+    </p>
+    <div class="dataCompany">
+        <p class="nameCompany"><a href="/company/{{ company.id }}">{{ company.name }}</a></p>
+        <p class="adressCompany">{{ company.address }}</p>
+        {% if activeDeals > 0 %}
+        	<a href="{{ path('content_company_show', {'id': company.id}) }}#deals"><span class="spesialTerms">Спецпредложение!</span></a>
+        {% endif %}
+        <div><a href="http://{{ company.web }}" class="siteCompany" target="_blank">{{ company.web }}</a></div>
+    </div>
+</div>
+<div class="popupCardCompanyCont">
+    <div class="servicesPart">{% include "StoContentBundle:Company:specialization_list.html.twig" with { 'specializations': company.specializations, 'additionalServices': company.additionalServices } %}</div>
+    <div class="infoCompany">
+        {% if company.phones | length > 0 %}
+        <p class="infoCompanyLable">Телефон:</br><span>{{ company.phones.0.phone }}</span></p>
+        {% endif %}
+        <p class="infoCompanyLable">Часы работы:</br>{% include "StoContentBundle:Company:workingTime_list.html.twig" with { 'workingTime': company.workingTime } %}</p>
+    </div>
+</div>

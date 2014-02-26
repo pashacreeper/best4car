@@ -1179,7 +1179,7 @@ select {
 
 .footerLogo {
     width: 200px;
-    height: 30px;
+    height: 14px;
     position: absolute;
     left: 20px;
     top: 10px;
@@ -2271,3 +2271,5 @@ input[type="checkbox"].checkBox {
 }
 
 input.error {border: 1px solid #ff0000;}
+
+.serviceSave { padding: 5px 23px 4px !important; }
