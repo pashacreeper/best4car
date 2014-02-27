@@ -68,7 +68,9 @@ class CompanySpecialization
     public function setCompany(Company $value)
     {
         $this->company = $value;
-        $this->company->setTypeFromSpecs();
+        if ($this->company) {
+            $this->company->setTypeFromSpecs();
+        }
 
         return $this;
     }
@@ -81,7 +83,9 @@ class CompanySpecialization
     public function setType(CompanyType $value)
     {
         $this->type = $value;
-        $this->company->setTypeFromSpecs();
+        if ($this->company) {
+            $this->company->setTypeFromSpecs();
+        }
 
         return $this;
     }
