@@ -19,6 +19,7 @@
         var mainMap;
         var globalCompanies;
         var globalSelectedItem = null;
+        var words = "{{ words }}";
 
         var typeIcons = [];
         {% for type in allTypes %}
@@ -240,7 +241,7 @@
             $('#loading').show();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
-                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
                 dataType: 'json',
                 success: function(response){
                     globalCompanies = response;
@@ -274,7 +275,7 @@
         function companiesAjaxLoadList() {
             $.ajax({
                 url: Routing.generate('api_get_companies_list'),
-                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
                 dataType: 'json',
                 success: function(response){
                     $('#companiesListContainer').empty();
@@ -354,6 +355,12 @@
             });
 
             $('#advanced-search-form').on('change', 'input', function () {
+                companiesAjaxLoad();
+            });
+
+            $('.form-search').on('submit', function(e) {
+                e.preventDefault();
+                words = $("#inputSearch").val();
                 companiesAjaxLoad();
             });
 
