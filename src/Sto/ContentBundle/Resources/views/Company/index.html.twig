@@ -239,6 +239,8 @@
 
         function companiesAjaxLoad() {
             $('#loading').show();
+            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words;
+            window.history.pushState({},"", url);
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
@@ -419,7 +421,7 @@
     </div>
 
     <div id="advancedSearch" class="contentRightWrap">
-        {% render controller('StoContentBundle:Company:advancedSearchForm') %}
+        {% render controller('StoContentBundle:Company:advancedSearchForm', {'masterRequest': app.request}) %}
     </div>
 {% endblock %}
 

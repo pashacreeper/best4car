@@ -298,9 +298,11 @@ class CompanyController extends MainController
     /**
      * @Template()
      */
-    public function advancedSearchFormAction()
+    public function advancedSearchFormAction(Request $request)
     {
+        $data = $request->get('masterRequest');
         $form = $this->createForm(new AdvancedSearchType());
+        $form->bind($data);
 
         return [
             'form' => $form->createView(),
