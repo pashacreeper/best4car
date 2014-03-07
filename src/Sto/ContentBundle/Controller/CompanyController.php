@@ -79,6 +79,7 @@ class CompanyController extends MainController
         $em = $this->getDoctrine()->getManager();
 
         $city = $this->get('sto_content.manager.city')->selectedCity();
+
         $words = null;
 
         if ($request->isMethod('GET') && $request->get('search')) {
@@ -91,13 +92,21 @@ class CompanyController extends MainController
         $companiesCount = count($em->getRepository('StoCoreBundle:Company')->getCompanyIdsWithFilter(['search' => $words, 'city' => $city->getId(), 'time' => []]));
         $companiesCountPlural = $this->declensionOfNumerals($companiesCount, ['компания', 'компании', 'компаний']);
 
+
+        $searchOpen = $request->get('search_open', 0);
+        $zoom = $request->get('zoom', 11);
+
+        $gps = $request->get('gps', $city->getGps());
+
         return [
-            'city' => $city,
+            'gps' => $gps,
             'sortForm' => $companySortForm->createView(),
             'words' => $words,
             'allTypes' => $allTypes,
             'companiesCount' => $companiesCount,
             'companiesCountPlural' => $companiesCountPlural,
+            'searchOpen' => $searchOpen,
+            'zoom' => $zoom,
         ];
     }
 
@@ -304,8 +313,13 @@ class CompanyController extends MainController
         $form = $this->createForm(new AdvancedSearchType());
         $form->bind($data);
 
+        $time = $data->get('time');
+        $services = $data->get('additional_services');
+
         return [
             'form' => $form->createView(),
+            'time' => $time,
+            'services' => $services,
         ];
     }
 

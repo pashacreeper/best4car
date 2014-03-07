@@ -50,9 +50,18 @@
             <label>Время работы</label>
         </p>
         <ul class="btnFiltr-group">
-            <li><input id="CheckBox1" class="checkBox" type="checkbox" data-serarch-form="24hours" name="time[24hours]"/><label class="btnFiltr btnFiltrFirst" for="CheckBox1">24 часа</label></li>
-            <li><input id="CheckBox2" class="checkBox" type="checkbox" data-serarch-form="late" name="time[late]"/><label class="btnFiltr" for="CheckBox2">До 21:00</label></li>
-            <li><input id="CheckBox3" class="checkBox" type="checkbox" name="time[weekends]"/><label class="btnFiltr btnFiltrLast" for="CheckBox3">Выходные</label></li>
+            <li>
+                <input id="CheckBox1" class="checkBox" type="checkbox" data-serarch-form="24hours" name="time[24hours]" {% if time['24hours'] is defined %}checked="checked"{% endif %}/>
+                <label class="btnFiltr btnFiltrFirst {% if time['24hours'] is defined %}btnFiltrActive{% endif %}" for="CheckBox1">24 часа</label>
+            </li>
+            <li>
+                <input id="CheckBox2" class="checkBox" type="checkbox" data-serarch-form="late" name="time[late]" {% if time.late is defined %}checked="checked"{% endif %}/>
+                <label class="btnFiltr {% if time.late is defined %}btnFiltrActive{% endif %}" for="CheckBox2">До 21:00</label>
+            </li>
+            <li>
+                <input id="CheckBox3" class="checkBox" type="checkbox" name="time[weekends]" {% if time.weekends is defined %}checked="checked"{% endif %}/>
+                <label class="btnFiltr btnFiltrLast {% if time.weekends is defined %}btnFiltrActive{% endif %}" for="CheckBox3">Выходные</label>
+            </li>
         </ul>
 
         <p class="contentRightItem">
@@ -60,38 +69,38 @@
         </p>
         <ul class="btnFiltr-group dop">
             <li>
-                <input id="CheckBox4" class="checkBox" type="checkbox" data-search-form="evaquate" name="additional_services[evaquate]"/>
-                <label class="btnFiltr btnFiltrFirst" for="CheckBox4">
+                <input {% if services.evaquate is defined %}checked="checked"{% endif %} id="CheckBox4" class="checkBox" type="checkbox" data-search-form="evaquate" name="additional_services[evaquate]"/>
+                <label class="btnFiltr {% if services.evaquate is defined %}btnFiltrActive{% endif %} btnFiltrFirst" for="CheckBox4">
                     <i class="iconDopWork iconevacuation" title="Эвакуатор"></i>
                 </label>
             </li>
             <li>
-                <input id="CheckBox5" class="checkBox" type="checkbox" data-search-form="wifi" name="additional_services[wifi]"/>
-                <label class="btnFiltr" for="CheckBox5">
+                <input {% if services.wifi is defined %}checked="checked"{% endif %} id="CheckBox5" class="checkBox" type="checkbox" data-search-form="wifi" name="additional_services[wifi]"/>
+                <label class="btnFiltr {% if services.wifi is defined %}btnFiltrActive{% endif %}" for="CheckBox5">
                     <i class="iconDopWork iconwifi" title="WiFi"></i>
                 </label>
             </li>
             <li>
-                <input id="CheckBox6" class="checkBox" type="checkbox" data-search-form="tv" name="additional_services[tv]"/>
-                <label class="btnFiltr" for="CheckBox6">
+                <input {% if services.tv is defined %}checked="checked"{% endif %} id="CheckBox6" class="checkBox" type="checkbox" data-search-form="tv" name="additional_services[tv]"/>
+                <label class="btnFiltr {% if services.tv is defined %}btnFiltrActive{% endif %}" for="CheckBox6">
                     <i class="iconDopWork iconotdyh" title="Телевизор"></i>
                 </label
             </li>
             <li>
-                <input id="CheckBox7" class="checkBox" type="checkbox" data-search-form="coffee" name="additional_services[coffe]"/>
-                <label class="btnFiltr" for="CheckBox7">
+                <input {% if services.coffee is defined %}checked="checked"{% endif %} id="CheckBox7" class="checkBox" type="checkbox" data-search-form="coffee" name="additional_services[coffe]"/>
+                <label class="btnFiltr {% if services.coffe is defined %}btnFiltrActive{% endif %}" for="CheckBox7">
                     <i class="iconDopWork iconkofe" title="Кофе"></i>
                 </label>
             </li>
             <li>
-                <input id="CheckBox8" class="checkBox" type="checkbox" data-serarch-form="credit-card" name="additional_services[credit_card]"/>
-                <label class="btnFiltr" for="CheckBox8">
+                <input {% if services.credit_card is defined %}checked="checked"{% endif %} id="CheckBox8" class="checkBox" type="checkbox" data-serarch-form="credit-card" name="additional_services[credit_card]"/>
+                <label class="btnFiltr {% if services.credit_card is defined %}btnFiltrActive{% endif %}" for="CheckBox8">
                     <i class="iconDopWork iconcard" title="Кредитные карты"></i>
                 </label>
             </li>
             <li>
-                <input id="CheckBox9" class="checkBox" type="checkbox" data-serarch-form="restaurant" name="additional_services[cafe]"/>
-                <label class="btnFiltr btnFiltrLast" for="CheckBox9">
+                <input {% if services.cafe is defined %}checked="checked"{% endif %} id="CheckBox9" class="checkBox" type="checkbox" data-serarch-form="restaurant" name="additional_services[cafe]"/>
+                <label class="btnFiltr {% if services.cafe is defined %}btnFiltrActive{% endif %} btnFiltrLast" for="CheckBox9">
                     <i class="iconDopWork iconcafe" title="Кафе"></i>
                 </label>
             </li>
