@@ -73,22 +73,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('#accountUnIdentified').on('submit', 'form', function(e){
-            e.preventDefault();
-            var $this = $(this),
-                $loginFormWrapper = $('#loginFormWrapper');
-
-            $.ajax({
-                type: "POST",
-                url: $this.attr('action'),
-                data: $this.serialize(),
-                success: function(response) {
-                    window.location.reload();
-                }
-            });
-        });
-    });
-</script>
 {% endif %}

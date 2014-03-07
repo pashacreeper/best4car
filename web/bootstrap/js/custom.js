@@ -53,6 +53,25 @@ var mainLayout = function(){
         });
     });
 
+    $('#loginFormWrapper form').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: Routing.generate('api_user_login'),
+            data: $this.serialize(),
+            success: function(response) {
+                console.log(response);
+                if(response.success) {
+                    $('.login-error').hide();
+                    window.location.reload();
+                } else {
+                    $('.login-error').show();
+                }
+            }
+        });
+    });
+
     var menuShown = false;
 
     // User menu
