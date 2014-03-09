@@ -78,7 +78,7 @@ class Company
 
     /**
      * @Assert\File(
-     *     maxSize="5M",
+     *     maxSize="1M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/gif"},
      *     uploadIniSizeErrorMessage="", mimeTypesMessage=""
      * )
