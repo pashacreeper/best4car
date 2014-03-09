@@ -16,7 +16,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('deal.type', 'dt')
             ->leftJoin('deal.company', 'dc')
             ->leftJoin('deal.services', 'ds')
-            ->leftJoin('dc.autos', 'mark')
+            ->leftJoin('deal.auto', 'mark')
             ->leftJoin('deal.autoServices', 'deal_auto_services')
             ->where('deal.endDate > :endDate')
             ->andWhere('dc.cityId = :city')

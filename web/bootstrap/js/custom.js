@@ -53,6 +53,25 @@ var mainLayout = function(){
         });
     });
 
+    $('#loginFormWrapper form').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: Routing.generate('api_user_login'),
+            data: $this.serialize(),
+            success: function(response) {
+                console.log(response);
+                if(response.success) {
+                    $('.login-error').hide();
+                    window.location.reload();
+                } else {
+                    $('.login-error').show();
+                }
+            }
+        });
+    });
+
     var menuShown = false;
 
     // User menu
@@ -249,26 +268,6 @@ var catalogPage = function(){
         CookieHandler.set('popup_for_new_closed', true, (3*24*60*60), '/');
     });
 
-    $('#advancedSearch').hide();
-    $('#toggleAdvancedSearch').on("click", function(e){
-        e.preventDefault();
-        var $this = $(this),
-            defaultText = 'Показать расширенный поиск',
-            closeText = 'Скрыть расширенный поиск',
-            advancedSearch = $('#advancedSearch');
-
-        $this.parent().toggleClass('showRightSearch');
-        advancedSearch.toggle();
-        if (advancedSearch.is(':hidden')) {
-            $this.html(defaultText);
-            $('#map').css('right', '0');
-        } else {
-            $this.html(closeText);
-            $('#map').css('right', '340px');
-        }
-        mainMap.container.fitToViewport();
-    });
-
     var slider1 = $('.bxslider1').bxSlider({
         mode: 'fade',
         captions: true
@@ -396,7 +395,7 @@ var catalogPage = function(){
             } else {
                 $('#subCompanyTypeWrapper').hide();
             }
-        });
+        }).trigger('change');
     });
 };
 

@@ -13,12 +13,48 @@
     <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
 
     <script>
-        var city = '{{ city.gps }}';
-        var oldZoom = 11;
+        var city = '{{ gps }}';
+        var oldZoom = {{ zoom }};
         var placemarkCollection;
         var mainMap;
         var globalCompanies;
         var globalSelectedItem = null;
+        var words = "{{ words }}";
+
+        var pushUrl = function() {
+            var words = $("#inputSearch").val();
+            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
+            window.history.pushState({},"", url);
+        };
+
+        $(document).ready(function(){
+            if($('#advancedSearch').data('opened')) {
+                $('#hideRightSearch').addClass('showRightSearch');
+                $('#advancedSearch').show();
+            } else {
+                $('#advancedSearch').hide();
+            }
+            $('.contentTopRight').on("click", '#toggleAdvancedSearch', function(e){
+                console.log('onClick');
+                e.preventDefault();
+                var $this = $(this),
+                    defaultText = 'Показать расширенный поиск',
+                    closeText = 'Скрыть расширенный поиск',
+                    advancedSearch = $('#advancedSearch');
+
+                $this.parent().toggleClass('showRightSearch');
+                advancedSearch.toggle();
+                if (advancedSearch.is(':hidden')) {
+                    $this.html(defaultText);
+                    $('#map').css('right', '0');
+                } else {
+                    $this.html(closeText);
+                    $('#map').css('right', '340px');
+                }
+                mainMap.container.fitToViewport();
+                pushUrl();
+            });
+        });
 
         var typeIcons = [];
         {% for type in allTypes %}
@@ -40,6 +76,11 @@
             //         oldZoom = mainMap.getZoom();
             //     }
             // });
+            mainMap.events.add('actionend', function (evt) {
+                oldZoom = mainMap.getZoom();
+                city = mainMap.getCenter()[0]+','+mainMap.getCenter()[1];
+                pushUrl();
+            });
         }
 
         var selectPlacemark = function(o) {
@@ -238,9 +279,10 @@
 
         function companiesAjaxLoad() {
             $('#loading').show();
+            pushUrl();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
-                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
                 dataType: 'json',
                 success: function(response){
                     globalCompanies = response;
@@ -274,7 +316,7 @@
         function companiesAjaxLoadList() {
             $.ajax({
                 url: Routing.generate('api_get_companies_list'),
-                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search={{ words }}',
+                data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
                 dataType: 'json',
                 success: function(response){
                     $('#companiesListContainer').empty();
@@ -357,6 +399,12 @@
                 companiesAjaxLoad();
             });
 
+            $('.form-search').on('submit', function(e) {
+                e.preventDefault();
+                words = $("#inputSearch").val();
+                companiesAjaxLoad();
+            });
+
             if (document.documentElement.clientHeight < 800) {
                 $('#registration-form-popup').height(600);
             }
@@ -411,8 +459,8 @@
         <div id="companiesListContainer"></div>
     </div>
 
-    <div id="advancedSearch" class="contentRightWrap">
-        {% render controller('StoContentBundle:Company:advancedSearchForm') %}
+    <div id="advancedSearch" class="contentRightWrap" data-opened="{{ searchOpen }}">
+        {% render controller('StoContentBundle:Company:advancedSearchForm', {'masterRequest': app.request}) %}
     </div>
 {% endblock %}
 

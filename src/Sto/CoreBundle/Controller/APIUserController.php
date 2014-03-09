@@ -100,14 +100,41 @@ class APIUserController extends FOSRestController
      *         400="Invalid username or password combination"}
      * )
      * @Rest\View
-     * @Route("/api/user/login", name="api_user_login")
+     * @Route("/api/user/login", name="api_user_login", options={"expose"=true})
      * @Method({"POST"})
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
+        $errorFlag = false;
         $serializer = $this->container->get('jms_serializer');
+        $user = null;
 
-        return new Response($serializer->serialize(array("message" => "Permission denied", "type" => "error", "code" => 403), 'json'), 403);
+        if ($request->get('_username') && $request->get('_password')) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('StoUserBundle:User')
+                ->findUserByNameOrByEmail($request->get('_username'));
+            if(!$user) {
+                $errorFlag = true;
+            } else {
+                $encoder = $this->container
+                    ->get('security.encoder_factory')
+                    ->getEncoder($user)
+                ;
+                if (!($user->getPassword()==$encoder->encodePassword($request->get('_password'), $user->getSalt()))) {
+                    $errorFlag = true;
+                }
+            }
+        } else {
+            $errorFlag = true;
+        }
+
+        if (!$errorFlag) {
+            $this->get('sto.user.authenticate')->authenticate($user);
+        }
+
+        $response = new Response($serializer->serialize(array("success" => !$errorFlag), 'json'), 200);
+        $response->headers->set('Content-Type',' application-json; charset=utf8');
+        return $response;
     }
 
     /**

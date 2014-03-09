@@ -32,7 +32,9 @@
                             {% for item in user.gallery %}
                                 <li class="slide-item">
                                     <p class="nameActionP">{{ item.name }}</p>
+                                    {% if user.gallery | length <= 6 %}
                                     <a href="#" data-reveal-id="add-photo-modal"><i class="editIconAdd"></i></a>
+                                    {% endif %}
                                     <a href="{{ path('profile_user_gallery_remove', { "id": item.id }) }}"><i class="editIconDel"></i></a>
                                     <img src="{{ vich_uploader_asset(item, 'image') | imagine_filter('deals_carusel_photos') }}"  alt="" />
                                 </li>
