@@ -29,13 +29,14 @@
 
         $(document).ready(function(){
             if($('#advancedSearch').data('opened')) {
-                $('#hideRightSearch').addClass('showRightSearch');
+                $('.hideRightSearch').addClass('showRightSearch');
                 $('#advancedSearch').show();
+                $('#toggleAdvancedSearch').html('Скрыть расширенный поиск');
             } else {
                 $('#advancedSearch').hide();
+                $('#toggleAdvancedSearch').html('Показать расширенный поиск');
             }
             $('.contentTopRight').on("click", '#toggleAdvancedSearch', function(e){
-                console.log('onClick');
                 e.preventDefault();
                 var $this = $(this),
                     defaultText = 'Показать расширенный поиск',
