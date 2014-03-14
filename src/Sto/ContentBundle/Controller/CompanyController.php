@@ -96,7 +96,7 @@ class CompanyController extends MainController
         $companiesCountPlural = $this->declensionOfNumerals($companiesCount, ['компания', 'компании', 'компаний']);
 
 
-        $searchOpen = $request->get('search_open', 0);
+        $searchOpen = $request->get('search_open', 1);
         $zoom = $request->get('zoom', 11);
 
         $gps = $request->get('gps', $city->getGps());
