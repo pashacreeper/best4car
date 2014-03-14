@@ -200,6 +200,7 @@ class CompanyAdmin extends Admin
             ->addIdentifier('id')
             ->addIdentifier('logo', null, ['template' => 'StoCoreBundle:Admin:list_image.html.twig'])
             ->addIdentifier('name')
+            ->addIdentifier('registredFully', null, ['label' => 'Регистрация завершена?'])
         ;
     }
 
@@ -224,6 +225,7 @@ class CompanyAdmin extends Admin
                         ->where('subType.parent is NOT NULL');
                 }
             ])
+            ->add('registredFully', null, ['label' => 'Регистрация завершена?'])
         ;
     }
 
