@@ -3,6 +3,7 @@
         <h1 class="title2">Действующие акции компании</h1>
         {% for deal in deals %}
             <div class="actionItem">
+                <a id="deals-{{ deal.id }}"></a>
                 <a href="{{ path('content_deal_show', {'id': deal.id}) }}">
                     {% if deal.imageName %}
                         <img src="/{{ storage_path }}/deal_image/{{ deal.imageName }}" alt="фото пользователя" />
@@ -13,13 +14,14 @@
                     <div class="actionItemBottom">
                         <p>Отзывов <span class="blue spanFloatRight">{{ deal.feedbacks | length }}</span></p>
                         <p>Период проведения <br/><span class="blue">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM YYYY') }}</span></p>
+                        <a class="company-deals-number" href="#deals-{{ deal.id }}">#{{ deal.id }}</a>
                         {% if deal.auto|length %}
                             <p class="">Автомобили<br>
                             {% for auto in deal.auto %}
                                 <span class="blue">{{ auto }}</span>
                             {% endfor %}
+                            </p>
                         {% endif %}
-                        </p>
                     </div>
                 </div>
             </div>
