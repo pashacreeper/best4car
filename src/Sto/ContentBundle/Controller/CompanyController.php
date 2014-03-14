@@ -49,9 +49,11 @@ class CompanyController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
+        $specializations = $em->getRepository('StoCoreBundle:CompanySpecialization')->getByCompany($company);
+
         $services = [];
-        if (0 < $company->getSpecializations()->count()) {
-            $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($company->getSpecializations());
+        if (0 < count($specializations)) {
+            $services = $em->getRepository('StoCoreBundle:CompanyAutoService')->findBySpecializtions($specializations);
         }
 
         $gallery = $em->getRepository('StoCoreBundle:Company')->getCompanyGallery($company);
@@ -59,6 +61,7 @@ class CompanyController extends MainController
         return [
             'company' => $company,
             'isManager' => $isManager,
+            'specializations' => $specializations,
             'services' => $services,
             'gallery' => $gallery
         ];

@@ -6,7 +6,7 @@ use Sto\CoreBundle\Entity\Company;
 use Sto\CoreBundle\Entity\CompanyType;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CompanySpecializationRepository")
  * @ORM\Table(name="company_specializations")
  */
 class CompanySpecialization

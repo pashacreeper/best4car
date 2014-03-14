@@ -30,9 +30,9 @@
 {% endmacro %}
 <div class="servicesSpecialisationWrap">
     <div class="accordion" id="accordion2">
-        {% if company.specializations | length %}
+        {% if specializations | length %}
             <h3 class="servicesSpecialisationTitle titleH2">Специализация и услуги</h3>
-            {% for specialization in company.specializations %}
+            {% for specialization in specializations %}
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <div class="accordion-toggle" id="{{ loop.index }}">

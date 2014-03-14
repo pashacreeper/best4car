@@ -17,22 +17,41 @@ class CompanyAutoServiceRepository extends EntityRepository
         }
 
         $result = $this->createQueryBuilder('s')
+            ->select('s, ss, IDENTITY(s.specialization) as specialization_id, IDENTITY(s.parent) as parent_id')
+            ->join('s.service', 'ss')
             ->where('s.specialization IN (:specializations)')
-            ->andWhere('s.parent IS NULL')
             ->setParameter('specializations', $ids)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
 
         $entities = [];
         foreach ($result as $row) {
-            $specialization = $row->getSpecialization()->getId();
-            if (!isset($entities[$specialization])) {
-                $entities[$specialization] = [];
+            if(!$row['parent_id']) {
+                $specialization = $row['specialization_id'];
+                if (!isset($entities[$specialization])) {
+                    $entities[$specialization] = [];
+                }
+                $newRow = $row[0];
+                $newRow['children'] = $this->getChildrenSpecs($row, $result);
+                $entities[$specialization][] = $newRow;
             }
-            $entities[$specialization][] = $row;
         }
 
         return $entities;
+    }
+
+    public function getChildrenSpecs($current, $entities)
+    {
+        $children = [];
+        foreach ($entities as $child) {
+            if($child['parent_id'] == $current[0]['id']) {
+                $newRow = $child[0];
+                $newRow['children'] = [];
+                $children[] = $newRow;
+            }
+        }
+
+        return $children;
     }
 }
