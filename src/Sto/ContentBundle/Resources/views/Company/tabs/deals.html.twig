@@ -1,5 +1,5 @@
-<div class="leftContent">
-    {% if deals|length %}
+{% if deals|length %}
+    <div class="leftContent">
         <h1 class="title2">Действующие акции компании</h1>
         {% for deal in deals %}
             <div class="actionItem">
@@ -24,8 +24,12 @@
                 </div>
             </div>
         {% endfor %}
-    {% endif %}
-</div>
+    </div>
+{% else %}
+    <div class="no-deals">
+        Компания пока не опубликовала актуальные акции
+    </div>
+{% endif %}
 
 <div class="rightContent"></div>
 
