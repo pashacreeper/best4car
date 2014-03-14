@@ -5,19 +5,14 @@
         {% endif %}
 
         <div class="actionItemMini">
-            <a id="entry{{ deal.id }}"></a>
-            <span class="actionItemLink">
+            <a href="{{ path('content_deal_show', {'id': deal.id }) }}" class="actionItemLink">
                 {% if deal.imageName %}
                     {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
-                    <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
-                        <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
-                    </a>
+                    <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
                 {% endif %}
                 <div class="actionItemBottomWrap">
                     <div class="actionItemBottom">
-                        <a href="{{ path('content_deal_show', {'id': deal.id }) }}">
-                            <h4>{{ deal.name }}</h4>
-                        </a>
+                        <h4>{{ deal.name }}</h4>
                         <p>{{ deal.company.name }} <span class="indexLevelMini"><span class="indexBgMini"></span>{{ deal.company.rating }}</span></p>
                         <p class="bottomP">
                             <span class="actionItemBottomP">
@@ -29,15 +24,10 @@
                                     Все автомобили
                                 {% endif %}
                             </span>
-                            <span class="actionItemBottomSpan">
-                                {{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}
-                                &nbsp;
-                                <a href="#entry{{ deal.id }}">#{{ deal.id }}</a>
-                            </span>
-                        </p>
+                            <span class="actionItemBottomSpan">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMM') }}</span></p>
                     </div>
                 </div>
-            </span>
+            </a>
         </div>
 
         {% if loop.index is even %}

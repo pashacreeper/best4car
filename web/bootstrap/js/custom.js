@@ -531,11 +531,7 @@ var feedbackPage = function(){
 var profilePage = function(){
     (function(){
         $(window).hashchange( function(){
-            var hash = location.hash;
-            if (hash.indexOf('-')) {
-                hash = hash.substring(0, hash.indexOf('-'));
-            }
-            var $tabButton = $('.tabs ul.tabNavigation').find('a[href="' + hash + '"]');
+            var $tabButton = $('.tabs ul.tabNavigation').find('a[href="' + location.hash + '"]');
             if (!$tabButton.hasClass('selected')) {
                 $tabButton.click();
             }
@@ -549,9 +545,6 @@ var profilePage = function(){
         tabContainers.find('.content').hide();
         if (url.indexOf('#') + 1) {
             hash = url.substring(url.indexOf('#'));
-        }
-        if (hash && hash.indexOf('-')) {
-            hash = hash.substring(0, hash.indexOf('-'));
         }
 
         if (hash && hash.length > 1) {
