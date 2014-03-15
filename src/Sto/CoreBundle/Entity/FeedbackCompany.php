@@ -131,4 +131,9 @@ class FeedbackCompany extends Feedback
     {
         return $this->priceLevelId;
     }
+
+    public function getFeedbackType()
+    {
+        return 'company';
+    }
 }

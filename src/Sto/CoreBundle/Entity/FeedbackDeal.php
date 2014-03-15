@@ -79,4 +79,9 @@ class FeedbackDeal extends Feedback
 
         return $this;
     }
+
+    public function getFeedbackType()
+    {
+        return 'deal';
+    }
 }
