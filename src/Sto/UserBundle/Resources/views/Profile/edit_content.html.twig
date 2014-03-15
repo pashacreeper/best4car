@@ -1,4 +1,4 @@
-<section class="contentMain row tabs">
+<section class="contentMain row tabs" style="margin: 16px auto 0 auto;">
     <ul class="tabNavigation">
         <li>
             <a href="#information">Общая информация</a>
@@ -13,7 +13,7 @@
             {{ form_row(form.firstName) }}
             <div>
                 {{ form_label(form.email) }}
-                <p style="padding-bottom:5px;">Данный емайл используется для входа на сайт и не отображается в вашем профиле.</p>
+                <p class="hint-text">Данный емайл используется для входа на сайт и не отображается в вашем профиле.</p>
                 {{ form_widget(form.email) }}
             </div>
             {{ form_row(form.phoneNumber) }}
@@ -63,7 +63,7 @@
             </div>
             <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
                 <label>Email для отображения в профиле</label>
-                <p style="padding-bottom:5px;">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
+                <p class="hint-text">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
                 {% for field in form.contactEmails %}
                     {{ form_widget(field) }}
                 {% endfor %}
