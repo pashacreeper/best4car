@@ -401,10 +401,16 @@ var catalogPage = function(){
 
 var dealsPage = function(){
     $('#dealsContainer').on('mouseenter', '.actionItemLink', function(){
-        $(this).children('.actionItemBottomWrap').css("top", "90px");
+        var height = 110 - $(this).find('h4').height();
+        $(this).children('.actionItemBottomWrap').css("top", height+"px");
     });
     $('#dealsContainer').on('mouseleave', '.actionItemLink', function(){
-        $(this).children('.actionItemBottomWrap').css("top", "120px");
+        var height = 140 - $(this).find('h4').height();
+        $(this).children('.actionItemBottomWrap').css("top", height+"px");
+    });
+    $('#dealsContainer .actionItemLink').each(function() {
+        var height = 140 - $(this).find('h4').height();
+        $(this).children('.actionItemBottomWrap').css("top", height+"px");
     });
     // Deals menu
     $('.menuLeftBar').on('click', 'li', function(){

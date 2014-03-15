@@ -14,6 +14,10 @@ var loadDeals = function($, Routing){
             url: url + "?page=" + page + "&deal_type=" + dealType,
             success: function(html) {
                 $('#dealsContainer').append(html);
+                $('#dealsContainer .actionItemLink').each(function() {
+                    var height = 140 - $(this).find('h4').height();
+                    $(this).children('.actionItemBottomWrap').css("top", height+"px");
+                });
             },
             error: function(e) {
                 console.log(e.message);
