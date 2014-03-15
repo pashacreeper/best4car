@@ -1,5 +1,5 @@
-{% if deals|length %}
-    <div class="leftContent">
+<div class="leftContent">
+    {% if deals|length %}
         <h1 class="title2">Действующие акции компании</h1>
         {% for deal in deals %}
             <div class="actionItem">
@@ -24,17 +24,17 @@
                 </div>
             </div>
         {% endfor %}
-    </div>
-{% else %}
-    <div class="no-deals">
-        Компания пока не опубликовала актуальные акции
-    </div>
-{% endif %}
+    {% else %}
+        <div class="no-deals">
+            Компания пока не опубликовала актуальные акции
+        </div>
+    {% endif %}
+</div>
 
 <div class="rightContent"></div>
 
+<div class="bottomContent">
 {% if archivedDealsCount %}
-    <div class="bottomContent">
         <span class="secondaryLink saveDraft"><a href="{{ path('company_deal_arhive', {'id': company.id}) }}">Показать архивные акции</a></span>
-    </div>
 {% endif %}
+</div>
