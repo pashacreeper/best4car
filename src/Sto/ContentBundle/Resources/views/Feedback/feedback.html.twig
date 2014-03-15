@@ -6,6 +6,7 @@
 {% for feedback in feedbacks %}
 {% if feedback.isHidden and not (app.security.isGranted('ROLE_ADMIN') or app.security.isGranted('ROLE_MODERATOR')) %}{% else %}
 <div class="reviewContentItem" data-feedback-block="{{ feedback.id }}">
+    <a id="feedbacks-{{ feedback.id }}"></a>
     <div class="reviewAccount">
         <div class="reviewAccountImg">
             <a href="{{ path('user_profile', {'id': feedback.user.id}) }}">
@@ -25,7 +26,7 @@
             <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
             <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
             <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
-            <span class="reviewData">{{ feedback.date|date("d.m.Y") }}</span>
+            <span class="reviewData">{{ feedback.date|date("d.m.Y") }} <a href="#feedbacks-{{ feedback.id }}">#{{ feedback.id }}</a></span>
         </div>
         <div class="reviewCont">
             <div class="reviewContTop">
