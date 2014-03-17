@@ -5,9 +5,11 @@ namespace Sto\CoreBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Sto\UserBundle\Entity\User;
 use Doctrine\ORM\Query;
+use Sto\CoreBundle\Entity\Company;
+use Sto\CoreBundle\Entity\Deal;
 
 /**
- * CityRepository
+ * FeedbackRepository
  */
 class FeedbackRepository extends EntityRepository
 {
@@ -95,5 +97,31 @@ class FeedbackRepository extends EntityRepository
         }
 
         return $qb->getQuery();
+    }
+
+    public function getMaxFeedbackNumberByCompany(Company $company)
+    {
+        $em = $this->getEntityManager();
+        return $em->getRepository('StoCoreBundle:FeedbackCompany')
+            ->createQueryBuilder('fc')
+            ->select('MAX(fc.feedbackNumber)')
+            ->where('fc.company = :company')
+            ->setParameter('company', $company)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function getMaxFeedbackNumberByDeal(Deal $deal)
+    {
+        $em = $this->getEntityManager();
+        return $em->getRepository('StoCoreBundle:FeedbackDeal')
+            ->createQueryBuilder('fd')
+            ->select('MAX(fd.feedbackNumber)')
+            ->where('fd.deal = :deal')
+            ->setParameter('deal', $deal)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
     }
 }

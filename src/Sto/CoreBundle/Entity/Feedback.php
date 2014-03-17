@@ -126,6 +126,11 @@ class Feedback
      */
     private $hidden;
 
+    /**
+     * @ORM\Column(name="feedback_number", type="integer", nullable=true)
+     */
+    private $feedbackNumber;
+
     public function __construct(User $user = null)
     {
         if ($user) {
@@ -600,5 +605,17 @@ class Feedback
     public function getEvaluation()
     {
         return $this->evaluation;
+    }
+
+    public function getFeedbackNumber()
+    {
+        return $this->feedbackNumber;
+    }
+
+    public function setFeedbackNumber($number)
+    {
+        $this->feedbackNumber = $number;
+
+        return $this;
     }
 }

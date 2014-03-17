@@ -24,3 +24,7 @@ services:
     sto.notifications.email:
         class: Sto\CoreBundle\Service\EmailNotifications
         arguments: [@mailer, @doctrine.orm.entity_manager, @sto.template_transformer.email, @router]
+    sto.listener.feedback_number:
+        class: Sto\CoreBundle\Service\FeedbackNumberListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

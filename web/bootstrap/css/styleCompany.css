@@ -741,7 +741,7 @@ a.addEmail {
     color: #666;
     position: absolute;
     bottom: 1px;
-    right: 1px;
+    right: -20px;
 }
 
 .reviewCont {
