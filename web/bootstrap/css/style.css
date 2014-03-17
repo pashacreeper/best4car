@@ -1152,7 +1152,7 @@ select {
 }
 
 .bottomContent {
-    width: 100%;
+    width: 680px;
     padding-top: 30px;
     border-top: 1px solid #f35d2e;
     clear: both;
