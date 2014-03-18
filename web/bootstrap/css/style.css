@@ -1152,6 +1152,17 @@ select {
 }
 
 .bottomContent {
+    width: 100%;
+    padding-top: 30px;
+    border-top: 1px solid #f35d2e;
+    clear: both;
+    margin-top: 30px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 69px;
+}
+
+.bottomContentDeals {
     width: 680px;
     padding-top: 30px;
     border-top: 1px solid #f35d2e;
