@@ -116,14 +116,6 @@ class UserProfileType extends BaseType
                 'label' => false,
                 'by_reference' => false,
             ])
-            ->add('contacts', 'collection', [
-                'type' => new UserContactsType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'label' => false,
-                'by_reference' => false,
-            ])
         ;
     }
 

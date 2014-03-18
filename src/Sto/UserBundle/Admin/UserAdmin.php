@@ -46,7 +46,6 @@ class UserAdmin extends Admin
             ->add('requests')
             ->add('groups')
             ->add('updatedAt')
-            ->add('contacts')
             ->add('usingEmail')
             ->add('avatarVk')
         ;
@@ -101,13 +100,6 @@ class UserAdmin extends Admin
                 'required' => false,
             ))
             ->add('avatarVk')
-            ->add('contacts', 'sonata_type_collection', [
-                'by_reference' => false,
-            ],
-            [
-                'edit' => 'inline',
-                'inline' => 'table',
-            ])
         ;
     }
 

@@ -39,11 +39,6 @@ class ProfileController extends BaseController
             $originalEmails[] = $email;
         }
 
-        $originalContacts = [];
-        foreach ($user->getContacts() as $contact) {
-            $originalContacts[] = $contact;
-        }
-
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.profile.form.factory');
 
@@ -70,18 +65,6 @@ class ProfileController extends BaseController
 
                 foreach ($originalEmails as $email) {
                     $this->container->get('doctrine.orm.entity_manager')->remove($email);
-                }
-
-                foreach ($user->getContacts() as $contact) {
-                    foreach ($originalContacts as $key => $toDel) {
-                        if ($toDel->getId() === $contact->getId()) {
-                            unset($originalContacts[$key]);
-                        }
-                    }
-                }
-
-                foreach ($originalContacts as $contact) {
-                    $this->container->get('doctrine.orm.entity_manager')->remove($contact);
                 }
 
                 $userManager->updateUser($user);

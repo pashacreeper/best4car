@@ -69,15 +69,6 @@
                 {% endfor %}
             </div>
 
-            <div class="contentLabel rightContaktItem" id="contact_contacts" data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}">
-                <label>Контакты</label>
-                {% for field in form.contacts %}
-                    <div class="userContactsFormWrapper">
-                        {{ form_widget(field) }}
-                    </div>
-                {% endfor %}
-            </div>
-
             {% if user.vkontakteAccessToken %}
             <div class="contentLabel rightContaktItem" id="contact_profiles">
                 <label>Привязанные аккаунты соц сетей</label>
