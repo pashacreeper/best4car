@@ -61,11 +61,9 @@
                         <p class="infoCompanyAddTitle contentText">Телефон:</p>
                         <p class="infoCompanyDescription">{{ user.phoneNumber }}</p>
                     {% endif %}
-                    {% if user.contactEmails %}
-                        <p class="infoCompanyAddTitle contentText">Публичные e-mail:</p>
-                        {%- for email in user.contactEmails %}
-                            <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ email }}">{{ email }}</a></p>
-                        {% endfor -%}
+                    {% if user.contactEmail %}
+                        <p class="infoCompanyAddTitle contentText">Публичный e-mail:</p>
+                        <p class="infoCompanyDescription"><a class="linkContact" href="mailto:{{ user.contactEmail }}">{{ user.contactEmail }}</a></p>
                     {% endif %}
                     {% if user.linkVK %}
                         <p class="infoCompanyAddTitle contentText">VKontakte:</p>

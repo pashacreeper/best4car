@@ -61,12 +61,10 @@
                     {{ form_widget(form.linkFB) }}
                 </p>
             </div>
-            <div class="contentLabel rightContaktItem" id="contact_emails" data-prototype="{{ form_widget(form.contactEmails.vars.prototype)|e }}">
+            <div class="contentLabel rightContaktItem" id="contact_emails">
                 <label>Email для отображения в профиле</label>
-                <p class="hint-text">Вы можете указть несколько email адресов, которые будут отображаться в вашем профиле на сайте.</p>
-                {% for field in form.contactEmails %}
-                    {{ form_widget(field) }}
-                {% endfor %}
+                <p class="hint-text">Вы можете указть email адрес, который будет отображаться в вашем профиле на сайте.</p>
+                {{ form_widget(form.contactEmail) }}
             </div>
 
             {% if user.vkontakteAccessToken %}
@@ -86,69 +84,3 @@
         </div>
     </form>
 </section>
-
-<script>
-    function addTagForm(collectionHolder, $newLink) {
-        var prototype = collectionHolder.data('prototype');
-        var index = collectionHolder.data('index');
-        var newForm = prototype.replace(/__name__/g, index);
-        collectionHolder.data('index', index + 1);
-        var $newForm = $('<div></div>').append(newForm);
-        $newLink.before($newForm);
-        $newForm.find('> div > div').each(function(){
-            addTagFormDeleteLink($(this));
-        });
-    }
-
-    function addTagForm2(collectionHolder, $newLink) {
-        var prototype = collectionHolder.data('prototype');
-        var index = collectionHolder.data('index');
-        var newForm = prototype.replace(/__name__/g, index);
-        collectionHolder.data('index', index + 1);
-
-        var $newForm = $('<div class="userContactsFormWrapper"></div>').append(newForm);
-        $newLink.before($newForm);
-        $newForm.find('> div').each(function(){
-            addTagFormDeleteLink($(this));
-        });
-    }
-
-    function addTagFormDeleteLink($tagForm) {
-        var $removeFormA = $('<a href="#"><i class="icon-remove-circle"></i></a>');
-        $tagForm.append($removeFormA);
-
-        $removeFormA.on('click', function(e) {
-            e.preventDefault();
-            $tagForm.remove();
-        });
-    }
-
-    $(document).ready(function(){
-        var collectionHolder = $('#contact_emails');
-        var $addTagLink = $('<span class="addImg">Добавить<i class="icon-ok-sign"></i></span>');
-        var $newLink = $('<div class="element" />').append($addTagLink);
-
-        collectionHolder.find('> div > div').each(function() {
-            addTagFormDeleteLink($(this));
-        });
-
-        $('.userContactsFormWrapper > div').each(function() {
-            addTagFormDeleteLink($(this));
-        });
-
-
-        collectionHolder.append($newLink);
-        collectionHolder.data('index', collectionHolder.find(':input').length);
-        $addTagLink.on('click', function(e) {
-            e.preventDefault();
-            addTagForm(collectionHolder, $newLink);
-        });
-
-        $('#contact_contacts').append('<div class="element"><span class="addImg">Добавить<i class="icon-ok-sign"></i></span></div>');
-        $('#contact_contacts').data('index', $('#contact_contacts').find(':input').length);
-        $('#contact_contacts .addImg').on('click', function(e) {
-            e.preventDefault();
-            addTagForm2($('#contact_contacts'), $(this));
-        });
-    });
-</script>

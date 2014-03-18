@@ -34,11 +34,6 @@ class ProfileController extends BaseController
             return $event->getResponse();
         }
 
-        $originalEmails = [];
-        foreach ($user->getContactEmails() as $email) {
-            $originalEmails[] = $email;
-        }
-
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.profile.form.factory');
 
@@ -54,18 +49,6 @@ class ProfileController extends BaseController
 
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
-
-                foreach ($user->getContactEmails() as $email) {
-                    foreach ($originalEmails as $key => $toDel) {
-                        if ($toDel->getId() === $email->getId()) {
-                            unset($originalEmails[$key]);
-                        }
-                    }
-                }
-
-                foreach ($originalEmails as $email) {
-                    $this->container->get('doctrine.orm.entity_manager')->remove($email);
-                }
 
                 $userManager->updateUser($user);
 

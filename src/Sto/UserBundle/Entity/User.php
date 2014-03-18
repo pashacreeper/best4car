@@ -253,9 +253,11 @@ class User extends BaseUser
     private $gallery;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserContactEmail", mappedBy="user", cascade={"all"})
-     **/
-    private $contactEmails;
+     * @var string
+     *
+     * @ORM\Column(name="contact_email", type="string", length=255, nullable=true)
+     */
+    private $contactEmail;
 
     public function __construct()
     {
@@ -270,7 +272,6 @@ class User extends BaseUser
         $this->rating = 10;
         $this->usingEmail = true;
         $this->gallery = new ArrayCollection();
-        $this->contactEmails = new ArrayCollection();
     }
 
     public function __toString()
@@ -951,39 +952,6 @@ class User extends BaseUser
         return $this->avatarUrl == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/user_photo/{$this->avatarUrl}";
     }
 
-    /**
-     * Set contactEmails
-     *
-     * @param Collection $contactEmails
-     */
-    public function setContactEmails($contactEmails)
-    {
-        $this->contactEmails = $contactEmails;
-
-        return $this;
-    }
-
-    public function addContactEmail($contactEmail)
-    {
-        $contactEmail->setUser($this);
-        $this->contactEmails->add($contactEmail);
-    }
-
-    public function removeContactEmail($contactEmail)
-    {
-        $this->contactEmails->removeElement($contactEmail);
-    }
-
-    /**
-     * Get contactEmails
-     *
-     * @return Collection
-     */
-    public function getContactEmails()
-    {
-        return $this->contactEmails;
-    }
-
     public function hasVkontakteAccessToken()
     {
         if ($this->getVkontakteAccessToken() !== null) {
@@ -1000,5 +968,17 @@ class User extends BaseUser
         } else {
             return false;
         }
+    }
+
+    public function getContactEmail()
+    {
+        return $this->contactEmail;
+    }
+
+    public function setContactEmail($email)
+    {
+        $this->contactEmail = $email;
+
+        return $this;
     }
 }

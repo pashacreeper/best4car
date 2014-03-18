@@ -921,3 +921,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     color: #fd0000;
     display: none;
 }
+
+.genderSelect {
+    margin-bottom: 10px;
+}
