@@ -24,7 +24,8 @@
         var pushUrl = function() {
             var words = $("#inputSearch").val();
             var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
-            window.history.pushState({},"", url);
+            if(window.history.pushState) 
+                window.history.pushState({},"", url);
         };
 
         $(document).ready(function(){
