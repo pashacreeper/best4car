@@ -5,6 +5,7 @@ namespace Sto\ContentBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationType extends BaseType
 {
@@ -17,7 +18,10 @@ class RegistrationType extends BaseType
                 'required' => true,
                 'attr' => [
                     'class' => 'inputFormEnter span6'
-                ]
+                ],
+                'constraints' => [
+                    new NotBlank(),
+                ],
             ])
             ->add('username', 'text', [
                 'label' => 'Ник',
@@ -59,6 +63,13 @@ class RegistrationType extends BaseType
                 'invalid_message' => 'fos_user.password.mismatch',
             ])
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => 'Registration',
+        ));
     }
 
     public function getName()
