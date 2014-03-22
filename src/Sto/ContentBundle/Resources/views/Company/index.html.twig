@@ -21,11 +21,19 @@
         var globalSelectedItem = null;
         var words = "{{ words }}";
 
+        (function(window,undefined){
+
+            // Bind to StateChange Event
+            History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+                var State = History.getState(); // Note: We are using History.getState() instead of event.state
+            });
+
+        })(window);
+
         var pushUrl = function() {
             var words = $("#inputSearch").val();
             var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
-            if(window.history.pushState) 
-                window.history.pushState({},"", url);
+            History.pushState(null, null, url);
         };
 
         $(document).ready(function(){
