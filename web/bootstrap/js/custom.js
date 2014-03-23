@@ -395,7 +395,10 @@ var catalogPage = function(){
             } else {
                 $('#subCompanyTypeWrapper').hide();
             }
-        }).trigger('change');
+        })
+        if($('#sto_content_advanced_search_companyType').val()) {
+            $('#sto_content_advanced_search_companyType').trigger('change');
+        }
     });
 };
 

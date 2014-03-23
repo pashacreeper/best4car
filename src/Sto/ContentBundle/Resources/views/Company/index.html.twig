@@ -13,6 +13,7 @@
     <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
 
     <script>
+    (function(window,undefined){
         var city = '{{ gps }}';
         var oldZoom = {{ zoom }};
         var placemarkCollection;
@@ -21,19 +22,31 @@
         var globalSelectedItem = null;
         var words = "{{ words }}";
 
-        (function(window,undefined){
 
-            // Bind to StateChange Event
-            History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-                var State = History.getState(); // Note: We are using History.getState() instead of event.state
-            });
 
-        })(window);
+        var
+            urlNotInit = true,
+            History = window.History, // Note: We are using a capital H instead of a lower h
+            State = History.getState();
+
+
+        // Bind to StateChange Event
+        History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+            var State = History.getState(); // Note: We are using History.getState() instead of event.state
+            if(urlNotInit) {
+                window.location = State.url;
+            }
+        });
+
+
 
         var pushUrl = function() {
             var words = $("#inputSearch").val();
             var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
-            History.pushState(null, null, url);
+            if(urlNotInit){
+                urlNotInit = false;
+                History.pushState(null, null, url);
+            }
         };
 
         $(document).ready(function(){
@@ -289,7 +302,6 @@
 
         function companiesAjaxLoad() {
             $('#loading').show();
-            pushUrl();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
@@ -398,20 +410,24 @@
             });
 
             $('#sto_content_company_sort_sort').on('change', function () {
+                pushUrl();
                 companiesAjaxLoad();
             });
 
-            $('#advanced-search-form').on('change', 'select', function () {
+            $('#advanced-search-form').on('change', 'select', function (e) {
+                pushUrl();
                 companiesAjaxLoad();
             });
 
             $('#advanced-search-form').on('change', 'input', function () {
+                pushUrl();
                 companiesAjaxLoad();
             });
 
             $('.form-search').on('submit', function(e) {
                 e.preventDefault();
                 words = $("#inputSearch").val();
+                pushUrl();
                 companiesAjaxLoad();
             });
 
@@ -421,6 +437,7 @@
         }
 
         ymaps.ready(init);
+        })(window);
     </script>
 {% endblock %}
 
