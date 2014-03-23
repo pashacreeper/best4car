@@ -69,6 +69,7 @@ class RegistrationType extends BaseType
     {
         $resolver->setDefaults(array(
             'validation_groups' => 'Registration',
+            'data_class' => 'Sto\UserBundle\Entity\User',
         ));
     }
 
