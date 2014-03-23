@@ -21,14 +21,12 @@
         var globalCompanies;
         var globalSelectedItem = null;
         var words = "{{ words }}";
-
-
+        var autoZoom = false;
 
         var
             urlNotInit = true,
             History = window.History, // Note: We are using a capital H instead of a lower h
             State = History.getState();
-
 
         // Bind to StateChange Event
         History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
@@ -37,8 +35,6 @@
                 window.location = State.url;
             }
         });
-
-
 
         var pushUrl = function() {
             var words = $("#inputSearch").val();
@@ -266,6 +262,9 @@
             });
 
             mainMap.geoObjects.add(placemarkCollection);
+            if(autoZoom) {
+                mainMap.setBounds(placemarkCollection.getBounds(), {checkZoomRange: true});
+            }
         }
 
         function filterDataByZoom(indexZoom, companies) {
@@ -409,26 +408,28 @@
                 mainMap.container.fitToViewport();
             });
 
-            $('#sto_content_company_sort_sort').on('change', function () {
+            function onSearch () {
+                autoZoom = true;
                 pushUrl();
                 companiesAjaxLoad();
+            }
+
+            $('#sto_content_company_sort_sort').on('change', function () {
+                onSearch();
             });
 
             $('#advanced-search-form').on('change', 'select', function (e) {
-                pushUrl();
-                companiesAjaxLoad();
+                onSearch();
             });
 
             $('#advanced-search-form').on('change', 'input', function () {
-                pushUrl();
-                companiesAjaxLoad();
+                onSearch();
             });
 
             $('.form-search').on('submit', function(e) {
                 e.preventDefault();
                 words = $("#inputSearch").val();
-                pushUrl();
-                companiesAjaxLoad();
+                onSearch();
             });
 
             if (document.documentElement.clientHeight < 800) {
