@@ -8,6 +8,7 @@
 {% block js %}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     {{ parent() }}
+    <script src="{{ asset('bootstrap/js/jquery.history.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
@@ -21,7 +22,6 @@
         var globalSelectedItem = null;
         var words = "{{ words }}";
         var autoZoom = false;
-
 
         var
             urlNotInit = true,
@@ -39,10 +39,8 @@
         var pushUrl = function() {
             var words = $("#inputSearch").val();
             var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
-            if(urlNotInit){
-                urlNotInit = false;
-                History.pushState(null, null, url);
-            }
+            urlNotInit = false;
+            History.pushState(null, null, url);
         };
 
         $(document).ready(function(){
