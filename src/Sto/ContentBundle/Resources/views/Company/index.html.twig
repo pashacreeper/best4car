@@ -260,7 +260,7 @@
             });
 
             mainMap.geoObjects.add(placemarkCollection);
-            if(autoZoom) {
+            if(autoZoom && companies.length) {
                 mainMap.setBounds(placemarkCollection.getBounds(), {checkZoomRange: true});
             }
         }
