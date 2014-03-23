@@ -48,10 +48,13 @@
                 $('.hideRightSearch').addClass('showRightSearch');
                 $('#advancedSearch').show();
                 $('#toggleAdvancedSearch').html('Скрыть расширенный поиск');
+                $('#map').css('right', '340px');
             } else {
                 $('#advancedSearch').hide();
                 $('#toggleAdvancedSearch').html('Показать расширенный поиск');
+                $('#map').css('right', '0');
             }
+            mainMap.container.fitToViewport();
             $('.contentTopRight').on("click", '#toggleAdvancedSearch', function(e){
                 e.preventDefault();
                 var $this = $(this),
