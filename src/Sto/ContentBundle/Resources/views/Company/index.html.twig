@@ -13,7 +13,6 @@
     <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
 
     <script>
-    (function(window,undefined){
         var city = '{{ gps }}';
         var oldZoom = {{ zoom }};
         var placemarkCollection;
@@ -22,6 +21,7 @@
         var globalSelectedItem = null;
         var words = "{{ words }}";
         var autoZoom = false;
+
 
         var
             urlNotInit = true,
@@ -438,7 +438,6 @@
         }
 
         ymaps.ready(init);
-        })(window);
     </script>
 {% endblock %}
 
