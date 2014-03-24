@@ -38,7 +38,7 @@
 
         var pushUrl = function() {
             var words = $("#inputSearch").val();
-            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
+            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city+'&with_deals='+($('#checkBox__autograf1').prop('checked')?1:0);
             urlNotInit = false;
             History.pushState(null, null, url);
         };
