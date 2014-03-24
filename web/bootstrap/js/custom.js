@@ -61,7 +61,6 @@ var mainLayout = function(){
             url: Routing.generate('api_user_login'),
             data: $this.serialize(),
             success: function(response) {
-                console.log(response);
                 if(response.success) {
                     $('.login-error').hide();
                     window.location.reload();
