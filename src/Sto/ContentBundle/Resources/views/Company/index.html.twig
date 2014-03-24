@@ -266,7 +266,11 @@
 
             mainMap.geoObjects.add(placemarkCollection);
             if(autoZoom && companies.length) {
-                mainMap.setBounds(placemarkCollection.getBounds(), {checkZoomRange: true});
+                mainMap.setBounds(placemarkCollection.getBounds(), {checkZoomRange: true, callback: function() {
+                    if(mainMap.getZoom() > 12) {
+                        mainMap.setZoom(12);
+                    }
+                }});
             }
         }
 
