@@ -54,7 +54,8 @@
         "sonata-project/cache-bundle": "dev-master",
         "sonata-project/block-bundle": "dev-master",
         
-        "evercodelab/hipchat-monolog-bundle": "dev-master"
+        "evercodelab/hipchat-monolog-bundle": "dev-master",
+        "beberlei/DoctrineExtensions": "dev-master"
     },
     "require-dev": {
         "elao/web-profiler-extra-bundle": "2.3.*"

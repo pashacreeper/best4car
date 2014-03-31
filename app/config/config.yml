@@ -58,6 +58,11 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        dql:
+            string_functions:
+                CONCAT_WS: DoctrineExtensions\Query\Mysql\ConcatWs
+            datetime_functions:
+                STR_TO_DATE: DoctrineExtensions\Query\Mysql\StrToDate
 
 # Swiftmailer Configuration
 swiftmailer:

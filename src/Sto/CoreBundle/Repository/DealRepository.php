@@ -152,15 +152,14 @@ class DealRepository extends EntityRepository
     {
         $now = new \DateTime('now');
         $query = $this->createQueryBuilder('deal')
+            // ->addSelect("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') as endDateFull")
             ->join('deal.company', 'dc')
-            ->where('deal.endDate >= :endDate')
-            ->andWhere('deal.endTime >= :endTime')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') >= :endDate")
             ->andWhere('dc.cityId = :city')
             ->andWhere('deal.is_vip = 1')
             ->setParameters(
                 [
-                    'endDate' => $now->format("Y-m-d"),
-                    'endTime' => $now->format("H:i:s"),
+                    'endDate' => $now,
                     'city' => $cityId
                 ]
             )
