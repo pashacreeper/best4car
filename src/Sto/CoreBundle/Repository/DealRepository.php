@@ -150,14 +150,17 @@ class DealRepository extends EntityRepository
 
     public function getVipDeals($cityId)
     {
+        $now = new \DateTime('now');
         $query = $this->createQueryBuilder('deal')
             ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate')
+            ->where('deal.endDate >= :endDate')
+            ->andWhere('deal.endTime >= :endTime')
             ->andWhere('dc.cityId = :city')
             ->andWhere('deal.is_vip = 1')
             ->setParameters(
                 [
-                    'endDate' => new \DateTime('now'),
+                    'endDate' => $now->format("Y-m-d"),
+                    'endTime' => $now->format("H:i:s"),
                     'city' => $cityId
                 ]
             )
