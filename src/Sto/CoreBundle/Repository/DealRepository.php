@@ -18,7 +18,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('deal.services', 'ds')
             ->leftJoin('deal.auto', 'mark')
             ->leftJoin('deal.autoServices', 'deal_auto_services')
-            ->where('deal.endDate > :endDate')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') > :endDate")
             ->andWhere('dc.cityId = :city')
             ->groupBy('dt.id')
             ->setParameters(
@@ -85,7 +85,7 @@ class DealRepository extends EntityRepository
             ->leftJoin('dc.additionalServices', 'casp')
             ->leftJoin('deal.auto', 'mark')
             ->leftJoin('deal.services', 'ds')
-            ->where('deal.endDate > :endDate')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') > :endDate")
             ->andWhere('dc.cityId = :city')
             ->orderBy('deal.id', 'DESC')
             ->setParameters(
@@ -115,7 +115,7 @@ class DealRepository extends EntityRepository
     public function getActiveDealsByCompany($companyId)
     {
         return $this->createQueryBuilder('deal')
-            ->where('deal.endDate >= :now')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') >= :now")
             ->andWhere('deal.companyId = :company')
             ->andWhere('deal.draft = 0')
             ->setParameters(['now' => new \DateTime('now'), 'company' => $companyId])
@@ -128,7 +128,7 @@ class DealRepository extends EntityRepository
     {
         return $this->createQueryBuilder('deal')
             ->select('COUNT(deal)')
-            ->where('deal.endDate >= :endDate')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s')  >= :endDate")
             ->andWhere('deal.companyId = :company')
             ->andWhere('deal.draft = 0')
             ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
@@ -140,7 +140,7 @@ class DealRepository extends EntityRepository
     {
         return $this->createQueryBuilder('deal')
             ->select("COUNT(deal)")
-            ->where('deal.endDate < :endDate')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s')  < :endDate")
             ->andWhere('deal.companyId = :company')
             ->setParameters(['endDate' => new \DateTime('now'), 'company' => $companyId])
             ->getQuery()
@@ -152,7 +152,6 @@ class DealRepository extends EntityRepository
     {
         $now = new \DateTime('now');
         $query = $this->createQueryBuilder('deal')
-            // ->addSelect("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') as endDateFull")
             ->join('deal.company', 'dc')
             ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') >= :endDate")
             ->andWhere('dc.cityId = :city')
@@ -175,7 +174,7 @@ class DealRepository extends EntityRepository
             ->select('COUNT(f.id)')
             ->join('deal.feedbacks', 'f')
             ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate AND f.content is not null')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') > :endDate AND f.content is not null")
             ->andWhere('dc.cityId = :city')
             ->having('COUNT(f.id) > 5')
             ->setParameters(
@@ -205,7 +204,7 @@ class DealRepository extends EntityRepository
         $query = $this->createQueryBuilder('deal')
             ->join('deal.feedbacks', 'f')
             ->join('deal.company', 'dc')
-            ->where('deal.endDate > :endDate AND f.content is not null')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') > :endDate AND f.content is not null")
             ->andWhere('dc.cityId = :city')
             ->setParameters(
                 [
