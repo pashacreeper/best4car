@@ -8,6 +8,7 @@
 {% block js %}
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     {{ parent() }}
+    <script src="{{ asset('bootstrap/js/jquery.history.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.bxslider.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/custom.geolocation.js') }}"></script>
@@ -20,12 +21,26 @@
         var globalCompanies;
         var globalSelectedItem = null;
         var words = "{{ words }}";
+        var autoZoom = false;
+
+        var
+            urlNotInit = true,
+            History = window.History, // Note: We are using a capital H instead of a lower h
+            State = History.getState();
+
+        // Bind to StateChange Event
+        History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+            var State = History.getState(); // Note: We are using History.getState() instead of event.state
+            if(urlNotInit) {
+                window.location = State.url;
+            }
+        });
 
         var pushUrl = function() {
             var words = $("#inputSearch").val();
-            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city;
-            if(window.history.pushState) 
-                window.history.pushState({},"", url);
+            var url = '?'+$('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words+'&search_open='+($('#advancedSearch').is(':visible')?1:0)+'&zoom='+oldZoom+'&gps='+city+'&with_deals='+($('#checkBox__autograf1').prop('checked')?1:0);
+            urlNotInit = false;
+            History.pushState(null, null, url);
         };
 
         $(document).ready(function(){
@@ -33,9 +48,14 @@
                 $('.hideRightSearch').addClass('showRightSearch');
                 $('#advancedSearch').show();
                 $('#toggleAdvancedSearch').html('Скрыть расширенный поиск');
+                $('#map').css('right', '340px');
             } else {
                 $('#advancedSearch').hide();
                 $('#toggleAdvancedSearch').html('Показать расширенный поиск');
+                $('#map').css('right', '0');
+            }
+            if(mainMap) {
+                mainMap.container.fitToViewport();
             }
             $('.contentTopRight').on("click", '#toggleAdvancedSearch', function(e){
                 e.preventDefault();
@@ -245,6 +265,13 @@
             });
 
             mainMap.geoObjects.add(placemarkCollection);
+            if(autoZoom && companies.length) {
+                mainMap.setBounds(placemarkCollection.getBounds(), {checkZoomRange: true, callback: function() {
+                    if(mainMap.getZoom() > 12) {
+                        mainMap.setZoom(12);
+                    }
+                }});
+            }
         }
 
         function filterDataByZoom(indexZoom, companies) {
@@ -281,7 +308,6 @@
 
         function companiesAjaxLoad() {
             $('#loading').show();
-            pushUrl();
             $.ajax({
                 url: Routing.generate('api_get_companies'),
                 data: $('#advanced-search-form').serialize() + '&sort=' + $('#sto_content_company_sort_sort').val() + '&search='+words,
@@ -389,22 +415,28 @@
                 mainMap.container.fitToViewport();
             });
 
-            $('#sto_content_company_sort_sort').on('change', function () {
+            function onSearch () {
+                autoZoom = true;
+                pushUrl();
                 companiesAjaxLoad();
+            }
+
+            $('#sto_content_company_sort_sort').on('change', function () {
+                onSearch();
             });
 
-            $('#advanced-search-form').on('change', 'select', function () {
-                companiesAjaxLoad();
+            $('#advanced-search-form').on('change', 'select', function (e) {
+                onSearch();
             });
 
             $('#advanced-search-form').on('change', 'input', function () {
-                companiesAjaxLoad();
+                onSearch();
             });
 
             $('.form-search').on('submit', function(e) {
                 e.preventDefault();
                 words = $("#inputSearch").val();
-                companiesAjaxLoad();
+                onSearch();
             });
 
             if (document.documentElement.clientHeight < 800) {

@@ -169,6 +169,10 @@ class EmailNotifications
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_COMPANY_REGISTER);
 
+        if (!$template) {
+            return false;
+        }
+
         /** @var CompanyManager $manager */
         foreach ($managers as $manager) {
             $this->send(
@@ -191,6 +195,10 @@ class EmailNotifications
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_COMPANY_FEEDBACK);
 
+        if (!$template) {
+            return false;
+        }
+
         /** @var CompanyManager $manager */
         foreach ($managers as $manager) {
             $this->send(
@@ -209,6 +217,10 @@ class EmailNotifications
     {
         $managers = $company->getCompanyManager();
         $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_MANAGER_DEAL_FEEDBACK);
+
+        if (!$template) {
+            return false;
+        }
 
         /** @var CompanyManager $manager */
         foreach ($managers as $manager) {

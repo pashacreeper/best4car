@@ -3,6 +3,7 @@ namespace Sto\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Serializer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -132,9 +133,8 @@ class APIUserController extends FOSRestController
             $this->get('sto.user.authenticate')->authenticate($user);
         }
 
-        $response = new Response($serializer->serialize(array("success" => !$errorFlag), 'json'), 200);
-        $response->headers->set('Content-Type',' application-json; charset=utf8');
-        return $response;
+        return new JsonResponse(array("success" => !$errorFlag));
+
     }
 
     /**

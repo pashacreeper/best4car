@@ -107,7 +107,7 @@
         </ul>
         <p class="contentRightItem labelCheckBox">
             <span class="checkBox__autograf__wrap">
-                <input id="checkBox__autograf1" type="checkbox" data-serarch-form="deals" name="deals">
+                <input {% if withDeals is defined and withDeals %}checked="checked"{% endif %} id="checkBox__autograf1" type="checkbox" data-serarch-form="deals" name="deals">
                 Только с акциями
             </span>
         </p>

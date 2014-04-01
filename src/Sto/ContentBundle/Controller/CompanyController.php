@@ -318,11 +318,13 @@ class CompanyController extends MainController
 
         $time = $data->get('time');
         $services = $data->get('additional_services');
+        $withDeals = $data->get('with_deals');
 
         return [
             'form' => $form->createView(),
             'time' => $time,
             'services' => $services,
+            'withDeals' => $withDeals,
         ];
     }
 
