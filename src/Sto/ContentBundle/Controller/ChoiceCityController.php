@@ -17,7 +17,11 @@ class ChoiceCityController extends Controller
         if ($referer = $request->headers->get('referer')) {
             $urlParts = parse_url($referer);
             try {
-                if ($routeParams = $this->get('router')->match($urlParts['path'])) {
+                $path = $urlParts['path'];
+                if(strpos($path, '/app_dev.php') === 0) {
+                    $path = substr($path, strlen('/app_dev.php'));
+                }
+                if ($routeParams = $this->get('router')->match($path)) {
                     $refererRoute = $routeParams['_route'];
                 }
             } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}

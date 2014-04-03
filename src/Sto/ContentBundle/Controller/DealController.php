@@ -349,11 +349,63 @@ class DealController extends MainController
     {
         $isManager = ($this->get('security.context')->isGranted("SHOW", $deal)) ? true : false;
 
+        $refererRoute = $this->getRefererRoute();
+
+        $refererCompany = $this->getRefererCompany();
+
+        $companies = [];
+
+        if($additionalCompanies = $deal->getAdditionalCompanies()) {
+            if(!$refererCompany || $refererCompany == $deal->getCompany()->getId()) {
+                $companies[] = $deal->getCompany();
+                foreach ($additionalCompanies as $company) {
+                    $companies[] = $company;
+                }
+            } else {
+                foreach ($additionalCompanies as $company) {
+                    if($company->getId() == $refererCompany) {
+                        $companies[] = $company;
+                        break;
+                    }
+                }
+                $companies[] = $deal->getCompany();
+                foreach ($additionalCompanies as $company) {
+                    if($company->getId() != $refererCompany) {
+                        $companies[] = $company;
+                        break;
+                    }
+                }
+            }
+        }
+
         return [
             'deal' => $deal,
+            'companies' => $companies,
             'isManager' => $isManager,
-            'refererRoute' => $this->getRefererRoute(),
+            'refererRoute' => $refererRoute,
         ];
+    }
+
+    public function getRefererCompany()
+    {
+        $request = $this->getRequest();
+        $refererCompany = null;
+        if ($referer = $request->headers->get('referer')) {
+            $urlParts = parse_url($referer);
+            try {
+                $path = $urlParts['path'];
+                if(strpos($path, '/app_dev.php') === 0) {
+                    $path = substr($path, strlen('/app_dev.php'));
+                }
+                if ($routeParams = $this->get('router')->match($path)) {
+                    if($routeParams['_route'] == 'content_company_show' && isset($routeParams['id'])) {
+                        return (int) $routeParams['id'];
+                    }
+                }
+            } catch (MethodNotAllowedException $e) {} catch(ResourceNotFoundException $e) {}
+        }
+
+        return $refererCompany;
     }
 
     /**
