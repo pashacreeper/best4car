@@ -179,12 +179,33 @@ class DealType extends AbstractType
             ->add('gps', 'hidden', [])
             ->add('companyId', 'hidden', [])
         ;
+
+        if($options['manyPlaces'] && $options['user'] && $options['company']) {
+            $user = $options['user'];
+            $company = $options['company'];
+            $builder->add('additionalCompanies', null, [
+                'expanded' => true,
+                'property' => 'nameWithAddress',
+                'query_builder' => function(EntityRepository $er) use ($user, $company) {
+                    return $er->createQueryBuilder('ac')
+                        ->join('ac.companyManager', 'cm')
+                        ->where('cm.user = :user')
+                        ->andWhere('ac <> :company')
+                        ->setParameter('user', $user)
+                        ->setParameter('company', $company)
+                    ;
+                },
+            ]);
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\CoreBundle\Entity\Deal'
+            'data_class' => 'Sto\CoreBundle\Entity\Deal',
+            'manyPlaces' => false,
+            'user' => null,
+            'company' => null,
         ]);
     }
 

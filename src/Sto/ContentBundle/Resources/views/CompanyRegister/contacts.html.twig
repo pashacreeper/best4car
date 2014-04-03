@@ -79,6 +79,7 @@
                     {{ form_widget(email.email) }}
                     {{ form_widget(email.description) }}
                 </div>
+                {{ form_errors(email.email) }}
             {% endfor %}
         </div>
         <script>

@@ -116,7 +116,8 @@ class DealRepository extends EntityRepository
     {
         return $this->createQueryBuilder('deal')
             ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') >= :now")
-            ->andWhere('deal.companyId = :company')
+            ->leftJoin('deal.additionalCompanies', 'ac')
+            ->andWhere('deal.companyId = :company OR ac.id IN (:company)')
             ->andWhere('deal.draft = 0')
             ->setParameters(['now' => new \DateTime('now'), 'company' => $companyId])
             ->getQuery()

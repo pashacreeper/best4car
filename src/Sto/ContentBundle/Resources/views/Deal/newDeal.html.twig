@@ -41,6 +41,7 @@
 {% endblock %}
 
 {% block content %}
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
     <section class="contentMain  row">
         <div class="content">
             {% set actionPath = path('company_deal_create', {'id': company.id}) %}
@@ -213,6 +214,16 @@
                             });
                         </script>
                     </div>
+                    {% if manyPlaces %}
+                    <div class="contentLabel clear">
+                        <label>Дополнительные места проведения</label>
+                        <span class="hint-text">
+                            Если акция проводится также и по другим адресам компании - выберите нужный адрес в списке ниже. Все указанные адреса будут отображаться в карточке акции.
+                        </span>
+                        {{ form_widget(form.additionalCompanies) }}
+                        {{ form_errors(form.additionalCompanies) }}
+                    </div>
+                    {% endif %}
                     <div class="contentLabel">
                         <label>Условия участия в акции</label>
                         {{ form_widget(form.terms) }}

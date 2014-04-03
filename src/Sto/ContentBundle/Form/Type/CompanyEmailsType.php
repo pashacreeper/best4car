@@ -22,7 +22,7 @@ class CompanyEmailsType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Email([
                         'message' => "Необходимо указать правильный email адрес",
-                        'checkMX' => true
+                        // 'checkMX' => true
                     ])
                 ]
             ])

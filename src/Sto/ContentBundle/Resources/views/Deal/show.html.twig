@@ -31,10 +31,11 @@
     <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
     <script>
     $(document).ready(function(){
-        var city = '{{ deal.gps }}', mapComany;
+        dealMap = null;
+        var city = '{{ deal.gps }}';
 
         var init = function(){
-            mapComany = new ymaps.Map ("YMapsID", {
+            dealMap = new ymaps.Map ("YMapsID", {
                 center: [city.split(",")[0], city.split(",")[1]],
                 zoom: 15,
                 behaviors: ["default", "scrollZoom"]
@@ -53,18 +54,18 @@
                 selectOnClick: false
             });
 
-            mapComany.controls.add('zoomControl');
-            mapComany.controls.add(buttonMyPlace, { top : 40, left : 5 });
+            dealMap.controls.add('zoomControl');
+            dealMap.controls.add(buttonMyPlace, { top : 40, left : 5 });
             myGeoObject = new ymaps.GeoObject({
                 geometry: {
                     type: "Point",
-                    coordinates: mapComany.getCenter()
+                    coordinates: dealMap.getCenter()
                 }
             }, {
                 iconImageHref: "/bootstrap/img/icon-map-default-active.png",
                 iconImageSize: [34, 45]
             });
-            mapComany.geoObjects.add(myGeoObject);
+            dealMap.geoObjects.add(myGeoObject);
         };
 
         ymaps.ready(init);
@@ -144,7 +145,7 @@
             <div class="bannerImg"></div>
         </div>
     </div>
-    <div id="map-modal" class="reveal-modal yandexMapModalCompanyPage">
+    <div id="map-modal" class="reveal-modal yandexMapModalCompanyPage deal-map">
         <a href="#" class="close-reveal-modal"></a>
         <div class="slidCont">
             <div id="YMapsID" style="height:400px"></div>

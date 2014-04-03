@@ -619,6 +619,27 @@ var initPage = function(){
     feedbackPage();
     profilePage();
     companyPage();
+
+    $('.open-map-with-gps').on('click', function(e) {
+        var center = [$(this).data('gps').split(",")[0], $(this).data('gps').split(",")[1]];
+
+        dealMap.geoObjects.each(function (geoObject) {
+            dealMap.geoObjects.remove(geoObject);
+        });
+
+        myGeoObject = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: center
+            }
+        }, {
+            iconImageHref: "/bootstrap/img/icon-map-default-active.png",
+            iconImageSize: [34, 45]
+        });
+        dealMap.geoObjects.add(myGeoObject);
+
+        dealMap.setCenter(center);
+    })
 };
 
 $(document).ready(function(){initPage()});

@@ -92,7 +92,15 @@
                 <p class="infoCompanyDescription">{{ deal.startTime|date("H:i") }} &ndash; {{ deal.endTime|date("H:i") }}</p>
             </div>
         {% endif %}
-        {% if deal.place %}
+        {% if deal.additionalCompanies %}
+            <div class="infoCompanyItem">
+                <p class="infoCompanyTitle titleH3">Адреса проведения акции:</p>
+                <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal" class="open-map-with-gps" data-gps="{{ deal.gps }}">{{ deal.place }}</a></p>
+                {% for company in deal.additionalCompanies %}
+                    <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal" class="open-map-with-gps" data-gps="{{ company.gps }}">{{ company.address }}</a></p>
+                {% endfor %}
+            </div>
+        {% elseif deal.place %}
             <div class="infoCompanyItem">
                 <p class="infoCompanyTitle titleH3">Адрес:</p>
                 <p class="infoCompanyDescription"><a href="#" data-reveal-id="map-modal">{{ deal.place }}</a></p>

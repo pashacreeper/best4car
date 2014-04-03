@@ -111,13 +111,21 @@ class DealController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->get('security.context')->getToken()->getUser();
+        $manyPlaces = $user->getCompanyManager()->count() > 1;
+
         $deal = new Deal($company);
-        $form = $this->createForm(new DealType(), $deal);
+        $form = $this->createForm(new DealType(), $deal, [
+            'manyPlaces' => $manyPlaces,
+            'user' => $user,
+            'company' => $company,
+        ]);
 
         return [
             'form'    => $form->createView(),
             'company' => $company,
-            'isNew'   => true
+            'isNew'   => true,
+            'manyPlaces' => $manyPlaces,
         ];
     }
 
@@ -132,8 +140,15 @@ class DealController extends MainController
      */
     public function createDealAction(Request $request, Company $company)
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $manyPlaces = $user->getCompanyManager()->count() > 1;
+        
         $deal = (new Deal)->setCompany($company);
-        $form = $this->createForm(new DealType, $deal);
+        $form = $this->createForm(new DealType, $deal, [
+            'manyPlaces' => $manyPlaces,
+            'user' => $user,
+            'company' => $company,
+        ]);
         $form->submit($request);
 
         if ($form->isValid()) {

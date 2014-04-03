@@ -147,6 +147,15 @@ class Deal
     private $feedbacks;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Company")
+     * @ORM\JoinTable(name="deal_additional_companies",
+     *     joinColumns={@ORM\JoinColumn(name="deal_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="dictionary_id", referencedColumnName="id")}
+     * )
+     */
+    private $additionalCompanies;
+
+    /**
      * @ORM\Column(name="contact_information_name", type="string", length=255, nullable=true)
      */
     private $contactInformationName;
@@ -218,6 +227,7 @@ class Deal
     {
         $this->feedbacks = new ArrayCollection();
         $this->autoServices = new ArrayCollection();
+        $this->additionalCompanies = new ArrayCollection();
         $this->startDate = new \DateTime('now');
         $this->endDate = new \DateTime('+1week');
         $this->draft = false;
@@ -871,5 +881,31 @@ class Deal
     public function getOnCompanyPlace()
     {
         return $this->onCompanyPlace;
+    }
+
+    /**
+     * Add additional company
+     */
+    public function addAdditionalCompany(Feedback $company)
+    {
+        $this->additionalCompanies[] = $company;
+
+        return $this;
+    }
+
+    /**
+     * Remove additional company
+     */
+    public function removeAdditionalCompany($company)
+    {
+        $this->additionalCompanies->removeElement($feedback);
+    }
+
+    /**
+     * Get additional companies
+     */
+    public function getAdditionalCompanies()
+    {
+        return $this->additionalCompanies;
     }
 }

@@ -1552,4 +1552,9 @@ class Company
 
         return $this;
     }
+
+    public function getNameWithAddress()
+    {
+        return "{$this->name} - {$this->address}";
+    }
 }

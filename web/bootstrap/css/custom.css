@@ -925,3 +925,12 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .genderSelect {
     margin-bottom: 10px;
 }
+
+#sto_content_deal_additionalCompanies input {
+    float: left;
+    margin-right: 5px;
+}
+
+#sto_content_deal_additionalCompanies label {
+    clear: none;
+}
