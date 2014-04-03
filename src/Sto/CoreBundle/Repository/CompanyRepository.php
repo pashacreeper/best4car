@@ -103,19 +103,24 @@ class CompanyRepository extends EntityRepository
 
         if (isset($params['search']) && $params['search']) {
             $words = explode(" ", $params['search']);
+            $i = 0;
             foreach ($words as $word) {
+                if(strlen($word) < 3) {
+                    continue;
+                }
+                $i++;
                 $qb->andWhere(
                     $qb->expr()->orx(
-                        $qb->expr()->like('company.name', ':search'),
-                        $qb->expr()->like('company.fullName', ':search'),
-                        $qb->expr()->like('company.description', ':search'),
-                        $qb->expr()->like('company.slogan', ':search'),
-                        $qb->expr()->like('csp_type.name', ':search'),
-                        $qb->expr()->like('auto_services.name', ':search'),
-                        $qb->expr()->like('casp.name', ':search'),
-                        $qb->expr()->like('mark.name', ':search')
+                        $qb->expr()->like('company.name', ":search_$i"),
+                        $qb->expr()->like('company.fullName', ":search_$i"),
+                        $qb->expr()->like('company.description', ":search_$i"),
+                        $qb->expr()->like('company.slogan', ":search_$i"),
+                        $qb->expr()->like('csp_type.name', ":search_$i"),
+                        $qb->expr()->like('auto_services.name', ":search_$i"),
+                        $qb->expr()->like('casp.name', ":search_$i"),
+                        $qb->expr()->like('mark.name', ":search_$i")
                     )
-                )->setParameter('search', "%{$word}%");
+                )->setParameter("search_$i", "%{$word}%");
             }
         }
 
