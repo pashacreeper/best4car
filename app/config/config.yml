@@ -263,6 +263,8 @@ genemu_form:
         theme:   modern
         configs:
             paste_as_text: true
+            paste_remove_styles: true
+            paste_strip_class_attributes: all
 
 gregwar_captcha:
     width:  200
