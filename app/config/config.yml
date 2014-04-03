@@ -261,6 +261,8 @@ genemu_form:
     tinymce:
         enabled: true
         theme:   modern
+        configs:
+            paste_as_text: true
 
 gregwar_captcha:
     width:  200
