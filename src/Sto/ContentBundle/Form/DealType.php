@@ -191,6 +191,7 @@ class DealType extends AbstractType
                         ->join('ac.companyManager', 'cm')
                         ->where('cm.user = :user')
                         ->andWhere('ac <> :company')
+                        ->andWhere('ac.registredFully = true')
                         ->setParameter('user', $user)
                         ->setParameter('company', $company)
                     ;
