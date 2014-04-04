@@ -3,6 +3,7 @@
 namespace Sto\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Orx;
 
 /**
  * DealRepository
@@ -30,16 +31,25 @@ class DealRepository extends EntityRepository
         ;
 
         if ($search) {
-            $query->andWhere(
-                $query->expr()->orx(
-                    $query->expr()->like('deal.name', ':search'),
-                    $query->expr()->like('deal.description', ':search'),
-                    $query->expr()->like('deal.terms', ':search'),
-                    $query->expr()->like('ds.name', ':search'),
-                    $query->expr()->like('mark.name', ':search'),
-                    $query->expr()->like('deal_auto_services.name', ':search')
-                )
-            )->setParameter('search', "%{$search}%");
+            $words = explode(" ", $search);
+            $i = 0;
+            $parts = [];
+            foreach ($words as $word) {
+                if(strlen($word) < 3) {
+                    continue;
+                }
+                $i++;
+                $parts[] = new Orx([
+                    $query->expr()->like('deal.name', ":search_$i"),
+                    $query->expr()->like('deal.description', ":search_$i"),
+                    $query->expr()->like('deal.terms', ":search_$i"),
+                    $query->expr()->like('ds.name', ":search_$i"),
+                    $query->expr()->like('mark.name', ":search_$i"),
+                    $query->expr()->like('deal_auto_services.name', ":search_$i")
+                ]);
+                $query->setParameter("search_$i", "%{$word}%");
+            }
+            $query->andWhere(new Orx($parts));
         }
 
         $dealTypeCounts = [];
@@ -97,16 +107,25 @@ class DealRepository extends EntityRepository
         ;
 
         if ($search) {
-            $query->andWhere(
-                $query->expr()->orx(
-                    $query->expr()->like('deal.name', ':search'),
-                    $query->expr()->like('deal.description', ':search'),
-                    $query->expr()->like('deal.terms', ':search'),
-                    $query->expr()->like('ds.name', ':search'),
-                    $query->expr()->like('mark.name', ':search'),
-                    $query->expr()->like('deal_auto_services.name', ':search')
-                )
-            )->setParameter('search', "%{$search}%");
+            $words = explode(" ", $search);
+            $i = 0;
+            $parts = [];
+            foreach ($words as $word) {
+                if(strlen($word) < 3) {
+                    continue;
+                }
+                $i++;
+                $parts[] = new Orx([
+                    $query->expr()->like('deal.name', ":search_$i"),
+                    $query->expr()->like('deal.description', ":search_$i"),
+                    $query->expr()->like('deal.terms', ":search_$i"),
+                    $query->expr()->like('ds.name', ":search_$i"),
+                    $query->expr()->like('mark.name', ":search_$i"),
+                    $query->expr()->like('deal_auto_services.name', ":search_$i")
+                ]);
+                $query->setParameter("search_$i", "%{$word}%");
+            }
+            $query->andWhere(new Orx($parts));
         }
 
         return $query;
@@ -216,15 +235,24 @@ class DealRepository extends EntityRepository
         ;
 
         if ($search) {
-            $query->andWhere(
-                $query->expr()->orx(
-                    $query->expr()->like('deal.name', ':search'),
-                    $query->expr()->like('deal.description', ':search'),
-                    $query->expr()->like('deal.terms', ':search')
-                 )
-            )->setParameter('search', "%{$search}%");
+            $words = explode(" ", $search);
+            $i = 0;
+            $parts = [];
+            foreach ($words as $word) {
+                if(strlen($word) < 3) {
+                    continue;
+                }
+                $i++;
+                $parts[] = new Orx([
+                    $query->expr()->like('deal.name', ":search_$i"),
+                    $query->expr()->like('deal.description', ":search_$i"),
+                    $query->expr()->like('deal.terms', ":search_$i")
+                ]);
+                $query->setParameter("search_$i", "%{$word}%");
+            }
+            $query->andWhere(new Orx($parts));
         }
-
+        
         return count($query->getQuery()->getResult());
     }
 }
