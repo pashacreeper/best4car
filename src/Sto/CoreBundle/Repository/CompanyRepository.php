@@ -105,13 +105,13 @@ class CompanyRepository extends EntityRepository
         if (isset($params['search']) && $params['search']) {
             $words = explode(" ", $params['search']);
             $i = 0;
-            $parts = [];
             foreach ($words as $word) {
                 if(strlen($word) < 3) {
                     continue;
                 }
                 $i++;
-                $parts[] = new Orx([
+                $qb->andWhere(
+                    $qb->expr()->orx(
                         $qb->expr()->like('company.name', ":search_$i"),
                         $qb->expr()->like('company.fullName', ":search_$i"),
                         $qb->expr()->like('company.description', ":search_$i"),
@@ -120,10 +120,8 @@ class CompanyRepository extends EntityRepository
                         $qb->expr()->like('auto_services.name', ":search_$i"),
                         $qb->expr()->like('casp.name', ":search_$i"),
                         $qb->expr()->like('mark.name', ":search_$i")
-                ]);
-                $qb->setParameter("search_$i", "%{$word}%");
+                ))->setParameter("search_$i", "%{$word}%");
             }
-            $qb->andWhere(new Orx($parts));
         }
 
         if (isset($params['time'])) {
