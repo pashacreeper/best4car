@@ -138,6 +138,7 @@ body {
     width: 960px;
     margin: 16px auto 0 auto;
     background: none;
+    padding-bottom: 60px;
 }
 
 .content {
