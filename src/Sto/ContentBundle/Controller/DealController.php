@@ -213,9 +213,17 @@ class DealController extends MainController
             ->getResult()
         ;
 
-        $editForm = $this->createForm(new DealType, $deal);
+        $user = $this->get('security.context')->getToken()->getUser();
+        $manyPlaces = $user->getCompanyManager()->count() > 1;
+
+        $editForm = $this->createForm(new DealType(), $deal, [
+            'manyPlaces' => $manyPlaces,
+            'user' => $user,
+            'company' => $company,
+        ]);
 
         return [
+            'manyPlaces' => $manyPlaces,
             'deal'        => $deal,
             'form'        => $editForm->createView(),
             'company'     => $company,
@@ -245,7 +253,14 @@ class DealController extends MainController
             throw $this->createNotFoundException('Unable to find Deal entity.');
         }
 
-        $editForm = $this->createForm(new DealType, $deal);
+        $user = $this->get('security.context')->getToken()->getUser();
+        $manyPlaces = $user->getCompanyManager()->count() > 1;
+
+        $editForm = $this->createForm(new DealType, $deal, [
+            'manyPlaces' => $manyPlaces,
+            'user' => $user,
+            'company' => $company,
+        ]);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -268,6 +283,7 @@ class DealController extends MainController
         }
 
         return [
+            'manyPlaces' => $manyPlaces,
             'deal'      => $deal,
             'edit_form' => $editForm->createView(),
             'companyId' => $companyId,
