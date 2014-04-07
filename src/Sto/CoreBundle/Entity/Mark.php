@@ -266,4 +266,9 @@ class Mark
     {
         $this->children->removeElement($children);
     }
+
+    public function getModels()
+    {
+        return '';
+    }
 }

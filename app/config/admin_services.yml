@@ -14,13 +14,13 @@ services:
     app.admin.model:
           class: Sto\CoreBundle\Admin\ModelAdmin
           tags:
-            - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модели}
+            - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модели, show_in_dashboard: false}
           arguments: [null, Sto\CoreBundle\Entity\Model, SonataAdminBundle:CRUD]
 
     app.admin.modification:
           class: Sto\CoreBundle\Admin\ModificationAdmin
           tags:
-            - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модификации}
+            - { name: sonata.admin, manager_type: orm, group: Автокаталог, label: Модификации, show_in_dashboard: false}
           arguments: [null, Sto\CoreBundle\Entity\Modification, SonataAdminBundle:CRUD]
 
     app.admin.company:

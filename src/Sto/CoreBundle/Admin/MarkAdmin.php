@@ -59,6 +59,7 @@ class MarkAdmin extends Admin
             ->addIdentifier('name')
             ->add('uri')
             ->add('visible')
+            ->add('children', null, ['template' => 'StoContentBundle:Admin:mark_models_list.html.twig', 'label' => 'Модели'])
         ;
     }
 

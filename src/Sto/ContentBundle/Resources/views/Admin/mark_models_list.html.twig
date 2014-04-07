@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object %}
+        <a class="sonata-link-identifier" href="/admin/sto/core/model/list?filter%5Bid%5D%5Btype%5D=&filter%5Bid%5D%5Bvalue%5D=&filter%5Bname%5D%5Btype%5D=&filter%5Bname%5D%5Bvalue%5D=&filter%5Bparent%5D%5Btype%5D=&filter%5Bparent%5D%5Bvalue%5D={{ object.id }}&filter%5Buri%5D%5Btype%5D=&filter%5Buri%5D%5Bvalue%5D=&filter%5Bvisible%5D%5Btype%5D=&filter%5Bvisible%5D%5Bvalue%5D=&filter%5B_page%5D=1&filter%5B_sort_by%5D=id&filter%5B_sort_order%5D=ASC&filter%5B_per_page%5D=25">
+            Перейти
+        </a>
+    {% endif %}
+{% endblock %}
