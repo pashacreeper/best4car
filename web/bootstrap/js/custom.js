@@ -361,7 +361,7 @@ var catalogPage = function(){
 
             $('#advancedSearch select').each(function(index, element){
                 $(element).val('');
-                $(element).trigger("liszt:updated");
+                $(element).trigger("chosen:updated");
             });
 
             $('.checkBox__autograf__wrap').css('background-position', '0px 0px');
@@ -384,7 +384,7 @@ var catalogPage = function(){
                         $.each(json, function (index, subtype) {
                             subtype_select.append('<option value="' + subtype.id + '">' + subtype.name + '</option>');
                         });
-                        subtype_select.trigger("liszt:updated");
+                        subtype_select.trigger("chosen:updated");
                     })
                     .fail(function (jqxhr, textStatus, error) {
                         console.log("Request Failed: " + textStatus + ', ' + error);
