@@ -1,5 +1,9 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
+	{% if object.iconName %}
     <img src="{{ object.imagePath }}" class="admin-table-image"/>
+    {% else %}
+    <img src="{{ object.imagePath }}" class="admin-table-image" width="28"/>
+	{% endif %}
 {% endblock %}
