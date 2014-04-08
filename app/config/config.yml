@@ -266,7 +266,7 @@ genemu_form:
             paste_remove_styles: true
             paste_strip_class_attributes: all
             paste_auto_cleanup_on_paste: true
-            valid_elements: "a[href|target],strong,ul,ol,li,em,img[src|width|height|alt],span[style]"
+            valid_elements: "a[href|target],strong,ul,ol,li,em,img[src|width|height|alt],span[style],p,br"
             valid_styles:
                 "span": "text-decoration"
 
