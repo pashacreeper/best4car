@@ -141,6 +141,10 @@ body {
     padding-bottom: 60px;
 }
 
+.contentMain.staticPage {
+    padding-bottom: 45px;
+}
+
 .content {
     background: #f6f6f6;
     padding: 20px 10px 35px 10px;
