@@ -301,4 +301,15 @@ class Modification
     {
         return $this->visible;
     }
+
+    public function getYearsOfProduction()
+    {
+        $start = $this->startOfProduction;
+        $end = $this->closingOfProduction;
+        if(!$end) {
+            $end = '...';
+        }
+
+        return "$start - $end";
+    }
 }

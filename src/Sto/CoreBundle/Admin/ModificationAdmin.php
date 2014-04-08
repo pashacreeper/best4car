@@ -31,9 +31,9 @@ class ModificationAdmin extends Admin
 
         $filters = $this->getFilterParameters();
         if(isset($filters['parent']) && isset($filters['parent']['value'])) {
-            $mark = $this->getModelManager()->find('StoCoreBundle:Model', $filters['parent']['value']);
-            $menu = $menu->addChild($mark->getParent()->getName());
-            $menu = $menu->addChild($mark->getName());
+            $model = $this->getModelManager()->find('StoCoreBundle:Model', $filters['parent']['value']);
+            $menu = $menu->addChild($model->getParent()->getName(), ['uri' => $this->routeGenerator->generate('admin_sto_core_model_list').'?filter%5Bparent%5D%5Bvalue%5D='.$model->getParent()->getId()]);
+            $menu = $menu->addChild($model->getName());
         }
 
         $menu = $menu->addChild(
@@ -124,8 +124,9 @@ class ModificationAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->addIdentifier('name')
+            ->add('yearsOfProduction')
             ->add('parent')
-            ->add('uri')
+            ->add('uri', null, ['template' => 'StoContentBundle:Admin:url_field.html.twig'])
             ->add('visible')
         ;
     }

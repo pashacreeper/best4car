@@ -111,7 +111,7 @@ class ModelAdmin extends Admin
             ->addIdentifier('id')
             ->addIdentifier('name')
             ->add('parent')
-            ->add('uri')
+            ->add('uri', null, ['template' => 'StoContentBundle:Admin:url_field.html.twig'])
             ->add('visible')
             ->add('children', null, ['template' => 'StoContentBundle:Admin:model_options_list.html.twig', 'label' => 'Комплектации'])
         ;
