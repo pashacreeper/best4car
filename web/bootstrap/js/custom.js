@@ -246,7 +246,7 @@ var mainLayout = function(){
         ;
 
         $('.content').css('min-height', function(){
-            return mainHeight - headerHeight - footerHeight - 180;
+            return mainHeight - headerHeight - footerHeight - 125;
         });
     })();
 
