@@ -24,7 +24,7 @@ class ModelAdmin extends Admin
 
             $menu = $menu->addChild(
                 $this->trans($this->getLabelTranslatorStrategy()->getLabel('dashboard', 'breadcrumb', 'link'), array(), 'SonataAdminBundle'),
-                array('uri' => $this->routeGenerator->generate('sonata_admin_dashboard'))
+                array('uri' => $this->routeGenerator->generate('sonata_admin_dashboard'),)
             );
         }
 
@@ -32,7 +32,7 @@ class ModelAdmin extends Admin
         $filters = $this->getFilterParameters();
         if(isset($filters['parent']) && isset($filters['parent']['value'])) {
             $mark = $this->getModelManager()->find('StoCoreBundle:Mark', $filters['parent']['value']);
-            $menu = $menu->addChild($mark->getName());
+            $menu = $menu->addChild($mark->getName(), ['uri' => $this->routeGenerator->generate('admin_sto_core_model_list').'?filter%5Bparent%5D%5Bvalue%5D='.$mark->getId()]);
         }
 
         $menu = $menu->addChild(
