@@ -266,7 +266,9 @@ genemu_form:
             paste_remove_styles: true
             paste_strip_class_attributes: all
             paste_auto_cleanup_on_paste: true
-            invalid_elements : "table,td,meta,style,title,script"
+            valid_elements: "a[href|target],strong,ul,ol,li,em,img[src|width|height|alt],span[style]"
+            valid_styles:
+                - "span": "text-decoration"
 
 gregwar_captcha:
     width:  200
