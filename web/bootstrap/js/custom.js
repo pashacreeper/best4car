@@ -540,9 +540,6 @@ var profilePage = function(){
     (function(){
         $(window).hashchange( function(){
             var hash = location.hash;
-            if (hash.indexOf('-')) {
-                hash = hash.substring(0, hash.indexOf('-'));
-            }
             var $tabButton = $('.tabs ul.tabNavigation').find('a[href="' + hash + '"]');
             if (!$tabButton.hasClass('selected')) {
                 $tabButton.click();

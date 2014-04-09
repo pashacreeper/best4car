@@ -185,8 +185,12 @@
             </div>
             {% endif %}
         </div>
-        {% if profile is defined and feedback.feedbackType == 'company' and feedback.company %}
+        {% if feedback.feedbackType == 'company' and feedback.company %}
+        {% if profile is defined %}
         <a href="{{ path('content_company_show', { "id": feedback.company.id }) }}" class="dottedLink feedbackToCompanyLink">Посмотреть карточку компании</a>
+        {% else %}
+        <a href="#information" class="dottedLink feedbackToCompanyLink">Посмотреть карточку компании</a>
+        {% endif %}
         {% endif %}
     </div>
 </div>
