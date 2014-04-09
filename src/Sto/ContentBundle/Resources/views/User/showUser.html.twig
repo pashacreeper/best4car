@@ -190,7 +190,7 @@
                                     });
                                 });
             </script>
-            {% include "StoContentBundle:Feedback:feedback.html.twig" with {'feedbacks': user.feedbacks, 'isManager': false} %}
+            {% include "StoContentBundle:Feedback:feedback.html.twig" with {'feedbacks': user.feedbacks, 'isManager': false, "profile": true} %}
         </div>
         <div class="rightContent"></div>
     </div>
