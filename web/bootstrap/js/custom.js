@@ -250,7 +250,7 @@ var mainLayout = function(){
         });
 
         $('.staticPage .content').css('min-height', function(){
-            return mainHeight - headerHeight - footerHeight;
+            return mainHeight - headerHeight - footerHeight - 56;
         });
     })();
 
