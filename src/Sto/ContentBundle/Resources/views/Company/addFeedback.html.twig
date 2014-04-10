@@ -48,9 +48,9 @@
         <div class="leftContent">
         {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
             {% if feededit is defined %}
-                <form action="{{ path('content_company_feedbacks_update', { 'id': feedback.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+                <form action="{{ path('content_company_feedbacks_update', { 'id': feedback.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal feedback-form">
             {% else %}
-                <form action="{{ path('content_company_feedbacks_create', { 'id': company.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+                <form action="{{ path('content_company_feedbacks_create', { 'id': company.id }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal feedback-form">
             {% endif %}
 
             {{ form_errors(form) }}
@@ -59,12 +59,14 @@
                 <label class="spanFloatLeft">Ваша оценка компании: </label>
                 {{ form_widget(form.feedbackRating) }}
                 {{ form_errors(form.feedbackRating) }}
+                <div class="errors">Поле обязательно для заполнения</div>
             </div>
 
             <div class="contentLabel marginBottom">
                 <label class="spanFloatLeft">Уровень цен: </label>
                 {{ form_widget(form.priceLevel) }}
                 {{ form_errors(form.priceLevel) }}
+                <div class="errors">Поле обязательно для заполнения</div>
             </div>
 
             <div class="contentLabel overflow marginBottom ">

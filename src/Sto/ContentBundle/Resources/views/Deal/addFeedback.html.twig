@@ -45,12 +45,13 @@
         <div class="leftContent">
 
             {% if (is_expr_granted("hasRole('ROLE_USER') and not hasRole('ROLE_FROZEN')")) %}
-            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }}>
+            <form action="{{ path('content_deal_feedbacks_create', { 'id': deal.id }) }}" method="post" {{ form_enctype(form) }} class="feedback-form">
                 {{ form_errors(form) }}
                 <div class="contentLabel marginBottom">
                     <label class="spanFloatLeft">Ваша оценка акции: </label>
                     {{ form_widget(form.feedbackRating) }}
                     {{ form_errors(form.feedbackRating) }}
+                    <div class="errors">Поле обязательно для заполнения</div>
                 </div>
                 <div class="contentLabel overflow marginBottom ">
                     <div class="inputReviewWrap">

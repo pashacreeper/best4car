@@ -258,6 +258,16 @@ var mainLayout = function(){
     (function(){
         $("a[href^='http://']").attr("target","_blank");
     })();
+
+    if($('.feedback-form').length) {
+        $('.feedback-form').find('.errors').hide();
+        $('.feedback-form input').on('invalid', function(e) {
+            $(this).parents('.contentLabel').find('.errors').show();
+        });
+        $('.feedback-form input').on('change', function(e) {
+            $(this).parents('.contentLabel').find('.errors').hide();
+        });
+    }
 };
 
 var catalogPage = function(){
