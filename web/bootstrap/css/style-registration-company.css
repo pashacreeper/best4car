@@ -543,6 +543,7 @@ body {
     width: 35px;
     height: 35px;
     background: url('../img/edit-icon.png') no-repeat;
+    background-color: #f6f6f6;
     bottom: 5px;
     right: 5px;
     cursor: pointer;

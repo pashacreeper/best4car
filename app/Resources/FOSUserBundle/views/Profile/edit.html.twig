@@ -41,7 +41,9 @@
                 {% if app.user.ratingGroup %}
                     <span>{{ app.user.ratingGroup.name }}</span> &ndash;
                 {% endif %}
+                {% if app.user.city %}
                 {{ app.user.city.name }}
+                {% endif %}
                 {%- if app.user.years %}, {{ 'years.old'|transchoice(app.user.years) }} {% endif -%}
                 </p>
             {% endspaceless %}
