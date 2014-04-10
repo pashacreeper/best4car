@@ -248,6 +248,10 @@ var mainLayout = function(){
         $('.content').css('min-height', function(){
             return mainHeight - headerHeight - footerHeight - 125;
         });
+
+        $('.staticPage .content').css('min-height', function(){
+            return mainHeight - headerHeight - footerHeight;
+        });
     })();
 
     // Open all external links in new windows
