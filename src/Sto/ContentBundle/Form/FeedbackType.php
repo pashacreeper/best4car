@@ -26,8 +26,8 @@ class FeedbackType extends AbstractType
                     'resize' => false,
                     'width' =>'100%',
                     'height' => 250,
-                    'plugins' => ['image', 'link', 'code', 'paste', 'emoticons'],
-                    'toolbar1' => 'undo redo | bold italic underline | bullist numlist | link image ',
+                    'plugins' => ['image', 'code', 'paste', 'emoticons'],
+                    'toolbar1' => 'undo redo | bold italic underline | bullist numlist | image ',
                 ]
             ])
             ->add('visitDate', 'date', [
