@@ -624,6 +624,7 @@ var companyPage = function () {
 
 var initPage = function(){
     $('.chzn-select').chosen();
+    $('.chzn-select-autos').chosen({max_selected_options: 8});
 
     $(document).on('click', '.workingTimeDays label', function() {
         $(this).toggleClass('checked');

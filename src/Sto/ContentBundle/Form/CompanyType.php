@@ -206,7 +206,7 @@ class CompanyType extends AbstractType
                 },
                 'required' => false,
                 'attr' => [
-                    'class' => 'chosen-multiple span6 chzn-select',
+                    'class' => 'span6 chzn-select-autos',
                     'data-placeholder' => 'Выберете марки автомобилей'
                 ]
             ])

@@ -55,7 +55,7 @@ class DealType extends AbstractType
                         ;
                 },
                 'attr' => [
-                    'class' => 'chosen-multiple',
+                    'class' => 'chzn-select-autos',
                     'data-placeholder' => "Выберите варианты"
                 ]
             ])
