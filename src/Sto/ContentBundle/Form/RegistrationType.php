@@ -20,7 +20,7 @@ class RegistrationType extends BaseType
                     'class' => 'inputFormEnter span6'
                 ],
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['Registration']]),
                 ],
             ])
             ->add('username', 'text', [
