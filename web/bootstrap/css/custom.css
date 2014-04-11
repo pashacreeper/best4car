@@ -934,3 +934,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 #sto_content_deal_additionalCompanies label {
     clear: none;
 }
+
+.select-autos .chosen-container {
+    width: 755px !important;
+}
