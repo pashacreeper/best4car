@@ -938,3 +938,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .select-autos .chosen-container {
     width: 755px !important;
 }
+
+.control-label-search {
+    font: 1.6em 'PT Sans', sans;
+}

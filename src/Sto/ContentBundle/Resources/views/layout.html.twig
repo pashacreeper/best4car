@@ -101,7 +101,7 @@
                     <div class="searchWrap">
                         <div class="searchCont" id="searchWrapper">
                             <form class="form-search" action="{{ path('_index') }}" method="GET">
-                                <label class="control-label" for="search">Я ищу:</label>
+                                <label class="control-label control-label-search" for="search">Я хочу найти:</label>
                                     <input type="text" id="inputSearch" class="input-medium search-query empty" placeholder="Все компании" name="search" value="{{ app.request.query.get('search') }}">
                                 <button type="submit" href="#" class="btnSearch">
                                     <i class="iconSearch icon-search icon-white"></i>Найти
