@@ -26,7 +26,7 @@ class DealType extends AbstractType
             ])
             ->add('description', 'textarea', [
                 'label' => 'Описание акции',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     "rows" => 4,
                     "class" => "span12 description-textarea",
