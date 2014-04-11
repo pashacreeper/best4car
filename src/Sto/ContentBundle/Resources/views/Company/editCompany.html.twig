@@ -206,7 +206,8 @@
 
             <div class="contentLabel clear contentLabelNoOverflow">
                 {{ form_label(cForm.autos) }}
-                <div class="basket__cont__body__bottom__paper">
+                <span class="hint-text">Укажите марки, на обслуживании которых специализируется ваша компания.<br>Допускается выбирать до 8 марок.</span>
+                <div>
                     {{ form_widget(cForm.autos) }}
                     <label>Все марки? {{ form_widget(cForm.allAuto) }}</label>
                 </div>
