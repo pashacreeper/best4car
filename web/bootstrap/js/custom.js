@@ -418,6 +418,12 @@ var catalogPage = function(){
 var dealsPage = function(){
     $('#dealsContainer').on('mouseenter', '.actionItemLink', function(){
         var height = 110 - $(this).find('h4').height();
+        if($(this).find('.actionItemBottomP').height() > 20) {
+            height -= $(this).find('.actionItemBottomP').height();
+        }
+        if(height < -10) {
+            height = -10;
+        }
         $(this).children('.actionItemBottomWrap').css("top", height+"px");
     });
     $('#dealsContainer').on('mouseleave', '.actionItemLink', function(){
