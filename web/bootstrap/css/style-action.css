@@ -202,7 +202,7 @@ header {
     left: 20px;
     font: Bold 1.8em 'PT Sans', sans;
     color: #f35d2e;
-    background: url("/bootstrap/img/bg-action.png") repeat;
+    background-color: rgba(255,255,255,0.7);
     padding: 5px 20px;
 }
 
