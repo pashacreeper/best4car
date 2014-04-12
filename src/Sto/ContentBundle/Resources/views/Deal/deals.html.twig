@@ -9,6 +9,8 @@
                 {% if deal.imageName %}
                     {% set image = "/" ~ storage_path ~ "/deal_image/" ~ deal.imageName %}
                     <img src="{{ image | imagine_filter('deals_photos') }}" alt="фото пользователя" />
+                {% else %}
+                    <img src="{{ asset('bootstrap/img/deal_mini.png') }}" alt="фото пользователя">
                 {% endif %}
                 <div class="actionItemBottomWrap">
                     <div class="actionItemBottom">

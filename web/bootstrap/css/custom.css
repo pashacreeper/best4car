@@ -947,3 +947,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     width: 15px;
     top: 6px;
 }
+
+.slider.deals {
+    background-image: url(/bootstrap/img/deal_slider.png);
+}
+
+.slider.deals .img__prev__wrap {
+    background: none;
+}
