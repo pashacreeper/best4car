@@ -942,3 +942,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .control-label-search {
     font: 1.6em 'PT Sans', sans;
 }
+
+.chosen-container-single .chosen-single div {
+    width: 15px;
+    top: 6px;
+}
