@@ -20,6 +20,7 @@
             <form class="form-search" method="GET">
                 <label class="control-label control-label-search" for="search">Я хочу найти:</label>
                     <input type="text" id="inputSearch" class="input-medium search-query " placeholder="Все акции" name="search" value="{{ search }}">
+                    <img src="{{ asset('/bootstrap/img/clear.png') }}" class="clear-search">
                     <input id="inputSearchHidden" type="hidden" value="{{ search }}"/>
                 <button type="submit" href="#" class="btnSearch">
                     <i class="iconSearch icon-search icon-white"></i>Найти

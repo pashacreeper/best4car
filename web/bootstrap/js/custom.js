@@ -638,6 +638,24 @@ var initPage = function(){
     profilePage();
     companyPage();
 
+    if($('.clear-search').length) {
+        if(!$('.clear-search').prev('input').val()) {
+            $('.clear-search').hide();
+        }
+        $('.clear-search').prev('input').on('keyup', function() {
+            if($('.clear-search').prev('input').val()) {
+                $('.clear-search').show();
+            } else {
+                $('.clear-search').hide();
+            }
+        });
+        $('.clear-search').on('click', function(){
+            $(this).prev('input').val('');
+            $(this).hide();
+            $(this).prev('input').focus();
+        });
+    }
+
     $('.open-map-with-gps').on('click', function(e) {
         var center = [$(this).data('gps').split(",")[0], $(this).data('gps').split(",")[1]];
 

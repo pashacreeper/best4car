@@ -955,3 +955,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .slider.deals .img__prev__wrap {
     background: none;
 }
+
+.clear-search {
+    display: block;
+    position: absolute;
+    top: 6px;
+    right: 103px;
+    cursor: pointer;
+}
