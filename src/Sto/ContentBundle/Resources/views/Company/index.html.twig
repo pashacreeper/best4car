@@ -378,6 +378,8 @@
                 var id = $(this).data('item-id');
                 $('#x-list-company' + id).slideToggle(0);
                 $('#blocSmall_' + id).slideToggle(0);
+                $('#companiesListContainer').find('.companySelected').removeClass('companySelected');
+                $(this).addClass('companySelected');
 
                 placemarkCollection.each(function (o) {
                     if (o.properties.get('id') == id) {
