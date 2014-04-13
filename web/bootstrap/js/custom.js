@@ -653,6 +653,7 @@ var initPage = function(){
             $(this).prev('input').val('');
             $(this).hide();
             $(this).prev('input').focus();
+            $(this).parents('form').submit();
         });
     }
 
