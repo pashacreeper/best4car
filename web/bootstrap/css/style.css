@@ -706,10 +706,6 @@ html, body {
     z-index: 444;
 }
 
-.cardCompanyItem:nth-child(even) {
-    background: #c3ced5;
-}
-
 .cardCompanyItem:hover {
     background: #e3ecf3;
 }
