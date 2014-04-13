@@ -963,3 +963,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     right: 103px;
     cursor: pointer;
 }
+
+.companyMapHint {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
