@@ -971,3 +971,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .cardCompanyItem.companySelected {
     background: #e3ecf3;
 }
+
+.ymaps-label__content ymaps {
+    height: 15px !important;
+}
