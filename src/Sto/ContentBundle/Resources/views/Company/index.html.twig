@@ -236,10 +236,12 @@
                 if (listObj.length && listObj.is(':visible')) {
                     e.preventDefault();
                     selectPlacemark(placemark);
+                    $('#companiesList').find('.companySelected').removeClass('companySelected');
                     $('#companiesList').find('.bigInfoCompany').hide();
                     $('#companiesList').find('.smallInfoCompany').show();
                     listObj.find('.smallInfoCompany').hide();
                     listObj.find('.bigInfoCompany').show();
+                    listObj.addClass('companySelected');
                     var parent = $("#companiesList")
                     parent.scrollTop(parent.scrollTop() + listObj.position().top);
                 } else {

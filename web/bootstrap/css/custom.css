@@ -967,3 +967,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .companyMapHint {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.cardCompanyItem.companySelected {
+    background: #e3ecf3;
+}
