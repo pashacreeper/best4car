@@ -642,13 +642,13 @@ var initPage = function(){
         if(!$('.clear-search').prev('input').val()) {
             $('.clear-search').hide();
         }
-        $('.clear-search').prev('input').on('keyup', function() {
+        setInterval(function() {
             if($('.clear-search').prev('input').val()) {
                 $('.clear-search').show();
             } else {
                 $('.clear-search').hide();
             }
-        });
+        }, 100);
         $('.clear-search').on('click', function(){
             $(this).prev('input').val('');
             $(this).hide();
