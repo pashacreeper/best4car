@@ -40,6 +40,8 @@ class LoadSpbData extends AbstractFixture implements OrderedFixtureInterface
         $vCity->setShortName('spb');
         $manager->persist($vCity);
 
+        $this->addReference("city_spb", $vCity);
+
         $manager->flush();
     }
 

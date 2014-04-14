@@ -27,7 +27,13 @@ class LoadEmailTemplates extends AbstractFixture implements OrderedFixtureInterf
         $template = new EmailTemplate();
         $template->setTitle('Ответ на ваш коментарий');
         $template->setContent('%user% %link%');
-        $template->setType(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER);
+        $template->setType(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_COMPANY);
+        $manager->persist($template);
+
+        $template = new EmailTemplate();
+        $template->setTitle('Ответ на ваш коментарий');
+        $template->setContent('%user% %link%');
+        $template->setType(EmailTemplateType::TEMPLATE_FEEDBACK_ANSWER_DEAL);
         $manager->persist($template);
 
         $template = new EmailTemplate();
