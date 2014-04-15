@@ -28,8 +28,9 @@ class LoadDealData extends AbstractFixture implements OrderedFixtureInterface
             $from = "app/Resources/fixtures/deals/".rand(1,20).".png";
             $to = "web/storage/images/deal_image/". $i .".png";
 
-            if (!file_exists($from))
+            if (!file_exists($from)) {
                 $from = "app/Resources/fixtures/deals/2.png";
+            }
 
             if (!is_dir(dirname($to))) {
                 mkdir(dirname($to), 0755, true);
@@ -59,8 +60,9 @@ class LoadDealData extends AbstractFixture implements OrderedFixtureInterface
             $from = "app/Resources/fixtures/deals/".rand(1,20).".png";
             $to = "web/storage/images/deal_image/". $i .".png";
 
-            if (!file_exists($from))
+            if (!file_exists($from)) {
                 $from = "app/Resources/fixtures/deals/2.png";
+            }
 
             if (!is_dir(dirname($to))) {
                 mkdir(dirname($to), 0755, true);

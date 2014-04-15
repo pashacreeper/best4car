@@ -82,8 +82,9 @@ class LoadDictionaryCountryData extends AbstractFixture implements OrderedFixtur
             $from = "app/Resources/fixtures/countries/".strtolower($codes[$country]).".png";
             $to = "web/storage/images/countries/".strtolower($codes[$country]).".png";
 
-            if (!file_exists($from))
+            if (!file_exists($from)) {
                 $from = "app/Resources/fixtures/countries/eu.png";
+            }
 
             if (!is_dir(dirname($to))) {
                 mkdir(dirname($to), 0755, true);

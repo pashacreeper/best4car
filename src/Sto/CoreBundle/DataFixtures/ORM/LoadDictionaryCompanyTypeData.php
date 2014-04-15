@@ -153,8 +153,9 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
                 $from = "app/Resources/fixtures/company_type/iconMap/".rand(1,9).".png";
                 $to = "web/storage/images/company_icon/".$k.".png";
 
-                if (!file_exists($from))
+                if (!file_exists($from)) {
                     $from = "app/Resources/fixtures/company_type/iconMap/1.png";
+                }
 
                 if (!is_dir(dirname($to))) {
                     mkdir(dirname($to), 0777, true);
@@ -182,8 +183,9 @@ class LoadDictionaryCompanyTypeData extends AbstractFixture implements OrderedFi
                         $from = "app/Resources/fixtures/company_type/iconMap/".rand(1,9).".png";
                         $to = "web/storage/images/company_icon/".$k.".png";
 
-                        if (!file_exists($from))
+                        if (!file_exists($from)) {
                             $from = "app/Resources/fixtures/company_type/iconMap/1.png";
+                        }
 
                         if (!is_dir(dirname($to))) {
                             mkdir(dirname($to), 0777, true);

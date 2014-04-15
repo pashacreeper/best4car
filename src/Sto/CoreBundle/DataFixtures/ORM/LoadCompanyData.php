@@ -31,8 +31,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $from = "app/Resources/fixtures/company/".rand(1,42).".png";
         $to = "web/storage/images/company_logo/1.png";
 
-        if (!file_exists($from))
+        if (!file_exists($from)) {
             $from = "app/Resources/fixtures/company/1.png";
+        }
 
         if (!is_dir(dirname($to))) {
             mkdir(dirname($to), 0755, true);
@@ -119,8 +120,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
         $from = "app/Resources/fixtures/company/".rand(1,42).".png";
         $to = "web/storage/images/company_logo/2.png";
 
-        if (!file_exists($from))
+        if (!file_exists($from)) {
             $from = "app/Resources/fixtures/company/2.png";
+        }
 
         if (!is_dir(dirname($to))) {
             mkdir(dirname($to), 0755, true);
@@ -189,12 +191,13 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i=3; $i < 20 ; $i++) {
             $rating = rand(10, 600);
-            if ($rating<100)
+            if ($rating<100) {
                 $rating_group_id = 0;
-            elseif ($rating>499)
+            } elseif ($rating>499) {
                 $rating_group_id = 2;
-            else
+            } else {
                 $rating_group_id = 1;
+            }
 
             $company = new Company;
             $company->setName('Test company - ' . $i);
@@ -215,8 +218,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $from = "app/Resources/fixtures/company/".rand(1,42).".png";
             $to = "web/storage/images/company_logo/". $i .".png";
 
-            if (!file_exists($from))
+            if (!file_exists($from)) {
                 $from = "app/Resources/fixtures/company/2.png";
+            }
 
             if (!is_dir(dirname($to))) {
                 mkdir(dirname($to), 0755, true);
@@ -287,12 +291,13 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i=20; $i < 39 ; $i++) {
             $rating = rand(10, 600);
-            if ($rating<100)
+            if ($rating<100) {
                 $rating_group_id = 0;
-            elseif ($rating>499)
+            } elseif ($rating>499) {
                 $rating_group_id = 2;
-            else
+            } else {
                 $rating_group_id = 1;
+            }
 
             $company = new Company;
             $company->setName('Test company - ' . $i);
@@ -313,8 +318,9 @@ class LoadCompanyData extends AbstractFixture implements OrderedFixtureInterface
             $from = "app/Resources/fixtures/company/".rand(1,42).".png";
             $to = "web/storage/images/company_logo/". $i .".png";
 
-            if (!file_exists($from))
+            if (!file_exists($from)) {
                 $from = "app/Resources/fixtures/company/2.png";
+            }
 
             if (!is_dir(dirname($to))) {
                 mkdir(dirname($to), 0755, true);
