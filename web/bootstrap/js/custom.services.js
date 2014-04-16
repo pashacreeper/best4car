@@ -32,6 +32,15 @@ jQuery(document).ready(function() {
         return false;
     });
 
+    $('select.companySpecialization').each(function() {
+        var self = $(this);
+        $('select.companySpecialization').each(function() {
+            if($(this).attr('id') != $(self).attr('id')) {
+                $(self).find('option[value=' + $(this).val() + ']').remove();
+            }
+        });
+    });
+
     $('select[data-index]').each(function(index, element){
         if ($(element).find(':selected').length) {
             $(element).next('a').html(changeServiceLabel);
