@@ -518,14 +518,15 @@ var registrationPage = function(){
             $('#photoAddWrapper .contactDate').each(function(index, element){
                 var image = $(element).find('.imageName').val();
 
+                var $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
+                $(element).find('.clear').before($deleteLink);
+                
                 if (image) {
                     var path = "storage/images/company/company_gallery";
                     var upload = $(element).find('input[type="file"]');
-                    var $deleteLink = $('<i class="icon-remove-circle deleteElement"></i>');
 
                     wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"><i class="editImg"></i></div>');
 
-                    $(element).find('.clear').before($deleteLink);
                     upload.before(wrapper);
                     upload.addClass('hiddenFotoUpload');
                 }
