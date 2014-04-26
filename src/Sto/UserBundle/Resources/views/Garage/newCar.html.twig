@@ -1,0 +1,241 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.ui.timepicker.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.limit-1.2.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    {% if isNew %}
+        Добавление автомобиля
+    {% else %}
+        Редактирование автомобиля
+    {% endif %}
+{% endblock %}
+
+{% block search %}
+    <div class="back">
+        <a href="{{ path('fos_user_profile_show') }}#garage" class="btnBack">
+            <i class="btnBackIcon"></i></br>
+            <span class="btnBackCont">Назад</span>
+        </a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <h1 class="titleNameCompany">{% if isNew %}Добавление автомобиля в гараж{% else %}Редактирование данных об автомобиле в гараже{% endif %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+{% form_theme form with 'StoContentBundle::formTheming.html.twig' %}
+    <section class="contentMain  row">
+        <div class="content">
+            {% set actionPath = path('garage_create') %}
+            {% if not isNew %}
+                {% set actionPath = path('garage_update', {'id': car.id}) %}
+            {% endif %}
+            <form action="{{ actionPath }}" method="post" {{ form_enctype(form) }} class="inputForm">
+                {{ form_errors(form) }}
+                <div class="container">
+                    <div class="car-left-column">
+                        <div id="carPhotoAddWrapper" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+                            {% for photo in form.images %}
+                                <div class="contactDate {% if loop.first %}current{% endif %}">
+                                    {{ form_widget(photo.image) }}
+                                    {{ form_widget(photo.imageName) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="carImageAddPanel">
+                            <span class="addImg car-photo-add"><i></i></span>
+                        </div>
+                        <script>
+                            var photoCollectionHolder = $('#carPhotoAddWrapper');
+                            var $photoAddTagLink = $('.car-left-column .addImg');
+                            var $photoNewLink = $('.car-left-column .clear');
+                            jQuery(document).ready(function() {
+                                deleteLink = '<div class="car-image-del"><i class="deleteElement"></i></div>';
+                                photoCollectionHolder.on('click', '.deleteElement', function() {
+                                    var $cont = $(this).parents('.contactDate');
+                                    var listItem = $($('.carImageAddPanel .item').get($cont.index()));
+                                    listItem.remove();
+                                    $cont.remove();
+                                    if($('.contactDate:first').length) {
+                                        $('.contactDate:first').addClass('current');
+                                        $('.carImageAddPanel .item:first').addClass('current');
+                                    } else {
+                                        $photoAddTagLink.click();
+                                    }
+                                    if($('.carImageAddPanel .item').length < 5) {
+                                        $('.car-photo-add').show();
+                                    }
+                                });
+                                photoCollectionHolder.data('index', photoCollectionHolder.find(':input').length);
+
+                                $photoAddTagLink.on('click', function(e) {
+                                    e.preventDefault();
+                                    addTagForm(photoCollectionHolder, $photoNewLink, true, deleteLink);
+                                });
+
+                                if($('.contactDate').length == 0) {
+                                    $photoAddTagLink.click();
+                                }
+
+                                $('.carImageAddPanel').on('click', '.item', function() {
+                                    $('.carImageAddPanel .item').removeClass('current');
+                                    $(this).addClass('current');
+                                    $('.contactDate').removeClass('current');
+                                    $($('.contactDate').get($(this).index())).addClass('current');
+                                });
+
+                                if($('.carImageAddPanel .item').length > 4) {
+                                    $('.car-photo-add').hide();
+                                }
+                            });
+
+                            $(document).ready(function(){
+
+                                (function(){
+                                    $('#carPhotoAddWrapper .contactDate').each(function(index, element){
+                                        var image = $(element).find('.imageName').val();
+                                        var path = "storage/images/car/gallery";
+                                        var upload = $(element).find('input[type="file"]');
+
+                                        var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+
+                                        upload.after(wrapper);
+
+                                        var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+                                        var preview = $("<div class='item'></div>");
+                                        if($(element).hasClass('current')) {
+                                            preview.addClass('current')
+                                        }
+                                        preview.append(wrapper);
+                                        $('.car-photo-add').before(preview);
+                                    });
+                                })();
+
+                                $('#carPhotoAddWrapper').on('change', 'input[type="file"]', function(){
+                                    var reader = new FileReader(),
+                                        $this = $(this),
+                                        $cont = $this.parents('.contactDate');
+
+                                    reader.onload = function (e) {
+                                        $cont.find('.photoDateImg').remove();
+
+                                        var wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
+                                        $cont.prepend(wrapper);
+                                        
+                                        var wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
+                                        var listItem = $($('.carImageAddPanel .item').get($cont.index()));
+                                        listItem.find('.photoDateImg').remove();
+                                        listItem.prepend(wrapper);
+                                    };
+
+                                    reader.readAsDataURL($(this)[0].files[0]);
+                                });
+                            });
+
+                            function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
+                                deleteLink = typeof deleteLink !== 'undefined' ? deleteLink : false;
+
+                                var prototype = collectionHolder.data('prototype');
+                                var index = collectionHolder.data('index');
+                                var newForm = prototype.replace(/__name__/g, index);
+                                $('.contactDate').removeClass('current');
+                                var $newForm = $('<div class="contactDate current"></div>');
+                                if (isUnwrap) {
+                                    var newestForm = $(newForm).find('.contentLabel').children().unwrap();
+                                    newestForm.each(function(){
+                                        $newForm.append($(this));
+                                    });
+                                } else {
+                                    var newestForm = $(newForm);
+                                    newestForm.find('p.contentLabel').children().unwrap();
+                                    newestForm.find('.inputTime').each(function(i, element){
+                                        $(element).data('input-index', index + '-' + i);
+                                        $(element).wrap('<div class="input-append dateLeft" />').after('<span class="add-on init-time" id="b' + index + '-' + i + '"><i data-time-icon="icon-time" class="icon-time"></i></span>');
+                                    });
+                                    $newForm.append(newestForm);
+                                }
+
+                                if (deleteLink) {
+                                    $newForm.append(deleteLink);
+                                    $newForm.append($('<div class="clear">'));
+                                }
+
+                                collectionHolder.data('index', index + 1);
+                                collectionHolder.append($newForm);
+
+                                $('.carImageAddPanel .item').removeClass('current');
+                                var preview = $("<div class='item current'></div>");
+                                $('.car-photo-add').before(preview);
+
+                                if($('.carImageAddPanel .item').length > 4) {
+                                    $('.car-photo-add').hide();
+                                }
+
+                                return $newForm;
+                            }
+                        </script>
+                    </div>
+                    <div class="car-right-column">
+                        <div class="contentLabel clear">
+                            {{ form_label(form.mark) }}
+                            {{ form_widget(form.mark) }}
+                            {{ form_errors(form.mark) }}
+                        </div>
+                        <div class="contentLabel clear">
+                            {{ form_label(form.model) }}
+                            {{ form_widget(form.model) }}
+                            {{ form_errors(form.model) }}
+                        </div>
+                        <div class="contentLabel clear">
+                            {{ form_label(form.modification) }}
+                            {{ form_widget(form.modification) }}
+                            {{ form_errors(form.modification) }}
+                        </div>
+                        <div class="contentLabel clear">
+                            {{ form_label(form.transmission) }}
+                            {{ form_widget(form.transmission) }}
+                            {{ form_errors(form.transmission) }}
+                        </div>
+                        <div class="contentLabel clear">
+                            {{ form_label(form.vin) }}
+                            {{ form_widget(form.vin) }}
+                            {{ form_errors(form.vin) }}
+                        </div>
+                        <div class="contentLabel clear">
+                            {{ form_label(form.drive2) }}
+                            {{ form_widget(form.drive2) }}
+                            {{ form_errors(form.drive2) }}
+                        </div>
+                    </div>
+
+                {{ form_rest(form) }}
+                <div class="bottomContent">
+                    {% if isNew %}
+                    <input type="submit" class="btnBottomContent addPhotoBtn"
+                           value="Добавить в гараж"/>
+                    {% else %}
+                    <input type="submit" class="btnBottomContent addPhotoBtn"
+                           value="Сохранить"/>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

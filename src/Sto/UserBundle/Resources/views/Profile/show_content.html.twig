@@ -7,6 +7,9 @@
         <li>
             <a class="" href="#feedbacks">Отзывы {{ user.feedbacks|length }}</a>
         </li>
+        <li>
+            <a class="" href="#garage">Гараж</a>
+        </li>
     </ul>
     <!-- Это контейнеры содержимого -->
     <div class="content" data-tab-id="#information">
@@ -131,6 +134,9 @@
         <div class="rightContent">
             <div class="bannerImg"></div>
         </div>
+    </div>
+    <div class="content" data-tab-id="#garage">
+        {{ render(controller('StoUserBundle:Garage:show', {'id':user.id})) }}
     </div>
 </section>
 

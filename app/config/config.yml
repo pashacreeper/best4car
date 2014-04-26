@@ -171,6 +171,12 @@ vich_uploader:
             delete_on_remove: true
             delete_on_update: true
             namer: vich_uploader.namer_uniqid
+        user_car_image:
+            uri_prefix: /%storage_path%/car/gallery
+            upload_destination: %kernel.root_dir%/../web/%storage_path%/car/gallery
+            delete_on_remove: true
+            delete_on_update: true
+            namer: vich_uploader.namer_uniqid
 
 nelmio_api_doc: ~
 
@@ -348,6 +354,18 @@ shtumi_useful:
             parent_property: parent
             property: name
             no_result_msg: ' '
+        model_by_mark:
+            class: StoCoreBundle:Model
+            parent_property: parent
+            property: name
+            no_result_msg: ' '
+            callback: filterVisible
+        modification_by_model:
+            class: StoCoreBundle:Modification
+            parent_property: parent
+            property: nameWithYear
+            no_result_msg: ' '
+            callback: filterVisible
     autocomplete_entities:
         company:
             class: StoCoreBundle:Company
