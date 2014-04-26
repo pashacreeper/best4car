@@ -576,23 +576,23 @@ var profilePage = function(){
         if (url.indexOf('#') + 1) {
             hash = url.substring(url.indexOf('#'));
         }
-        if (hash && hash.indexOf('-')) {
+        if (hash && hash.indexOf('-') != -1) {
             hash = hash.substring(0, hash.indexOf('-'));
         }
 
-        if (hash && hash.length > 1) {
-            tabContainers.find('[data-tab-id="'+hash+'"]').show();
-            tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
-        } else {
-            tabContainers.find('.content').hide().filter(':first').show();
-            tabLinksContainer.find('a:first').addClass('selected');
-        }
         tabLinksContainer.find('a').click(function () {
             tabContainers.find('.content').hide(); // прячем все табы
             tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
             $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
             $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
         });
+
+        if (hash && hash.length > 1) {
+            tabLinksContainer.find('a[href="' + hash + '"]').click();
+        } else {
+            tabContainers.find('.content').hide().filter(':first').show();
+            tabLinksContainer.find('a:first').addClass('selected');
+        }
     })();
 };
 
