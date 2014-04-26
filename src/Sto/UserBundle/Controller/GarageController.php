@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\UserBundle\Entity\UserCar;
 use Sto\UserBundle\Form\Type\UserCarType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class GarageController extends MainController
 {
@@ -94,11 +95,25 @@ class GarageController extends MainController
      */
     public function updateCarAction(Request $request, UserCar $car)
     {
+        $originalImages = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Image objects in the database
+        foreach ($car->getImages() as $image) {
+            $originalImages->add($image);
+        }
+
         $form = $this->createForm(new UserCarType(), $car);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            foreach ($originalImages as $image) {
+                if (false === $car->getImages()->contains($image)) {
+                    $em->remove($image);
+                }
+            }
+
             $em->flush();
 
             return $this->redirect(

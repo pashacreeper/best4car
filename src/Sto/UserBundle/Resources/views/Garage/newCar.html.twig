@@ -66,8 +66,8 @@
                             var photoCollectionHolder = $('#carPhotoAddWrapper');
                             var $photoAddTagLink = $('.car-left-column .addImg');
                             var $photoNewLink = $('.car-left-column .clear');
+                            var deleteLink = '<div class="car-image-del"><i class="deleteElement"></i></div>';
                             jQuery(document).ready(function() {
-                                deleteLink = '<div class="car-image-del"><i class="deleteElement"></i></div>';
                                 photoCollectionHolder.on('click', '.deleteElement', function() {
                                     var $cont = $(this).parents('.contactDate');
                                     var listItem = $($('.carImageAddPanel .item').get($cont.index()));
@@ -98,7 +98,8 @@
 
                                     var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
 
-                                    upload.after(wrapper);
+                                    upload.before(wrapper);
+                                    upload.after($(deleteLink));
 
                                     var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
                                     var preview = $("<div class='item'></div>");
