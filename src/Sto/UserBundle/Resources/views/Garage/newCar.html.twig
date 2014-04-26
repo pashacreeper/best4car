@@ -90,6 +90,26 @@
                                     addTagForm(photoCollectionHolder, $photoNewLink, true, deleteLink);
                                 });
 
+
+                                $('#carPhotoAddWrapper .contactDate').each(function(index, element){
+                                    var image = $(element).find('.imageName').val();
+                                    var path = "storage/images/car/gallery";
+                                    var upload = $(element).find('input[type="file"]');
+
+                                    var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+
+                                    upload.after(wrapper);
+
+                                    var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+                                    var preview = $("<div class='item'></div>");
+                                    if($(element).hasClass('current')) {
+                                        preview.addClass('current')
+                                    }
+                                    preview.append(wrapper);
+                                    $('.car-photo-add').before(preview);
+                                });
+                            
+
                                 if($('.contactDate').length == 0) {
                                     $photoAddTagLink.click();
                                 }
@@ -104,29 +124,6 @@
                                 if($('.carImageAddPanel .item').length > 4) {
                                     $('.car-photo-add').hide();
                                 }
-                            });
-
-                            $(document).ready(function(){
-
-                                (function(){
-                                    $('#carPhotoAddWrapper .contactDate').each(function(index, element){
-                                        var image = $(element).find('.imageName').val();
-                                        var path = "storage/images/car/gallery";
-                                        var upload = $(element).find('input[type="file"]');
-
-                                        var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
-
-                                        upload.after(wrapper);
-
-                                        var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
-                                        var preview = $("<div class='item'></div>");
-                                        if($(element).hasClass('current')) {
-                                            preview.addClass('current')
-                                        }
-                                        preview.append(wrapper);
-                                        $('.car-photo-add').before(preview);
-                                    });
-                                })();
 
                                 $('#carPhotoAddWrapper').on('change', 'input[type="file"]', function(){
                                     var reader = new FileReader(),

@@ -1,0 +1,32 @@
+<div class="leftContent">
+    <div class="no-deals">
+    	{% if car.images %}
+    	<div class="car-photos">
+    		<img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}"  alt="" />
+    		<div class="photo-select">
+    			{% for image in car.images %}
+    			<div data-full-image-path="{{ vich_uploader_asset(image, 'image') | imagine_filter('car_show_image') }}" class="item {% if loop.first %}current{% endif %}">
+    				<img src="{{ vich_uploader_asset(image, 'image') | imagine_filter('car_show_image_preview') }}"  alt="" />
+    			</div>
+    			{% endfor %}
+    		</div>
+    	</div>
+    	<div class="clear"></div>
+    	{% endif %}
+		<h1>{{ car.name }}</h1>
+		<h2>{{ car.modification.nameWithYear }} {{ car.transmissionName }}</h2>
+		<hr>
+		{% if car.vin %}
+		<div class="vin-label">VIN-номер</div>
+		{{ car.vin|upper }}
+		{% endif %}
+		{% if car.drive2 %}
+		<a class="drive2-link" href="{{ car.drive2 }}"><img src="{{ asset('/bootstrap/img/drive2-icon.png') }}" alt="D2" /> Бортовой журнал Drive2</a>
+		{% endif %}
+    </div>
+</div>
+<div class="rightContent">
+	<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+	<a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
+    <div class="bannerImg"></div>
+</div>

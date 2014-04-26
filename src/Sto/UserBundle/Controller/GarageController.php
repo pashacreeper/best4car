@@ -125,7 +125,7 @@ class GarageController extends MainController
         $cars = $showUser->getCars();
 
         if($cars->count() == 1) {
-            return $this->render('StoUserBundle:Garage:showCar.html.twig', ['car' => $cars->first()]);
+            return $this->render('StoUserBundle:Garage:_showCar.html.twig', ['car' => $cars->first()]);
         }
 
         return compact('cars');

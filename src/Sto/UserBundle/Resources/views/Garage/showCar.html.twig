@@ -1,19 +1,69 @@
-<div class="leftContent">
-    <div class="no-deals">
-		<h1>{{ car.name }}</h1>
-		<h2>{{ car.modification.nameWithYear }} {{ car.transmissionName }}</h2>
-		<hr>
-		{% if car.vin %}
-		<div class="vin-label">VIN-номер</div>
-		{{ car.vin|upper }}
-		{% endif %}
-		{% if car.drive2 %}
-		<a class="drive2-link" href="{{ car.drive2 }}"><img src="{{ asset('/bootstrap/img/drive2-icon.png') }}" alt="D2" /> Бортовой журнал Drive2</a>
-		{% endif %}
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-no-edit-personal-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}"
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-create-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.ui.timepicker.css') }}"/>
+{% endblock %}
+
+{% block search %}
+<div class="back">
+    <a href="{{ path('fos_user_profile_show') }}#garage" class="btnBack">
+        <i class="btnBackIcon"></i></br>
+        <span class="btnBackCont">Назад</span>
+    </a>
+</div>
+<div id="nameCompanyHeaderWrap">
+<div class="nameCompanyHeader">
+    <span class="you">Вы:</span>
+    <div class="nameProfilExpert">
+        <p class="titleProfilExpert">
+            <span>{{ app.user.firstName }}</span>,
+            {{ app.user.username }}<i class="editIcon"></i>
+        </p>
+        {% spaceless %}
+            <p class="sloganCompany">
+            {% if app.user.ratingGroup %}
+                <span>{{ app.user.ratingGroup.name }}</span> &ndash;
+            {% endif %}
+            {% if app.user.city %}
+            {{ app.user.city.name }}
+            {% endif %}
+            {%- if app.user.years %}, {{ 'years.old'|transchoice(app.user.years) }} {% endif -%}
+            </p>
+        {% endspaceless %}
     </div>
 </div>
-<div class="rightContent">
-	<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
-	<a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
-    <div class="bannerImg"></div>
+<div class="indexCompany">
+    <p>Рейтинг:</p>
+    <span class="indexbg"></span>
+    <span class="indexLevel">{{ app.user.rating + app.user.ratingBonus }}</span></br>
 </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="contentMain row">
+    <ul class="tabNavigation">
+        <li>
+            <a class="" href="{{ path('fos_user_profile_show') }}#information">Информация</a>
+        </li>
+        <li>
+            <a class="" href="{{ path('fos_user_profile_show') }}#feedbacks">Отзывы {{ app.user.feedbacks|length }}</a>
+        </li>
+        <li>
+            <a class="selected" href="{{ path('fos_user_profile_show') }}#garage">Гараж</a>
+        </li>
+    </ul>
+    <div class="content">
+        <div class="container">
+            {% include "StoUserBundle:Garage:_showCar.html.twig" %}
+        </div>
+    </div>
+</section>
+{% endblock %}

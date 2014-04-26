@@ -262,6 +262,14 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [191, 258], mode: outbound }
+        car_show_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 279], mode: outbound }
+        car_show_image_preview:
+            quality: 100
+            filters:
+                thumbnail: { size: [60, 42], mode: outbound }
 
 genemu_form:
     tinymce:

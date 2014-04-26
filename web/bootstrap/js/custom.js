@@ -677,7 +677,11 @@ var initPage = function(){
         dealMap.geoObjects.add(myGeoObject);
 
         dealMap.setCenter(center);
-    })
+    });
+
+    $('.car-photos .photo-select .item').on('click', function() {
+        $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
+    });
 };
 
 $(document).ready(function(){initPage()});

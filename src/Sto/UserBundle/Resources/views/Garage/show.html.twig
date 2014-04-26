@@ -1,6 +1,22 @@
-{% for car in cars %}
-	
-{% else %}
-Вы еще ничего не рассказали о своём гараже
-<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
-{% endfor %}
+<div class="leftContent">
+    <div class="no-deals">
+		{% for car in cars %}
+			<div class="car-card">
+				{% if car.images|length %}
+				<div class="img"><img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}"  alt="" /></div>
+				{% endif %}
+				<div class="description">
+					<h1><a href="{{ path('garage_car_show', {id: car.id}) }}">{{ car.name }}</a></h1>
+					<h2>{{ car.modification.nameWithYear }} {{ car.transmissionName }}</h2>
+				</div>
+			</div>
+		{% else %}
+		Вы еще ничего не рассказали о своём гараже
+		<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+		{% endfor %}
+	</div>
+</div>
+<div class="rightContent">
+	<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+    <div class="bannerImg"></div>
+</div>
