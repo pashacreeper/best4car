@@ -920,12 +920,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/EvercodeLab/EvercodeHipchatMonologBundle.git",
-                "reference": "647814b88f65965f482e7b4a3ccccd2aed3df912"
+                "reference": "2e7c929416d9b8a7787278000f5a427aa6ca923f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EvercodeLab/EvercodeHipchatMonologBundle/zipball/647814b88f65965f482e7b4a3ccccd2aed3df912",
-                "reference": "647814b88f65965f482e7b4a3ccccd2aed3df912",
+                "url": "https://api.github.com/repos/EvercodeLab/EvercodeHipchatMonologBundle/zipball/2e7c929416d9b8a7787278000f5a427aa6ca923f",
+                "reference": "2e7c929416d9b8a7787278000f5a427aa6ca923f",
                 "shasum": ""
             },
             "require": {
@@ -948,7 +948,7 @@
                     "homepage": "http://www.evercodelab.com/"
                 },
                 {
-                    "name": "Adrov Igor",
+                    "name": "Igor Adrov",
                     "email": "nucleartux@gmail.com",
                     "role": "Developer"
                 }
@@ -958,7 +958,7 @@
                 "hipchat",
                 "logs"
             ],
-            "time": "2013-09-04 07:56:49"
+            "time": "2013-11-05 11:47:15"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -3143,12 +3143,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/shtumi/ShtumiUsefulBundle.git",
-                "reference": "c48ef1a7c1ff8c2b9db73f9c1a69f63e1f6bcbef"
+                "reference": "732f88437a42b2af37cbd0ec1aa96a1d48d83104"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shtumi/ShtumiUsefulBundle/zipball/c48ef1a7c1ff8c2b9db73f9c1a69f63e1f6bcbef",
-                "reference": "c48ef1a7c1ff8c2b9db73f9c1a69f63e1f6bcbef",
+                "url": "https://api.github.com/repos/shtumi/ShtumiUsefulBundle/zipball/732f88437a42b2af37cbd0ec1aa96a1d48d83104",
+                "reference": "732f88437a42b2af37cbd0ec1aa96a1d48d83104",
                 "shasum": ""
             },
             "require": {
@@ -3181,7 +3181,7 @@
                 "daterange",
                 "shtumi"
             ],
-            "time": "2013-07-20 18:33:09"
+            "time": "2014-03-24 22:22:45"
         },
         {
             "name": "sonata-project/admin-bundle",
