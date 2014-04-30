@@ -104,6 +104,7 @@ class DealRepository extends EntityRepository
                     'city' => $cityId
                 ]
             )
+            ->groupBy('deal.id')
         ;
 
         if ($search) {
