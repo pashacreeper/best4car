@@ -52,6 +52,7 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('company.additionalServices', 'casp')
             ->leftJoin('company.autos', 'mark')
             ->where('company.visible = true')
+            ->groupBy('company.id')
         ;
 
         if (isset($params['city']) && $params['city']) {
@@ -195,6 +196,7 @@ class CompanyRepository extends EntityRepository
             ->leftJoin('company.workingTime', 'cwt')
             ->where('company.id IN(:ids)')
             ->setParameter('ids', $ids)
+            ->groupBy('company.id')
         ;
          
         if ($params['sort'] == 'price') {

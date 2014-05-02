@@ -152,10 +152,10 @@ header {
 
 .bottomP {
     display: none;
-    margin-top: 10px;
 }
 
 .actionItemMini:hover .bottomP {
+    margin-top: 10px;
     display: block;
 }
 
