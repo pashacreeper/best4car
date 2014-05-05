@@ -4,6 +4,7 @@ namespace Sto\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
 
 /**
  * User Cars
@@ -262,6 +263,15 @@ class UserCar
         return strtoupper($this->transmission);
     }
 
+    public function getTransmissionHuman()
+    {
+        if(!$this->transmission) {
+            return null;
+        }
+
+        return TransmissionType::getHumanTypes()[$this->transmission];
+    }
+
     /**
      * Add image
      */
@@ -282,7 +292,7 @@ class UserCar
 
     protected function nonEmptyImages($images)
     {
-        $result = [];
+        $result = new ArrayCollection;
         foreach ($images as $image) {
             if($image->getImage()) {
                 $result[] = $image;

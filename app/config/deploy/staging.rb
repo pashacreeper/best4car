@@ -6,6 +6,6 @@ role :web,        domain
 role :app,        domain, :primary => true
 role :db,         domain
 
-set :branch,      "development"
+set :branch,      "garage"
 
 after "deploy:update_code", "deploy:block_robots"

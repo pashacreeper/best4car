@@ -22,4 +22,17 @@ class TransmissionType extends SimpleChoiceList
         ];
         parent::__construct($choices);
     }
+
+    public static function getHumanTypes()
+    {
+        $humanTypes = [
+            self::MT => 'MT (Ручная)',
+            self::AT => 'AT (Автоматическая)',
+            self::MTA => 'MTA (Преселективная)',
+            self::CVT => 'CVT (Бесступенчатая)',
+            self::HSD => 'HSD (Гибридная)',
+        ];
+
+        return $humanTypes;
+    }
 }
