@@ -40,6 +40,14 @@ class UserCarType extends AbstractType
                     'class' => 'inputFormEnter'
                 ],
             ])
+            ->add('year', 'choice', [
+                'label' => 'Год',
+                'required' => true,
+                'choices' => array_combine(range((int)date('Y'), 1965), range((int)date('Y'), 1965)),
+                'attr' => [
+                    'class' => 'inputFormEnter'
+                ],
+            ])
             ->add('modification', 'shtumi_dependent_filtered_entity', [
                 'label' => 'Модификация',
                 'required' => true,

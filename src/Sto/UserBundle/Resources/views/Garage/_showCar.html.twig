@@ -16,7 +16,7 @@
         <div class="car-show">
             <div class="left-column">
                 <div class="car-model">{{ car.name }}</div>
-                <div class="car-modification">{{ car.modification.nameWithYear }} {{ car.transmissionName }}</div>
+                <div class="car-modification">{{ car.year }} г.в., {{ car.modification.name }} {{ car.transmissionName }}</div>
                 <div class="divider"></div>
                 {% if car.vin %}
                 <div class="vin-label">VIN-номер</div>

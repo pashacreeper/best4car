@@ -73,6 +73,62 @@ class UserCar
      */
     private $images;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="year", type="integer")
+     */
+    protected $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="engineType", type="string", length=255, nullable=true)
+     */
+    protected $engineType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="engineModel", type="string", length=255, nullable=true)
+     */
+    protected $engineModel;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="engineVolume", type="integer", nullable=true)
+     */
+    protected $engineVolume;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="enginePower", type="integer", nullable=true)
+     */
+    protected $enginePower;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="fuelTypes", type="array", nullable=true)
+     */
+    protected $fuelTypes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="wheelType", type="string", length=255, nullable=true)
+     */
+    protected $wheelType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bodyType", type="string", length=255, nullable=true)
+     */
+    protected $bodyType;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -204,6 +260,29 @@ class UserCar
     }
 
     /**
+     * Set year
+     *
+     * @param  string $year
+     * @return UserCar
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
      * Set vin
      *
      * @param  string $vin
@@ -294,7 +373,7 @@ class UserCar
     {
         $result = new ArrayCollection;
         foreach ($images as $image) {
-            if($image->getImage()) {
+            if($image->getImage() || $image->getImageName()) {
                 $result[] = $image;
             }
         }

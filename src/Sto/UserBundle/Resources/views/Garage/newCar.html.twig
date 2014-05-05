@@ -202,6 +202,11 @@
                             {{ form_errors(form.model) }}
                         </div>
                         <div class="contentLabel clear">
+                            {{ form_label(form.year) }}
+                            {{ form_widget(form.year) }}
+                            {{ form_errors(form.year) }}
+                        </div>
+                        <div class="contentLabel clear">
                             {{ form_label(form.modification) }}
                             {{ form_widget(form.modification) }}
                             {{ form_errors(form.modification) }}
