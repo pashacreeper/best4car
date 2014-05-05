@@ -2286,3 +2286,8 @@ input.error {border: 1px solid #ff0000;}
     color: #51585f;
     text-align: center;
 }
+
+.car-right-column select {
+    height: 26px;
+    padding-top: 2px;
+}
