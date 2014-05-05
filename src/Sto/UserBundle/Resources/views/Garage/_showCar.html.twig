@@ -1,6 +1,6 @@
 <div class="leftContent">
     <div class="no-deals">
-    	{% if car.images %}
+    	{% if car.images|length > 0 %}
     	<div class="car-photos">
     		<img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}"  alt="" />
     		<div class="photo-select">

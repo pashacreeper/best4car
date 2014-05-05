@@ -280,8 +280,22 @@ class UserCar
         $this->images->removeElement($image);
     }
 
+    protected function nonEmptyImages($images)
+    {
+        $result = [];
+        foreach ($images as $image) {
+            if($image->getImage()) {
+                $result[] = $image;
+            }
+        }
+
+        return $result;
+    }
+
     public function setImages($images)
     {
+        $images = $this->nonEmptyImages($images);
+        
         foreach ($images as $image) {
             $image->setCar($this);
         }
