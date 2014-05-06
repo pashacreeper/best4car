@@ -2316,11 +2316,17 @@ input.error {border: 1px solid #ff0000;}
     padding-bottom: 10px;
 }
 
-.car-show .right-column div span {
+.car-show .right-column div .carLabel {
     color: #999999;
     width: 120px;
     display: inline-block;
     padding-left: 20px;
+}
+
+.car-show .right-column div .carValue {
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .car-show .left-column .vin-label {

@@ -11,11 +11,14 @@ class WheelType extends SimpleChoiceList
 
     public function __construct()
     {
-        $choices = [
+        parent::__construct(self::getOptions());
+    }
+
+    public static function getOptions() {
+        return [
             self::FRONT => "Передний",
             self::BACK => "Задний",
             self::FULL => "Полный",
         ];
-        parent::__construct($choices);
     }
 }

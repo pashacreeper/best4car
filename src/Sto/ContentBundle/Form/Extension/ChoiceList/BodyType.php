@@ -11,11 +11,14 @@ class BodyType extends SimpleChoiceList
 
     public function __construct()
     {
-        $choices = [
+        parent::__construct(self::getOptions());
+    }
+
+    public static function getOptions() {
+        return [
             self::SEDAN => "Седан",
             self::HATCHBACK => "Хетчбек",
             self::UNIVERSAL => "Универсал",
         ];
-        parent::__construct($choices);
     }
 }

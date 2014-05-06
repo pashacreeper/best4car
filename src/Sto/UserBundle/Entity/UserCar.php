@@ -5,12 +5,16 @@ namespace Sto\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
 
 /**
  * User Cars
  *
  * @ORM\Entity
  * @ORM\Table(name="user_cars")
+ * @ORM\HasLifecycleCallbacks()
  */
 class UserCar
 {
@@ -224,6 +228,23 @@ class UserCar
         $this->modification = $modification;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function resetCustomModification()
+    {
+        if($this->modification) {
+            $this->setBodyType(null);
+            $this->setFuelTypes(null);
+            $this->setWheelType(null);
+            $this->setEngineType(null);
+            $this->setEnginePower(null);
+            $this->setEngineVolume(null);
+            $this->setEngineModel(null);
+        }
     }
 
     /**
@@ -567,5 +588,71 @@ class UserCar
     public function isCustomModification()
     {
         return $this->getId() && !$this->getModification();
+    }
+
+    public function getDescription()
+    {
+        $desc = $this->getYear(). " г.в., ";
+        if($this->modification) {
+            $desc .= $this->modification->getName();
+        } else {
+            $desc .= $this->engineModel;
+            if($this->enginePower) {
+                $desc .= " (". $this->enginePower .")";
+            }
+        }
+        $desc .= " ".$this->getTransmissionName();
+
+        return $desc;
+    }
+
+    public function getBodyTypeWrapper()
+    {
+        if($this->modification) {
+            return $this->modification->getBodyType();
+        } else {
+            return $this->getBodyTypeName();
+        }
+    }
+
+    public function getBodyTypeName()
+    {
+        return BodyType::getOptions()[$this->bodyType];
+    }
+
+    public function getWheelTypeName()
+    {
+        return WheelType::getOptions()[$this->wheelType];
+    }
+
+    public function getEngineTypeName()
+    {
+        return EngineType::getOptions()[$this->engineType];
+    }
+
+    public function getEngineDescription()
+    {
+        $desc = '';
+        if($this->modification) {
+            $desc .= $this->modification->getEngine(). " куб.см., ";
+            $desc .= $this->modification->getPower(). " л.с.";
+        } else {
+            if($this->getEngineType()) {
+                $desc .= $this->getEngineTypeName().", ";
+            }
+            $desc .= $this->getEngineModel(). ", ";
+            $desc .= $this->getEngineVolume(). " куб.см., ";
+            $desc .= $this->getEnginePower(). " л.с., ";
+            $i = 0;
+            foreach ($this->getFuelTypes() as $type) {
+                $i++;
+                $desc .= "АИ-$type";
+                if(count($this->getFuelTypes()) != $i) {
+                    $desc .= ", ";
+                }
+            }
+        }
+
+        return $desc;
     }
 }

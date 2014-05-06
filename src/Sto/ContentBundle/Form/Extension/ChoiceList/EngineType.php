@@ -10,10 +10,13 @@ class EngineType extends SimpleChoiceList
 
     public function __construct()
     {
-        $choices = [
+        parent::__construct(self::getOptions());
+    }
+
+    public static function getOptions() {
+        return [
             self::PETROL => "Бензиновый",
             self::DIESEL => "Дизельный",
         ];
-        parent::__construct($choices);
     }
 }

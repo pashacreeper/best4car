@@ -16,7 +16,7 @@
         <div class="car-show">
             <div class="left-column">
                 <div class="car-model">{{ car.name }}</div>
-                <div class="car-modification">{{ car.year }} г.в., {{ car.modification.name }} {{ car.transmissionName }}</div>
+                <div class="car-modification">{{ car.description }}</div>
                 <div class="divider"></div>
                 {% if car.vin %}
                 <div class="vin-label">VIN-номер</div>
@@ -27,10 +27,12 @@
                 {% endif %}
             </div>
             <div class="right-column">
-                <div><span>Трансмиссия</span> {{ car.transmissionHuman }}</div>
-                <!-- <div><span>Двигатель</span> dsadsadsa</div> -->
-                <!-- <div><span>Привод</span> dsadsadsa</div> -->
-                <div><span>Тип кузова</span> {{ car.modification.bodyType }}</div>
+                <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
+                <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
+                {% if car.wheelType %}
+                    <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.wheelTypeName }}</span></div>
+                {% endif %}
+                <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.bodyTypeWrapper }}</span></div>
             </div>
         </div>
     </div>
