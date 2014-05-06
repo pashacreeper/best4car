@@ -210,6 +210,45 @@
                             {{ form_label(form.modification) }}
                             {{ form_widget(form.modification) }}
                             {{ form_errors(form.modification) }}
+                            <a href="#" id="other-modification">Изменить модификацию</a>
+                        </div>
+                        <div id="modification-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
+                            <a href="#" class="close-reveal-modal"></a>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.engineType) }}
+                                {{ form_widget(form.engineType) }}
+                                {{ form_errors(form.engineType) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.engineModel) }}
+                                {{ form_widget(form.engineModel) }}
+                                {{ form_errors(form.engineModel) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.engineVolume) }}
+                                {{ form_widget(form.engineVolume) }}
+                                {{ form_errors(form.engineVolume) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.enginePower) }}
+                                {{ form_widget(form.enginePower) }}
+                                {{ form_errors(form.enginePower) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.fuelTypes) }}
+                                {{ form_widget(form.fuelTypes) }}
+                                {{ form_errors(form.fuelTypes) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.wheelType) }}
+                                {{ form_widget(form.wheelType) }}
+                                {{ form_errors(form.wheelType) }}
+                            </div>
+                            <div class="contentLabel clear">
+                                {{ form_label(form.bodyType) }}
+                                {{ form_widget(form.bodyType) }}
+                                {{ form_errors(form.bodyType) }}
+                            </div>
                         </div>
                         <div class="contentLabel clear">
                             {{ form_label(form.transmission) }}

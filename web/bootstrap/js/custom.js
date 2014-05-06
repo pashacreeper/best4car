@@ -682,6 +682,47 @@ var initPage = function(){
     $('.car-photos .photo-select .item').on('click', function() {
         $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
     });
+
+
+    $('#other-modification').hide();
+    $('#modification-choose-modal').hide();
+
+    var filterModifications = function() {
+        var model = $('#sto_user_car_model').val();
+        var year = $('#sto_user_car_year').val();
+        var $select = $('#sto_user_car_modification');
+        if(model && year) {
+            $select.empty();
+            $.getJSON(Routing.generate('api_auto_catalog_get_modifications_for_model_and_year', {id: model, year: year}))
+                .done(function (json) {
+                    $select.append('<option value="">Выбрать модификацию</option>');
+                    $.each(json, function (index, mod) {
+                        $select.append('<option value="' + mod.id + '">' + mod.name + '</option>');
+                    });
+                    $select.append('<option value="" id="other">Другая модификация</option>');
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    console.log("Request Failed: " + textStatus + ', ' + error);
+                });
+        }
+    };
+
+    $('#sto_user_car_model').on('change', filterModifications);
+    $('#sto_user_car_year').on('change', filterModifications);
+    $('#sto_user_car_modification').on('change', function() {
+        if($(this).find(':selected').attr('id') == 'other') {
+            $('#other-modification').show();
+            $('#modification-choose-modal').reveal()
+        } else {
+            $('#other-modification').hide();
+        }
+    });
+
+    $('#other-modification').on('click', function(e) {
+        e.preventDefault();
+
+        $('#modification-choose-modal').reveal()
+    });
 };
 
 $(document).ready(function(){initPage()});

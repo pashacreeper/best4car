@@ -1143,3 +1143,30 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     min-height: 284px;
     background-image: url(/bootstrap/img/car_bg.png);
 }
+
+#other-modification {
+    display: block;
+    width: 155px;
+    font: 1.4em 'PT Sans', sans;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+
+#modification-choose-modal {
+    margin-left: -204px;
+    width: 480px;
+}
+
+#modification-choose-modal label {
+    clear: none;
+    float: left;
+    width: 100px;
+}
+
+#modification-choose-modal input {
+    margin-bottom: 0px;
+}
+
+#modification-choose-modal select {
+    width: 220px;
+}

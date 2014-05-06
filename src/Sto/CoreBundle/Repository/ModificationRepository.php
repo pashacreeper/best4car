@@ -16,4 +16,19 @@ class ModificationRepository extends EntityRepository
             ->andWhere('e.visible = true')
         ;
     }
+
+    public function findByModelAndYear($model, $year)
+    {
+    	return $this->createQueryBuilder('c')
+    	    ->select('c.id, c.name')
+            ->where('c.parent = :model')
+            ->andWhere('c.startOfProduction <= :year')
+            ->andWhere('c.closingOfProduction > :year')
+            ->andWhere('c.visible = true')
+            ->getQuery()
+            ->setParameter('model', $model)
+            ->setParameter('year', $year)
+            ->getArrayResult()
+        ;
+    }
 }

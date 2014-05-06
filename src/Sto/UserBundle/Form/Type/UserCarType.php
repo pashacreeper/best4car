@@ -10,6 +10,10 @@ use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\FuelType;
 
 class UserCarType extends AbstractType
 {
@@ -78,6 +82,61 @@ class UserCarType extends AbstractType
             ->add('drive2', null, [
                 'label' => 'Ссылка на бортовой журнал на Drive2',
                 'required' => false,
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('engineType', 'choice', [
+                'label' => 'Тип двигателя',
+                'required' => false,
+                'choice_list' => new EngineType(),
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('engineModel', null, [
+                'label' => 'Модель двигателя',
+                'required' => false,
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('engineVolume', null, [
+                'label' => 'Объем',
+                'required' => false,
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('enginePower', null, [
+                'label' => 'Мощность',
+                'required' => false,
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('fuelTypes', 'choice', [
+                'label' => 'Топливо',
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'choice_list' => new FuelType(),
+                'attr' => [
+                    'class' => 'priceLevelMarker'
+                ]
+            ])
+            ->add('wheelType', 'choice', [
+                'label' => 'Привод',
+                'required' => false,
+                'choice_list' => new WheelType(),
+                'attr' => [
+                    'class' => 'inputField'
+                ]
+            ])
+            ->add('bodyType', 'choice', [
+                'label' => 'Тип кузова',
+                'required' => false,
+                'choice_list' => new BodyType(),
                 'attr' => [
                     'class' => 'inputField'
                 ]

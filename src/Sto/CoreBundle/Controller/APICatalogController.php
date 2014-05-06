@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sto\CoreBundle\Entity\Catalog;
+use Sto\CoreBundle\Entity\Model;
 
 /**
  * APi Auto Catalog controller.
@@ -104,6 +105,29 @@ class APICatalogController extends FOSRestController
             ->setParameter('model', $model)
             ->getArrayResult()
         ;
+
+        return new Response($serializer->serialize($data, 'json'));
+    }
+
+    /**
+     * @ApiDoc(
+     * description="Получить список всех модификаций автомобилей для указанной модели и года",
+     *  statusCodes={
+     *      200="Returned when successful",
+     *  }
+     * )
+     *
+     * @Rest\View
+     * @Route("/model/{id}/{year}/modifications", name="api_auto_catalog_get_modifications_for_model_and_year", options={"expose"=true})
+     * @Method({"GET"})
+     * @ParamConverter("model", class="StoCoreBundle:Model")
+     */
+    public function getModificationForModelAndYear(Model $model, $year)
+    {
+        $serializer = $this->container->get('jms_serializer');
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('StoCoreBundle:Modification')->findByModelAndYear($model, $year);
 
         return new Response($serializer->serialize($data, 'json'));
     }

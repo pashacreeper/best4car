@@ -216,10 +216,10 @@ class UserCar
     /**
      * Set modification
      *
-     * @param  \Sto\CoreBundle\Entity\Modification $modification
+     * @param  \Sto\CoreBundle\Entity\Modification|null $modification
      * @return UserCar
      */
-    public function setModification(\Sto\CoreBundle\Entity\Modification $modification)
+    public function setModification($modification)
     {
         $this->modification = $modification;
 
@@ -401,5 +401,166 @@ class UserCar
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Set engineVolume
+     *
+     * @param  int $engineVolume
+     * @return UserCar
+     */
+    public function setEngineVolume($engineVolume)
+    {
+        $this->engineVolume = $engineVolume;
+
+        return $this;
+    }
+
+    /**
+     * Get engineVolume
+     *
+     * @return int
+     */
+    public function getEngineVolume()
+    {
+        return $this->engineVolume;
+    }
+
+    /**
+     * Set enginePower
+     *
+     * @param  int $enginePower
+     * @return UserCar
+     */
+    public function setEnginePower($enginePower)
+    {
+        $this->enginePower = $enginePower;
+
+        return $this;
+    }
+
+    /**
+     * Get enginePower
+     *
+     * @return int
+     */
+    public function getEnginePower()
+    {
+        return $this->enginePower;
+    }
+
+    /**
+     * Set engineModel
+     *
+     * @param  string $engineModel
+     * @return UserCar
+     */
+    public function setEngineModel($engineModel)
+    {
+        $this->engineModel = $engineModel;
+
+        return $this;
+    }
+
+    /**
+     * Get engineModel
+     *
+     * @return string
+     */
+    public function getEngineModel()
+    {
+        return $this->engineModel;
+    }
+
+    /**
+     * Set engineType
+     *
+     * @param  string $engineType
+     * @return UserCar
+     */
+    public function setEngineType($engineType)
+    {
+        $this->engineType = $engineType;
+
+        return $this;
+    }
+
+    /**
+     * Get engineType
+     *
+     * @return string
+     */
+    public function getEngineType()
+    {
+        return $this->engineType;
+    }
+
+    /**
+     * Set wheelType
+     *
+     * @param  string $wheelType
+     * @return UserCar
+     */
+    public function setWheelType($wheelType)
+    {
+        $this->wheelType = $wheelType;
+
+        return $this;
+    }
+
+    /**
+     * Get wheelType
+     *
+     * @return string
+     */
+    public function getWheelType()
+    {
+        return $this->wheelType;
+    }
+
+    /**
+     * Set bodyType
+     *
+     * @param  string $bodyType
+     * @return UserCar
+     */
+    public function setBodyType($bodyType)
+    {
+        $this->bodyType = $bodyType;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyType
+     *
+     * @return string
+     */
+    public function getBodyType()
+    {
+        return $this->bodyType;
+    }
+
+    /**
+     * Set fuelTypes
+     *
+     * @param  array $fuelTypes
+     * @return UserCar
+     */
+    public function setFuelTypes($fuelTypes)
+    {
+        $this->fuelTypes = $fuelTypes;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelTypes
+     *
+     * @return array
+     */
+    public function getFuelTypes()
+    {
+        return $this->fuelTypes;
     }
 }
