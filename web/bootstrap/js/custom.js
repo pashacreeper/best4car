@@ -697,9 +697,19 @@ var initPage = function(){
                 .done(function (json) {
                     $select.append('<option value="">Выбрать модификацию</option>');
                     $.each(json, function (index, mod) {
-                        $select.append('<option value="' + mod.id + '">' + mod.name + '</option>');
+                        var option = $('<option value="' + mod.id + '">' + mod.name + '</option>');
+                        if($('#other-modification').data('selected') == mod.id) {
+                            option.attr('selected', true);
+                        }
+                        $select.append(option);
                     });
-                    $select.append('<option value="" id="other">Другая модификация</option>');
+                    var custom = $('<option value="" id="other">Другая модификация</option>');
+                    if($('#other-modification').data('custom')) {
+                        custom.attr('selected', true);
+                        $('#other-modification').show();
+                        $('#other-modification').data('custom', false);
+                    }
+                    $select.append(custom);
                 })
                 .fail(function (jqxhr, textStatus, error) {
                     console.log("Request Failed: " + textStatus + ', ' + error);

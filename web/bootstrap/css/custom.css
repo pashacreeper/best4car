@@ -1170,3 +1170,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 #modification-choose-modal select {
     width: 220px;
 }
+
+#sto_user_car_fuelTypes label {
+    width: 30px;
+}

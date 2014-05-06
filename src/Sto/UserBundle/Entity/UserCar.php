@@ -563,4 +563,9 @@ class UserCar
     {
         return $this->fuelTypes;
     }
+
+    public function isCustomModification()
+    {
+        return $this->getId() && !$this->getModification();
+    }
 }
