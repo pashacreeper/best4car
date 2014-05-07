@@ -157,4 +157,22 @@ class GarageController extends MainController
     {
         return compact('car');
     }
+
+    /**
+     * Delete a Car entity.
+     *
+     * @Route("/garage/{id}/delete", name="garage_delete")
+     * @Method({"GET"})
+     * @Secure(roles="IS_AUTHENTICATED_FULLY")
+     */
+    public function deleteCarAction(UserCar $car)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($car);
+        $em->flush();
+
+        return $this->redirect(
+            $this->generateUrl('fos_user_profile_show') . '#garage'
+        );
+    }
 }

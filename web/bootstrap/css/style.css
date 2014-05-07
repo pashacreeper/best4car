@@ -2345,3 +2345,12 @@ input.error {border: 1px solid #ff0000;}
 .car-show .left-column .car-modification {
     font-size: 16px;
 }
+
+.newCarBtn {
+    float: right;
+}
+
+.deleteCar {
+    font-size: 16px;
+    float: left;
+}
