@@ -23,18 +23,18 @@
     <span class="you">Вы:</span>
     <div class="nameProfilExpert">
         <p class="titleProfilExpert">
-            <span>{{ app.user.firstName }}</span>,
-            {{ app.user.username }}<i class="editIcon"></i>
+            <span>{{ showUser.firstName }}</span>,
+            {{ showUser.username }}<i class="editIcon"></i>
         </p>
         {% spaceless %}
             <p class="sloganCompany">
-            {% if app.user.ratingGroup %}
-                <span>{{ app.user.ratingGroup.name }}</span> &ndash;
+            {% if showUser.ratingGroup %}
+                <span>{{ showUser.ratingGroup.name }}</span> &ndash;
             {% endif %}
-            {% if app.user.city %}
-            {{ app.user.city.name }}
+            {% if showUser.city %}
+            {{ showUser.city.name }}
             {% endif %}
-            {%- if app.user.years %}, {{ 'years.old'|transchoice(app.user.years) }} {% endif -%}
+            {%- if showUser.years %}, {{ 'years.old'|transchoice(showUser.years) }} {% endif -%}
             </p>
         {% endspaceless %}
     </div>
@@ -42,7 +42,7 @@
 <div class="indexCompany">
     <p>Рейтинг:</p>
     <span class="indexbg"></span>
-    <span class="indexLevel">{{ app.user.rating + app.user.ratingBonus }}</span></br>
+    <span class="indexLevel">{{ showUser.rating + showUser.ratingBonus }}</span></br>
 </div>
 </div>
 {% endblock %}
@@ -54,7 +54,7 @@
             <a class="" href="{{ path('fos_user_profile_show') }}#information">Информация</a>
         </li>
         <li>
-            <a class="" href="{{ path('fos_user_profile_show') }}#feedbacks">Отзывы {{ app.user.feedbacks|length }}</a>
+            <a class="" href="{{ path('fos_user_profile_show') }}#feedbacks">Отзывы {{ showUser.feedbacks|length }}</a>
         </li>
         <li>
             <a class="selected" href="{{ path('fos_user_profile_show') }}#garage">Гараж</a>

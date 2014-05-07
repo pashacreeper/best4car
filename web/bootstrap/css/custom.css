@@ -1174,3 +1174,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 #sto_user_car_fuelTypes label {
     width: 30px;
 }
+
+#modification-choose-modal {
+    top: 0px;
+}
+
+.modificationBottomContent {
+    margin-bottom: 0px;
+}

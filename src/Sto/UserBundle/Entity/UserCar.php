@@ -8,6 +8,7 @@ use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User Cars
@@ -68,6 +69,7 @@ class UserCar
     /**
      * @var string
      *
+     * @Assert\Url()
      * @ORM\Column(name="drive2", type="string", length=255, nullable=true)
      */
     protected $drive2;
@@ -617,17 +619,23 @@ class UserCar
 
     public function getBodyTypeName()
     {
-        return BodyType::getOptions()[$this->bodyType];
+        if($this->bodyType) {
+            return BodyType::getOptions()[$this->bodyType];
+        }
     }
 
     public function getWheelTypeName()
     {
-        return WheelType::getOptions()[$this->wheelType];
+        if($this->wheelType) {
+            return WheelType::getOptions()[$this->wheelType];
+        }
     }
 
     public function getEngineTypeName()
     {
-        return EngineType::getOptions()[$this->engineType];
+        if($this->engineType) {
+            return EngineType::getOptions()[$this->engineType];
+        }
     }
 
     public function getEngineDescription()
@@ -640,9 +648,15 @@ class UserCar
             if($this->getEngineType()) {
                 $desc .= $this->getEngineTypeName().", ";
             }
-            $desc .= $this->getEngineModel(). ", ";
-            $desc .= $this->getEngineVolume(). " куб.см., ";
-            $desc .= $this->getEnginePower(). " л.с., ";
+            if($this->getEngineModel()) {
+                $desc .= $this->getEngineModel(). ", ";
+            }
+            if($this->getEngineVolume()) {
+                $desc .= $this->getEngineVolume(). " куб.см., ";
+            }
+            if($this->getEnginePower()) {
+                $desc .= $this->getEnginePower(). " л.с., ";
+            }
             $i = 0;
             foreach ($this->getFuelTypes() as $type) {
                 $i++;

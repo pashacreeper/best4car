@@ -706,6 +706,7 @@ var initPage = function(){
                     var custom = $('<option value="" id="other">Другая модификация</option>');
                     if($('#other-modification').data('custom')) {
                         custom.attr('selected', true);
+                        $select.removeAttr('required');
                         $('#other-modification').show();
                         $('#other-modification').data('custom', false);
                     }
@@ -721,9 +722,11 @@ var initPage = function(){
     $('#sto_user_car_year').on('change', filterModifications);
     $('#sto_user_car_modification').on('change', function() {
         if($(this).find(':selected').attr('id') == 'other') {
+            $(this).removeAttr('required');
             $('#other-modification').show();
-            $('#modification-choose-modal').reveal()
+            $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
         } else {
+            $(this).attr('required', true);
             $('#other-modification').hide();
         }
     });
@@ -731,7 +734,7 @@ var initPage = function(){
     $('#other-modification').on('click', function(e) {
         e.preventDefault();
 
-        $('#modification-choose-modal').reveal()
+        $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
     });
 };
 

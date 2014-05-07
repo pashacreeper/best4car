@@ -13,12 +13,18 @@
 				</div>
 			</div>
 		{% else %}
-		Вы еще ничего не рассказали о своём гараже
-		<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+			{% if showUser == app.user %}
+			Вы еще ничего не рассказали о своём гараже
+			<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+			{% else %}
+			Пользователь еще ничего не рассказали о своём гараже
+			{% endif %}
 		{% endfor %}
 	</div>
 </div>
 <div class="rightContent">
+	{% if showUser == app.user %}
 	<a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+	{% endif %}
     <div class="bannerImg"></div>
 </div>

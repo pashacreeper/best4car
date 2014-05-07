@@ -28,17 +28,23 @@
             </div>
             <div class="right-column">
                 <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
-                <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
+                {% if car.engineDescription %}
+                    <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
+                {% endif %}
                 {% if car.wheelType %}
                     <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.wheelTypeName }}</span></div>
                 {% endif %}
-                <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.bodyTypeWrapper }}</span></div>
+                {% if car.bodyType %}
+                    <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.bodyTypeWrapper }}</span></div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 <div class="rightContent">
+    {% if car.user == app.user %}
     <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
     <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
+    {% endif %}
     <div class="bannerImg"></div>
 </div>

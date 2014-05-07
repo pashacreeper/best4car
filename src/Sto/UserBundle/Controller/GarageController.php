@@ -143,7 +143,7 @@ class GarageController extends MainController
             return $this->render('StoUserBundle:Garage:_showCar.html.twig', ['car' => $cars->first()]);
         }
 
-        return compact('cars');
+        return compact('cars', 'showUser');
     }
 
     /**
@@ -155,7 +155,8 @@ class GarageController extends MainController
      */
     public function showCarAction(Request $request, UserCar $car)
     {
-        return compact('car');
+        $showUser = $car->getUser();
+        return compact('car', 'showUser');
     }
 
     /**

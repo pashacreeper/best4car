@@ -213,7 +213,7 @@
                             <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
                         </div>
                         <div id="modification-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
-                            <a href="#" class="close-reveal-modal"></a>
+                            <a href="#" class="close-reveal-modal closeModal"></a>
                             <div class="contentLabel clear">
                                 {{ form_label(form.engineType) }}
                                 {{ form_widget(form.engineType) }}
@@ -248,6 +248,9 @@
                                 {{ form_label(form.bodyType) }}
                                 {{ form_widget(form.bodyType) }}
                                 {{ form_errors(form.bodyType) }}
+                            </div>
+                            <div class="bottomContent modificationBottomContent">
+                                <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
                             </div>
                         </div>
                         <div class="contentLabel clear">
