@@ -640,33 +640,28 @@ class UserCar
 
     public function getEngineDescription()
     {
-        $desc = '';
+        $parts = [];
         if($this->modification) {
-            $desc .= $this->modification->getEngine(). " куб.см., ";
-            $desc .= $this->modification->getPower(). " л.с.";
+            $parts[] = $this->modification->getEngine(). " куб.см.";
+            $parts[] = $this->modification->getPower(). " л.с.";
         } else {
             if($this->getEngineType()) {
-                $desc .= $this->getEngineTypeName().", ";
+                $parts[] = $this->getEngineTypeName();
             }
             if($this->getEngineModel()) {
-                $desc .= $this->getEngineModel(). ", ";
+                $parts[] = $this->getEngineModel();
             }
             if($this->getEngineVolume()) {
-                $desc .= $this->getEngineVolume(). " куб.см., ";
+                $parts[] = $this->getEngineVolume(). " куб.см.";
             }
             if($this->getEnginePower()) {
-                $desc .= $this->getEnginePower(). " л.с., ";
+                $parts[] = $this->getEnginePower(). " л.с.";
             }
-            $i = 0;
             foreach ($this->getFuelTypes() as $type) {
-                $i++;
-                $desc .= "АИ-$type";
-                if(count($this->getFuelTypes()) != $i) {
-                    $desc .= ", ";
-                }
+                $parts[] = "АИ-$type";
             }
         }
 
-        return $desc;
+        return implode(", ", $parts);
     }
 }
