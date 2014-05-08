@@ -128,8 +128,8 @@ header {
     height: 174px;
 }
 
-.actionItemMini:last-child {
-    margin-left: 20px;
+.actionItemMini:first-child {
+    margin-right: 20px;
 }
 
 .actionItemMini img {
