@@ -156,6 +156,7 @@ class GarageController extends MainController
     public function showCarAction(Request $request, UserCar $car)
     {
         $showUser = $car->getUser();
+
         return compact('car', 'showUser');
     }
 

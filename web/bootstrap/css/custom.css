@@ -1140,7 +1140,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .car-card .img {
     float: left;
     width: 500px;
-    min-height: 284px;
+    height: 279px;
     background-image: url(/bootstrap/img/car_bg.png);
 }
 
