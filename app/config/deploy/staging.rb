@@ -8,4 +8,4 @@ role :db,         domain
 
 set :branch,      "garage"
 
-after "deploy:update_code", "deploy:block_robots"
+# after "deploy:update_code", "deploy:block_robots"
