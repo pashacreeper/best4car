@@ -34,7 +34,7 @@ class DealRepository extends EntityRepository
             $words = explode(" ", $search);
             $i = 0;
             foreach ($words as $word) {
-                if(strlen($word) < 3) {
+                if (strlen($word) < 3) {
                     continue;
                 }
                 $i++;
@@ -111,7 +111,7 @@ class DealRepository extends EntityRepository
             $words = explode(" ", $search);
             $i = 0;
             foreach ($words as $word) {
-                if(strlen($word) < 3) {
+                if (strlen($word) < 3) {
                     continue;
                 }
                 $i++;
@@ -239,7 +239,7 @@ class DealRepository extends EntityRepository
             $i = 0;
             $parts = [];
             foreach ($words as $word) {
-                if(strlen($word) < 3) {
+                if (strlen($word) < 3) {
                     continue;
                 }
                 $i++;
@@ -252,7 +252,7 @@ class DealRepository extends EntityRepository
                 )->setParameter("search_$i", "%{$word}%");
             }
         }
-        
+
         return count($query->getQuery()->getResult());
     }
 }

@@ -28,9 +28,8 @@ class ModelAdmin extends Admin
             );
         }
 
-
         $filters = $this->getFilterParameters();
-        if(isset($filters['parent']) && isset($filters['parent']['value'])) {
+        if (isset($filters['parent']) && isset($filters['parent']['value'])) {
             $mark = $this->getModelManager()->find('StoCoreBundle:Mark', $filters['parent']['value']);
             $menu = $menu->addChild($mark->getName(), ['uri' => $this->routeGenerator->generate('admin_sto_core_model_list').'?filter%5Bparent%5D%5Bvalue%5D='.$mark->getId()]);
         }

@@ -30,8 +30,8 @@ class FeedbackNumberListener
      */
     protected function setFeedbackNumber($args)
     {
-    	$entity = $args->getEntity();
-    	
+        $entity = $args->getEntity();
+
         if ($entity instanceof FeedbackCompany) {
             $em = $args->getEntityManager();
             $feedbackNumber = (int) $em->getRepository('StoCoreBundle:Feedback')->getMaxFeedbackNumberByCompany($entity->getCompany());

@@ -108,7 +108,7 @@ class CompanyRepository extends EntityRepository
             $words = explode(" ", $params['search']);
             $i = 0;
             foreach ($words as $word) {
-                if(strlen($word) < 3) {
+                if (strlen($word) < 3) {
                     continue;
                 }
                 $i++;
@@ -160,7 +160,7 @@ class CompanyRepository extends EntityRepository
     {
         $ids = $this->getCompanyIdsWithFilter($params);
 
-        if(empty($ids)) {
+        if (empty($ids)) {
             return [];
         }
 
@@ -181,7 +181,7 @@ class CompanyRepository extends EntityRepository
     {
         $ids = $this->getCompanyIdsWithFilter($params);
 
-        if(empty($ids)) {
+        if (empty($ids)) {
             return [];
         }
 
@@ -198,13 +198,13 @@ class CompanyRepository extends EntityRepository
             ->setParameter('ids', $ids)
             ->groupBy('company.id')
         ;
-         
+
         if ($params['sort'] == 'price') {
             $qb->orderBy('company.hourPrice', 'ASC');
         } else {
             $qb->orderBy('company.rating', 'DESC');
         }
-        
+
         return $qb->getQuery()->getArrayResult();
     }
 

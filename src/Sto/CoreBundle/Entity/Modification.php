@@ -306,7 +306,7 @@ class Modification
     {
         $start = $this->startOfProduction;
         $end = $this->closingOfProduction;
-        if(!$end) {
+        if (!$end) {
             $end = '...';
         }
 

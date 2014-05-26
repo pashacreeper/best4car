@@ -28,9 +28,8 @@ class ModificationAdmin extends Admin
             );
         }
 
-
         $filters = $this->getFilterParameters();
-        if(isset($filters['parent']) && isset($filters['parent']['value'])) {
+        if (isset($filters['parent']) && isset($filters['parent']['value'])) {
             $model = $this->getModelManager()->find('StoCoreBundle:Model', $filters['parent']['value']);
             $menu = $menu->addChild($model->getParent()->getName(), ['uri' => $this->routeGenerator->generate('admin_sto_core_model_list').'?filter%5Bparent%5D%5Bvalue%5D='.$model->getParent()->getId()]);
             $menu = $menu->addChild($model->getName(), ['uri' => $this->routeGenerator->generate('admin_sto_core_modification_list').'?filter%5Bparent%5D%5Bvalue%5D='.$model->getId()]);

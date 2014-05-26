@@ -11,7 +11,7 @@ class CompanyRegisterControllerTest extends WebTestCase
 {
     public function testUserRegistration()
     {
-    	$classes = [
+        $classes = [
             'Sto\CoreBundle\DataFixtures\ORM\LoadSpbData',
         ];
 
@@ -110,7 +110,7 @@ class CompanyRegisterControllerTest extends WebTestCase
         $company = new Company();
         $company->setName("Short Company Name");
         $em->persist($company);
-        
+
         $user = $this->getRepository('StoUserBundle:User')->findOneBy(['username' => 'manager']);
 
         $manager = new CompanyManager();

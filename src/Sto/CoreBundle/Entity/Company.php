@@ -545,7 +545,7 @@ class Company
      */
     public function setTypeFromSpecs()
     {
-        if(!$this->specializations->isEmpty()) {
+        if (!$this->specializations->isEmpty()) {
             $this->setType($this->specializations->first()->getType());
         }
     }
