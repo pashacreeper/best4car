@@ -1509,10 +1509,12 @@ label {
     width: 265px;
 }
 
-.contentLabel {
+.contentLabel, .contentLabelNoOverflow {
     margin-top: 8px;
     padding-bottom: 8px;
     position: relative;
+}
+.contentLabel{
     overflow: hidden;
 }
 

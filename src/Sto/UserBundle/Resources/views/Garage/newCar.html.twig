@@ -191,7 +191,7 @@
                         </script>
                     </div>
                     <div class="car-right-column">
-                        <div class="contentLabel clear">
+                        <div class="contentLabelNoOverflow">
                             {{ form_label(form.mark) }}
                             {{ form_widget(form.mark) }}
                             {{ form_errors(form.mark) }}
@@ -210,7 +210,9 @@
                             {{ form_label(form.modification) }}
                             {{ form_widget(form.modification) }}
                             {{ form_errors(form.modification) }}
-                            <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
+                            {% if car is defined %}
+                                <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
+                            {% endif %}
                         </div>
                         <div id="modification-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
                             <a href="#" class="close-reveal-modal closeModal"></a>
