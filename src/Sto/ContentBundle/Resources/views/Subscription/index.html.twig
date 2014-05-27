@@ -1,0 +1,45 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title %}Мои подписки{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+        <a href="#" class="btnBack"><i class="btnBackIcon"></i></a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <div class="titles"><h1 class="titleNameCompany">Ваши подписки</h1></div>
+        </div>
+        <div class="indexCompany">
+            <p>Рейтинг:</p>
+            <span class="indexbg"></span>
+            <span class="indexLevel">{{ user.rating }}</span></br>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="contentMain row">
+
+    </section>
+{% endblock %}
