@@ -1,6 +1,7 @@
 <?php
 namespace Sto\UserBundle\Controller;
 
+use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Symfony\Component\HttpFoundation\Request;

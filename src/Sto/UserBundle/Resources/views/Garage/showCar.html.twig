@@ -58,13 +58,13 @@
 <section class="contentMain row">
     <ul class="tabNavigation">
         <li>
-            <a class="" href="{{ path('fos_user_profile_show') }}#information">Информация</a>
+            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#first">Информация</a>
         </li>
         <li>
-            <a class="" href="{{ path('fos_user_profile_show') }}#feedbacks">Отзывы {{ showUser.feedbacks|length }}</a>
+            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#second">Отзывы {{ showUser.feedbacks|length }}</a>
         </li>
         <li>
-            <a class="selected" href="{{ path('fos_user_profile_show') }}#garage">Гараж</a>
+            <a class="selected" href="{{ path('user_profile', {id: showUser.id}) }}#garage">Гараж</a>
         </li>
     </ul>
     <div class="content">
