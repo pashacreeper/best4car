@@ -126,8 +126,9 @@ class APICatalogController extends FOSRestController
     {
         $serializer = $this->container->get('jms_serializer');
 
-        $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository('StoCoreBundle:Modification')->findByModelAndYear($model, $year);
+        $data = $this->getDoctrine()->getManager()
+            ->getRepository('StoCoreBundle:Modification')
+            ->findByModelAndYear($model, $year);
 
         return new Response($serializer->serialize($data, 'json'));
     }

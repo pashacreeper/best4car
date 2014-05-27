@@ -19,11 +19,16 @@ class ModificationRepository extends EntityRepository
 
     public function findByModelAndYear($model, $year)
     {
-    	return $this->createQueryBuilder('c')
-    	    ->select('c.id, c.name')
+        $queryBuilder = $this->createQueryBuilder('c');
+    	return $queryBuilder->select('c.id, c.name')
             ->where('c.parent = :model')
             ->andWhere('c.startOfProduction <= :year')
-            ->andWhere('c.closingOfProduction > :year')
+            ->andWhere(
+                $queryBuilder->expr()->orx(
+                    $queryBuilder->expr()->gt('c.closingOfProduction', ':year'),
+                    $queryBuilder->expr()->isNull('c.closingOfProduction')
+                )
+            )
             ->andWhere('c.visible = true')
             ->getQuery()
             ->setParameter('model', $model)
