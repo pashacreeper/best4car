@@ -43,7 +43,7 @@
                 </p>
                 <div class="add-block">
                     <h3>Подписки на компании</h3>
-                    <ul>
+                    <ul id="company-list">
                         {% for subscription in companySubscriptions %}
                             <li>
                                 {{ subscription.mark.name }}
@@ -54,14 +54,14 @@
                         <a href="#" class="close-reveal-modal closeModal"></a>
                         {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm')) %}
                         <div class="bottomContent modificationBottomContent">
-                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn">Сохранить</a>
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
                         </div>
                     </div>
                     <a class="addSubscription addPhotoBtn bttn" href="#" data-type="company"><i class="plusIconWhite"></i>Добавить</a>
                 </div>
                 <div class="add-block">
                     <h3>Подписки на акциии</h3>
-                    <ul>
+                    <ul id="deal-list">
                         {% for subscription in dealSubscriptions %}
                             <li>
                                 {{ subscription.mark.name }}
@@ -72,7 +72,7 @@
                         <a href="#" class="close-reveal-modal closeModal"></a>
                         {% render(controller('StoContentBundle:Subscription:renderDealSubscriptionForm')) %}
                         <div class="bottomContent modificationBottomContent">
-                            <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn saveBttn">Сохранить</a>
                         </div>
                     </div>
                     <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal"><i class="plusIconWhite"></i>Добавить</a>
@@ -85,9 +85,25 @@
         $(document).ready(function () {
             $('.addSubscription').on('click', function () {
                 var $t = $(this),
-                    type = $t.data('type');
+                    type = $t.data('type'),
+                    modal = $('#' + type + '-modal');
 
-                $('#' + type + '-modal').reveal({dismissmodalclass: 'closeModal'});
+                modal.reveal({dismissmodalclass: 'closeModal'});
+                modal.on('click', '.saveBttn', function (e) {
+                    e.preventDefault();
+
+                    var form = modal.find('form').first(),
+                        data = form.serialize();
+
+                    $.ajax({
+                        url: "{{ path('subscription_store') }}",
+                        method: 'POST',
+                        data: data,
+                        success: function(data) {
+                            $('#' + type + '-list').append(data.html);
+                        }
+                    });
+                });
             });
         });
     </script>

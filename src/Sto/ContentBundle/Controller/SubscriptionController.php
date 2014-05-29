@@ -10,6 +10,7 @@ use Sto\CoreBundle\Entity\Subscription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -73,6 +74,15 @@ class SubscriptionController extends Controller
 
             $em->persist($subscription);
             $em->flush();
+
+            $html = $this->renderView('StoContentBundle:Subscription:_listElement.html.twig', [
+                'subscription' => $subscription
+            ]);
+
+            return new JsonResponse([
+                'success' => true,
+                'html' => $html
+            ]);
         }
 
         return [

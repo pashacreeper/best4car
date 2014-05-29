@@ -11,7 +11,7 @@ class DealSubscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'text', [
+            ->add('type', 'hidden', [
                 'data'      => SubscriptionType::DEAL,
                 'read_only' => true
             ])
