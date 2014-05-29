@@ -1,0 +1,94 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title %}Мои подписки — управление{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+        <a href="#" class="btnBack"><i class="btnBackIcon"></i></a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <div class="titles"><h1 class="titleNameCompany">Ваши подписки</h1></div>
+        </div>
+        <div class="indexCompany">
+            <p>Рейтинг:</p>
+            <span class="indexbg"></span>
+            <span class="indexLevel">{{ user.rating }}</span></br>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="contentMain row">
+        <div class="content">
+            <div class="leftContent">
+                <p>
+                    Подпишитесь на уведомления о новых акциях и появлении новых компаний,
+                    связанных с интересующими вас марками автомобилей — включая,
+                    но не ограничиваясь теми, которые указаны у вас в гараже.
+                </p>
+                <div class="add-block">
+                    Подписки на компании
+                    <ul>
+                        {% for subscription in companySubscriptions %}
+                            <li>
+                                {{ subscription.mark.name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div id="company-modal" class="reveal-modal"><!-- popUp firstReg-->
+                        <a href="#" class="close-reveal-modal closeModal"></a>
+                        {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm')) %}
+                        <div class="bottomContent modificationBottomContent">
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
+                        </div>
+                    </div>
+                    <a class="addSubscription" href="#" data-type="company">Добавить</a>
+                </div>
+                <div class="add-block">
+                    Подписки на акцииe
+                    <ul>
+                        {% for subscription in dealSubscriptions %}
+                            <li>
+                                {{ subscription.mark.name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div id="deal-modal" class="reveal-modal"><!-- popUp firstReg-->
+                        <a href="#" class="close-reveal-modal closeModal"></a>
+                        {% render(controller('StoContentBundle:Subscription:renderDealSubscriptionForm')) %}
+                        <div class="bottomContent modificationBottomContent">
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
+                        </div>
+                    </div>
+                    <a class="addSubscription" href="#" data-type="deal">Добавить</a>
+                </div>
+            </div>
+        </div>
+        <div class="rightContent"></div>
+    </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.addSubscription').on('click', function () {
+                var $t = $(this),
+                    type = $t.data('type');
+
+                $('#' + type + '-modal').reveal({dismissmodalclass: 'closeModal'});
+            });
+        });
+    </script>
+{% endblock %}
