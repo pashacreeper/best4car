@@ -33,16 +33,16 @@
 {% endblock %}
 
 {% block content %}
-    <section class="contentMain row">
+    <section class="contentMain row subscriptions">
         <div class="content">
             <div class="leftContent">
-                <p>
+                <p class="introduction">
                     Подпишитесь на уведомления о новых акциях и появлении новых компаний,
                     связанных с интересующими вас марками автомобилей — включая,
                     но не ограничиваясь теми, которые указаны у вас в гараже.
                 </p>
                 <div class="add-block">
-                    Подписки на компании
+                    <h3>Подписки на компании</h3>
                     <ul>
                         {% for subscription in companySubscriptions %}
                             <li>
@@ -54,13 +54,13 @@
                         <a href="#" class="close-reveal-modal closeModal"></a>
                         {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm')) %}
                         <div class="bottomContent modificationBottomContent">
-                            <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn">Сохранить</a>
                         </div>
                     </div>
-                    <a class="addSubscription" href="#" data-type="company">Добавить</a>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="company"><i class="plusIconWhite"></i>Добавить</a>
                 </div>
                 <div class="add-block">
-                    Подписки на акцииe
+                    <h3>Подписки на акциии</h3>
                     <ul>
                         {% for subscription in dealSubscriptions %}
                             <li>
@@ -75,7 +75,7 @@
                             <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
                         </div>
                     </div>
-                    <a class="addSubscription" href="#" data-type="deal">Добавить</a>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal"><i class="plusIconWhite"></i>Добавить</a>
                 </div>
             </div>
         </div>
