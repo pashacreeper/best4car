@@ -52,7 +52,7 @@
                     </ul>
                     <div id="company-modal" class="reveal-modal"><!-- popUp firstReg-->
                         <a href="#" class="close-reveal-modal closeModal"></a>
-                        {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm')) %}
+                        {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm', {subscriptions: companySubscriptions})) %}
                         <div class="bottomContent modificationBottomContent">
                             <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
                         </div>
@@ -70,9 +70,9 @@
                     </ul>
                     <div id="deal-modal" class="reveal-modal"><!-- popUp firstReg-->
                         <a href="#" class="close-reveal-modal closeModal"></a>
-                        {% render(controller('StoContentBundle:Subscription:renderDealSubscriptionForm')) %}
+                        {% render(controller('StoContentBundle:Subscription:renderDealSubscriptionForm', {subscriptions: dealSubscriptions })) %}
                         <div class="bottomContent modificationBottomContent">
-                            <a href="#" class="closeModal btnBottomContent addPhotoBtn saveBttn">Сохранить</a>
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
                         </div>
                     </div>
                     <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal"><i class="plusIconWhite"></i>Добавить</a>

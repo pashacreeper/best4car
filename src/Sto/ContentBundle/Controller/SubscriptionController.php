@@ -64,7 +64,9 @@ class SubscriptionController extends Controller
         $type = $request->request->get('type');
         $typeClass = $this->getSubscriptionTypeClass($type);
 
-        $form = $this->createForm($typeClass, $subscription);
+        $form = $this->createForm($typeClass, $subscription, [
+            'subscriptions' => null
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -92,11 +94,13 @@ class SubscriptionController extends Controller
 
     /**
      * @Template()
+     * @param $subscriptions
+     *
      * @return Response
      */
-    public function renderCompanySubscriptionFormAction()
+    public function renderCompanySubscriptionFormAction($subscriptions)
     {
-        $form = $this->createForm(new CompanySubscriptionType());
+        $form = $this->createForm(new CompanySubscriptionType(), null, ['subscriptions' => $subscriptions]);
 
         return [
             'form' => $form->createView()
@@ -105,11 +109,13 @@ class SubscriptionController extends Controller
 
     /**
      * @Template()
+     * @param $subscriptions
+     *
      * @return Response
      */
-    public function renderDealSubscriptionFormAction()
+    public function renderDealSubscriptionFormAction($subscriptions)
     {
-        $form = $this->createForm(new DealSubscriptionType());
+        $form = $this->createForm(new DealSubscriptionType(), null, ['subscriptions' => $subscriptions]);
 
         return [
             'form' => $form->createView()
