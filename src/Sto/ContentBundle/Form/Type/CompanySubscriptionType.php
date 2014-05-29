@@ -10,7 +10,8 @@ class CompanySubscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('type', 'text', [
+        $builder
+            ->add('type', 'text', [
                 'data'      => SubscriptionType::COMPANY,
                 'read_only' => true
             ])
@@ -26,6 +27,6 @@ class CompanySubscriptionType extends AbstractType
      */
     public function getName()
     {
-        return 'subscription_company';
+        return '';
     }
 }

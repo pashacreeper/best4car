@@ -27,6 +27,6 @@ class DealSubscriptionType extends AbstractType
      */
     public function getName()
     {
-        return 'subscription_deal';
+        return '';
     }
 }
