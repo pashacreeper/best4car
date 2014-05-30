@@ -45,7 +45,7 @@ class DealType extends AbstractType
                 ]
             ])
             ->add('auto', null, [
-                'label' => 'Автомабили',
+                'label' => 'Автомобили',
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',

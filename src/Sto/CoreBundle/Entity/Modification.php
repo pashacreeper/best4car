@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Modification
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\ModificationRepository")
  * @ORM\Table(name="catalog_modifications")
  */
 class Modification
@@ -311,5 +311,10 @@ class Modification
         }
 
         return "$start - $end";
+    }
+
+    public function getNameWithYear()
+    {
+        return $this->getName() . ' - ' . $this->getYearsOfProduction();
     }
 }

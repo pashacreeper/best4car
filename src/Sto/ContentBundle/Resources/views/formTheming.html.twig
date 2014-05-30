@@ -35,3 +35,10 @@
     {% endif %}
 {% endspaceless %}
 {% endblock form_errors %}
+
+
+{% block _sto_user_car_modification_widget %}
+{% spaceless %}
+    <select {{ block('widget_attributes') }}></select>
+{% endspaceless %}
+{% endblock _sto_user_car_modification_widget %}

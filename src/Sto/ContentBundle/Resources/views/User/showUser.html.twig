@@ -64,6 +64,9 @@
         <li>
             <a class="" href="#second">Отзывы {{ user.feedbacks|length }}</a>
         </li>
+        <li>
+            <a class="" href="#garage">Гараж</a>
+        </li>
     </ul>
     <!-- Это контейнеры содержимого -->
     <div id="first" class="content">
@@ -193,6 +196,9 @@
             {% include "StoContentBundle:Feedback:feedback.html.twig" with {'feedbacks': user.feedbacks, 'isManager': false, "profile": true} %}
         </div>
         <div class="rightContent"></div>
+    </div>
+    <div class="content" data-tab-id="#garage" id="garage">
+        {{ render(controller('StoUserBundle:Garage:show', {'id':user.id})) }}
     </div>
     <script>
     $(function () {

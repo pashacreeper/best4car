@@ -558,23 +558,23 @@ var profilePage = function(){
         if (url.indexOf('#') + 1) {
             hash = url.substring(url.indexOf('#'));
         }
-        if (hash && hash.indexOf('-')) {
+        if (hash && hash.indexOf('-') != -1) {
             hash = hash.substring(0, hash.indexOf('-'));
         }
 
-        if (hash && hash.length > 1) {
-            tabContainers.find('[data-tab-id="'+hash+'"]').show();
-            tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
-        } else {
-            tabContainers.find('.content').hide().filter(':first').show();
-            tabLinksContainer.find('a:first').addClass('selected');
-        }
         tabLinksContainer.find('a').click(function () {
             tabContainers.find('.content').hide(); // прячем все табы
             tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
             $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
             $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
         });
+
+        if (hash && hash.length > 1) {
+            tabLinksContainer.find('a[href="' + hash + '"]').click();
+        } else {
+            tabContainers.find('.content').hide().filter(':first').show();
+            tabLinksContainer.find('a:first').addClass('selected');
+        }
     })();
 };
 
@@ -659,7 +659,65 @@ var initPage = function(){
         dealMap.geoObjects.add(myGeoObject);
 
         dealMap.setCenter(center);
-    })
+    });
+
+    $('.car-photos .photo-select .item').on('click', function() {
+        $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
+    });
+
+
+    $('#other-modification').hide();
+    $('#modification-choose-modal').hide();
+
+    var filterModifications = function() {
+        var model = $('#sto_user_car_model').val();
+        var year = $('#sto_user_car_year').val();
+        var $select = $('#sto_user_car_modification');
+        if(model && year) {
+            $select.empty();
+            $.getJSON(Routing.generate('api_auto_catalog_get_modifications_for_model_and_year', {id: model, year: year}))
+                .done(function (json) {
+                    $select.append('<option value="">Выбрать модификацию</option>');
+                    $.each(json, function (index, mod) {
+                        var option = $('<option value="' + mod.id + '">' + mod.name + '</option>');
+                        if($('#other-modification').data('selected') == mod.id) {
+                            option.attr('selected', true);
+                        }
+                        $select.append(option);
+                    });
+                    var custom = $('<option value="" id="other">Другая модификация</option>');
+                    if($('#other-modification').data('custom')) {
+                        custom.attr('selected', true);
+                        $select.removeAttr('required');
+                        $('#other-modification').show();
+                        $('#other-modification').data('custom', false);
+                    }
+                    $select.append(custom);
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    console.log("Request Failed: " + textStatus + ', ' + error);
+                });
+        }
+    };
+
+    $('#sto_user_car_model').on('change', filterModifications);
+    $('#sto_user_car_year').on('change', filterModifications);
+    $('#sto_user_car_modification').on('change', function() {
+        if($(this).find(':selected').attr('id') == 'other') {
+            $(this).removeAttr('required');
+            $('#other-modification').show();
+            $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
+        } else {
+            $(this).attr('required', true);
+            $('#other-modification').hide();
+        }
+    });
+
+    $('#other-modification').on('click', function(e) {
+        e.preventDefault();
+
+        $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
+    });
 };
 
 $(document).ready(function(){initPage()});

@@ -976,6 +976,216 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     height: 15px !important;
 }
 
+.addCarBtn {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: block;
+    width: 230px;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    text-decoration: none;
+    padding-left: 20px;
+    position: relative;
+    font-size: 1.2em;
+    margin: 10px auto;
+}
+.addCarBtn:hover{
+    text-decoration: none;
+}
+
+.rightContent .addCarBtn {
+    font-size: initial;
+}
+
+.drive2-link {
+    vertical-align: middle;
+    display: block;
+}
+.drive2-link img {
+    vertical-align: middle;
+    padding-bottom: 3px;
+}
+
+.car-left-column {
+    width: 50%;
+    float: left;
+}
+
+.car-right-column {
+    width: 45%;
+    float: left;
+}
+
+.select-car-model {
+    width: 265px !important;
+}
+
+.car-left-column .contactDate {
+    display: none;
+    height: 240px;
+    width: 376px;
+    background-image: url(/bootstrap/img/car_bg.png);
+}
+
+.car-left-column .contactDate.current {
+    display: block;
+}
+
+.car-left-column .contactDate input[type="file"] {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.car-left-column .contactDate .photoDateImg {
+    position: absolute;
+}
+
+.car-left-column .contactDate .photoDateImg img {
+    width: 376px;
+    height: 240px;
+}
+
+.car-image-del {
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 330px;
+    cursor: pointer;
+    z-index: 1000;
+    top: 210px;
+}
+
+.car-image-del i {
+    width: 35px;
+    height: 35px;
+    background: url("/bootstrap/img/edit-icon.png") -35px 0 no-repeat;
+    display: block;
+}
+
+#carPhotoAddWrapper, .carImageAddPanel {
+    float: left;
+}
+
+.car-photo-add {
+    width: 56px;
+    height: 42px;
+    padding-left: 4px;
+    display: block;
+}
+
+.car-photo-add i {
+    width: 35px;
+    height: 35px;
+    background: url("../img/icon-plus.png") 0 0 no-repeat;
+    display: block;
+    margin: 0 auto;
+}
+
+.carImageAddPanel .item {
+    background-image: url(/bootstrap/img/car_bg.png);
+    width: 60px;
+    height: 42px;
+    border: none;
+    cursor: pointer;
+}
+
+.carImageAddPanel .item.current {
+    border: 2px solid gray;
+    width: 56px;
+}
+
+.carImageAddPanel .item .photoDateImg img {
+    width: 60px;
+    height: 42px;
+}
+
+.carImageAddPanel .item.current .photoDateImg img {
+    width: 56px;
+    height: 42px;
+}
+
+.car-photos {
+    width: 100%;
+}
+
+.car-photos img {
+    float: left;
+}
+
+.car-photos .photo-select {
+    float: left;
+}
+
+.car-card {
+    margin-bottom: 15px;
+    display: block;
+    height: 280px;
+    text-align: left;
+}
+
+.car-card .description {
+    margin-left: 530px;
+}
+
+.car-card .description h1 {
+    font-size: 28px;
+}
+
+.car-card .description h12{
+    font-size: 16px;
+}
+
+.car-card .img {
+    float: left;
+    width: 500px;
+    height: 279px;
+    background-image: url(/bootstrap/img/car_bg.png);
+}
+
+#other-modification {
+    display: block;
+    width: 155px;
+    font: 1.4em 'PT Sans', sans;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+
+#modification-choose-modal {
+    margin-left: -204px;
+    width: 480px;
+}
+
+#modification-choose-modal label {
+    clear: none;
+    float: left;
+    width: 100px;
+}
+
+#modification-choose-modal input {
+    margin-bottom: 0px;
+}
+
+#modification-choose-modal select {
+    width: 220px;
+}
+
+#sto_user_car_fuelTypes label {
+    width: 30px;
+}
+
+#modification-choose-modal {
+    top: 0px;
+}
+
+.modificationBottomContent {
+    margin-bottom: 0px;
+}
+
 .subscriptions{
     color: #444;
     font-family: 'PT Sans', sans, sans-serif;

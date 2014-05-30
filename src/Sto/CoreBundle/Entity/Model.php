@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Model
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\ModelRepository")
  * @ORM\Table(name="catalog_models", indexes={@ORM\Index(name="models_search_idx", columns={"name"})})
  */
 class Model

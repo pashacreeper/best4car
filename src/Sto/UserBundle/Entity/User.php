@@ -259,6 +259,11 @@ class User extends BaseUser
      */
     private $contactEmail;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserCar", mappedBy="user", cascade={"all"})
+     */
+    private $cars;
+
     public function __construct()
     {
         parent::__construct();
@@ -272,6 +277,7 @@ class User extends BaseUser
         $this->rating = 10;
         $this->usingEmail = true;
         $this->gallery = new ArrayCollection();
+        $this->cars = new ArrayCollection();
     }
 
     public function __toString()
@@ -980,5 +986,10 @@ class User extends BaseUser
         $this->contactEmail = $email;
 
         return $this;
+    }
+
+    public function getCars()
+    {
+        return $this->cars;
     }
 }
