@@ -1509,10 +1509,12 @@ label {
     width: 265px;
 }
 
-.contentLabel {
+.contentLabel, .contentLabelNoOverflow {
     margin-top: 8px;
     padding-bottom: 8px;
     position: relative;
+}
+.contentLabel{
     overflow: hidden;
 }
 
@@ -2285,4 +2287,72 @@ input.error {border: 1px solid #ff0000;}
     font: 1.4em 'PT Sans', sans;
     color: #51585f;
     text-align: center;
+}
+
+.car-show {
+    text-align: left;
+    padding-top: 10px;
+}
+
+.car-right-column select {
+    height: 26px;
+    padding-top: 2px;
+}
+
+.car-show .left-column {
+    float: left;
+    border-right: 1px solid black;
+    padding-right: 30px;
+    min-height: 120px;
+}
+
+.car-show .left-column .divider {
+    border-top: 1px solid black;
+    margin-right: -31px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.car-show .right-column div {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.car-show .right-column div .carLabel {
+    color: #999999;
+    width: 120px;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.car-show .right-column div .carValue {
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.car-show .left-column .vin-label {
+    color: #999999;
+}
+
+.car-show .left-column .drive2-link {
+    margin-top: 10px;
+}
+
+.car-show .left-column .car-model {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.car-show .left-column .car-modification {
+    font-size: 16px;
+}
+
+.newCarBtn {
+    float: right;
+}
+
+.deleteCar {
+    font-size: 16px;
+    float: left;
 }
