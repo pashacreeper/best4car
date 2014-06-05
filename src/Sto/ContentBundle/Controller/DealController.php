@@ -172,6 +172,8 @@ class DealController extends MainController
                 $em->persist($deal);
                 $em->flush();
 
+                $this->get('sto.manager.feed')->createOnItem($deal);
+
                 return $this->redirect(
                     $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
                 );

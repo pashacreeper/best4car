@@ -31,8 +31,25 @@ class SubscriptionController extends Controller
     public function indexAction()
     {
         $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
 
-        return compact('user');
+        $dealMarks = [];
+        $companyMarks = [];
+
+        foreach ($user->getSubscriptions() as $subscription) {
+            if($subscription->getType() == SubscriptionType::COMPANY) {
+                $companyMarks[] = $subscription->getMark()->getId();
+            } else {
+                $dealMarks[] = $subscription->getMark()->getId();
+            }
+        }
+
+        $query = $em->getRepository('StoCoreBundle:FeedItem')->getByMarks($dealMarks, $companyMarks);
+
+        $page = $this->get('request')->query->get('page', 1);
+        $items = $this->get('knp_paginator')->paginate($query, $page, 6);
+
+        return compact('user', 'items', 'dealMarks', 'companyMarks');
     }
 
     /**

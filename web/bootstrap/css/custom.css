@@ -1230,3 +1230,38 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-left: 10px;
     right: 0;
 }
+
+.feed-item {
+    border: 1px solid black;
+    min-height: 100px;
+    font-size: 1.4em;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.new-feed-item {
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+}
+
+.feed-title {
+    font-size: 1.4em;
+    margin-top: 10px;
+}
+
+.feed-description {
+    margin-top: 10px;
+}
+
+.feed-address {
+    margin-top: 10px;
+    color: #999999;
+}
+
+.feed-icons {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}

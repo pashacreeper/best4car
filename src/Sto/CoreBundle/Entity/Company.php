@@ -1557,4 +1557,30 @@ class Company
     {
         return "{$this->name} - {$this->address}";
     }
+
+    public function getSelectedMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->autos as $mark) {
+            if(in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return $marks;
+    }
+
+    public function getOtherMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->autos as $mark) {
+            if(!in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return $marks;
+    }
 }

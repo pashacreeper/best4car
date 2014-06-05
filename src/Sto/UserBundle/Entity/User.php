@@ -180,12 +180,6 @@ class User extends BaseUser
      */
     private $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="subscriptions", type="string", length=255, nullable=true)
-     */
-    private $subscriptions;
 
     /**
      * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Feedback", mappedBy="user", cascade={"all"})
@@ -264,6 +258,11 @@ class User extends BaseUser
      */
     private $cars;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Subscription", mappedBy="user")
+     */
+    protected $subscriptions;
+
     public function __construct()
     {
         parent::__construct();
@@ -278,6 +277,7 @@ class User extends BaseUser
         $this->usingEmail = true;
         $this->gallery = new ArrayCollection();
         $this->cars = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function __toString()
@@ -734,29 +734,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set subscriptions
-     *
-     * @param  string $subscriptions
-     * @return User
-     */
-    public function setSubscriptions($subscriptions)
-    {
-        $this->subscriptions = $subscriptions;
-
-        return $this;
-    }
-
-    /**
-     * Get subscriptions
-     *
-     * @return string
-     */
-    public function getSubscriptions()
-    {
-        return $this->subscriptions;
-    }
-
-    /**
      * Set requests
      *
      * @param  string $requests
@@ -991,5 +968,21 @@ class User extends BaseUser
     public function getCars()
     {
         return $this->cars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptions()
+    {
+        return $this->subscriptions;
+    }
+
+    /**
+     * @param mixed $subscriptions
+     */
+    public function setSubscriptions($subscriptions)
+    {
+        $this->subscriptions = $subscriptions;
     }
 }

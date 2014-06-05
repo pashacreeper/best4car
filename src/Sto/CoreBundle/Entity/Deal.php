@@ -224,6 +224,11 @@ class Deal
      */
     private $onCompanyPlace;
 
+    /**
+     * @ORM\Column(name="all_auto", type="boolean", nullable=true)
+     */
+    private $allAuto = false;
+
     public function __construct(Company $company = null)
     {
         $this->feedbacks = new ArrayCollection();
@@ -908,5 +913,47 @@ class Deal
     public function getAdditionalCompanies()
     {
         return $this->additionalCompanies;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllAuto()
+    {
+        return $this->allAuto;
+    }
+
+    /**
+     * @param mixed $allAuto
+     */
+    public function setAllAuto($allAuto)
+    {
+        $this->allAuto = $allAuto;
+    }
+
+    public function getSelectedMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->auto as $mark) {
+            if(in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return $marks;
+    }
+
+    public function getOtherMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->auto as $mark) {
+            if(!in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return $marks;
     }
 }

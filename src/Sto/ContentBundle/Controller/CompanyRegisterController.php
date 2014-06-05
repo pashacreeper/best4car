@@ -274,6 +274,7 @@ class CompanyRegisterController extends Controller
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);
                 $company->setRegistredFully(true);
                 $company->setVisible(true);
+                $this->get('sto.manager.feed')->createOnItem($company);
 
                 $em->persist($company);
                 $em->flush();

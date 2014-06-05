@@ -28,3 +28,6 @@ services:
         class: Sto\CoreBundle\Service\FeedbackNumberListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+    sto.manager.feed:
+        class: Sto\CoreBundle\Service\FeedManager
+        arguments: [@doctrine.orm.entity_manager]
