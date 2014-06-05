@@ -18,15 +18,21 @@ class FeedManager
         $this->em = $em;
     }
 
-    public function createOnItem($item)
+    public function createOnItem($item, $now = true)
     {
         $feed = new FeedItem();
         if ($item instanceof Company) {
             $feed->setCompany($item);
+            if(!$now) {
+                $feed->setCreatedAt($item->getCreatetDate());
+            }
         }
 
         if ($item instanceof Deal) {
             $feed->setDeal($item);
+            if(!$now) {
+                $feed->setCreatedAt($item->getCreatedAt());
+            }
         }
 
         $this->em->persist($feed);

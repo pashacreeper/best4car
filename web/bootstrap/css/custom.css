@@ -1265,3 +1265,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     float: right;
     margin-right: 10px;
 }
+
+.feed-item .logoCompany {
+    position: absolute;
+}
+
+.feed-content {
+    margin-left: 100px;
+}
