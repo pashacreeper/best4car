@@ -1233,7 +1233,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .feed-item {
     border: 1px solid black;
-    min-height: 100px;
+    min-height: 120px;
     font-size: 1.4em;
     padding-left: 10px;
     padding-top: 10px;
