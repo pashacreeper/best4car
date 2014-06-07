@@ -1304,3 +1304,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-top: 6px;
     display: inline-block;
 }
+
+.iconFeedsGray{
+    background: url("../img/icon-profile-feeds.png") no-repeat;
+}

@@ -27,6 +27,10 @@
                 <a href="{{ path('fos_user_profile_show') }}#feedbacks" class="facebook-blue">Ответы на отзывы</a>
                 <span class="amountProfil">{{ feedbacksCount }}</span>
             </li>
+            <li class="userProfilItem">
+                <i class="iconFeedsGray"></i>
+                <a href="{{ path('subscription_list') }}" class="google-blue">Подписки</a>
+            </li>
         </ul>
         {% if user.companyManager is not empty %}
             {% for manager in user.companyManager %}
