@@ -29,8 +29,9 @@ class SubscriptionController extends Controller
      * @Route("/", name="subscription_list", options={"expose"=true})
      * @Secure("ROLE_USER")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
+        $request = $this->get('request');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
