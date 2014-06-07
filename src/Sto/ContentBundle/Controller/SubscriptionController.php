@@ -6,6 +6,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sto\ContentBundle\Form\Extension\ChoiceList\SubscriptionType;
 use Sto\ContentBundle\Form\Type\CompanySubscriptionType;
 use Sto\ContentBundle\Form\Type\DealSubscriptionType;
+use Sto\ContentBundle\Form\FeedFilterType;
 use Sto\CoreBundle\Entity\Subscription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,23 +26,42 @@ class SubscriptionController extends Controller
 {
     /**
      * @Template
-     * @Route("/", name="subscription_list")
+     * @Route("/", name="subscription_list", options={"expose"=true})
      * @Secure("ROLE_USER")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
+        $form = $this->createForm(new FeedFilterType());
+        $form->bind($request);
+
         $dealMarks = [];
         $companyMarks = [];
 
-        foreach ($user->getSubscriptions() as $subscription) {
-            if($subscription->getType() == SubscriptionType::COMPANY) {
-                $companyMarks[] = $subscription->getMark()->getId();
-            } else {
-                $dealMarks[] = $subscription->getMark()->getId();
+        if($marks = $form->get('marks')->getData()->toArray()) {
+            $markIds = [];
+            foreach ($marks as $mark) {
+                $markIds[] = $mark->getId();
             }
+            $companyMarks = $dealMarks = $markIds;
+        } else {
+            foreach ($user->getSubscriptions() as $subscription) {
+                if($subscription->getType() == SubscriptionType::COMPANY) {
+                    $companyMarks[] = $subscription->getMark()->getId();
+                } else {
+                    $dealMarks[] = $subscription->getMark()->getId();
+                }
+            }
+        }
+
+        $type = $marks = $form->get('type')->getData();
+        if($type == SubscriptionType::COMPANY) {
+            $dealMarks = [];
+        }
+        if($type == SubscriptionType::DEAL) {
+            $companyMarks = [];
         }
 
         $query = $em->getRepository('StoCoreBundle:FeedItem')->getByMarks($dealMarks, $companyMarks);
@@ -49,7 +69,26 @@ class SubscriptionController extends Controller
         $page = $this->get('request')->query->get('page', 1);
         $items = $this->get('knp_paginator')->paginate($query, $page, 6);
 
-        return compact('user', 'items', 'dealMarks', 'companyMarks');
+        if($request->isXmlHttpRequest()) {
+            $html = $this->renderView('StoContentBundle:Subscription:_list.html.twig', [
+                'items' => $items,
+                'dealMarks' => $dealMarks,
+                'companyMarks' => $companyMarks,
+            ]);
+
+            return new JsonResponse([
+                'success' => true,
+                'html' => $html
+            ]);
+        }
+
+        return [
+            'user' => $user,
+            'items' => $items,
+            'dealMarks' => $dealMarks,
+            'companyMarks' => $companyMarks,
+            'form' => $form->createView(),
+        ];
     }
 
     /**

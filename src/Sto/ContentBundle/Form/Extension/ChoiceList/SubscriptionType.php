@@ -18,6 +18,13 @@ class SubscriptionType extends SimpleChoiceList
         parent::__construct($choices);
     }
 
+    public static function getOptions() {
+        return [
+            self::COMPANY => 'компании',
+            self::DEAL => 'акции',
+        ];
+    }
+
     public static function getTypeAndClass()
     {
         return [

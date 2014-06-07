@@ -613,6 +613,28 @@ var initPage = function(){
         $(this).toggleClass('checked');
     });
 
+    $('.feed-form select').on('change', function(){
+        $(this).parents('form').submit();
+    });
+
+    $('#showMoreFeeds').on('click', function(e) {
+        e.preventDefault();
+        var page = $(this).data('page') + 1;
+        $(this).data('page', page);
+        if(page == $(this).data('total')) {
+            $(this).hide();
+        }
+        var data = $('.subscriptions-list form').serialize();
+        $.ajax({
+            type: "GET",
+            url: Routing.generate('subscription_list'),
+            data: data+"&page="+page,
+            success: function(response) {
+                $('#feed-list').append(response.html);
+            }
+        });
+    });
+
     mainLayout();
     catalogPage();
     dealsPage();

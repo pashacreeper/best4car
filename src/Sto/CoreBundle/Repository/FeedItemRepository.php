@@ -9,23 +9,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class FeedItemRepository extends EntityRepository
 {
-    public function getByMarks(array $dealMarks, array $companyMarks)
+    public function getByMarks($dealMarks, $companyMarks)
     {
         $qb = $this->createQueryBuilder('f');
 
-        $qb
-            ->leftJoin('f.company', 'c')
-            ->leftJoin('c.autos', 'ca')
-            ->where('c.allAuto = true OR ca IN (:companyMarks)')
-            ->setParameter('companyMarks', $companyMarks)
-        ;
+        if($companyMarks) {
+            $qb
+                ->leftJoin('f.company', 'c')
+                ->leftJoin('c.autos', 'ca')
+                ->where('c.allAuto = true OR ca IN (:companyMarks)')
+                ->setParameter('companyMarks', $companyMarks)
+            ;
+        } else {
+            $qb->where('f.company IS NULL');
+        }
 
-        $qb
-            ->leftJoin('f.deal', 'd')
-            ->leftJoin('d.auto', 'da')
-            ->orWhere('d.allAuto = true OR da IN (:dealMarks)')
-            ->setParameter('dealMarks', $dealMarks)
-        ;
+        if ($dealMarks) {
+            $qb
+                ->leftJoin('f.deal', 'd')
+                ->leftJoin('d.auto', 'da')
+                ->setParameter('dealMarks', $dealMarks)
+            ;
+            if($companyMarks) {
+                $qb->orWhere('d.allAuto = true OR da IN (:dealMarks)');
+            } else {
+                $qb->andWhere('d.allAuto = true OR da IN (:dealMarks)');
+            }
+        } else {
+            $qb->andWhere('f.deal IS NULL');
+        }
 
         $qb->orderBy('f.createdAt', 'DESC');
 

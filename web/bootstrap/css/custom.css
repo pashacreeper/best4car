@@ -1238,6 +1238,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     padding-left: 10px;
     padding-top: 10px;
     margin-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .new-feed-item {
@@ -1272,4 +1273,34 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .feed-content {
     margin-left: 100px;
+}
+
+.subscriptions-list .total-count {
+    background-color: #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.feed-form {
+    font-size: 14px;
+}
+
+.feed-form select {
+    vertical-align: baseline;
+}
+
+.feed-form input {
+    font-size: 14px;
+}
+
+.marks {
+    vertical-align: top;
+}
+
+.marks > span {
+    vertical-align: top;
+    margin-top: 6px;
+    display: inline-block;
 }
