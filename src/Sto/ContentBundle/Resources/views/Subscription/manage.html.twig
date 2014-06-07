@@ -83,12 +83,16 @@
     </section>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.addSubscription').on('click', function () {
-                var $t = $(this),
+            $('.addSubscription').each(function(i, el) {
+                var $t = $(el),
                     type = $t.data('type'),
                     modal = $('#' + type + '-modal');
 
-                modal.reveal({dismissmodalclass: 'closeModal'});
+                $t.on('click', function (e) {
+                    e.preventDefault();
+                    modal.reveal({dismissmodalclass: 'closeModal'});
+                });
+
                 modal.on('click', '.saveBttn', function (e) {
                     e.preventDefault();
 
