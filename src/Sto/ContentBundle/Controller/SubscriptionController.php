@@ -168,6 +168,24 @@ class SubscriptionController extends Controller
     }
 
     /**
+     * @Route("/subscribe_email", name="subscribe_email", options={"expose"=true})
+     */
+    public function subscribeEmailAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $request = $this->get('request');
+        $user = $this->getUser();
+        $user->setFeedNotify($request->get('value'));
+
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+        ]);
+    }
+
+    /**
      * @Template()
      * @param $subscriptions
      *

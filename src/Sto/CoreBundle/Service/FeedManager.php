@@ -13,9 +13,12 @@ class FeedManager
      */
     protected $em;
 
-    public function __construct(ObjectManager $em)
+    protected $mailNotificator;
+
+    public function __construct(ObjectManager $em, $mailNotificator)
     {
         $this->em = $em;
+        $this->mailNotificator = $mailNotificator;
     }
 
     public function createOnItem($item, $now = true)
@@ -38,6 +41,15 @@ class FeedManager
         $this->em->persist($feed);
         $this->em->flush();
 
+        $this->notifyUsers($feed);
+
         return $feed;
+    }
+
+    protected function notifyUsers($feed)
+    {
+        $users = $this->em->getRepository('StoUserBundle:User')->findForFeedNotify($feed);
+
+        $this->mailNotificator->sendFeedNotify($users, $feed);
     }
 }

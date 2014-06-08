@@ -1308,3 +1308,25 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .iconFeedsGray{
     background: url("../img/icon-profile-feeds.png") no-repeat;
 }
+
+.subscriptions .notify {
+    background-color: #e4e4e4;
+    border: 1px solid #999;
+    padding: 15px;
+}
+
+.subscriptions .notify label {
+    color: black;
+    display: inline;
+}
+
+.subscriptions .notify label input {
+    margin-top: 0px;
+    margin-right: 10px;
+}
+
+.subscriptions .change-email {
+    float: right;
+    font-size: 14px;
+    margin-top: 4px;
+}

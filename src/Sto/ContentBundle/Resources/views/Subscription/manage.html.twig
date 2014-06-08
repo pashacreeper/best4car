@@ -41,6 +41,12 @@
                     связанных с интересующими вас марками автомобилей — включая,
                     но не ограничиваясь теми, которые указаны у вас в гараже.
                 </p>
+                <div class="notify">
+                    
+                    <label for="notify-me"><input {% if app.user.feedNotify %}checked="checked"{% endif %} type="checkbox" id="notify-me">Получать уведомления на <b>{{ app.user.email }}</b></label>
+
+                    <a href="{{ path('fos_user_profile_edit') }}" class="change-email">Изменить почту в профиле</a>
+                </div>
                 <div class="add-block">
                     <h3>Подписки на компании</h3>
                     <ul id="company-list">
@@ -113,6 +119,13 @@
                     method: 'POST'
                 });
                 $(this).parents('li').remove();
+            });
+            $('.subscriptions #notify-me').on('change', function() {
+                $.ajax({
+                    url: Routing.generate('subscribe_email'),
+                    method: 'POST',
+                    data: {value: $(this).prop('checked') ? 1 : 0}
+                });
             });
         });
     </script>

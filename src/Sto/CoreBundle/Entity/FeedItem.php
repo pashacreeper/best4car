@@ -5,6 +5,7 @@ namespace Sto\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Sto\ContentBundle\Form\Extension\ChoiceList\SubscriptionType;
 
 /**
  * @ORM\Table(name="feed_items")
@@ -135,5 +136,14 @@ class FeedItem
     public function setDeal($deal)
     {
         $this->deal = $deal;
+    }
+
+    public function getType()
+    {
+        if($this->company) {
+            return SubscriptionType::COMPANY;
+        }
+
+        return SubscriptionType::DEAL;
     }
 }

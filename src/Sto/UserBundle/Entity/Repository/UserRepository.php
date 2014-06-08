@@ -21,4 +21,39 @@ class UserRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function findForFeedNotify($feedItem)
+    {
+        $marks = [];
+        $allAuto = false;
+        if ($company = $feedItem->getCompany()) {
+            $allAuto = $company->getAllAuto();
+            $marks = $company->getAutos();
+        }
+        if ($deal = $feedItem->getDeal()) {
+            $allAuto = $deal->getAllAuto();
+            $marks = $deal->getAuto();
+        }
+
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->where('u.feedNotify = true')
+            ->join('u.subscriptions', 's')
+            ->andWhere('s.type = :type')
+            ->setParameter('type', $feedItem->getType())
+        ;
+
+        if (!$allAuto) {
+            $markIds = [];
+            foreach ($marks as $mark) {
+                $markIds[] = $mark->getId();
+            }
+            $qb
+                ->andWhere('s.mark IN (:marks)')
+                ->setParameter('marks', $markIds)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -270,6 +270,11 @@ class User extends BaseUser
      */
     private $feedViewAt;
 
+    /**
+     * @ORM\Column(name="feed_notify", type="boolean")
+     */
+    private $feedNotify = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -1007,5 +1012,21 @@ class User extends BaseUser
     public function setFeedViewAt($feedViewAt)
     {
         $this->feedViewAt = $feedViewAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedNotify()
+    {
+        return $this->feedNotify;
+    }
+
+    /**
+     * @param mixed $feedNotify
+     */
+    public function setFeedNotify($feedNotify)
+    {
+        $this->feedNotify = $feedNotify;
     }
 }
