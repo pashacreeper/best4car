@@ -30,6 +30,7 @@
             <li class="userProfilItem">
                 <i class="iconFeedsGray"></i>
                 <a href="{{ path('subscription_list') }}" class="google-blue">Подписки</a>
+                <span class="amountProfil">{{ feedCount }}</span>
             </li>
         </ul>
         {% if user.companyManager is not empty %}

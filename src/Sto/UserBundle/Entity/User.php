@@ -263,6 +263,13 @@ class User extends BaseUser
      */
     protected $subscriptions;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="feed_view_at", type="datetime", nullable=true)
+     */
+    private $feedViewAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -984,5 +991,21 @@ class User extends BaseUser
     public function setSubscriptions($subscriptions)
     {
         $this->subscriptions = $subscriptions;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFeedViewAt()
+    {
+        return $this->feedViewAt;
+    }
+
+    /**
+     * @param \DateTime $feedViewAt
+     */
+    public function setFeedViewAt($feedViewAt)
+    {
+        $this->feedViewAt = $feedViewAt;
     }
 }

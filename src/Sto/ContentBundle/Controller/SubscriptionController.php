@@ -35,6 +35,9 @@ class SubscriptionController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
+        $user->setFeedViewAt(new \DateTime());
+        $em->flush();
+
         $form = $this->createForm(new FeedFilterType());
         $form->bind($request);
 

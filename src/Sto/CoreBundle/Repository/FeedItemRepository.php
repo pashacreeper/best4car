@@ -43,4 +43,17 @@ class FeedItemRepository extends EntityRepository
 
         return $qb->getQuery();
     }
+
+    public function getUnreadCountForUser($user)
+    {
+        $qb = $this->createQueryBuilder('f');
+
+        $qb
+            ->select('COUNT(f.id)')
+            ->where('f.createdAt > :viewAt')
+            ->setParameter('viewAt', $user->getFeedViewAt())
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
