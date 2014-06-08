@@ -153,6 +153,21 @@ class SubscriptionController extends Controller
     }
 
     /**
+     * @Route("/{id}/remove", name="subscription_remove", options={"expose"=true})
+     */
+    public function removeAction(Subscription $subscription)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($subscription);
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+        ]);
+    }
+
+    /**
      * @Template()
      * @param $subscriptions
      *
