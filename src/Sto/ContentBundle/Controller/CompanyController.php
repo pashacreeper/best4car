@@ -58,13 +58,7 @@ class CompanyController extends MainController
 
         $gallery = $em->getRepository('StoCoreBundle:Company')->getCompanyGallery($company);
 
-        return [
-            'company' => $company,
-            'isManager' => $isManager,
-            'specializations' => $specializations,
-            'services' => $services,
-            'gallery' => $gallery
-        ];
+        return compact('company', 'isManager', 'specializations', 'services', 'gallery');
     }
 
     /**
