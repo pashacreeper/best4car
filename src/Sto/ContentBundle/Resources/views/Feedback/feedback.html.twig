@@ -28,7 +28,8 @@
             <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
             <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
             <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
-            <span class="reviewData">{{ feedback.date|date("d.m.Y") }} {% if feedback.feedbackNumber %}<a href="#feedbacks-{{ feedback.feedbackNumber }}">#{{ feedback.feedbackNumber }}</a>{% endif %}</span>
+            {% include 'StoContentBundle:Feedback:_feedbackLink.html.twig' %}
+
         </div>
         <div class="reviewCont">
             <div class="reviewContTop">

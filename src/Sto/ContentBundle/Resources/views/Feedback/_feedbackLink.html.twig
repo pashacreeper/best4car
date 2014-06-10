@@ -1,0 +1,16 @@
+{% if feedback.company is defined %}
+    {% set itemRoute = 'content_company_show' %}
+    {% set itemId = feedback.company.id %}
+{% elseif feedback.deal is defined %}
+    {% set itemRoute = 'content_deal_show' %}
+    {% set itemId = feedback.deal.id %}
+{% endif %}
+
+{% spaceless %}
+    <span class="reviewData">
+        {{ feedback.date|date("d.m.Y") }}
+        {% if feedback.feedbackNumber %}
+            <a href="{{ path(itemRoute, {id: itemId}) }}#feedbacks-{{ feedback.feedbackNumber }}">#{{ feedback.feedbackNumber }}</a>
+        {% endif %}
+    </span>
+{% endspaceless %}
