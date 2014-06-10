@@ -1335,3 +1335,10 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 14px;
     margin-top: 4px;
 }
+
+.cancleCarAdd{
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 1.6em;
+}
