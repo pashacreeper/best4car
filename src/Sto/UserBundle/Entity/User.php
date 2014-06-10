@@ -180,7 +180,6 @@ class User extends BaseUser
      */
     private $description;
 
-
     /**
      * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Feedback", mappedBy="user", cascade={"all"})
      */
@@ -1028,5 +1027,10 @@ class User extends BaseUser
     public function setFeedNotify($feedNotify)
     {
         $this->feedNotify = $feedNotify;
+    }
+
+    public function getCars()
+    {
+        return $this->cars;
     }
 }
