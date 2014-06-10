@@ -1028,9 +1028,4 @@ class User extends BaseUser
     {
         $this->feedNotify = $feedNotify;
     }
-
-    public function getCars()
-    {
-        return $this->cars;
-    }
 }

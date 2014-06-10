@@ -562,7 +562,9 @@ var profilePage = function(){
             hash = hash.substring(0, hash.indexOf('-'));
         }
 
-        tabLinksContainer.find('a').click(function () {
+        tabLinksContainer.find('a').click(function (e) {
+            e.preventDefault();
+            
             tabContainers.find('.content').hide(); // прячем все табы
             tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
             $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'

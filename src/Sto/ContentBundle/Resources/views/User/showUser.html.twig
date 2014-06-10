@@ -55,21 +55,21 @@
 {% endblock %}
 
 {% block content %}
-<section class="contentMain  row tabs">
+<section class="contentMain row tabs">
     <!-- Это сами вкладки -->
     <ul class="tabNavigation">
         <li>
-            <a class="" href="#first">Информация</a>
+            <a class="" href="#information">Информация</a>
         </li>
         <li>
-            <a class="" href="#second">Отзывы {{ user.feedbacks|length }}</a>
+            <a class="" href="#feedback">Отзывы {{ user.feedbacks|length }}</a>
         </li>
         <li>
             <a class="" href="#garage">Гараж</a>
         </li>
     </ul>
     <!-- Это контейнеры содержимого -->
-    <div id="first" class="content">
+    <div data-tab-id="#information" id="information" class="content">
         <div class="profilExpertLeftCont">
             <div class="profilExpertImg">
                 {% if user.avatar %}
@@ -135,7 +135,7 @@
             </div>
         </div>
     </div>
-    <div id="second" class="content">
+    <div data-tab-id="#feedback" id="feedback" class="content">
         <div class="leftContent">
             <div class="contentSelect">
                 <div class="assortSelect">
@@ -169,29 +169,29 @@
                 отзыва
             </p>
             <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.collapsCont').hide();
-                                    $('.collapsText').click(function() {
-                                        $('.collapsCont').show();
-                                        $('.collapsText').hide();
-                                    });
-                                });
+                $(document).ready(function() {
+                    $('.collapsCont').hide();
+                    $('.collapsText').click(function() {
+                        $('.collapsCont').show();
+                        $('.collapsText').hide();
+                    });
+                });
             </script>
             <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('.popUpPrimary').hide();
-                                    $('.complainAlert').hide();
-                                    $('.complain').click(function() {
-                                        $('.complainAlert').show();
-                                    });
-                                    $('.complainAlert').click(function() {
-                                        $('.popUpPrimary').show();
-                                    });
-                                    $('.popUpPrimary li').click(function() {
-                                        $('.popUpPrimary').hide();
-                                        $('.complainAlert').hide();
-                                    });
-                                });
+                $(document).ready(function() {
+                    $('.popUpPrimary').hide();
+                    $('.complainAlert').hide();
+                    $('.complain').click(function() {
+                        $('.complainAlert').show();
+                    });
+                    $('.complainAlert').click(function() {
+                        $('.popUpPrimary').show();
+                    });
+                    $('.popUpPrimary li').click(function() {
+                        $('.popUpPrimary').hide();
+                        $('.complainAlert').hide();
+                    });
+                });
             </script>
             {% include "StoContentBundle:Feedback:feedback.html.twig" with {'feedbacks': user.feedbacks, 'isManager': false, "profile": true} %}
         </div>
@@ -200,34 +200,20 @@
     <div class="content" data-tab-id="#garage" id="garage">
         {{ render(controller('StoUserBundle:Garage:show', {'id':user.id})) }}
     </div>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs ul.tabNavigation a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
-            $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
-    <script>
-    $(function () {
-        var tabContainers = $('.tabs2 > div'); // получаем массив контейнеров
-        tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        // далее обрабатывается клик по вкладке
-        $('.tabs2 ul.tabNavigation2 a').click(function () {
-            tabContainers.hide(); // прячем все табы
-            tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-            $('.tabs2 ul.tabNavigation2 a').removeClass('selectedCountry'); // у всех убираем класс 'selected'
-            $(this).addClass('selectedCountry'); // текушей вкладке добавляем класс 'selected'
-            return false;
-        }).filter(':first').click();
-    });
-    </script>
+    {#<script>#}
+    {#$(function () {#}
+        {#var tabContainers = $('.tabs > div.content'); // получаем массив контейнеров#}
+        {#tabContainers.hide().filter(':first').show(); // прячем все, кроме первого#}
+        {#// далее обрабатывается клик по вкладке#}
+        {#$('.tabs ul.tabNavigation a').click(function () {#}
+            {#tabContainers.hide(); // прячем все табы#}
+            {#tabContainers.filter(this.hash).show(); // показываем содержимое текущего#}
+            {#$('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'#}
+            {#$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'#}
+            {#return false;#}
+        {#}).filter(':first').click();#}
+    {#});#}
+    {#</script>#}
 </section>
 {% endblock %}
 
