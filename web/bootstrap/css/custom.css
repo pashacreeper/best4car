@@ -1336,9 +1336,16 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-top: 4px;
 }
 
-.cancleCarAdd{
+.cancleCarAdd, .deleteCar{
     float: right;
     margin-top: 15px;
     margin-right: 20px;
     font-size: 1.6em;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+.cancleCarAdd:hover, .deleteCar:hover{
+    text-decoration: none;
+    border-bottom: none;
+    color: #f35d2e;
 }

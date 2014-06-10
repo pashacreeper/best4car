@@ -275,12 +275,10 @@
                 {{ form_rest(form) }}
                 <div class="bottomContent">
                     {% if isNew %}
-                    <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn"
-                           value="Добавить в гараж"/>
+                        <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Добавить в гараж"/>
                     {% else %}
-                    <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')">Удалить авто из гаража</a>
-                    <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn"
-                           value="Сохранить"/>
+                        <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Сохранить"/>
+                        <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')">Удалить авто из гаража</a>
                     {% endif %}
                     <a href="{{ path('fos_user_profile_show') }}#garage" class="cancleCarAdd">Отменить</a>
                 </div>
