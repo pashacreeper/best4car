@@ -43,7 +43,7 @@
 </div>
 <div class="rightContent">
     {% if car.user == app.user %}
-    <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhite"></i></a>
+    <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhiteRight"></i></a>
     <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
     {% endif %}
     <div class="bannerImg"></div>

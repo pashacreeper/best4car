@@ -58,10 +58,10 @@
 <section class="contentMain row">
     <ul class="tabNavigation">
         <li>
-            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#first">Информация</a>
+            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#information">Информация</a>
         </li>
         <li>
-            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#second">Отзывы {{ showUser.feedbacks|length }}</a>
+            <a class="" href="{{ path('user_profile', {id: showUser.id}) }}#feedback">Отзывы {{ showUser.feedbacks|length }}</a>
         </li>
         <li>
             <a class="selected" href="{{ path('user_profile', {id: showUser.id}) }}#garage">Гараж</a>

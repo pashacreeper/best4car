@@ -1,4 +1,13 @@
-<div class="leftContent">
+{% set contentClass = '' %}
+{% set hasCars = false %}
+{% if cars|length > 0 %}
+    {% set hasCars = true %}
+{% endif %}
+{% if hasCars %}
+    {% set contentClass = 'leftContent' %}
+{% endif %}
+
+<div class="{{ contentClass }}">
     <div class="no-deals">
         {% for car in cars %}
             <div class="car-card">
@@ -22,19 +31,21 @@
             </div>
         {% else %}
             {% if showUser == app.user %}
-                Вы еще ничего не рассказали о своём гараже
+                <h1>Вы еще ничего не рассказали о своём гараже</h1>
                 <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
-                    автомобиль<i class="plusIconWhite"></i></a>
+                    автомобиль<i class="plusIconWhiteRight"></i></a>
             {% else %}
-                Пользователь еще ничего не рассказали о своём гараже
+                <h1>Пользователь еще ничего не рассказали о своём гараже</h1>
             {% endif %}
         {% endfor %}
     </div>
 </div>
-<div class="rightContent">
-    {% if showUser == app.user %}
-        <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
-            автомобиль<i class="plusIconWhite"></i></a>
-    {% endif %}
-    <div class="bannerImg"></div>
-</div>
+{% if hasCars %}
+    <div class="rightContent">
+        {% if showUser == app.user %}
+            <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
+                автомобиль<i class="plusIconWhiteRight"></i></a>
+        {% endif %}
+        <div class="bannerImg"></div>
+    </div>
+{% endif %}

@@ -140,7 +140,7 @@ class GarageController extends MainController
         $showUser = $em->getRepository('StoUserBundle:User')->find($request->get('id'));
         $cars = $showUser->getCars();
 
-        if($cars->count() == 1) {
+        if ($cars->count() === 1) {
             return $this->render('StoUserBundle:Garage:_showCar.html.twig', ['car' => $cars->first()]);
         }
 
@@ -154,7 +154,7 @@ class GarageController extends MainController
      * @Route("/garage/{id}/car", name="garage_car_show")
      * @Method({"GET"})
      */
-    public function showCarAction(Request $request, UserCar $car)
+    public function showCarAction(UserCar $car)
     {
         $showUser = $car->getUser();
 
