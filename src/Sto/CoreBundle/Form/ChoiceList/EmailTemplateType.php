@@ -12,6 +12,8 @@ class EmailTemplateType extends SimpleChoiceList
     const TEMPLATE_MANAGER_COMPANY_REGISTER = 'template.manager.company.register';
     const TEMPLATE_MANAGER_COMPANY_FEEDBACK = 'template.manager.company.feedabck';
     const TEMPLATE_MANAGER_DEAL_FEEDBACK = 'template.manager.deal.feedabck';
+    const TEMPLATE_FEED_NOTIFY_DEAL = 'template.feed.notify.deal';
+    const TEMPLATE_FEED_NOTIFY_COMPANY = 'template.feed.notify.company';
 
     public function __construct()
     {
@@ -23,6 +25,8 @@ class EmailTemplateType extends SimpleChoiceList
             self::TEMPLATE_MANAGER_COMPANY_REGISTER => self::TEMPLATE_MANAGER_COMPANY_REGISTER,
             self::TEMPLATE_MANAGER_COMPANY_FEEDBACK => self::TEMPLATE_MANAGER_COMPANY_FEEDBACK,
             self::TEMPLATE_MANAGER_DEAL_FEEDBACK => self::TEMPLATE_MANAGER_DEAL_FEEDBACK,
+            self::TEMPLATE_FEED_NOTIFY_COMPANY => self::TEMPLATE_FEED_NOTIFY_COMPANY,
+            self::TEMPLATE_FEED_NOTIFY_DEAL => self::TEMPLATE_FEED_NOTIFY_DEAL,
         ];
         parent::__construct($choices);
     }

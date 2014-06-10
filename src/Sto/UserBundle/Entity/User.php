@@ -181,13 +181,6 @@ class User extends BaseUser
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="subscriptions", type="string", length=255, nullable=true)
-     */
-    private $subscriptions;
-
-    /**
      * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Feedback", mappedBy="user", cascade={"all"})
      */
     private $feedbacks;
@@ -264,6 +257,23 @@ class User extends BaseUser
      */
     private $cars;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\Subscription", mappedBy="user")
+     */
+    protected $subscriptions;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="feed_view_at", type="datetime", nullable=true)
+     */
+    private $feedViewAt;
+
+    /**
+     * @ORM\Column(name="feed_notify", type="boolean")
+     */
+    private $feedNotify = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -278,6 +288,7 @@ class User extends BaseUser
         $this->usingEmail = true;
         $this->gallery = new ArrayCollection();
         $this->cars = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function __toString()
@@ -734,29 +745,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set subscriptions
-     *
-     * @param  string $subscriptions
-     * @return User
-     */
-    public function setSubscriptions($subscriptions)
-    {
-        $this->subscriptions = $subscriptions;
-
-        return $this;
-    }
-
-    /**
-     * Get subscriptions
-     *
-     * @return string
-     */
-    public function getSubscriptions()
-    {
-        return $this->subscriptions;
-    }
-
-    /**
      * Set requests
      *
      * @param  string $requests
@@ -986,6 +974,59 @@ class User extends BaseUser
         $this->contactEmail = $email;
 
         return $this;
+    }
+
+    public function getCars()
+    {
+        return $this->cars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptions()
+    {
+        return $this->subscriptions;
+    }
+
+    /**
+     * @param mixed $subscriptions
+     */
+    public function setSubscriptions($subscriptions)
+    {
+        $this->subscriptions = $subscriptions;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFeedViewAt()
+    {
+        return $this->feedViewAt;
+    }
+
+    /**
+     * @param \DateTime $feedViewAt
+     */
+    public function setFeedViewAt($feedViewAt)
+    {
+        $this->feedViewAt = $feedViewAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedNotify()
+    {
+        return $this->feedNotify;
+    }
+
+    /**
+     * @param mixed $feedNotify
+     */
+    public function setFeedNotify($feedNotify)
+    {
+        $this->feedNotify = $feedNotify;
     }
 
     public function getCars()
