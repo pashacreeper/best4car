@@ -197,23 +197,9 @@
         </div>
         <div class="rightContent"></div>
     </div>
-    <div class="content" data-tab-id="#garage" id="garage">
+    <div data-tab-id="#garage" class="content">
         {{ render(controller('StoUserBundle:Garage:show', {'id':user.id})) }}
     </div>
-    {#<script>#}
-    {#$(function () {#}
-        {#var tabContainers = $('.tabs > div.content'); // получаем массив контейнеров#}
-        {#tabContainers.hide().filter(':first').show(); // прячем все, кроме первого#}
-        {#// далее обрабатывается клик по вкладке#}
-        {#$('.tabs ul.tabNavigation a').click(function () {#}
-            {#tabContainers.hide(); // прячем все табы#}
-            {#tabContainers.filter(this.hash).show(); // показываем содержимое текущего#}
-            {#$('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'#}
-            {#$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'#}
-            {#return false;#}
-        {#}).filter(':first').click();#}
-    {#});#}
-    {#</script>#}
 </section>
 {% endblock %}
 
