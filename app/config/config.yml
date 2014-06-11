@@ -270,6 +270,10 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [60, 42], mode: outbound }
+        car_mark_icon:
+            quality: 100
+            filters:
+                thumbnail: { widen: 28 }
 
 genemu_form:
     tinymce:

@@ -15,7 +15,7 @@
         {% endif %}
         <div class="car-show">
             <div class="left-column">
-                <div class="car-model">{{ car.name }}</div>
+                <div class="car-model"><img src="{{ vich_uploader_asset(car.mark, 'icon') }}" alt="{{ car.name }}" style="height: 20px; margin-right: 10px;"/>{{ car.name }}</div>
                 <div class="car-modification">{{ car.description }}</div>
                 <div class="divider"></div>
                 {% if car.vin %}
