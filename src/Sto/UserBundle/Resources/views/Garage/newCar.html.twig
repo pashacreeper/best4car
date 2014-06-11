@@ -191,7 +191,7 @@
                         </script>
                     </div>
                     <div class="car-right-column">
-                        <div class="contentLabelNoOverflow">
+                        <div class="contentLabel">
                             {{ form_label(form.mark) }}
                             {{ form_widget(form.mark) }}
                             {{ form_errors(form.mark) }}
@@ -214,47 +214,7 @@
                                 <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
                             {% endif %}
                         </div>
-                        <div id="modification-choose-modal" class="reveal-modal"><!-- popUp firstReg-->
-                            <a href="#" class="close-reveal-modal closeModal"></a>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.engineType) }}
-                                {{ form_widget(form.engineType) }}
-                                {{ form_errors(form.engineType) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.engineModel) }}
-                                {{ form_widget(form.engineModel) }}
-                                {{ form_errors(form.engineModel) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.engineVolume) }}
-                                {{ form_widget(form.engineVolume) }}
-                                {{ form_errors(form.engineVolume) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.enginePower) }}
-                                {{ form_widget(form.enginePower) }}
-                                {{ form_errors(form.enginePower) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.fuelTypes) }}
-                                {{ form_widget(form.fuelTypes) }}
-                                {{ form_errors(form.fuelTypes) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.wheelType) }}
-                                {{ form_widget(form.wheelType) }}
-                                {{ form_errors(form.wheelType) }}
-                            </div>
-                            <div class="contentLabel clear">
-                                {{ form_label(form.bodyType) }}
-                                {{ form_widget(form.bodyType) }}
-                                {{ form_errors(form.bodyType) }}
-                            </div>
-                            <div class="bottomContent modificationBottomContent">
-                                <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
-                            </div>
-                        </div>
+                        {% include 'StoUserBundle:Garage:_modificationPopUp.html.twig' with {form: form} %}
                         <div class="contentLabel clear">
                             {{ form_label(form.transmission) }}
                             {{ form_widget(form.transmission) }}

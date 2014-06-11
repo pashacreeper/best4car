@@ -1365,3 +1365,16 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .carEditButtonInCarCard .pencilIcon{
     right: 10px !important;
 }
+.smallInputField{
+    width: 50px;
+    margin-right: 5px;
+}
+.carModificationFieldDescription {
+    font-size: 1.1em;
+}
+.choiceList label{
+    margin-top: 7px;
+}
+.choiceList .selectbox .select{
+    width: 182px !important;
+}

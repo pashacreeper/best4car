@@ -85,10 +85,11 @@ class UserCarType extends AbstractType
             ])
             ->add('engineType', 'choice', [
                 'label' => 'Тип двигателя',
+                'empty_value' => 'Выберите тип двигателя',
                 'required' => false,
                 'choice_list' => new EngineType(),
                 'attr' => [
-                    'class' => 'inputField'
+                    'class' => 'styled'
                 ]
             ])
             ->add('engineModel', null, [
@@ -98,18 +99,18 @@ class UserCarType extends AbstractType
                     'class' => 'inputField'
                 ]
             ])
-            ->add('engineVolume', null, [
+            ->add('engineVolume', 'text', [
                 'label' => 'Объем',
                 'required' => false,
                 'attr' => [
-                    'class' => 'inputField'
+                    'class' => 'smallInputField'
                 ]
             ])
-            ->add('enginePower', null, [
+            ->add('enginePower', 'text', [
                 'label' => 'Мощность',
                 'required' => false,
                 'attr' => [
-                    'class' => 'inputField'
+                    'class' => 'smallInputField'
                 ]
             ])
             ->add('fuelTypes', 'choice', [
@@ -125,17 +126,19 @@ class UserCarType extends AbstractType
             ->add('wheelType', 'choice', [
                 'label' => 'Привод',
                 'required' => false,
+                'empty_value' => 'Выберите тип привода',
                 'choice_list' => new WheelType(),
                 'attr' => [
-                    'class' => 'inputField'
+                    'class' => 'styled inputField'
                 ]
             ])
             ->add('bodyType', 'choice', [
                 'label' => 'Тип кузова',
                 'required' => false,
+                'empty_value' => 'Выберите тип кузова',
                 'choice_list' => new BodyType(),
                 'attr' => [
-                    'class' => 'inputField'
+                    'class' => 'styled inputField'
                 ]
             ])
             ->add('images', 'collection', array(
