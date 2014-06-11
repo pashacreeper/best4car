@@ -31,7 +31,7 @@
             </div>
         {% else %}
             {% if showUser == app.user %}
-                <h1>Вы еще ничего не рассказали о своём гараже</h1>
+                <h1 class="noCarInGarage">Вы еще ничего не рассказали о своём гараже</h1>
                 <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
                     автомобиль<i class="plusIconWhiteRight"></i></a>
             {% else %}

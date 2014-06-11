@@ -1349,3 +1349,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     border-bottom: none;
     color: #f35d2e;
 }
+.noCarInGarage{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 2.6em;
+}
