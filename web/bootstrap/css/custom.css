@@ -1126,6 +1126,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     display: block;
     height: 280px;
     text-align: left;
+    position: relative;
 }
 
 .car-card .description {
@@ -1136,8 +1137,9 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 28px;
 }
 
-.car-card .description h12{
+.car-card .description h2{
     font-size: 16px;
+    line-height: 25px;
 }
 
 .car-card .img {
@@ -1348,4 +1350,18 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     text-decoration: none;
     border-bottom: none;
     color: #f35d2e;
+}
+.noCarInGarage{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 2.4em;
+}
+.carEditButtonInCarCard{
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+    width: 155px !important;
+}
+.carEditButtonInCarCard .pencilIcon{
+    right: 10px !important;
 }
