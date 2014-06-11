@@ -42,7 +42,7 @@
                     но не ограничиваясь теми, которые указаны у вас в гараже.
                 </p>
                 <div class="notify">
-                    
+
                     <label for="notify-me"><input {% if app.user.feedNotify %}checked="checked"{% endif %} type="checkbox" id="notify-me">Получать уведомления на <b>{{ app.user.email }}</b></label>
 
                     <a href="{{ path('fos_user_profile_edit') }}" class="change-email">Изменить почту в профиле</a>

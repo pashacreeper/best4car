@@ -26,14 +26,14 @@ class FeedManager
         $feed = new FeedItem();
         if ($item instanceof Company) {
             $feed->setCompany($item);
-            if(!$now) {
+            if (!$now) {
                 $feed->setCreatedAt($item->getCreatetDate());
             }
         }
 
         if ($item instanceof Deal) {
             $feed->setDeal($item);
-            if(!$now) {
+            if (!$now) {
                 $feed->setCreatedAt($item->getCreatedAt());
             }
         }

@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
-use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
-use Symfony\Component\Validator\Constraints as Assert;
 use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
@@ -47,7 +44,7 @@ class UserCarType extends AbstractType
             ->add('year', 'choice', [
                 'label' => 'Год',
                 'required' => true,
-                'choices' => array_combine(range((int)date('Y'), 1965), range((int)date('Y'), 1965)),
+                'choices' => array_combine(range((int) date('Y'), 1965), range((int) date('Y'), 1965)),
                 'attr' => [
                     'class' => 'inputFormEnter'
                 ],

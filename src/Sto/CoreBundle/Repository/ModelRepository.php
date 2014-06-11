@@ -3,7 +3,6 @@
 namespace Sto\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query\Expr\Orx;
 
 /**
  * ModelRepository

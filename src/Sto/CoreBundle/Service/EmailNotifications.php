@@ -239,7 +239,7 @@ class EmailNotifications
 
     public function sendFeedNotify($users, $feedItem)
     {
-        if($feedItem->getCompany()) {    
+        if ($feedItem->getCompany()) {
             $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEED_NOTIFY_COMPANY);
         } else {
             $template = $this->getEmailTemplate(EmailTemplateType::TEMPLATE_FEED_NOTIFY_DEAL);
@@ -251,12 +251,12 @@ class EmailNotifications
 
         $data = [];
 
-        if($company = $feedItem->getCompany()) {
+        if ($company = $feedItem->getCompany()) {
             $data['company'] = $company;
             $data['link'] = $this->router->generate('content_company_show', ['id' => $company->getId()], true);
         }
 
-        if($deal = $feedItem->getDeal()) {
+        if ($deal = $feedItem->getDeal()) {
             $data['deal'] = $deal;
             $data['link'] = $this->router->generate('content_deal_show', ['id' => $deal->getId()], true);
         }

@@ -13,7 +13,7 @@ class FeedItemRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('f');
 
-        if($companyMarks) {
+        if ($companyMarks) {
             $qb
                 ->leftJoin('f.company', 'c')
                 ->leftJoin('c.autos', 'ca')
@@ -30,7 +30,7 @@ class FeedItemRepository extends EntityRepository
                 ->leftJoin('d.auto', 'da')
                 ->setParameter('dealMarks', $dealMarks)
             ;
-            if($companyMarks) {
+            if ($companyMarks) {
                 $qb->orWhere('d.allAuto = true OR da IN (:dealMarks)');
             } else {
                 $qb->andWhere('d.allAuto = true OR da IN (:dealMarks)');

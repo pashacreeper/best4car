@@ -238,7 +238,7 @@ class UserCar
      */
     public function resetCustomModification()
     {
-        if($this->modification) {
+        if ($this->modification) {
             $this->setBodyType(null);
             $this->setFuelTypes(null);
             $this->setWheelType(null);
@@ -262,7 +262,7 @@ class UserCar
     /**
      * Set transmission
      *
-     * @param  string $transmission
+     * @param  string  $transmission
      * @return UserCar
      */
     public function setTransmission($transmission)
@@ -285,7 +285,7 @@ class UserCar
     /**
      * Set year
      *
-     * @param  string $year
+     * @param  string  $year
      * @return UserCar
      */
     public function setYear($year)
@@ -308,7 +308,7 @@ class UserCar
     /**
      * Set vin
      *
-     * @param  string $vin
+     * @param  string  $vin
      * @return UserCar
      */
     public function setVin($vin)
@@ -331,7 +331,7 @@ class UserCar
     /**
      * Set drive2
      *
-     * @param  string $drive2
+     * @param  string  $drive2
      * @return UserCar
      */
     public function setDrive2($drive2)
@@ -358,7 +358,7 @@ class UserCar
 
     public function getTransmissionName()
     {
-        if(!$this->transmission) {
+        if (!$this->transmission) {
             return "";
         }
 
@@ -367,7 +367,7 @@ class UserCar
 
     public function getTransmissionHuman()
     {
-        if(!$this->transmission) {
+        if (!$this->transmission) {
             return null;
         }
 
@@ -396,7 +396,7 @@ class UserCar
     {
         $result = new ArrayCollection;
         foreach ($images as $image) {
-            if($image->getImage() || $image->getImageName()) {
+            if ($image->getImage() || $image->getImageName()) {
                 $result[] = $image;
             }
         }
@@ -407,7 +407,7 @@ class UserCar
     public function setImages($images)
     {
         $images = $this->nonEmptyImages($images);
-        
+
         foreach ($images as $image) {
             $image->setCar($this);
         }
@@ -429,7 +429,7 @@ class UserCar
     /**
      * Set engineVolume
      *
-     * @param  int $engineVolume
+     * @param  int     $engineVolume
      * @return UserCar
      */
     public function setEngineVolume($engineVolume)
@@ -452,7 +452,7 @@ class UserCar
     /**
      * Set enginePower
      *
-     * @param  int $enginePower
+     * @param  int     $enginePower
      * @return UserCar
      */
     public function setEnginePower($enginePower)
@@ -475,7 +475,7 @@ class UserCar
     /**
      * Set engineModel
      *
-     * @param  string $engineModel
+     * @param  string  $engineModel
      * @return UserCar
      */
     public function setEngineModel($engineModel)
@@ -498,7 +498,7 @@ class UserCar
     /**
      * Set engineType
      *
-     * @param  string $engineType
+     * @param  string  $engineType
      * @return UserCar
      */
     public function setEngineType($engineType)
@@ -521,7 +521,7 @@ class UserCar
     /**
      * Set wheelType
      *
-     * @param  string $wheelType
+     * @param  string  $wheelType
      * @return UserCar
      */
     public function setWheelType($wheelType)
@@ -544,7 +544,7 @@ class UserCar
     /**
      * Set bodyType
      *
-     * @param  string $bodyType
+     * @param  string  $bodyType
      * @return UserCar
      */
     public function setBodyType($bodyType)
@@ -567,7 +567,7 @@ class UserCar
     /**
      * Set fuelTypes
      *
-     * @param  array $fuelTypes
+     * @param  array   $fuelTypes
      * @return UserCar
      */
     public function setFuelTypes($fuelTypes)
@@ -595,11 +595,11 @@ class UserCar
     public function getDescription()
     {
         $desc = $this->getYear(). " г.в., ";
-        if($this->modification) {
+        if ($this->modification) {
             $desc .= $this->modification->getName();
         } else {
             $desc .= $this->engineModel;
-            if($this->enginePower) {
+            if ($this->enginePower) {
                 $desc .= " (". $this->enginePower .")";
             }
         }
@@ -610,7 +610,7 @@ class UserCar
 
     public function getBodyTypeWrapper()
     {
-        if($this->modification) {
+        if ($this->modification) {
             return $this->modification->getBodyType();
         } else {
             return $this->getBodyTypeName();
@@ -619,21 +619,21 @@ class UserCar
 
     public function getBodyTypeName()
     {
-        if($this->bodyType) {
+        if ($this->bodyType) {
             return BodyType::getOptions()[$this->bodyType];
         }
     }
 
     public function getWheelTypeName()
     {
-        if($this->wheelType) {
+        if ($this->wheelType) {
             return WheelType::getOptions()[$this->wheelType];
         }
     }
 
     public function getEngineTypeName()
     {
-        if($this->engineType) {
+        if ($this->engineType) {
             return EngineType::getOptions()[$this->engineType];
         }
     }
@@ -641,20 +641,20 @@ class UserCar
     public function getEngineDescription()
     {
         $parts = [];
-        if($this->modification) {
+        if ($this->modification) {
             $parts[] = $this->modification->getEngine(). " куб.см.";
             $parts[] = $this->modification->getPower(). " л.с.";
         } else {
-            if($this->getEngineType()) {
+            if ($this->getEngineType()) {
                 $parts[] = $this->getEngineTypeName();
             }
-            if($this->getEngineModel()) {
+            if ($this->getEngineModel()) {
                 $parts[] = $this->getEngineModel();
             }
-            if($this->getEngineVolume()) {
+            if ($this->getEngineVolume()) {
                 $parts[] = $this->getEngineVolume(). " куб.см.";
             }
-            if($this->getEnginePower()) {
+            if ($this->getEnginePower()) {
                 $parts[] = $this->getEnginePower(). " л.с.";
             }
             foreach ($this->getFuelTypes() as $type) {

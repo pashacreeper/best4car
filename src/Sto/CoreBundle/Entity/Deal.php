@@ -936,7 +936,7 @@ class Deal
         $marks = [];
 
         foreach ($this->auto as $mark) {
-            if(in_array($mark->getId(), $selectedMarks)) {
+            if (in_array($mark->getId(), $selectedMarks)) {
                 $marks[] = $mark;
             }
         }
@@ -949,7 +949,7 @@ class Deal
         $marks = [];
 
         foreach ($this->auto as $mark) {
-            if(!in_array($mark->getId(), $selectedMarks)) {
+            if (!in_array($mark->getId(), $selectedMarks)) {
                 $marks[] = $mark;
             }
         }

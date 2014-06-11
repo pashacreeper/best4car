@@ -14,7 +14,8 @@ class BodyType extends SimpleChoiceList
         parent::__construct(self::getOptions());
     }
 
-    public static function getOptions() {
+    public static function getOptions()
+    {
         return [
             self::SEDAN => "Седан",
             self::HATCHBACK => "Хетчбек",

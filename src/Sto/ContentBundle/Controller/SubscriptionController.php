@@ -44,7 +44,7 @@ class SubscriptionController extends Controller
         $dealMarks = [];
         $companyMarks = [];
 
-        if($marks = $form->get('marks')->getData()->toArray()) {
+        if ($marks = $form->get('marks')->getData()->toArray()) {
             $markIds = [];
             foreach ($marks as $mark) {
                 $markIds[] = $mark->getId();
@@ -52,7 +52,7 @@ class SubscriptionController extends Controller
             $companyMarks = $dealMarks = $markIds;
         } else {
             foreach ($user->getSubscriptions() as $subscription) {
-                if($subscription->getType() == SubscriptionType::COMPANY) {
+                if ($subscription->getType() == SubscriptionType::COMPANY) {
                     $companyMarks[] = $subscription->getMark()->getId();
                 } else {
                     $dealMarks[] = $subscription->getMark()->getId();
@@ -61,10 +61,10 @@ class SubscriptionController extends Controller
         }
 
         $type = $marks = $form->get('type')->getData();
-        if($type == SubscriptionType::COMPANY) {
+        if ($type == SubscriptionType::COMPANY) {
             $dealMarks = [];
         }
-        if($type == SubscriptionType::DEAL) {
+        if ($type == SubscriptionType::DEAL) {
             $companyMarks = [];
         }
 
@@ -73,7 +73,7 @@ class SubscriptionController extends Controller
         $page = $this->get('request')->query->get('page', 1);
         $items = $this->get('knp_paginator')->paginate($query, $page, 6);
 
-        if($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $html = $this->renderView('StoContentBundle:Subscription:_list.html.twig', [
                 'items' => $items,
                 'dealMarks' => $dealMarks,

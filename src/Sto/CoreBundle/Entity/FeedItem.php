@@ -140,7 +140,7 @@ class FeedItem
 
     public function getType()
     {
-        if($this->company) {
+        if ($this->company) {
             return SubscriptionType::COMPANY;
         }
 

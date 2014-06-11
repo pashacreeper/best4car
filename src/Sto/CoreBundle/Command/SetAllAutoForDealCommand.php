@@ -2,13 +2,10 @@
 namespace Sto\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManager;
-use Sto\CoreBundle\Entity\FeedbackCompany;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Sto\CoreBundle\Entity\Company;
-use Sto\UserBundle\Entity\User;
 
 class SetAllAutoForDealCommand extends ContainerAwareCommand
 {
@@ -28,7 +25,7 @@ class SetAllAutoForDealCommand extends ContainerAwareCommand
 
         /** @var $company Deal */
         foreach ($deals as $deal) {
-            if($deal->getAuto()->count() === 0) {
+            if ($deal->getAuto()->count() === 0) {
                 $deal->setAllAuto(true);
             } else {
                 $deal->setAllAuto(false);

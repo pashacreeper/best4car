@@ -45,7 +45,7 @@ class GarageController extends MainController
     public function createCarAction(Request $request)
     {
         $user = $this->getUser();
-        
+
         $car = new UserCar();
         $car->setUser($user);
         $form = $this->createForm(new UserCarType(), $car);
