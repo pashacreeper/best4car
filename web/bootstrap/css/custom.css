@@ -1378,3 +1378,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .choiceList .selectbox .select{
     width: 182px !important;
 }
+
+.choiceList .selectbox ul.dropdown {
+    width: 218px;
+    top: 26px;
+}
