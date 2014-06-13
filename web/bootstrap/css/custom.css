@@ -1156,6 +1156,10 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     color: #f35d2e;
     border-bottom: 1px dotted #f35d2e;
 }
+#other-modification:hover{
+    text-decoration: none;
+    border-bottom: none;
+}
 
 #modification-choose-modal {
     margin-left: -204px;
