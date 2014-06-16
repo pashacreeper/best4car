@@ -315,12 +315,18 @@ ul.tabNavigation li a:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    color: #f6f6f6;
+}
+
+.addPhotoBtn:visited{
+    color: #f6f6f6;
 }
 
 .addPhotoBtn:active {
     -webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
     box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+    color: #f6f6f6;
 }
 
 .addPhoto {
