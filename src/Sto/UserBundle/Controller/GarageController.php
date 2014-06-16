@@ -4,6 +4,7 @@ namespace Sto\UserBundle\Controller;
 use Sto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -31,6 +32,7 @@ class GarageController extends MainController
         return [
             'form'  => $form->createView(),
             'isNew' => true,
+            'popUpError' => 0
         ];
     }
 
@@ -38,7 +40,6 @@ class GarageController extends MainController
      * Creates a new Garage entity.
      *
      * @Route("/garage/create", name="garage_create")
-     * @Method({"POST"})
      * @Template("StoUserBundle:Garage:newCar.html.twig")
      * @Secure(roles="IS_AUTHENTICATED_FULLY")
      */
@@ -51,6 +52,8 @@ class GarageController extends MainController
         $form = $this->createForm(new UserCarType(), $car);
         $form->handleRequest($request);
 
+        $popUpError = 0;
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($car);
@@ -61,9 +64,19 @@ class GarageController extends MainController
             );
         }
 
+        /**
+         * @var Form $element
+         */
+        foreach ($form as $element) {
+            if ($element->getErrors() && 'engineVolume' === $element->getName()) {
+                $popUpError = 1;
+            }
+        }
+
         return [
-            'form'    => $form->createView(),
+            'form'  => $form->createView(),
             'isNew' => true,
+            'popUpError' => $popUpError
         ];
     }
 

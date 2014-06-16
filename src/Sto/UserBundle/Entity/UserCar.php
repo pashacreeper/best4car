@@ -104,6 +104,7 @@ class UserCar
      * @var int
      *
      * @ORM\Column(name="engineVolume", type="integer", nullable=true)
+     * @Assert\Regex(pattern="/\d/", message="Необходимо указать целое значение")
      */
     protected $engineVolume;
 

@@ -145,6 +145,9 @@
 
                                     reader.readAsDataURL($(this)[0].files[0]);
                                 });
+                                if ({{ popUpError }}) {
+                                    $('#modification-choose-modal').reveal();
+                                }
                             });
 
                             function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
