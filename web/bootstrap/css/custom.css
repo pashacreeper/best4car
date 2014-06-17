@@ -976,7 +976,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     height: 15px !important;
 }
 
-.addCarBtn {
+.addCarBtn, .editCarBtn {
     margin-bottom: 10px;
     border-radius: 4px;
     display: block;
@@ -990,7 +990,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 1.2em;
     margin: 10px auto;
 }
-.addCarBtn:hover{
+.editCarBtn{
+    position: relative;
+    bottom: -19px;
+}
+.addCarBtn:hover, .editCarBtn:hover{
     text-decoration: none;
 }
 
