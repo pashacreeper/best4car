@@ -112,6 +112,7 @@ class CompanyRegisterControllerTest extends WebTestCase
         $em->persist($company);
 
         $user = $this->getRepository('StoUserBundle:User')->findOneBy(['username' => 'manager']);
+        $mark = $this->getRepository('StoCoreBundle:Mark')->findOneBy(['name' => 'Ford']);
 
         $manager = new CompanyManager();
         $manager->setUser($user);
@@ -120,6 +121,7 @@ class CompanyRegisterControllerTest extends WebTestCase
         $em->persist($manager);
 
         $company->addCompanyManager($manager);
+        $company->addAuto($mark);
         $company->setRegistredFully(false);
         $company->setRegistrationStep(CompanyRegistrationStep::BUSINESS);
         $company->setVisible(false);
@@ -137,12 +139,11 @@ class CompanyRegisterControllerTest extends WebTestCase
             'Sto\CoreBundle\DataFixtures\ORM\LoadDictionaryAutoServicesData',
             'Sto\CoreBundle\DataFixtures\ORM\LoadSpbData',
             'Sto\CoreBundle\DataFixtures\ORM\LoadTestUserData',
+            'Sto\CoreBundle\DataFixtures\ORM\LoadAutoMarkData',
         ];
 
         $this->loadFixtures($classes);
-
         $this->createBaseCompany();
-
         $this->logInAsCompany();
 
         $crawler = $this->client->request('GET', '/company/1/edit/business-profile/');
@@ -178,12 +179,11 @@ class CompanyRegisterControllerTest extends WebTestCase
             'Sto\CoreBundle\DataFixtures\ORM\LoadDictionaryAutoServicesData',
             'Sto\CoreBundle\DataFixtures\ORM\LoadSpbData',
             'Sto\CoreBundle\DataFixtures\ORM\LoadTestUserData',
+            'Sto\CoreBundle\DataFixtures\ORM\LoadAutoMarkData',
         ];
 
         $this->loadFixtures($classes);
-
         $this->createBaseCompany();
-
         $this->logInAsCompany();
 
         $crawler = $this->client->request('GET', '/company/1/edit/contacts');

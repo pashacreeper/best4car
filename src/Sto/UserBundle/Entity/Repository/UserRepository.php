@@ -7,8 +7,10 @@ class UserRepository extends EntityRepository
 {
     /**
      * Finding user by email or by name
+     *
      * @param  string $login
-     * @return [type] [description]
+     *
+     * @return mixed
      */
     public function findUserByNameOrByEmail($login)
     {
