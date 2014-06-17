@@ -215,6 +215,20 @@
                             {{ form_errors(form.modification) }}
                             {% if car is defined %}
                                 <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
+                                {% if car.engineType %}
+                                    <div class="customModificationInformation">
+                                        <strong>Тип двигателя</strong>: {{ car.engineType|trans }} <br/>
+                                        <strong>Модель двигателя</strong>: {{ car.engineModel }} <br/>
+                                        <strong>Объем двигателя</strong>: {{ car.engineVolume }} <br/>
+                                        <strong>Мощность двигателя</strong>: {{ car.enginePower }} <br/>
+                                        <strong>Топливо</strong>:
+                                        {%- for type in car.fuelTypes %}
+                                            {{ type }}{% if not loop.last and loop.lengt > 1 %}, {% endif %}
+                                        {% endfor -%} <br/>
+                                        <strong>Привод</strong>: {{ car.wheelType|trans }} <br/>
+                                        <strong>Тип кузова</strong>: {{ car.bodyType|trans }}
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         </div>
                         {% include 'StoUserBundle:Garage:_modificationPopUp.html.twig' with {form: form} %}

@@ -1387,3 +1387,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     width: 218px;
     top: 26px;
 }
+.customModificationInformation{
+    margin-top: 5px;
+    font-size: 1.1em;
+}

@@ -93,9 +93,10 @@ class GarageController extends MainController
         $form = $this->createForm(new UserCarType(), $car);
 
         return [
-            'form'    => $form->createView(),
-            'isNew' => false,
-            'car' => $car,
+            'form'       => $form->createView(),
+            'isNew'      => false,
+            'car'        => $car,
+            'popUpError' => 0,
         ];
     }
 

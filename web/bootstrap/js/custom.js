@@ -730,10 +730,16 @@ var initPage = function(){
         if($(this).find(':selected').attr('id') == 'other') {
             $(this).removeAttr('required');
             $('#other-modification').show();
-            $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
+            $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'});
+            if ($('.customModificationInformation').length > 0) {
+                $('.customModificationInformation').show();
+            }
         } else {
             $(this).attr('required', true);
             $('#other-modification').hide();
+            if ($('.customModificationInformation').length > 0) {
+                $('.customModificationInformation').hide();
+            }
         }
     });
 
