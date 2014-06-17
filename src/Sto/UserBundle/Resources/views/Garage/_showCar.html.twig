@@ -27,7 +27,9 @@
                 {% endif %}
             </div>
             <div class="right-column">
-                <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
+                {% if car.transmission %}
+                    <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
+                {% endif %}
                 {% if car.engineDescription %}
                     <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
                 {% endif %}

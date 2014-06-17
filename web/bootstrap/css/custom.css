@@ -991,8 +991,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin: 10px auto;
 }
 .editCarBtn{
-    position: relative;
-    bottom: -19px;
+    position: absolute;
+    bottom: 0;
 }
 .addCarBtn:hover, .editCarBtn:hover{
     text-decoration: none;
@@ -1163,6 +1163,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 #other-modification:hover{
     text-decoration: none;
     border-bottom: none;
+    padding-bottom: 1px;
 }
 
 #modification-choose-modal {

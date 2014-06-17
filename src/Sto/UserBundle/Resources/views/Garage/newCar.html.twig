@@ -223,7 +223,7 @@
                                         <strong>Мощность двигателя</strong>: {{ car.enginePower }} <br/>
                                         <strong>Топливо</strong>:
                                         {%- for type in car.fuelTypes %}
-                                            {{ type }}{% if not loop.last and loop.lengt > 1 %}, {% endif %}
+                                            {{ type }}{% if not loop.last and loop.length > 1 %}, {% endif %}
                                         {% endfor -%} <br/>
                                         <strong>Привод</strong>: {{ car.wheelType|trans }} <br/>
                                         <strong>Тип кузова</strong>: {{ car.bodyType|trans }}

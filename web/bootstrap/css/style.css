@@ -2319,6 +2319,8 @@ input.error {border: 1px solid #ff0000;}
     display: inline-block;
     width: 260px;
     vertical-align: top;
+    min-height: 190px;
+    position: relative;
 }
 .car-show .right-column div {
     padding-left: 10px;
