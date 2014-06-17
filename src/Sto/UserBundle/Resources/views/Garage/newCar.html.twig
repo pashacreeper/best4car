@@ -255,7 +255,8 @@
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Добавить в гараж"/>
                     {% else %}
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Сохранить"/>
-                        <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')">Удалить авто из гаража</a>
+                        <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')"><img
+                                    src="{{ asset('bootstrap/img/icon.bin.gray.png') }}" alt=""/>Удалить авто из гаража</a>
                     {% endif %}
                     <a href="{{ path('fos_user_profile_show') }}#garage" class="cancleCarAdd">Отменить</a>
                 </div>

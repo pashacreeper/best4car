@@ -1342,8 +1342,20 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-top: 4px;
 }
 
-.cancleCarAdd, .deleteCar{
+.deleteCar{
+    float: left;
+    position: relative;
+    left: 30px;
+}
+.deleteCar img{
+    position: absolute;
+    left: -30px;
+    top: -5px;
+}
+.cancleCarAdd{
     float: right;
+}
+.cancleCarAdd, .deleteCar{
     margin-top: 15px;
     margin-right: 20px;
     font-size: 1.6em;
