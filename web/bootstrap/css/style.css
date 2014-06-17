@@ -2291,7 +2291,7 @@ input.error {border: 1px solid #ff0000;}
 .car-show {
     text-align: left;
     padding-top: 10px;
-    width: 560px;
+    width: 580px;
 }
 
 .car-right-column select {
@@ -2317,7 +2317,7 @@ input.error {border: 1px solid #ff0000;}
 
 .car-show .right-column{
     display: inline-block;
-    width: 180px;
+    width: 260px;
     vertical-align: top;
 }
 .car-show .right-column div {
@@ -2327,13 +2327,12 @@ input.error {border: 1px solid #ff0000;}
 
 .car-show .right-column div .carLabel {
     color: #999999;
-    width: 120px;
+    width: 90px;
     display: inline-block;
-    padding-left: 20px;
 }
 
 .car-show .right-column div .carValue {
-    width: 200px;
+    width: 150px;
     display: inline-block;
     vertical-align: top;
 }
