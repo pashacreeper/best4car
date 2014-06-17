@@ -16,6 +16,14 @@ class UserAdmin extends Admin
     protected $baseRouteName = 'admin_vendor_bundlename';
     protected $baseRoutePattern = 'user_list';
 
+    public function getExportFields()
+    {
+       $fields = parent::getExportFields();
+       $fields = array_diff($fields, ['expiresAt', 'credentialsExpireAt']); // remove fields
+
+       return $fields;
+    }
+
     public function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
