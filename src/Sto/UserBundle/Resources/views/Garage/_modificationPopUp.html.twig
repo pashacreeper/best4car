@@ -1,43 +1,6 @@
 <div id="modification-choose-modal" class="reveal-modal">
     <a href="#" class="close-reveal-modal closeModal"></a>
-    <div class="contentLabelNoOverflow choiceList">
-        {{ form_label(form.engineType) }}
-        {{ form_widget(form.engineType) }}
-        {{ form_errors(form.engineType) }}
-    </div>
-    <div class="contentLabelNoOverflow clear">
-        {{ form_label(form.engineModel) }}
-        {{ form_widget(form.engineModel) }}
-        {{ form_errors(form.engineModel) }}
-    </div>
-    <div class="contentLabelNoOverflow clear">
-        {{ form_errors(form.engineVolume) }}
-        {{ form_label(form.engineVolume) }}
-        {{ form_widget(form.engineVolume) }}
-        <span class="carModificationFieldDescription">куб.см.</span>
-    </div>
-    <div class="contentLabelNoOverflow clear">
-        {{ form_label(form.enginePower) }}
-        {{ form_widget(form.enginePower) }}
-        <span class="carModificationFieldDescription">л.с.</span>
-        {{ form_errors(form.enginePower) }}
-    </div>
-    <div class="contentLabelNoOverflow clear">
-        {{ form_label(form.fuelTypes) }}
-        {{ form_widget(form.fuelTypes) }}
-        <br/><span class="carModificationFieldDescription fuel">Отметье, если несколько</span>
-        {{ form_errors(form.fuelTypes) }}
-    </div>
-    <div class="contentLabelNoOverflow choiceList">
-        {{ form_label(form.wheelType) }}
-        {{ form_widget(form.wheelType) }}
-        {{ form_errors(form.wheelType) }}
-    </div>
-    <div class="contentLabelNoOverflow choiceList">
-        {{ form_label(form.bodyType) }}
-        {{ form_widget(form.bodyType) }}
-        {{ form_errors(form.bodyType) }}
-    </div>
+
     <div class="bottomContent modificationBottomContent">
         <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
     </div>

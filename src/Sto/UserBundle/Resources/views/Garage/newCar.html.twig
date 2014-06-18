@@ -231,7 +231,13 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        {% include 'StoUserBundle:Garage:_modificationPopUp.html.twig' with {form: form} %}
+                        <div id="modification-choose-modal" class="reveal-modal">
+                            <a href="#" class="close-reveal-modal closeModal"></a>
+                            {% render(controller('StoUserBundle:Garage:renderCustomModificationForm')) %}
+                            <div class="bottomContent modificationBottomContent">
+                                <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
+                            </div>
+                        </div>
                         <div class="contentLabel clear">
                             {{ form_label(form.transmission) }}
                             {{ form_widget(form.transmission) }}
