@@ -51,7 +51,7 @@ class CustomModificationType extends AbstractType
                 'expanded'    => true,
                 'choice_list' => new FuelType(),
                 'attr'        => [
-                    'class' => 'priceLevelMarker inline'
+                    'class' => 'priceLevelMarker inline fuelTypes'
                 ]
             ])
             ->add('wheelType', 'choice', [

@@ -1185,8 +1185,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     width: 220px;
 }
 
-#sto_user_car_fuelTypes label {
-    width: 30px;
+.priceLevelMarker.fuelTypes label {
+    width: 30px !important;
 }
 
 #modification-choose-modal {

@@ -145,9 +145,6 @@
 
                                     reader.readAsDataURL($(this)[0].files[0]);
                                 });
-                                if ({{ popUpError }}) {
-                                    $('#modification-choose-modal').reveal();
-                                }
                             });
 
                             function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
@@ -191,6 +188,30 @@
 
                                 return $newForm;
                             }
+
+                            $(document).ready(function () {
+                                var $modal = $('#modification-choose-modal'),
+                                    form = $modal.find('form').first();
+
+                                $modal.on('click', '.saveModification', function (e) {
+                                    e.preventDefault();
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: form.attr('action'),
+                                        data: form.serialize(),
+                                        success: function (data) {
+                                            if (data.error) {
+                                                form.remove();
+                                                $modal.find('.close-reveal-modal').after(data.html);
+                                            } else {
+                                                $('.customModificationInput').val(data.id);
+                                                $modal.trigger('reveal:close');
+                                            }
+                                        }
+                                    })
+                                });
+                            });
                         </script>
                     </div>
                     <div class="car-right-column">
@@ -231,13 +252,6 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <div id="modification-choose-modal" class="reveal-modal">
-                            <a href="#" class="close-reveal-modal closeModal"></a>
-                            {% render(controller('StoUserBundle:Garage:renderCustomModificationForm')) %}
-                            <div class="bottomContent modificationBottomContent">
-                                <a href="#" class="closeModal btnBottomContent addPhotoBtn">Сохранить</a>
-                            </div>
-                        </div>
                         <div class="contentLabel clear">
                             {{ form_label(form.transmission) }}
                             {{ form_widget(form.transmission) }}
@@ -254,8 +268,8 @@
                             {{ form_errors(form.drive2) }}
                         </div>
                     </div>
-
                 {{ form_rest(form) }}
+                </div>
                 <div class="bottomContent">
                     {% if isNew %}
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Добавить в гараж"/>
@@ -267,6 +281,13 @@
                     <a href="{{ path('fos_user_profile_show') }}#garage" class="cancleCarAdd">Отменить</a>
                 </div>
             </form>
+            <div id="modification-choose-modal" class="reveal-modal">
+                <a href="#" class="close-reveal-modal closeModal"></a>
+                {% render(controller('StoUserBundle:Garage:renderCustomModificationForm')) %}
+                <div class="bottomContent modificationBottomContent">
+                    <a href="#" class="btnBottomContent addPhotoBtn saveModification">Сохранить</a>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

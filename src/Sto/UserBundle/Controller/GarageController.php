@@ -61,8 +61,6 @@ class GarageController extends MainController
         $form = $this->createForm(new UserCarType(), $car);
         $form->handleRequest($request);
 
-        $popUpError = 0;
-
         if ($form->isValid()) {
             $this->em->persist($car);
             $this->em->flush();
@@ -72,19 +70,9 @@ class GarageController extends MainController
             );
         }
 
-        /**
-         * @var Form $element
-         */
-        foreach ($form as $element) {
-            if ($element->getErrors() && 'engineVolume' === $element->getName()) {
-                $popUpError = 1;
-            }
-        }
-
         return [
             'form'  => $form->createView(),
             'isNew' => true,
-            'popUpError' => $popUpError
         ];
     }
 
@@ -130,7 +118,8 @@ class GarageController extends MainController
      */
     public function storeCustomModificationAction(Request $request)
     {
-        $form = $this->createForm(new CustomModificationType, $modification = new CustomModification());
+        $modification = new CustomModification();
+        $form = $this->createForm(new CustomModificationType, $modification);
 
         $form->handleRequest($request);
 

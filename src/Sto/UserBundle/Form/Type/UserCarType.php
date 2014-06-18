@@ -55,6 +55,12 @@ class UserCarType extends AbstractType
                     'class' => 'inputFormEnter'
                 ],
             ])
+            ->add('customModification', 'hidden', [
+                'required' => false,
+                'attr' => [
+                    'class' => 'customModificationInput'
+                ]
+            ])
             ->add('transmission', 'choice', [
                 'label' => 'Трансмиссия',
                 'choice_list' => new TransmissionType(),
