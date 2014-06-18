@@ -1168,17 +1168,17 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 #modification-choose-modal {
     margin-left: -204px;
-    width: 480px;
+    width: 342px;
 }
 
 #modification-choose-modal label {
     clear: none;
-    float: left;
     width: 100px;
+    display: inline-block;
 }
 
 #modification-choose-modal input {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 #modification-choose-modal select {
@@ -1190,11 +1190,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 }
 
 #modification-choose-modal {
-    top: 0px;
+    top: 150px !important;
 }
 
 .modificationBottomContent {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .subscriptions{
@@ -1391,7 +1391,14 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-right: 5px;
 }
 .carModificationFieldDescription {
-    font-size: 1.1em;
+    font-size: 1.2em;
+}
+.carModificationFieldDescription.fuel{
+    margin-left: 103px;
+    position: relative;
+    top: 6px;
+    color: #999999;
+    font-size: 1.3em;
 }
 .choiceList label{
     margin-top: 7px;
@@ -1407,4 +1414,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .customModificationInformation{
     margin-top: 5px;
     font-size: 1.3em;
+}
+.priceLevelMarker.inline{
+    display: inline;
 }

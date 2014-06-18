@@ -12,7 +12,6 @@ class FuelType extends SimpleChoiceList
             95 => 95,
             92 => 92,
             80 => 80,
-            70 => 70,
         ];
         parent::__construct($choices);
     }

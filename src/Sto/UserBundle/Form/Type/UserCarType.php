@@ -120,7 +120,7 @@ class UserCarType extends AbstractType
                 'expanded' => true,
                 'choice_list' => new FuelType(),
                 'attr' => [
-                    'class' => 'priceLevelMarker'
+                    'class' => 'priceLevelMarker inline'
                 ]
             ])
             ->add('wheelType', 'choice', [
