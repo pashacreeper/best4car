@@ -1,4 +1,8 @@
-<form action="{{ path('ajax_garage_custom_modification') }}" method="post">
+{% if id is defined and id %}
+    <form action="{{ path('ajax_garage_custom_modification_update', {id: id}) }}" method="post">
+{% else %}
+    <form action="{{ path('ajax_garage_custom_modification') }}" method="post">
+{% endif %}
     {{ form_errors(form) }}
     <div class="contentLabelNoOverflow choiceList">
         {{ form_label(form.engineType) }}

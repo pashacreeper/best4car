@@ -78,6 +78,14 @@ class CustomModification
     protected $userCar;
 
     /**
+     * @return string
+     */
+    function __toString()
+    {
+        return (string) $this->getId();
+    }
+
+    /**
      * Get id
      *
      * @return integer
