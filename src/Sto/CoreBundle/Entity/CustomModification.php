@@ -8,7 +8,7 @@ use Sto\UserBundle\Entity\UserCar;
 /**
  * Modification
  *
- * @ORM\Entity(repositoryClass="Sto\CoreBundle\Repository\CustomModificationRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="custom_modifications")
  */
 class CustomModification

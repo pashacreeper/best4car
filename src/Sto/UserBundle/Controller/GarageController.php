@@ -36,7 +36,7 @@ class GarageController extends MainController
     public function newCarAction()
     {
         $car = new UserCar();
-        $form = $this->createForm(new UserCarType(), $car);
+        $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
 
         return [
             'form'  => $form->createView(),
@@ -58,7 +58,7 @@ class GarageController extends MainController
 
         $car = new UserCar();
         $car->setUser($user);
-        $form = $this->createForm(new UserCarType(), $car);
+        $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -86,7 +86,7 @@ class GarageController extends MainController
      */
     public function editCarAction(UserCar $car)
     {
-        $form = $this->createForm(new UserCarType(), $car);
+        $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
 
         return [
             'form'       => $form->createView(),
@@ -162,7 +162,7 @@ class GarageController extends MainController
             $originalImages->add($image);
         }
 
-        $form = $this->createForm(new UserCarType(), $car);
+        $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

@@ -2,6 +2,7 @@
 
 namespace Sto\UserBundle\Form\Type;
 
+use Sto\ContentBundle\Form\DataTransformer\IdToModificationTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -12,6 +13,9 @@ class UserCarType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $em = $options['em'];
+        $customModificationTransfromer = new IdToModificationTransformer($em);
+
         $builder
             ->add('mark', null, [
                 'label' => 'Марка',
@@ -55,12 +59,12 @@ class UserCarType extends AbstractType
                     'class' => 'inputFormEnter'
                 ],
             ])
-            ->add('customModification', 'hidden', [
+            ->add($builder->create('customModification', 'hidden', [
                 'required' => false,
-                'attr' => [
+                'attr'     => [
                     'class' => 'customModificationInput'
                 ]
-            ])
+            ])->addModelTransformer($customModificationTransfromer))
             ->add('transmission', 'choice', [
                 'label' => 'Трансмиссия',
                 'choice_list' => new TransmissionType(),
@@ -99,8 +103,14 @@ class UserCarType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\UserBundle\Entity\UserCar',
-        ]);
+                'data_class' => 'Sto\UserBundle\Entity\UserCar',
+            ])
+            ->setRequired([
+                'em',
+            ])
+            ->setAllowedTypes([
+                'em' => 'Doctrine\Common\Persistence\ObjectManager',
+            ]);
     }
 
     public function getName()
