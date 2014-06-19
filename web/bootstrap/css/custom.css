@@ -1164,12 +1164,13 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 #modification-choose-modal {
     margin-left: -204px;
-    width: 342px;
+    width: 374px;
+    padding-bottom: 20px;
 }
 
 #modification-choose-modal label {
     clear: none;
-    width: 100px;
+    width: 130px;
     display: inline-block;
 }
 
@@ -1191,6 +1192,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .modificationBottomContent {
     margin-bottom: 0;
+    padding-top: 20px;
+    margin-top: 13px;
 }
 
 .subscriptions{
@@ -1390,7 +1393,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 1.2em;
 }
 .carModificationFieldDescription.fuel{
-    margin-left: 103px;
+    margin-left: 133px;
     position: relative;
     top: 6px;
     color: #999999;
