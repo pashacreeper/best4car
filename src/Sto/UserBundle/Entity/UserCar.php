@@ -11,9 +11,8 @@ use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
 use Sto\CoreBundle\Entity\CustomModification;
 use Sto\CoreBundle\Entity\Mark;
 use Sto\CoreBundle\Entity\Model;
-use Sto\UserBundle\Entity\User;
-use Sto\UserBundle\Entity\UserCarImage;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * User Cars
@@ -32,6 +31,22 @@ class UserCar
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedt_at", type="datetime")
+     */
+    private $updatedtAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="contacts")
@@ -58,7 +73,7 @@ class UserCar
     private $modification;
 
     /**
-     * @ORM\OneToOne(targetEntity="Sto\CoreBundle\Entity\CustomModification")
+     * @ORM\OneToOne(targetEntity="Sto\CoreBundle\Entity\CustomModification", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="custom_modification_id", referencedColumnName="id")
      */
     private $customModification;
@@ -335,7 +350,8 @@ class UserCar
      */
     public function addImages(UserCarImage $image)
     {
-        $this->images[] = $image->setCar($this);
+        $image->setCar($this);
+        $this->images[] = $image;
 
         return $this;
     }
@@ -511,5 +527,51 @@ class UserCar
     public function removeImage(UserCarImage $images)
     {
         $this->images->removeElement($images);
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param  \DateTime $createdAt
+     * @return UserCar
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedtAt
+     *
+     * @param  \DateTime $updatedtAt
+     * @return UserCar
+     */
+    public function setUpdatedtAt($updatedtAt)
+    {
+        $this->updatedtAt = $updatedtAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedtAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedtAt()
+    {
+        return $this->updatedtAt;
     }
 }

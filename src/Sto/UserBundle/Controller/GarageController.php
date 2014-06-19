@@ -3,9 +3,11 @@ namespace Sto\UserBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Sto\CoreBundle\Entity\CustomModification;
+use Sto\UserBundle\Entity\UserCarImage;
 use Sto\UserBundle\Form\Type\CustomModificationType;
 use Sto\ContentBundle\Controller\ChoiceCityController as MainController;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -105,7 +107,7 @@ class GarageController extends MainController
 
         return [
             'form' => $form->createView(),
-            'id'   => $modification->getId()
+            'id'   => ($modification) ? $modification->getId() : null,
         ];
     }
 
@@ -173,15 +175,26 @@ class GarageController extends MainController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $car->setUpdatedtAt(new \DateTime('now'));
 
             foreach ($originalImages as $image) {
                 if (false === $car->getImages()->contains($image)) {
-                    $em->remove($image);
+                    $this->em->remove($image);
                 }
             }
 
-            $em->flush();
+            /** @var UploadedFile $newImage */
+            foreach ($request->files->all()['sto_user_car']['images'] as $newImage) {
+                if ($newImage instanceof UploadedFile) {
+                    $image = new UserCarImage();
+                    $image->setImage($newImage);
+                    $image->setCar($car);
+                    $this->em->persist($image);
+                }
+            }
+
+            $this->em->persist($car);
+            $this->em->flush();
 
             return $this->redirect(
                 $this->generateUrl('fos_user_profile_show') . '#garage'
@@ -236,9 +249,8 @@ class GarageController extends MainController
      */
     public function deleteCarAction(UserCar $car)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($car);
-        $em->flush();
+        $this->em->remove($car);
+        $this->em->flush();
 
         return $this->redirect(
             $this->generateUrl('fos_user_profile_show') . '#garage'

@@ -283,7 +283,7 @@
             </form>
             <div id="modification-choose-modal" class="reveal-modal">
                 <a href="#" class="close-reveal-modal closeModal"></a>
-                {% if car %}
+                {% if car is defined and car %}
                     {% render(controller('StoUserBundle:Garage:renderCustomModificationForm', {modification: car.customModification})) %}
                 {% else %}
                     {% render(controller('StoUserBundle:Garage:renderCustomModificationForm')) %}

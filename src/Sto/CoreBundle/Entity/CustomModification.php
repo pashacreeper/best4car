@@ -3,7 +3,6 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sto\UserBundle\Entity\UserCar;
 
 /**
  * Modification
@@ -70,12 +69,6 @@ class CustomModification
      * @ORM\Column(name="bodyType", type="string", length=255, nullable=true)
      */
     protected $bodyType;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Sto\UserBundle\Entity\UserCar")
-     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
-     */
-    protected $userCar;
 
     /**
      * @return string
@@ -254,28 +247,5 @@ class CustomModification
     public function getBodyType()
     {
         return $this->bodyType;
-    }
-
-    /**
-     * Set userCar
-     *
-     * @param  UserCar            $userCar
-     * @return CustomModification
-     */
-    public function setUserCar(UserCar $userCar = null)
-    {
-        $this->userCar = $userCar;
-
-        return $this;
-    }
-
-    /**
-     * Get userCar
-     *
-     * @return UserCar
-     */
-    public function getUserCar()
-    {
-        return $this->userCar;
     }
 }

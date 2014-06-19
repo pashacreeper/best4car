@@ -89,14 +89,14 @@ class UserCarType extends AbstractType
                     'class' => 'inputField'
                 ]
             ])
-            ->add('images', 'collection', array(
+            ->add('images', 'collection', [
                 'label' => ' ',
                 'type' => new CarImageType(),
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-            ))
+            ])
         ;
     }
 
