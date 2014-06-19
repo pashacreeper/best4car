@@ -990,10 +990,6 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 1.2em;
     margin: 10px auto;
 }
-.editCarBtn{
-    position: absolute;
-    bottom: 0;
-}
 .addCarBtn:hover, .editCarBtn:hover{
     text-decoration: none;
 }

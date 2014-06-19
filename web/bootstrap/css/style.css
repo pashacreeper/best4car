@@ -2322,9 +2322,12 @@ input.error {border: 1px solid #ff0000;}
     min-height: 190px;
     position: relative;
 }
-.car-show .right-column div {
+.car-show .right-column .inner-wrapper-container div {
     padding-left: 10px;
     padding-bottom: 10px;
+}
+.inner-wrapper-container{
+    min-height: 130px;
 }
 
 .car-show .right-column div .carLabel {
