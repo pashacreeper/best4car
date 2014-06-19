@@ -389,10 +389,11 @@ class UserCar
         $desc = $this->getYear(). " г.в., ";
         if ($this->modification) {
             $desc .= $this->modification->getName();
-        } else {
-            $desc .= $this->engineModel;
-            if ($this->enginePower) {
-                $desc .= " (". $this->enginePower .")";
+        } elseif ($this->getCustomModification()) {
+            $modification = $this->getCustomModification();
+            $desc .= $modification->getEngineModel();
+            if ($modification->getEnginePower()) {
+                $desc .= " ({$modification->getEnginePower()})";
             }
         }
         $desc .= " ".$this->getTransmissionName();
