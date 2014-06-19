@@ -4,7 +4,10 @@ namespace Sto\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
 use Sto\CoreBundle\Entity\CustomModification;
 use Sto\CoreBundle\Entity\Mark;
 use Sto\CoreBundle\Entity\Model;
@@ -381,7 +384,7 @@ class UserCar
 
     public function isCustomModification()
     {
-        return $this->getId() && !$this->getModification();
+        return $this->getId() && !$this->getModification() && $this->getCustomModification();
     }
 
     public function getDescription()
@@ -410,26 +413,53 @@ class UserCar
         }
     }
 
+    public function getBodyTypeName()
+    {
+        if ($this->isCustomModification()) {
+            return BodyType::getOptions()[$this->getCustomModification()->getBodyType()];
+        }
+
+        return null;
+    }
+
+    public function getWheelTypeName()
+    {
+        if ($this->isCustomModification()) {
+            return WheelType::getOptions()[$this->getCustomModification()->getWheelType()];
+        }
+
+        return null;
+    }
+
+    public function getEngineTypeName()
+    {
+        if ($this->isCustomModification()) {
+            return EngineType::getOptions()[$this->getCustomModification()->getEngineType()];
+        }
+
+        return null;
+    }
+
     public function getEngineDescription()
     {
         $parts = [];
         if ($this->modification) {
             $parts[] = $this->modification->getEngine(). " куб.см.";
             $parts[] = $this->modification->getPower(). " л.с.";
-        } else {
-            if ($this->getEngineType()) {
+        } elseif ($modification = $this->getCustomModification()) {
+            if ($modification->getEngineType()) {
                 $parts[] = $this->getEngineTypeName();
             }
-            if ($this->getEngineModel()) {
-                $parts[] = $this->getEngineModel();
+            if ($modification->getEngineModel()) {
+                $parts[] = $modification->getEngineModel();
             }
-            if ($this->getEngineVolume()) {
-                $parts[] = $this->getEngineVolume(). " куб.см.";
+            if ($modification->getEngineVolume()) {
+                $parts[] = $modification->getEngineVolume(). " куб.см.";
             }
-            if ($this->getEnginePower()) {
-                $parts[] = $this->getEnginePower(). " л.с.";
+            if ($modification->getEnginePower()) {
+                $parts[] = $modification->getEnginePower(). " л.с.";
             }
-            foreach ($this->getFuelTypes() as $type) {
+            foreach ($modification->getFuelTypes() as $type) {
                 $parts[] = "АИ-$type";
             }
         }

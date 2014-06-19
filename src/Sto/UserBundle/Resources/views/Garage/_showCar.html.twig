@@ -33,11 +33,11 @@
                 {% if car.engineDescription %}
                     <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
                 {% endif %}
-                {% if car.wheelType %}
-                    <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.wheelTypeName }}</span></div>
+                {% if car.customModification and car.customModification.wheelType %}
+                    <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.customModification.wheelType|trans }}</span></div>
                 {% endif %}
-                {% if car.bodyType %}
-                    <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.bodyTypeWrapper }}</span></div>
+                {% if car.customModification and car.customModification.bodyType %}
+                    <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.customModification.bodyType|trans }}</span></div>
                 {% endif %}
                 {% if car.user == app.user %}
                     <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn editCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
