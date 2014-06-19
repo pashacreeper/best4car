@@ -80,7 +80,7 @@ class CustomModification
     /**
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return (string) $this->getId();
     }

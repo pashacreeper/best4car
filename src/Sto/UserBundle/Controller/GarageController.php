@@ -111,31 +111,45 @@ class GarageController extends MainController
 
     /**
      * @Route("/garage/ajax/custom_modification/store", name="ajax_garage_custom_modification")
+     * @Route("/garage/ajax/custom_modification/{id}/update", name="ajax_garage_custom_modification_update")
      * @Method("POST")
      *
      * @param Request $request
      *
-     * @return JsonResponse
-     */
-    public function storeCustomModificationAction(Request $request)
-    {
-        $modification = new CustomModification();
-
-        return $this->saveCustomModification($request, $modification);
-    }
-
-    /**
-     * @Route("/garage/ajax/custom_modification/{id}/update", name="ajax_garage_custom_modification_update")
-     * @Method("POST")
-     *
-     * @param Request                                   $request
-     * @param \Sto\CoreBundle\Entity\CustomModification $modification
+     * @param CustomModification $modification
      *
      * @return JsonResponse
      */
-    public function updateCustomModificationAction(Request $request, CustomModification $modification)
+    public function storeCustomModificationAction(Request $request, CustomModification $modification = null)
     {
-        return $this->saveCustomModification($request, $modification);
+        if (!$modification) {
+            $modification = new CustomModification();
+        }
+
+        $form = $this->createForm(new CustomModificationType, $modification);
+
+        $form->handleRequest($request);
+
+        $data = [
+            'error' => true,
+            'id'    => null,
+            'html'  => $this->renderView('StoUserBundle:Garage:renderCustomModificationForm.html.twig', [
+                    'form' => $form->createView()
+                ])
+        ];
+
+        if ($form->isValid()) {
+            $this->em->persist($modification);
+            $this->em->flush();
+
+            $data = [
+                'error' => false,
+                'html'  => '',
+                'id'    => $modification->getId()
+            ];
+        }
+
+        return new JsonResponse($data);
     }
 
     /**
@@ -229,39 +243,5 @@ class GarageController extends MainController
         return $this->redirect(
             $this->generateUrl('fos_user_profile_show') . '#garage'
         );
-    }
-
-    /**
-     * @param Request            $request
-     * @param CustomModification $modification
-     *
-     * @return JsonResponse
-     */
-    protected function saveCustomModification(Request $request, CustomModification $modification)
-    {
-        $form = $this->createForm(new CustomModificationType, $modification);
-
-        $form->handleRequest($request);
-
-        $data = [
-            'error' => true,
-            'id'    => null,
-            'html'  => $this->renderView('StoUserBundle:Garage:renderCustomModificationForm.html.twig', [
-                    'form' => $form->createView()
-                ])
-        ];
-
-        if ($form->isValid()) {
-            $this->em->persist($modification);
-            $this->em->flush();
-
-            $data = [
-                'error' => false,
-                'html'  => '',
-                'id'    => $modification->getId()
-            ];
-        }
-
-        return new JsonResponse($data);
     }
 }
