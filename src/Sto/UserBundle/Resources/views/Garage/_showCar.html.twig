@@ -15,8 +15,13 @@
         {% endif %}
         <div class="car-show">
             <div class="left-column">
-                <div class="car-model"><img src="{{ vich_uploader_asset(car.mark, 'icon') }}" alt="{{ car.name }}" style="height: 20px; margin-right: 10px;"/>{{ car.name }}</div>
-                <div class="car-modification">{{ car.description }}</div>
+                <div class="wrapper-container">
+                    <img src="{{ vich_uploader_asset(car.mark, 'icon') }}" alt="{{ car.name }}"/>
+                    <div class="inline-block">
+                        <div class="car-model">{{ car.name }}</div>
+                        <div class="car-modification">{{ car.description }}</div>
+                    </div>
+                </div>
                 <div class="divider"></div>
                 {% if car.vin %}
                 <div class="vin-label">VIN-номер</div>
@@ -27,7 +32,7 @@
                 {% endif %}
             </div>
             <div class="right-column">
-                <div class="inner-wrapper-container">
+                <div class="wrapper-container">
                     {% if car.transmission %}
                         <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
                     {% endif %}
