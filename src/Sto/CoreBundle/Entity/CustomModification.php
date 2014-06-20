@@ -38,7 +38,7 @@ class CustomModification
     /**
      * @var int
      *
-     * @ORM\Column(name="engineVolume", type="integer", nullable=true)
+     * @ORM\Column(name="engineVolume", type="float", nullable=true)
      */
     protected $engineVolume;
 
