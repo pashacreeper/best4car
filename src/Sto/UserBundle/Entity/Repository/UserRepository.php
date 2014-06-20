@@ -8,7 +8,7 @@ class UserRepository extends EntityRepository
     /**
      * Finding user by email or by name
      *
-     * @param  string $login
+     * @param string $login
      *
      * @return mixed
      */

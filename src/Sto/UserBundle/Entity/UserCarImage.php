@@ -3,6 +3,7 @@
 namespace Sto\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sto\UserBundle\Entity\UserCar;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -64,10 +65,12 @@ class UserCarImage
     /**
      * Set car
      *
-     * @param  \Sto\UserBundle\Entity\UserCar $user
+     * @param UserCar $car
+     *
+     * @internal param \Sto\UserBundle\Entity\UserCar $user
      * @return UserCarImage
      */
-    public function setCar(\Sto\UserBundle\Entity\UserCar $car)
+    public function setCar(UserCar $car)
     {
         $this->car = $car;
 
@@ -87,8 +90,9 @@ class UserCarImage
     /**
      * Set image
      *
-     * @param  string  $logo
-     * @return Company
+     * @param $image
+     *
+     * @return $this
      */
     public function setImage($image)
     {

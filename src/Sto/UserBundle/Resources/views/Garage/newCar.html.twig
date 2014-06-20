@@ -145,9 +145,6 @@
 
                                     reader.readAsDataURL($(this)[0].files[0]);
                                 });
-                                if ({{ popUpError }}) {
-                                    $('#modification-choose-modal').reveal();
-                                }
                             });
 
                             function addTagForm(collectionHolder, $newLink, isUnwrap, deleteLink) {
@@ -191,6 +188,34 @@
 
                                 return $newForm;
                             }
+
+                            $(document).ready(function () {
+                                var $modal = $('#modification-choose-modal'),
+                                    form = $modal.find('form').first();
+
+                                $modal.on('click', '.saveModification', function (e) {
+                                    e.preventDefault();
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: form.attr('action'),
+                                        data: form.serialize(),
+                                        success: function (data) {
+                                            if (data.error) {
+                                                form.remove();
+                                                $modal.find('.close-reveal-modal').after(data.html);
+                                            } else {
+                                                $('.customModificationInput').val(data.id);
+                                                $modal.trigger('reveal:close');
+                                            }
+                                        }
+                                    })
+                                });
+                                $modal.on('click', '.discard', function (e) {
+                                    e.preventDefault();
+                                    $modal.trigger('reveal:close');
+                                });
+                            });
                         </script>
                     </div>
                     <div class="car-right-column">
@@ -215,23 +240,22 @@
                             {{ form_errors(form.modification) }}
                             {% if car is defined %}
                                 <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
-                                {% if car.engineType %}
+                                {% if car.customModification %}
                                     <div class="customModificationInformation">
-                                        <strong>Тип двигателя</strong>: {{ car.engineType|trans }} <br/>
-                                        <strong>Модель двигателя</strong>: {{ car.engineModel }} <br/>
-                                        <strong>Объем двигателя</strong>: {{ car.engineVolume }} <br/>
-                                        <strong>Мощность двигателя</strong>: {{ car.enginePower }} <br/>
+                                        <strong>Тип двигателя</strong>: {{ car.customModification.engineType|trans }} <br/>
+                                        <strong>Модель двигателя</strong>: {{ car.customModification.engineModel }} <br/>
+                                        <strong>Объем двигателя</strong>: {{ car.customModification.engineVolume }} <br/>
+                                        <strong>Мощность двигателя</strong>: {{ car.customModification.enginePower }} <br/>
                                         <strong>Топливо</strong>:
-                                        {%- for type in car.fuelTypes %}
+                                        {%- for type in car.customModification.fuelTypes %}
                                             {{ type }}{% if not loop.last and loop.length > 1 %}, {% endif %}
                                         {% endfor -%} <br/>
-                                        <strong>Привод</strong>: {{ car.wheelType|trans }} <br/>
-                                        <strong>Тип кузова</strong>: {{ car.bodyType|trans }}
+                                        <strong>Привод</strong>: {{ car.customModification.wheelType|trans }} <br/>
+                                        <strong>Тип кузова</strong>: {{ car.customModification.bodyType|trans }}
                                     </div>
                                 {% endif %}
                             {% endif %}
                         </div>
-                        {% include 'StoUserBundle:Garage:_modificationPopUp.html.twig' with {form: form} %}
                         <div class="contentLabel clear">
                             {{ form_label(form.transmission) }}
                             {{ form_widget(form.transmission) }}
@@ -248,8 +272,8 @@
                             {{ form_errors(form.drive2) }}
                         </div>
                     </div>
-
                 {{ form_rest(form) }}
+                </div>
                 <div class="bottomContent">
                     {% if isNew %}
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Добавить в гараж"/>
@@ -261,6 +285,19 @@
                     <a href="{{ path('fos_user_profile_show') }}#garage" class="cancleCarAdd">Отменить</a>
                 </div>
             </form>
+            <div id="modification-choose-modal" class="reveal-modal">
+                <a href="#" class="close-reveal-modal closeModal"></a>
+                {% if car is defined and car %}
+                    {% render(controller('StoUserBundle:Garage:renderCustomModificationForm', {modification: car.customModification})) %}
+                {% else %}
+                    {% render(controller('StoUserBundle:Garage:renderCustomModificationForm')) %}
+                {% endif %}
+
+                <div class="bottomContent modificationBottomContent">
+                    <a href="#" class="discard">Отменить</a>
+                    <a href="#" class="btnBottomContent addPhotoBtn saveModification">Сохранить</a>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

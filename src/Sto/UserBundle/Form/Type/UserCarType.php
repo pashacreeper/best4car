@@ -2,20 +2,20 @@
 
 namespace Sto\UserBundle\Form\Type;
 
+use Sto\ContentBundle\Form\DataTransformer\IdToModificationTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
-use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
-use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
-use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
-use Sto\ContentBundle\Form\Extension\ChoiceList\FuelType;
 
 class UserCarType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $em = $options['em'];
+        $customModificationTransfromer = new IdToModificationTransformer($em);
+
         $builder
             ->add('mark', null, [
                 'label' => 'Марка',
@@ -59,6 +59,12 @@ class UserCarType extends AbstractType
                     'class' => 'inputFormEnter'
                 ],
             ])
+            ->add($builder->create('customModification', 'hidden', [
+                'required' => false,
+                'attr'     => [
+                    'class' => 'customModificationInput'
+                ]
+            ])->addModelTransformer($customModificationTransfromer))
             ->add('transmission', 'choice', [
                 'label' => 'Трансмиссия',
                 'choice_list' => new TransmissionType(),
@@ -83,80 +89,28 @@ class UserCarType extends AbstractType
                     'class' => 'inputField'
                 ]
             ])
-            ->add('engineType', 'choice', [
-                'label' => 'Тип двигателя',
-                'empty_value' => 'Выберите тип двигателя',
-                'required' => false,
-                'choice_list' => new EngineType(),
-                'attr' => [
-                    'class' => 'styled'
-                ]
-            ])
-            ->add('engineModel', null, [
-                'label' => 'Модель двигателя',
-                'required' => false,
-                'attr' => [
-                    'class' => 'inputField'
-                ]
-            ])
-            ->add('engineVolume', 'text', [
-                'label' => 'Объем',
-                'required' => false,
-                'attr' => [
-                    'class' => 'smallInputField'
-                ]
-            ])
-            ->add('enginePower', 'text', [
-                'label' => 'Мощность',
-                'required' => false,
-                'attr' => [
-                    'class' => 'smallInputField'
-                ]
-            ])
-            ->add('fuelTypes', 'choice', [
-                'label' => 'Топливо',
-                'required' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'choice_list' => new FuelType(),
-                'attr' => [
-                    'class' => 'priceLevelMarker inline'
-                ]
-            ])
-            ->add('wheelType', 'choice', [
-                'label' => 'Привод',
-                'required' => false,
-                'empty_value' => 'Выберите тип привода',
-                'choice_list' => new WheelType(),
-                'attr' => [
-                    'class' => 'styled inputField'
-                ]
-            ])
-            ->add('bodyType', 'choice', [
-                'label' => 'Тип кузова',
-                'required' => false,
-                'empty_value' => 'Выберите тип кузова',
-                'choice_list' => new BodyType(),
-                'attr' => [
-                    'class' => 'styled inputField'
-                ]
-            ])
-            ->add('images', 'collection', array(
+            ->add('images', 'collection', [
                 'label' => ' ',
                 'type' => new CarImageType(),
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-            ))
+            ])
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Sto\UserBundle\Entity\UserCar',
-        ]);
+                'data_class' => 'Sto\UserBundle\Entity\UserCar',
+            ])
+            ->setRequired([
+                'em',
+            ])
+            ->setAllowedTypes([
+                'em' => 'Doctrine\Common\Persistence\ObjectManager',
+            ]);
     }
 
     public function getName()

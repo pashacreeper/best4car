@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sto\CoreBundle\DataFixtures\ORM;
-
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Doctrine;
@@ -10,12 +8,12 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sto\CoreBundle\Entity\Mark;
 
-class LoadAutoMarkData extends AbstractFixture implements OrderedFixtureInterface {
-
+class LoadAutoMarkData extends AbstractFixture implements OrderedFixtureInterface
+{
     /**
      * Load data fixtures with the passed EntityManager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $marks = ['Ford', 'Toyota', 'ВАЗ'];
 
@@ -35,7 +33,7 @@ class LoadAutoMarkData extends AbstractFixture implements OrderedFixtureInterfac
      *
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 20;
     }

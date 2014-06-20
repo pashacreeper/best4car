@@ -15,8 +15,13 @@
         {% endif %}
         <div class="car-show">
             <div class="left-column">
-                <div class="car-model"><img src="{{ vich_uploader_asset(car.mark, 'icon') }}" alt="{{ car.name }}" style="height: 20px; margin-right: 10px;"/>{{ car.name }}</div>
-                <div class="car-modification">{{ car.description }}</div>
+                <div class="wrapper-container">
+                    <img src="{{ vich_uploader_asset(car.mark, 'icon') }}" alt="{{ car.name }}"/>
+                    <div class="inline-block">
+                        <div class="car-model">{{ car.name }}</div>
+                        <div class="car-modification">{{ car.description }}</div>
+                    </div>
+                </div>
                 <div class="divider"></div>
                 {% if car.vin %}
                 <div class="vin-label">VIN-номер</div>
@@ -27,18 +32,20 @@
                 {% endif %}
             </div>
             <div class="right-column">
-                {% if car.transmission %}
-                    <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
-                {% endif %}
-                {% if car.engineDescription %}
-                    <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
-                {% endif %}
-                {% if car.wheelType %}
-                    <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.wheelTypeName }}</span></div>
-                {% endif %}
-                {% if car.bodyType %}
-                    <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.bodyTypeWrapper }}</span></div>
-                {% endif %}
+                <div class="wrapper-container">
+                    {% if car.transmission %}
+                        <div><span class="carLabel">Трансмиссия</span> <span class="carValue">{{ car.transmissionHuman }}</span></div>
+                    {% endif %}
+                    {% if car.engineDescription %}
+                        <div><span class="carLabel">Двигатель</span> <span class="carValue">{{ car.engineDescription }}</span></div>
+                    {% endif %}
+                    {% if car.customModification and car.customModification.wheelType %}
+                        <div><span class="carLabel">Привод</span> <span class="carValue">{{ car.customModification.wheelType|trans }}</span></div>
+                    {% endif %}
+                    {% if car.customModification and car.customModification.bodyType %}
+                        <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.customModification.bodyType|trans }}</span></div>
+                    {% endif %}
+                </div>
                 {% if car.user == app.user %}
                     <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn editCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
                 {% endif %}

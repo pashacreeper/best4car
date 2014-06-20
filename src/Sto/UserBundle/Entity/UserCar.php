@@ -4,11 +4,15 @@ namespace Sto\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\BodyType;
-use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
 use Sto\ContentBundle\Form\Extension\ChoiceList\EngineType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\TransmissionType;
+use Sto\ContentBundle\Form\Extension\ChoiceList\WheelType;
+use Sto\CoreBundle\Entity\CustomModification;
+use Sto\CoreBundle\Entity\Mark;
+use Sto\CoreBundle\Entity\Model;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * User Cars
@@ -27,6 +31,22 @@ class UserCar
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedt_at", type="datetime")
+     */
+    private $updatedtAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Sto\UserBundle\Entity\User", inversedBy="contacts")
@@ -51,6 +71,12 @@ class UserCar
      * @ORM\JoinColumn(name="modification_id", referencedColumnName="id")
      */
     private $modification;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Sto\CoreBundle\Entity\CustomModification", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(name="custom_modification_id", referencedColumnName="id")
+     */
+    private $customModification;
 
     /**
      * @var string
@@ -86,56 +112,6 @@ class UserCar
      */
     protected $year;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="engineType", type="string", length=255, nullable=true)
-     */
-    protected $engineType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="engineModel", type="string", length=255, nullable=true)
-     */
-    protected $engineModel;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="engineVolume", type="integer", nullable=true)
-     * @Assert\Regex(pattern="/\d/", message="Необходимо указать целое значение")
-     */
-    protected $engineVolume;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="enginePower", type="integer", nullable=true)
-     */
-    protected $enginePower;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="fuelTypes", type="array", nullable=true)
-     */
-    protected $fuelTypes;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="wheelType", type="string", length=255, nullable=true)
-     */
-    protected $wheelType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bodyType", type="string", length=255, nullable=true)
-     */
-    protected $bodyType;
-
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -154,10 +130,10 @@ class UserCar
     /**
      * Add user
      *
-     * @param  \Sto\UserBundle\Entity\User $user
+     * @param  User        $user
      * @return RatingGroup
      */
-    public function setUser(\Sto\UserBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
 
@@ -177,10 +153,10 @@ class UserCar
     /**
      * Set mark
      *
-     * @param  \Sto\CoreBundle\Entity\Mark $mark
+     * @param  Mark    $mark
      * @return UserCar
      */
-    public function setMark(\Sto\CoreBundle\Entity\Mark $mark)
+    public function setMark(Mark $mark)
     {
         $this->mark = $mark;
 
@@ -190,7 +166,7 @@ class UserCar
     /**
      * Get mark
      *
-     * @return \Sto\CoreBundle\Entity\Mark
+     * @return Mark
      */
     public function getMark()
     {
@@ -200,10 +176,10 @@ class UserCar
     /**
      * Set model
      *
-     * @param  \Sto\CoreBundle\Entity\Model $model
+     * @param  Model   $model
      * @return UserCar
      */
-    public function setModel(\Sto\CoreBundle\Entity\Model $model)
+    public function setModel(Model $model)
     {
         $this->model = $model;
 
@@ -213,7 +189,7 @@ class UserCar
     /**
      * Get model
      *
-     * @return \Sto\CoreBundle\Entity\Model
+     * @return Model
      */
     public function getModel()
     {
@@ -240,13 +216,7 @@ class UserCar
     public function resetCustomModification()
     {
         if ($this->modification) {
-            $this->setBodyType(null);
-            $this->setFuelTypes(null);
-            $this->setWheelType(null);
-            $this->setEngineType(null);
-            $this->setEnginePower(null);
-            $this->setEngineVolume(null);
-            $this->setEngineModel(null);
+            $this->setCustomModification(null);
         }
     }
 
@@ -380,7 +350,8 @@ class UserCar
      */
     public function addImages(UserCarImage $image)
     {
-        $this->images[] = $image->setCar($this);
+        $image->setCar($this);
+        $this->images[] = $image;
 
         return $this;
     }
@@ -427,170 +398,9 @@ class UserCar
         return $this->images;
     }
 
-    /**
-     * Set engineVolume
-     *
-     * @param  int     $engineVolume
-     * @return UserCar
-     */
-    public function setEngineVolume($engineVolume)
-    {
-        $this->engineVolume = $engineVolume;
-
-        return $this;
-    }
-
-    /**
-     * Get engineVolume
-     *
-     * @return int
-     */
-    public function getEngineVolume()
-    {
-        return $this->engineVolume;
-    }
-
-    /**
-     * Set enginePower
-     *
-     * @param  int     $enginePower
-     * @return UserCar
-     */
-    public function setEnginePower($enginePower)
-    {
-        $this->enginePower = $enginePower;
-
-        return $this;
-    }
-
-    /**
-     * Get enginePower
-     *
-     * @return int
-     */
-    public function getEnginePower()
-    {
-        return $this->enginePower;
-    }
-
-    /**
-     * Set engineModel
-     *
-     * @param  string  $engineModel
-     * @return UserCar
-     */
-    public function setEngineModel($engineModel)
-    {
-        $this->engineModel = $engineModel;
-
-        return $this;
-    }
-
-    /**
-     * Get engineModel
-     *
-     * @return string
-     */
-    public function getEngineModel()
-    {
-        return $this->engineModel;
-    }
-
-    /**
-     * Set engineType
-     *
-     * @param  string  $engineType
-     * @return UserCar
-     */
-    public function setEngineType($engineType)
-    {
-        $this->engineType = $engineType;
-
-        return $this;
-    }
-
-    /**
-     * Get engineType
-     *
-     * @return string
-     */
-    public function getEngineType()
-    {
-        return $this->engineType;
-    }
-
-    /**
-     * Set wheelType
-     *
-     * @param  string  $wheelType
-     * @return UserCar
-     */
-    public function setWheelType($wheelType)
-    {
-        $this->wheelType = $wheelType;
-
-        return $this;
-    }
-
-    /**
-     * Get wheelType
-     *
-     * @return string
-     */
-    public function getWheelType()
-    {
-        return $this->wheelType;
-    }
-
-    /**
-     * Set bodyType
-     *
-     * @param  string  $bodyType
-     * @return UserCar
-     */
-    public function setBodyType($bodyType)
-    {
-        $this->bodyType = $bodyType;
-
-        return $this;
-    }
-
-    /**
-     * Get bodyType
-     *
-     * @return string
-     */
-    public function getBodyType()
-    {
-        return $this->bodyType;
-    }
-
-    /**
-     * Set fuelTypes
-     *
-     * @param  array   $fuelTypes
-     * @return UserCar
-     */
-    public function setFuelTypes($fuelTypes)
-    {
-        $this->fuelTypes = $fuelTypes;
-
-        return $this;
-    }
-
-    /**
-     * Get fuelTypes
-     *
-     * @return array
-     */
-    public function getFuelTypes()
-    {
-        return $this->fuelTypes;
-    }
-
     public function isCustomModification()
     {
-        return $this->getId() && !$this->getModification();
+        return $this->getId() && !$this->getModification() && $this->getCustomModification();
     }
 
     public function getDescription()
@@ -598,10 +408,11 @@ class UserCar
         $desc = $this->getYear(). " г.в., ";
         if ($this->modification) {
             $desc .= $this->modification->getName();
-        } else {
-            $desc .= $this->engineModel;
-            if ($this->enginePower) {
-                $desc .= " (". $this->enginePower .")";
+        } elseif ($this->getCustomModification()) {
+            $modification = $this->getCustomModification();
+            $desc .= $modification->getEngineModel();
+            if ($modification->getEnginePower()) {
+                $desc .= " ({$modification->getEnginePower()})";
             }
         }
         $desc .= " ".$this->getTransmissionName();
@@ -620,23 +431,29 @@ class UserCar
 
     public function getBodyTypeName()
     {
-        if ($this->bodyType) {
-            return BodyType::getOptions()[$this->bodyType];
+        if ($this->isCustomModification()) {
+            return BodyType::getOptions()[$this->getCustomModification()->getBodyType()];
         }
+
+        return null;
     }
 
     public function getWheelTypeName()
     {
-        if ($this->wheelType) {
-            return WheelType::getOptions()[$this->wheelType];
+        if ($this->isCustomModification()) {
+            return WheelType::getOptions()[$this->getCustomModification()->getWheelType()];
         }
+
+        return null;
     }
 
     public function getEngineTypeName()
     {
-        if ($this->engineType) {
-            return EngineType::getOptions()[$this->engineType];
+        if ($this->isCustomModification()) {
+            return EngineType::getOptions()[$this->getCustomModification()->getEngineType()];
         }
+
+        return null;
     }
 
     public function getEngineDescription()
@@ -645,24 +462,116 @@ class UserCar
         if ($this->modification) {
             $parts[] = $this->modification->getEngine(). " куб.см.";
             $parts[] = $this->modification->getPower(). " л.с.";
-        } else {
-            if ($this->getEngineType()) {
+        } elseif ($modification = $this->getCustomModification()) {
+            if ($modification->getEngineType()) {
                 $parts[] = $this->getEngineTypeName();
             }
-            if ($this->getEngineModel()) {
-                $parts[] = $this->getEngineModel();
+            if ($modification->getEngineModel()) {
+                $parts[] = $modification->getEngineModel();
             }
-            if ($this->getEngineVolume()) {
-                $parts[] = $this->getEngineVolume(). " куб.см.";
+            if ($modification->getEngineVolume()) {
+                $parts[] = $modification->getEngineVolume(). " куб.см.";
             }
-            if ($this->getEnginePower()) {
-                $parts[] = $this->getEnginePower(). " л.с.";
+            if ($modification->getEnginePower()) {
+                $parts[] = $modification->getEnginePower(). " л.с.";
             }
-            foreach ($this->getFuelTypes() as $type) {
+            foreach ($modification->getFuelTypes() as $type) {
                 $parts[] = "АИ-$type";
             }
         }
 
         return implode(", ", $parts);
+    }
+
+    /**
+     * Set customModification
+     *
+     * @param  CustomModification $customModification
+     * @return UserCar
+     */
+    public function setCustomModification(CustomModification $customModification = null)
+    {
+        $this->customModification = $customModification;
+
+        return $this;
+    }
+
+    /**
+     * Get customModification
+     *
+     * @return CustomModification
+     */
+    public function getCustomModification()
+    {
+        return $this->customModification;
+    }
+
+    /**
+     * Add images
+     *
+     * @param  UserCarImage $images
+     * @return UserCar
+     */
+    public function addImage(UserCarImage $images)
+    {
+        $this->images[] = $images->setCar($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param UserCarImage $images
+     */
+    public function removeImage(UserCarImage $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param  \DateTime $createdAt
+     * @return UserCar
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedtAt
+     *
+     * @param  \DateTime $updatedtAt
+     * @return UserCar
+     */
+    public function setUpdatedtAt($updatedtAt)
+    {
+        $this->updatedtAt = $updatedtAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedtAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedtAt()
+    {
+        return $this->updatedtAt;
     }
 }

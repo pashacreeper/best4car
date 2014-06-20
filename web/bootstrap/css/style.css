@@ -2322,9 +2322,14 @@ input.error {border: 1px solid #ff0000;}
     min-height: 190px;
     position: relative;
 }
-.car-show .right-column div {
+
+.car-show .right-column .wrapper-container div {
     padding-left: 10px;
     padding-bottom: 10px;
+}
+
+.car-show .right-column .wrapper-container {
+    min-height: 130px;
 }
 
 .car-show .right-column div .carLabel {
@@ -2363,4 +2368,18 @@ input.error {border: 1px solid #ff0000;}
 .deleteCar {
     font-size: 16px;
     float: left;
+}
+
+.car-show .wrapper-container img {
+    display: inline-block;
+    max-width: 28px;
+    vertical-align: top;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 7px;
+}
+.car-show .inline-block{
+    display: inline-block;
+    width: 242px;
+    vertical-align: top;
 }
