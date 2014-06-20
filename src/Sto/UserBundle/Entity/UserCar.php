@@ -514,7 +514,7 @@ class UserCar
      */
     public function addImage(UserCarImage $images)
     {
-        $this->images[] = $images;
+        $this->images[] = $images->setCar($this);
 
         return $this;
     }

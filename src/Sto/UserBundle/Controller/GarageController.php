@@ -183,17 +183,6 @@ class GarageController extends MainController
                 }
             }
 
-            /** @var UploadedFile $newImage */
-            foreach ($request->files->all()['sto_user_car']['images'] as $newImage) {
-                if ($newImage instanceof UploadedFile) {
-                    $image = new UserCarImage();
-                    $image->setImage($newImage);
-                    $image->setCar($car);
-                    $this->em->persist($image);
-                }
-            }
-
-            $this->em->persist($car);
             $this->em->flush();
 
             return $this->redirect(
