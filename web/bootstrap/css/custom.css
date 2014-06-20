@@ -1417,3 +1417,22 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .priceLevelMarker.inline{
     display: inline;
 }
+.saveModification{
+    width: 120px !important;
+    height: 43px !important;
+    line-height: 42px !important;
+    float: right;
+}
+.modificationBottomContent .discard{
+    position: relative;
+    left: 30px;
+    top: 13px;
+    font-size: 1.4em;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+.modificationBottomContent .discard:hover,
+.modificationBottomContent .discard:active{
+    border-bottom: none;
+    text-decoration: none;
+}

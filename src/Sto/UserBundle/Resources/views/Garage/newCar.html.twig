@@ -211,6 +211,10 @@
                                         }
                                     })
                                 });
+                                $modal.on('click', '.discard', function (e) {
+                                    e.preventDefault();
+                                    $modal.trigger('reveal:close');
+                                });
                             });
                         </script>
                     </div>
@@ -290,6 +294,7 @@
                 {% endif %}
 
                 <div class="bottomContent modificationBottomContent">
+                    <a href="#" class="discard">Отменить</a>
                     <a href="#" class="btnBottomContent addPhotoBtn saveModification">Сохранить</a>
                 </div>
             </div>
