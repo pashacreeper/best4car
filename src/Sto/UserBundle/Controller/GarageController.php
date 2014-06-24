@@ -60,6 +60,9 @@ class GarageController extends MainController
 
         $car = new UserCar();
         $car->setUser($user);
+
+        $this->settingCarImages($request, $car);
+
         $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
         $form->handleRequest($request);
 
@@ -171,6 +174,8 @@ class GarageController extends MainController
             $originalImages->add($image);
         }
 
+        $this->settingCarImages($request, $car);
+
         $form = $this->createForm(new UserCarType(), $car, ['em' => $this->em]);
         $form->handleRequest($request);
 
@@ -244,5 +249,26 @@ class GarageController extends MainController
         return $this->redirect(
             $this->generateUrl('fos_user_profile_show') . '#garage'
         );
+    }
+
+    /**
+     * @param Request $request
+     * @param UserCar $car
+     *
+     * @return mixed
+     */
+    protected function settingCarImages(Request $request, UserCar $car)
+    {
+        foreach ($request->files->get('sto_user_car')['images'] as $image) {
+            if ($image['image'] instanceof UploadedFile) {
+                $carImage = new UserCarImage();
+                $carImage->setImage($image['image']);
+                $carImage->setCar($car);
+                $car->addImage($carImage);
+
+                $this->em->persist($carImage);
+            }
+        }
+        $request->files->remove('sto_user_car');
     }
 }

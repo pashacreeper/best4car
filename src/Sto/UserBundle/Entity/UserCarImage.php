@@ -135,4 +135,12 @@ class UserCarImage
     {
         return $this->imageName == null ? "/bundles/stocore/images/notimage.png" : "/storage/images/car/gallery/{$this->imageName}";
     }
+
+    /**
+     * @param mixed $imageName
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+    }
 }
