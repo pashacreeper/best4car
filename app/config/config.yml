@@ -359,6 +359,10 @@ mannew_hipchat:
 evercode_hipchat_monolog:
     name: Diarrhea
 
+ornicar_apc:
+      host: %ornicar.apc_host%
+      web_dir: %kernel.root_dir%/../web
+
 shtumi_useful:
     dependent_filtered_entities:
         subType_by_type:
