@@ -13,7 +13,7 @@
             <div class="car-card">
                 <div class="img">
                     <a href="{{ path('garage_car_show', {id: car.id}) }}">
-                        {% if car.images|length and car.images.first is defined and car.images.first %}
+                        {% if car.images|length and car.images.first.imageName %}
                             <img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}" alt=""/>
                         {% else %}
                             <img class="main-image" src="{{ '/bootstrap/img/car_bg.png' | imagine_filter('car_show_image') }}" alt=""/>
@@ -43,8 +43,7 @@
 {% if hasCars %}
     <div class="rightContent">
         {% if showUser == app.user %}
-            <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
-                автомобиль<i class="plusIconWhiteRight"></i></a>
+            <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhiteRight"></i></a>
         {% endif %}
         <div class="bannerImg"></div>
     </div>

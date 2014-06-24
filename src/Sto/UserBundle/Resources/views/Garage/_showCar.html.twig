@@ -5,7 +5,7 @@
             <img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}"  alt="" />
             <div class="photo-select">
                 {% for image in car.images %}
-                    {% if image is defined and image %}
+                    {% if image is defined and image.imageName %}
                         <div data-full-image-path="{{ vich_uploader_asset(image, 'image') | imagine_filter('car_show_image') }}" class="item {% if loop.first %}current{% endif %}">
                             <img src="{{ vich_uploader_asset(image, 'image') | imagine_filter('car_show_image_preview') }}"  alt="" />
                         </div>
@@ -48,16 +48,17 @@
                         <div><span class="carLabel">Тип кузова</span> <span class="carValue">{{ car.customModification.bodyType|trans }}</span></div>
                     {% endif %}
                 </div>
-                {% if car.user == app.user %}
-                    <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn editCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
-                {% endif %}
             </div>
         </div>
     </div>
 </div>
 <div class="rightContent">
     {% if car.user == app.user %}
-    <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhiteRight"></i></a>
+        {%- if oneCar is defined and oneCar %}
+            <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhiteRight"></i></a>
+        {% endif -%}
+        <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Редактировать<i class="pencilIcon"></i></a>
+
     {% endif %}
     <div class="bannerImg"></div>
 </div>

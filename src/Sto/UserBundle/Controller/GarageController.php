@@ -212,12 +212,16 @@ class GarageController extends MainController
         $em = $this->getDoctrine()->getManager();
         $showUser = $em->getRepository('StoUserBundle:User')->find($request->get('id'));
         $cars = $showUser->getCars();
+        $oneCar = false;
 
         if ($cars->count() === 1) {
-            return $this->render('StoUserBundle:Garage:_showCar.html.twig', ['car' => $cars->first()]);
+            return $this->render('StoUserBundle:Garage:_showCar.html.twig', [
+                'car' => $cars->first(),
+                'oneCar' => true,
+            ]);
         }
 
-        return compact('cars', 'showUser');
+        return compact('cars', 'showUser', 'oneCar');
     }
 
     /**
