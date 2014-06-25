@@ -14,6 +14,7 @@
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.datepicker-ru.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery.ui.timepicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/custom.date-time-pickers.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.garage.js') }}"></script>
     <script src="{{ asset('bootstrap/js/jquery.limit-1.2.js') }}"></script>
 {% endblock %}
 
@@ -188,34 +189,6 @@
 
                                 return $newForm;
                             }
-
-                            $(document).ready(function () {
-                                var $modal = $('#modification-choose-modal'),
-                                    form = $modal.find('form').first();
-
-                                $modal.on('click', '.saveModification', function (e) {
-                                    e.preventDefault();
-
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: form.attr('action'),
-                                        data: form.serialize(),
-                                        success: function (data) {
-                                            if (data.error) {
-                                                form.remove();
-                                                $modal.find('.close-reveal-modal').after(data.html);
-                                            } else {
-                                                $('.customModificationInput').val(data.id);
-                                                $modal.trigger('reveal:close');
-                                            }
-                                        }
-                                    })
-                                });
-                                $modal.on('click', '.discard', function (e) {
-                                    e.preventDefault();
-                                    $modal.trigger('reveal:close');
-                                });
-                            });
                         </script>
                     </div>
                     <div class="car-right-column">
@@ -294,7 +267,7 @@
                 {% endif %}
 
                 <div class="bottomContent modificationBottomContent">
-                    <a href="#" class="discard">Отменить</a>
+                    <a href="#" class="discard closeModal">Отменить</a>
                     <a href="#" class="btnBottomContent addPhotoBtn saveModification">Сохранить</a>
                 </div>
             </div>

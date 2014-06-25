@@ -688,66 +688,6 @@ var initPage = function(){
     $('.car-photos .photo-select .item').on('click', function() {
         $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
     });
-
-
-    $('#other-modification').hide();
-    $('#modification-choose-modal').hide();
-
-    var filterModifications = function() {
-        var model = $('#sto_user_car_model').val();
-        var year = $('#sto_user_car_year').val();
-        var $select = $('#sto_user_car_modification');
-        if(model && year) {
-            $select.empty();
-            $.getJSON(Routing.generate('api_auto_catalog_get_modifications_for_model_and_year', {id: model, year: year}))
-                .done(function (json) {
-                    $select.append('<option value="">Выбрать модификацию</option>');
-                    $.each(json, function (index, mod) {
-                        var option = $('<option value="' + mod.id + '">' + mod.name + '</option>');
-                        if($('#other-modification').data('selected') == mod.id) {
-                            option.attr('selected', true);
-                        }
-                        $select.append(option);
-                    });
-                    var custom = $('<option value="" id="other">Другая модификация</option>');
-                    if($('#other-modification').data('custom')) {
-                        custom.attr('selected', true);
-                        $select.removeAttr('required');
-                        $('#other-modification').show();
-                        $('#other-modification').data('custom', false);
-                    }
-                    $select.append(custom);
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    console.log("Request Failed: " + textStatus + ', ' + error);
-                });
-        }
-    };
-
-    $('#sto_user_car_model').on('change', filterModifications);
-    $('#sto_user_car_year').on('change', filterModifications);
-    $('#sto_user_car_modification').on('change', function() {
-        if($(this).find(':selected').attr('id') == 'other') {
-            $(this).removeAttr('required');
-            $('#other-modification').show();
-            $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'});
-            if ($('.customModificationInformation').length > 0) {
-                $('.customModificationInformation').show();
-            }
-        } else {
-            $(this).attr('required', true);
-            $('#other-modification').hide();
-            if ($('.customModificationInformation').length > 0) {
-                $('.customModificationInformation').hide();
-            }
-        }
-    });
-
-    $('#other-modification').on('click', function(e) {
-        e.preventDefault();
-
-        $('#modification-choose-modal').reveal({dismissmodalclass: 'closeModal'})
-    });
 };
 
 $(document).ready(function(){initPage()});

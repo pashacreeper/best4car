@@ -1150,11 +1150,10 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 }
 
 #other-modification {
-    display: block;
-    width: 155px;
+    display: inline-block;
     font: 1.4em 'PT Sans', sans;
-    color: #f35d2e;
-    border-bottom: 1px dotted #f35d2e;
+    color: #F35D2E;
+    border-bottom: 1px dotted #F35D2E;
 }
 #other-modification:hover{
     text-decoration: none;
