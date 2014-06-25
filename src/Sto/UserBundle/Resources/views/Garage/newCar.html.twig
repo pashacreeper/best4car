@@ -212,20 +212,10 @@
                             {{ form_widget(form.modification) }}
                             {{ form_errors(form.modification) }}
                             {% if car is defined %}
+                                <br/>
                                 <a href="#" id="other-modification" data-selected="{{ car.modification ? car.modification.id : 0 }}" data-custom="{{ car.customModification }}">Изменить модификацию</a>
                                 {% if car.customModification %}
-                                    <div class="customModificationInformation">
-                                        <strong>Тип двигателя</strong>: {{ car.customModification.engineType|trans }} <br/>
-                                        <strong>Модель двигателя</strong>: {{ car.customModification.engineModel }} <br/>
-                                        <strong>Объем двигателя</strong>: {{ car.customModification.engineVolume }} <br/>
-                                        <strong>Мощность двигателя</strong>: {{ car.customModification.enginePower }} <br/>
-                                        <strong>Топливо</strong>:
-                                        {%- for type in car.customModification.fuelTypes %}
-                                            {{ type }}{% if not loop.last and loop.length > 1 %}, {% endif %}
-                                        {% endfor -%} <br/>
-                                        <strong>Привод</strong>: {{ car.customModification.wheelType|trans }} <br/>
-                                        <strong>Тип кузова</strong>: {{ car.customModification.bodyType|trans }}
-                                    </div>
+                                    {% include 'StoUserBundle:Garage:_customModificationData.html.twig' with {customModification: car.customModification} %}
                                 {% endif %}
                             {% endif %}
                         </div>

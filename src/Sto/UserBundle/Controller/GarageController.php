@@ -127,7 +127,7 @@ class GarageController extends MainController
      */
     public function storeCustomModificationAction(Request $request, CustomModification $modification = null)
     {
-        if (!$modification) {
+        if (! $modification) {
             $modification = new CustomModification();
         }
 
@@ -136,11 +136,12 @@ class GarageController extends MainController
         $form->handleRequest($request);
 
         $data = [
-            'error' => true,
-            'id'    => null,
-            'html'  => $this->renderView('StoUserBundle:Garage:renderCustomModificationForm.html.twig', [
-                    'form' => $form->createView()
-                ])
+            'error'        => true,
+            'id'           => null,
+            'html'         => $this->renderView('StoUserBundle:Garage:renderCustomModificationForm.html.twig', [
+                'form' => $form->createView()
+            ]),
+            'modification' => null,
         ];
 
         if ($form->isValid()) {
@@ -148,9 +149,12 @@ class GarageController extends MainController
             $this->em->flush();
 
             $data = [
-                'error' => false,
-                'html'  => '',
-                'id'    => $modification->getId()
+                'error'        => false,
+                'html'         => '',
+                'id'           => $modification->getId(),
+                'modification' => $this->renderView('StoUserBundle:Garage:_customModificationData.html.twig', [
+                        'customModification' => $modification
+                    ])
             ];
         }
 

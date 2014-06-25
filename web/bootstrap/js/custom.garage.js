@@ -14,7 +14,6 @@ Garage = {
         t.customModificationInput = $('.customModificationInput');
 
         t.modificationModal.hide();
-        t.modificationLink.hide();
 
         t.filterModifications();
         t.events();
@@ -46,6 +45,7 @@ Garage = {
                         t.carModificationList.find('#emptyOption').prop('selected', true);
                         $('#other-modification').html('Изменить модификацию')
                         t.modificationModal.trigger('reveal:close');
+                        t.insertCustomModificationData(data);
                     }
                 }
             })
@@ -87,6 +87,18 @@ Garage = {
 
         modelBlock.on('change', t.filterModifications);
         yearBlock.on('change', t.filterModifications);
+    },
+    insertCustomModificationData: function(data) {
+        var t = this,
+            dataContainer = $('.customModificationInformation');
+
+        if (dataContainer.length > 0) {
+            dataContainer.remove();
+        }
+
+        if (data.modification) {
+            $('#other-modification').after(data.modification)
+        }
     }
 };
 
