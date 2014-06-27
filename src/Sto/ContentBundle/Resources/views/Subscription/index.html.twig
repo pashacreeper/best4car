@@ -24,7 +24,10 @@
 
 {% block pageTitle %}
     <div class="back">
-        <a href="#" class="btnBack"><i class="btnBackIcon"></i></a>
+        <a href="{{ path('fos_user_profile_show') }}" class="btnBack">
+            <i class="btnBackIcon"></i></br>
+            <span class="btnBackCont">Назад</span>
+        </a>
     </div>
     <div id="nameCompanyHeaderWrap">
         <div class="nameCompanyHeader">

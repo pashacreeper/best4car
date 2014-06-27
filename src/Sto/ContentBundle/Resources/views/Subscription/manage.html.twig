@@ -12,13 +12,20 @@
 {% block js %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.subscription.js') }}">
+        $(document).ready(function(){ Subscription.init(Routing) });
+    </script>
 {% endblock %}
 
 {% block search %}{% endblock %}
 
 {% block pageTitle %}
     <div class="back">
-        <a href="{{ path('subscription_list') }}" class="btnBack"><i class="btnBackIcon"></i></a>
+        <a href="{{ path('subscription_list') }}" class="btnBack">
+            <i class="btnBackIcon"></i>
+            <br/>
+            <span class="btnBackCont">Назад</span>
+        </a>
     </div>
     <div id="nameCompanyHeaderWrap">
         <div class="nameCompanyHeader">
@@ -61,7 +68,7 @@
                             <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
                         </div>
                     </div>
-                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="company"><i class="plusIconWhite"></i>Добавить</a>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="company">Добавить<i class="plusIconWhiteRight"></i></a>
                 </div>
                 <div class="add-block">
                     <h3>Подписки на акциии</h3>
@@ -77,56 +84,10 @@
                             <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
                         </div>
                     </div>
-                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal"><i class="plusIconWhite"></i>Добавить</a>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal">Добавить<i class="plusIconWhiteRight"></i></a>
                 </div>
             </div>
         </div>
         <div class="rightContent"></div>
     </section>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.addSubscription').each(function(i, el) {
-                var $t = $(el),
-                    type = $t.data('type'),
-                    modal = $('#' + type + '-modal');
-
-                $t.on('click', function (e) {
-                    e.preventDefault();
-                    modal.reveal({dismissmodalclass: 'closeModal'});
-                });
-
-                modal.on('click', '.saveBttn', function (e) {
-                    e.preventDefault();
-
-                    var form = modal.find('form').first(),
-                        data = form.serialize();
-
-                    $.ajax({
-                        url: "{{ path('subscription_store') }}",
-                        method: 'POST',
-                        data: data,
-                        success: function(data) {
-                            $('#' + type + '-list').append(data.html);
-                        }
-                    });
-                });
-            });
-            $('.subscriptions').on('click', '.remove-subscription', function(e) {
-                e.preventDefault();
-                var $t = $(this);
-                $.ajax({
-                    url: Routing.generate('subscription_remove', {id: $t.data('id')}),
-                    method: 'POST'
-                });
-                $(this).parents('li').remove();
-            });
-            $('.subscriptions #notify-me').on('change', function() {
-                $.ajax({
-                    url: Routing.generate('subscribe_email'),
-                    method: 'POST',
-                    data: {value: $(this).prop('checked') ? 1 : 0}
-                });
-            });
-        });
-    </script>
 {% endblock %}

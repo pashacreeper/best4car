@@ -1220,11 +1220,12 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-bottom: 10px;
     border-radius: 4px;
     display: block;
-    width: 220px;
+    width: 200px;
     height: 48px;
     line-height: 48px;
     vertical-align: middle;
     text-decoration: none;
+    padding-left: 20px;
 }
 .plusIconWhite, .plusIconWhiteRight{
     display: inline-block;
