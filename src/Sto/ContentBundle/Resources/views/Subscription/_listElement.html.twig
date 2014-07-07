@@ -1,3 +1,6 @@
 <li>
     <a class="remove-subscription" data-id="{{ subscription.id }}" href="#"><i class="icon-remove-circle"></i></a> {{ subscription.mark.name }}
+    {% if subscription.mark.id in app.user.markIds %}
+        <a href="{{ path('fos_user_profile_show') }}#garage">В гараже</a>
+    {% endif %}
 </li>

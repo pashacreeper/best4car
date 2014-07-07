@@ -1028,4 +1028,14 @@ class User extends BaseUser
     {
         $this->feedNotify = $feedNotify;
     }
+
+    public function getMarkIds()
+    {
+        $ids = [];
+        foreach ($this->cars as $car) {
+            $ids[] = $car->getMark()->getId();
+        }
+
+        return $ids;
+    }
 }

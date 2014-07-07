@@ -1436,3 +1436,9 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     border-bottom: none;
     text-decoration: none;
 }
+
+.back-to-black {
+    font-size: 14px;
+    position: absolute;
+    bottom: 72px;
+}
