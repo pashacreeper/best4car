@@ -688,6 +688,21 @@ var initPage = function(){
     $('.car-photos .photo-select .item').on('click', function() {
         $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
     });
+
+    if($('#loginFormWrapper').length) {
+        $('.navTopItem.last a').on('click', function(e) {
+            e.preventDefault();
+
+            $('.enterDropdown').fadeIn(50, function(){
+                $(this).on('clickoutside', function(e){
+                    if($(e.target).data('span-class') != "subscriptions-icon") {
+                        $(this).hide();
+                        $(this).off('clickoutside');
+                    }
+                });
+            });
+        });
+    }
 };
 
 $(document).ready(function(){initPage()});

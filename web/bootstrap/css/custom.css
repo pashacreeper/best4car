@@ -1451,3 +1451,12 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     text-align: right;
     vertical-align: middle;
 }
+
+.subscriptions-icon {
+    background: url('/bootstrap/img/subscriptions.png') no-repeat;
+}
+
+a.navLink:hover,a.navLink:focus {
+    color: #FFF;
+    text-decoration: none;
+}
