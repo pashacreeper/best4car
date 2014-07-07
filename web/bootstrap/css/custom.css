@@ -1247,7 +1247,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 }
 
 .feed-item {
-    border: 1px solid black;
+    border: 1px solid #797979;
     min-height: 120px;
     font-size: 1.4em;
     margin-bottom: 20px;
