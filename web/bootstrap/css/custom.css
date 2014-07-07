@@ -1460,3 +1460,29 @@ a.navLink:hover,a.navLink:focus {
     color: #FFF;
     text-decoration: none;
 }
+
+.orange-select .chosen-container {
+    width: 282px !important;
+}
+
+.orange-select .chosen-drop {
+    z-index: 10001;
+}
+
+.orange-select .chosen-single {
+    height: 34px;
+    padding-left: 14px;
+    background: #fff;
+}
+
+.orange-select .chosen-container .chosen-results li.highlighted {
+    background: #f35d2e;
+    color: #fff;
+}
+
+.orange-select .chosen-single span {
+    line-height: 34px;
+    font-size: 16px;
+    font-family: 'PT Sans', sans;
+    color: #4a4747;
+}
