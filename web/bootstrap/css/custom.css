@@ -1250,9 +1250,21 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     border: 1px solid black;
     min-height: 120px;
     font-size: 1.4em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.feed-item .logoCompany {
     padding-left: 10px;
     padding-top: 10px;
-    margin-bottom: 20px;
+    width: 80px;
+}
+
+.feed-content {
+    width: 540px;
+    vertical-align: top;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -1280,14 +1292,6 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     display: inline-block;
     float: right;
     margin-right: 10px;
-}
-
-.feed-item .logoCompany {
-    position: absolute;
-}
-
-.feed-content {
-    margin-left: 100px;
 }
 
 .subscriptions-list .total-count {
@@ -1441,4 +1445,9 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 14px;
     position: absolute;
     bottom: 72px;
+}
+
+.subscription-go {
+    text-align: right;
+    vertical-align: middle;
 }
