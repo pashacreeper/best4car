@@ -15,7 +15,7 @@ class FeedFilterType extends AbstractType
             ->add('type', 'choice', [
                 'label' => 'Виды уведомлений',
                 'attr' => [
-                    'class' => 'inputField span2'
+                    'class' => 'styled span2'
                 ],
                 'empty_value' => 'все виды',
                 'choices' => SubscriptionType::getOptions(),

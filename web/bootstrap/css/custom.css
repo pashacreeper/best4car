@@ -1302,7 +1302,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     margin-top: 5px;
 }
 
-.feed-form {
+.feed-form label {
     font-size: 14px;
 }
 
@@ -1461,7 +1461,7 @@ a.navLink:hover,a.navLink:focus {
     text-decoration: none;
 }
 
-.orange-select .chosen-container {
+.orange-select-large .chosen-container {
     width: 282px !important;
 }
 
@@ -1502,4 +1502,22 @@ a.navLink:hover,a.navLink:focus {
     font-family: 'PT Sans Bold', 'PT Sans';
     font-weight: 700;
     color: #3D749D;
+}
+
+.feed-form .select {
+    width: 100px;
+}
+
+.feed-form .dropdown {
+    width: 136px !important;
+}
+
+.feed-form label {
+    clear: none;
+    float: left;
+    color: #000;
+}
+
+.feed-form .feed-type {
+    padding-top: 8px;
 }
