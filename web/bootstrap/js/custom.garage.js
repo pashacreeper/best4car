@@ -79,6 +79,7 @@ Garage = {
                         $select.after(custom);
                         t.modificationLink = $('#other-modification');
                     }
+                    slbxUpdate($, $select);
                 })
                 .fail(function (jqxhr, textStatus, error) {
                     console.log("Request Failed: " + textStatus + ', ' + error);
@@ -86,6 +87,9 @@ Garage = {
         }
 
         modelBlock.on('change', t.filterModifications);
+        modelBlock.on('change', function() {
+            slbxUpdate($, this);
+        });
         yearBlock.on('change', t.filterModifications);
     },
     insertCustomModificationData: function(data) {

@@ -38,7 +38,7 @@ class UserCarType extends AbstractType
                 'entity_alias' => 'model_by_mark',
                 'parent_field' => 'mark',
                 'attr' => [
-                    'class' => 'inputFormEnter'
+                    'class' => 'styled'
                 ],
             ])
             ->add('year', 'choice', [
@@ -46,7 +46,7 @@ class UserCarType extends AbstractType
                 'required' => true,
                 'choices' => array_combine(range((int) date('Y'), 1965), range((int) date('Y'), 1965)),
                 'attr' => [
-                    'class' => 'inputFormEnter'
+                    'class' => 'styled'
                 ],
             ])
             ->add('modification', 'shtumi_dependent_filtered_entity', [
@@ -56,7 +56,7 @@ class UserCarType extends AbstractType
                 'entity_alias' => 'modification_by_model',
                 'parent_field' => 'model',
                 'attr' => [
-                    'class' => 'inputFormEnter'
+                    'class' => 'styled'
                 ],
             ])
             ->add($builder->create('customModification', 'hidden', [
