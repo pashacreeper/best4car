@@ -36,13 +36,18 @@
                             {{ mark }}{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     {% endif %}
+                    {% if item.deal.auto|length > 3 %}
+                        и еще {{ item.deal.auto|length - 3 }}
+                    {% endif %}
                 {% endif %}
                 </span>
 
                 <div class="feed-title"><a href="{{ path('content_deal_show', {id: item.deal.id}) }}">{{ item.deal.name }}</a></div>
                 <div class="feed-company"><a href="{{ path('content_company_show', {id: company.id}) }}">{{ company.fullName }}</a></div>
 
-                <div class="feed-description">{{ item.deal.description[:1250]|nl2br }}</div>
+                <div class="feed-description">
+                    {{ item.deal.description[:60] }}{% if item.deal.description|length > 60 %}...{% endif %}
+                </div>
             {% else %}
                 <span class="new-feed-item">
                     Новая комания
@@ -61,6 +66,9 @@
                         {% for mark in company.otherMarks(companyMarks) %}
                             {{ mark }}{% if not loop.last %}, {% endif %}
                         {% endfor %}
+                    {% endif %}
+                    {% if company.autos|length > 3 %}
+                        и еще {{ company.autos|length - 3 }}
                     {% endif %}
                 {% endif %}
                 </span>
@@ -84,7 +92,7 @@
                     {% endfor %}
                 </div>
 
-                <div class="feed-address">{{ company.address }}</div>
+                <div class="feed-address">{{ company.address[:40] }}{% if company.address|length > 40 %}...{% endif %}</div>
             {% endif %}
         </td>
         <td class="subscription-go">

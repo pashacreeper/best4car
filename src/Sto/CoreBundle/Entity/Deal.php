@@ -941,7 +941,7 @@ class Deal
             }
         }
 
-        return $marks;
+        return array_slice($marks, 0, 3);
     }
 
     public function getOtherMarks($selectedMarks)
@@ -954,6 +954,6 @@ class Deal
             }
         }
 
-        return $marks;
+        return array_slice($marks, 0, 3 - count($this->getSelectedMarks($selectedMarks)));
     }
 }
