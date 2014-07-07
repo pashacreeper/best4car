@@ -17,7 +17,7 @@ class FeedItemRepository extends EntityRepository
             $qb
                 ->leftJoin('f.company', 'c')
                 ->leftJoin('c.autos', 'ca')
-                ->where('c.allAuto = true OR ca IN (:companyMarks)')
+                ->where('c.allAuto = false AND ca IN (:companyMarks)')
                 ->setParameter('companyMarks', $companyMarks)
             ;
         } else {
@@ -31,9 +31,9 @@ class FeedItemRepository extends EntityRepository
                 ->setParameter('dealMarks', $dealMarks)
             ;
             if ($companyMarks) {
-                $qb->orWhere('d.allAuto = true OR da IN (:dealMarks)');
+                $qb->orWhere('d.allAuto = false AND da IN (:dealMarks)');
             } else {
-                $qb->andWhere('d.allAuto = true OR da IN (:dealMarks)');
+                $qb->andWhere('d.allAuto = false AND da IN (:dealMarks)');
             }
         } else {
             $qb->andWhere('f.deal IS NULL');
