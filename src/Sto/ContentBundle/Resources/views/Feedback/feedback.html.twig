@@ -28,6 +28,13 @@
             <p class="reviewNick"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.username }}</a></p>
             <p class="reviewName"><a href="{{ path('user_profile', {'id': feedback.user.id}) }}">{{ feedback.user.lastName }} {{ feedback.user.firstName }}</a></p>
             <p class="reviewRang">{% if feedback.user.ratingGroup %}{{ feedback.user.ratingGroup.name }}{% endif %}</p>
+
+            {% if profile is defined and feedback.feedbackType == 'company' and feedback.company %}
+                <p class="reviewLink">Отзыв о компании <a href="{{ path('content_company_show', { "id": feedback.company.id }) }}">«{{ feedback.company }}»</a></p>
+            {% endif %}
+            {% if profile is defined and feedback.feedbackType == 'deal' and feedback.deal %}
+                <p class="reviewLink">Отзыв об акции <a href="{{ path('content_deal_show', { "id": feedback.deal.id }) }}">«{{ feedback.deal }}»</a> компании <a href="{{ path('content_company_show', { "id": feedback.deal.company.id }) }}">«{{ feedback.deal.company }}»</a></p>
+            {% endif %}
             {% include 'StoContentBundle:Feedback:_feedbackLink.html.twig' %}
 
         </div>
@@ -186,9 +193,6 @@
             </div>
             {% endif %}
         </div>
-        {% if profile is defined and feedback.feedbackType == 'company' and feedback.company %}
-        <a href="{{ path('content_company_show', { "id": feedback.company.id }) }}" class="dottedLink feedbackToCompanyLink">Посмотреть карточку компании</a>
-        {% endif %}
     </div>
 </div>
 {% endif %}

@@ -1486,3 +1486,20 @@ a.navLink:hover,a.navLink:focus {
     font-family: 'PT Sans', sans;
     color: #4a4747;
 }
+
+
+.reviewLink {
+    font-family: 'PT Sans';
+    font-weight: 400;
+    color: #5E5E5E;
+    font-size: 15px;
+    margin-top: 10px;
+    width: 486px;
+    line-height: normal;
+}
+
+.reviewLink a {
+    font-family: 'PT Sans Bold', 'PT Sans';
+    font-weight: 700;
+    color: #3D749D;
+}
