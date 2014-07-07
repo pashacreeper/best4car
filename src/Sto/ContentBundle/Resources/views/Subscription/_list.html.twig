@@ -79,13 +79,13 @@
 
 
                 <div class="feed-icons">
-                    {% for specialization in company.specializations[:1] %}
+                    {% for specialization in company.specializations.slice(0, 1) %}
                         {% if specialization.type.iconCompanyCard %}
                             <img src="{{ vich_uploader_asset(specialization.type, 'iconCompanyCard') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
                         {% endif %}
                     {% endfor %}
 
-                    {% for additionalService in company.additionalServices[:6] %}
+                    {% for additionalService in company.additionalServices.slice(0, 6) %}
                         {% if additionalService.iconSmall %}
                             <img src="{{ vich_uploader_asset(additionalService, 'iconSmall') | imagine_filter('additional_service_icon') }}" alt="{{ additionalService.name }}">
                         {% endif %}
