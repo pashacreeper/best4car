@@ -38,17 +38,15 @@ class SubscriptionController extends Controller
         $user->setFeedViewAt(new \DateTime());
         $em->flush();
 
-        $form = $this->createForm(new FeedFilterType());
+        $data = [];
+        $form = $this->createForm(new FeedFilterType(), $data, ['userMarks' => $user->getMarks()]);
         $form->bind($request);
 
         $dealMarks = [];
         $companyMarks = [];
 
-        if ($marks = $form->get('marks')->getData()->toArray()) {
-            $markIds = [];
-            foreach ($marks as $mark) {
-                $markIds[] = $mark->getId();
-            }
+        if ($form->get('mark')->getData() && $mark = $form->get('mark')->getData()) {
+            $markIds = [$mark->getId()];
             $companyMarks = $dealMarks = $markIds;
         } else {
             foreach ($user->getSubscriptions() as $subscription) {

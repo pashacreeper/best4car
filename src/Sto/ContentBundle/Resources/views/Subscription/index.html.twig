@@ -46,7 +46,7 @@
         <div class="content">
             <div class="leftContent">
                 <form action="" method="get">
-                <div class="feed-form"><label class="feed-type">Виды уведомлений:</label> {{ form_widget(form.type) }} <span class="pull-right marks orange-select"><span><label>Марки автомобилей:</label></span> {{ form_widget(form.marks) }}</span></div>
+                <div class="feed-form"><span class="feed-type-wrap"><label class="feed-type">Виды уведомлений:</label> {{ form_widget(form.type) }}</span> <span class="pull-right marks"><label>Марки автомобилей:</label> {{ form_widget(form.mark) }}</span></div>
                 </form>
                 <div class="clearfix"></div>
                 <div class="total-count">Показаны <b>все {{ items.paginationData.totalCount }}</b> уведомления в ваших подписках</div>

@@ -21,18 +21,24 @@ class FeedFilterType extends AbstractType
                 'choices' => SubscriptionType::getOptions(),
                 'required' => false,
             ])
-            ->add('marks', 'entity', [
+            ->add('mark', 'entity', [
                 'class' => 'StoCoreBundle:Mark',
+                'choices' => $options['userMarks'],
                 'label' => 'Марки автомобилей',
                 'attr' => [
-                    'class' => 'inputField span3 chzn-select',
-                    'data-placeholder' => 'все, на которые подписан',
+                    'class' => 'styled span3',
                 ],
-                'multiple' => true,
                 'empty_value' => 'все, на которые подписан',
                 'required' => false,
             ])
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'userMarks' => []
+        ]);
     }
 
     public function getName()

@@ -1029,6 +1029,16 @@ class User extends BaseUser
         $this->feedNotify = $feedNotify;
     }
 
+    public function getMarks()
+    {
+        $marks = new ArrayCollection();
+        foreach ($this->cars as $car) {
+            $marks[] = $car->getMark();
+        }
+
+        return $marks;
+    }
+
     public function getMarkIds()
     {
         $ids = [];

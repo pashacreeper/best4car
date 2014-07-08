@@ -1318,12 +1318,6 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     vertical-align: top;
 }
 
-.marks > span {
-    vertical-align: top;
-    margin-top: 6px;
-    display: inline-block;
-}
-
 .iconFeedsGray{
     background: url("../img/icon-profile-feeds.png") no-repeat;
 }
@@ -1504,20 +1498,26 @@ a.navLink:hover,a.navLink:focus {
     color: #3D749D;
 }
 
-.feed-form .select {
+.feed-form .feed-type-wrap .select {
     width: 100px;
 }
 
-.feed-form .dropdown {
+.feed-form .feed-type-wrap .dropdown {
     width: 136px !important;
+}
+
+.feed-form .marks .select {
+    width: 180px;
+}
+
+.feed-form .marks .dropdown {
+    width: 216px !important;
 }
 
 .feed-form label {
     clear: none;
     float: left;
     color: #000;
-}
-
-.feed-form .feed-type {
     padding-top: 8px;
+    margin-right: 5px;
 }
