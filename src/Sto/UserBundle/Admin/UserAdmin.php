@@ -50,7 +50,6 @@ class UserAdmin extends Admin
             ->add('autoProfilesLinks')
             ->add('linkGarage')
             ->add('description')
-            ->add('subscriptions')
             ->add('requests')
             ->add('groups')
             ->add('updatedAt')
@@ -102,7 +101,6 @@ class UserAdmin extends Admin
             ->add('autoProfilesLinks')
             ->add('linkGarage')
             ->add('description')
-            ->add('subscriptions')
             ->add('requests')
             ->add('usingEmail', null, array(
                 'required' => false,

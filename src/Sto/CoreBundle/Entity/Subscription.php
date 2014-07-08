@@ -53,6 +53,11 @@ class Subscription
      */
     private $updatedtAt;
 
+    public function __toString()
+    {
+        return (string) $this->getMark();
+    }
+
     /**
      * @return mixed
      */
