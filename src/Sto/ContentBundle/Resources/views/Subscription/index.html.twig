@@ -49,7 +49,6 @@
                 <div class="feed-form"><span class="feed-type-wrap"><label class="feed-type">Виды уведомлений:</label> {{ form_widget(form.type) }}</span> <span class="pull-right marks"><label>Марки автомобилей:</label> {{ form_widget(form.mark) }}</span></div>
                 </form>
                 <div class="clearfix"></div>
-                <div class="total-count">Показаны <b>все {{ items.paginationData.totalCount }}</b> уведомления в ваших подписках</div>
                 <div id="feed-list">
                     {% include "StoContentBundle:Subscription:_list.html.twig" with { 'items': items, 'dealMarks': dealMarks, 'companyMarks': companyMarks } %}
                 </div>
