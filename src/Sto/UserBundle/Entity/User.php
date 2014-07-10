@@ -1032,8 +1032,8 @@ class User extends BaseUser
     public function getMarks()
     {
         $marks = new ArrayCollection();
-        foreach ($this->cars as $car) {
-            $marks[] = $car->getMark();
+        foreach ($this->subscriptions as $subscription) {
+            $marks[] = $subscription->getMark();
         }
 
         return $marks;
