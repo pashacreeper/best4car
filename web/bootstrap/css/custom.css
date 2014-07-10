@@ -1498,6 +1498,10 @@ a.navLink:hover,a.navLink:focus {
     color: #3D749D;
 }
 
+.feed-form {
+    margin-bottom: 15px;
+}
+
 .feed-form .feed-type-wrap .select {
     width: 100px;
 }
