@@ -28,3 +28,4 @@ parameters:
     mail_vk_register: sto.ru
 
     default_city_id: 102
+    ornicar.apc_host: http://best4car.ru

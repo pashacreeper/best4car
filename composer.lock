@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "b97cc563e32381df2408163b5a8f380a",
+    "hash": "7a95fecc0142a30ba9b2a0e5c6132e3c",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
@@ -2859,6 +2860,58 @@
             "time": "2013-07-12 09:15:36"
         },
         {
+            "name": "ornicar/apc-bundle",
+            "version": "dev-master",
+            "target-dir": "Ornicar/ApcBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ornicar/ApcBundle.git",
+                "reference": "85d77a152b3b3a54ee79b8d07bf25a73b768542b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ornicar/ApcBundle/zipball/85d77a152b3b3a54ee79b8d07bf25a73b768542b",
+                "reference": "85d77a152b3b3a54ee79b8d07bf25a73b768542b",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1,<3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0": "1.0.x-dev",
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ornicar\\ApcBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thibault Duplessis",
+                    "homepage": "https://github.com/ornicar"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/ornicar/ApcBundle/contributors"
+                }
+            ],
+            "description": "Provides a command line task to clear APC cache from the console",
+            "homepage": "https://github.com/ornicar/ApcBundle",
+            "keywords": [
+                "apc",
+                "task"
+            ],
+            "time": "2014-02-23 23:47:35"
+        },
+        {
             "name": "phpcollection/phpcollection",
             "version": "0.2.0",
             "source": {
@@ -4300,6 +4353,7 @@
         "sonata-project/block-bundle": 20,
         "evercodelab/hipchat-monolog-bundle": 20,
         "beberlei/doctrineextensions": 20,
+        "ornicar/apc-bundle": 20,
         "liip/functional-test-bundle": 20
     },
     "platform": {

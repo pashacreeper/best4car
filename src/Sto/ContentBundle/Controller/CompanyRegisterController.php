@@ -269,6 +269,7 @@ class CompanyRegisterController extends Controller
 
                 if (!$company->isRegistredFully()) {
                     $this->get('sto.notifications.email')->sendCompanyRegisterEmail($company);
+                    $this->get('sto.manager.feed')->createOnItem($company);
                 }
 
                 $company->setRegistrationStep(CompanyRegistrationStep::GALLERY);

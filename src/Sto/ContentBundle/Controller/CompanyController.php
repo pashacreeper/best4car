@@ -58,13 +58,7 @@ class CompanyController extends MainController
 
         $gallery = $em->getRepository('StoCoreBundle:Company')->getCompanyGallery($company);
 
-        return [
-            'company' => $company,
-            'isManager' => $isManager,
-            'specializations' => $specializations,
-            'services' => $services,
-            'gallery' => $gallery
-        ];
+        return compact('company', 'isManager', 'specializations', 'services', 'gallery');
     }
 
     /**
@@ -95,7 +89,6 @@ class CompanyController extends MainController
         $companiesCount = count($em->getRepository('StoCoreBundle:Company')->getCompanyIdsWithFilter(['search' => $words, 'city' => $city->getId(), 'time' => []]));
         $companiesCountPlural = $this->declensionOfNumerals($companiesCount, ['компания', 'компании', 'компаний']);
 
-
         $searchOpen = $request->get('search_open', 1);
         $zoom = $request->get('zoom', 11);
 
@@ -113,8 +106,10 @@ class CompanyController extends MainController
         ];
     }
 
-    protected function declensionOfNumerals($number, $titles) {
+    protected function declensionOfNumerals($number, $titles)
+    {
         $cases = [2, 0, 1, 1, 1, 2];
+
         return $titles[ ($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[($number % 10 < 5) ? $number % 10 : 5] ];
     }
 

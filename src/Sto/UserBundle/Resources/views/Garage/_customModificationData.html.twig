@@ -1,0 +1,26 @@
+<div class="customModificationInformation">
+    {% if customModification.engineType %}
+        <strong>Тип двигателя</strong>: {{ customModification.engineType|trans }} <br/>
+    {% endif %}
+    {% if customModification.engineModel %}
+        <strong>Модель двигателя</strong>: {{ customModification.engineModel }} <br/>
+    {% endif %}
+    {% if customModification.engineVolume %}
+        <strong>Объем двигателя</strong>: {{ customModification.engineVolume }} <br/>
+    {% endif %}
+    {% if customModification.enginePower %}
+        <strong>Мощность двигателя</strong>: {{ customModification.enginePower }} <br/>
+    {% endif %}
+    {% if customModification.fuelTypes %}
+        <strong>Топливо</strong>:
+        {%- for type in customModification.fuelTypes %}
+            {{ type }}{% if not loop.last and loop.length > 1 %}, {% endif %}
+        {% endfor -%} <br/>
+    {% endif %}
+    {% if customModification.wheelType %}
+        <strong>Привод</strong>: {{ customModification.wheelType|trans }} <br/>
+    {% endif %}
+    {% if customModification.bodyType %}
+        <strong>Тип кузова</strong>: {{ customModification.bodyType|trans }}
+    {% endif %}
+</div>

@@ -545,7 +545,7 @@ class Company
      */
     public function setTypeFromSpecs()
     {
-        if(!$this->specializations->isEmpty()) {
+        if (!$this->specializations->isEmpty()) {
             $this->setType($this->specializations->first()->getType());
         }
     }
@@ -1556,5 +1556,31 @@ class Company
     public function getNameWithAddress()
     {
         return "{$this->name} - {$this->address}";
+    }
+
+    public function getSelectedMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->autos as $mark) {
+            if (in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return array_slice($marks, 0, 3);
+    }
+
+    public function getOtherMarks($selectedMarks)
+    {
+        $marks = [];
+
+        foreach ($this->autos as $mark) {
+            if (!in_array($mark->getId(), $selectedMarks)) {
+                $marks[] = $mark;
+            }
+        }
+
+        return array_slice($marks, 0, 3 - count($this->getSelectedMarks($selectedMarks)));
     }
 }

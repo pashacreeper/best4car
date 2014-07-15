@@ -975,3 +975,577 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .ymaps-label__content ymaps {
     height: 15px !important;
 }
+
+.addCarBtn, .editCarBtn {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: block;
+    width: 230px;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    text-decoration: none;
+    padding-left: 20px;
+    position: relative;
+    font-size: 1.2em;
+    margin: 10px auto;
+}
+.addCarBtn:hover, .editCarBtn:hover{
+    text-decoration: none;
+}
+
+.rightContent .addCarBtn {
+    font-size: initial;
+}
+
+.drive2-link {
+    vertical-align: middle;
+    display: block;
+}
+.drive2-link img {
+    vertical-align: middle;
+    padding-bottom: 3px;
+}
+
+.car-left-column {
+    width: 50%;
+    float: left;
+}
+
+.car-right-column {
+    width: 45%;
+    float: left;
+}
+
+.select-car-model {
+    width: 265px !important;
+}
+
+.car-left-column .contactDate {
+    display: none;
+    height: 240px;
+    width: 376px;
+    background-image: url(/bootstrap/img/car_bg.png);
+}
+
+.car-left-column .contactDate.current {
+    display: block;
+}
+
+.car-left-column .contactDate input[type="file"] {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.car-left-column .contactDate .photoDateImg {
+    position: absolute;
+}
+
+.car-left-column .contactDate .photoDateImg img {
+    width: 376px;
+    height: 240px;
+}
+
+.car-image-del {
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 330px;
+    cursor: pointer;
+    z-index: 1000;
+    top: 210px;
+}
+
+.car-image-del i {
+    width: 35px;
+    height: 35px;
+    background: url("/bootstrap/img/edit-icon.png") -35px 0 no-repeat;
+    display: block;
+}
+
+#carPhotoAddWrapper, .carImageAddPanel {
+    float: left;
+}
+
+.car-photo-add {
+    width: 56px;
+    height: 42px;
+    padding-left: 4px;
+    display: block;
+}
+
+.car-photo-add i {
+    width: 35px;
+    height: 35px;
+    background: url("../img/icon-plus.png") 0 0 no-repeat;
+    display: block;
+    margin: 0 auto;
+}
+
+.carImageAddPanel .item {
+    background-image: url(/bootstrap/img/car_bg.png);
+    width: 60px;
+    height: 42px;
+    border: none;
+    cursor: pointer;
+}
+
+.carImageAddPanel .item.current {
+    border: 2px solid gray;
+    width: 56px;
+}
+
+.carImageAddPanel .item .photoDateImg img {
+    width: 60px;
+    height: 42px;
+}
+
+.carImageAddPanel .item.current .photoDateImg img {
+    width: 56px;
+    height: 42px;
+}
+
+.car-photos {
+    width: 100%;
+}
+
+.car-photos img {
+    float: left;
+}
+
+.car-photos .photo-select {
+    float: left;
+}
+
+.car-card {
+    margin-bottom: 15px;
+    display: block;
+    height: 280px;
+    text-align: left;
+    position: relative;
+}
+
+.car-card .description {
+    margin-left: 530px;
+}
+
+.car-card .description h1 {
+    font-size: 28px;
+}
+
+.car-card .description h2{
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.car-card .img {
+    float: left;
+    width: 500px;
+    height: 279px;
+    background-image: url(/bootstrap/img/car_bg.png);
+}
+
+#other-modification {
+    display: inline-block;
+    font: 1.4em 'PT Sans', sans;
+    color: #F35D2E;
+    border-bottom: 1px dotted #F35D2E;
+}
+#other-modification:hover{
+    text-decoration: none;
+    border-bottom: none;
+    padding-bottom: 1px;
+}
+
+#modification-choose-modal {
+    margin-left: -204px;
+    width: 374px;
+    padding-bottom: 20px;
+}
+
+#modification-choose-modal label {
+    clear: none;
+    width: 130px;
+    display: inline-block;
+}
+
+#modification-choose-modal input {
+    margin-bottom: 0;
+}
+
+#modification-choose-modal select {
+    width: 220px;
+}
+
+.priceLevelMarker.fuelTypes label {
+    width: 30px !important;
+}
+
+#modification-choose-modal {
+    top: 150px !important;
+}
+
+.modificationBottomContent {
+    margin-bottom: 0;
+    padding-top: 20px;
+    margin-top: 13px;
+}
+
+.subscriptions{
+    color: #444;
+    font-family: 'PT Sans', sans, sans-serif;
+}
+.subscriptions h3{
+    font-size: 1.6em;
+}
+.subscriptions .introduction{
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+.subscriptions .add-block{
+    width: 340px;
+    float: left;
+}
+.subscriptions ul{
+    margin-bottom: 15px;
+}
+.subscriptions ul li{
+    font-size: 1.4em;
+}
+.subscriptions .bttn{
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: block;
+    width: 200px;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    text-decoration: none;
+    padding-left: 20px;
+}
+.plusIconWhite, .plusIconWhiteRight{
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    vertical-align: text-top;
+    float: left;
+    position: relative;
+    top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    right: 0;
+    background: url("/bootstrap/img/icon-plus-white.png") no-repeat;
+}
+.plusIconWhiteRight{
+    float: right;
+    margin-right: 20px;
+}
+
+.feed-item {
+    border: 1px solid #797979;
+    min-height: 120px;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.feed-item .logoCompany {
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 80px;
+}
+
+.feed-content {
+    width: 540px;
+    vertical-align: top;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.new-feed-item {
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+}
+
+.feed-title {
+    font-size: 1.4em;
+    margin-top: 10px;
+}
+
+.feed-description {
+    margin-top: 10px;
+}
+
+.feed-address {
+    margin-top: 10px;
+    color: #999999;
+}
+
+.feed-icons {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+.subscriptions-list .total-count {
+    background-color: #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.feed-form label {
+    font-size: 14px;
+}
+
+.feed-form select {
+    vertical-align: baseline;
+}
+
+.feed-form input {
+    font-size: 14px;
+}
+
+.marks {
+    vertical-align: top;
+}
+
+.iconFeedsGray{
+    background: url("../img/icon-profile-feeds.png") no-repeat;
+}
+
+.subscriptions .notify {
+    background-color: #e4e4e4;
+    border: 1px solid #999;
+    padding: 15px;
+}
+
+.subscriptions .notify label {
+    color: black;
+    display: inline;
+}
+
+.subscriptions .notify label input {
+    margin-top: 0px;
+    margin-right: 10px;
+}
+
+.subscriptions .change-email {
+    float: right;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.deleteCar{
+    float: left;
+    position: relative;
+    left: 30px;
+}
+.deleteCar img{
+    position: absolute;
+    left: -30px;
+    top: -5px;
+}
+.cancleCarAdd{
+    float: right;
+}
+.cancleCarAdd, .deleteCar{
+    margin-top: 15px;
+    margin-right: 20px;
+    font-size: 1.6em;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+.cancleCarAdd:hover, .deleteCar:hover{
+    text-decoration: none;
+    border-bottom: none;
+    color: #f35d2e;
+}
+.noCarInGarage{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 2.4em;
+}
+.carEditButtonInCarCard{
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+    width: 155px !important;
+}
+.carEditButtonInCarCard .pencilIcon{
+    right: 10px !important;
+}
+.smallInputField{
+    width: 50px;
+    margin-right: 5px;
+}
+.carModificationFieldDescription {
+    font-size: 1.2em;
+}
+.carModificationFieldDescription.fuel{
+    margin-left: 133px;
+    position: relative;
+    top: 6px;
+    color: #999999;
+    font-size: 1.3em;
+}
+.choiceList label{
+    margin-top: 7px;
+}
+.choiceList .selectbox .select{
+    width: 182px !important;
+}
+
+.choiceList .selectbox ul.dropdown {
+    width: 218px;
+    top: 26px;
+}
+.customModificationInformation{
+    margin-top: 5px;
+    font-size: 1.3em;
+}
+.priceLevelMarker.inline{
+    display: inline;
+}
+.saveModification{
+    width: 120px !important;
+    height: 43px !important;
+    line-height: 42px !important;
+    float: right;
+}
+.modificationBottomContent .discard{
+    position: relative;
+    left: 30px;
+    top: 13px;
+    font-size: 1.4em;
+    color: #f35d2e;
+    border-bottom: 1px dotted #f35d2e;
+}
+.modificationBottomContent .discard:hover,
+.modificationBottomContent .discard:active{
+    border-bottom: none;
+    text-decoration: none;
+}
+
+.back-to-black {
+    font-size: 14px;
+    position: absolute;
+    bottom: 72px;
+}
+
+.subscription-go {
+    text-align: right;
+    vertical-align: middle;
+}
+
+.subscriptions-icon {
+    background: url('/bootstrap/img/subscriptions.png') no-repeat;
+}
+
+a.navLink:hover,a.navLink:focus {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.orange-select-large .chosen-container {
+    width: 282px !important;
+}
+
+.orange-select .chosen-drop {
+    z-index: 10001;
+}
+
+.orange-select .chosen-single {
+    height: 34px;
+    padding-left: 14px;
+    background: #fff;
+}
+
+.orange-select .chosen-container .chosen-results li.highlighted {
+    background: #f35d2e;
+    color: #fff;
+}
+
+.orange-select .chosen-single span {
+    line-height: 34px;
+    font-size: 16px;
+    font-family: 'PT Sans', sans;
+    color: #4a4747;
+}
+
+
+.reviewLink {
+    font-family: 'PT Sans';
+    font-weight: 400;
+    color: #5E5E5E;
+    font-size: 15px;
+    margin-top: 10px;
+    width: 486px;
+    line-height: normal;
+}
+
+.reviewLink a {
+    font-family: 'PT Sans Bold', 'PT Sans';
+    font-weight: 700;
+    color: #3D749D;
+}
+
+.feed-form {
+    margin-bottom: 15px;
+}
+
+.feed-form .feed-type-wrap .select {
+    width: 100px;
+}
+
+.feed-form .feed-type-wrap .dropdown {
+    width: 136px !important;
+}
+
+.feed-form .marks .select {
+    width: 180px;
+}
+
+.feed-form .marks .dropdown {
+    width: 216px !important;
+}
+
+.feed-form label {
+    clear: none;
+    float: left;
+    color: #000;
+    padding-top: 8px;
+    margin-right: 5px;
+}
+
+.slider.deals .sliderDisplayPosition {
+    left: 45%;
+}
+
+.slider.deals .sliderDisplayPosition li.active {
+    border: 2px solid #6FB4D9;
+    width: 8px;
+    height: 8px;
+}
+
+.slider.deals .sliderDisplayPosition li {
+    padding-top: 0;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 0px 5px;
+    box-shadow: 0px 1px 2px 0px #777 inset;
+    border-radius: 50%;
+    outline: 0px none;
+    text-indent: -9999px;
+    background: none repeat scroll 0% 0% #FFF;
+    float: left;
+}

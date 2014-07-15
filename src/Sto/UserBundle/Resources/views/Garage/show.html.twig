@@ -1,0 +1,50 @@
+{% set contentClass = '' %}
+{% set hasCars = false %}
+{% if cars|length > 0 %}
+    {% set hasCars = true %}
+{% endif %}
+{% if hasCars %}
+    {% set contentClass = 'leftContent' %}
+{% endif %}
+
+<div class="{{ contentClass }}">
+    <div class="no-deals">
+        {% for car in cars %}
+            <div class="car-card">
+                <div class="img">
+                    <a href="{{ path('garage_car_show', {id: car.id}) }}">
+                        {% if car.images|length and car.images.first.imageName %}
+                            <img class="main-image" src="{{ vich_uploader_asset(car.images.first, 'image') | imagine_filter('car_show_image') }}" alt=""/>
+                        {% else %}
+                            <img class="main-image" src="{{ '/bootstrap/img/car_bg.png' | imagine_filter('car_show_image') }}" alt=""/>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="description">
+                    <h1><a href="{{ path('garage_car_show', {id: car.id}) }}">{{ car.name }}</a></h1>
+
+                    <h2>{{ car.description }}</h2>
+                    {% if showUser == app.user %}
+                        <a href="{{ path('garage_edit', {id: car.id}) }}" class="addPhotoBtn bttn addCarBtn carEditButtonInCarCard">Редактировать<i class="pencilIcon"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            {% if showUser == app.user %}
+                <h1 class="noCarInGarage">Вы еще ничего не рассказали о своём гараже</h1>
+                <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить
+                    автомобиль<i class="plusIconWhiteRight"></i></a>
+            {% else %}
+                <h1>Пользователь еще ничего не рассказали о своём гараже</h1>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% if hasCars %}
+    <div class="rightContent">
+        {% if showUser == app.user %}
+            <a href="{{ path('garage_new') }}" class="addPhotoBtn bttn addCarBtn" style="margin-top:10px;">Добавить автомобиль<i class="plusIconWhiteRight"></i></a>
+        {% endif %}
+        <div class="bannerImg"></div>
+    </div>
+{% endif %}

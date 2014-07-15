@@ -558,23 +558,25 @@ var profilePage = function(){
         if (url.indexOf('#') + 1) {
             hash = url.substring(url.indexOf('#'));
         }
-        if (hash && hash.indexOf('-')) {
+        if (hash && hash.indexOf('-') != -1) {
             hash = hash.substring(0, hash.indexOf('-'));
         }
 
-        if (hash && hash.length > 1) {
-            tabContainers.find('[data-tab-id="'+hash+'"]').show();
-            tabLinksContainer.find('a[href="' + hash + '"]').addClass('selected');
-        } else {
-            tabContainers.find('.content').hide().filter(':first').show();
-            tabLinksContainer.find('a:first').addClass('selected');
-        }
-        tabLinksContainer.find('a').click(function () {
+        tabLinksContainer.find('a').click(function (e) {
+            e.preventDefault();
+            
             tabContainers.find('.content').hide(); // прячем все табы
             tabContainers.find('[data-tab-id="'+this.hash+'"]').show(); // показываем содержимое текущего
             $('.tabs ul.tabNavigation a').removeClass('selected'); // у всех убираем класс 'selected'
             $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
         });
+
+        if (hash && hash.length > 1) {
+            tabLinksContainer.find('a[href="' + hash + '"]').click();
+        } else {
+            tabContainers.find('.content').hide().filter(':first').show();
+            tabLinksContainer.find('a:first').addClass('selected');
+        }
     })();
 };
 
@@ -611,6 +613,28 @@ var initPage = function(){
 
     $(document).on('click', '.workingTimeDays label', function() {
         $(this).toggleClass('checked');
+    });
+
+    $('.feed-form select').on('change', function(){
+        $(this).parents('form').submit();
+    });
+
+    $('#showMoreFeeds').on('click', function(e) {
+        e.preventDefault();
+        var page = $(this).data('page') + 1;
+        $(this).data('page', page);
+        if(page == $(this).data('total')) {
+            $(this).hide();
+        }
+        var data = $('.subscriptions-list form').serialize();
+        $.ajax({
+            type: "GET",
+            url: Routing.generate('subscription_list'),
+            data: data+"&page="+page,
+            success: function(response) {
+                $('#feed-list').append(response.html);
+            }
+        });
     });
 
     mainLayout();
@@ -659,7 +683,26 @@ var initPage = function(){
         dealMap.geoObjects.add(myGeoObject);
 
         dealMap.setCenter(center);
-    })
+    });
+
+    $('.car-photos .photo-select .item').on('click', function() {
+        $('.car-photos .main-image').attr('src', $(this).data('full-image-path'));
+    });
+
+    if($('#loginFormWrapper').length) {
+        $('.navTopItem.last a').on('click', function(e) {
+            e.preventDefault();
+
+            $('.enterDropdown').fadeIn(50, function(){
+                $(this).on('clickoutside', function(e){
+                    if($(e.target).data('span-class') != "subscriptions-icon") {
+                        $(this).hide();
+                        $(this).off('clickoutside');
+                    }
+                });
+            });
+        });
+    }
 };
 
 $(document).ready(function(){initPage()});

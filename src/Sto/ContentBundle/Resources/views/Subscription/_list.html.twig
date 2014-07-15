@@ -1,0 +1,107 @@
+{% for item in items %}
+    <table class="feed-item">
+        <tr>
+        {% if item.deal %}
+            {% set company = item.deal.company %}
+        {% else %}
+            {% set company = item.company %}
+        {% endif %}
+        <td class="logoCompany">
+            {% set companyLogo = asset('/bootstrap/img/default_company_logo.png'|imagine_filter('company_logo')) %}
+            {% if company.logo %}
+                    {% if company.logo %}
+                        {% set companyLogo = vich_uploader_asset(company, 'logo')|imagine_filter('company_logo') %}
+                    {% endif %}
+            {% endif %}
+            <img src="{{ companyLogo }}" alt="{{ company.name }}">
+        </td>
+
+        <td class="feed-content">
+            {% if item.deal %}
+                <span class="new-feed-item">
+                    Новая акция
+                </span>
+
+                <span class="feed-marks">Марка:
+                {% if item.deal.allAuto %}
+                    Все
+                {% else %}
+                    {% if item.deal.selectedMarks(dealMarks) %}
+                        {% for mark in item.deal.selectedMarks(dealMarks) %}
+                            <b>{{ mark }}</b>{% if not loop.last or item.deal.otherMarks(dealMarks) %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if item.deal.otherMarks(dealMarks) %}
+                        {% for mark in item.deal.otherMarks(dealMarks) %}
+                            {{ mark }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if item.deal.auto|length > 3 %}
+                        и еще {{ item.deal.auto|length - 3 }}
+                    {% endif %}
+                {% endif %}
+                </span>
+
+                <div class="feed-title"><a href="{{ path('content_deal_show', {id: item.deal.id}) }}">{{ item.deal.name }}</a></div>
+                <div class="feed-company"><a href="{{ path('content_company_show', {id: company.id}) }}">{{ company.fullName }}</a></div>
+
+                <div class="feed-description">
+                    {{ item.deal.description[:60] }}{% if item.deal.description|length > 60 %}...{% endif %}
+                </div>
+            {% else %}
+                <span class="new-feed-item">
+                    Новая комания
+                </span>
+
+                <span class="feed-marks">Марка:
+                {% if company.allAuto %}
+                    Все
+                {% else %}
+                    {% if company.selectedMarks(companyMarks) %}
+                        {% for mark in company.selectedMarks(companyMarks) %}
+                            <b>{{ mark }}</b>{% if not loop.last or company.otherMarks(companyMarks) %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if company.otherMarks(companyMarks) %}
+                        {% for mark in company.otherMarks(companyMarks) %}
+                            {{ mark }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if company.autos|length > 3 %}
+                        и еще {{ company.autos|length - 3 }}
+                    {% endif %}
+                {% endif %}
+                </span>
+
+                <div class="feed-title"><a href="{{ path('content_company_show', {id: company.id}) }}">{{ company.fullName }}</a></div>
+
+                <div class="feed-description">{{ company.slogan }}</div>
+
+
+                <div class="feed-icons">
+                    {% for specialization in company.specializations.slice(0, 1) %}
+                        {% if specialization.type.iconCompanyCard %}
+                            <img src="{{ vich_uploader_asset(specialization.type, 'iconCompanyCard') | imagine_filter('service_icon') }}" alt="{{ specialization.type.name }}">
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for additionalService in company.additionalServices.slice(0, 6) %}
+                        {% if additionalService.iconSmall %}
+                            <img src="{{ vich_uploader_asset(additionalService, 'iconSmall') | imagine_filter('additional_service_icon') }}" alt="{{ additionalService.name }}">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="feed-address">{{ company.address[:40] }}{% if company.address|length > 40 %}...{% endif %}</div>
+            {% endif %}
+        </td>
+        <td class="subscription-go">
+        {% if item.deal %}
+            <a href="{{ path('content_deal_show', {id: item.deal.id}) }}"><img src="{{ asset('/bootstrap/img/subscription_link.png') }}" alt=">" /></a>
+        {% else %}
+            <a href="{{ path('content_company_show', {id: company.id}) }}"><img src="{{ asset('/bootstrap/img/subscription_link.png') }}" alt=">" /></a>
+        {% endif %}
+        </td>
+        </tr>
+    </table>
+{% endfor %}

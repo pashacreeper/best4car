@@ -1,0 +1,95 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title %}Мои подписки — управление{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bootstrap/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/custom.subscription.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){ Subscription.init(Routing) });
+    </script>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+        <a href="{{ path('subscription_list') }}" class="btnBack">
+            <i class="btnBackIcon"></i>
+            <br/>
+            <span class="btnBackCont">Назад</span>
+        </a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <div class="titles"><h1 class="titleNameCompany">Ваши подписки</h1></div>
+        </div>
+        <div class="indexCompany">
+            <p>Рейтинг:</p>
+            <span class="indexbg"></span>
+            <span class="indexLevel">{{ user.rating }}</span></br>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="contentMain row subscriptions">
+        <div class="content">
+            <div class="leftContent">
+                <p class="introduction">
+                    Подпишитесь на уведомления о новых акциях и появлении новых компаний,
+                    связанных с интересующими вас марками автомобилей — включая,
+                    но не ограничиваясь теми, которые указаны у вас в гараже.
+                </p>
+                <div class="notify">
+
+                    <label for="notify-me"><input {% if app.user.feedNotify %}checked="checked"{% endif %} type="checkbox" id="notify-me">Получать уведомления на <b>{{ app.user.email }}</b></label>
+
+                    <a href="{{ path('fos_user_profile_edit') }}" class="change-email">Изменить почту в профиле</a>
+                </div>
+                <div class="add-block">
+                    <h3>Подписки на компании</h3>
+                    <ul id="company-list">
+                        {% for subscription in companySubscriptions %}
+                            {% include "StoContentBundle:Subscription:_listElement.html.twig" with { 'subscription': subscription } %}
+                        {% endfor %}
+                    </ul>
+                    <div id="company-modal" class="reveal-modal"><!-- popUp firstReg-->
+                        <a href="#" class="close-reveal-modal closeModal"></a>
+                        {% render(controller('StoContentBundle:Subscription:renderCompanySubscriptionForm', {subscriptions: companySubscriptions})) %}
+                        <div class="bottomContent modificationBottomContent">
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
+                        </div>
+                    </div>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="company">Добавить<i class="plusIconWhiteRight"></i></a>
+                </div>
+                <div class="add-block">
+                    <h3>Подписки на акциии</h3>
+                    <ul id="deal-list">
+                        {% for subscription in dealSubscriptions %}
+                            {% include "StoContentBundle:Subscription:_listElement.html.twig" with { 'subscription': subscription } %}
+                        {% endfor %}
+                    </ul>
+                    <div id="deal-modal" class="reveal-modal"><!-- popUp firstReg-->
+                        <a href="#" class="close-reveal-modal closeModal"></a>
+                        {% render(controller('StoContentBundle:Subscription:renderDealSubscriptionForm', {subscriptions: dealSubscriptions })) %}
+                        <div class="bottomContent modificationBottomContent">
+                            <a href="#" class="closeModal btnBottomContent addPhotoBtn bttn saveBttn">Сохранить</a>
+                        </div>
+                    </div>
+                    <a class="addSubscription addPhotoBtn bttn" href="#" data-type="deal">Добавить<i class="plusIconWhiteRight"></i></a>
+                </div>
+                <div class="back-to-black"><a href="{{ path('subscription_list') }}">Вернуться к уведомлениям</a></div>
+            </div>
+        </div>
+        <div class="rightContent"></div>
+    </section>
+{% endblock %}

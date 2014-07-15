@@ -45,7 +45,7 @@ class DealType extends AbstractType
                 ]
             ])
             ->add('auto', null, [
-                'label' => 'Автомабили',
+                'label' => 'Автомобили',
                 'required' => false,
                 'multiple' => true,
                 'class' => 'StoCoreBundle:Mark',
@@ -180,13 +180,13 @@ class DealType extends AbstractType
             ->add('companyId', 'hidden', [])
         ;
 
-        if($options['manyPlaces'] && $options['user'] && $options['company']) {
+        if ($options['manyPlaces'] && $options['user'] && $options['company']) {
             $user = $options['user'];
             $company = $options['company'];
             $builder->add('additionalCompanies', null, [
                 'expanded' => true,
                 'property' => 'nameWithAddress',
-                'query_builder' => function(EntityRepository $er) use ($user, $company) {
+                'query_builder' => function (EntityRepository $er) use ($user, $company) {
                     return $er->createQueryBuilder('ac')
                         ->join('ac.companyManager', 'cm')
                         ->where('cm.user = :user')

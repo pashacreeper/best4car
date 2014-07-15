@@ -114,7 +114,7 @@ class APIUserController extends FOSRestController
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('StoUserBundle:User')
                 ->findUserByNameOrByEmail($request->get('_username'));
-            if(!$user) {
+            if (!$user) {
                 $errorFlag = true;
             } else {
                 $encoder = $this->container

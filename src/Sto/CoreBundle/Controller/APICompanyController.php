@@ -144,7 +144,6 @@ class APICompanyController extends FOSRestController
                 ];
             }
 
-
             $newCompany['html'] = $this->render(
                 'StoContentBundle:Company:company.html.twig',
                 ['item' => $company]
@@ -172,6 +171,7 @@ class APICompanyController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $activeDeals = $em->getRepository('StoCoreBundle:Deal')->getActiveDaelsCountByCompany($company);
+
         return [
             'company' => $company,
             'activeDeals' => $activeDeals,

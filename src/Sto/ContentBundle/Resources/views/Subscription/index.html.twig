@@ -1,0 +1,65 @@
+{% extends 'StoContentBundle::layout.html.twig' %}
+
+{% block title %}Мои подписки{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/styleCompany.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/style-card-action.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/jquery.rating.css') }}">
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bootstrap/js/script.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/slider.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/jquery.rating.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.feedback.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/custom.like.js') }}"></script>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script src="{{ asset('bootstrap/js/geolocation-button.js') }}"></script>
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block pageTitle %}
+    <div class="back">
+        <a href="{{ path('fos_user_profile_show') }}" class="btnBack">
+            <i class="btnBackIcon"></i></br>
+            <span class="btnBackCont">Назад</span>
+        </a>
+    </div>
+    <div id="nameCompanyHeaderWrap">
+        <div class="nameCompanyHeader">
+            <div class="titles"><h1 class="titleNameCompany">Ваши подписки</h1></div>
+        </div>
+        <div class="indexCompany">
+            <p>Рейтинг:</p>
+            <span class="indexbg"></span>
+            <span class="indexLevel">{{ user.rating }}</span></br>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="contentMain row subscriptions-list">
+        <div class="content">
+            <div class="leftContent">
+                <form action="" method="get">
+                <div class="feed-form"><span class="feed-type-wrap"><label class="feed-type">Виды уведомлений:</label> {{ form_widget(form.type) }}</span> <span class="pull-right marks"><label>Марки автомобилей:</label> {{ form_widget(form.mark) }}</span></div>
+                </form>
+                <div class="clearfix"></div>
+                <div id="feed-list">
+                    {% include "StoContentBundle:Subscription:_list.html.twig" with { 'items': items, 'dealMarks': dealMarks, 'companyMarks': companyMarks } %}
+                </div>
+                <div class="bottomContent">
+                    <a class="secondaryLink" data-page="1" data-total="{{ items.paginationData.pageCount }}" id="showMoreFeeds" href="#">Показать еще</a>
+                </div>
+            </div>
+
+            <div class="rightContent">
+                <a href="{{ path('subscription_manage') }}" class="addPhotoBtn bttn">Управление подписками</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

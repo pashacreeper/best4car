@@ -18,7 +18,7 @@ class ChoiceCityController extends Controller
             $urlParts = parse_url($referer);
             try {
                 $path = $urlParts['path'];
-                if(strpos($path, '/app_dev.php') === 0) {
+                if (strpos($path, '/app_dev.php') === 0) {
                     $path = substr($path, strlen('/app_dev.php'));
                 }
                 if ($routeParams = $this->get('router')->match($path)) {

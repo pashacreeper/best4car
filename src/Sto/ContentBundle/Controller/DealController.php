@@ -145,7 +145,7 @@ class DealController extends MainController
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $manyPlaces = $user->getCompanyManager()->count() > 1;
-        
+
         $deal = (new Deal)->setCompany($company);
         $form = $this->createForm(new DealType, $deal, [
             'manyPlaces' => $manyPlaces,
@@ -171,6 +171,8 @@ class DealController extends MainController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($deal);
                 $em->flush();
+
+                $this->get('sto.manager.feed')->createOnItem($deal);
 
                 return $this->redirect(
                     $this->generateUrl('content_company_show', ['id' => $company->getId()]) . '#deals'
@@ -374,22 +376,22 @@ class DealController extends MainController
 
         $companies = [];
 
-        if($additionalCompanies = $deal->getAdditionalCompanies()) {
-            if(!$refererCompany || $refererCompany == $deal->getCompany()->getId()) {
+        if ($additionalCompanies = $deal->getAdditionalCompanies()) {
+            if (!$refererCompany || $refererCompany == $deal->getCompany()->getId()) {
                 $companies[] = $deal->getCompany();
                 foreach ($additionalCompanies as $company) {
                     $companies[] = $company;
                 }
             } else {
                 foreach ($additionalCompanies as $company) {
-                    if($company->getId() == $refererCompany) {
+                    if ($company->getId() == $refererCompany) {
                         $companies[] = $company;
                         break;
                     }
                 }
                 $companies[] = $deal->getCompany();
                 foreach ($additionalCompanies as $company) {
-                    if($company->getId() != $refererCompany) {
+                    if ($company->getId() != $refererCompany) {
                         $companies[] = $company;
                         break;
                     }
@@ -413,11 +415,11 @@ class DealController extends MainController
             $urlParts = parse_url($referer);
             try {
                 $path = $urlParts['path'];
-                if(strpos($path, '/app_dev.php') === 0) {
+                if (strpos($path, '/app_dev.php') === 0) {
                     $path = substr($path, strlen('/app_dev.php'));
                 }
                 if ($routeParams = $this->get('router')->match($path)) {
-                    if($routeParams['_route'] == 'content_company_show' && isset($routeParams['id'])) {
+                    if ($routeParams['_route'] == 'content_company_show' && isset($routeParams['id'])) {
                         return (int) $routeParams['id'];
                     }
                 }

@@ -102,6 +102,7 @@ class FeedbackRepository extends EntityRepository
     public function getMaxFeedbackNumberByCompany(Company $company)
     {
         $em = $this->getEntityManager();
+
         return $em->getRepository('StoCoreBundle:FeedbackCompany')
             ->createQueryBuilder('fc')
             ->select('MAX(fc.feedbackNumber)')
@@ -115,6 +116,7 @@ class FeedbackRepository extends EntityRepository
     public function getMaxFeedbackNumberByDeal(Deal $deal)
     {
         $em = $this->getEntityManager();
+
         return $em->getRepository('StoCoreBundle:FeedbackDeal')
             ->createQueryBuilder('fd')
             ->select('MAX(fd.feedbackNumber)')

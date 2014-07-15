@@ -40,10 +40,10 @@ class Builder extends ContainerAware
             $deals->setCurrent(true);
         }
 
-        $clubs = $menu->addChild('Клубы', ['route' => 'info_show', 'routeParameters' => ['name' => 'clubs']]);
+        $clubs = $menu->addChild('Подписки', ['route' => 'subscription_list']);
         $clubs->setAttribute('class', 'navTopItem');
-        $clubs->setLinkAttributes(['data-span-class' => 'clubs', 'class' => 'navLink']);
-        if ('info_show' == $route && 'clubs' == $routeParametersName) {
+        $clubs->setLinkAttributes(['data-span-class' => 'subscriptions-icon', 'class' => 'navLink']);
+        if ('subscription_list' == $route) {
             $clubs->setCurrent(true);
         }
 

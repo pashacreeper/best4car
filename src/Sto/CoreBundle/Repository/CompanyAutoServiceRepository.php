@@ -27,7 +27,7 @@ class CompanyAutoServiceRepository extends EntityRepository
 
         $entities = [];
         foreach ($result as $row) {
-            if(!$row['parent_id']) {
+            if (!$row['parent_id']) {
                 $specialization = $row['specialization_id'];
                 if (!isset($entities[$specialization])) {
                     $entities[$specialization] = [];
@@ -45,7 +45,7 @@ class CompanyAutoServiceRepository extends EntityRepository
     {
         $children = [];
         foreach ($entities as $child) {
-            if($child['parent_id'] == $current[0]['id']) {
+            if ($child['parent_id'] == $current[0]['id']) {
                 $newRow = $child[0];
                 $newRow['children'] = [];
                 $children[] = $newRow;
