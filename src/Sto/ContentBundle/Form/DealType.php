@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use Sto\ContentBundle\Form\DataTransformer\TimestampToDateTransformer;
 use Sto\ContentBundle\Form\DataTransformer\TimeToDateTransformer;
 use Symfony\Component\Validator\Constraints as Assert;
+use Sto\ContentBundle\Form\Validator\DealAutoMarks;
 
 class DealType extends AbstractType
 {
@@ -54,6 +55,9 @@ class DealType extends AbstractType
                         ->where('mark.visible = true')
                         ;
                 },
+                'constraints' => [
+                    new DealAutoMarks()
+                ],
                 'attr' => [
                     'class' => 'chzn-select-autos',
                     'data-placeholder' => "Выберите варианты"

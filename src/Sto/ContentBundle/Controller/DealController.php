@@ -184,7 +184,8 @@ class DealController extends MainController
             'deal'    => $deal,
             'form'    => $form->createView(),
             'company' => $company,
-            'isNew'   => true
+            'isNew'   => true,
+            'manyPlaces' => $manyPlaces,
         ];
     }
 
@@ -249,6 +250,7 @@ class DealController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $deal = $em->getRepository('StoCoreBundle:Deal')->findOneById($id);
+        $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
 
         if ($request->get("draft") !== null) {
             $deal->setDraft($deal->getDraft() xor true);
@@ -269,7 +271,6 @@ class DealController extends MainController
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $company = $em->getRepository('StoCoreBundle:Company')->findOneById($companyId);
             $user = $this->get('security.context')->getToken()->getUser();
             $resolution = false;
             foreach ($company->getCompanyManager() as $key => $value) {
@@ -290,8 +291,9 @@ class DealController extends MainController
         return [
             'manyPlaces' => $manyPlaces,
             'deal'      => $deal,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'companyId' => $companyId,
+            'company' => $company,
             'isNew'     => false
         ];
     }
