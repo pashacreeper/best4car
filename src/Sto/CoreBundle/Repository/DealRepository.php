@@ -255,4 +255,14 @@ class DealRepository extends EntityRepository
 
         return count($query->getQuery()->getResult());
     }
+
+    public function getAllActiveDeals()
+    {
+        $qb = $this->createQueryBuilder('deal')
+            ->where("STR_TO_DATE(CONCAT_WS(' ', deal.endDate, deal.endTime), '%Y-%m-%d %H:%i:%s') > :endDate")
+            ->setParameter('endDate', new \DateTime('now'));
+
+        return $qb->getQuery()
+            ->execute();
+    }
 }

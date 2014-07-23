@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PageController extends MainController
 {
-
     protected $pages = [
         'about' => 'О проекте',
         'advertisers' => 'Для рекламодателей',
