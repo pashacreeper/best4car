@@ -42,7 +42,7 @@ class CompanyManagerType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Телефон',
+                    'placeholder' => 'Телефон или email',
                     'class' => 'inputFormEnter span3'
                 ],
                 'constraints' => [
