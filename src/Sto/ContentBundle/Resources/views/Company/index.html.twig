@@ -1,5 +1,11 @@
 {% extends 'StoContentBundle::layout.html.twig' %}
 
+{% block metaTags %}
+    <meta name="title" content="Удобный поиск информации о товарах и услугах для автомобилистов"/>
+    <meta name="description" content="BEST4CAR — каталог компаний, работающих в сфере авто-бизнеса: СТО, автосалоны, запасные части, ремонт агрегатов. Отзывы клиентов, подписка на новые компании по обслуживанию вашего автомобиля."/>
+    <meta name="keywords" content="дилер, СТО, автосалон, запчасти, кузовной ремонт, рейтинг, отзывы"/>
+{% endblock %}
+
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bootstrap/css/style-index.css') }}">
