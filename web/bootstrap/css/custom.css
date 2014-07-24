@@ -1549,3 +1549,8 @@ a.navLink:hover,a.navLink:focus {
     background: none repeat scroll 0 0 #FFF;
     float: left;
 }
+
+.newCarChoiceList .selectbox ul.dropdown{
+    top: 26px;
+    max-height: 232px;
+}
