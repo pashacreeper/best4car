@@ -2,23 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>{{ path("_index") }}</loc>
+        <lastmod>{{ now }}</lastmod>
     </url>
     <url>
         <loc>{{ path("content_deals") }}</loc>
+        <lastmod>{{ now }}</lastmod>
     </url>
     {% for _page in staticPages %}
         <url>
             <loc>{{ path("info_show", {name: _page}) }}</loc>
+            <lastmod>{{ now }}</lastmod>
         </url>
     {% endfor %}
     {% for company in companies %}
         <url>
             <loc>{{ path("content_company_show", {id: company.id}) }}</loc>
+            <lastmod>{{ company.updatedAt|date('Y-m-d') }}</lastmod>
         </url>
     {% endfor %}
     {% for deal in deals %}
         <url>
             <loc>{{ path("content_deal_show", {id: deal.id}) }}</loc>
+            <lastmod>{{ deal.updatedAt|date('Y-m-D') }}</lastmod>
         </url>
     {% endfor %}
 </urlset>
