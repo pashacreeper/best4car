@@ -4,6 +4,11 @@ namespace Sto\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Sto\CoreBundle\Entity\AutoServices;
+use Sto\CoreBundle\Entity\Dictionary\Work;
+use Sto\CoreBundle\Entity\FeedbackDeal;
+use Sto\CoreBundle\Entity\FeedItem;
+use Sto\CoreBundle\Entity\Mark;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -228,6 +233,11 @@ class Deal
      * @ORM\Column(name="all_auto", type="boolean", nullable=true)
      */
     private $allAuto = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedItem", mappedBy="deal", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+     */
+     private $feedItems;
 
     public function __construct(Company $company = null)
     {
@@ -767,10 +777,10 @@ class Deal
     /**
      * Add services
      *
-     * @param  \Sto\CoreBundle\Entity\Dictionary\Work $services
+     * @param  Work $services
      * @return Deal
      */
-    public function addService(\Sto\CoreBundle\Entity\Dictionary\Work $services)
+    public function addService(Work $services)
     {
         $this->services[] = $services;
 
@@ -780,9 +790,9 @@ class Deal
     /**
      * Remove services
      *
-     * @param \Sto\CoreBundle\Entity\Dictionary\Work $services
+     * @param Work $services
      */
-    public function removeService(\Sto\CoreBundle\Entity\Dictionary\Work $services)
+    public function removeService(Work $services)
     {
         $this->services->removeElement($services);
     }
@@ -790,10 +800,10 @@ class Deal
     /**
      * Add feedbacks
      *
-     * @param  \Sto\CoreBundle\Entity\FeedbackDeal $feedbacks
+     * @param  FeedbackDeal $feedbacks
      * @return Deal
      */
-    public function addFeedback(\Sto\CoreBundle\Entity\FeedbackDeal $feedbacks)
+    public function addFeedback(FeedbackDeal $feedbacks)
     {
         $this->feedbacks[] = $feedbacks;
 
@@ -803,10 +813,10 @@ class Deal
     /**
      * Add auto
      *
-     * @param  \Sto\CoreBundle\Entity\Mark $auto
+     * @param  Mark $auto
      * @return Deal
      */
-    public function addAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    public function addAuto(Mark $auto)
     {
         $this->auto[] = $auto;
 
@@ -816,9 +826,9 @@ class Deal
     /**
      * Remove auto
      *
-     * @param \Sto\CoreBundle\Entity\Mark $auto
+     * @param Mark $auto
      */
-    public function removeAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    public function removeAuto(Mark $auto)
     {
         $this->auto->removeElement($auto);
     }
@@ -826,10 +836,10 @@ class Deal
     /**
      * Add autoServices
      *
-     * @param  \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @param  AutoServices $autoServices
      * @return Deal
      */
-    public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    public function addAutoService(AutoServices $autoServices)
     {
         $this->autoServices[] = $autoServices;
 
@@ -839,9 +849,9 @@ class Deal
     /**
      * Remove autoServices
      *
-     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @param AutoServices $autoServices
      */
-    public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    public function removeAutoService(AutoServices $autoServices)
     {
         $this->autoServices->removeElement($autoServices);
     }
@@ -955,5 +965,38 @@ class Deal
         }
 
         return array_slice($marks, 0, 3 - count($this->getSelectedMarks($selectedMarks)));
+    }
+
+    /**
+     * Add feedItems
+     *
+     * @param  FeedItem $feedItems
+     * @return Deal
+     */
+    public function addFeedItem(FeedItem $feedItems)
+    {
+        $this->feedItems[] = $feedItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove feedItems
+     *
+     * @param FeedItem $feedItems
+     */
+    public function removeFeedItem(FeedItem $feedItems)
+    {
+        $this->feedItems->removeElement($feedItems);
+    }
+
+    /**
+     * Get feedItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFeedItems()
+    {
+        return $this->feedItems;
     }
 }

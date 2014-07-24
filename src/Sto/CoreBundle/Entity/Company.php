@@ -3,13 +3,12 @@
 namespace Sto\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
+use Sto\CoreBundle\Entity\Dictionary\AdditionalService;
+use Sto\UserBundle\Entity\Group;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
-use Sto\CoreBundle\Entity\CompanyManager;
-use Sto\CoreBundle\Entity\CompanyType;
 
 /**
  * Company
@@ -297,6 +296,11 @@ class Company
     private $type;
 
     /**
+     * @ORM\OneToMany(targetEntity="Sto\CoreBundle\Entity\FeedItem", mappedBy="deal", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
+     */
+    private $feedItems;
+
+    /**
      * Set registrationStep
      *
      * @param  string  $registrationStep
@@ -529,7 +533,8 @@ class Company
     /**
      * Set specialization
      *
-     * @param  string  $specializations
+     * @param $specialization
+     *
      * @return Company
      */
     public function addSpecialization($specialization)
@@ -584,7 +589,8 @@ class Company
     /**
      * Set services
      *
-     * @param  string  $services
+     * @param $service
+     *
      * @return Company
      */
     public function addServices($service)
@@ -614,7 +620,8 @@ class Company
     /**
      * Set additionalServices
      *
-     * @param  string  $additionalServices
+     * @param $additionalService
+     *
      * @return Company
      */
     public function addAdditionalServices($additionalService)
@@ -1242,7 +1249,7 @@ class Company
     /**
      * Set auto
      */
-    public function addAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    public function addAuto(Mark $auto)
     {
         if ($this->allAuto == false) {
             $this->autos[] = $auto;
@@ -1254,7 +1261,7 @@ class Company
     /**
      * remove auto
      */
-    public function removeAuto(\Sto\CoreBundle\Entity\Mark $auto)
+    public function removeAuto(Mark $auto)
     {
         $this->autos->removeElement($auto);
     }
@@ -1378,10 +1385,10 @@ class Company
     /**
      * Add additionalServices
      *
-     * @param  \Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices
+     * @param  AdditionalService $additionalServices
      * @return Company
      */
-    public function addAdditionalService(\Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices)
+    public function addAdditionalService(AdditionalService $additionalServices)
     {
         $this->additionalServices[] = $additionalServices;
 
@@ -1391,9 +1398,9 @@ class Company
     /**
      * Remove additionalServices
      *
-     * @param \Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices
+     * @param AdditionalService $additionalServices
      */
-    public function removeAdditionalService(\Sto\CoreBundle\Entity\Dictionary\AdditionalService $additionalServices)
+    public function removeAdditionalService(AdditionalService $additionalServices)
     {
         $this->additionalServices->removeElement($additionalServices);
     }
@@ -1401,10 +1408,10 @@ class Company
     /**
      * Add autoServices
      *
-     * @param  \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @param  AutoServices $autoServices
      * @return Company
      */
-    public function addAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    public function addAutoService(AutoServices $autoServices)
     {
         $this->autoServices[] = $autoServices;
 
@@ -1414,9 +1421,9 @@ class Company
     /**
      * Remove autoServices
      *
-     * @param \Sto\CoreBundle\Entity\AutoServices $autoServices
+     * @param AutoServices $autoServices
      */
-    public function removeAutoService(\Sto\CoreBundle\Entity\AutoServices $autoServices)
+    public function removeAutoService(AutoServices $autoServices)
     {
         $this->autoServices->removeElement($autoServices);
     }
@@ -1424,10 +1431,10 @@ class Company
     /**
      * Add feedbacks
      *
-     * @param  \Sto\CoreBundle\Entity\FeedbackCompany $feedbacks
+     * @param  FeedbackCompany $feedbacks
      * @return Company
      */
-    public function addFeedback(\Sto\CoreBundle\Entity\FeedbackCompany $feedbacks)
+    public function addFeedback(FeedbackCompany $feedbacks)
     {
         $this->feedbacks[] = $feedbacks;
 
@@ -1437,10 +1444,10 @@ class Company
     /**
      * Add groups
      *
-     * @param  \Sto\UserBundle\Entity\Group $groups
+     * @param  Group   $groups
      * @return Company
      */
-    public function addGroup(\Sto\UserBundle\Entity\Group $groups)
+    public function addGroup(Group $groups)
     {
         $this->groups[] = $groups;
 
@@ -1450,9 +1457,9 @@ class Company
     /**
      * Remove groups
      *
-     * @param \Sto\UserBundle\Entity\Group $groups
+     * @param Group $groups
      */
-    public function removeGroup(\Sto\UserBundle\Entity\Group $groups)
+    public function removeGroup(Group $groups)
     {
         $this->groups->removeElement($groups);
     }
@@ -1488,10 +1495,10 @@ class Company
     /**
      * Add emails
      *
-     * @param  \Sto\CoreBundle\Entity\CompanyEmail $emails
+     * @param  CompanyEmail $emails
      * @return Company
      */
-    public function addEmail(\Sto\CoreBundle\Entity\CompanyEmail $emails)
+    public function addEmail(CompanyEmail $emails)
     {
         $this->emails[] = $emails;
 
@@ -1501,9 +1508,9 @@ class Company
     /**
      * Remove emails
      *
-     * @param \Sto\CoreBundle\Entity\CompanyEmail $emails
+     * @param CompanyEmail $emails
      */
-    public function removeEmail(\Sto\CoreBundle\Entity\CompanyEmail $emails)
+    public function removeEmail(CompanyEmail $emails)
     {
         $this->emails->removeElement($emails);
     }
@@ -1521,10 +1528,10 @@ class Company
     /**
      * Add phones
      *
-     * @param  \Sto\CoreBundle\Entity\CompanyPhone $phones
+     * @param  CompanyPhone $phones
      * @return Company
      */
-    public function addPhone(\Sto\CoreBundle\Entity\CompanyPhone $phones)
+    public function addPhone(CompanyPhone $phones)
     {
         $this->phones[] = $phones;
 
@@ -1534,9 +1541,9 @@ class Company
     /**
      * Remove phones
      *
-     * @param \Sto\CoreBundle\Entity\CompanyPhone $phones
+     * @param CompanyPhone $phones
      */
-    public function removePhone(\Sto\CoreBundle\Entity\CompanyPhone $phones)
+    public function removePhone(CompanyPhone $phones)
     {
         $this->phones->removeElement($phones);
     }
@@ -1582,5 +1589,38 @@ class Company
         }
 
         return array_slice($marks, 0, 3 - count($this->getSelectedMarks($selectedMarks)));
+    }
+
+    /**
+     * Add feedItems
+     *
+     * @param  FeedItem $feedItems
+     * @return Company
+     */
+    public function addFeedItem(FeedItem $feedItems)
+    {
+        $this->feedItems[] = $feedItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove feedItems
+     *
+     * @param FeedItem $feedItems
+     */
+    public function removeFeedItem(FeedItem $feedItems)
+    {
+        $this->feedItems->removeElement($feedItems);
+    }
+
+    /**
+     * Get feedItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFeedItems()
+    {
+        return $this->feedItems;
     }
 }
