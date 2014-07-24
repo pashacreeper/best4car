@@ -1043,10 +1043,16 @@ span.disabledIconNegativ i {
 }
 
 .responseReviewAccountImg {
-    float: left;
     width: 46px;
     height: 46px;
     margin: 0 10px 10px 0;
+    vertical-align: top;
+    display: inline-block;
+}
+.responseReviewAccount{
+    vertical-align: top;
+    display: inline-block;
+    width: 150px;
 }
 
 .responseReviewAccountImg img {

@@ -178,7 +178,7 @@
                     </p>
                 </div>
                 <div class="reviewContBottomAccount">
-                    <div  class="responseReviewAccountImg">
+                    <div class="responseReviewAccountImg">
                         {%- if feedback.feedbackAnswer.owner.avatarUrl %}
                             {% set userPhoto = 'storage/images/user_photo/' ~ feedback.feedbackAnswer.owner.avatarUrl %}
                             <img src="{{ userPhoto|imagine_filter('user_login_avatar') }}" alt="фото пользователя" />
@@ -186,9 +186,10 @@
                             <img src="{{ asset('/bootstrap/img/default_user_avatar.png'|imagine_filter('user_login_avatar')) }}" alt="фото пользователя" />
                         {% endif -%}
                     </div>
-                    <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
-                    <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.firstName}}</a>
-                    <p class="responseReviewRang">Менеджер</p>
+                    <div class="responseReviewAccount">
+                        <span class="responseReviewData">{{ feedback.feedbackAnswer.date|date('d.m.Y') }}</span><br>
+                        <a href="{{ path('user_profile', { "id": feedback.feedbackAnswer.owner.id }) }}" class="responseReviewName">{{feedback.feedbackAnswer.owner.firstName}}</a>
+                    </div>
                 </div>
             </div>
             {% endif %}
