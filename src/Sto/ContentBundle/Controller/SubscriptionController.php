@@ -3,6 +3,8 @@
 namespace Sto\ContentBundle\Controller;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Sto\ContentBundle\Form\Extension\ChoiceList\SubscriptionType;
 use Sto\ContentBundle\Form\Type\CompanySubscriptionType;
 use Sto\ContentBundle\Form\Type\DealSubscriptionType;
@@ -69,7 +71,12 @@ class SubscriptionController extends Controller
         $query = $em->getRepository('StoCoreBundle:FeedItem')->getByMarks($dealMarks, $companyMarks);
 
         $page = $this->get('request')->query->get('page', 1);
+        /** @var SlidingPagination $items */
         $items = $this->get('knp_paginator')->paginate($query, $page, 6);
+
+        $hasMore = ($items->getCurrentPageNumber() < intval(ceil($items->getTotalItemCount() / $items->getItemNumberPerPage())))
+            ? true
+            : false;
 
         if ($request->isXmlHttpRequest()) {
             $html = $this->renderView('StoContentBundle:Subscription:_list.html.twig', [
@@ -90,6 +97,7 @@ class SubscriptionController extends Controller
             'dealMarks' => $dealMarks,
             'companyMarks' => $companyMarks,
             'form' => $form->createView(),
+            'hasMore' => $hasMore
         ];
     }
 

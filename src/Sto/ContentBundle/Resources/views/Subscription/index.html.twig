@@ -53,7 +53,9 @@
                     {% include "StoContentBundle:Subscription:_list.html.twig" with { 'items': items, 'dealMarks': dealMarks, 'companyMarks': companyMarks } %}
                 </div>
                 <div class="bottomContent">
-                    <a class="secondaryLink" data-page="1" data-total="{{ items.paginationData.pageCount }}" id="showMoreFeeds" href="#">Показать еще</a>
+                    {% if hasMore %}
+                        <a class="secondaryLink" data-page="1" data-total="{{ items.paginationData.pageCount }}" id="showMoreFeeds" href="#">Показать еще</a>
+                    {% endif %}
                 </div>
             </div>
 
