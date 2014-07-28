@@ -51,7 +51,7 @@ class UserCarType extends AbstractType
             ])
             ->add('modification', 'shtumi_dependent_filtered_entity', [
                 'label' => 'Модификация',
-                'required' => true,
+                'required' => false,
                 'empty_value' => 'Выбрать модификацию',
                 'entity_alias' => 'modification_by_model',
                 'parent_field' => 'model',
