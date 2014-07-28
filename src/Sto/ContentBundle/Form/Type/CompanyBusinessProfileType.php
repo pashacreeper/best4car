@@ -68,6 +68,10 @@ class CompanyBusinessProfileType extends AbstractType
                     new Assert\Type([
                         'type' => 'integer',
                         'message' => 'Необходимо ввести число'
+                    ]),
+                    new Assert\Range([
+                        'min' => 0,
+                        'max' => 100000
                     ])
                 ]
             ])
