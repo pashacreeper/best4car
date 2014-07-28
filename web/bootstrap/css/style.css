@@ -2291,7 +2291,7 @@ input.error {border: 1px solid #ff0000;}
 .car-show {
     text-align: left;
     padding-top: 10px;
-    width: 580px;
+    width: 590px;
 }
 
 .car-right-column select {
@@ -2302,7 +2302,7 @@ input.error {border: 1px solid #ff0000;}
 .car-show .left-column {
     display: inline-block;
     vertical-align: top;
-    width: 280px;
+    width: 290px;
     border-right: 1px solid black;
     padding-right: 30px;
     min-height: 120px;

@@ -205,7 +205,7 @@ class CompanyRepository extends EntityRepository
             $qb->orderBy('company.rating', 'DESC');
         }
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->execute();
     }
 
     public function getCompaniesByCity($city)

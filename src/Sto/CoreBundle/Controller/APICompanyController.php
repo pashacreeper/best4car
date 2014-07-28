@@ -17,6 +17,7 @@ use Sto\ContentBundle\Form\AdvancedSearchType;
 use Sto\CoreBundle\Entity\Company;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * APi Auto Catalog controller.
@@ -152,7 +153,7 @@ class APICompanyController extends FOSRestController
             $returnCompanies[$key] = $newCompany;
         }
 
-        return new Response($serializer->serialize($returnCompanies, 'json'));
+        return new JsonResponse($returnCompanies);
     }
 
     /**
