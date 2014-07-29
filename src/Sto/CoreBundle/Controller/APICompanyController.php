@@ -125,32 +125,30 @@ class APICompanyController extends FOSRestController
         $returnCompanies = [];
         foreach ($companies as $key => $company) {
             $newCompany = [];
-            $newCompany['id'] = $company['id'];
+            $newCompany['id'] = $company->getId();
 
-            $newCompany['activeDeals'] = $company['activeDeals'] = 0;
-            if (!empty($company['deals'])) {
-                $newCompany['activeDeals'] = $company['activeDeals'] = $em->getRepository('StoCoreBundle:Deal')
-                    ->getActiveDaelsCountByCompany($company['id']);
-            }
+            $newCompany['activeDeals'] = $em->getRepository('StoCoreBundle:Deal')
+                    ->getActiveDaelsCountByCompany($company->getId());
 
-            foreach ($company['workingTime'] as $wtKey => $wtValue) {
-                $company['workingTime'][$wtKey]['days'] = [
-                    $wtValue['daysMonday'],
-                    $wtValue['daysTuesday'],
-                    $wtValue['daysWednesday'],
-                    $wtValue['daysThursday'],
-                    $wtValue['daysFriday'],
-                    $wtValue['daysSaturday'],
-                    $wtValue['daysSunday']
+            foreach ($company->getWorkingTime() as $wtKey => $wtValue) {
+                $newCompany['workingTime'][$wtKey]['time'] = $wtValue;
+                $newCompany['workingTime'][$wtKey]['days'] = [
+                    $wtValue->getDaysMonday(),
+                    $wtValue->getDaysTuesday(),
+                    $wtValue->getDaysWednesday(),
+                    $wtValue->getDaysThursday(),
+                    $wtValue->getDaysFriday(),
+                    $wtValue->getDaysSaturday(),
+                    $wtValue->getDaysSunday()
                 ];
             }
 
             $newCompany['html'] = $this->render(
                 'StoContentBundle:Company:company.html.twig',
-                ['item' => $company]
+                ['item' => $company, 'newCompany' => $newCompany]
             )->getContent();
 
-            $returnCompanies[$key] = $newCompany;
+            $returnCompanies[$company->getId()] = $newCompany;
         }
 
         return new JsonResponse($returnCompanies);

@@ -186,7 +186,7 @@ class CompanyRepository extends EntityRepository
         }
 
         $qb = $this->createQueryBuilder('company')
-            ->select('company, csp, fb, d, csp_type, csp_sub_type, additional_services, cwt')
+            ->select('company, fb, d, cwt')
             ->leftJoin('company.specializations', 'csp')
             ->leftJoin('csp.type', 'csp_type')
             ->leftJoin('csp.subType', 'csp_sub_type')
@@ -205,7 +205,7 @@ class CompanyRepository extends EntityRepository
             $qb->orderBy('company.rating', 'DESC');
         }
 
-        return $qb->getQuery()->execute();
+        return $qb->getQuery()->getResult();
     }
 
     public function getCompaniesByCity($city)

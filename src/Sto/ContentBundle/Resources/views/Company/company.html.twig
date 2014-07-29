@@ -1,5 +1,5 @@
 <div class="cardCompanyItem" data-item-id="{{ item.id }}" id="list-company{{ item.id }}" data-correspond="x-list-company{{ item.id }}">
-    {% if item.activeDeals > 0 %}
+    {% if newCompany.activeDeals > 0 %}
         <img src="/bootstrap/img/icon-special-deal.png" alt="Спецпредложение" class="specialDealIcon">
     {% endif %}
     <p class="index">
@@ -39,16 +39,16 @@
                 {% include "StoContentBundle:Company:specialization_list.html.twig" with { 'specializations': item.specializations, 'additionalServices': item.additionalServices } %}
             </div>
             <div class="infoCompany">
-                {% if item.phones is defined %}
+                {% if item.phones is defined and item.phones.first %}
                     <p class="infoCompanyLable">
                         Телефон:<br/>
-                        <span>{{item.phones.0.phone}}</span>
+                        <span>{{item.phones.first.phone}}</span>
                     </p>
                 {% endif %}
                 <p class="infoCompanyLable">
                     Часы работы:<br/>
-                    {%- for workPhase in item.workingTime %}
-                        <span>{{ workPhase.fromTime|date('H:i') }} - {{ workPhase.tillTime|date('H:i') }} ({{ workPhase.days | working_time_days_to_string }})</span>
+                    {%- for workPhase in newCompany.workingTime %}
+                        <span>{{ workPhase.time.fromTime|date('H:i') }} - {{ workPhase.time.tillTime|date('H:i') }} ({{ workPhase.days | working_time_days_to_string }})</span>
                         {%- if not loop.last %}<br />{% endif -%}
                     {% endfor -%}
                 </p>
