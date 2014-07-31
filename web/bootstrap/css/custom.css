@@ -1124,13 +1124,13 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .car-card {
     margin-bottom: 15px;
     display: block;
-    height: 280px;
+    height: 226px;
     text-align: left;
     position: relative;
 }
 
 .car-card .description {
-    margin-left: 530px;
+    margin-left: 435px;
 }
 
 .car-card .description h1 {
@@ -1144,8 +1144,8 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .car-card .img {
     float: left;
-    width: 500px;
-    height: 279px;
+    width: 381px;
+    height: 215px;
     background-image: url(/bootstrap/img/car_bg.png);
 }
 
@@ -1375,10 +1375,9 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     font-size: 2.4em;
 }
 .carEditButtonInCarCard{
-    position: absolute;
     bottom: 0;
-    right: -15px;
     width: 155px !important;
+    position: absolute;
 }
 .carEditButtonInCarCard .pencilIcon{
     right: 10px !important;
