@@ -265,7 +265,11 @@ liip_imagine:
         car_show_image:
             quality: 100
             filters:
-                thumbnail: { size: [540, 297], mode: outbound }
+                thumbnail: { size: [540, 304], mode: outbound }
+        car_show_image_cars:
+            quality: 100
+            filters:
+                thumbnail: { size: [381, 215], mode: outbound }
         car_show_image_preview:
             quality: 100
             filters:
