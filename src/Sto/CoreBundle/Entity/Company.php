@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Company
@@ -76,11 +77,6 @@ class Company
     private $autoServices;
 
     /**
-     * @Assert\File(
-     *     maxSize="1M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/gif"},
-     *     uploadIniSizeErrorMessage="", mimeTypesMessage=""
-     * )
      * @Vich\UploadableField(mapping="company_logo", fileNameProperty="logoName")
      */
     protected $logo;
@@ -684,7 +680,7 @@ class Company
      * @param  string  $logo
      * @return Company
      */
-    public function setLogo($logo)
+    public function setLogo(UploadedFile $logo)
     {
         $this->logo = $logo;
         if ($logo instanceof UploadedFile) {
