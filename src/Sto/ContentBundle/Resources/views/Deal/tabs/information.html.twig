@@ -83,7 +83,7 @@
         {% if deal.startDate and deal.endDate %}
             <div class="infoCompanyItem">
                 <p class="infoCompanyTitle titleH3">Сроки проведения:</p>
-                <p class="infoCompanyDescription">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</p>
+                <p class="infoCompanyDescription dates">{{ deal.startDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }} &ndash; {{ deal.endDate | localizeddate('medium', 'none', 'ru_RU.UTF-8', 'Europe/Moscow', 'd MMMM YYYY') }}</p>
             </div>
         {% endif %}
         {% if deal.startTime and deal.endTime %}

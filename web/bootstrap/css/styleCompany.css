@@ -545,6 +545,9 @@ ul.tabNavigation li a:focus {
     color: #f35d2e;
     font: Bold 1.8em 'PT Sans', sans;
 }
+.infoCompanyDescription.dates{
+    font-size: 1.6em;
+}
 
 .editIcon {
     display: inline-block;
