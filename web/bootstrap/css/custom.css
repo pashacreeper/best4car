@@ -1023,9 +1023,10 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .car-left-column .contactDate {
     display: none;
-    height: 240px;
-    width: 376px;
+    height: 215px;
+    width: 381px;
     background-image: url(/bootstrap/img/car_bg.png);
+    overflow: hidden;
 }
 
 .car-left-column .contactDate.current {
@@ -1042,11 +1043,14 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 
 .car-left-column .contactDate .photoDateImg {
     position: absolute;
+    overflow: hidden;
+    height: 215px;
+    width: 381px;
 }
 
 .car-left-column .contactDate .photoDateImg img {
-    width: 376px;
-    height: 240px;
+    width: 381px;
+    height: auto;
 }
 
 .car-image-del {
@@ -1057,7 +1061,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     left: 330px;
     cursor: pointer;
     z-index: 1000;
-    top: 210px;
+    top: 190px;
 }
 
 .car-image-del i {
