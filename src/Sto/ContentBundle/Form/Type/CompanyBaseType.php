@@ -66,7 +66,7 @@ class CompanyBaseType extends AbstractType
                     'class' => 'chzn-select input-large'
                 ]
             ])
-            ->add('logo', null, [
+            ->add('logo', 'file', [
                 'label' => 'Логотип компании',
                 'required' => false,
                 'attr' => [
