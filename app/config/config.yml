@@ -265,7 +265,7 @@ liip_imagine:
         car_show_image:
             quality: 100
             filters:
-                thumbnail: { size: [540, 304], mode: outbound }
+                relative_resize: { widen: 540 }
         car_show_image_cars:
             quality: 100
             filters:

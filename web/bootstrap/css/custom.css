@@ -1557,3 +1557,10 @@ a.navLink:hover,a.navLink:focus {
     top: 26px;
     max-height: 232px;
 }
+
+.car-photo-wrapper{
+    width: 540px;
+    height: 304px;
+    overflow: hidden;
+    float: left;
+}
