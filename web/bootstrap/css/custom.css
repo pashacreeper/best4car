@@ -1564,3 +1564,21 @@ a.navLink:hover,a.navLink:focus {
     overflow: hidden;
     float: left;
 }
+
+.feed-marks .select, .feed-type-wrap .select{
+    background: transparent;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px #F86F44 dotted;
+    padding: 0 0 0 0 !important;
+    color: #F86F44;
+    height: auto;
+    width: auto !important;
+    margin: 5px 0 0 5px;
+}
+.feed-marks .select .text, .feed-type-wrap .select .text{
+    line-height: inherit;
+}
+.feed-marks .select .trigger, .feed-type-wrap .select .trigger{
+    display: none;
+}
