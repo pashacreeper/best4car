@@ -269,11 +269,12 @@ liip_imagine:
         car_show_image_cars:
             quality: 100
             filters:
-                thumbnail: { size: [381, 215], mode: outbound }
+                relative_resize: { widen: 381 }
         car_show_image_preview:
             quality: 100
             filters:
-                thumbnail: { size: [60, 42], mode: outbound }
+                relative_resize: { widen: 60 }
+#                thumbnail: { size: [60, 42], mode: outbound }
         car_mark_icon:
             quality: 100
             filters:

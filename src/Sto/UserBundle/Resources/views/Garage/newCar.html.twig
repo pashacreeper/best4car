@@ -135,8 +135,6 @@
                                     reader.onload = function (e) {
                                         $cont.find('.photoDateImg').remove();
 
-                                        console.log(e.target);
-
                                         var wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
                                         $cont.prepend(wrapper);
 

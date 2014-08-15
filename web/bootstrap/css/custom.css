@@ -1124,6 +1124,11 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
 .car-photos .photo-select {
     float: left;
 }
+.photo-select > div {
+    overflow: hidden;
+    width: 60px;
+    height: 42px;
+}
 
 .car-card {
     margin-bottom: 15px;
@@ -1151,6 +1156,7 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     width: 381px;
     height: 215px;
     background-image: url(/bootstrap/img/car_bg.png);
+    overflow: hidden;
 }
 
 #other-modification {
