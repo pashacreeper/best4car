@@ -68,6 +68,8 @@
                             var $photoAddTagLink = $('.car-left-column .addImg');
                             var $photoNewLink = $('.car-left-column .clear');
                             var deleteLink = '<div class="car-image-del"><i class="deleteElement"></i></div>';
+                            var imgId = 0;
+
                             jQuery(document).ready(function() {
                                 photoCollectionHolder.on('click', '.deleteElement', function() {
                                     var $cont = $(this).parents('.contactDate');
@@ -134,14 +136,24 @@
 
                                     reader.onload = function (e) {
                                         $cont.find('.photoDateImg').remove();
+                                        $cont.find('canvas').remove();
+                                        var randId = imgId + '_' + Math.floor(Math.random() * (100 - 1)) + 1;
 
-                                        var wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
-                                        $cont.prepend(wrapper);
+                                        var wrapperImg = $('<div class="photoDateImg"><img src="'+e.target.result+'" id="'+randId+'"></div>');
+                                        $cont.prepend(wrapperImg);
+                                        $cont.prepend($('<canvas id="canv_' + randId + '" width="381" height="215" style="position: absolute;">'));
 
-                                        var wrapper = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
+                                        var wrapperPreview = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
                                         var listItem = $($('.carImageAddPanel .item').get($cont.index()));
+
                                         listItem.find('.photoDateImg').remove();
-                                        listItem.prepend(wrapper);
+                                        listItem.prepend(wrapperPreview);
+
+                                        var img = document.getElementById(randId);
+                                        var imgHeight = img.offsetHeight * (img.offsetWidth / 381);
+                                        var ctx = document.getElementById('canv_' + randId).getContext('2d');
+                                        ctx.drawImage(img, 0, 0, 381, imgHeight);
+                                        wrapperImg.hide();
                                     };
 
                                     reader.readAsDataURL($(this)[0].files[0]);
