@@ -1113,6 +1113,14 @@ a.infoCompanyDescription:hover, .phoneRight a:hover{
     height: 42px;
 }
 
+.photoDateImg .loader{
+    width: 16px !important;
+    height: 16px !important;
+    position: absolute;
+    top: 48%;
+    left: 48%;
+}
+
 .car-photos {
     width: 100%;
 }

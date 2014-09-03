@@ -138,9 +138,9 @@
                                         data.append(key, value);
                                     });
 
-                                    {% if not isNew %}
-                                        data.append('car_id', {{ car.id }});
-                                    {% endif %}
+                                    $cont.find('.photoDateImg').remove();
+                                    var wrapperImg = $('<div class="photoDateImg"><img src="/bootstrap/img/loader.gif" class="loader"></div>');
+                                    $cont.prepend(wrapperImg);
 
                                     $.ajax({
                                         type: "POST",
