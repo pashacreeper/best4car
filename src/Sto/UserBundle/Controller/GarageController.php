@@ -18,6 +18,7 @@ use Sto\UserBundle\Entity\UserCar;
 use Sto\UserBundle\Form\Type\UserCarType;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Filesystem\Filesystem;
 
 class GarageController extends MainController
 {
@@ -257,6 +258,30 @@ class GarageController extends MainController
         return $this->redirect(
             $this->generateUrl('fos_user_profile_show') . '#garage'
         );
+    }
+
+    /**
+     * @Route("/ajax/image_upload", name="ajax_garage_image_upload")
+     */
+    public function ajaxImageUploadAction(Request $request)
+    {
+        $fileSystem = new Filesystem();
+        $webTmpUploadDir = '/storage/images/tmp';
+        $tmpUploadFolder = $this->get('kernel')->getRootDir() . '/../web' . $webTmpUploadDir;
+
+
+        if (! $fileSystem->exists($tmpUploadFolder)) {
+            $fileSystem->mkdir($tmpUploadFolder);
+        }
+
+        $file = $request->files->get(0);
+        $fileName = sha1(uniqid(mt_rand(), true)) . '.' . $file->guessExtension();
+        $file->move($tmpUploadFolder, $fileName);
+
+        $thumbUrl = $this->container->get('liip_imagine.cache.manager')
+             ->getBrowserPath($webTmpUploadDir . '/' . $fileName, 'car_show_image_cars');
+
+        return new JsonResponse(['img' => $thumbUrl]);
     }
 
     /**

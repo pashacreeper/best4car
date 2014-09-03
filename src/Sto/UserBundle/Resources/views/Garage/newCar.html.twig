@@ -129,34 +129,41 @@
                                     $('.car-photo-add').hide();
                                 }
 
-                                $('#carPhotoAddWrapper').on('change', 'input[type="file"]', function(){
-                                    var reader = new FileReader(),
-                                        $this = $(this),
-                                        $cont = $this.parents('.contactDate');
+                                $('#carPhotoAddWrapper').on('change', 'input[type="file"]', function(event){
+                                    var data = new FormData();
+                                        files = event.target.files;
+                                        $cont = $(this).parents('.contactDate');
 
-                                    reader.onload = function (e) {
-                                        $cont.find('.photoDateImg').remove();
-                                        $cont.find('canvas').remove();
-                                        var randId = imgId + '_' + Math.floor(Math.random() * (100 - 1)) + 1;
+                                    $.each(files, function(key, value){
+                                        data.append(key, value);
+                                    });
 
-                                        var wrapperImg = $('<div class="photoDateImg"><img src="'+e.target.result+'" id="'+randId+'"></div>');
-                                        $cont.prepend(wrapperImg);
-                                        $cont.prepend($('<canvas id="canv_' + randId + '" width="381" height="215" style="position: absolute;">'));
+                                    {% if not isNew %}
+                                        data.append('car_id', {{ car.id }});
+                                    {% endif %}
 
-                                        var wrapperPreview = $('<div class="photoDateImg"><img src="'+e.target.result+'"></div>');
-                                        var listItem = $($('.carImageAddPanel .item').get($cont.index()));
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "{{ path('ajax_garage_image_upload') }}",
+                                        data: data,
+                                        dataType: "json",
+                                        processData: false,
+                                        cache: false,
+                                        contentType: false,
+                                        success: function(response) {
+                                            var $this = $(this);
+                                            var img = response.img;
 
-                                        listItem.find('.photoDateImg').remove();
-                                        listItem.prepend(wrapperPreview);
+                                            $cont.find('.photoDateImg').remove();
+                                            var wrapperImg = $('<div class="photoDateImg"><img src="'+img+'"></div>');
+                                            $cont.prepend(wrapperImg);
 
-                                        var img = document.getElementById(randId);
-                                        var imgHeight = img.offsetHeight * (img.offsetWidth / 381);
-                                        var ctx = document.getElementById('canv_' + randId).getContext('2d');
-                                        ctx.drawImage(img, 0, 0, 381, imgHeight);
-                                        wrapperImg.hide();
-                                    };
-
-                                    reader.readAsDataURL($(this)[0].files[0]);
+                                            var wrapperPreview = $('<div class="photoDateImg"><img src="'+img+'"></div>');
+                                            var listItem = $($('.carImageAddPanel .item').get($cont.index()));
+                                            listItem.find('.photoDateImg').remove();
+                                            listItem.prepend(wrapperPreview);
+                                        }
+                                    });
                                 });
                             });
 
