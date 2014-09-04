@@ -54,7 +54,8 @@
                     <div class="car-left-column">
                         <div id="carPhotoAddWrapper" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
                             {% for photo in form.images %}
-                                <div class="contactDate {% if loop.first %}current{% endif %}">
+                                {% set imagePath = '/storage/images/car/gallery/' ~ photo.imageName.vars.value %}
+                                <div class="contactDate {% if loop.first %}current{% endif %}" data-cache-image="{{ imagePath|imagine_filter('car_show_image_cars') }}">
                                     {{ form_widget(photo.image) }}
                                     {{ form_widget(photo.imageName) }}
                                 </div>
@@ -68,7 +69,6 @@
                             var $photoAddTagLink = $('.car-left-column .addImg');
                             var $photoNewLink = $('.car-left-column .clear');
                             var deleteLink = '<div class="car-image-del"><i class="deleteElement"></i></div>';
-                            var imgId = 0;
 
                             jQuery(document).ready(function() {
                                 photoCollectionHolder.on('click', '.deleteElement', function() {
@@ -98,13 +98,14 @@
                                     var image = $(element).find('.imageName').val();
                                     var path = "storage/images/car/gallery";
                                     var upload = $(element).find('input[type="file"]');
+                                    var cache = $(element).data('cache-image');
 
-                                    var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+                                    var wrapper = $('<div class="photoDateImg"><img src="'+cache+'"></div>');
 
                                     upload.before(wrapper);
                                     upload.after($(deleteLink));
 
-                                    var wrapper = $('<div class="photoDateImg"><img src="/'+path+'/'+image+'"></div>');
+                                    var wrapper = $('<div class="photoDateImg"><img src="'+cache+'"></div>');
                                     var preview = $("<div class='item'></div>");
                                     if($(element).hasClass('current')) {
                                         preview.addClass('current')
@@ -261,8 +262,7 @@
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Добавить в гараж"/>
                     {% else %}
                         <input type="submit" class="btnBottomContent addPhotoBtn newCarBtn" value="Сохранить"/>
-                        <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')"><img
-                                    src="{{ asset('bootstrap/img/icon.bin.gray.png') }}" alt=""/>Удалить авто из гаража</a>
+                        <a href="{{ path('garage_delete', {'id': car.id}) }}" class="text1 deleteCar" onclick="return confirm('Вы уверены?')"><img src="{{ asset('bootstrap/img/icon.bin.gray.png') }}" alt=""/>Удалить авто из гаража</a>
                     {% endif %}
                     <a href="{{ path('fos_user_profile_show') }}#garage" class="cancleCarAdd">Отменить</a>
                 </div>
