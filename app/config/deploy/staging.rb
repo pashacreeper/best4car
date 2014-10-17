@@ -1,5 +1,5 @@
-set :domain,      "188.226.163.161"
-set :deploy_to,   "/var/www/php/best4car.evercodelab.com"
+set :domain,      "178.63.9.207"
+set :deploy_to,   "/var/www/creeper/data/www/staging.best4car"
 set :user,        "deployer"
 
 role :web,        domain
