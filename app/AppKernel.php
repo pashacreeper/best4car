@@ -53,8 +53,6 @@ class AppKernel extends Kernel
 
             new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
 
-            new Mannew\HipchatBundle\MannewHipchatBundle(),
-            new Evercode\HipchatBundle\EvercodeHipchatMonologBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle()
         );
 
